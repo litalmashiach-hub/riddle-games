@@ -18,6 +18,12 @@ export interface PathSegment {
   onEnd?: () => void;
   /** Called when this leg starts. */
   onStart?: () => void;
+  /**
+   * Ride along with another object for this leg (e.g. a passenger in a boat): the position is
+   * `follow.position + offset` every frame, so the two can never drift apart. `to` is ignored.
+   */
+  follow?: RefObject<THREE.Object3D | null>;
+  offset?: Vec3;
 }
 
 /**
@@ -62,6 +68,18 @@ export function usePath(
       seg.onStart?.();
     }
     const t = Math.min(elapsed / Math.max(seg.durationMs, 1), 1);
+    if (seg.follow?.current) {
+      const [ox, oy, oz] = seg.offset ?? [0, 0, 0];
+      obj.position.copy(seg.follow.current.position).add(new THREE.Vector3(ox, oy, oz));
+      if (t >= 1) {
+        seg.onEnd?.();
+        r.from = obj.position.clone();
+        r.start = performance.now();
+        r.index += 1;
+        r.started = false;
+      }
+      return;
+    }
     const to = new THREE.Vector3(...seg.to);
     obj.position.lerpVectors(r.from, to, easeInOut(t));
     obj.position.y += Math.sin(Math.PI * t) * (seg.height ?? 0);
