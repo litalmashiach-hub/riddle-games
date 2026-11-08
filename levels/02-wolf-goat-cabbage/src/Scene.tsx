@@ -46,12 +46,14 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   /** The passenger the player has put in the boat but not rowed yet (UI only, not a move). */
   const [loaded, setLoaded] = useState<Item | null>(null);
   const [burst, setBurst] = useState(0);
-  const lastCount = useRef(moveCount);
-  const forward = moveCount > lastCount.current;
-  useEffect(() => {
-    lastCount.current = moveCount;
-    setLoaded(null);
-  }, [moveCount, resetCount]);
+  // Which way the last change of moveCount went, worked out during render so that later
+  // re-renders (like clearing the selection) can't flip it. It only counts while the move
+  // is still animating, so a finished ride never replays when the scene re-keys.
+  const dir = useRef({ count: moveCount, up: false });
+  if (dir.current.count !== moveCount) dir.current = { count: moveCount, up: moveCount > dir.current.count };
+  const forward = busy && dir.current.up;
+  // Undo and restart drop any half-made selection.
+  useEffect(() => setLoaded(null), [moveCount, resetCount]);
 
   const over = status.kind !== 'playing';
   const danger = status.kind === 'lost' ? trouble(state) : null;
@@ -64,7 +66,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   }, [won]);
 
   const rowing = busy && forward;
-  const animKey = `${moveCount}|${resetCount}|${loaded}`;
+  const animKey = `${moveCount}|${resetCount}`;
 
   // ---- Boat ----
   const boat = useRef<THREE.Group>(null);
@@ -89,6 +91,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   };
   const row = () => {
     if (busy || over) return;
+    // Clear the selection in the same update as the move, so the passenger rides instead of hopping home.
+    setLoaded(null);
     play({ passenger: loaded });
   };
 
@@ -141,7 +145,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           lastMove={lastMove}
           forward={forward}
           loaded={loaded === a}
-          animKey={animKey}
+          animKey={`${animKey}|${loaded === a}`}
           danger={danger}
           won={won}
           disabled={busy || over}
