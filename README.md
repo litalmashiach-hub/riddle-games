@@ -37,7 +37,7 @@ Useful URL options:
 | 9 | Sky Islands | Bridge of Five | Planned |
 | 10 | Clockwork Citadel | Four-Pillar Tower, 6 discs | Planned |
 | 11 | Clockwork Citadel | Family Crossing | Planned |
-| 12 | Clockwork Citadel | The Twelve Coins | Planned |
+| 12 | Clockwork Citadel | The Twelve Coins | Built |
 
 ## Layout
 
