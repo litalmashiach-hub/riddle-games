@@ -58,7 +58,8 @@ function useMoodMotion(root: React.RefObject<THREE.Group | null>, mood: Mood, se
   });
 }
 
-export const Sheep = forwardRef<THREE.Group, CharacterProps>(function Sheep({ mood = 'idle', seed = 0, scale = 1, children }, ref) {
+/** `shorn`: the wool is gone (cartoon fail scene): a skinny pink, blushing sheep. */
+export const Sheep = forwardRef<THREE.Group, CharacterProps & { shorn?: boolean }>(function Sheep({ mood = 'idle', seed = 0, scale = 1, shorn = false, children }, ref) {
   const root = useRef<THREE.Group>(null);
   const head = useRef<THREE.Group>(null);
   useMoodMotion(root, mood, seed);
@@ -79,14 +80,27 @@ export const Sheep = forwardRef<THREE.Group, CharacterProps>(function Sheep({ mo
   return (
     <group ref={ref} scale={scale}>
       <group ref={root}>
-        <mesh position={[0, 0.45, 0]} scale={[1, 0.85, 1.25]} material={wool} castShadow>
-          <icosahedronGeometry args={[0.3, 1]} />
-        </mesh>
-        {puffs.map(([x, y, z, r], i) => (
-          <mesh key={i} position={[x, y, z]} material={wool} castShadow>
-            <icosahedronGeometry args={[r, 1]} />
-          </mesh>
-        ))}
+        {shorn ? (
+          <>
+            <mesh position={[0, 0.42, 0]} scale={[0.75, 0.75, 1.1]} material={toon('#f4b9b0')} castShadow>
+              <icosahedronGeometry args={[0.24, 1]} />
+            </mesh>
+            <mesh position={[0, 0.46, -0.3]} material={wool} castShadow>
+              <icosahedronGeometry args={[0.06, 0]} />
+            </mesh>
+          </>
+        ) : (
+          <>
+            <mesh position={[0, 0.45, 0]} scale={[1, 0.85, 1.25]} material={wool} castShadow>
+              <icosahedronGeometry args={[0.3, 1]} />
+            </mesh>
+            {puffs.map(([x, y, z, r], i) => (
+              <mesh key={i} position={[x, y, z]} material={wool} castShadow>
+                <icosahedronGeometry args={[r, 1]} />
+              </mesh>
+            ))}
+          </>
+        )}
         <group ref={head} position={[0, 0.56, 0.34]}>
           <mesh scale={[0.85, 0.95, 1.2]} material={dark} castShadow>
             <icosahedronGeometry args={[0.14, 1]} />
@@ -102,6 +116,16 @@ export const Sheep = forwardRef<THREE.Group, CharacterProps>(function Sheep({ mo
           </mesh>
           <Eye x={0.06} y={0.04} z={0.12} r={mood === 'scared' ? 0.04 : 0.03} />
           <Eye x={-0.06} y={0.04} z={0.12} r={mood === 'scared' ? 0.04 : 0.03} />
+          {shorn && (
+            <>
+              <mesh position={[0.085, -0.03, 0.1]} scale={[1, 0.6, 0.4]} material={toon('#ff7b8a', { emissive: '#ff4d6d', emissiveIntensity: 0.6, flat: false })}>
+                <sphereGeometry args={[0.035, 10, 8]} />
+              </mesh>
+              <mesh position={[-0.085, -0.03, 0.1]} scale={[1, 0.6, 0.4]} material={toon('#ff7b8a', { emissive: '#ff4d6d', emissiveIntensity: 0.6, flat: false })}>
+                <sphereGeometry args={[0.035, 10, 8]} />
+              </mesh>
+            </>
+          )}
         </group>
         {[[0.12, 0.15], [-0.12, 0.15], [0.12, -0.18], [-0.12, -0.18]].map(([x, z], i) => (
           <mesh key={i} position={[x, 0.13, z]} material={dark} castShadow>
@@ -114,7 +138,8 @@ export const Sheep = forwardRef<THREE.Group, CharacterProps>(function Sheep({ mo
   );
 });
 
-export const Wolf = forwardRef<THREE.Group, CharacterProps>(function Wolf({ mood = 'idle', seed = 0, scale = 1, children }, ref) {
+/** `woolBeard`: a mouthful of stolen wool and a round full belly (cartoon fail scene). */
+export const Wolf = forwardRef<THREE.Group, CharacterProps & { woolBeard?: boolean }>(function Wolf({ mood = 'idle', seed = 0, scale = 1, woolBeard = false, children }, ref) {
   const root = useRef<THREE.Group>(null);
   const tail = useRef<THREE.Group>(null);
   const head = useRef<THREE.Group>(null);
@@ -136,7 +161,7 @@ export const Wolf = forwardRef<THREE.Group, CharacterProps>(function Wolf({ mood
         <mesh position={[0, 0.5, 0]} rotation-x={Math.PI / 2} material={fur} castShadow>
           <capsuleGeometry args={[0.19, 0.42, 4, 8]} />
         </mesh>
-        <mesh position={[0, 0.5, 0.22]} scale={[1, 1.05, 0.9]} material={light} castShadow>
+        <mesh position={[0, 0.5, 0.22]} scale={woolBeard ? [1.5, 1.4, 1.3] : [1, 1.05, 0.9]} material={light} castShadow>
           <icosahedronGeometry args={[0.18, 1]} />
         </mesh>
         <group ref={head} position={[0, 0.76, 0.38]}>
@@ -157,6 +182,12 @@ export const Wolf = forwardRef<THREE.Group, CharacterProps>(function Wolf({ mood
           </mesh>
           <Eye x={0.075} y={0.05} z={0.14} r={0.026} glow={mood === 'angry' ? '#ff5533' : '#ffd23f'} />
           <Eye x={-0.075} y={0.05} z={0.14} r={0.026} glow={mood === 'angry' ? '#ff5533' : '#ffd23f'} />
+          {woolBeard &&
+            ([[0, -0.12, 0.24, 0.09], [0.09, -0.1, 0.2, 0.075], [-0.09, -0.1, 0.2, 0.075], [0, -0.16, 0.15, 0.08], [0.05, -0.02, 0.33, 0.05]] as const).map(([x, y, z, r], i) => (
+              <mesh key={i} position={[x, y, z]} material={toon('#f6f1e6', { rough: 1 })} castShadow>
+                <icosahedronGeometry args={[r, 1]} />
+              </mesh>
+            ))}
         </group>
         <group ref={tail} position={[0, 0.58, -0.36]}>
           <mesh position={[0, 0.06, -0.16]} rotation-x={-1.0} material={fur} castShadow>

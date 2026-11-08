@@ -3,7 +3,7 @@ import { toon } from '@riddle/props';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
-export type ExplorerMood = 'idle' | 'happy' | 'scared' | 'stone';
+export type ExplorerMood = 'idle' | 'happy' | 'scared' | 'dizzy';
 export type GuardianMood = 'idle' | 'happy' | 'angry';
 
 /** Looks of the three explorers, so each one is easy to tell apart. */
@@ -12,8 +12,6 @@ export const EXPLORER_LOOKS = [
   { scarf: '#1fa3c9', skin: '#c68a5a', pack: '#5c6b3a', shirt: '#dcc287' },
   { scarf: '#ffb703', skin: '#8d5a3b', pack: '#8a3b2a', shirt: '#e6d3a3' },
 ];
-
-const STONE = '#9c968c';
 
 /**
  * A small adventurer with a pith helmet, scarf, backpack and a glowing lantern.
@@ -24,16 +22,16 @@ export function Explorer({ look, mood = 'idle', seed = 0, riding = false }: { lo
   const armL = useRef<THREE.Group>(null);
   const armR = useRef<THREE.Group>(null);
   const head = useRef<THREE.Group>(null);
+  const stars = useRef<THREE.Group>(null);
+  const helmetRef = useRef<THREE.Group>(null);
   const L = EXPLORER_LOOKS[look % EXPLORER_LOOKS.length];
-  const stone = mood === 'stone';
-  // Petrified explorers keep their pose but every part turns to grey stone.
-  const m = (c: string) => (stone ? toon(STONE, { rough: 1 }) : toon(c));
+  const dizzy = mood === 'dizzy';
+  const m = (c: string) => toon(c);
 
   useFrame(({ clock }) => {
     const t = clock.elapsedTime + seed * 1.9;
     const g = root.current;
     if (!g) return;
-    if (stone) return;
     g.position.y = 0;
     g.rotation.z = 0;
     g.scale.set(1, 1, 1);
@@ -41,7 +39,24 @@ export function Explorer({ look, mood = 'idle', seed = 0, riding = false }: { lo
     let aR = -0.5 + Math.sin(t * 1.6 + 1) * 0.05; // holds the lantern out a little
     let headX = Math.sin(t * 0.7) * 0.05;
     let headY = Math.sin(t * 0.45) * 0.35;
-    if (mood === 'happy') {
+    if (stars.current) {
+      stars.current.visible = dizzy;
+      stars.current.rotation.y = t * 4;
+    }
+    if (helmetRef.current) {
+      // Dunked: the helmet sits crooked and wobbles.
+      helmetRef.current.rotation.z = dizzy ? 0.45 + Math.sin(t * 3) * 0.15 : 0;
+      helmetRef.current.position.x = dizzy ? 0.04 : 0;
+    }
+    if (dizzy) {
+      // Bobbing in the water, swaying, arms flapping, head going round and round.
+      g.position.y = Math.sin(t * 3) * 0.05;
+      g.rotation.z = Math.sin(t * 2.2) * 0.12;
+      aL = -2.6 + Math.sin(t * 9) * 0.5;
+      aR = -2.6 + Math.sin(t * 9 + 2) * 0.5;
+      headX = Math.sin(t * 5) * 0.2;
+      headY = Math.cos(t * 5) * 0.3;
+    } else if (mood === 'happy') {
       const b = Math.abs(Math.sin(t * 6));
       g.position.y = b * 0.3;
       g.scale.set(1 + (1 - b) * 0.06, 1 - (1 - b) * 0.08, 1 + (1 - b) * 0.06);
@@ -77,7 +92,8 @@ export function Explorer({ look, mood = 'idle', seed = 0, riding = false }: { lo
   const skin = m(L.skin);
   const helmet = m('#f2e6c4');
   const band = m(L.scarf);
-  const glass = stone ? toon(STONE, { rough: 1 }) : toon('#ffd27a', { emissive: '#ffb340', emissiveIntensity: 3.5, flat: false });
+  const glass = toon('#ffd27a', { emissive: '#ffb340', emissiveIntensity: 3.5, flat: false });
+  const star = toon('#ffe066', { emissive: '#ffd23f', emissiveIntensity: 3, flat: true });
 
   return (
     <group ref={root}>
@@ -150,15 +166,23 @@ export function Explorer({ look, mood = 'idle', seed = 0, riding = false }: { lo
         </mesh>
         {[0.055, -0.055].map((x) => (
           <group key={x} position={[x, 0.03, 0.125]}>
-            <mesh material={stone ? toon(STONE) : toon('#ffffff', { flat: false, rough: 0.3 })}>
-              <sphereGeometry args={[mood === 'scared' ? 0.032 : 0.024, 10, 10]} />
+            <mesh material={toon('#ffffff', { flat: false, rough: 0.3 })}>
+              <sphereGeometry args={[mood === 'scared' || dizzy ? 0.034 : 0.024, 10, 10]} />
             </mesh>
-            <mesh position-z={0.016} material={stone ? toon('#7d776e') : toon('#141414', { flat: false, rough: 0.2 })}>
-              <sphereGeometry args={[0.013, 8, 8]} />
-            </mesh>
+            {dizzy ? (
+              // swirly cartoon eyes
+              <mesh position-z={0.03} rotation-x={Math.PI / 2} material={toon('#141414', { flat: false })}>
+                <torusGeometry args={[0.016, 0.005, 4, 10]} />
+              </mesh>
+            ) : (
+              <mesh position-z={0.016} material={toon('#141414', { flat: false, rough: 0.2 })}>
+                <sphereGeometry args={[0.013, 8, 8]} />
+              </mesh>
+            )}
           </group>
         ))}
         {/* pith helmet */}
+        <group ref={helmetRef}>
         <mesh position-y={0.04} material={helmet} castShadow>
           <sphereGeometry args={[0.175, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2]} />
         </mesh>
@@ -171,6 +195,15 @@ export function Explorer({ look, mood = 'idle', seed = 0, riding = false }: { lo
         <mesh position-y={0.22} material={helmet}>
           <sphereGeometry args={[0.025, 6, 6]} />
         </mesh>
+        </group>
+        {/* dizzy stars circling the head */}
+        <group ref={stars} position-y={0.36} visible={false}>
+          {[0, 1, 2, 3].map((i) => (
+            <mesh key={i} position={[Math.cos((i / 4) * Math.PI * 2) * 0.26, Math.sin(i * 2) * 0.03, Math.sin((i / 4) * Math.PI * 2) * 0.26]} rotation-x={Math.PI / 2} scale={[1, 1, 0.4]} material={star}>
+              <octahedronGeometry args={[0.055, 0]} />
+            </mesh>
+          ))}
+        </group>
       </group>
     </group>
   );

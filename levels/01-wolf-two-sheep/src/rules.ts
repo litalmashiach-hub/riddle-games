@@ -47,7 +47,7 @@ export const rules: RiddleRules<State, Move> = {
   },
 
   status(s) {
-    if (dangerBank(s)) return { kind: 'lost', reason: 'The wolf was left alone with one sheep and pounced!' };
+    if (dangerBank(s)) return { kind: 'lost', reason: 'The wolf was left alone with one sheep. Now the sheep has no wool, and the wolf has a fluffy beard!' };
     if (s.farmer === 'R' && ANIMALS.every((a) => s[a] === 'R')) return { kind: 'won' };
     return { kind: 'playing' };
   },

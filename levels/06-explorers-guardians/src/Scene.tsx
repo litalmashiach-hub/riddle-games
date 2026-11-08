@@ -16,6 +16,17 @@ const CROSS_MS = 2000;
 const HOP_MS = 520;
 export const MOVE_MS = CROSS_MS + HOP_MS;
 const LOAD_MS = 450;
+/** Fail gag timing, counted from when the barge has landed. */
+const BOOP_MS = 650;
+const FLY_MS = 850;
+/** How deep a dunked explorer floats (their waist at the waterline). */
+const SPLASH_Y = -0.42;
+
+/** Where a booped explorer lands: in the lake just off their own bank, spread out a bit. */
+function splashSpot(w: Who, side: Side): Vec3 {
+  const i = Number(w[1]);
+  return [sign(side) * (1.9 - i * 0.5), SPLASH_Y, 1.0 + i * 0.3];
+}
 
 function groupLabel(riders: Who[]) {
   const e = riders.filter(isExplorer).length;
@@ -200,6 +211,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           danger={danger}
           victim={victims.length ? victims[GUARDIANS.indexOf(w as never) % victims.length] : undefined}
           shout={w === firstAngry}
+          blubber={victims[0]}
           herald={w === 'g1'}
           won={won}
           settled={settled}
@@ -231,6 +243,8 @@ interface ActorProps {
   victim?: Who;
   /** This guardian speaks for the others when the rule is broken. */
   shout: boolean;
+  /** The dunked explorer who says "Blub blub!". */
+  blubber?: Who;
   /** This guardian congratulates the player on a win. */
   herald: boolean;
   won: boolean;
@@ -276,11 +290,33 @@ function Actor(p: ActorProps) {
       const near: Vec3 = [home[0] + (v[0] - home[0]) * 0.55, home[1], home[2] + (v[2] - home[2]) * 0.55];
       out.push({ to: near, durationMs: 420, height: 0.6, delayMs: forward && !settled ? Math.max(0, MOVE_MS - waited) + 150 : 150, onStart: sfx.growl });
     }
+    if (explorer && onDangerBank) {
+      // Booped! The explorer flies in a big cartoon arc and lands with a splash in the lake.
+      out.push({ to: splashSpot(who, side), durationMs: FLY_MS, height: 2.4, delayMs: forward && !settled ? Math.max(0, MOVE_MS - waited) + BOOP_MS : BOOP_MS, onStart: sfx.hop });
+    }
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
   usePath(ref, segs, key, { face: false });
 
+  // Explorers caught outnumbered: "Uh-oh!", a boop, a flight, a splash, then they bob about dizzy.
+  const [phase, setPhase] = useState<'none' | 'flying' | 'splashed'>('none');
+  const caught = explorer && onDangerBank && settled;
+  useEffect(() => {
+    if (!caught) {
+      setPhase('none');
+      return;
+    }
+    const a = setTimeout(() => setPhase('flying'), BOOP_MS);
+    const b = setTimeout(() => {
+      setPhase('splashed');
+      sfx.splash();
+    }, BOOP_MS + FLY_MS);
+    return () => {
+      clearTimeout(a);
+      clearTimeout(b);
+    };
+  }, [caught]);
   // Face direction: across the lake while aboard; toward the lake (and a bit toward the camera) on a bank;
   // toward the victim when angry; toward the camera when celebrating.
   const facing = useRef<THREE.Group>(null);
@@ -293,21 +329,11 @@ function Actor(p: ActorProps) {
     const v = slot(p.victim, side);
     yaw = Math.atan2(v[0] - h[0], v[2] - h[2]);
   }
+  if (phase === 'splashed') yaw = sign(side) * -0.6;
   useFaceYaw(facing, yaw, 5);
 
-  // Explorers caught outnumbered first panic, then turn to stone with a puff of dust.
-  const [stone, setStone] = useState(false);
-  const caught = explorer && onDangerBank && settled;
-  useEffect(() => {
-    if (!caught) {
-      setStone(false);
-      return;
-    }
-    const t = setTimeout(() => setStone(true), 750);
-    return () => clearTimeout(t);
-  }, [caught]);
 
-  const eMood: ExplorerMood = won && settled ? 'happy' : stone ? 'stone' : caught ? 'scared' : 'idle';
+  const eMood: ExplorerMood = won && settled ? 'happy' : phase === 'splashed' ? 'dizzy' : caught ? 'scared' : 'idle';
   const gMood: GuardianMood = won && settled ? 'happy' : angry && settled ? 'angry' : 'idle';
   const aboard = seatIndex >= 0 || rode;
 
@@ -327,41 +353,79 @@ function Actor(p: ActorProps) {
         </Clickable>
       </group>
       {seatIndex >= 0 && <HintRing position={[0, 0.06, 0]} radius={0.42} color="#7ee0b0" />}
-      {caught && !stone && <Bubble position={[0, 1.25, 0]} tone="red">!</Bubble>}
-      {stone && <DustPuff />}
-      {settled && angry && p.shout && <Bubble position={[0, 1.6, 0]} tone="white">HALT, INTRUDERS!</Bubble>}
+      {caught && phase === 'none' && <Bubble position={[0, 1.3, 0]} tone="red">Uh-oh!</Bubble>}
+      {caught && phase === 'flying' && <Bubble position={[0, 1.3, 0]} tone="white">WHOA!</Bubble>}
+      {phase === 'splashed' && <Splash />}
+      {phase === 'splashed' && who === p.blubber && <Bubble position={[0, 1.5, 0]} tone="white">Blub blub!</Bubble>}
+      {settled && angry && p.shout && <Bubble position={[0, 1.6, 0]} tone="white">Shoo, shoo! BOOP!</Bubble>}
       {won && settled && p.herald && <Bubble position={[0, 1.6, 0]} tone="gold">You may pass!</Bubble>}
     </group>
   );
 }
 
-/** A quick ring of stone dust, played once when an explorer is petrified. */
-function DustPuff() {
-  const ref = useRef<THREE.Group>(null);
+/**
+ * A big cartoon splash at the water surface: a crown of droplets, a foam puff and two
+ * expanding rings. The actor sits half under water, so lift it to the surface.
+ */
+function Splash() {
+  const drops = useRef<THREE.InstancedMesh>(null);
+  const ring1 = useRef<THREE.Mesh>(null);
+  const ring2 = useRef<THREE.Mesh>(null);
+  const foam = useRef<THREE.Mesh>(null);
   const start = useRef<number | null>(null);
-  const dirs = useMemo(() => Array.from({ length: 9 }, (_, i) => (i / 9) * Math.PI * 2), []);
+  const N = 26;
+  const parts = useMemo(
+    () =>
+      Array.from({ length: N }, (_, i) => {
+        const a = (i / N) * Math.PI * 2 + Math.random() * 0.3;
+        const s = 0.8 + Math.random() * 1.4;
+        return { vx: Math.cos(a) * s, vz: Math.sin(a) * s, vy: 2.6 + Math.random() * 2.6, r: 0.04 + Math.random() * 0.05 };
+      }),
+    [],
+  );
+  const dummy = useMemo(() => new THREE.Object3D(), []);
   useFrame(({ clock }) => {
-    const g = ref.current;
-    if (!g) return;
-    if (start.current == null) {
-      start.current = clock.elapsedTime;
-      sfx.splash();
+    if (start.current == null) start.current = clock.elapsedTime;
+    const t = clock.elapsedTime - start.current;
+    const m = drops.current;
+    if (m) {
+      parts.forEach((p, i) => {
+        const y = p.vy * t - 4.9 * t * t;
+        dummy.position.set(p.vx * t, Math.max(y, -0.2), p.vz * t);
+        dummy.scale.setScalar(y > -0.1 ? p.r * 1.6 : 0.0001);
+        dummy.updateMatrix();
+        m.setMatrixAt(i, dummy.matrix);
+      });
+      m.instanceMatrix.needsUpdate = true;
     }
-    const t = Math.min((clock.elapsedTime - start.current) / 0.8, 1);
-    g.children.forEach((c, i) => {
-      const a = dirs[i];
-      const r = 0.25 + t * 0.6;
-      c.position.set(Math.cos(a) * r, 0.15 + t * 0.35 + (i % 3) * 0.12, Math.sin(a) * r);
-      c.scale.setScalar((1 - t) * 0.9 + 0.05);
-    });
-    g.visible = t < 1;
+    const rings: [THREE.Mesh | null, number][] = [[ring1.current, 0], [ring2.current, 0.25]];
+    for (const [r, delay] of rings) {
+      if (!r) continue;
+      const k = Math.max(0, t - delay);
+      r.scale.setScalar(0.3 + k * 2.2);
+      (r.material as THREE.MeshBasicMaterial).opacity = Math.max(0, 0.9 - k * 0.7);
+    }
+    if (foam.current) {
+      // A quick puff, then it settles into a small foam ring around the waist.
+      const k = Math.min(t / 0.25, 1);
+      const w = 0.5 + k * 0.45 - Math.min(Math.max(t - 0.3, 0) * 0.5, 0.45);
+      foam.current.scale.set(w, Math.max(0.04, (1 - t * 0.8) * 0.6), w);
+    }
   });
   return (
-    <group ref={ref}>
-      {dirs.map((_, i) => (
-        <mesh key={i}>
-          <icosahedronGeometry args={[0.09, 0]} />
-          <meshStandardMaterial color="#d9d2c4" roughness={1} flatShading transparent opacity={0.85} />
+    <group position-y={-SPLASH_Y}>
+      <instancedMesh ref={drops} args={[undefined, undefined, N]} frustumCulled={false}>
+        <icosahedronGeometry args={[1, 0]} />
+        <meshBasicMaterial color={new THREE.Color('#bffcf2').multiplyScalar(1.6)} toneMapped={false} />
+      </instancedMesh>
+      <mesh ref={foam} position-y={0.05}>
+        <icosahedronGeometry args={[0.45, 1]} />
+        <meshStandardMaterial color="#effffb" emissive="#9ff5e6" emissiveIntensity={0.8} roughness={0.6} flatShading />
+      </mesh>
+      {[ring1, ring2].map((r, i) => (
+        <mesh key={i} ref={r} position-y={0.04} rotation-x={-Math.PI / 2}>
+          <ringGeometry args={[0.45, 0.55, 32]} />
+          <meshBasicMaterial color={new THREE.Color('#7ff7e4').multiplyScalar(2)} transparent depthWrite={false} toneMapped={false} />
         </mesh>
       ))}
     </group>

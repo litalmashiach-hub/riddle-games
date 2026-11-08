@@ -1,6 +1,6 @@
 import type { RiddleLevel } from '@riddle/engine';
 import { rules, type Move, type State } from './rules';
-import { MOVE_MS, Scene } from './Scene';
+import { FAIL_MS, MOVE_MS, Scene } from './Scene';
 
 const level: RiddleLevel<State, Move> = {
   id: 'wolf-two-sheep',
@@ -18,7 +18,7 @@ const level: RiddleLevel<State, Move> = {
   bestMoves: 7,
   moveNoun: 'crossings',
   moveDurationMs: MOVE_MS,
-  endDelayMs: 1200,
+  endDelayMs: FAIL_MS,
   camera: { position: [0, 5.4, 8.6], target: [0, 0.3, 0.3], fov: 45 },
   Scene,
 };

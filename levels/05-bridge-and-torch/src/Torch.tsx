@@ -15,7 +15,7 @@ export interface Flame {
 
 const flameOuter = new THREE.MeshStandardMaterial({ color: '#ff7a1a', emissive: '#ff5a00', emissiveIntensity: 3.2, transparent: true, opacity: 0.92, flatShading: true });
 const flameInner = new THREE.MeshStandardMaterial({ color: '#fff1a8', emissive: '#ffd36a', emissiveIntensity: 4, flatShading: true });
-const smokeMat = new THREE.MeshStandardMaterial({ color: '#6b6470', transparent: true, opacity: 0.6, roughness: 1, flatShading: true, depthWrite: false });
+const smokeMat = new THREE.MeshStandardMaterial({ color: '#8a8290', transparent: true, opacity: 0.85, roughness: 1, flatShading: true, depthWrite: false });
 
 /** The explorers' only torch: a stick, an oily wrap, a flickering flame and a warm light. */
 export const Torch = forwardRef<THREE.Group, { flame: Flame }>(function Torch({ flame }, ref) {
@@ -25,13 +25,15 @@ export const Torch = forwardRef<THREE.Group, { flame: Flame }>(function Torch({ 
   const inner = useRef<THREE.Mesh>(null);
   const light = useRef<THREE.PointLight>(null);
   const smoke = useRef<THREE.Group>(null);
-  const puffs = useMemo(() => Array.from({ length: 6 }, (_, i) => ({ x: Math.sin(i * 2.4) * 0.06, z: Math.cos(i * 2.4) * 0.06, d: i * 0.12, mat: smokeMat.clone() })), []);
+  const puffs = useMemo(() => Array.from({ length: 10 }, (_, i) => ({ x: Math.sin(i * 2.4) * 0.08, z: Math.cos(i * 2.4) * 0.08, d: i * 0.07, s: 0.7 + (i % 3) * 0.25, mat: smokeMat.clone() })), []);
 
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
     const out = flame.outAt != null;
     const size = out ? 0 : 0.55 + 0.45 * flame.fuel;
-    const flick = 1 + Math.sin(t * 23) * 0.08 + Math.sin(t * 37 + 1) * 0.06;
+    // Almost out of fuel: the flame sputters and gasps.
+    const gasp = flame.fuel < 0.12 ? (0.12 - flame.fuel) / 0.12 : 0;
+    const flick = 1 + Math.sin(t * 23) * (0.08 + gasp * 0.4) + Math.sin(t * 37 + 1) * (0.06 + gasp * 0.3) - gasp * 0.35 * Math.max(0, Math.sin(t * 13));
     if (fire.current) {
       const cur = fire.current.scale.x;
       const next = cur + (size - cur) * (out ? 0.35 : 0.2);
@@ -48,12 +50,13 @@ export const Torch = forwardRef<THREE.Group, { flame: Flame }>(function Torch({ 
     const g = smoke.current;
     if (g) {
       const since = out ? (performance.now() - flame.outAt!) / 1000 : -1;
-      g.visible = since >= 0 && since < 2.2;
+      g.visible = since >= 0 && since < 2.6;
       g.children.forEach((c, i) => {
         const k = Math.max(0, since - puffs[i].d);
-        c.position.set(puffs[i].x * (1 + k * 3), 0.1 + k * 0.9, puffs[i].z * (1 + k * 3));
-        c.scale.setScalar(k > 0 ? 0.06 + k * 0.16 : 0.001);
-        ((c as THREE.Mesh).material as THREE.MeshStandardMaterial).opacity = Math.max(0, 0.6 - k * 0.3);
+        // A big cartoon cloud that billows up, wobbles and fades.
+        c.position.set(puffs[i].x * (1 + k * 5), 0.1 + k * 1.1 + Math.sin(k * 6 + i) * 0.03, puffs[i].z * (1 + k * 5));
+        c.scale.setScalar(k > 0 ? (0.05 + Math.min(k, 0.6) * 0.45) * puffs[i].s * (1 + Math.sin(k * 10 + i) * 0.06) : 0.001);
+        ((c as THREE.Mesh).material as THREE.MeshStandardMaterial).opacity = Math.max(0, 0.85 - k * 0.38);
       });
     }
   });

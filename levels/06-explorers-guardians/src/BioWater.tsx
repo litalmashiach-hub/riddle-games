@@ -130,7 +130,7 @@ const fragment = /* glsl */ `
     // danger: the side where the explorers are outnumbered blushes red
     float side = uDanger * p.x;
     float red = smoothstep(-0.5, 2.5, side) * abs(uDanger);
-    col = mix(col, vec3(0.9, 0.12, 0.08) * (0.4 + veins * 1.8 + shore), red * 0.75);
+    col = mix(col, vec3(0.9, 0.2, 0.45) * (0.35 + veins * 1.8 + shore), red * 0.5);
 
     gl_FragColor = vec4(col, 0.96);
     #include <colorspace_fragment>
