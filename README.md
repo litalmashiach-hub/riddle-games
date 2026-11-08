@@ -35,7 +35,7 @@ Useful URL options:
 | 7 | Sky Islands | Three Jealous Couples | Built |
 | 8 | Sky Islands | Three Jugs (8, 5 and 3 L) | Built |
 | 9 | Sky Islands | Bridge of Five | Built |
-| 10 | Clockwork Citadel | Four-Pillar Tower, 6 discs | Planned |
+| 10 | Clockwork Citadel | Four-Pillar Tower, 6 discs | Built |
 | 11 | Clockwork Citadel | Family Crossing | Built |
 | 12 | Clockwork Citadel | The Twelve Coins | Built |
 | 14 | Firefly Lagoon | Firefly Lanterns (Lights Out) | Planned |
