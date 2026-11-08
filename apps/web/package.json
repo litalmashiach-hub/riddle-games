@@ -15,6 +15,7 @@
     "@riddle/fx": "workspace:*",
     "@riddle/level-01-wolf-two-sheep": "workspace:*",
     "@riddle/level-04-tower-of-hanoi": "workspace:*",
+    "@riddle/level-06-explorers-guardians": "workspace:*",
     "motion": "14.10.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
