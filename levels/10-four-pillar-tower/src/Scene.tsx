@@ -1,13 +1,15 @@
 import type { SceneProps } from '@riddle/engine';
 import { Html, useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
-import { Burst, sfx, usePath, useSettings, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Shake, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Citadel } from './Citadel';
 import { cogGeometry } from './cog';
 import { COGS, GOAL, canMove, levelOf, topCog, type Move, type State } from './rules';
+import { BonkFx } from './BonkFx';
+import { bonk as bonkSound, clank, uhOh } from './sounds';
 import { Tock, type TockMood } from './Tock';
 
 const LIFT_MS = 260;
@@ -29,38 +31,44 @@ const radius = (c: number) => 0.45 + c * 0.13;
 /** Smallest to biggest: a rainbow, so sizes are easy to tell apart. */
 const COLORS = ['#ff4d6d', '#ff8c2b', '#ffd23f', '#3ddc84', '#3fb8f5', '#9b6dff'];
 const slot = (s: State, c: number): Vec3 => [PX[s.peg[c]], BASE + levelOf(s, c) * T, 0];
+const slotTop = (s: State, c: number): Vec3 => [PX[s.peg[c]], BASE + (levelOf(s, c) + 1) * T, 0];
 const above = (p: number): Vec3 => [PX[p], LIFT, 0];
 
-/** A short metallic clank, made with WebAudio so no files are needed. */
-let actx: AudioContext | null = null;
-function clank(pitch = 1) {
-  if (!useSettings.getState().sound) return;
-  const AC = window.AudioContext || (window as any).webkitAudioContext;
-  if (!AC) return;
-  actx ??= new AC();
-  const a = actx;
-  if (a.state === 'suspended') void a.resume();
-  const t = a.currentTime;
-  [1, 2.76, 5.4].forEach((m, i) => {
-    const o = a.createOscillator();
-    const g = a.createGain();
-    o.type = i === 0 ? 'triangle' : 'sine';
-    o.frequency.value = 330 * pitch * m;
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(0.12 / (i + 1), t + 0.008);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.35 / (i + 1));
-    o.connect(g).connect(a.destination);
-    o.start(t);
-    o.stop(t + 0.4);
-  });
+/** The "too big" gag: the held cog tries to land on a smaller one, squashes it and boings back. */
+const BONK_GLIDE = 300;
+const BONK_DROP = 170;
+/** When the big cog hits the small one, after the tap. */
+const BONK_IMPACT = BONK_GLIDE + BONK_DROP;
+const BONK_BOUNCE = 420;
+const BONK_BACK = 340;
+const BONK_MS = BONK_IMPACT + BONK_BOUNCE + BONK_BACK;
+interface Bonk {
+  /** The held cog that tried to land. */
+  cog: number;
+  from: number;
+  target: number;
+  /** The smaller cog it landed on. */
+  under: number;
+  at: number;
 }
+const TOO_BIG = ['Too big!', 'Ouch, squish!', 'Big on small? Nope!', 'Boing! Try again!'];
+/** Squash-and-stretch wobble: 1 at rest, `amount` lower at t = 0, springing back. */
+const wobble = (t: number, amount: number) => (t < 0 || t > 1.2 ? 1 : 1 - amount * Math.exp(-5 * t) * Math.cos(17 * t));
 
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
   /** The pillar whose top cog the player has lifted (UI only, not a move yet). */
   const [held, setHeld] = useState<number | null>(null);
   const [hover, setHover] = useState<number | null>(null);
-  const [tockMood, setTockMood] = useState<{ mood: TockMood; say: string | null; at: number }>({ mood: 'idle', say: null, at: 0 });
-  const [shake, setShake] = useState<{ cog: number; at: number } | null>(null);
+  const [tockMood, setTockMood] = useState<{
+    mood: TockMood;
+    say: string | null;
+    at: number;
+  }>({ mood: 'idle', say: null, at: 0 });
+  const [bonk, setBonk] = useState<Bonk | null>(null);
+  /** Bumped on each impact to shake the tower. */
+  const [thud, setThud] = useState(0);
+  /** Taps are ignored until the gag has played out. */
+  const lockedUntil = useRef(0);
   const [burst, setBurst] = useState(0);
   /** The cog that was already lifted when the move was played, so it skips the lift. */
   const lifted = useRef<number | null>(null);
@@ -92,16 +100,37 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
   const heldCog = held !== null ? topCog(state, held) : -1;
 
-  const refuse = (say: string, cog: number | null) => {
+  const refuse = (say: string) => {
     sfx.denied();
     setTockMood({ mood: 'no', say, at: performance.now() });
-    if (cog !== null && cog >= 0) setShake({ cog, at: performance.now() });
   };
 
+  // The tried-to-land gag: sounds and Tock's reaction are timed to the impact.
+  useEffect(() => {
+    if (!bonk) return;
+    const t = setTimeout(() => {
+      bonkSound();
+      setThud((n) => n + 1);
+      clank(0.75);
+      uhOh();
+      setTockMood({
+        mood: 'no',
+        say: TOO_BIG[Math.floor(bonk.at / 13) % TOO_BIG.length],
+        at: performance.now(),
+      });
+    }, BONK_IMPACT);
+    const t2 = setTimeout(sfx.boing, BONK_IMPACT + 60);
+    return () => {
+      clearTimeout(t);
+      clearTimeout(t2);
+    };
+  }, [bonk]);
+  useEffect(() => setBonk(null), [moveCount, resetCount]);
+
   const onPillar = (p: number) => {
-    if (busy || over) return;
+    if (busy || over || performance.now() < lockedUntil.current) return;
     if (held === null) {
-      if (topCog(state, p) < 0) return refuse('It is empty!', null);
+      if (topCog(state, p) < 0) return refuse('It is empty!');
       sfx.select();
       setHeld(p);
       return;
@@ -111,7 +140,19 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       setHeld(null);
       return;
     }
-    if (!canMove(state, held, p)) return refuse('Too big!', heldCog);
+    if (!canMove(state, held, p)) {
+      const at = performance.now();
+      lockedUntil.current = at + BONK_MS + 60;
+      sfx.deselect();
+      setBonk({
+        cog: heldCog,
+        from: held,
+        target: p,
+        under: topCog(state, p),
+        at,
+      });
+      return;
+    }
     lifted.current = heldCog;
     play({ from: held, to: p });
   };
@@ -125,34 +166,37 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     <group>
       <Citadel celebrate={celebrate} />
 
-      {PX.map((x, p) => (
-        <Pillar
-          key={p}
-          index={p}
-          x={x}
-          hovered={hover === p && !busy && !over}
-          celebrate={celebrate}
-          onClick={() => onPillar(p)}
-          onHover={(on) => setHover((h) => (on ? p : h === p ? null : h))}
-        />
-      ))}
+      <Shake trigger={thud} intensity={0.08} durationMs={420}>
+        {PX.map((x, p) => (
+          <Pillar
+            key={p}
+            index={p}
+            x={x}
+            hovered={hover === p && !busy && !over}
+            celebrate={celebrate}
+            onClick={() => onPillar(p)}
+            onHover={(on) => setHover((h) => (on ? p : h === p ? null : h))}
+          />
+        ))}
 
-      {Array.from({ length: COGS }, (_, c) => (
-        <Cog
-          key={c}
-          index={c}
-          state={state}
-          lastMove={c === movedCog ? lastMove : null}
-          liftedAtPlay={c === movedCog && lifted.current === c}
-          forward={forward}
-          moveCount={moveCount}
-          resetCount={resetCount}
-          held={c === heldCog && !busy}
-          celebrate={celebrate}
-          shakeAt={shake?.cog === c ? shake.at : 0}
-          onClick={() => onPillar(state.peg[c])}
-        />
-      ))}
+        {Array.from({ length: COGS }, (_, c) => (
+          <Cog
+            key={c}
+            index={c}
+            state={state}
+            lastMove={c === movedCog ? lastMove : null}
+            liftedAtPlay={c === movedCog && lifted.current === c}
+            forward={forward}
+            moveCount={moveCount}
+            resetCount={resetCount}
+            held={c === heldCog && !busy}
+            celebrate={celebrate}
+            bonk={bonk && bonk.cog === c ? bonk : null}
+            squashAt={bonk && bonk.under === c ? bonk.at + BONK_IMPACT : 0}
+            onClick={() => onPillar(state.peg[c])}
+          />
+        ))}
+      </Shake>
 
       {/* Where the held cog may go. */}
       {held !== null &&
@@ -161,14 +205,30 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       {hintPillar !== null && <HintRing position={[PX[hintPillar], 0.5, 0]} radius={1.4} />}
 
       <group position={[-4.7, 0.33, 2.5]} rotation-y={0.55}>
-        <Tock scale={1.3} mood={celebrate ? 'happy' : tockMood.mood} lookX={held !== null ? PX[held] : hover !== null ? PX[hover] : null} />
+        <Tock
+          scale={1.3}
+          surprisedAt={bonk ? bonk.at + BONK_IMPACT : 0}
+          mood={celebrate ? 'happy' : tockMood.mood}
+          lookX={held !== null ? PX[held] : hover !== null ? PX[hover] : null}
+        />
         {tockMood.say && !celebrate && (
-          <Bubble key={tockMood.at} position={[0, 1.9, 0]} tone="red">
+          <Bubble key={tockMood.at} position={[0.9, 1.95, 0]} tone="red">
             {tockMood.say}
           </Bubble>
         )}
-        {celebrate && <Bubble position={[0, 1.9, 0]} tone="gold">Tick-tock, top job!</Bubble>}
+        {celebrate && (
+          <Bubble position={[0.9, 1.95, 0]} tone="gold">
+            Tick-tock, top job!
+          </Bubble>
+        )}
       </group>
+
+      {/* Always mounted (hidden until a bonk) so its shaders are ready and the gag never hitches. */}
+      <BonkFx
+        at={bonk ? bonk.at + BONK_IMPACT : 0}
+        position={bonk ? slotTop(state, bonk.under) : [0, -5, 0]}
+        radius={bonk ? radius(bonk.under) : 0.5}
+      />
 
       <Burst trigger={burst} position={[PX[GOAL], 2.6, 0]} />
     </group>
@@ -246,24 +306,24 @@ function Pillar({
             <meshBasicMaterial color="#ffd166" toneMapped={false} />
           </mesh>
           {labelReady && (
-          <Html position={[0, ROD_TOP + 0.75, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
-            <div
-              style={{
-                fontFamily: 'Fredoka, system-ui, sans-serif',
-                fontWeight: 700,
-                fontSize: 13,
-                letterSpacing: 1.5,
-                padding: '3px 10px',
-                borderRadius: 999,
-                background: 'linear-gradient(#ffe08a,#f4b03e)',
-                color: '#4a2a05',
-                boxShadow: '0 3px 0 rgba(0,0,0,.25), 0 8px 16px rgba(0,0,0,.3)',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              GOAL
-            </div>
-          </Html>
+            <Html position={[0, ROD_TOP + 0.75, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+              <div
+                style={{
+                  fontFamily: 'Fredoka, system-ui, sans-serif',
+                  fontWeight: 700,
+                  fontSize: 13,
+                  letterSpacing: 1.5,
+                  padding: '3px 10px',
+                  borderRadius: 999,
+                  background: 'linear-gradient(#ffe08a,#f4b03e)',
+                  color: '#4a2a05',
+                  boxShadow: '0 3px 0 rgba(0,0,0,.25), 0 8px 16px rgba(0,0,0,.3)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                GOAL
+              </div>
+            </Html>
           )}
         </>
       )}
@@ -287,34 +347,96 @@ interface CogProps {
   resetCount: number;
   held: boolean;
   celebrate: boolean;
-  shakeAt: number;
+  /** Set when this cog is the one that tried to land on a smaller cog. */
+  bonk: Bonk | null;
+  /** When this cog gets squashed by a bigger one (performance.now ms), or 0. */
+  squashAt: number;
   onClick(): void;
 }
 
-function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, resetCount, held, celebrate, shakeAt, onClick }: CogProps) {
+function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, resetCount, held, celebrate, bonk, squashAt, onClick }: CogProps) {
   const ref = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
   const r = radius(c);
-  const geo = useMemo(() => cogGeometry({ radius: r, height: T - 0.012, hole: 0.13, tooth: 0.085, windows: c >= 2 ? (c >= 4 ? 6 : 5) : 0 }), [r, c]);
+  const geo = useMemo(
+    () =>
+      cogGeometry({
+        radius: r,
+        height: T - 0.012,
+        hole: 0.13,
+        tooth: 0.085,
+        windows: c >= 2 ? (c >= 4 ? 6 : 5) : 0,
+      }),
+    [r, c],
+  );
   const mat = useMemo(
-    () => new THREE.MeshStandardMaterial({ color: COLORS[c], metalness: 0.45, roughness: 0.32, flatShading: true, emissive: new THREE.Color(COLORS[c]), emissiveIntensity: 0 }),
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: COLORS[c],
+        metalness: 0.45,
+        roughness: 0.32,
+        flatShading: true,
+        emissive: new THREE.Color(COLORS[c]),
+        emissiveIntensity: 0,
+      }),
     [c],
   );
   useEffect(() => () => mat.dispose(), [mat]);
   const hub = toon('#e2b45a', { metal: 0.9, rough: 0.28 });
 
-  const key = `${moveCount}|${resetCount}|${held}`;
+  const key = `${moveCount}|${resetCount}|${held}|${bonk?.at ?? 0}`;
   const segs = useMemo<PathSegment[]>(() => {
     const home = slot(state, c);
-    if (held) return [{ to: above(state.peg[c]), durationMs: LIFT_MS, height: 0, onStart: sfx.hop }];
+    if (bonk) {
+      const land = slotTop(state, bonk.under);
+      land[1] -= T * 0.4;
+      return [
+        {
+          to: above(bonk.target),
+          durationMs: BONK_GLIDE,
+          height: 0.2 + Math.abs(bonk.target - bonk.from) * 0.1,
+        },
+        { to: land, durationMs: BONK_DROP },
+        { to: above(bonk.target), durationMs: BONK_BOUNCE, height: 0.7 },
+        { to: above(bonk.from), durationMs: BONK_BACK, height: 0.3 },
+      ];
+    }
+    if (held)
+      return [
+        {
+          to: above(state.peg[c]),
+          durationMs: LIFT_MS,
+          height: 0,
+          onStart: sfx.hop,
+        },
+      ];
     if (forward && lastMove) {
       const out: PathSegment[] = [];
-      if (!liftedAtPlay) out.push({ to: above(lastMove.from), durationMs: LIFT_MS, onStart: sfx.hop });
-      out.push({ to: above(lastMove.to), durationMs: GLIDE_MS + (liftedAtPlay ? LIFT_MS : 0), height: 0.25 + Math.abs(lastMove.to - lastMove.from) * 0.12 });
-      out.push({ to: home, durationMs: DROP_MS, onEnd: () => clank(1.6 - c * 0.12) });
+      if (!liftedAtPlay)
+        out.push({
+          to: above(lastMove.from),
+          durationMs: LIFT_MS,
+          onStart: sfx.hop,
+        });
+      out.push({
+        to: above(lastMove.to),
+        durationMs: GLIDE_MS + (liftedAtPlay ? LIFT_MS : 0),
+        height: 0.25 + Math.abs(lastMove.to - lastMove.from) * 0.12,
+      });
+      out.push({
+        to: home,
+        durationMs: DROP_MS,
+        onEnd: () => clank(1.6 - c * 0.12),
+      });
       return out;
     }
-    return [{ to: home, durationMs: forward ? DROP_MS : 360, height: forward ? 0 : 0.3 }];
+    return [
+      {
+        to: home,
+        durationMs: forward ? DROP_MS : 360,
+        height: forward ? 0 : 0.3,
+      },
+    ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
   usePath(ref, segs, key, { face: false });
@@ -327,9 +449,10 @@ function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, rese
     const target = (celebrate ? 5 : held ? 2.2 : 0.22) / r;
     speed.current += (target - speed.current) * Math.min(1, dt * 3);
     s.rotation.y += dir * speed.current * dt;
-    // Shake when the player tries an illegal drop.
-    const since = (performance.now() - shakeAt) / 1000;
-    s.position.x = since < 0.45 ? Math.sin(since * 70) * 0.09 * (1 - since / 0.45) : 0;
+    // Squash and stretch: squashed flat by a bigger cog, or squishing on impact itself.
+    const now = performance.now();
+    const sy = squashAt ? wobble((now - squashAt) / 1000, 0.5) : bonk ? wobble((now - bonk.at - BONK_IMPACT) / 1000, 0.28) : 1;
+    s.scale.set(1 / Math.sqrt(sy), sy, 1 / Math.sqrt(sy));
     const glow = held ? 0.35 + Math.sin(clock.elapsedTime * 6) * 0.12 : celebrate ? 0.3 : 0;
     mat.emissiveIntensity += (glow - mat.emissiveIntensity) * Math.min(1, dt * 8);
   });
