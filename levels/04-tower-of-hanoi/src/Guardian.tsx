@@ -3,11 +3,11 @@ import { toon } from '@riddle/props';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
-export type GuardianMood = 'idle' | 'no' | 'happy';
+export type GuardianMood = 'idle' | 'no' | 'happy' | 'laugh';
 
 /**
  * Pip, the little temple monkey who guards the tower. Sits on a stone pedestal,
- * watches the disc you lift, shakes their head at illegal moves and cheers on a win.
+ * watches the disc you lift, laughs at bounced discs and cheers on a win.
  * Faces +z; `lookAt` is a world-space point to turn the head toward.
  */
 export function Guardian({ position, yaw, mood, lookAt, scale = 1 }: { position: [number, number, number]; yaw: number; scale?: number; mood: GuardianMood; lookAt: THREE.Vector3 }) {
@@ -18,6 +18,7 @@ export function Guardian({ position, yaw, mood, lookAt, scale = 1 }: { position:
   const tail = useRef<THREE.Group>(null);
   const root = useRef<THREE.Group>(null);
   const tmp = useRef(new THREE.Vector3());
+  const mouth = useRef<THREE.Mesh>(null);
 
   useFrame(({ clock }, dt) => {
     const t = clock.elapsedTime;
@@ -27,8 +28,21 @@ export function Guardian({ position, yaw, mood, lookAt, scale = 1 }: { position:
     b.position.y = 0;
     b.scale.setScalar(1);
     let armUp = 0.2;
+    let armFwd = 0;
+    let lean = 0;
     let shake = 0;
-    if (mood === 'happy') {
+    let open = 0;
+    if (mood === 'laugh') {
+      // Rocks back, clutches belly, giggling.
+      const k = Math.sin(t * 17);
+      lean = -0.28 + k * 0.08;
+      b.position.y = Math.abs(k) * 0.05;
+      armUp = -0.35;
+      armFwd = -1.1;
+      shake = Math.sin(t * 6) * 0.15;
+      open = 0.7 + Math.abs(k) * 0.5;
+    } else if (mood === 'happy') {
+      open = 1;
       const j = Math.abs(Math.sin(t * 7));
       b.position.y = j * 0.35;
       b.scale.set(1 + (1 - j) * 0.07, 1 - (1 - j) * 0.09, 1 + (1 - j) * 0.07);
@@ -40,6 +54,14 @@ export function Guardian({ position, yaw, mood, lookAt, scale = 1 }: { position:
       const br = Math.sin(t * 2) * 0.02;
       b.scale.set(1 + br * 0.5, 1 + br, 1 + br * 0.5);
     }
+    b.rotation.x = THREE.MathUtils.lerp(b.rotation.x, lean, Math.min(1, dt * 12));
+    armL.current.rotation.x = THREE.MathUtils.lerp(armL.current.rotation.x, armFwd, Math.min(1, dt * 10));
+    armR.current.rotation.x = THREE.MathUtils.lerp(armR.current.rotation.x, armFwd, Math.min(1, dt * 10));
+    if (mouth.current) {
+      const m = mouth.current.scale;
+      m.y = THREE.MathUtils.lerp(m.y, Math.max(open, 0.001), Math.min(1, dt * 14));
+      mouth.current.visible = m.y > 0.05;
+    }
     armL.current.rotation.z = THREE.MathUtils.lerp(armL.current.rotation.z, armUp, Math.min(1, dt * 10));
     armR.current.rotation.z = THREE.MathUtils.lerp(armR.current.rotation.z, -armUp, Math.min(1, dt * 10));
 
@@ -47,8 +69,8 @@ export function Guardian({ position, yaw, mood, lookAt, scale = 1 }: { position:
     const local = root.current.worldToLocal(tmp.current.copy(lookAt));
     const targetYaw = THREE.MathUtils.clamp(Math.atan2(local.x, local.z), -1.1, 1.1);
     const targetPitch = THREE.MathUtils.clamp(-Math.atan2(local.y - 1.3, Math.hypot(local.x, local.z)), -0.5, 0.4);
-    h.rotation.y = THREE.MathUtils.lerp(h.rotation.y, (mood === 'happy' ? 0 : targetYaw) + shake, Math.min(1, dt * 8));
-    h.rotation.x = THREE.MathUtils.lerp(h.rotation.x, mood === 'happy' ? -0.25 : targetPitch, Math.min(1, dt * 6));
+    h.rotation.y = THREE.MathUtils.lerp(h.rotation.y, (mood === 'happy' || mood === 'laugh' ? 0 : targetYaw) + shake, Math.min(1, dt * 8));
+    h.rotation.x = THREE.MathUtils.lerp(h.rotation.x, mood === 'happy' || mood === 'laugh' ? -0.3 : targetPitch, Math.min(1, dt * 6));
   });
 
   const fur = toon('#b9733b');
@@ -132,6 +154,9 @@ export function Guardian({ position, yaw, mood, lookAt, scale = 1 }: { position:
               </mesh>
             </group>
           ))}
+          <mesh ref={mouth} position={[0, -0.13, 0.27]} scale={[1, 0.001, 0.6]} visible={false} material={toon('#7a2230', { flat: false })}>
+            <sphereGeometry args={[0.06, 12, 10]} />
+          </mesh>
           <mesh position={[0, -0.09, 0.3]} material={toon('#5a3420')}>
             <sphereGeometry args={[0.03, 8, 8]} />
           </mesh>

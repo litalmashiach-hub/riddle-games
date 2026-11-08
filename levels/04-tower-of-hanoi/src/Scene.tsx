@@ -1,13 +1,14 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, ComicWord, DizzyStars, Shake, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { chime } from './audio';
+import { boing, chime, giggle } from './audio';
 import { Guardian, type GuardianMood } from './Guardian';
 import { DISCS, PEGS, canMove, top, type Move, type Peg, type State } from './rules';
+import { DiscFace, DustPuff, type FaceMood } from './Slapstick';
 import { Temple } from './Temple';
 
 const LIFT_MS = 300;
@@ -24,6 +25,28 @@ const ROD_H = 2.35;
 const LIFT_Y = BASE_Y + ROD_H + 0.42;
 const GOAL: Peg = 2;
 
+// The "bonk" when a disc is dropped on a smaller one: fly over, fall, BOING off, float home.
+const BONK_OVER = 240;
+const BONK_FALL = 170;
+const BONK_UP = 280;
+const BONK_HOME = 420;
+/** Time from the tap to the impact. */
+const BONK_HIT = BONK_OVER + BONK_FALL;
+const BONK_MS = BONK_HIT + BONK_UP + BONK_HOME + 40;
+/** How long faces, stars and the monkey's giggle last after the tap. */
+const DAZE_MS = 2300;
+
+/** A bounced-off drop: the lifted disc tried to land on a smaller one. */
+interface Bonk {
+  from: Peg;
+  to: Peg;
+  /** performance.now() of the tap. */
+  at: number;
+  /** The disc that bounced and the one it bonked. */
+  size: number;
+  under: number;
+}
+
 const discRadius = (size: number) => 0.42 + size * 0.15;
 const JADE = ['', '#c8fde3', '#86ecc0', '#45cc9a', '#1fa077'];
 
@@ -39,7 +62,13 @@ const restPos = (p: Peg, i: number): Vec3 => [PEG_X[p], BASE_Y + i * DISC_H, 0];
 export function Scene({ state, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
   /** The pillar whose top disc the player has lifted (UI only, not a move yet). */
   const [selected, setSelected] = useState<Peg | null>(null);
-  const [denied, setDenied] = useState<{ peg: Peg; at: number } | null>(null);
+  const [bonk, setBonk] = useState<Bonk | null>(null);
+  /** True from the tap until the bouncing disc is home again: input waits. */
+  const [bouncing, setBouncing] = useState(false);
+  /** True from the impact until the dizzy faces and giggles are over. */
+  const [dazed, setDazed] = useState(false);
+  const [boingBubble, setBoingBubble] = useState(false);
+  const [shake, setShake] = useState(0);
   const [party, setParty] = useState(false);
   const [burst, setBurst] = useState(0);
   const lastCount = useRef(moveCount);
@@ -64,13 +93,35 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   }, [won]);
 
   useEffect(() => {
-    if (!denied) return;
-    const t = setTimeout(() => setDenied(null), 1200);
-    return () => clearTimeout(t);
-  }, [denied]);
+    if (!bonk) return;
+    const timers = [
+      setTimeout(() => {
+        boing();
+        sfx.poof();
+        setDazed(true);
+        setBoingBubble(true);
+        setShake((n) => n + 1);
+      }, BONK_HIT),
+      setTimeout(giggle, BONK_HIT + 200),
+      setTimeout(() => setBoingBubble(false), BONK_HIT + 750),
+      setTimeout(() => setBouncing(false), BONK_MS),
+      setTimeout(() => {
+        setDazed(false);
+        setBonk(null);
+      }, DAZE_MS),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, [bonk]);
+  // A restart or undo cancels any bonk in progress.
+  useEffect(() => {
+    setBonk(null);
+    setBouncing(false);
+    setDazed(false);
+    setBoingBubble(false);
+  }, [moveCount, resetCount]);
 
   const tapPeg = (p: Peg) => {
-    if (busy || over) return;
+    if (busy || over || bouncing) return;
     if (selected === null) {
       if (state.pegs[p].length === 0) return void sfx.denied();
       sfx.select();
@@ -82,8 +133,11 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       setSelected(null);
       play({ from: selected, to: p });
     } else {
-      sfx.denied();
-      setDenied({ peg: p, at: performance.now() });
+      // Not allowed: let the player try anyway, and bounce the disc off with a BOING.
+      sfx.hop();
+      setBouncing(true);
+      setDazed(false);
+      setBonk({ from: selected, to: p, at: performance.now(), size: top(state, selected)!, under: top(state, p)! });
     }
   };
 
@@ -94,13 +148,15 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const lookAt = useMemo(() => new THREE.Vector3(), []);
   const lookPeg = selected ?? (lastMove ? lastMove.to : 0);
   lookAt.set(PEG_X[lookPeg], selected !== null ? LIFT_Y : 1, 0);
-  const guardianMood: GuardianMood = party ? 'happy' : denied ? 'no' : 'idle';
+  const guardianMood: GuardianMood = party ? 'happy' : dazed ? 'laugh' : 'idle';
+  if (bonk && bouncing) lookAt.set(PEG_X[bonk.to], LIFT_Y - 0.6, 0);
+  const landY = bonk ? BASE_Y + state.pegs[bonk.to].length * DISC_H + 0.02 : 0;
 
   // Hint: point at the pillar to lift from, then at the pillar to drop on.
   const hintPeg: Peg | null = hint && !busy ? (selected === hint.from ? hint.to : hint.from) : null;
 
   return (
-    <group>
+    <Shake trigger={shake} intensity={0.06} durationMs={350}>
       <Temple />
 
       {PEGS.map((p) => (
@@ -109,7 +165,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
           peg={p}
           goal={p === GOAL}
           mode={selected === null ? 'idle' : selected === p ? 'source' : canMove(state, selected, p) ? 'drop' : 'blocked'}
-          deniedAt={denied?.peg === p ? denied.at : 0}
+          deniedAt={bonk?.to === p ? bonk.at + BONK_HIT : 0}
           party={party && p === GOAL}
           disabled={busy || over}
           onTap={() => tapPeg(p)}
@@ -125,19 +181,26 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
           forward={forward}
           selected={lifted === size}
           animKey={animKey}
-          deniedAt={lifted === size && denied ? denied.at : 0}
+          bonk={bonk && (bonk.size === size || bonk.under === size) ? bonk : null}
+          face={party ? 'happy' : dazed && bonk?.size === size ? 'dizzy' : dazed && bonk?.under === size ? 'angry' : 'none'}
           party={party}
         />
       ))}
 
       <Guardian position={[4.9, 0, -1.7]} scale={1.3} yaw={-0.55} mood={guardianMood} lookAt={lookAt} />
-      {denied && <Bubble position={[PEG_X[denied.peg], LIFT_Y + 0.45, 0]} tone="red">Too big!</Bubble>}
-      {denied && <Bubble position={[4.9, 3.3, -1.7]} tone="white">Nope!</Bubble>}
+      {bonk && boingBubble && <ComicWord position={[PEG_X[bonk.to] + 0.6, landY + 1.1, 0.4]} text="BOING!" size={40} />}
+      {bonk && dazed && !boingBubble && (
+        <Bubble position={[PEG_X[bonk.to], landY + 0.55, 0.3]} tone="red">
+          Too big!
+        </Bubble>
+      )}
+      {dazed && <Bubble position={[4.9, 3.3, -1.7]} tone="white">Hee hee!</Bubble>}
+      {bonk && <DustPuff at={bonk.at + BONK_HIT} position={[PEG_X[bonk.to], landY, 0]} radius={discRadius(bonk.under) * 0.8} />}
       {party && <Bubble position={[4.9, 3.4, -1.7]} tone="gold">Hooray!</Bubble>}
 
       {hintPeg !== null && <HintRing position={[PEG_X[hintPeg], BASE_Y + 0.02, 0]} radius={1.45} />}
       <Burst trigger={burst} position={[PEG_X[GOAL], 2.6, 0]} />
-    </group>
+    </Shake>
   );
 }
 
@@ -294,14 +357,19 @@ interface DiscProps {
   forward: boolean;
   selected: boolean;
   animKey: string;
-  deniedAt: number;
+  /** Set when this disc bounced off, or got bonked by, a bigger one. */
+  bonk: Bonk | null;
+  face: FaceMood;
   party: boolean;
 }
 
-function Disc({ size, state, lastMove, forward, selected, animKey, deniedAt, party }: DiscProps) {
+function Disc({ size, state, lastMove, forward, selected, animKey, bonk, face, party }: DiscProps) {
   const ref = useRef<THREE.Group>(null);
   const inner = useRef<THREE.Group>(null);
+  const squash = useRef<THREE.Group>(null);
   const [peg, idx] = where(state, size);
+  const bouncer = bonk != null && bonk.size === size;
+  const bonkAt = bonk?.at ?? 0;
   const rest = restPos(peg, idx);
   const moved = forward && lastMove != null && top(state, lastMove.to) === size;
 
@@ -315,6 +383,16 @@ function Disc({ size, state, lastMove, forward, selected, animKey, deniedAt, par
         { to: rest, durationMs: DROP_MS, onEnd: () => chime(size) },
       ];
     }
+    if (selected && bouncer && bonk) {
+      const tx = PEG_X[bonk.to];
+      const land = BASE_Y + state.pegs[bonk.to].length * DISC_H + 0.02;
+      return [
+        { to: [tx, LIFT_Y, 0], durationMs: BONK_OVER, height: 0.3 },
+        { to: [tx, land, 0], durationMs: BONK_FALL },
+        { to: [tx, LIFT_Y + 0.15, 0], durationMs: BONK_UP },
+        { to: [rest[0], LIFT_Y, 0], durationMs: BONK_HOME, height: 0.4 },
+      ];
+    }
     if (selected) return [{ to: [rest[0], LIFT_Y, 0], durationMs: LIFT_MS }];
     // Undo or restart across pillars: lift over the rods quickly, never through them.
     if (cur && Math.abs(cur.x - rest[0]) > 0.1)
@@ -325,8 +403,8 @@ function Disc({ size, state, lastMove, forward, selected, animKey, deniedAt, par
       ];
     return [{ to: rest, durationMs: 260 }];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animKey, selected]);
-  usePath(ref, segs, `${animKey}|${selected}`, { face: false });
+  }, [animKey, selected, bouncer ? bonkAt : 0]);
+  usePath(ref, segs, `${animKey}|${selected}|${bouncer ? bonkAt : 0}`, { face: false });
 
   const inlay = useMemo(
     () => new THREE.MeshStandardMaterial({ color: '#ffd27a', emissive: new THREE.Color('#ffb347'), emissiveIntensity: 1.2, metalness: 0.6, roughness: 0.3, flatShading: true }),
@@ -336,13 +414,20 @@ function Disc({ size, state, lastMove, forward, selected, animKey, deniedAt, par
 
   useFrame(({ clock }, dt) => {
     const g = inner.current;
-    if (!g) return;
+    const q = squash.current;
+    if (!g || !q) return;
     const t = clock.elapsedTime;
-    // Lifted: hover and slowly spin. Denied: wobble "no".
-    g.position.y = selected ? Math.sin(t * 3 + size) * 0.06 : 0;
+    // Lifted: hover and slowly spin.
+    q.position.y = selected ? Math.sin(t * 3 + size) * 0.06 : 0;
     g.rotation.y += dt * (selected ? 1.4 : party ? 2.5 : 0);
-    const since = (performance.now() - deniedAt) / 1000;
-    g.rotation.z = deniedAt && since < 0.8 ? Math.sin(since * 38) * 0.22 * (1 - since / 0.8) : 0;
+    // Bonk: squash and stretch like jelly at the impact; the bouncer wobbles home dizzy.
+    const since = bonk ? (performance.now() - bonk.at - BONK_HIT) / 1000 : -1;
+    let sy = 1;
+    if (since >= 0 && since < 0.9) sy = 1 - (bouncer ? 0.45 : 0.3) * Math.cos(since * 26) * Math.exp(-since * 6);
+    else if (party) sy = 1 + Math.max(0, Math.sin(t * 8 - size * 0.8)) * 0.12;
+    const sxz = 1 / Math.sqrt(sy);
+    q.scale.set(sxz, sy, sxz);
+    q.rotation.z = bouncer && since > 0 && since < 1.6 ? Math.sin(since * 14) * 0.2 * (1 - since / 1.6) : 0;
     // Win: a golden glow rises up the tower, one disc after another.
     const wave = party ? 2.5 + Math.max(0, Math.sin(t * 4 - (DISCS - size) * 0.9)) * 4 : 0;
     const want = selected ? 3.5 : party ? wave : 1.2;
@@ -356,6 +441,9 @@ function Disc({ size, state, lastMove, forward, selected, animKey, deniedAt, par
   const gold = toon('#e3a943', { metal: 0.85, rough: 0.28 });
   return (
     <group ref={ref}>
+      <group ref={squash}>
+      <DiscFace mood={face} y={h / 2} z={r + 0.012} />
+      <DizzyStars position={[0, h + 0.3, 0]} radius={r * 0.7} visible={face === 'dizzy'} />
       <group ref={inner}>
         <mesh position-y={bevel / 2} material={jade} castShadow receiveShadow>
           <cylinderGeometry args={[r, r - bevel, bevel, 32]} />
@@ -385,6 +473,7 @@ function Disc({ size, state, lastMove, forward, selected, animKey, deniedAt, par
         <mesh position-y={h + 0.003} rotation-x={-Math.PI / 2} material={toon('#123f33')}>
           <circleGeometry args={[0.15, 16]} />
         </mesh>
+      </group>
       </group>
     </group>
   );
