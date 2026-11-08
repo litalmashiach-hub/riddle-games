@@ -1,6 +1,6 @@
 import { useFrame, type ThreeElements } from '@react-three/fiber';
 import { useSettings } from '@riddle/fx';
-import { groundHeight, toon, type CharacterProps, type Mood } from '@riddle/props';
+import { toon, type CharacterProps, type Mood } from '@riddle/props';
 import { forwardRef, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -44,8 +44,8 @@ const Eye = ({ x, y, z, r = 0.03 }: { x: number; y: number; z: number; r?: numbe
  * A spunky little goat with curled horns, a beard and a stubby tail.
  * `chewing` makes the jaw work (for the munch reaction and for idle cud chewing).
  */
-export const Goat = forwardRef<THREE.Group, CharacterProps & { chewing?: boolean }>(function Goat(
-  { mood = 'idle', seed = 0, scale = 1, chewing = false, children },
+export const Goat = forwardRef<THREE.Group, CharacterProps & { chewing?: boolean; full?: boolean; leaf?: boolean; beard?: boolean }>(function Goat(
+  { mood = 'idle', seed = 0, scale = 1, chewing = false, full = false, leaf = false, beard = true, children },
   ref,
 ) {
   const root = useRef<THREE.Group>(null);
@@ -108,9 +108,17 @@ export const Goat = forwardRef<THREE.Group, CharacterProps & { chewing?: boolean
               <icosahedronGeometry args={[0.07, 1]} />
             </mesh>
             {/* beard */}
-            <mesh position={[0, -0.09, 0.05]} rotation-x={Math.PI} material={patch} castShadow>
-              <coneGeometry args={[0.035, 0.13, 5]} />
-            </mesh>
+            {beard && (
+              <mesh position={[0, -0.09, 0.05]} rotation-x={Math.PI} material={patch} castShadow>
+                <coneGeometry args={[0.035, 0.13, 5]} />
+              </mesh>
+            )}
+            {/* a cabbage leaf left hanging out of a full mouth */}
+            {leaf && (
+              <mesh position={[0.06, -0.01, 0.13]} rotation={[0.3, 0.4, -0.7]} scale={[1, 0.25, 0.7]} material={toon('#6cc24a')}>
+                <icosahedronGeometry args={[0.08, 1]} />
+              </mesh>
+            )}
           </group>
           {/* curled horns */}
           {[1, -1].map((s) => (
@@ -134,6 +142,7 @@ export const Goat = forwardRef<THREE.Group, CharacterProps & { chewing?: boolean
           <Eye x={0.075} y={0.04} z={0.1} r={mood === 'scared' ? 0.036 : 0.028} />
           <Eye x={-0.075} y={0.04} z={0.1} r={mood === 'scared' ? 0.036 : 0.028} />
         </group>
+        <Belly full={full} color="#efe6d6" position={[0, 0.42, 0.02]} size={0.27} />
         {/* legs with dark hooves */}
         {[[0.1, 0.18], [-0.1, 0.18], [0.1, -0.18], [-0.1, -0.18]].map(([x, z], i) => (
           <group key={i} position={[x, 0, z]}>
@@ -207,55 +216,28 @@ export function Cabbage({ mood = 'idle', seed = 0, scale = 1 }: CharacterProps) 
   );
 }
 
-/** Leaf scraps flying out of a munched cabbage. Increase `trigger` to fire. */
-export function LeafBurst({ trigger, position }: { trigger: number; position: [number, number, number] }) {
-  const mesh = useRef<THREE.InstancedMesh>(null);
-  const N = 40;
-  const parts = useMemo(() => Array.from({ length: N }, () => ({ p: new THREE.Vector3(), v: new THREE.Vector3(), r: 0, life: 0 })), []);
-  const dummy = useMemo(() => new THREE.Object3D(), []);
-  const started = useRef(0);
-  useFrame((_, dt) => {
-    const m = mesh.current;
+/**
+ * A round, stuffed belly that swells in under a character (attach as a child of its body).
+ * `size` is the belly radius; it wobbles like jelly when it appears.
+ */
+export function Belly({ full, color, position, size = 0.24 }: { full: boolean; color: string; position: [number, number, number]; size?: number }) {
+  const ref = useRef<THREE.Mesh>(null);
+  const since = useRef(0);
+  const amount = useRef(0);
+  useFrame(({ clock }, dt) => {
+    const m = ref.current;
     if (!m) return;
-    if (trigger !== started.current) {
-      started.current = trigger;
-      if (trigger) {
-        parts.forEach((pt) => {
-          pt.p.set(...position);
-          const a = Math.random() * Math.PI * 2;
-          const s = 0.8 + Math.random() * 1.6;
-          pt.v.set(Math.cos(a) * s, 2 + Math.random() * 2.5, Math.sin(a) * s);
-          pt.r = Math.random() * 6;
-          pt.life = 1.4 + Math.random() * 0.8;
-        });
-      }
-    }
-    const floor = groundHeight(position[0], position[2]);
-    parts.forEach((pt, i) => {
-      if (pt.life > 0) {
-        pt.life -= dt;
-        pt.v.y -= 7 * dt;
-        pt.v.multiplyScalar(1 - dt * 0.8);
-        pt.p.addScaledVector(pt.v, dt);
-        if (pt.p.y < floor + 0.02) {
-          pt.p.y = floor + 0.02;
-          pt.v.set(0, 0, 0);
-        }
-        pt.r += dt * 8;
-      }
-      const s = pt.life > 0 ? Math.min(1, pt.life * 2) * 0.07 : 0;
-      dummy.position.copy(pt.p);
-      dummy.rotation.set(pt.r, pt.r * 1.3, 0);
-      dummy.scale.set(s, s * 0.3, s);
-      dummy.updateMatrix();
-      m.setMatrixAt(i, dummy.matrix);
-    });
-    m.instanceMatrix.needsUpdate = true;
+    since.current = full ? since.current + dt : 0;
+    const wobble = full ? Math.sin(since.current * 18) * Math.exp(-since.current * 3) * 0.25 : 0;
+    const breathe = full ? Math.sin(clock.elapsedTime * 3) * 0.03 : 0;
+    const s = (amount.current = THREE.MathUtils.damp(amount.current, full ? 1 : 0, 10, dt));
+    m.scale.set(size * s * (1 + wobble + breathe), size * s * (1 - wobble * 0.6), size * s * (1.15 + wobble + breathe));
+    m.visible = s > 0.02;
   });
   return (
-    <instancedMesh ref={mesh} args={[undefined, undefined, N]} material={toon('#6cc24a')} frustumCulled={false}>
-      <icosahedronGeometry args={[1, 0]} />
-    </instancedMesh>
+    <mesh ref={ref} position={position} material={toon(color)} castShadow visible={false} scale={0.001}>
+      <icosahedronGeometry args={[1, 2]} />
+    </mesh>
   );
 }
 
