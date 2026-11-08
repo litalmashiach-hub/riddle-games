@@ -5,6 +5,9 @@ import { useEffect, useMemo, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { LANTERN_MINUTES } from './rules';
 
+/** How long the flame sputters before it dies. */
+export const SPUTTER_S = 0.75;
+
 /**
  * The brass lantern. Its origin is the hook it hangs from. The candle inside burns down as
  * `minutes` (a ref updated every frame by the scene) climbs towards 30. When `out` turns on,
@@ -18,6 +21,7 @@ export function Lantern({ minutes, out, moving }: { minutes: RefObject<number>; 
   const light = useRef<THREE.PointLight>(null);
   const smoke = useRef<THREE.Group>(null);
   const outAt = useRef<number | null>(null);
+  const sparks = useRef<THREE.Group>(null);
   const glass = useMemo(
     () => new THREE.MeshStandardMaterial({ color: '#fff2c4', emissive: new THREE.Color('#ffb84a'), emissiveIntensity: 1.6, transparent: true, opacity: 0.55, roughness: 0.2, flatShading: true }),
     [],
@@ -32,7 +36,10 @@ export function Lantern({ minutes, out, moving }: { minutes: RefObject<number>; 
   useFrame(({ clock }, dt) => {
     const t = clock.elapsedTime;
     const left = Math.max(0, 1 - (minutes.current ?? 0) / LANTERN_MINUTES);
-    const lit = !out;
+    // When it goes out, it sputters a few times first, then dies with a spark and a puff.
+    const since = outAt.current == null ? -1 : (performance.now() - outAt.current) / 1000;
+    const sputter = out && since >= 0 && since < SPUTTER_S;
+    const lit = !out || (sputter && Math.floor(since * 15) % 3 !== 1);
     if (swing.current) {
       const m = Math.min(1, moving.current ?? 0);
       swing.current.rotation.z = Math.sin(t * 2.1) * (0.06 + m * 0.18);
@@ -45,8 +52,8 @@ export function Lantern({ minutes, out, moving }: { minutes: RefObject<number>; 
     }
     const flick = 1 + Math.sin(t * 23) * 0.08 + Math.sin(t * 37) * 0.05;
     if (flame.current) {
-      const target = lit ? flick : 0;
-      const s = THREE.MathUtils.lerp(flame.current.scale.x, target, Math.min(1, dt * 10));
+      const target = lit ? flick * (sputter ? 0.6 + Math.random() * 0.8 : 1) : 0;
+      const s = sputter ? target : THREE.MathUtils.lerp(flame.current.scale.x, target, Math.min(1, dt * 10));
       flame.current.scale.set(s, s * (lit ? 1 : 1.4), s);
       flame.current.position.y = -0.4 + 0.16 * ch + 0.04;
     }
@@ -54,16 +61,27 @@ export function Lantern({ minutes, out, moving }: { minutes: RefObject<number>; 
     const panic = left < 0.2 && lit ? 1 : 0;
     fire.emissive.setRGB(1, 0.6 - panic * 0.25, 0.18);
     const glow = lit ? (1.4 + Math.sin(t * 9) * 0.15 * (1 + panic * 3)) * (0.6 + 0.4 * left) : 0;
-    glass.emissiveIntensity = THREE.MathUtils.lerp(glass.emissiveIntensity, glow, Math.min(1, dt * 8));
-    if (light.current) light.current.intensity = THREE.MathUtils.lerp(light.current.intensity, lit ? 3.2 * flick * (0.6 + 0.4 * left) : 0, Math.min(1, dt * 8));
+    glass.emissiveIntensity = sputter ? glow : THREE.MathUtils.lerp(glass.emissiveIntensity, glow, Math.min(1, dt * 8));
+    if (light.current) light.current.intensity = sputter ? (lit ? 3.5 : 0) : THREE.MathUtils.lerp(light.current.intensity, lit ? 3.2 * flick * (0.6 + 0.4 * left) : 0, Math.min(1, dt * 8));
     // Smoke puff after going out.
+    const poof = since - SPUTTER_S;
     if (smoke.current) {
-      const since = outAt.current == null ? -1 : (performance.now() - outAt.current) / 1000;
-      smoke.current.visible = since >= 0 && since < 2.2;
+      smoke.current.visible = poof >= 0 && poof < 2.6;
       smoke.current.children.forEach((c, i) => {
-        const k = Math.max(0, since - i * 0.18);
-        c.position.set(Math.sin(i * 2.3 + k * 2) * 0.08 * k, -0.2 + k * 0.55, Math.cos(i * 1.7) * 0.05 * k);
-        c.scale.setScalar(Math.max(0.001, (0.05 + k * 0.12) * (1 - k / 2.2)));
+        const k = Math.max(0, poof - i * 0.12);
+        // A curly cartoon puff: rises, wobbles and swells, then fades away.
+        c.position.set(Math.sin(i * 2.3 + k * 3) * 0.12 * (0.4 + k), -0.22 + k * 0.6 + (i % 2) * 0.05, Math.cos(i * 1.7) * 0.08 * k);
+        c.scale.setScalar(Math.max(0.001, (0.07 + k * 0.16) * (1 - k / 2.6)));
+      });
+    }
+    if (sparks.current) {
+      sparks.current.visible = poof >= 0 && poof < 0.7;
+      sparks.current.children.forEach((c, i) => {
+        const a = (i / sparks.current!.children.length) * Math.PI * 2;
+        const k = Math.max(0, poof) / 0.7;
+        const d = 0.05 + k * 0.45;
+        c.position.set(Math.cos(a) * d, -0.2 + Math.sin(a) * d * 0.7 + 0.15 * k - 0.3 * k * k, Math.sin(a * 1.7) * 0.05);
+        c.scale.setScalar(Math.max(0.001, 1 - k));
       });
     }
   });
@@ -96,9 +114,16 @@ export function Lantern({ minutes, out, moving }: { minutes: RefObject<number>; 
         </group>
         {high && <pointLight ref={light} position-y={-0.28} color="#ffb766" intensity={3} distance={3.5} decay={2} />}
         <group ref={smoke} visible={false}>
-          {[0, 1, 2, 3].map((i) => (
-            <mesh key={i} material={toon('#9aa0ad', { rough: 1 })}>
-              <icosahedronGeometry args={[1, 0]} />
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <mesh key={i} material={toon(i % 2 ? '#b8bdc9' : '#8d93a3', { rough: 1 })}>
+              <icosahedronGeometry args={[1, 1]} />
+            </mesh>
+          ))}
+        </group>
+        <group ref={sparks} visible={false}>
+          {Array.from({ length: 10 }, (_, i) => (
+            <mesh key={i} material={fire}>
+              <octahedronGeometry args={[0.025, 0]} />
             </mesh>
           ))}
         </group>

@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, easeInOut, sfx, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, Shake, easeInOut, sfx, useSettings, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -7,7 +7,8 @@ import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 import { FOLK_HEIGHT, Folk, type FolkMood, type MotionInfo } from './Folk';
 import { GAP_HALF, ISLAND_X, LANES, LANTERN_HOOK_Y, deckY, entry, lanternPost, sign, slot, waitSpot } from './layout';
-import { Lantern, LanternPost } from './Lantern';
+import { DarkVeil, Fireflies, GlowEyes } from './Blackout';
+import { Lantern, LanternPost, SPUTTER_S } from './Lantern';
 import { LANTERN_MINUTES, MINUTES, NAMES, TRAVELLERS, crossingMinutes, type Move, type Side, type State, type Traveller } from './rules';
 import { SkyIslands } from './SkyIslands';
 
@@ -27,6 +28,15 @@ function onBridge(from: Side, u: number, lane: number): Vec3 {
   const x0 = sign(from) * (GAP_HALF + 0.2);
   const x = x0 * (1 - 2 * u);
   return [x, deckY(x), LANES[lane]];
+}
+
+/** What each stranded walker shouts when the lights go out. */
+function walkerLine(walkers: Traveller[], t: Traveller): string | null {
+  const i = walkers.indexOf(t);
+  if (i < 0) return null;
+  if (t === 'tuk') return 'Nope! *hides*';
+  if (t === 'elm') return i === 0 ? 'Where are my glasses?!' : 'Oh my stars!';
+  return i === 0 ? 'Eek! Lights out!' : 'Hold my hand!';
 }
 
 const sineInOut = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
@@ -128,9 +138,13 @@ interface Crossing {
 }
 
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
+  const quality = useSettings((q) => q.quality);
   const [picked, setPicked] = useState<Traveller[]>([]);
   const [burst, setBurst] = useState(0);
   const [dark, setDark] = useState(false);
+  /** Lights fully out: the world dims and only eyes and fireflies glow. */
+  const [blackout, setBlackout] = useState(false);
+  const [shake, setShake] = useState(0);
   const lastCount = useRef(moveCount);
   const forward = moveCount > lastCount.current;
   const stepKey = `${moveCount}|${resetCount}`;
@@ -164,13 +178,23 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // The lantern dies part-way across the bridge.
   useEffect(() => {
     setDark(false);
+    setBlackout(false);
     if (!lost) return;
     const at = crossing ? WALK_ON_MS + crossing.ms * crossing.frac : 0;
-    const t = setTimeout(() => {
-      setDark(true);
-      sfx.splash();
-    }, at);
-    return () => clearTimeout(t);
+    const timers = [
+      setTimeout(() => setDark(true), at),
+      // sputter, sputter...
+      ...[0, 200, 400].map((d) => setTimeout(() => sfx.click(), at + d)),
+      // ...poof!
+      setTimeout(() => {
+        sfx.poof();
+        setBlackout(true);
+        setShake((n) => n + 1);
+      }, at + SPUTTER_S * 1000),
+      // eyes pop open in the dark
+      setTimeout(() => sfx.squeak(), at + SPUTTER_S * 1000 + 350),
+    ];
+    return () => timers.forEach(clearTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stepKey, lost]);
 
@@ -254,84 +278,96 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const buttonPos: Vec3 = [sign(state.lantern) * (GAP_HALF + 0.55), -0.15, 1.45];
 
   return (
-    <group>
-      <SkyIslands goalGlow={won && !busy ? 1 : 0} />
-      <LanternPost position={lanternPost('L')} hookY={LANTERN_HOOK_Y} />
-      <LanternPost position={lanternPost('R')} hookY={LANTERN_HOOK_Y} />
+    <Shake trigger={shake} intensity={0.08}>
+      <group>
+        <SkyIslands goalGlow={won && !busy ? 1 : 0} />
+        <LanternPost position={lanternPost('L')} hookY={LANTERN_HOOK_Y} />
+        <LanternPost position={lanternPost('R')} hookY={LANTERN_HOOK_Y} />
 
-      <group ref={lanternRef}>
-        <group scale={1.35}>
-          <Lantern minutes={shown} out={dark} moving={lanternSpeed} />
+        <group ref={lanternRef}>
+          <group scale={1.35}>
+            <Lantern minutes={shown} out={dark} moving={lanternSpeed} />
+          </group>
+          {blackout && <ComicWord position={[1.05, -0.35, 0.3]} text="POOF!" color="#b9c2d6" size={42} />}
+          {blackout && (
+            <group position-y={-0.75}>
+              <Fireflies count={quality === 'low' ? 6 : 10} />
+            </group>
+          )}
         </group>
+
+        {TRAVELLERS.map((t, i) => (
+          <Actor
+            key={t}
+            kind={t}
+            seed={i}
+            side={state.pos[t]}
+            crossing={crossing}
+            busy={busy}
+            pickedIndex={picked.indexOf(t)}
+            stepKey={stepKey}
+            mood={won && !busy ? 'happy' : dark && crossing?.walkers.includes(t) ? 'scared' : 'idle'}
+            bubble={blackout && crossing ? walkerLine(crossing.walkers, t) : null}
+            blackout={blackout && !!crossing?.walkers.includes(t)}
+            canPick={!busy && !over && state.pos[t] === state.lantern}
+            hideBadge={won && !busy}
+            disabled={busy || over}
+            onClick={() => toggle(t)}
+          />
+        ))}
+
+        {blackout && <DarkVeil />}
+
+        <TimerBadge minutes={shown} />
+
+        {!busy && !over && (
+          <Html position={buttonPos} center zIndexRange={[5, 0]}>
+            <button
+              onClick={cross}
+              style={{
+                fontFamily: 'Fredoka, system-ui, sans-serif',
+                fontWeight: 700,
+                fontSize: 17,
+                padding: '8px 16px',
+                borderRadius: 999,
+                border: '2px solid rgba(255,255,255,.85)',
+                background: picked.length ? 'linear-gradient(#ffe08a,#f4b03e)' : 'linear-gradient(#ffffff,#e0e7ff)',
+                color: '#1f2937',
+                boxShadow: '0 4px 0 rgba(0,0,0,.2), 0 10px 20px rgba(0,0,0,.25)',
+                whiteSpace: 'nowrap',
+                cursor: picked.length ? 'pointer' : 'default',
+                opacity: picked.length ? 1 : 0.92,
+              }}
+            >
+              {picked.length === 0 ? (
+                <span style={{ fontSize: 14 }}>Tap 1 or 2 travellers</span>
+              ) : (
+                <>
+                  {goingRight ? 'Cross ➜' : '⬅ Cross back'}
+                  <span style={{ opacity: 0.75, fontSize: 13, marginLeft: 6 }}>
+                    {pickMinutes} min{state.time + pickMinutes > LANTERN_MINUTES ? ' ⚠' : ''}
+                  </span>
+                </>
+              )}
+            </button>
+          </Html>
+        )}
+
+        {hint && !busy && !over && (
+          <>
+            {hinted
+              .filter((h) => !picked.includes(h))
+              .map((h) => {
+                const p = slot(h, state.pos[h]);
+                return <HintRing key={h} position={[p[0], 0.04, p[2]]} radius={0.55} />;
+              })}
+            {hintMatches && <HintRing position={[sign(state.lantern) * (GAP_HALF + 0.3), 0.08, 0]} radius={0.9} />}
+          </>
+        )}
+
+        <Burst trigger={burst} position={[ISLAND_X, 1.4, 0.4]} />
       </group>
-
-      {TRAVELLERS.map((t, i) => (
-        <Actor
-          key={t}
-          kind={t}
-          seed={i}
-          side={state.pos[t]}
-          crossing={crossing}
-          pickedIndex={picked.indexOf(t)}
-          stepKey={stepKey}
-          mood={won && !busy ? 'happy' : dark && crossing?.walkers.includes(t) ? 'scared' : 'idle'}
-          bubble={dark && crossing ? (crossing.walkers[0] === t ? "Eek! It's dark!" : crossing.walkers[1] === t ? (t === 'tuk' ? '...' : 'Who blew it out?!') : null) : null}
-          canPick={!busy && !over && state.pos[t] === state.lantern}
-          hideBadge={won && !busy}
-          disabled={busy || over}
-          onClick={() => toggle(t)}
-        />
-      ))}
-
-      <TimerBadge minutes={shown} />
-
-      {!busy && !over && (
-        <Html position={buttonPos} center zIndexRange={[5, 0]}>
-          <button
-            onClick={cross}
-            style={{
-              fontFamily: 'Fredoka, system-ui, sans-serif',
-              fontWeight: 700,
-              fontSize: 17,
-              padding: '8px 16px',
-              borderRadius: 999,
-              border: '2px solid rgba(255,255,255,.85)',
-              background: picked.length ? 'linear-gradient(#ffe08a,#f4b03e)' : 'linear-gradient(#ffffff,#e0e7ff)',
-              color: '#1f2937',
-              boxShadow: '0 4px 0 rgba(0,0,0,.2), 0 10px 20px rgba(0,0,0,.25)',
-              whiteSpace: 'nowrap',
-              cursor: picked.length ? 'pointer' : 'default',
-              opacity: picked.length ? 1 : 0.92,
-            }}
-          >
-            {picked.length === 0 ? (
-              <span style={{ fontSize: 14 }}>Tap 1 or 2 travellers</span>
-            ) : (
-              <>
-                {goingRight ? 'Cross ➜' : '⬅ Cross back'}
-                <span style={{ opacity: 0.75, fontSize: 13, marginLeft: 6 }}>
-                  {pickMinutes} min{state.time + pickMinutes > LANTERN_MINUTES ? ' ⚠' : ''}
-                </span>
-              </>
-            )}
-          </button>
-        </Html>
-      )}
-
-      {hint && !busy && !over && (
-        <>
-          {hinted
-            .filter((h) => !picked.includes(h))
-            .map((h) => {
-              const p = slot(h, state.pos[h]);
-              return <HintRing key={h} position={[p[0], 0.04, p[2]]} radius={0.55} />;
-            })}
-          {hintMatches && <HintRing position={[sign(state.lantern) * (GAP_HALF + 0.3), 0.08, 0]} radius={0.9} />}
-        </>
-      )}
-
-      <Burst trigger={burst} position={[ISLAND_X, 1.4, 0.4]} />
-    </group>
+    </Shake>
   );
 }
 
@@ -342,17 +378,21 @@ interface ActorProps {
   seed: number;
   side: Side;
   crossing: Crossing | null;
+  /** Only a move that is still animating counts as a crossing (taps after it must not replay it). */
+  busy: boolean;
   pickedIndex: number;
   stepKey: string;
   mood: FolkMood;
   bubble: string | null;
+  /** Lights out: show only this walker's glowing eyes. */
+  blackout: boolean;
   canPick: boolean;
   hideBadge: boolean;
   disabled: boolean;
   onClick(): void;
 }
 
-function Actor({ kind, seed, side, crossing, pickedIndex, stepKey, mood, bubble, canPick, hideBadge, disabled, onClick }: ActorProps) {
+function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const facing = useRef<THREE.Group>(null);
   const motion = useRef({ speed: 0, vx: 0, vz: 0 });
@@ -360,7 +400,7 @@ function Actor({ kind, seed, side, crossing, pickedIndex, stepKey, mood, bubble,
   const animKey = `${stepKey}|${pickedIndex}`;
 
   const legs = useMemo<Leg[]>(() => {
-    if (crossing && lane >= 0) {
+    if (crossing && lane >= 0 && busy) {
       const ls: Leg[] = [
         { to: entry(crossing.from, lane), durationMs: WALK_ON_MS, height: 0.15 },
         {
@@ -428,7 +468,8 @@ function Actor({ kind, seed, side, crossing, pickedIndex, stepKey, mood, bubble,
           ⏱ {MINUTES[kind]} min
         </div>
       </Html>
-      {bubble && <Bubble position={[0, h + 0.4, 0]} tone={kind === 'tuk' ? 'white' : 'red'}>{bubble}</Bubble>}
+      {blackout && <GlowEyes kind={kind} seed={seed} />}
+      {bubble && <Bubble position={[0, h + (lane === 1 ? 0.85 : 0.4), 0]} tone={kind === 'tuk' ? 'white' : 'red'}>{bubble}</Bubble>}
     </group>
   );
 }
