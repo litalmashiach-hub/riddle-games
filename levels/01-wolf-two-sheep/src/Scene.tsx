@@ -2,13 +2,15 @@ import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, sfx, usePath, useFaceYaw, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Boat, Bubble, Farmer, HintRing, RiverValley, Sheep, Wolf, groundHeight, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 import { ANIMALS, dangerBank, type Animal, type Move, type Side, type State } from './rules';
 
 const CROSS_MS = 1900;
+/** Pause after docking before the passenger steps out. */
+const DOCK_MS = 250;
 const HOP_MS = 520;
-export const MOVE_MS = CROSS_MS + HOP_MS;
+export const MOVE_MS = CROSS_MS + DOCK_MS + HOP_MS;
 
 const sign = (s: Side) => (s === 'L' ? -1 : 1);
 const boatX = (s: Side) => sign(s) * 1.55;
@@ -30,12 +32,16 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   /** The animal the player has put in the boat but not rowed yet (UI only, not a move). */
   const [loaded, setLoaded] = useState<Animal | null>(null);
   const [burst, setBurst] = useState(0);
-  const lastCount = useRef(moveCount);
-  const forward = moveCount > lastCount.current;
-  useEffect(() => {
-    lastCount.current = moveCount;
-    setLoaded(null);
-  }, [moveCount, resetCount]);
+  // Work out the move direction during render (not in an effect), so the render that shows a new
+  // move sees forward = true and the passenger rides the boat. An effect would flip it back to false
+  // one render later and restart the ride as a plain hop.
+  const dir = useRef({ count: moveCount, reset: resetCount, forward: false });
+  if (dir.current.count !== moveCount || dir.current.reset !== resetCount) {
+    dir.current = { count: moveCount, reset: resetCount, forward: resetCount === dir.current.reset && moveCount > dir.current.count };
+    // Undo or restart from the shell: drop any half-loaded animal.
+    if (loaded) setLoaded(null);
+  }
+  const forward = dir.current.forward;
 
   const over = status.kind !== 'playing';
   const danger = status.kind === 'lost' ? dangerBank(state) : null;
@@ -73,6 +79,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   };
   const row = () => {
     if (busy || over) return;
+    // Clear the selection in the same update as the move, so the ride animation starts only once.
+    setLoaded(null);
     play({ passenger: loaded });
   };
 
@@ -132,6 +140,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           won={won}
           disabled={busy || over}
           busy={busy}
+          boat={boat}
           onClick={() => toggle(a)}
         />
       ))}
@@ -166,10 +175,11 @@ interface ActorProps {
   won: boolean;
   disabled: boolean;
   busy: boolean;
+  boat: RefObject<THREE.Group | null>;
   onClick(): void;
 }
 
-function AnimalActor({ kind, seed, state, previous, lastMove, forward, loaded, animKey, danger, won, disabled, busy, onClick }: ActorProps) {
+function AnimalActor({ kind, seed, state, previous, lastMove, forward, loaded, animKey, danger, won, disabled, busy, boat, onClick }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const side = state[kind];
   const rode = forward && lastMove?.passenger === kind && previous != null;
@@ -184,8 +194,10 @@ function AnimalActor({ kind, seed, state, previous, lastMove, forward, loaded, a
   const segs = useMemo<PathSegment[]>(() => {
     if (rode && previous) {
       const from = previous[kind];
+      const ride = seat(state.farmer, from);
       return [
-        { to: seat(state.farmer, from), durationMs: CROSS_MS, height: 0 },
+        // Sit in the boat for the whole crossing, then step out once it has docked.
+        { to: ride, follow: boat, offset: [sign(from) * 0.72, 0.05, 0], durationMs: CROSS_MS + DOCK_MS },
         { to: slot(kind, side), durationMs: HOP_MS, height: 0.9, onStart: sfx.hop },
       ];
     }
@@ -196,7 +208,7 @@ function AnimalActor({ kind, seed, state, previous, lastMove, forward, loaded, a
       const target = slot(sheep, danger);
       const near: Vec3 = [(target[0] * 2 + home.to[0]) / 3, target[1], (target[2] * 2 + home.to[2]) / 3];
       return [
-        { to: home.to, durationMs: 10, delayMs: forward ? CROSS_MS + 150 : 0 },
+        { to: home.to, durationMs: 10, delayMs: forward ? CROSS_MS + DOCK_MS : 0 },
         { to: near, durationMs: 450, height: 1.3, onStart: sfx.growl },
       ];
     }

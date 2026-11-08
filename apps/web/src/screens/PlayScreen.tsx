@@ -216,6 +216,7 @@ function CameraRig({ position, target }: { position: [number, number, number]; t
   const camera = useThree((st) => st.camera);
   const size = useThree((st) => st.size);
   const start = useRef(performance.now());
+  const flown = useRef(false);
   const end = useMemo(() => new THREE.Vector3(...position), [position]);
   const from = useMemo(() => end.clone().multiplyScalar(1.7).add(new THREE.Vector3(6, 4, 0)), [end]);
 
@@ -228,12 +229,13 @@ function CameraRig({ position, target }: { position: [number, number, number]; t
   }, [camera, size]);
 
   useFrame(() => {
+    if (flown.current) return;
     const t = Math.min((performance.now() - start.current) / 2200, 1);
-    if (t < 1) {
-      const e = 1 - Math.pow(1 - t, 3);
-      camera.position.lerpVectors(from, end, e);
-      controls.current?.target.set(...target);
-    }
+    const e = 1 - Math.pow(1 - t, 3);
+    // On the last frame t is exactly 1, so the camera always lands on its end pose, even at low fps.
+    camera.position.lerpVectors(from, end, e);
+    controls.current?.target.set(...target);
+    if (t >= 1) flown.current = true;
   });
 
   return (

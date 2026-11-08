@@ -59,6 +59,14 @@ export const Boat = forwardRef<THREE.Group, { rowing?: boolean; length?: number;
         <mesh geometry={hull} scale={[sx * 0.94, 0.95, 0.92]} position-y={0.02} receiveShadow>
           <meshStandardMaterial color="#b07a45" roughness={0.9} side={THREE.BackSide} flatShading />
         </mesh>
+        {/*
+          Invisible lid at the waterline. It only writes depth, and draws after solid objects but
+          before the (transparent) water, so the river never shows through the inside of the hull.
+        */}
+        <mesh position-y={0.02} rotation-x={-Math.PI / 2} scale={[sx, 1, 1]} renderOrder={-1}>
+          <circleGeometry args={[0.5, 36]} />
+          <meshBasicMaterial colorWrite={false} depthWrite transparent />
+        </mesh>
         <mesh position-y={0.16} rotation-x={Math.PI / 2} scale={[sx, 1, 1]} material={trim} castShadow>
           <torusGeometry args={[0.56, 0.035, 6, 36]} />
         </mesh>
