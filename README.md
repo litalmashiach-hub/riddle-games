@@ -1,6 +1,6 @@
 # Riddle Games
 
-A 3D browser puzzle game: 12 classic logic riddles in 4 worlds, each harder than the last.
+A 3D browser puzzle game: classic logic riddles in 5 worlds, each harder than the last.
 Built with React Three Fiber (Three.js), TypeScript and Vite.
 
 ## Run it
@@ -38,6 +38,12 @@ Useful URL options:
 | 10 | Clockwork Citadel | Four-Pillar Tower, 6 discs | Planned |
 | 11 | Clockwork Citadel | Family Crossing | Built |
 | 12 | Clockwork Citadel | The Twelve Coins | Built |
+| 14 | Firefly Lagoon | Firefly Lanterns (Lights Out) | Planned |
+| 15 | Firefly Lagoon | Slippery Pond (ice sliding) | Planned |
+| 16 | Firefly Lagoon | Firefly Jars (colour sort) | Planned |
+| 17 | Firefly Lagoon | Moonbeam Mirrors (light beams) | Planned |
+| 18 | Firefly Lagoon | Log Jam (sliding blocks) | Planned |
+| 19 | Firefly Lagoon | Picture Tiles (8-puzzle) | Planned |
 
 ## Layout
 
