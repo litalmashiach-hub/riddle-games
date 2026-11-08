@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, sfx, useFaceYaw, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, DizzyStars, FocusCam, Shake, sfx, useFaceYaw, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -7,31 +7,20 @@ import * as THREE from 'three';
 import { CANAL_HALF, Canal, QUAY_Y } from './Canal';
 import { Character, HEIGHT } from './People';
 import { DECK_Y, Raft } from './Raft';
+import { sign, slot, thiefGetaway, thiefSpot } from './layout';
+import { FAIL_PHASES, Mishap, gagSpot, type FailPhase } from './Mishaps';
 import { PEOPLE, raftProblem, roleOf, trouble, type Move, type Person, type Side, type State } from './rules';
 
 const CROSS_MS = 2300;
 const HOP_MS = 520;
 const BOARD_MS = 300;
 export const MOVE_MS = CROSS_MS + HOP_MS;
+export { FAIL_MS } from './Mishaps';
 
-const sign = (s: Side) => (s === 'L' ? -1 : 1);
 const RAFT_X = CANAL_HALF - 1.22;
 const raftX = (s: Side) => sign(s) * RAFT_X;
 /** Two places to stand on the raft: 0 is nearest the bank it is docked at. */
 const seat = (raftSide: Side, index: number, boardedFrom: Side): Vec3 => [raftX(raftSide) + sign(boardedFrom) * (index === 0 ? 0.5 : -0.38), DECK_Y, 0.12];
-
-/** Where each person waits on a bank (distance from the canal centre, z). */
-const SLOTS: Record<Person, { x: number; z: number }> = {
-  guard: { x: 3.25, z: -1.55 },
-  thief: { x: 4.5, z: -1.7 },
-  father: { x: 3.3, z: -0.4 },
-  mother: { x: 4.45, z: -0.45 },
-  sonA: { x: 3.2, z: 0.75 },
-  sonB: { x: 4.15, z: 0.85 },
-  daughterA: { x: 3.3, z: 1.9 },
-  daughterB: { x: 4.3, z: 1.95 },
-};
-const slot = (p: Person, side: Side): Vec3 => [sign(side) * SLOTS[p].x, QUAY_Y, SLOTS[p].z];
 
 const LABEL: Record<Person, string> = {
   father: 'Dad',
@@ -87,6 +76,23 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const over = status.kind !== 'playing';
   const won = status.kind === 'won';
   const problem = status.kind === 'lost' ? trouble(state) : null;
+  const fail = usePhases<FailPhase>(problem != null && !busy, FAIL_PHASES);
+  const [shake, setShake] = useState(0);
+  useEffect(() => {
+    if (!problem || !fail) return;
+    if (fail === 'windup') sfx[problem.kind === 'thief' ? 'growl' : problem.kind === 'dad' ? 'squeak' : 'boing']();
+    if (fail === 'gag') {
+      setShake((n) => n + 1);
+      if (problem.kind === 'thief') sfx.scuffle();
+      if (problem.kind === 'dad') sfx.boing();
+      if (problem.kind === 'mom') sfx.scuffle();
+    }
+    if (fail === 'after') {
+      const t = setTimeout(sfx.sadTrombone, 300);
+      return () => clearTimeout(t);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fail]);
 
   useEffect(() => {
     if (!won) return;
@@ -141,7 +147,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const hintAtRaft = hint && hinted.length === loaded.length && hinted.every((p) => loaded.includes(p));
 
   return (
-    <group>
+    <Shake trigger={shake} intensity={0.12} durationMs={450}>
       <Canal />
 
       <group ref={raft}>
@@ -195,6 +201,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           resetCount={resetCount}
           moveCount={moveCount}
           problem={problem}
+          fail={fail}
           won={won}
           busy={busy}
           disabled={busy || over}
@@ -211,8 +218,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             return <HintRing key={p} position={[at[0], at[1] + 0.04, at[2]]} radius={0.5} />;
           })}
       {!busy && !over && hintAtRaft && <HintRing position={[raftX(state.raft), DECK_Y + 0.04, 0]} radius={1.3} />}
+      {problem && fail && <Mishap key={`${moveCount}|${resetCount}`} problem={problem} phase={fail} />}
+      {problem && <FocusCam target={gagSpot(problem, 0.6)} active={fail != null} closer={0.6} />}
       <Burst trigger={burst} position={[3.9, 1.6, 0.2]} />
-    </group>
+    </Shake>
   );
 }
 
@@ -228,6 +237,7 @@ interface ActorProps {
   resetCount: number;
   moveCount: number;
   problem: ReturnType<typeof trouble>;
+  fail: FailPhase | null;
   won: boolean;
   busy: boolean;
   disabled: boolean;
@@ -235,7 +245,7 @@ interface ActorProps {
   onClick(): void;
 }
 
-function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, won, busy, disabled, showLabel, onClick }: ActorProps) {
+function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, fail, won, busy, disabled, showLabel, onClick }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const side = state[who];
   const rideIndex = forward && previous ? (lastMove?.riders.indexOf(who) ?? -1) : -1;
@@ -246,9 +256,10 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
   // Loss reaction roles.
   const culprit = problem?.who[0] === who;
   const victim = !!problem && !culprit && problem.who.includes(who);
-  const react = !busy;
+  const react = !busy && fail != null;
+  const inGag = !!problem && problem.who.includes(who);
 
-  const animKey = `${moveCount}|${resetCount}|${rode ? 'ride' : seatIndex}|${problem ? problem.kind : ''}`;
+  const animKey = `${moveCount}|${resetCount}|${rode ? 'ride' : seatIndex}|${inGag ? fail : ''}`;
 
   const segs = useMemo<PathSegment[]>(() => {
     const out: PathSegment[] = [];
@@ -264,31 +275,7 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
       const away = ref.current ? ref.current.position.distanceTo(new THREE.Vector3(...home)) > 0.05 : false;
       out.push({ to: home, durationMs: away ? 480 : 10, height: away ? 0.6 : 0 });
     }
-    if (problem && problem.who.includes(who)) {
-      const wait = rode ? 120 : forward ? MOVE_MS : 0;
-      const sideP = problem.side;
-      if (problem.kind === 'thief' && culprit) {
-        // The thief sneaks up on the first family member and grabs at their pockets.
-        const target = slot(problem.who[1], sideP);
-        const near: Vec3 = [(target[0] * 3 + home[0]) / 4, QUAY_Y, (target[2] * 3 + home[2]) / 4 - 0.25];
-        out.push({ to: near, durationMs: 520, height: 0.9, delayMs: wait, onStart: sfx.growl });
-        out.push({ to: [near[0] + 0.25, QUAY_Y, near[2] + 0.2], durationMs: 260, height: 0.35, onStart: sfx.click });
-        out.push({ to: [near[0] - 0.15, QUAY_Y, near[2] + 0.4], durationMs: 260, height: 0.35, onStart: sfx.click });
-      } else if (problem.kind === 'mom' && !culprit) {
-        // The boys run wild around Mom.
-        const c = slot('mother', sideP);
-        const n = 7;
-        const ofs = problem.who.indexOf(who) * Math.PI;
-        for (let i = 1; i <= n; i++) {
-          const a = ofs + (i / n) * Math.PI * 2 * 1.5;
-          out.push({ to: [c[0] + Math.cos(a) * 0.8, QUAY_Y, c[2] + Math.sin(a) * 0.8], durationMs: 240, height: 0.35, delayMs: i === 1 ? wait : 0, onStart: i % 2 ? sfx.hop : undefined });
-        }
-      } else if (problem.kind === 'dad' && culprit) {
-        // Dad shuffles closer to tell a joke.
-        const t = slot(problem.who[1], sideP);
-        out.push({ to: [(t[0] + home[0]) / 2, QUAY_Y, (t[2] + home[2]) / 2 - 0.2], durationMs: 420, height: 0.3, delayMs: wait });
-      }
-    }
+    if (problem && inGag && fail) out.push(...gagMoves(who, problem, fail, home));
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animKey]);
@@ -298,10 +285,12 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
   // Facing: toward the river on a bank, toward the far bank on the raft, toward the trouble on a loss.
   const facing = useRef<THREE.Group>(null);
   let yaw = seated ? towardRiver(state.raft) : towardRiver(side);
-  if (problem && react && problem.who.includes(who)) {
-    const target = culprit ? slot(problem.who[1], problem.side) : slot(problem.who[0], problem.side);
+  if (problem && react && inGag) {
+    const thiefAt = problem.kind === 'thief' ? (fail === 'after' ? thiefGetaway(problem.side) : thiefSpot(problem.who[1], problem.side).end) : null;
+    const target = culprit ? slot(problem.who[1], problem.side) : (thiefAt ?? slot(problem.who[0], problem.side));
     yaw = yawTo(home, target);
     if (problem.kind === 'mom' && victim) yaw = 0;
+    if (fail === 'after' && (problem.kind === 'thief' ? culprit : victim)) yaw = 0; // play to the camera
   }
   if (won && react) yaw = 0;
   useFaceYaw(facing, yaw, 5);
@@ -309,20 +298,23 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
   let mood: Mood = 'idle';
   if (react && won) mood = 'happy';
   else if (react && problem) {
-    if (problem.kind === 'thief') mood = culprit ? 'angry' : victim ? 'scared' : 'idle';
-    if (problem.kind === 'dad') mood = culprit ? 'happy' : victim ? 'scared' : 'idle';
-    if (problem.kind === 'mom') mood = culprit ? 'angry' : victim ? 'happy' : 'idle';
+    if (problem.kind === 'thief') mood = culprit ? (fail === 'after' ? 'happy' : 'angry') : victim ? 'scared' : 'idle';
+    if (problem.kind === 'dad') mood = culprit ? (fail === 'after' ? 'idle' : 'happy') : victim ? 'scared' : 'idle';
+    if (problem.kind === 'mom') mood = culprit ? 'angry' : victim ? (fail === 'after' ? 'idle' : 'happy') : 'idle';
   }
 
   const role = roleOf(who);
   const h = HEIGHT[role];
-  const bubble = react && problem ? reactionBubble(problem.kind, culprit, problem.who.indexOf(who)) : null;
+  const bubble = react && problem && fail ? reactionBubble(problem.kind, fail, culprit, problem.who.indexOf(who)) : null;
+  // The boys vanish into the brawl cloud while it boils.
+  const hidden = problem?.kind === 'mom' && victim && fail === 'gag';
+  const dizzy = problem?.kind === 'mom' && victim && fail === 'after';
 
   return (
     <group ref={ref}>
-      <group ref={facing}>
+      <group ref={facing} visible={!hidden}>
         <Clickable onClick={onClick} disabled={disabled}>
-          <Character who={who} mood={mood} seed={seed} />
+          <Character who={who} mood={mood} seed={seed} flushed={react && problem?.kind === 'mom' && culprit} bigSack={react && problem?.kind === 'thief' && culprit} />
           <mesh position-y={h * 0.5} visible={false}>
             <cylinderGeometry args={[0.38, 0.38, h + 0.2, 8]} />
           </mesh>
@@ -353,14 +345,63 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
           {bubble.text}
         </Bubble>
       )}
+      {dizzy && <DizzyStars position={[0, h + 0.05, 0]} radius={0.24} />}
       {seated && <HintRing position={[0, 0.05, 0]} radius={0.36} color="#7ee0b0" />}
     </group>
   );
 }
 
-function reactionBubble(kind: 'thief' | 'dad' | 'mom', culprit: boolean, index: number): { text: string; tone: 'white' | 'red' | 'gold' } | null {
-  if (kind === 'thief') return culprit ? { text: 'Hehehe!', tone: 'white' } : index === 1 ? { text: 'My watch!', tone: 'red' } : null;
-  if (kind === 'dad') return culprit ? { text: 'Knock knock…', tone: 'white' } : index === 1 ? { text: 'Waaah!', tone: 'red' } : null;
-  return culprit ? { text: 'BOYS!!', tone: 'red' } : index === 1 ? { text: 'Wheee!', tone: 'gold' } : null;
+function reactionBubble(kind: 'thief' | 'dad' | 'mom', fail: FailPhase, culprit: boolean, index: number): { text: string; tone: 'white' | 'red' | 'gold' } | null {
+  if (kind === 'thief') {
+    if (fail === 'windup') return culprit ? { text: 'Hehehe…', tone: 'white' } : index === 1 ? { text: '!', tone: 'red' } : null;
+    if (fail === 'after') return culprit ? { text: 'All mine!', tone: 'gold' } : index === 1 ? { text: 'My watch!', tone: 'red' } : null;
+    return null;
+  }
+  if (kind === 'dad') {
+    if (fail === 'windup') return culprit ? { text: 'Why did the cog blush?', tone: 'white' } : null;
+    if (fail === 'gag') return culprit ? { text: 'It saw the gear change!', tone: 'white' } : null;
+    return culprit ? { text: 'Tough crowd…', tone: 'white' } : null;
+  }
+  if (fail === 'windup') return culprit ? null : index === 1 ? { text: 'Wheee!', tone: 'gold' } : null;
+  if (fail === 'after') return culprit ? { text: 'BOYS!!', tone: 'red' } : null;
+  return null;
 }
 
+/** How each person moves during a fail scene. */
+function gagMoves(who: Person, problem: NonNullable<ReturnType<typeof trouble>>, fail: FailPhase, home: Vec3): PathSegment[] {
+  const side = problem.side;
+  const culprit = problem.who[0] === who;
+  if (problem.kind === 'thief' && culprit) {
+    const { near, end } = thiefSpot(problem.who[1], side);
+    if (fail === 'windup') return [{ to: near, durationMs: 700, height: 0.5 }];
+    if (fail === 'gag')
+      return [
+        { to: [near[0] + 0.25, QUAY_Y, near[2] + 0.2], durationMs: 300, height: 0.4, onStart: sfx.squeak },
+        { to: [near[0] - 0.2, QUAY_Y, near[2] + 0.05], durationMs: 300, height: 0.4, onStart: sfx.squeak },
+        { to: end, durationMs: 300, height: 0.4, onStart: sfx.squeak },
+      ];
+    // Off he hops to an open spot to show off the loot.
+    return [{ to: thiefGetaway(side), durationMs: 520, height: 0.9, onStart: sfx.boing }];
+  }
+  if (problem.kind === 'dad' && culprit) {
+    const t = slot(problem.who[1], side);
+    return [{ to: [(t[0] + home[0]) / 2, QUAY_Y, (t[2] + home[2]) / 2 - 0.2], durationMs: 420, height: 0.3 }];
+  }
+  if (problem.kind === 'mom' && !culprit) {
+    const c = slot('mother', side);
+    const spot = gagSpot(problem, 0);
+    if (fail === 'windup') {
+      const out: PathSegment[] = [];
+      const ofs = problem.who.indexOf(who) * Math.PI;
+      for (let i = 1; i <= 4; i++) {
+        const a = ofs + (i / 4) * Math.PI * 1.6;
+        out.push({ to: [c[0] + Math.cos(a) * 0.8, QUAY_Y, c[2] + Math.sin(a) * 0.8], durationMs: 210, height: 0.35, onStart: i % 2 ? sfx.hop : undefined });
+      }
+      return out;
+    }
+    if (fail === 'gag') return [{ to: spot, durationMs: 300, height: 0.8 }];
+    const i = problem.who.indexOf(who);
+    return [{ to: [spot[0] + (i === 1 ? -0.35 : 0.35), QUAY_Y, spot[2] + (i === 1 ? 0.2 : -0.2)], durationMs: 380, height: 0.5, onStart: sfx.poof }];
+  }
+  return [];
+}

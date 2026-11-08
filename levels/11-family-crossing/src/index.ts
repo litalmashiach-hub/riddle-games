@@ -1,6 +1,6 @@
 import type { RiddleLevel } from '@riddle/engine';
 import { rules, type Move, type State } from './rules';
-import { MOVE_MS, Scene } from './Scene';
+import { FAIL_MS, MOVE_MS, Scene } from './Scene';
 
 const level: RiddleLevel<State, Move> = {
   id: 'family-crossing',
@@ -23,7 +23,7 @@ const level: RiddleLevel<State, Move> = {
   bestMoves: 17,
   moveNoun: 'crossings',
   moveDurationMs: MOVE_MS,
-  endDelayMs: 1500,
+  endDelayMs: FAIL_MS,
   camera: { position: [0, 5.2, 8.9], target: [0, 0.9, -0.9], fov: 46 },
   Scene,
 };

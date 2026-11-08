@@ -288,13 +288,14 @@ function Father({ mood, seed }: { mood: Mood; seed: number }) {
   );
 }
 
-function Mother({ mood, seed }: { mood: Mood; seed: number }) {
+function Mother({ mood, seed, flushed }: { mood: Mood; seed: number; flushed: boolean }) {
   const r = 0.155;
   const hair = toon('#a0462a');
   return (
     <Humanoid
       mood={mood}
       seed={seed}
+      skin={flushed ? '#ff7a6b' : undefined}
       top="#9b59b6"
       bottom="#9b59b6"
       skirt="#7d3c98"
@@ -528,8 +529,17 @@ function Guard({ mood, seed }: { mood: Mood; seed: number }) {
   );
 }
 
-function Thief({ mood, seed }: { mood: Mood; seed: number }) {
+function Thief({ mood, seed, bigSack }: { mood: Mood; seed: number; bigSack: boolean }) {
   const r = 0.155;
+  const sack = useRef<THREE.Group>(null);
+  useFrame(({ clock }, dt) => {
+    const g = sack.current;
+    if (!g) return;
+    const target = bigSack ? 1.9 : 1;
+    const s = g.scale.x + (target - g.scale.x) * Math.min(1, dt * 1.2);
+    const wob = bigSack ? Math.sin(clock.elapsedTime * 14) * 0.06 : 0;
+    g.scale.set(s + wob, s - wob, s + wob);
+  });
   const black = toon('#1e1b22');
   return (
     <group>
@@ -568,7 +578,7 @@ function Thief({ mood, seed }: { mood: Mood; seed: number }) {
               </mesh>
             ))}
             {/* loot sack */}
-            <group position={[0.05, 0.32, -0.22]}>
+            <group ref={sack} position={[0.05, 0.32, -0.22]}>
               <mesh scale={[1, 0.95, 0.85]} material={toon('#a07a4a', { rough: 1 })} castShadow>
                 <icosahedronGeometry args={[0.2, 1]} />
               </mesh>
@@ -598,14 +608,14 @@ function Thief({ mood, seed }: { mood: Mood; seed: number }) {
 }
 
 /** Draws the right character for a person. */
-export function Character({ who, mood, seed }: { who: Person; mood: Mood; seed: number }) {
+export function Character({ who, mood, seed, flushed = false, bigSack = false }: { who: Person; mood: Mood; seed: number; flushed?: boolean; bigSack?: boolean }) {
   const role = roleOf(who);
   const variant = who.endsWith('B') ? 1 : 0;
   switch (role) {
     case 'father':
       return <Father mood={mood} seed={seed} />;
     case 'mother':
-      return <Mother mood={mood} seed={seed} />;
+      return <Mother mood={mood} seed={seed} flushed={flushed} />;
     case 'son':
       return <Son mood={mood} seed={seed} variant={variant} />;
     case 'daughter':
@@ -613,6 +623,6 @@ export function Character({ who, mood, seed }: { who: Person; mood: Mood; seed: 
     case 'guard':
       return <Guard mood={mood} seed={seed} />;
     case 'thief':
-      return <Thief mood={mood} seed={seed} />;
+      return <Thief mood={mood} seed={seed} bigSack={bigSack} />;
   }
 }
