@@ -36,8 +36,8 @@ The shell gives the scene `state`, `previous`, `lastMove`, `status`, `play(move)
 - `moveCount` going up means animate the new move; going down (undo) or `resetCount` changing means move back
   quickly. Use `usePath` / `useHopTo` from `@riddle/fx` so nothing ever teleports.
 - Show the `hint` move with `<HintRing>` from `@riddle/props`.
-- On a loss, play a short funny reaction (see the wolf pounce in level 1). Set `endDelayMs` so it plays before
-  the "Oh no!" screen.
+- On a loss, play a short, funny, kid-friendly fail scene (cartoon slapstick, never gore). See
+  [Fail scenes](#fail-scenes) below and level 1. Set `endDelayMs` so it plays before the "Oh no!" screen.
 - On a win, fire `<Burst>` confetti and make the characters celebrate (`mood="happy"`).
 - Do not add lights, sky, fog or post-processing: `WorldStage` does that per world. Add only local lights
   (torches, glowing potions).
@@ -69,3 +69,29 @@ For scripted checks: `?debug&quality=low#/level/<id>` exposes `window.__riddle`,
   move it to `packages/props` in a separate, small pull request.
 - Don't change the engine contract (`packages/engine/src/types.ts`) in a level PR. Propose it separately.
 - Follow [art-direction.md](art-direction.md).
+
+## Fail scenes
+
+Losing should make kids laugh. `@riddle/fx` has a cartoon kit (`packages/fx/src/cartoon.tsx`):
+
+| Piece | What it does |
+| --- | --- |
+| `usePhases(start, [['windup', 800], ['fight', 1600], ['after', 60000]])` | Runs a timed sequence of beats and returns the current one. Start it with `status.kind === 'lost' && !busy`, so it waits for the move to finish. |
+| `<FightCloud position active limbColors>` | The classic boiling dust ball with stars, arms and tails popping out. Hide the fighters while it is active. |
+| `<ComicWord position text>` | A big bouncy comic word: "CHOMP!", "MUNCH!", "SPLASH!", "Oops!". |
+| `<DizzyStars position>` | Stars circling a dazed head. |
+| `<Shake trigger>` | Wrap the scene in it, and bump `trigger` to shake everything on an impact. |
+| `<FocusCam target active>` | A dramatic zoom toward the action, which glides back on undo or restart. |
+| `<Burst colors power size>` | The confetti burst, reused for flying wool, leaves, feathers and the like. |
+| `sfx.boing / scuffle / chomp / burp / poof / squeak / sadTrombone` | Cartoon sounds. |
+
+Props also have gag states, e.g. `<Sheep shorn />` (pink and blushing) and `<Wolf woolBeard />`.
+
+Level 1's beat sheet, as a model: **windup** (the wolf growls, the sheep shows "!", the camera zooms in), then
+**fight** (the wolf leaps into a `FightCloud`, "CHOMP!", shake, wool flies), then **after** (the cloud clears:
+the sheep is shorn and dizzy, the wolf has a wool beard and burps). Then the "Oh no!" screen. Make the outcome
+silly and reversible-looking, never hurt.
+
+Testing tip: headless Chromium renders slowly, so screenshots lag behind the timers. Before playing the losing
+move, set `window.__riddle.getState().level.endDelayMs = 60000`. The scene then stays in its final beat
+long enough to capture.

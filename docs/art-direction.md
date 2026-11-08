@@ -19,7 +19,7 @@ Never copy characters, art or levels from existing games.
 - Nothing teleports. Every change animates: hops with an arc, glides for boats, eased in and out.
 - Idle life everywhere: breathing, tail wags, swaying trees, bobbing boats, drifting clouds, sparkles.
 - Feedback for every tap: hover lift (`<Clickable>`), a sound from `sfx`, a ring or a bubble.
-- Failure is funny, not scary: a short reaction (pounce, munch, splash), then the "Oh no!" screen.
+- Failure is funny, not scary: a 3 to 4 second cartoon gag (windup, scuffle or splash, silly aftermath) made with the fail-scene kit in `@riddle/fx`, then the "Oh no!" screen. No gore, nobody really gets hurt: shorn, soggy, dizzy, embarrassed.
 - Success is a party: confetti `<Burst>`, characters bounce with `mood="happy"`, win jingle.
 
 ## Worlds
