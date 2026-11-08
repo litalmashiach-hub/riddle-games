@@ -241,6 +241,7 @@ function CameraRig({ position, target }: { position: [number, number, number]; t
   return (
     <OrbitControls
       ref={controls}
+      makeDefault
       target={target}
       enablePan={false}
       enableDamping

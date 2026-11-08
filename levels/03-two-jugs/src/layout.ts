@@ -12,6 +12,8 @@ export const FLOW_START = GO_MS + TILT_MS;
 export const FLOW_END = FLOW_START + FLOW_MS;
 /** Undo and restart glide everything home this fast. */
 export const BACK_MS = 450;
+/** Undo / restart that pours water out: a backflip that sprays it everywhere. */
+export const SPILL_MS = 800;
 
 // ---- The yard ----
 /** Top of the cobbled yard where the jugs stand. */

@@ -74,4 +74,41 @@ export const sfx = {
     tone(220, 0.6, 'sawtooth', 0.06, 0.3, 110);
   },
   growl: () => on() && tone(90, 0.6, 'sawtooth', 0.1, 0, 60),
+
+  // ---- Cartoon fail-scene sounds ----
+  /** Boing for a leap or a bounce. */
+  boing: () => on() && tone(180, 0.45, 'sine', 0.14, 0, 720),
+  /** A 1.2 s scuffle: thumps, squeaks and swishes. */
+  scuffle: () => {
+    if (!on()) return;
+    for (let i = 0; i < 9; i++) {
+      const d = i * 0.13 + Math.random() * 0.05;
+      noise(0.12, 0.12, 500 + Math.random() * 1500, d);
+      if (i % 2) tone(300 + Math.random() * 700, 0.08, 'square', 0.04, d, 200 + Math.random() * 900);
+    }
+  },
+  /** Two quick bites. */
+  chomp: () => {
+    if (!on()) return;
+    tone(140, 0.07, 'square', 0.1, 0, 80);
+    tone(150, 0.07, 'square', 0.1, 0.14, 80);
+    noise(0.06, 0.1, 2500, 0);
+    noise(0.06, 0.1, 2500, 0.14);
+  },
+  /** A satisfied little burp. */
+  burp: () => {
+    if (!on()) return;
+    tone(110, 0.35, 'sawtooth', 0.09, 0, 70);
+    tone(116, 0.3, 'sawtooth', 0.05, 0.03, 75);
+  },
+  /** Comedy "wah wah wah waaah". */
+  sadTrombone: () => {
+    if (!on()) return;
+    [392, 370, 349].forEach((f, i) => tone(f, 0.38, 'sawtooth', 0.05, i * 0.42, f * 0.97));
+    tone(330, 1.0, 'sawtooth', 0.05, 1.26, 300);
+  },
+  /** A soft "poof" when a cloud appears or vanishes. */
+  poof: () => on() && noise(0.35, 0.12, 700),
+  /** A tiny embarrassed squeak. */
+  squeak: () => on() && tone(900, 0.15, 'sine', 0.07, 0, 1400),
 };
