@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "Riddle Games",
+  "short_name": "Riddles",
+  "description": "Cross rivers, measure potions and outsmart the scales. A 3D game of logic riddles.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "any",
+  "background_color": "#0f2236",
+  "theme_color": "#0f2236",
+  "categories": ["games", "kids", "education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
