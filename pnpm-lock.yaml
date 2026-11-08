@@ -44,6 +44,9 @@ importers:
       '@riddle/level-01-wolf-two-sheep':
         specifier: workspace:*
         version: link:../../levels/01-wolf-two-sheep
+      '@riddle/level-02-wolf-goat-cabbage':
+        specifier: workspace:*
+        version: link:../../levels/02-wolf-goat-cabbage
       '@riddle/level-06-explorers-guardians':
         specifier: workspace:*
         version: link:../../levels/06-explorers-guardians
@@ -95,6 +98,30 @@ importers:
         version: 7.3.7(jiti@2.7.0)(lightningcss@1.33.0)
 
   levels/01-wolf-two-sheep:
+    dependencies:
+      '@react-three/drei':
+        specifier: 10.7.9
+        version: 10.7.9(@react-three/fiber@9.8.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.187.0))(@types/react@19.3.0)(@types/three@0.187.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.187.0)
+      '@react-three/fiber':
+        specifier: 9.8.2
+        version: 9.8.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.187.0)
+      '@riddle/engine':
+        specifier: workspace:*
+        version: link:../../packages/engine
+      '@riddle/fx':
+        specifier: workspace:*
+        version: link:../../packages/fx
+      '@riddle/props':
+        specifier: workspace:*
+        version: link:../../packages/props
+      react:
+        specifier: ^19.0.0
+        version: 19.3.1
+      three:
+        specifier: 0.187.0
+        version: 0.187.0
+
+  levels/02-wolf-goat-cabbage:
     dependencies:
       '@react-three/drei':
         specifier: 10.7.9

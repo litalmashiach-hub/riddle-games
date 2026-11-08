@@ -1,0 +1,19 @@
+{
+  "name": "@riddle/level-02-wolf-goat-cabbage",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.2",
+    "@riddle/engine": "workspace:*",
+    "@riddle/fx": "workspace:*",
+    "three": "0.187.0",
+    "@riddle/props": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}
