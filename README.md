@@ -39,7 +39,7 @@ Useful URL options:
 | 11 | Clockwork Citadel | Family Crossing | Built |
 | 12 | Clockwork Citadel | The Twelve Coins | Built |
 | 13 | Firefly Lagoon | Leapfrog Lagoon (frogs swap sides) | Built |
-| 14 | Firefly Lagoon | Firefly Lanterns (Lights Out) | Planned |
+| 14 | Firefly Lagoon | Firefly Lanterns (Lights Out) | Built |
 | 15 | Firefly Lagoon | Slippery Pond (ice sliding) | Planned |
 | 16 | Firefly Lagoon | Firefly Jars (colour sort) | Planned |
 | 17 | Firefly Lagoon | Moonbeam Mirrors (light beams) | Planned |

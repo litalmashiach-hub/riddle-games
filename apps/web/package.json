@@ -25,6 +25,7 @@
     "@riddle/level-11-family-crossing": "workspace:*",
     "@riddle/level-12-twelve-coins": "workspace:*",
     "@riddle/level-13-leapfrog-lagoon": "workspace:*",
+    "@riddle/level-14-firefly-lanterns": "workspace:*",
     "@riddle/level-08-three-jugs": "workspace:*",
     "motion": "14.10.1",
     "react": "19.3.1",
