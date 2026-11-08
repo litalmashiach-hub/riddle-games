@@ -16,6 +16,7 @@
     "@riddle/level-01-wolf-two-sheep": "workspace:*",
     "@riddle/level-02-wolf-goat-cabbage": "workspace:*",
     "@riddle/level-03-two-jugs": "workspace:*",
+    "@riddle/level-05-bridge-and-torch": "workspace:*",
     "@riddle/level-06-explorers-guardians": "workspace:*",
     "@riddle/level-07-jealous-couples": "workspace:*",
     "@riddle/level-09-bridge-five": "workspace:*",
