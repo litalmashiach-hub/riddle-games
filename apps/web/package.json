@@ -22,6 +22,7 @@
     "@riddle/level-09-bridge-five": "workspace:*",
     "@riddle/level-11-family-crossing": "workspace:*",
     "@riddle/level-12-twelve-coins": "workspace:*",
+    "@riddle/level-08-three-jugs": "workspace:*",
     "motion": "14.10.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",

@@ -8,6 +8,7 @@ import bridgeFive from '@riddle/level-09-bridge-five';
 import familyCrossing from '@riddle/level-11-family-crossing';
 import twelveCoins from '@riddle/level-12-twelve-coins';
 import jealousCouples from '@riddle/level-07-jealous-couples';
+import threeJugs from '@riddle/level-08-three-jugs';
 
 /**
  * Every level in the game, in order. A level that is built is listed with its package;
@@ -16,7 +17,7 @@ import jealousCouples from '@riddle/level-07-jealous-couples';
  * To add a level: create levels/NN-name (see docs/adding-a-level.md),
  * add it to apps/web/package.json, import it here and put it in BUILT.
  */
-const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, familyCrossing, twelveCoins];
+const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, familyCrossing, twelveCoins, threeJugs];
 
 export interface LevelEntry {
   number: number;
