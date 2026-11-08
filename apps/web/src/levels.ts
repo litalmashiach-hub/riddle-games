@@ -9,6 +9,7 @@ import bridgeFive from '@riddle/level-09-bridge-five';
 import fourPillarTower from '@riddle/level-10-four-pillar-tower';
 import familyCrossing from '@riddle/level-11-family-crossing';
 import twelveCoins from '@riddle/level-12-twelve-coins';
+import leapfrogLagoon from '@riddle/level-13-leapfrog-lagoon';
 import jealousCouples from '@riddle/level-07-jealous-couples';
 import threeJugs from '@riddle/level-08-three-jugs';
 
@@ -19,7 +20,7 @@ import threeJugs from '@riddle/level-08-three-jugs';
  * To add a level: create levels/NN-name (see docs/adding-a-level.md),
  * add it to apps/web/package.json, import it here and put it in BUILT.
  */
-const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, towerOfHanoi, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, fourPillarTower, familyCrossing, twelveCoins, threeJugs];
+const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, towerOfHanoi, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, fourPillarTower, familyCrossing, twelveCoins, threeJugs, leapfrogLagoon];
 
 export interface LevelEntry {
   number: number;
@@ -43,6 +44,7 @@ const PLAN: Omit<LevelEntry, 'level'>[] = [
   { number: 10, id: 'four-pillar-tower', title: 'Four-Pillar Tower', world: 'citadel', tagline: 'Hanoi with an extra pillar and a bigger stack.' },
   { number: 11, id: 'family-crossing', title: 'Family Crossing', world: 'citadel', tagline: 'A family, a guard and a thief on one raft.' },
   { number: 12, id: 'twelve-coins', title: 'The Twelve Coins', world: 'citadel', tagline: 'One fake coin. Three weighings.' },
+  { number: 13, id: 'leapfrog-lagoon', title: 'Leapfrog Lagoon', world: 'lagoon', tagline: 'Three green frogs, three orange frogs, one empty lily pad.' },
   { number: 14, id: 'firefly-lanterns', title: 'Firefly Lanterns', world: 'lagoon', tagline: 'Every tap flips a lantern and its neighbours.' },
   { number: 15, id: 'slippery-pond', title: 'Slippery Pond', world: 'lagoon', tagline: 'Once you start sliding, you cannot stop.' },
   { number: 16, id: 'firefly-jars', title: 'Firefly Jars', world: 'lagoon', tagline: 'One colour of firefly in every jar.' },
