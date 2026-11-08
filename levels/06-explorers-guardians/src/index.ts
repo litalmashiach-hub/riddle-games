@@ -19,7 +19,7 @@ const level: RiddleLevel<State, Move> = {
   bestMoves: 11,
   moveNoun: 'crossings',
   moveDurationMs: MOVE_MS,
-  endDelayMs: 1700,
+  endDelayMs: 3000,
   camera: { position: [0, 5.6, 9.2], target: [0, 0.9, -1.2], fov: 45 },
   Scene,
 };

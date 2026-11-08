@@ -80,7 +80,7 @@ export const rules: RiddleRules<State, Move> = {
   },
 
   status(s) {
-    if (dangerBank(s)) return { kind: 'lost', reason: 'The stone guardians outnumbered the explorers and turned them to stone!' };
+    if (dangerBank(s)) return { kind: 'lost', reason: 'Outnumbered! The stone guardians booped the explorers right into the lake. Splash!' };
     if (EVERYONE.every((w) => s[w] === 'R')) return { kind: 'won' };
     return { kind: 'playing' };
   },
