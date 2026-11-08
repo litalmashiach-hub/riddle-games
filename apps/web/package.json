@@ -27,6 +27,7 @@
     "@riddle/level-13-leapfrog-lagoon": "workspace:*",
     "@riddle/level-14-firefly-lanterns": "workspace:*",
     "@riddle/level-08-three-jugs": "workspace:*",
+    "@riddle/level-16-firefly-jars": "workspace:*",
     "motion": "14.10.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
