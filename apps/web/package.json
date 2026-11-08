@@ -14,6 +14,7 @@
     "@riddle/engine": "workspace:*",
     "@riddle/fx": "workspace:*",
     "@riddle/level-01-wolf-two-sheep": "workspace:*",
+    "@riddle/level-02-wolf-goat-cabbage": "workspace:*",
     "@riddle/level-06-explorers-guardians": "workspace:*",
     "@riddle/level-09-bridge-five": "workspace:*",
     "@riddle/level-12-twelve-coins": "workspace:*",

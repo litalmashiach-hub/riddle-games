@@ -27,7 +27,7 @@ Useful URL options:
 | # | World | Riddle | Status |
 | --- | --- | --- | --- |
 | 1 | Meadow River | Wolf and Two Sheep | Built |
-| 2 | Meadow River | Wolf, Goat and Cabbage | Planned |
+| 2 | Meadow River | Wolf, Goat and Cabbage | Built |
 | 3 | Meadow River | Two Jugs (3 L and 5 L) | Planned |
 | 4 | Ancient Temple | Tower of Hanoi, 4 discs | Planned |
 | 5 | Ancient Temple | Bridge and Torch | Planned |
