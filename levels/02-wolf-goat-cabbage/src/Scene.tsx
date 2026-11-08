@@ -3,16 +3,18 @@ import { Burst, Clickable, sfx, usePath, useFaceYaw, type PathSegment, type Vec3
 import { Boat, Bubble, Farmer, HintRing, RiverValley, Wolf, groundHeight, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 import { Barn, Butterflies, Cabbage, GardenBed, Goat, HayBale, LeafBurst } from './models';
 import { ITEMS, trouble, type Item, type Move, type Side, type State, type Trouble } from './rules';
 
 const CROSS_MS = 1900;
+/** Pause after docking before the passenger steps out. */
+const DOCK_MS = 250;
 const HOP_MS = 520;
-export const MOVE_MS = CROSS_MS + HOP_MS;
-/** When a fail reaction starts after a crossing: just after the boat lands. */
-const REACT_DELAY = CROSS_MS + 150;
+export const MOVE_MS = CROSS_MS + DOCK_MS + HOP_MS;
+/** When a fail reaction starts after a crossing: once the boat has docked. */
+const REACT_DELAY = CROSS_MS + DOCK_MS;
 const LUNGE_MS = 450;
 /** How long the goat chews before the cabbage is gone. */
 const MUNCH_MS = 900;
@@ -150,6 +152,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           won={won}
           disabled={busy || over}
           busy={busy}
+          boat={boat}
           onClick={() => toggle(a)}
         />
       ))}
@@ -201,10 +204,11 @@ interface ActorProps {
   won: boolean;
   disabled: boolean;
   busy: boolean;
+  boat: RefObject<THREE.Group | null>;
   onClick(): void;
 }
 
-function Actor({ kind, seed, state, previous, lastMove, forward, loaded, animKey, danger, won, disabled, busy, onClick }: ActorProps) {
+function Actor({ kind, seed, state, previous, lastMove, forward, loaded, animKey, danger, won, disabled, busy, boat, onClick }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const side = state[kind];
   const rode = forward && lastMove?.passenger === kind && previous != null;
@@ -221,7 +225,8 @@ function Actor({ kind, seed, state, previous, lastMove, forward, loaded, animKey
     if (rode && previous) {
       const from = previous[kind];
       return [
-        { to: seat(state.farmer, from), durationMs: CROSS_MS, height: 0 },
+        // Sit in the boat for the whole crossing, then step out once it has docked.
+        { to: seat(state.farmer, from), follow: boat, offset: [sign(from) * 0.72, 0.05, 0], durationMs: CROSS_MS + DOCK_MS },
         { to: slot(kind, side), durationMs: HOP_MS, height: kind === 'cabbage' ? 0.6 : 0.9, onStart: sfx.hop },
       ];
     }
