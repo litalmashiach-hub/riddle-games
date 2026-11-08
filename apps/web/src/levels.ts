@@ -2,6 +2,7 @@ import type { RiddleLevel, WorldId } from '@riddle/engine';
 import wolfTwoSheep from '@riddle/level-01-wolf-two-sheep';
 import wolfGoatCabbage from '@riddle/level-02-wolf-goat-cabbage';
 import twoJugs from '@riddle/level-03-two-jugs';
+import bridgeAndTorch from '@riddle/level-05-bridge-and-torch';
 import explorersGuardians from '@riddle/level-06-explorers-guardians';
 import bridgeFive from '@riddle/level-09-bridge-five';
 import twelveCoins from '@riddle/level-12-twelve-coins';
@@ -14,7 +15,7 @@ import jealousCouples from '@riddle/level-07-jealous-couples';
  * To add a level: create levels/NN-name (see docs/adding-a-level.md),
  * add it to apps/web/package.json, import it here and put it in BUILT.
  */
-const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, explorersGuardians, jealousCouples, bridgeFive, twelveCoins];
+const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, twelveCoins];
 
 export interface LevelEntry {
   number: number;
