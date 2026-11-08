@@ -83,6 +83,9 @@ importers:
       '@riddle/level-14-firefly-lanterns':
         specifier: workspace:*
         version: link:../../levels/14-firefly-lanterns
+      '@riddle/level-15-slippery-pond':
+        specifier: workspace:*
+        version: link:../../levels/15-slippery-pond
       '@riddle/level-16-firefly-jars':
         specifier: workspace:*
         version: link:../../levels/16-firefly-jars
@@ -458,6 +461,30 @@ importers:
         version: 0.187.0
 
   levels/14-firefly-lanterns:
+    dependencies:
+      '@react-three/drei':
+        specifier: 10.7.9
+        version: 10.7.9(@react-three/fiber@9.8.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.187.0))(@types/react@19.3.0)(@types/three@0.187.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.187.0)
+      '@react-three/fiber':
+        specifier: 9.8.2
+        version: 9.8.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.187.0)
+      '@riddle/engine':
+        specifier: workspace:*
+        version: link:../../packages/engine
+      '@riddle/fx':
+        specifier: workspace:*
+        version: link:../../packages/fx
+      '@riddle/props':
+        specifier: workspace:*
+        version: link:../../packages/props
+      react:
+        specifier: ^19.0.0
+        version: 19.3.1
+      three:
+        specifier: 0.187.0
+        version: 0.187.0
+
+  levels/15-slippery-pond:
     dependencies:
       '@react-three/drei':
         specifier: 10.7.9
