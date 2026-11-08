@@ -31,7 +31,7 @@ Useful URL options:
 | 3 | Meadow River | Two Jugs (3 L and 5 L) | Planned |
 | 4 | Ancient Temple | Tower of Hanoi, 4 discs | Planned |
 | 5 | Ancient Temple | Bridge and Torch | Planned |
-| 6 | Ancient Temple | Explorers and Guardians | Planned |
+| 6 | Ancient Temple | Explorers and Guardians | Built |
 | 7 | Sky Islands | Three Jealous Couples | Planned |
 | 8 | Sky Islands | Three Jugs (8, 5 and 3 L) | Planned |
 | 9 | Sky Islands | Bridge of Five | Planned |
