@@ -20,7 +20,7 @@ const level: RiddleLevel<State, Move> = {
   moveNoun: 'moves',
   moveDurationMs: MOVE_MS,
   endDelayMs: 1800,
-  camera: { position: [0, 3.3, 8.6], target: [0, 1.3, 0], fov: 42 },
+  camera: { position: [0, 4.4, 11.2], target: [0, 1.1, 0.3], fov: 42 },
   Scene,
 };
 
