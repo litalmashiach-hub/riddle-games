@@ -43,7 +43,7 @@ Useful URL options:
 | 15 | Firefly Lagoon | Slippery Pond (ice sliding) | Planned |
 | 16 | Firefly Lagoon | Firefly Jars (colour sort) | Planned |
 | 17 | Firefly Lagoon | Moonbeam Mirrors (light beams) | Planned |
-| 18 | Firefly Lagoon | Log Jam (sliding blocks) | Planned |
+| 18 | Firefly Lagoon | Log Jam (sliding blocks) | Built |
 | 19 | Firefly Lagoon | Picture Tiles (8-puzzle) | Built |
 
 ## Layout
