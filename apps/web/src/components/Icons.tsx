@@ -1,0 +1,10 @@
+const P = { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2.2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+export const UndoIcon = () => (<svg {...P}><path d="M9 14L4 9l5-5" /><path d="M4 9h10a6 6 0 010 12h-3" /></svg>);
+export const RedoIcon = () => (<svg {...P}><path d="M15 14l5-5-5-5" /><path d="M20 9H10a6 6 0 000 12h3" /></svg>);
+export const RestartIcon = () => (<svg {...P}><path d="M3 12a9 9 0 109-9 9.7 9.7 0 00-6.7 2.8L3 8" /><path d="M3 3v5h5" /></svg>);
+export const BulbIcon = () => (<svg {...P}><path d="M9 18h6M10 22h4" /><path d="M12 2a7 7 0 00-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0012 2z" /></svg>);
+export const HomeIcon = () => (<svg {...P}><path d="M3 11l9-8 9 8" /><path d="M5 10v10h14V10" /></svg>);
+export const InfoIcon = () => (<svg {...P}><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>);
+export const SoundIcon = ({ on }: { on: boolean }) => (<svg {...P}><path d="M11 5L6 9H3v6h3l5 4z" />{on ? <path d="M15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13" /> : <path d="M16 9l5 6M21 9l-5 6" />}</svg>);
+export const LockIcon = () => (<svg {...P}><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 018 0v4" /></svg>);
+export const PlayIcon = () => (<svg {...P} fill="currentColor" stroke="none"><path d="M8 5v14l11-7z" /></svg>);
