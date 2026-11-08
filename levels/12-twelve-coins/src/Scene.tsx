@@ -1,6 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, easeInOut, seeded, sfx, useSettings } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
@@ -8,7 +8,7 @@ import * as THREE from 'three';
 import { coinFaceTexture, vaultSfx } from './art';
 import { Balance, PIVOT_Y, SCALE_POS, panCentre, type Beam } from './Balance';
 import { COINS, MAX_WEIGHINGS, coinName, revealFake, type Know, type Move, type State, type Tilt, type Weighing } from './rules';
-import { TABLE_Y, TABLE_Z, Vault } from './Vault';
+import { DOOR_POS, TABLE_Y, TABLE_Z, Vault } from './Vault';
 
 export const MOVE_MS = 3000;
 /** Weighing timeline (ms after Weigh is pressed). */
@@ -20,6 +20,8 @@ const T_DOOR = 900;
 const T_PARTY = 1400;
 const T_DROP = 950;
 const T_FAKE = 1250;
+const T_CUCKOO = 1700;
+const T_WAH = 2300;
 
 const COIN_R = 0.24;
 const COIN_H = 0.07;
@@ -58,6 +60,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const [clues, setClues] = useState(true);
   const [revealed, setRevealed] = useState(moveCount);
   const [bubble, setBubble] = useState<{ text: string; pos: [number, number, number]; tone: 'gold' | 'red' | 'white' } | null>(null);
+  /** How far the wrong-answer gag has got (drives the shared cartoon pieces). */
+  const [gag, setGag] = useState(0);
+  const [shake, setShake] = useState(0);
   const [burst, setBurst] = useState(0);
   const [rain, setRain] = useState(0);
 
@@ -84,6 +89,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     setAccusing(false);
     setPicked(null);
     setBubble(null);
+    setGag(0);
     const timers: ReturnType<typeof setTimeout>[] = [];
     const at = (ms: number, f: () => void) => timers.push(setTimeout(f, ms));
     const now = performance.now();
@@ -125,12 +131,26 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         const fake = revealFake(state)!;
         anim.current = { kind: 'lose', start: now, coin: lastMove.coin, fake: fake.coin, heavy: fake.heavy };
         sfx.select();
-        at(T_DROP, vaultSfx.thud);
+        sfx.squeak();
+        at(T_DROP, () => {
+          vaultSfx.thud();
+          setGag(1);
+          setShake((n) => n + 1);
+        });
         at(T_FAKE, () => {
+          sfx.poof();
           vaultSfx.steam();
           vaultSfx.giggle();
+          setGag(2);
           setBubble({ text: `Hehe! I was ${fake.heavy ? 'heavier' : 'lighter'}!`, pos: [SHOWCASE.x, SHOWCASE.y + 1.2, SHOWCASE.z], tone: 'red' });
         });
+        at(T_CUCKOO, () => {
+          sfx.boing();
+          vaultSfx.cuckoo(0.15);
+          vaultSfx.cuckoo(0.75);
+          setGag(3);
+        });
+        at(T_WAH, sfx.sadTrombone);
       }
     } else {
       // Undo or restart: everything goes back quickly.
@@ -255,10 +275,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         dur = 650;
       } else if (a?.kind === 'lose' && a.fake === i && el > T_FAKE) {
         tgt.copy(SHOWCASE);
-        tgt.y += Math.sin(clock.elapsedTime * 3) * 0.08;
         key = 'show';
         rx = Math.PI / 2;
-        spin = true;
         dur = 600;
       } else if (!a || a.kind === 'weigh') {
         if (u.accusing && u.picked === i) {
@@ -306,6 +324,15 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       if (a?.kind === 'win' && el > T_PARTY && key === 'tray') g.position.y += Math.abs(Math.sin(clock.elapsedTime * 7 + i * 0.9)) * 0.22;
       const sc = THREE.MathUtils.lerp(g.scale.x, key === 'show' ? SHOW_SCALE : key === 'accused' ? 1.6 : 1, Math.min(1, dt * 5));
       g.scale.setScalar(sc);
+      // Lose: the fake does a cheeky victory wiggle; the wrongly accused coin wobbles, dizzy.
+      let roll = 0;
+      if (a?.kind === 'lose' && key === 'show') {
+        const ct = clock.elapsedTime;
+        g.position.y += Math.abs(Math.sin(ct * 6)) * 0.22;
+        g.position.x += Math.sin(ct * 3) * 0.25;
+        roll = Math.sin(ct * 6) * 0.28;
+      } else if (a?.kind === 'lose' && i === a.coin && el > T_DROP) roll = Math.sin(clock.elapsedTime * 4) * 0.18;
+      g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, roll, Math.min(1, dt * 10));
       if (spin) g.rotation.y += dt * 2.6;
       else g.rotation.y = THREE.MathUtils.lerp(Math.atan2(Math.sin(g.rotation.y), Math.cos(g.rotation.y)), 0, Math.min(1, dt * 8));
 
@@ -329,12 +356,13 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     } else hintRings.push({ coin: hint.coin, color: '#ff7b9c' });
   }
 
+  const loseInfo = status.kind === 'lost' && lastMove?.kind === 'accuse' ? { coin: lastMove.coin, fake: revealFake(state)?.coin ?? -1 } : null;
   const showMarkers = clues && !over && !(anim.current && anim.current.kind !== 'weigh');
   const onPan = (i: number) =>
     left.includes(i) || right.includes(i) || (busy && lastMove?.kind === 'weigh' && (lastMove.left.includes(i) || lastMove.right.includes(i)));
 
   return (
-    <group>
+    <Shake trigger={shake}>
       <Vault high={high} doorOpen={doorOpen} blast={blast} />
       <Balance beam={beam} used={used} high={high} />
       <pointLight ref={alarm} position={[0, 4.5, -1]} color="#ff3b3b" intensity={0} distance={14} decay={1.4} />
@@ -348,7 +376,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                 <cylinderGeometry args={[0.4, 0.4, 0.34, 10]} />
               </mesh>
             </Clickable>
+            {loseInfo && (i === loseInfo.fake || i === loseInfo.coin) && <CoinFace anim={anim} cheeky={i === loseInfo.fake} />}
           </group>
+          {loseInfo && i === loseInfo.coin && gag >= 1 && <DizzyStars position={[0, 0.42, 0]} radius={0.34} />}
           {showMarkers && !onPan(i) && (shown.know[i] === 'H' || shown.know[i] === 'L') && <Marker heavy={shown.know[i] === 'H'} seed={i} />}
         </group>
       ))}
@@ -361,6 +391,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         <HintRing position={[traySlot(picked).x, TABLE_Y + 0.012, traySlot(picked).z]} radius={0.42} color="#ff7b9c" />
       )}
 
+      <Cuckoo anim={anim} />
+      {loseInfo && gag >= 1 && gag < 3 && <ComicWord position={[traySlot(loseInfo.coin).x, TABLE_Y + 0.9, traySlot(loseInfo.coin).z]} text="CLONK!" />}
+      {gag >= 3 && <ComicWord position={[DOOR_POS[0] + 2.7, DOOR_POS[1] + 0.9, DOOR_POS[2] + 3.4]} text="CUCKOO!" color="#ff8fb1" tilt={8} />}
+      <FocusCam target={[0.4, 1.9, -0.2]} active={gag >= 2} closer={0.85} />
       {bubble && (
         <Bubble key={bubble.text} position={bubble.pos} tone={bubble.tone}>
           {bubble.text}
@@ -405,6 +439,221 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           )}
         </Overlay>
       )}
+    </Shake>
+  );
+}
+
+// ---------------- Slapstick for a wrong answer ----------------
+
+type AnimRef = React.MutableRefObject<Anim | null>;
+const loseTime = (anim: AnimRef) => (anim.current?.kind === 'lose' ? performance.now() - anim.current.start : -1);
+/** 0 → 1 with a springy overshoot. */
+const popIn = (x: number) => {
+  const t = THREE.MathUtils.clamp(x, 0, 1);
+  const c = 1.9;
+  return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2);
+};
+
+/**
+ * A cartoon face on a coin's top side (coin-local: +y is the face, -z is "up" on the number).
+ * The fake gets a cheeky grin and a tongue; the wrongly accused coin gets shocked eyes, then X eyes.
+ */
+function CoinFace({ anim, cheeky }: { anim: AnimRef; cheeky: boolean }) {
+  const root = useRef<THREE.Group>(null);
+  const pupils = useRef<THREE.Group>(null);
+  const tongue = useRef<THREE.Mesh>(null);
+  const shocked = useRef<THREE.Group>(null);
+  const dizzy = useRef<THREE.Group>(null);
+  useFrame(({ clock }) => {
+    const el = loseTime(anim);
+    const r = root.current;
+    if (!r) return;
+    const from = cheeky ? T_FAKE + 150 : 120;
+    r.scale.setScalar(el < 0 ? 0 : Math.max(0, popIn((el - from) / 350)));
+    const t = clock.elapsedTime;
+    if (pupils.current) pupils.current.position.x = Math.sin(t * 2.5) * 0.018;
+    if (tongue.current) tongue.current.rotation.y = Math.sin(t * 14) * 0.5;
+    if (!cheeky) {
+      const knocked = el > T_DROP;
+      if (shocked.current) shocked.current.visible = !knocked;
+      if (dizzy.current) {
+        dizzy.current.visible = knocked;
+        dizzy.current.rotation.y = t * 9;
+      }
+    }
+  });
+  const white = toon('#ffffff', { rough: 0.4, flat: false });
+  const ink = toon('#1d1010', { rough: 0.3, flat: false });
+  const pink = toon('#ff6f91', { rough: 0.5, flat: false });
+  const h = COIN_H / 2 + 0.006;
+  const eye = (x: number, r = 0.058) => (
+    <mesh key={x} position={[x, h, -0.06]} scale={[1, 0.35, 1]} material={white}>
+      <sphereGeometry args={[r, 14, 10]} />
+    </mesh>
+  );
+  return (
+    <group ref={root} scale={0}>
+      {cheeky ? (
+        <>
+          {eye(-0.085)}
+          {eye(0.085)}
+          <group ref={pupils}>
+            {[-0.085, 0.085].map((x) => (
+              <mesh key={x} position={[x, h + 0.02, -0.075]} scale={[1, 0.4, 1]} material={ink}>
+                <sphereGeometry args={[0.028, 10, 8]} />
+              </mesh>
+            ))}
+          </group>
+          {/* sly eyebrows */}
+          {[-1, 1].map((s) => (
+            <mesh key={s} position={[s * 0.085, h + 0.01, -0.135]} rotation-y={s * 0.45} material={ink}>
+              <boxGeometry args={[0.09, 0.012, 0.018]} />
+            </mesh>
+          ))}
+          {/* big grin */}
+          <mesh position={[0, h, 0.045]} rotation-x={Math.PI / 2} material={ink}>
+            <torusGeometry args={[0.085, 0.017, 6, 20, Math.PI]} />
+          </mesh>
+          <mesh ref={tongue} position={[0.035, h + 0.006, 0.135]} material={pink}>
+            <boxGeometry args={[0.055, 0.012, 0.075]} />
+          </mesh>
+        </>
+      ) : (
+        <>
+          <group ref={shocked}>
+            {eye(-0.085, 0.066)}
+            {eye(0.085, 0.066)}
+            {[-0.085, 0.085].map((x) => (
+              <mesh key={x} position={[x, h + 0.022, -0.06]} scale={[1, 0.4, 1]} material={ink}>
+                <sphereGeometry args={[0.018, 10, 8]} />
+              </mesh>
+            ))}
+            {/* little "o" mouth */}
+            <mesh position={[0, h, 0.09]} rotation-x={Math.PI / 2} material={ink}>
+              <torusGeometry args={[0.032, 0.012, 6, 16]} />
+            </mesh>
+          </group>
+          <group ref={dizzy} visible={false}>
+            {[-0.085, 0.085].map((x) =>
+              [1, -1].map((s) => (
+                <mesh key={`${x}${s}`} position={[x, h, -0.06]} rotation-y={s * Math.PI / 4} material={ink}>
+                  <boxGeometry args={[0.1, 0.012, 0.02]} />
+                </mesh>
+              )),
+            )}
+            {/* wobbly mouth */}
+            <mesh position={[0, h, 0.11]} rotation-x={-Math.PI / 2} material={ink}>
+              <torusGeometry args={[0.05, 0.012, 6, 16, Math.PI]} />
+            </mesh>
+          </group>
+        </>
+      )}
+    </group>
+  );
+}
+
+/** A clockwork cuckoo bird that springs out of the vault door to announce a wrong answer. */
+function Cuckoo({ anim }: { anim: AnimRef }) {
+  const root = useRef<THREE.Group>(null);
+  const bird = useRef<THREE.Group>(null);
+  const beak = useRef<THREE.Group>(null);
+  const wings = useRef<THREE.Group[]>([]);
+  const coils = useRef<THREE.Group>(null);
+  const COILS = 7;
+  /** Where the bird ends up, relative to the door hub: out, to the side, clear of the balance. */
+  const END = new THREE.Vector3(1.5, 0.35, 3.4);
+  useFrame(({ clock }) => {
+    const r = root.current;
+    if (!r) return;
+    const el = loseTime(anim);
+    const ext = el > T_CUCKOO ? popIn((el - T_CUCKOO) / 450) : 0;
+    r.visible = ext > 0.001;
+    const t = clock.elapsedTime;
+    const wobble = el > T_CUCKOO + 450 ? Math.sin(t * 7) * 0.06 : 0;
+    if (bird.current) {
+      bird.current.position.set(END.x * ext, END.y * ext, 0.2 + (END.z - 0.2) * ext + wobble);
+      bird.current.rotation.z = Math.sin(t * 5) * 0.15;
+      bird.current.rotation.x = -0.15 + Math.sin(t * 9) * 0.06;
+    }
+    // Beak opens on each "cuck-oo".
+    const since = el - T_CUCKOO - 150;
+    const call = since > 0 && since % 600 < 420 ? Math.abs(Math.sin((since % 600) / 420 * Math.PI * 2)) : 0;
+    if (beak.current) beak.current.rotation.x = call * 0.6;
+    wings.current.forEach((w, k) => w && (w.rotation.z = (k ? -1 : 1) * (0.3 + Math.abs(Math.sin(t * 16)) * 0.7)));
+    if (coils.current)
+      coils.current.children.forEach((c, k) => {
+        const f = ((k + 0.5) / COILS) * ext;
+        c.position.set(END.x * f, END.y * f - 0.25 * (k / COILS) * ext, 0.2 + (END.z - 0.2) * f + wobble * (k / COILS));
+        c.lookAt(END.x, END.y, END.z + 5);
+      });
+  });
+  const red = toon('#e94b3c', { rough: 0.6 });
+  const cream = toon('#ffe9c2', { rough: 0.7 });
+  const yellow = toon('#ffc23a', { rough: 0.5 });
+  const brassMat = toon('#d9a441', { metal: 0.85, rough: 0.32, flat: false });
+  const ink = toon('#1d1010', { flat: false });
+  const white = toon('#ffffff', { flat: false });
+  return (
+    <group ref={root} position={DOOR_POS} visible={false}>
+      <group ref={coils}>
+        {Array.from({ length: COILS }, (_, k) => (
+          <mesh key={k} material={brassMat} castShadow>
+            <torusGeometry args={[0.11, 0.025, 6, 14]} />
+          </mesh>
+        ))}
+      </group>
+      <group ref={bird} scale={1.7}>
+        {/* body */}
+        <mesh position-y={0.05} scale={[1, 0.95, 1.15]} material={red} castShadow>
+          <icosahedronGeometry args={[0.26, 1]} />
+        </mesh>
+        <mesh position={[0, 0.0, 0.17]} scale={[0.8, 0.8, 0.5]} material={cream}>
+          <icosahedronGeometry args={[0.2, 1]} />
+        </mesh>
+        {/* head */}
+        <group position={[0, 0.36, 0.08]}>
+          <mesh material={red} castShadow>
+            <icosahedronGeometry args={[0.19, 1]} />
+          </mesh>
+          {[-1, 1].map((s) => (
+            <group key={s} position={[s * 0.08, 0.04, 0.15]}>
+              <mesh material={white}>
+                <sphereGeometry args={[0.055, 12, 10]} />
+              </mesh>
+              <mesh position-z={0.04} material={ink}>
+                <sphereGeometry args={[0.026, 10, 8]} />
+              </mesh>
+            </group>
+          ))}
+          {/* crest */}
+          {[-0.05, 0, 0.05].map((x, k) => (
+            <mesh key={x} position={[x, 0.2, -0.02 - k * 0.02]} rotation-z={-x * 4} material={yellow}>
+              <coneGeometry args={[0.03, 0.14, 5]} />
+            </mesh>
+          ))}
+          {/* beak: top fixed, bottom opens */}
+          <mesh position={[0, -0.01, 0.2]} rotation-x={Math.PI / 2} material={yellow}>
+            <coneGeometry args={[0.06, 0.16, 6]} />
+          </mesh>
+          <group ref={beak} position={[0, -0.05, 0.14]}>
+            <mesh position={[0, 0, 0.06]} rotation-x={Math.PI / 2} scale={[1, 1, 0.5]} material={toon('#e89a1c')}>
+              <coneGeometry args={[0.05, 0.13, 6]} />
+            </mesh>
+          </group>
+        </group>
+        {/* wings */}
+        {[-1, 1].map((s, k) => (
+          <group key={s} position={[s * 0.22, 0.1, 0]} ref={(g) => void (g && (wings.current[k] = g))}>
+            <mesh position={[s * 0.12, 0, 0]} scale={[1, 0.35, 0.8]} material={red} castShadow>
+              <icosahedronGeometry args={[0.15, 0]} />
+            </mesh>
+          </group>
+        ))}
+        {/* tail */}
+        <mesh position={[0, 0.12, -0.3]} rotation-x={-0.9} material={yellow}>
+          <coneGeometry args={[0.1, 0.25, 5]} />
+        </mesh>
+      </group>
     </group>
   );
 }
