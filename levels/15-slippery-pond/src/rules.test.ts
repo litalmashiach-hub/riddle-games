@@ -11,6 +11,34 @@ describe('Slippery Pond', () => {
     expect(level.bestMoves).toBe(7);
   });
 
+  it('has only one shortest route, so the puzzle has a clear answer', () => {
+    // Count shortest paths with a breadth-first search over otter positions.
+    const dist = new Map<string, number>([[rules.key(START), 0]]);
+    const ways = new Map<string, number>([[rules.key(START), 1]]);
+    const queue = [START];
+    let goalWays = 0;
+    while (queue.length) {
+      const s = queue.shift()!;
+      const k = rules.key(s);
+      if (rules.status(s).kind === 'won') {
+        if (dist.get(k) === level.bestMoves) goalWays += ways.get(k)!;
+        continue;
+      }
+      for (const m of rules.legalMoves(s)) {
+        const n = rules.apply(s, m);
+        if (rules.status(n).kind === 'lost') continue;
+        const nk = rules.key(n);
+        const d = dist.get(k)! + 1;
+        if (!dist.has(nk)) {
+          dist.set(nk, d);
+          ways.set(nk, ways.get(k)!);
+          queue.push(n);
+        } else if (dist.get(nk) === d) ways.set(nk, ways.get(nk)! + ways.get(k)!);
+      }
+    }
+    expect(goalWays).toBe(1);
+  });
+
   it('slides until a rock stops it', () => {
     expect(slide(START, 'up')).toEqual({ to: { x: 3, y: 5 }, steps: 1, stopper: 'rock' });
   });
