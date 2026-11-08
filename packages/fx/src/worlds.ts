@@ -79,4 +79,20 @@ export const WORLDS: Record<WorldId, WorldLook> = {
     uiGradient: 'linear-gradient(160deg,#fcd34d 0%,#b45309 50%,#1f1320 100%)',
     accent: '#f59e0b',
   },
+  lagoon: {
+    name: 'Firefly Lagoon',
+    // Sun just under the horizon: a violet twilight sky, so glowing things pop.
+    sun: [-10, 1.2, -14],
+    sunColor: '#ffb8d9',
+    sunIntensity: 1.5,
+    sky: { turbidity: 8, rayleigh: 3.5, mieCoefficient: 0.006, mieDirectionalG: 0.9 },
+    fog: '#2a2550',
+    fogNear: 20,
+    fogFar: 60,
+    hemiSky: '#9aa8ff',
+    hemiGround: '#1d3a3a',
+    hemiIntensity: 0.75,
+    uiGradient: 'linear-gradient(160deg,#a7f3d0 0%,#6d5bd0 50%,#1e1b4b 100%)',
+    accent: '#bef264',
+  },
 };

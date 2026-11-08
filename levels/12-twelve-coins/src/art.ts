@@ -157,5 +157,10 @@ export const vaultSfx = {
     ping([60, 90], 1.6, 0.1, 'sawtooth');
     hiss(1.4, 0.06, 900, 0.1);
   },
+  /** Two falling notes, like a cuckoo clock. */
+  cuckoo: (delay = 0) => {
+    ping([784], 0.22, 0.09, 'sine', delay);
+    ping([622], 0.32, 0.09, 'sine', delay + 0.24);
+  },
   giggle: () => [990, 1170, 990, 1250].forEach((f, i) => ping([f], 0.12, 0.05, 'square', i * 0.09)),
 };

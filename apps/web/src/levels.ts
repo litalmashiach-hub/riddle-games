@@ -42,8 +42,14 @@ const PLAN: Omit<LevelEntry, 'level'>[] = [
   { number: 10, id: 'four-pillar-tower', title: 'Four-Pillar Tower', world: 'citadel', tagline: 'Hanoi with an extra pillar and a bigger stack.' },
   { number: 11, id: 'family-crossing', title: 'Family Crossing', world: 'citadel', tagline: 'A family, a guard and a thief on one raft.' },
   { number: 12, id: 'twelve-coins', title: 'The Twelve Coins', world: 'citadel', tagline: 'One fake coin. Three weighings.' },
+  { number: 14, id: 'firefly-lanterns', title: 'Firefly Lanterns', world: 'lagoon', tagline: 'Every tap flips a lantern and its neighbours.' },
+  { number: 15, id: 'slippery-pond', title: 'Slippery Pond', world: 'lagoon', tagline: 'Once you start sliding, you cannot stop.' },
+  { number: 16, id: 'firefly-jars', title: 'Firefly Jars', world: 'lagoon', tagline: 'One colour of firefly in every jar.' },
+  { number: 17, id: 'moonbeam-mirrors', title: 'Moonbeam Mirrors', world: 'lagoon', tagline: 'Bounce the moonbeam onto every flower.' },
+  { number: 18, id: 'log-jam', title: 'Log Jam', world: 'lagoon', tagline: 'Slide the logs aside and free the duck raft.' },
+  { number: 19, id: 'picture-tiles', title: 'Picture Tiles', world: 'lagoon', tagline: 'Slide the stones back into the turtle picture.' },
 ];
 
 export const LEVELS: LevelEntry[] = PLAN.map((p) => ({ ...p, level: BUILT.find((b) => b.number === p.number) }));
 
-export const WORLD_ORDER: WorldId[] = ['meadow', 'temple', 'sky', 'citadel'];
+export const WORLD_ORDER: WorldId[] = ['meadow', 'temple', 'sky', 'citadel', 'lagoon'];

@@ -105,6 +105,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
   const toggle = (p: Person) => {
     if (busy || over) return;
+    // The last crossing has finished. Stop treating its riders as riding, or the new selection would
+    // replay their ride and put them back in the boat (one tap looked like two animals boarding).
+    seen.current.forward = false;
     if (state[p] !== state.raft) {
       sfx.denied();
       setWarning('The raft is on the other side.');

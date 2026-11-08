@@ -3,7 +3,7 @@ import { toon } from '@riddle/props';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
-export type AlchemistMood = 'idle' | 'happy' | 'focus';
+export type AlchemistMood = 'idle' | 'happy' | 'focus' | 'facepalm' | 'shrug' | 'dizzy';
 
 /**
  * A little sky alchemist in a starry robe and pointy hat, holding a glowing wand.
@@ -25,26 +25,54 @@ export function Alchemist({ mood = 'idle', lookYaw = 0 }: { mood?: AlchemistMood
         g.position.y = b * 0.3;
         g.scale.set(1 + (1 - b) * 0.07, 1 - (1 - b) * 0.09, 1 + (1 - b) * 0.07);
         g.rotation.y = Math.sin(t * 3) * 0.3;
+      } else if (mood === 'dizzy') {
+        g.position.y = 0;
+        g.scale.set(1, 1, 1);
+        g.rotation.z = Math.sin(t * 7) * 0.16;
+        g.rotation.y = Math.sin(t * 3.5) * 0.25;
+      } else if (mood === 'shrug') {
+        const b = Math.abs(Math.sin(t * 7));
+        g.position.y = b * 0.06;
+        g.scale.set(1, 1, 1);
+        g.rotation.y = 0;
       } else {
         const br = Math.sin(t * 2) * 0.02;
         g.position.y = 0;
         g.scale.set(1 + br * 0.5, 1 + br, 1 + br * 0.5);
         g.rotation.y = 0;
       }
+      if (mood !== 'dizzy') g.rotation.z += (0 - g.rotation.z) * Math.min(1, dt * 8);
     }
     if (head.current) {
       let d = lookYaw - head.current.rotation.y;
       d = Math.atan2(Math.sin(d), Math.cos(d));
       head.current.rotation.y += d * Math.min(1, dt * 5);
-      head.current.rotation.z = mood === 'focus' ? Math.sin(t * 2) * 0.06 : 0;
+      const hz = mood === 'focus' ? Math.sin(t * 2) * 0.06 : mood === 'dizzy' ? Math.sin(t * 9) * 0.3 : mood === 'shrug' ? 0.25 : 0;
+      const hx = mood === 'facepalm' ? 0.35 : 0;
+      head.current.rotation.z += (hz - head.current.rotation.z) * Math.min(1, dt * 10);
+      head.current.rotation.x += (hx - head.current.rotation.x) * Math.min(1, dt * 10);
     }
     if (wandArm.current) {
-      const target = mood === 'happy' ? -2.6 + Math.sin(t * 12) * 0.35 : mood === 'focus' ? -1.5 + Math.sin(t * 8) * 0.15 : -0.5 + Math.sin(t * 1.4) * 0.08;
+      const target =
+        mood === 'happy' ? -2.6 + Math.sin(t * 12) * 0.35
+        : mood === 'focus' ? -1.5 + Math.sin(t * 8) * 0.15
+        : mood === 'shrug' ? -0.7
+        : mood === 'dizzy' ? -0.9 + Math.sin(t * 6) * 0.6
+        : -0.5 + Math.sin(t * 1.4) * 0.08;
+      const tz = mood === 'shrug' ? 1.0 + Math.sin(t * 7) * 0.1 : mood === 'dizzy' ? 0.6 : 0;
       wandArm.current.rotation.x += (target - wandArm.current.rotation.x) * Math.min(1, dt * 8);
+      wandArm.current.rotation.z += (tz - wandArm.current.rotation.z) * Math.min(1, dt * 8);
     }
     if (freeArm.current) {
-      const target = mood === 'happy' ? -2.5 + Math.sin(t * 12 + 1) * 0.35 : -0.15;
-      freeArm.current.rotation.x += (target - freeArm.current.rotation.x) * Math.min(1, dt * 8);
+      const target =
+        mood === 'happy' ? -2.5 + Math.sin(t * 12 + 1) * 0.35
+        : mood === 'facepalm' ? -2.55
+        : mood === 'shrug' ? -0.7
+        : mood === 'dizzy' ? -0.9 - Math.sin(t * 6) * 0.6
+        : -0.15;
+      const tz = mood === 'facepalm' ? 0.55 : mood === 'shrug' ? -1.0 - Math.sin(t * 7) * 0.1 : mood === 'dizzy' ? -0.6 : 0;
+      freeArm.current.rotation.x += (target - freeArm.current.rotation.x) * Math.min(1, dt * 10);
+      freeArm.current.rotation.z += (tz - freeArm.current.rotation.z) * Math.min(1, dt * 10);
     }
     if (tip.current) {
       const m = tip.current.material as THREE.MeshStandardMaterial;

@@ -120,6 +120,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
   const toggle = (a: Animal) => {
     if (busy || over) return;
+    // The last crossing has finished. Stop treating its riders as riding, or the new selection would
+    // replay their ride and put them back in the boat (one tap looked like two animals boarding).
+    dir.current.forward = false;
     if (state[a] !== state.farmer) {
       sfx.denied();
       return;
