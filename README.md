@@ -22,6 +22,12 @@ Useful URL options:
 | `?quality=low` / `?quality=high` | Force the graphics preset |
 | `?debug` | Expose the game session as `window.__riddle` for scripted play-tests |
 
+## Install on iPad / iPhone
+
+Open https://litalmashiach-hub.github.io/riddle-games/ in Safari, tap Share, then **Add to Home Screen**. It opens full screen like an app and works offline after the first visit. Progress is saved on the device.
+
+The offline service worker is generated at build time (`apps/web/vite.config.ts` + `src/pwa/`); app icon art lives in `apps/web/public/icons/icon.svg`.
+
 ## Levels
 
 | # | World | Riddle | Status |

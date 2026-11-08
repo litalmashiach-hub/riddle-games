@@ -10,6 +10,9 @@ import { Button } from '../components/Button';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
 
+/** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
+const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
+
 interface Props {
   level: RiddleLevel;
   onExit(): void;
@@ -72,7 +75,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       <Canvas
         shadows
         flat
-        dpr={quality === 'high' ? [1, 2] : [1, 1.25]}
+        dpr={quality === 'high' ? [1, TOUCH ? 1.5 : 2] : [1, 1.25]}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
         camera={{ position: cam.position, fov: cam.fov ?? 42, near: 0.1, far: 500 }}
       >
@@ -95,7 +98,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       </Canvas>
 
       {/* Top bar */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3 sm:p-4">
+      <div className="safe-top pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3 sm:p-4">
         <div className="pointer-events-auto flex items-center gap-2">
           <Button onClick={onExit} aria-label="Back to levels" className="!px-3">
             <HomeIcon />

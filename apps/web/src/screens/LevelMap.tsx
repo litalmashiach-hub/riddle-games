@@ -17,8 +17,8 @@ export function LevelMap({ progress, onPlay }: { progress: Progress; onPlay: (id
   return (
     <div className="relative h-full overflow-y-auto overflow-x-hidden" style={{ background: 'radial-gradient(1200px 700px at 20% -10%, #3b82c4 0%, #1b3b5f 45%, #0f2236 100%)' }}>
       <Backdrop />
-      <div className="relative mx-auto max-w-5xl px-4 pb-24 pt-10 sm:pt-16">
-        <div className="absolute right-4 top-4">
+      <div className="relative mx-auto max-w-5xl px-4 pb-[max(6rem,env(safe-area-inset-bottom))] pt-[max(2.5rem,calc(env(safe-area-inset-top)+1.5rem))] sm:pt-16">
+        <div className="absolute right-4 top-[max(1rem,env(safe-area-inset-top))]">
           <button className="glass btn-3d rounded-full p-2.5" onClick={toggleSound} aria-label={sound ? 'Mute' : 'Unmute'}>
             <SoundIcon on={sound} />
           </button>
