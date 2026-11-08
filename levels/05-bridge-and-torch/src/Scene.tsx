@@ -9,6 +9,7 @@ import { RopeBridge } from './Bridge';
 import { Chasm } from './Chasm';
 import { ExplorerBody, torchGrip, type Motion } from './Explorers';
 import { BRIDGE_HALF, bridgehead, deckY, dipAt, groundY, sconce, sign, slot, TORCH_REST_Y } from './layout';
+import { Blackout, DarkEyes } from './LightsOut';
 import { Torch, type Flame } from './Torch';
 import { crossingMinutes, EXPLORERS, MINUTES, NAMES, TORCH_MINUTES, type Explorer, type Move, type Side, type State } from './rules';
 
@@ -20,6 +21,13 @@ const walkMs = (minutes: number) => 800 + minutes * 170;
 export const MOVE_MS = PREP_MS + walkMs(10) + STEP_MS;
 
 const FONT = 'Fredoka, system-ui, sans-serif';
+
+/** Head height of each explorer, for the eyes that glow in the dark. */
+const EYE_HEIGHT: Record<Explorer, number> = { pip: 0.75, juno: 0.86, bram: 0.97, mo: 0.84 };
+/** Bubble heights differ so two walkers side by side don't overlap. */
+const BUBBLE_LIFT: Record<Explorer, number> = { pip: 0.45, juno: 0.75, bram: 1.0, mo: 0.55 };
+/** What each explorer squeaks when the torch dies. */
+const DARK_LINES: Record<Explorer, string> = { pip: 'Eek!', juno: 'Who blew it out?!', bram: 'My glasses! Oh wait…', mo: 'Is it bedtime?' };
 
 /** One crossing being animated. */
 interface Crossing {
@@ -219,6 +227,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         if (!c.played.out) {
           c.played.out = true;
           sfx.splash();
+          setTimeout(() => sfx.deselect(), 350);
         }
       }
       if (!c.played.arrive && c.outAt == null && el > PREP_MS + c.walk) {
@@ -294,6 +303,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         <RopeBridge walkers={onBridge} />
       </Clickable>
       <Torch ref={torch} flame={flame} />
+      <Blackout flame={flame} />
 
       {EXPLORERS.map((e, i) => {
         const mood: Mood = won && !busy ? 'happy' : dark ? 'scared' : 'idle';
@@ -306,7 +316,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                 <sphereGeometry args={[0.5, 8, 8]} />
               </mesh>
             </Clickable>
-            {ready && <Html position={[0, e === 'pip' ? 1.0 : e === 'bram' ? 1.3 : 1.18, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+            {ready && !dark && <Html position={[0, e === 'pip' ? 1.0 : e === 'bram' ? 1.3 : 1.18, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
               <div
                 style={{
                   fontFamily: FONT,
@@ -325,8 +335,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                 {NAMES[e]} · {MINUTES[e]} min
               </div>
             </Html>}
-            {dark && cross.current?.walkers[0] === e && <Bubble position={[0, 1.7, 0]} tone="white">Uh-oh…</Bubble>}
-            {dark && cross.current?.walkers[0] !== e && <Bubble position={[0, 1.6, 0]} tone="red">!</Bubble>}
+            <DarkEyes flame={flame} height={EYE_HEIGHT[e]} seed={i} />
+            {dark && <Bubble position={[0, EYE_HEIGHT[e] + BUBBLE_LIFT[e], 0]} tone={cross.current?.walkers[0] === e ? 'gold' : 'white'}>{cross.current?.walkers[0] === e ? 'Pfft… uh-oh!' : DARK_LINES[e]}</Bubble>}
           </group>
         );
       })}
