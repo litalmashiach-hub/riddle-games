@@ -29,7 +29,7 @@ Useful URL options:
 | 1 | Meadow River | Wolf and Two Sheep | Built |
 | 2 | Meadow River | Wolf, Goat and Cabbage | Planned |
 | 3 | Meadow River | Two Jugs (3 L and 5 L) | Planned |
-| 4 | Ancient Temple | Tower of Hanoi, 4 discs | Planned |
+| 4 | Ancient Temple | Tower of Hanoi, 4 discs | Built |
 | 5 | Ancient Temple | Bridge and Torch | Planned |
 | 6 | Ancient Temple | Explorers and Guardians | Planned |
 | 7 | Sky Islands | Three Jealous Couples | Planned |
