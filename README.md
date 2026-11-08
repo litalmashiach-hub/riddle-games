@@ -44,7 +44,7 @@ Useful URL options:
 | 16 | Firefly Lagoon | Firefly Jars (colour sort) | Built |
 | 17 | Firefly Lagoon | Moonbeam Mirrors (light beams) | Planned |
 | 18 | Firefly Lagoon | Log Jam (sliding blocks) | Planned |
-| 19 | Firefly Lagoon | Picture Tiles (8-puzzle) | Planned |
+| 19 | Firefly Lagoon | Picture Tiles (8-puzzle) | Built |
 
 ## Layout
 
