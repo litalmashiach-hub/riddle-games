@@ -1,11 +1,11 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, sfx, usePath, useFaceYaw, type PathSegment, type Vec3 } from '@riddle/fx';
-import { Boat, Bubble, Farmer, HintRing, RiverValley, Wolf, groundHeight, type Mood } from '@riddle/props';
+import { Burst, Clickable, ComicWord, DizzyStars, FightCloud, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Boat, Bubble, Farmer, HintRing, RiverValley, Wolf, groundHeight, toon, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
-import { Barn, Butterflies, Cabbage, GardenBed, Goat, HayBale, LeafBurst } from './models';
+import { Barn, Butterflies, Cabbage, GardenBed, Goat, HayBale } from './models';
 import { ITEMS, trouble, type Item, type Move, type Side, type State, type Trouble } from './rules';
 
 const CROSS_MS = 1900;
@@ -13,11 +13,26 @@ const CROSS_MS = 1900;
 const DOCK_MS = 250;
 const HOP_MS = 520;
 export const MOVE_MS = CROSS_MS + DOCK_MS + HOP_MS;
-/** When a fail reaction starts after a crossing: once the boat has docked. */
-const REACT_DELAY = CROSS_MS + DOCK_MS;
 const LUNGE_MS = 450;
-/** How long the goat chews before the cabbage is gone. */
-const MUNCH_MS = 900;
+
+/**
+ * The fail gag, in three beats once the move has finished:
+ * windup (the eater eyes its prey, the camera zooms in), action (a fight cloud, or three big bites),
+ * after (the dust settles: a beardless dizzy goat and a wolf wearing its beard, or a stuffed goat
+ * and a tiny dizzy cabbage). Silly and harmless, then the "Oh no!" screen.
+ */
+type FailPhase = 'windup' | 'action' | 'after';
+const WINDUP_MS = 700;
+const ACTION_MS = 1500;
+const FAIL_PHASES: [FailPhase, number][] = [
+  ['windup', WINDUP_MS],
+  ['action', ACTION_MS],
+  ['after', 60000],
+];
+/** Wait for the gag (plus time to enjoy the aftermath) before the "Oh no!" screen. */
+export const FAIL_MS = WINDUP_MS + ACTION_MS + 1700;
+/** When each bite lands, into the goat's action beat. */
+const BITES_MS = [380, 780, 1180];
 
 const sign = (s: Side) => (s === 'L' ? -1 : 1);
 const boatX = (s: Side) => sign(s) * 1.55;
@@ -39,10 +54,8 @@ const lungeAt = (from: Vec3, to: Vec3, k = 0.68): Vec3 => [from[0] + (to[0] - fr
 
 const LABEL: Record<Item, string> = { wolf: 'with wolf', goat: 'with goat', cabbage: 'with cabbage' };
 
-/** Three quick chomps. */
-function crunch() {
-  [0, 160, 320].forEach((d) => setTimeout(() => sfx.click(), d));
-}
+/** How far the eater lunges toward its prey (1 = all the way). */
+const LUNGE_K = { wolf: 0.8, goat: 0.62 };
 
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
   /** The passenger the player has put in the boat but not rowed yet (UI only, not a move). */
@@ -66,6 +79,50 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     const t = setTimeout(() => setBurst((b) => b + 1), MOVE_MS);
     return () => clearTimeout(t);
   }, [won]);
+
+  const phase = usePhases<FailPhase>(danger != null && !busy, FAIL_PHASES);
+  const [bites, setBites] = useState(0);
+  const [bits, setBits] = useState(0);
+  const [shake, setShake] = useState(0);
+  const eater = danger?.eater;
+
+  // Sounds and effects for each beat of the fail gag.
+  useEffect(() => {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const at = (ms: number, f: () => void) => timers.push(setTimeout(f, ms));
+    if (phase == null) setBites(0);
+    if (phase === 'windup') (eater === 'wolf' ? sfx.growl : sfx.squeak)();
+    if (phase === 'action' && eater === 'wolf') {
+      sfx.boing();
+      setShake((n) => n + 1);
+      at(250, () => {
+        sfx.poof();
+        sfx.scuffle();
+        setBits((n) => n + 1);
+      });
+      at(1250, () => {
+        sfx.chomp();
+        setShake((n) => n + 1);
+      });
+    }
+    if (phase === 'action' && eater === 'goat') {
+      sfx.boing();
+      BITES_MS.forEach((ms, i) =>
+        at(ms, () => {
+          sfx.chomp();
+          setBites(i + 1);
+          setBits((n) => n + 1);
+          if (i === 2) setShake((n) => n + 1);
+        }),
+      );
+    }
+    if (phase === 'after') {
+      sfx.poof();
+      at(450, sfx.burp);
+      at(950, sfx.squeak);
+    }
+    return () => timers.forEach(clearTimeout);
+  }, [phase, eater]);
 
   const rowing = busy && forward;
   const animKey = `${moveCount}|${resetCount}`;
@@ -102,7 +159,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const hintTarget: Vec3 | null = hint ? (hintOnItem ? slot(hint.passenger!, state.farmer) : [boatX(state.farmer), 0.25, 0]) : null;
 
   return (
-    <group>
+    <Shake trigger={shake} intensity={0.14} durationMs={420}>
       <RiverValley />
       <Farmyard />
 
@@ -153,13 +210,16 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           disabled={busy || over}
           busy={busy}
           boat={boat}
+          phase={phase}
+          bites={bites}
           onClick={() => toggle(a)}
         />
       ))}
+      {danger && <FailGag danger={danger} phase={phase} bits={bits} />}
 
       {hintTarget && !busy && <HintRing position={[hintTarget[0], hintTarget[1] + 0.03, hintTarget[2]]} radius={hintOnItem ? 0.6 : 1.4} />}
       <Burst trigger={burst} position={[4.4, 1.2, 0.5]} />
-    </group>
+    </Shake>
   );
 }
 
@@ -205,21 +265,61 @@ interface ActorProps {
   disabled: boolean;
   busy: boolean;
   boat: RefObject<THREE.Group | null>;
+  phase: FailPhase | null;
+  bites: number;
   onClick(): void;
 }
 
-function Actor({ kind, seed, state, previous, lastMove, forward, loaded, animKey, danger, won, disabled, busy, boat, onClick }: ActorProps) {
+/** Where the eater ends its lunge, and the middle of the action. */
+function gagSpots(danger: Trouble) {
+  const prey = slot(danger.eater === 'wolf' ? 'goat' : 'cabbage', danger.bank);
+  const eaterAt = lungeAt(slot(danger.eater, danger.bank), prey, LUNGE_K[danger.eater]);
+  const mid: Vec3 = [(prey[0] + eaterAt[0]) / 2, (prey[1] + eaterAt[1]) / 2, (prey[2] + eaterAt[2]) / 2];
+  // Where the wolf tumbles out of the cloud: beside the goat, so both are easy to see.
+  const ox = prey[0] + sign(danger.bank) * 1.05;
+  const wolfAfter: Vec3 = [ox, groundHeight(ox, prey[2] + 0.2), prey[2] + 0.2];
+  return { prey, eaterAt, mid, wolfAfter };
+}
+
+/** The scene-wide part of a fail gag: camera zoom, fight cloud, comic words and flying bits. */
+function FailGag({ danger, phase, bits }: { danger: Trouble; phase: FailPhase | null; bits: number }) {
+  const { prey, mid } = gagSpots(danger);
+  const focus: Vec3 = [mid[0], mid[1] + 0.5, mid[2]];
+  if (danger.eater === 'wolf') {
+    return (
+      <group>
+        <FocusCam target={focus} active={phase != null} closer={0.5} />
+        <FightCloud position={mid} active={phase === 'action'} scale={1.15} limbColors={['#6f7480', '#efe6d6', '#3a3d45', '#b07a4f']} />
+        {/* tufts of goat fluff */}
+        <Burst trigger={bits} position={[mid[0], mid[1] + 0.8, mid[2]]} count={90} colors={['#ffffff', '#efe6d6', '#b07a4f']} power={0.55} size={1.6} />
+        {phase === 'action' && <ComicWord position={[mid[0], mid[1] + 1.8, mid[2]]} text="BONK!" size={42} />}
+        {phase === 'after' && <ComicWord position={[mid[0], mid[1] + 1.75, mid[2]]} text="Oops!" color="#ff8fab" size={38} tilt={6} />}
+      </group>
+    );
+  }
+  return (
+    <group>
+      <FocusCam target={focus} active={phase != null} closer={0.5} />
+      {/* cabbage leaves flying with every bite */}
+      <Burst trigger={bits} position={[prey[0], prey[1] + 0.35, prey[2]]} count={45} colors={['#5fb84a', '#a6dd6c', '#d8f2a8']} power={0.45} size={1.5} />
+      {phase === 'action' && <ComicWord position={[mid[0], mid[1] + 1.6, mid[2]]} text="MUNCH!" color="#a6e86c" />}
+      {phase === 'after' && <ComicWord position={[mid[0], mid[1] + 1.8, mid[2]]} text="BURP!" color="#ffd23f" size={40} tilt={7} />}
+    </group>
+  );
+}
+
+function Actor({ kind, seed, state, previous, lastMove, forward, loaded, animKey, danger, won, disabled, busy, boat, phase, bites, onClick }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const side = state[kind];
   const rode = forward && lastMove?.passenger === kind && previous != null;
 
-  // Who is in trouble on a loss. Wolf + goat: the wolf pounces, the goat panics.
-  // Goat + cabbage: the goat trots over and munches, the cabbage panics and vanishes.
+  // Who is in the gag on a loss: the eater (wolf or goat) and its target (goat or cabbage).
   const eater = danger?.eater === kind;
   const victim = danger != null && ((danger.eater === 'wolf' && kind === 'goat') || (danger.eater === 'goat' && kind === 'cabbage'));
-  // Reactions (moods and bubbles) wait until the boat has landed.
-  const react = !busy;
   const dangerKey = danger ? `${danger.bank}${danger.eater}` : '-';
+  // The eater lunges at the start of the action beat; the wolf tumbles out beside the goat after.
+  const stage = !eater || (phase !== 'action' && phase !== 'after') ? 0 : phase === 'after' && kind === 'wolf' ? 2 : 1;
+  const lunged = stage > 0;
 
   const segs = useMemo<PathSegment[]>(() => {
     if (rode && previous) {
@@ -231,99 +331,83 @@ function Actor({ kind, seed, state, previous, lastMove, forward, loaded, animKey
       ];
     }
     if (loaded) return [{ to: seat(state.farmer, state.farmer), durationMs: 480, height: 0.9 }];
-    const home: PathSegment = { to: slot(kind, side), durationMs: 480, height: 0.7 };
-    if (eater && danger) {
-      const prey: Item = danger.eater === 'wolf' ? 'goat' : 'cabbage';
-      const near = lungeAt(home.to, slot(prey, danger.bank), kind === 'goat' ? 0.62 : 0.55);
-      return [
-        { to: home.to, durationMs: 10, delayMs: forward ? REACT_DELAY : 0 },
-        {
-          to: near,
-          durationMs: LUNGE_MS,
-          height: kind === 'wolf' ? 1.3 : 0.6,
-          onStart: kind === 'wolf' ? sfx.growl : sfx.hop,
-          onEnd: kind === 'goat' ? crunch : undefined,
-        },
-      ];
-    }
-    return [home];
+    const home: Vec3 = slot(kind, side);
+    if (stage === 2 && danger) return [{ to: gagSpots(danger).wolfAfter, durationMs: 260, height: 0.4 }];
+    if (stage === 1 && danger) return [{ to: gagSpots(danger).eaterAt, durationMs: LUNGE_MS, height: kind === 'wolf' ? 1.3 : 0.6 }];
+    // Already home when a loss shows up: stay put (no hop) until the gag starts.
+    if (eater) return [{ to: home, durationMs: 10 }];
+    return [{ to: home, durationMs: 480, height: 0.7 }];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animKey, dangerKey]);
+  }, [animKey, dangerKey, stage]);
 
-  usePath(ref, segs, `${animKey}|${dangerKey}`, { face: true });
+  usePath(ref, segs, `${animKey}|${dangerKey}|${stage}`, { face: true });
 
   // Face the river when standing on a bank; the eater turns toward its prey.
   const facing = useRef<THREE.Group>(null);
   let yaw = loaded ? (state.farmer === 'L' ? Math.PI / 2 : -Math.PI / 2) : side === 'L' ? Math.PI / 2 : -Math.PI / 2;
-  if (eater && danger && react) {
-    const me = slot(kind, side);
+  if (eater && danger && phase != null) {
+    const me = stage === 2 ? gagSpots(danger).wolfAfter : lunged ? gagSpots(danger).eaterAt : slot(kind, side);
     const prey = slot(danger.eater === 'wolf' ? 'goat' : 'cabbage', danger.bank);
     yaw = Math.atan2(prey[0] - me[0], prey[2] - me[2]);
   }
   useFaceYaw(facing, yaw, 5);
 
-  // The munched cabbage shrinks away and sprays leaves.
-  const eatenRef = useRef<THREE.Group>(null);
-  const munchAt = useRef<number | null>(null);
-  const [leaves, setLeaves] = useState(0);
-  const [gone, setGone] = useState(false);
-  const munched = kind === 'cabbage' && victim;
-  useEffect(() => {
-    munchAt.current = null;
-    setGone(false);
-    if (!munched) return;
-    const start = (forward ? REACT_DELAY : 0) + LUNGE_MS + 120;
-    const t = setTimeout(() => {
-      munchAt.current = performance.now();
-      setLeaves((n) => n + 1);
-    }, start);
-    const t2 = setTimeout(() => setGone(true), start + MUNCH_MS);
-    return () => {
-      clearTimeout(t);
-      clearTimeout(t2);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [munched, animKey]);
+  // The wolf and goat vanish into the fight cloud; the cabbage shrinks with every bite.
+  const sizeRef = useRef<THREE.Group>(null);
+  let size = 1;
+  if (danger?.eater === 'wolf' && (eater || victim) && phase === 'action') size = 0;
+  if (kind === 'cabbage' && victim) size = 1 - bites * 0.2;
   useFrame((_, dt) => {
-    const g = eatenRef.current;
+    const g = sizeRef.current;
     if (!g) return;
-    let target = 1;
-    if (munchAt.current != null) {
-      const k = Math.min(1, (performance.now() - munchAt.current) / MUNCH_MS);
-      // Shrinks in three bites.
-      target = 1 - Math.ceil(k * 3) / 3;
-      if (k <= 0) target = 1;
-    }
-    const s = THREE.MathUtils.damp(g.scale.x, target, 14, dt);
-    g.scale.setScalar(s < 0.02 && target === 0 ? 0 : s);
+    const s = THREE.MathUtils.damp(g.scale.x, size, size === 0 ? 18 : 12, dt);
+    g.scale.setScalar(s < 0.02 && size === 0 ? 0 : s);
   });
 
-  const mood: Mood = !react ? 'idle' : won ? 'happy' : victim ? 'scared' : eater ? 'angry' : 'idle';
-  const leafAt = slot('cabbage', danger?.bank ?? side);
+  const after = phase === 'after';
+  const mood: Mood = won && !busy ? 'happy' : eater && after ? 'happy' : eater && phase ? 'angry' : victim && phase && !after ? 'scared' : 'idle';
+  // In the aftermath the goat's beard has ended up on the wolf.
+  const beardSwap = danger?.eater === 'wolf' && after;
 
   return (
-    <>
-      <group ref={ref}>
-        <group ref={facing}>
-          <group ref={eatenRef}>
-            <Clickable onClick={onClick} disabled={disabled}>
-              {kind === 'wolf' && <Wolf mood={mood} seed={seed} scale={1.15} />}
-              {kind === 'goat' && <Goat mood={mood} seed={seed} scale={1.1} chewing={eater && react} />}
-              {kind === 'cabbage' && <Cabbage mood={mood} seed={seed} scale={1.15} />}
-              {/* bigger invisible hit area, easier to tap on phones */}
-              <mesh position-y={0.5} visible={false}>
-                <sphereGeometry args={[0.6, 8, 8]} />
-              </mesh>
-            </Clickable>
-          </group>
+    <group ref={ref}>
+      <group ref={facing}>
+        <group ref={sizeRef}>
+          <Clickable onClick={onClick} disabled={disabled}>
+            {kind === 'wolf' && (
+              <Wolf mood={mood} seed={seed} scale={1.15}>
+                {beardSwap && (
+                  <mesh position={[0, 0.58, 0.55]} rotation-x={Math.PI + 0.3} material={toon('#b07a4f')} castShadow>
+                    <coneGeometry args={[0.05, 0.18, 5]} />
+                  </mesh>
+                )}
+              </Wolf>
+            )}
+            {kind === 'goat' && (
+              <Goat
+                mood={mood}
+                seed={seed}
+                scale={1.1}
+                chewing={eater && phase === 'action'}
+                full={eater && after}
+                leaf={eater && after}
+                beard={!(victim && beardSwap)}
+              />
+            )}
+            {kind === 'cabbage' && <Cabbage mood={mood} seed={seed} scale={1.15} />}
+            {/* bigger invisible hit area, easier to tap on phones */}
+            <mesh position-y={0.5} visible={false}>
+              <sphereGeometry args={[0.6, 8, 8]} />
+            </mesh>
+          </Clickable>
         </group>
-        {react && victim && kind === 'goat' && <Bubble position={[0, 1.5, 0]} tone="red">Meeeh!</Bubble>}
-        {react && victim && kind === 'cabbage' && !gone && <Bubble position={[0, 1.1, 0]} tone="red">!</Bubble>}
-        {react && eater && kind === 'wolf' && <Bubble position={[0, 1.6, 0]} tone="white">GRRR!</Bubble>}
-        {react && eater && kind === 'goat' && <Bubble position={[0, 1.6, 0]} tone="gold">MUNCH!</Bubble>}
-        {loaded && <HintRing position={[0, 0.06, 0]} radius={0.45} color="#7ee0b0" />}
       </group>
-      {kind === 'cabbage' && <LeafBurst trigger={leaves} position={[leafAt[0], leafAt[1] + 0.3, leafAt[2]]} />}
-    </>
+      {phase === 'windup' && victim && kind === 'goat' && <Bubble position={[0, 1.5, 0]} tone="red">Meeeh!</Bubble>}
+      {phase === 'windup' && victim && kind === 'cabbage' && <Bubble position={[0, 1.1, 0]} tone="red">Eek!</Bubble>}
+      {phase === 'windup' && eater && kind === 'wolf' && <Bubble position={[0, 1.6, 0]} tone="white">GRRR!</Bubble>}
+      {phase === 'windup' && eater && kind === 'goat' && <Bubble position={[0, 1.6, 0]} tone="gold">Lunch!</Bubble>}
+      {after && victim && <DizzyStars position={[0, kind === 'goat' ? 1.15 : 0.55, 0]} radius={kind === 'goat' ? 0.3 : 0.2} />}
+      {loaded && <HintRing position={[0, 0.06, 0]} radius={0.45} color="#7ee0b0" />}
+    </group>
   );
 }
