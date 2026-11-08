@@ -49,7 +49,7 @@ export interface SceneProps<S, M> {
   moveCount: number;
 }
 
-export type WorldId = 'meadow' | 'temple' | 'sky' | 'citadel';
+export type WorldId = 'meadow' | 'temple' | 'sky' | 'citadel' | 'lagoon';
 
 /**
  * Everything the game shell needs to show one level.

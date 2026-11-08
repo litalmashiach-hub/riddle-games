@@ -30,6 +30,7 @@ Never copy characters, art or levels from existing games.
 | Ancient Temple | 4 to 6 | Warm sunset, sandstone, jade, torches, an underground lake |
 | Sky Islands | 7 to 9 | Floating islands above clouds, balloons, crystal bridges, potions |
 | Clockwork Citadel | 10 to 12 | Dusk, brass gears, steam, canals, a golden vault |
+| Firefly Lagoon | 13 to 19 | Violet twilight, still water, lily pads, fireflies, lanterns, glowing mushrooms. A different kind of puzzle in every level |
 
 ## Performance
 

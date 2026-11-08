@@ -24,7 +24,7 @@ export function LevelMap({ progress, onPlay }: { progress: Progress; onPlay: (id
           </button>
         </div>
         <motion.header initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ type: 'spring', stiffness: 120, damping: 14 }} className="text-center">
-          <p className="font-display text-sm font-semibold uppercase tracking-[0.35em] text-amber-200/90">12 legendary puzzles</p>
+          <p className="font-display text-sm font-semibold uppercase tracking-[0.35em] text-amber-200/90">{LEVELS.length} legendary puzzles</p>
           <h1 className="text-outline mt-2 font-display text-5xl font-bold leading-none sm:text-7xl">
             <span className="bg-gradient-to-b from-white via-amber-100 to-amber-300 bg-clip-text text-transparent">Riddle Games</span>
           </h1>
