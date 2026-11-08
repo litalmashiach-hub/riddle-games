@@ -1,7 +1,7 @@
 import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, sfx, usePath, useFaceYaw, useSettings, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, useSettings, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -156,10 +156,30 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
   // Explorers on the danger bank, so each angry guardian knows whom to stomp toward.
   const victims = danger ? EXPLORERS.filter((e) => state[e] === danger) : [];
+
+  // Fail gag beats (the actors run the same timings): windup, boop, splash, then dizzy bobbing.
+  const gag = usePhases(danger != null && settled, [
+    ['windup', BOOP_MS],
+    ['boop', FLY_MS],
+    ['splash', 1400],
+    ['after', 60000],
+  ]);
+  const [shake, setShake] = useState(0);
+  useEffect(() => {
+    if (gag === 'boop') {
+      setShake((n) => n + 1);
+      sfx.boing();
+    } else if (gag === 'splash') setShake((n) => n + 1);
+    else if (gag === 'after') sfx.sadTrombone();
+  }, [gag]);
+  const dangerX = danger ? sign(danger) * 2.6 : 0;
   const firstAngry = danger ? GUARDIANS.find((g) => state[g] === danger) : undefined;
 
   return (
-    <group>
+    <Shake trigger={shake} intensity={0.08}>
+      <FocusCam target={[dangerX, 0.4, 0.6]} active={gag != null} closer={0.7} />
+      {gag === 'boop' && <ComicWord position={[sign(danger ?? 'L') * 4.2, 2.1, 0]} text="BOOP!" color="#7ff7e4" />}
+      {(gag === 'splash' || gag === 'after') && <ComicWord position={[sign(danger ?? 'L') * 1.4, 1.6, 1.4]} text="SPLASH!" color="#9fe8ff" />}
       <Cavern ref={water} low={low} won={won && settled} danger={danger && settled ? (sign(danger) as -1 | 1) : 0} />
 
       <group ref={barge}>
@@ -224,7 +244,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         <HintRing key={i} position={h.pos} radius={h.r} />
       ))}
       <Burst trigger={burst} position={[5, 1.4, 0]} />
-    </group>
+    </Shake>
   );
 }
 
@@ -292,7 +312,7 @@ function Actor(p: ActorProps) {
     }
     if (explorer && onDangerBank) {
       // Booped! The explorer flies in a big cartoon arc and lands with a splash in the lake.
-      out.push({ to: splashSpot(who, side), durationMs: FLY_MS, height: 2.4, delayMs: forward && !settled ? Math.max(0, MOVE_MS - waited) + BOOP_MS : BOOP_MS, onStart: sfx.hop });
+      out.push({ to: splashSpot(who, side), durationMs: FLY_MS, height: 2.4, delayMs: forward && !settled ? Math.max(0, MOVE_MS - waited) + BOOP_MS : BOOP_MS });
     }
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
