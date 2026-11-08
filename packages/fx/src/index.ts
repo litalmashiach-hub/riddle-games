@@ -7,3 +7,4 @@ export * from './PostFX';
 export * from './motion';
 export * from './Burst';
 export * from './Clickable';
+export * from './cartoon';

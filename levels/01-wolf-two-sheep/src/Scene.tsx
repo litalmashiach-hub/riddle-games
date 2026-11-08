@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, sfx, usePath, useFaceYaw, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FightCloud, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Boat, Bubble, Farmer, HintRing, RiverValley, Sheep, Wolf, groundHeight, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
@@ -28,6 +28,26 @@ const slot = (a: Animal, side: Side): Vec3 => {
   return [x, groundHeight(x, z), z];
 };
 
+/**
+ * The fail scene, after the boat lands: the wolf growls (windup), leaps into a cartoon scuffle
+ * (fight), then the cloud clears: the sheep is shorn and blushing, the wolf has a wool beard (after).
+ */
+export type FailPhase = 'windup' | 'fight' | 'after';
+const FAIL_PHASES: [FailPhase, number][] = [
+  ['windup', 800],
+  ['fight', 1600],
+  ['after', 60_000],
+];
+/** How long to wait before the "Oh no!" screen, so the whole gag plays. */
+export const FAIL_MS = 800 + 1600 + 1500;
+
+const loneSheep = (state: State, bank: Side): Animal => (['sheepA', 'sheepB'] as Animal[]).find((a) => state[a] === bank)!;
+/** Where the scuffle happens: between the wolf and the lone sheep. */
+const fightSpot = (state: State, bank: Side): Vec3 => {
+  const w = slot('wolf', bank), sh = slot(loneSheep(state, bank), bank);
+  return [(w[0] + sh[0] * 2) / 3, (w[1] + sh[1] * 2) / 3, (w[2] + sh[2] * 2) / 3];
+};
+
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
   /** The animal the player has put in the boat but not rowed yet (UI only, not a move). */
   const [loaded, setLoaded] = useState<Animal | null>(null);
@@ -46,6 +66,41 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const over = status.kind !== 'playing';
   const danger = status.kind === 'lost' ? dangerBank(state) : null;
   const won = status.kind === 'won';
+  const fail = usePhases<FailPhase>(danger != null && !busy, FAIL_PHASES);
+  const spot = danger ? fightSpot(state, danger) : null;
+  const [woolBurst, setWoolBurst] = useState(0);
+  const [shake, setShake] = useState(0);
+
+  // Sound and effects for each beat of the fail scene.
+  useEffect(() => {
+    if (fail === 'windup') sfx.growl();
+    if (fail === 'fight') {
+      sfx.boing();
+      setShake((n) => n + 1);
+      const t1 = setTimeout(() => {
+        sfx.poof();
+        sfx.scuffle();
+        setWoolBurst((n) => n + 1);
+      }, 250);
+      const t2 = setTimeout(() => {
+        sfx.chomp();
+        setShake((n) => n + 1);
+      }, 1250);
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
+    }
+    if (fail === 'after') {
+      sfx.poof();
+      const t = setTimeout(sfx.burp, 450);
+      const t2 = setTimeout(sfx.squeak, 900);
+      return () => {
+        clearTimeout(t);
+        clearTimeout(t2);
+      };
+    }
+  }, [fail]);
 
   useEffect(() => {
     if (!won) return;
@@ -91,7 +146,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     : null;
 
   return (
-    <group>
+    <Shake trigger={shake} intensity={0.16} durationMs={450}>
       <RiverValley />
 
       <group ref={boat}>
@@ -137,6 +192,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           loaded={loaded === a}
           animKey={animKey}
           danger={danger}
+          fail={fail}
           won={won}
           disabled={busy || over}
           busy={busy}
@@ -147,7 +203,18 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
       {hintTarget && !busy && <HintRing position={[hintTarget[0], hintTarget[1] + 0.03, hintTarget[2]]} radius={hint?.passenger && hint.passenger !== loaded ? 0.6 : 1.4} />}
       <Burst trigger={burst} position={[4.3, 1.2, 0.6]} />
-    </group>
+
+      {/* Fail scene */}
+      {spot && (
+        <>
+          <FocusCam target={[spot[0], spot[1] + 0.5, spot[2]]} active={fail != null} closer={0.5} />
+          <FightCloud position={spot} active={fail === 'fight'} scale={1.15} limbColors={['#6f7480', '#3b2f2b', '#f6f1e6', '#3a3d45']} />
+          <Burst trigger={woolBurst} position={[spot[0], spot[1] + 0.8, spot[2]]} count={90} colors={['#ffffff', '#f6f1e6', '#efe6d2']} power={0.55} size={1.6} />
+          {fail === 'fight' && <ComicWord position={[spot[0], spot[1] + 2.0, spot[2]]} text="CHOMP!" />}
+          {fail === 'after' && <ComicWord position={[spot[0], spot[1] + 2.7, spot[2]]} text="Oops!" color="#ff8fab" size={38} tilt={6} />}
+        </>
+      )}
+    </Shake>
   );
 }
 
@@ -172,6 +239,7 @@ interface ActorProps {
   loaded: boolean;
   animKey: string;
   danger: Side | null;
+  fail: FailPhase | null;
   won: boolean;
   disabled: boolean;
   busy: boolean;
@@ -179,7 +247,7 @@ interface ActorProps {
   onClick(): void;
 }
 
-function AnimalActor({ kind, seed, state, previous, lastMove, forward, loaded, animKey, danger, won, disabled, busy, boat, onClick }: ActorProps) {
+function AnimalActor({ kind, seed, state, previous, lastMove, forward, loaded, animKey, danger, fail, won, disabled, busy, boat, onClick }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const side = state[kind];
   const rode = forward && lastMove?.passenger === kind && previous != null;
@@ -203,42 +271,66 @@ function AnimalActor({ kind, seed, state, previous, lastMove, forward, loaded, a
     }
     if (loaded) return [{ to: seat(state.farmer, state.farmer), durationMs: 480, height: 0.9 }];
     const home: PathSegment = { to: slot(kind, side), durationMs: 480, height: 0.7 };
-    if (pouncing && danger) {
-      const sheep = (['sheepA', 'sheepB'] as Animal[]).find((s) => state[s] === danger)!;
-      const target = slot(sheep, danger);
-      const near: Vec3 = [(target[0] * 2 + home.to[0]) / 3, target[1], (target[2] * 2 + home.to[2]) / 3];
-      return [
-        { to: home.to, durationMs: 10, delayMs: forward ? CROSS_MS + DOCK_MS : 0 },
-        { to: near, durationMs: 450, height: 1.3, onStart: sfx.growl },
-      ];
+    // Fail scene: the wolf leaps at the sheep, and after the scuffle both end up beside the cloud.
+    if (danger && (fail === 'fight' || fail === 'after') && (pouncing || lonelySheep)) {
+      const spot = fightSpot(state, danger);
+      const dx = home.to[0] - spot[0], dz = home.to[2] - spot[2];
+      const len = Math.hypot(dx, dz) || 1;
+      const out = pouncing ? 0.55 : 0.6;
+      const beside: Vec3 = [spot[0] + (dx / len) * out, spot[1], spot[2] + (dz / len) * out];
+      return fail === 'fight' ? [{ to: spot, durationMs: 300, height: pouncing ? 1.4 : 0.4 }] : [{ to: beside, durationMs: 380, height: 0.6 }];
     }
     return [home];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animKey, danger]);
+  }, [animKey, danger, fail]);
 
-  usePath(ref, segs, `${animKey}|${danger}`, { face: true });
+  usePath(ref, segs, `${animKey}|${danger}|${fail}`, { face: true });
 
   // Face the river when standing on a bank.
   const facing = useRef<THREE.Group>(null);
-  const yaw = loaded ? (state.farmer === 'L' ? Math.PI / 2 : -Math.PI / 2) : side === 'L' ? Math.PI / 2 : -Math.PI / 2;
-  useFaceYaw(facing, yaw, 5);
+  let yaw = loaded ? (state.farmer === 'L' ? Math.PI / 2 : -Math.PI / 2) : side === 'L' ? Math.PI / 2 : -Math.PI / 2;
+  if (fail && danger && (pouncing || lonelySheep)) {
+    // Face each other during the fail scene (the wolf stares at the sheep, the sheep at the wolf).
+    const me = slot(kind, danger);
+    const them = pouncing ? slot(loneSheep(state, danger), danger) : slot('wolf', danger);
+    yaw = Math.atan2(them[0] - me[0], them[2] - me[2]);
+    if (fail === 'after' && pouncing) yaw += Math.PI * 0.6; // smug, looking at the camera-ish
+  }
+  useFaceYaw(facing, yaw, 6);
 
-  const mood: Mood = !react ? 'idle' : won ? 'happy' : lonelySheep ? 'scared' : pouncing ? 'angry' : 'idle';
-  const Body = isWolf ? Wolf : Sheep;
+  const inFight = fail === 'fight' && (pouncing || lonelySheep);
+  const after = fail === 'after';
+  const mood: Mood = !react
+    ? 'idle'
+    : won
+      ? 'happy'
+      : lonelySheep
+        ? 'scared'
+        : pouncing
+          ? after
+            ? 'happy'
+            : 'angry'
+          : 'idle';
 
   return (
     <group ref={ref}>
-      <group ref={facing}>
+      <group ref={facing} visible={!inFight}>
         <Clickable onClick={onClick} disabled={disabled}>
-          <Body mood={mood} seed={seed} scale={isWolf ? 1.15 : 1.05} />
+          {isWolf ? (
+            <Wolf mood={mood} seed={seed} scale={1.15} woolBeard={!!pouncing && after} />
+          ) : (
+            <Sheep mood={mood} seed={seed} scale={1.05} shorn={!!lonelySheep && after} />
+          )}
           {/* bigger invisible hit area, easier to tap on phones */}
           <mesh position-y={0.5} visible={false}>
             <sphereGeometry args={[0.6, 8, 8]} />
           </mesh>
         </Clickable>
       </group>
-      {react && lonelySheep && <Bubble position={[0, 1.3, 0]} tone="red">!</Bubble>}
-      {react && pouncing && <Bubble position={[0, 1.5, 0]} tone="white">GRRR!</Bubble>}
+      {fail === 'windup' && lonelySheep && <Bubble position={[0, 1.3, 0]} tone="red">!</Bubble>}
+      {fail === 'windup' && pouncing && <Bubble position={[0, 1.5, 0]} tone="white">GRRR!</Bubble>}
+      {after && pouncing && <Bubble position={[0, 1.55, 0]} tone="gold">*burp*</Bubble>}
+      {after && lonelySheep && <DizzyStars position={[0, 1.0, 0]} radius={0.28} />}
       {loaded && <HintRing position={[0, 0.06, 0]} radius={0.45} color="#7ee0b0" />}
     </group>
   );
