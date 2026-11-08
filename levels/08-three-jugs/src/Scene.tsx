@@ -1,12 +1,13 @@
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, easeInOut, sfx, useSettings } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, Shake, easeInOut, sfx, useSettings } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
 import * as THREE from 'three';
-import { Alchemist } from './Alchemist';
-import { CAPACITY, FLASKS, GOAL, pourAmount, type Flask, type Move, type State } from './rules';
+import { Alchemist, type AlchemistMood } from './Alchemist';
+import { BURP_MS, EMPTY_MS, GagFx, gagSound, type GagEvent, type GagKind } from './Gags';
+import { CAPACITY, FLASKS, GOAL, pourAmount, rules, type Flask, type Move, type State } from './rules';
 import { SkyLab } from './SkyLab';
 
 // ---- Timeline of one pour (ms from the tap) ----
@@ -155,16 +156,17 @@ interface FlaskProps {
   anim: MutableRefObject<Anim | null>;
   shown: MutableRefObject<number[]>;
   selected: boolean;
-  shake: MutableRefObject<number[]>;
+  gags: MutableRefObject<{ kind: GagKind; t0: number }[]>;
   winBlend: MutableRefObject<number>;
   disabled: boolean;
   onTap(): void;
 }
 
-function FlaskActor({ f, anim, shown, selected, shake, winBlend, disabled, onTap }: FlaskProps) {
+function FlaskActor({ f, anim, shown, selected, gags, winBlend, disabled, onTap }: FlaskProps) {
   const high = useSettings((s) => s.quality) === 'high';
   const mover = useRef<THREE.Group>(null);
   const tilter = useRef<THREE.Group>(null);
+  const squash = useRef<THREE.Group>(null);
   const liquid = useRef<THREE.Mesh>(null);
   const surface = useRef<THREE.Mesh>(null);
   const bubbles = useRef<THREE.InstancedMesh>(null);
@@ -209,8 +211,21 @@ function FlaskActor({ f, anim, shown, selected, shake, winBlend, disabled, onTap
       g.position.z += (0 - g.position.z) * k;
       tl.rotation.z += (0 - tl.rotation.z) * k;
     }
-    const since = now - shake.current[f];
-    if (since < 450) tl.rotation.z += Math.sin(since / 28) * 0.1 * (1 - since / 450);
+    // Gags: a full flask burps (squash and stretch), an empty one flips over and shakes.
+    const gag = gags.current[f];
+    const gt = now - gag.t0;
+    let sy = 1;
+    if (gag.kind === 'burp' && gt < BURP_MS) {
+      const u = gt / BURP_MS;
+      sy = 1 + (u < 0.18 ? -0.16 * Math.sin((u / 0.18) * Math.PI * 0.5) : Math.sin((u - 0.18) * Math.PI * 5) * 0.3 * (1 - u));
+      tl.rotation.z += Math.sin(gt / 28) * 0.07 * (1 - u);
+    } else if (gag.kind === 'empty' && gt < EMPTY_MS) {
+      const flip = phase(gt, 0, 360) * (1 - phase(gt, 980, EMPTY_MS));
+      const hold = gt > 360 && gt < 980 ? 1 : 0;
+      g.position.y = THREE.MathUtils.lerp(PEDESTAL + M, PEDESTAL + 0.95, flip) + Math.sin(Math.PI * flip) * 0.35 + hold * Math.abs(Math.sin(gt / 55)) * 0.1;
+      tl.rotation.z = flip * Math.PI * (f === 2 ? -1 : 1) + hold * Math.sin(gt / 42) * 0.2;
+    }
+    if (squash.current) squash.current.scale.set(1 / Math.sqrt(sy), sy, 1 / Math.sqrt(sy));
 
     // Liquid.
     const lv = Math.max(0, shown.current[f]);
@@ -270,7 +285,7 @@ function FlaskActor({ f, anim, shown, selected, shake, winBlend, disabled, onTap
       {/* the flask: pivot is the mouth, so tipping pours from the lip */}
       <group ref={mover} position={[X[f], PEDESTAL + M, 0]}>
         <group ref={tilter}>
-          <group position-y={-M}>
+          <group ref={squash} position-y={-M}>
             <Clickable onClick={onTap} disabled={disabled} hoverScale={1.04}>
               <mesh ref={liquid} material={liquidMat} renderOrder={1}>
                 <cylinderGeometry args={[R - 0.035, R - 0.035, 1, 28]} />
@@ -471,9 +486,15 @@ function Stream({ anim, shown, winBlend }: { anim: MutableRefObject<Anim | null>
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
   const [selected, setSelected] = useState<Flask | null>(null);
   const [burst, setBurst] = useState(0);
-  const [note, setNote] = useState<{ f: Flask; text: string; id: number } | null>(null);
+  const [note, setNote] = useState<{ f: Flask; text: string; tone: 'gold' | 'white' | 'red'; id: number } | null>(null);
   const anim = useRef<Anim | null>(null);
-  const shake = useRef<number[]>([-1e9, -1e9, -1e9]);
+  const gags = useRef<{ kind: GagKind; t0: number }[]>(FLASKS.map(() => ({ kind: 'burp' as GagKind, t0: -1e9 })));
+  const gagEvents = useRef<GagEvent[]>([]);
+  const potion = useRef(POTION.clone());
+  const [shake, setShake] = useState(0);
+  const [reaction, setReaction] = useState<{ mood: AlchemistMood; quip?: string; id: number } | null>(null);
+  /** State keys along the current path, to spot a pour that leads somewhere you have already been. */
+  const path = useRef<string[]>([rules.key(state)]);
   const winBlend = useRef(0);
   const lastCount = useRef(moveCount);
   const shown = useShownLevels(state, anim);
@@ -485,10 +506,22 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     const forward = moveCount > lastCount.current;
     lastCount.current = moveCount;
     setSelected(null);
+    const k = rules.key(state);
+    const wasted = forward && path.current.slice(0, moveCount).includes(k) && rules.status(state).kind === 'playing';
+    path.current[moveCount] = k;
+    if (moveCount === 0) path.current = [k];
     if (forward && previous && lastMove) {
       anim.current = { start: performance.now(), move: lastMove, prev: previous, next: state };
-      const t = setTimeout(() => glug(LEVEL_END - LEVEL_START), LEVEL_START);
-      return () => clearTimeout(t);
+      const timers = [setTimeout(() => glug(LEVEL_END - LEVEL_START), LEVEL_START)];
+      // Back where you already were: the alchemist gets dizzy.
+      if (wasted)
+        timers.push(
+          setTimeout(() => {
+            sfx.boing();
+            setReaction({ mood: 'dizzy', quip: 'Déjà vu!', id: Math.random() });
+          }, LEVEL_END + 150),
+        );
+      return () => timers.forEach(clearTimeout);
     }
     anim.current = null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -501,8 +534,14 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   }, [won]);
 
   useEffect(() => {
+    if (!reaction) return;
+    const t = setTimeout(() => setReaction(null), reaction.mood === 'dizzy' ? 2300 : 1500);
+    return () => clearTimeout(t);
+  }, [reaction]);
+
+  useEffect(() => {
     if (!note) return;
-    const t = setTimeout(() => setNote(null), 1100);
+    const t = setTimeout(() => setNote(null), 1400);
     return () => clearTimeout(t);
   }, [note]);
 
@@ -511,18 +550,35 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     const settled = !a || performance.now() - a.start > LEVEL_END;
     const target = won && settled ? 1 : 0;
     winBlend.current += (target - winBlend.current) * Math.min(1, dt * (target ? 2.5 : 8));
+    potion.current.copy(POTION_GLOW).lerp(GOLD_GLOW, winBlend.current);
   });
 
-  const deny = (f: Flask, text: string) => {
-    sfx.denied();
-    shake.current[f] = performance.now();
-    setNote({ f, text, id: Math.random() });
+  const gagBusy = () => gags.current.some((g) => performance.now() - g.t0 < (g.kind === 'burp' ? BURP_MS : EMPTY_MS));
+
+  /** A silly tap: play a funny reaction on flask f instead of a plain "no". */
+  const gag = (f: Flask, kind: GagKind) => {
+    const t0 = performance.now();
+    gags.current[f] = { kind, t0 };
+    if (kind === 'burp') {
+      sfx.burp();
+      setTimeout(sfx.poof, 120);
+      setShake((n) => n + 1);
+      gagEvents.current.push({ kind, at: [X[f], PEDESTAL + mouthH(f), 0], floor: PEDESTAL, t0 });
+      setNote({ f, text: 'BURP!', tone: 'gold', id: Math.random() });
+      setReaction({ mood: 'facepalm', quip: "It's full!", id: Math.random() });
+    } else {
+      sfx.squeak();
+      gagSound.plip();
+      gagEvents.current.push({ kind, at: [X[f], PEDESTAL + 0.95, 0], floor: PEDESTAL, t0 });
+      setTimeout(() => setNote({ f, text: 'plip…', tone: 'white', id: Math.random() }), 700);
+      setReaction({ mood: 'shrug', quip: 'Nothing in it!', id: Math.random() });
+    }
   };
 
   const tap = (f: Flask) => {
-    if (busy || over) return;
+    if (busy || over || gagBusy()) return;
     if (selected === null) {
-      if (state[f] === 0) return deny(f, 'Empty!');
+      if (state[f] === 0) return gag(f, 'empty');
       sfx.select();
       setSelected(f);
       return;
@@ -532,7 +588,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       setSelected(null);
       return;
     }
-    if (pourAmount(state, selected, f) === 0) return deny(f, 'Full!');
+    if (pourAmount(state, selected, f) === 0) {
+      setSelected(null);
+      return gag(f, 'burp');
+    }
     sfx.click();
     play({ from: selected, to: f });
   };
@@ -545,7 +604,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const lookYaw = lookAt === null ? 0 : Math.atan2(X[lookAt] - ALCH[0], 0 - ALCH[2]) - bodyYaw;
 
   return (
-    <group>
+    <Shake trigger={shake} intensity={0.06} durationMs={400}>
       <SkyLab />
 
       {FLASKS.map((f) => (
@@ -555,17 +614,28 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           anim={anim}
           shown={shown}
           selected={selected === f}
-          shake={shake}
+          gags={gags}
           winBlend={winBlend}
           disabled={busy || over}
           onTap={() => tap(f)}
         />
       ))}
       <Stream anim={anim} shown={shown} winBlend={winBlend} />
+      <GagFx events={gagEvents} potion={potion} />
 
       {selected !== null && !busy && <HintRing position={[X[selected], 0.04, 0]} radius={0.82} color="#7ee0b0" />}
       {hintFlask !== null && !busy && !over && <HintRing position={[X[hintFlask], 0.05, 0]} radius={0.95} />}
-      {note && <Bubble key={note.id} position={[X[note.f], PEDESTAL + mouthH(note.f) + 0.45, 0]} tone="red">{note.text}</Bubble>}
+      {note && (
+        <ComicWord
+          key={note.id}
+          position={[X[note.f], PEDESTAL + mouthH(note.f) + 0.6, 0]}
+          text={note.text}
+          size={note.text === 'BURP!' ? 44 : 30}
+          color={note.text === 'BURP!' ? '#ff9be6' : '#e0f2ff'}
+          ink={note.text === 'BURP!' ? '#4c1d95' : '#1e3a8a'}
+          tilt={note.text === 'BURP!' ? -10 : 6}
+        />
+      )}
       {selected !== null && !busy && !over && (
         <Html position={[X[selected], PEDESTAL + mouthH(selected) + 0.75, 0]} center zIndexRange={[5, 0]} style={{ pointerEvents: 'none' }}>
           <div
@@ -587,11 +657,13 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       )}
 
       <group position={ALCH} rotation-y={bodyYaw}>
-        <Alchemist mood={won && !busy ? 'happy' : pouring || selected !== null ? 'focus' : 'idle'} lookYaw={lookYaw} />
+        <Alchemist mood={won && !busy ? 'happy' : reaction ? reaction.mood : pouring || selected !== null ? 'focus' : 'idle'} lookYaw={reaction ? 0 : lookYaw} />
       </group>
+      {reaction?.mood === 'dizzy' && <DizzyStars position={[ALCH[0], 1.55, ALCH[2]]} radius={0.36} />}
+      {reaction?.quip && !won && <Bubble key={reaction.id} position={[ALCH[0], 2.15, ALCH[2]]} tone="white">{reaction.quip}</Bubble>}
       {won && !busy && <Bubble position={[ALCH[0], 2.1, ALCH[2]]} tone="gold">4 + 4!</Bubble>}
 
       <Burst trigger={burst} position={[0, 2.6, 0]} />
-    </group>
+    </Shake>
   );
 }
