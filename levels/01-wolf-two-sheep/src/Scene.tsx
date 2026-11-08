@@ -32,12 +32,16 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   /** The animal the player has put in the boat but not rowed yet (UI only, not a move). */
   const [loaded, setLoaded] = useState<Animal | null>(null);
   const [burst, setBurst] = useState(0);
-  const lastCount = useRef(moveCount);
-  const forward = moveCount > lastCount.current;
-  useEffect(() => {
-    lastCount.current = moveCount;
-    setLoaded(null);
-  }, [moveCount, resetCount]);
+  // Work out the move direction during render (not in an effect), so the render that shows a new
+  // move sees forward = true and the passenger rides the boat. An effect would flip it back to false
+  // one render later and restart the ride as a plain hop.
+  const dir = useRef({ count: moveCount, reset: resetCount, forward: false });
+  if (dir.current.count !== moveCount || dir.current.reset !== resetCount) {
+    dir.current = { count: moveCount, reset: resetCount, forward: resetCount === dir.current.reset && moveCount > dir.current.count };
+    // Undo or restart from the shell: drop any half-loaded animal.
+    if (loaded) setLoaded(null);
+  }
+  const forward = dir.current.forward;
 
   const over = status.kind !== 'playing';
   const danger = status.kind === 'lost' ? dangerBank(state) : null;
@@ -75,6 +79,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   };
   const row = () => {
     if (busy || over) return;
+    // Clear the selection in the same update as the move, so the ride animation starts only once.
+    setLoaded(null);
     play({ passenger: loaded });
   };
 
