@@ -34,7 +34,7 @@ Useful URL options:
 | 6 | Ancient Temple | Explorers and Guardians | Built |
 | 7 | Sky Islands | Three Jealous Couples | Planned |
 | 8 | Sky Islands | Three Jugs (8, 5 and 3 L) | Planned |
-| 9 | Sky Islands | Bridge of Five | Planned |
+| 9 | Sky Islands | Bridge of Five | Built |
 | 10 | Clockwork Citadel | Four-Pillar Tower, 6 discs | Planned |
 | 11 | Clockwork Citadel | Family Crossing | Planned |
 | 12 | Clockwork Citadel | The Twelve Coins | Built |

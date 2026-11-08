@@ -15,6 +15,7 @@
     "@riddle/fx": "workspace:*",
     "@riddle/level-01-wolf-two-sheep": "workspace:*",
     "@riddle/level-06-explorers-guardians": "workspace:*",
+    "@riddle/level-09-bridge-five": "workspace:*",
     "@riddle/level-12-twelve-coins": "workspace:*",
     "motion": "14.10.1",
     "react": "19.3.1",
