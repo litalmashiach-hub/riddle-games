@@ -28,6 +28,7 @@
     "@riddle/level-14-firefly-lanterns": "workspace:*",
     "@riddle/level-19-picture-tiles": "workspace:*",
     "@riddle/level-08-three-jugs": "workspace:*",
+    "@riddle/level-16-firefly-jars": "workspace:*",
     "@riddle/level-18-log-jam": "workspace:*",
     "motion": "14.10.1",
     "react": "19.3.1",
