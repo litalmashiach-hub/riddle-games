@@ -19,7 +19,7 @@ const level: RiddleLevel<State, Move> = {
   bestMoves: 11,
   moveNoun: 'flights',
   moveDurationMs: MOVE_MS,
-  endDelayMs: 1600,
+  endDelayMs: 2800,
   camera: { position: [0, 4.5, 10.2], target: [0, 0.6, 0], fov: 44 },
   Scene,
 };

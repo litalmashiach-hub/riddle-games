@@ -5,7 +5,8 @@ import { Html } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Balloon, BASKET_FLOOR } from './Balloon';
-import { Bird as BirdModel, Steam } from './Bird';
+import { Bird as BirdModel, COUPLE_COLORS, Steam } from './Bird';
+import { FeatherPuff, MusicNotes, StormCloud, SweatDrop } from './Drama';
 import { BIRDS, coupleOf, gent, nameOf, roleOf, trouble, type Bird, type Move, type Side, type State } from './rules';
 import { DOCK_X, ISLAND_X, SkyIslands } from './SkyIslands';
 
@@ -263,7 +264,7 @@ function BirdActor({ bird, seed, state, previous, lastMove, forward, boardMs, se
       <group ref={facing}>
         <Clickable onClick={onClick} disabled={disabled}>
           <group scale={BIRD_SCALE}>
-            <BirdModel couple={coupleOf(bird)} role={roleOf(bird)} mood={mood} seed={seed} />
+            <BirdModel couple={coupleOf(bird)} role={roleOf(bird)} mood={mood} seed={seed} act={react && isRival ? 'whistle' : react && isLady ? 'fluster' : undefined} />
           </group>
           {/* bigger invisible hit area, easier to tap on phones */}
           <mesh position-y={0.5} visible={false}>
@@ -273,12 +274,23 @@ function BirdActor({ bird, seed, state, previous, lastMove, forward, boardMs, se
       </group>
       {react && isJealous && (
         <>
-          <Bubble position={[0, 1.7, 0]} tone="red">HEY!!</Bubble>
-          <Steam position={[0, 1.2, 0]} />
+          <group position={[0, 1.75, 0]} scale={1.7}>
+            <StormCloud position={[0, 0, 0]} />
+          </group>
+          <Steam position={[0, 1.0, 0]} />
+          <FeatherPuff color={COUPLE_COLORS[coupleOf(bird)].body} />
+          <Bubble position={[0, 2.55, 0]} tone="red">HEY!!</Bubble>
         </>
       )}
-      {react && isLady && <Bubble position={[0, 1.45, 0]} tone="gold">!</Bubble>}
-      {react && isRival && <Bubble position={[0, 1.5, 0]} tone="white">♪~</Bubble>}
+      {react && isLady && <Bubble position={[0, 1.4, 0]} tone="gold">Oh my!</Bubble>}
+      {react && isRival && (
+        <group rotation-y={0.9}>
+          <group position={[0, 0.55, 0.35]} scale={1.5}>
+            <MusicNotes position={[0, 0, 0]} />
+          </group>
+          <SweatDrop position={[-0.24, 0.78, 0.12]} />
+        </group>
+      )}
       {react && won && roleOf(bird) === 'lady' && <Bubble position={[0, 1.4, 0]} tone="red">♥</Bubble>}
       {loaded && <HintRing position={[0, 0.06, 0]} radius={0.38} color="#7ee0b0" />}
     </group>
