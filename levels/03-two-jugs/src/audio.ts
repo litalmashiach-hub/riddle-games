@@ -80,3 +80,60 @@ export function pumpSound() {
     o.stop(t + i * 0.3 + 0.2);
   }
 }
+
+/** A cartoon duck quack: two nasal honks. */
+export function quackSound() {
+  const a = audio();
+  if (!a) return;
+  const t = a.currentTime;
+  [0, 0.22].forEach((d, i) => {
+    const o = a.createOscillator();
+    const f = a.createBiquadFilter();
+    const g = a.createGain();
+    o.type = 'sawtooth';
+    o.frequency.setValueAtTime(i ? 560 : 620, t + d);
+    o.frequency.exponentialRampToValueAtTime(i ? 300 : 360, t + d + 0.16);
+    f.type = 'bandpass';
+    f.frequency.value = 1200;
+    f.Q.value = 3;
+    g.gain.setValueAtTime(0.0001, t + d);
+    g.gain.exponentialRampToValueAtTime(0.12, t + d + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + d + 0.17);
+    o.connect(f).connect(g).connect(a.destination);
+    o.start(t + d);
+    o.stop(t + d + 0.2);
+  });
+}
+
+/** A silly "nuh-uh" for a move that would do nothing: a wobbly boing down. */
+export function oopsSound() {
+  const a = audio();
+  if (!a) return;
+  const t = a.currentTime;
+  const o = a.createOscillator();
+  const lfo = a.createOscillator();
+  const lfoGain = a.createGain();
+  const g = a.createGain();
+  o.type = 'triangle';
+  o.frequency.setValueAtTime(420, t);
+  o.frequency.exponentialRampToValueAtTime(170, t + 0.45);
+  lfo.frequency.value = 14;
+  lfoGain.gain.value = 30;
+  lfo.connect(lfoGain).connect(o.frequency);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.1, t + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+  o.connect(g).connect(a.destination);
+  o.start(t);
+  lfo.start(t);
+  o.stop(t + 0.55);
+  lfo.stop(t + 0.55);
+}
+
+/** Water whooshing out of a jug on undo / restart. */
+export function sloshSound() {
+  const a = audio();
+  if (!a) return;
+  hiss(a, a.currentTime, 0.45, 0.12, 1400);
+  blip(a, a.currentTime + 0.05, 220, 0.12, 0.06);
+}

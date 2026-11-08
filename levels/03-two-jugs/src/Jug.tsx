@@ -11,6 +11,8 @@ import {
   GO_MS,
   HOME,
   RETURN_MS,
+  SPILL_MS,
+  YARD_Y,
   TILT_MS,
   UNTILT_MS,
   lerp,
@@ -19,6 +21,7 @@ import {
   phase,
   type Anim,
 } from './layout';
+import { sloshSound } from './audio';
 import { Overlay } from './Overlay';
 import { CAPACITY, GOAL, otherJug, type JugId, type State } from './rules';
 
@@ -176,6 +179,7 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
   depthWrite: false,
 });
 const rimMaterial = toon('#ffffff', { emissive: '#dff6ff', emissiveIntensity: 0.6, flat: false, rough: 0.2 });
+const sprayMaterial = new THREE.MeshStandardMaterial({ color: '#bfefff', emissive: '#6fd3f2', emissiveIntensity: 0.5, roughness: 0.1 });
 const tickMaterial = toon('#ffffff', { emissive: '#ffffff', emissiveIntensity: 1.2, flat: false });
 
 export interface JugProps {
@@ -185,11 +189,13 @@ export interface JugProps {
   selected: boolean;
   glow: boolean;
   disabled: boolean;
+  /** performance.now() of the last refused tap, to shake "no". */
+  oops: number;
   onClick(): void;
 }
 
 /** A glass measuring jug that walks through the move timeline on its own. */
-export function Jug({ id, anim, state, selected, glow, disabled, onClick }: JugProps) {
+export function Jug({ id, anim, state, selected, glow, disabled, oops, onClick }: JugProps) {
   const d = DIMS[id];
   const cap = CAPACITY[id];
   const root = useRef<THREE.Group>(null);
@@ -207,6 +213,10 @@ export function Jug({ id, anim, state, selected, glow, disabled, onClick }: JugP
   const snap = useRef({ id: -1, pos: [...HOME[id]] as Vec3, tilt: 0, litres: state[id] });
   const slosh = useRef({ vx: 0, vz: 0, x: 0, z: 0, last: new THREE.Vector3(), init: false });
   const tmp = useMemo(() => new THREE.Vector3(), []);
+  const spray = useRef({ id: -1 });
+  const drops = useMemo(() => Array.from({ length: 40 }, () => ({ p: new THREE.Vector3(), v: new THREE.Vector3(), life: 0 })), []);
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const sprayMesh = useRef<THREE.InstancedMesh>(null);
 
   useFrame((_, dt) => {
     const a = anim.current;
@@ -217,10 +227,35 @@ export function Jug({ id, anim, state, selected, glow, disabled, onClick }: JugP
     const home = HOME[id];
 
     if (!a.forward || !a.move) {
-      const k = phase(el, 0, BACK_MS);
-      c.pos = lerp3(s0.pos, home, k);
-      c.tilt = lerp(s0.tilt, 0, k);
-      c.litres = lerp(s0.litres, a.next[id], k);
+      const spilling = s0.litres > a.next[id] + 0.2;
+      if (spilling) {
+        // Undo / restart takes water out: the jug does a silly backflip and sprays it everywhere.
+        const k = phase(el, 0, SPILL_MS);
+        c.dir = 1;
+        c.pos = lerp3(s0.pos, home, k);
+        c.pos[1] += Math.sin(Math.PI * k) * 0.7;
+        c.tilt = lerp(s0.tilt, 0, k) + k * Math.PI * 2;
+        c.litres = lerp(s0.litres, a.next[id], phase(el, 60, SPILL_MS * 0.45));
+        if (spray.current.id !== a.id && el > 60) {
+          spray.current.id = a.id;
+          sloshSound();
+          const top = new THREE.Vector3(c.pos[0], c.pos[1] + d.h, c.pos[2]);
+          const n = Math.min(drops.length, Math.round(10 + (s0.litres - a.next[id]) * 9));
+          for (let i = 0; i < n; i++) {
+            const p = drops[i];
+            const ang = Math.random() * Math.PI * 2;
+            const sp = 0.8 + Math.random() * 1.6;
+            p.p.copy(top);
+            p.v.set(Math.cos(ang) * sp, 1.8 + Math.random() * 2.4, Math.sin(ang) * sp);
+            p.life = 0.6 + Math.random() * 0.5;
+          }
+        }
+      } else {
+        const k = phase(el, 0, BACK_MS);
+        c.pos = lerp3(s0.pos, home, k);
+        c.tilt = lerp(s0.tilt, 0, k);
+        c.litres = lerp(s0.litres, a.next[id], k);
+      }
     } else if (a.move.jug === id) {
       const spot = moverSpot(a.move, a.prev);
       c.dir = spot.dir;
@@ -255,7 +290,32 @@ export function Jug({ id, anim, state, selected, glow, disabled, onClick }: JugP
     const p = pivot.current;
     const b = body.current;
     if (!g || !p || !b) return;
-    g.position.set(c.pos[0], c.pos[1] + c.lift, c.pos[2]);
+    // "Nuh-uh" head shake for a move that would do nothing.
+    const since = performance.now() - oops;
+    const shake = since >= 0 && since < 650 ? 1 - since / 650 : 0;
+    g.position.set(c.pos[0], c.pos[1] + c.lift + Math.abs(Math.sin(since * 0.025)) * 0.08 * shake, c.pos[2]);
+    g.rotation.z = Math.sin(since * 0.05) * 0.22 * shake;
+
+    // Spray droplets (world space).
+    const m = sprayMesh.current;
+    if (m) {
+      drops.forEach((p, i) => {
+        if (p.life > 0) {
+          p.life -= dt;
+          p.v.y -= 9.8 * dt;
+          p.p.addScaledVector(p.v, dt);
+          if (p.p.y < YARD_Y) {
+            p.p.y = YARD_Y;
+            p.v.set(p.v.x * 0.3, Math.abs(p.v.y) * 0.25, p.v.z * 0.3);
+          }
+        }
+        dummy.position.copy(p.p);
+        dummy.scale.setScalar(p.life > 0 ? Math.min(1, p.life * 3) : 0);
+        dummy.updateMatrix();
+        m.setMatrixAt(i, dummy.matrix);
+      });
+      m.instanceMatrix.needsUpdate = true;
+    }
     // Tip around the lip on the pouring side.
     p.position.set(c.dir * d.r, d.h, 0);
     b.position.set(-c.dir * d.r, -d.h, 0);
@@ -303,6 +363,10 @@ export function Jug({ id, anim, state, selected, glow, disabled, onClick }: JugP
   });
 
   return (
+    <>
+    <instancedMesh ref={sprayMesh} args={[undefined, sprayMaterial, 40]} frustumCulled={false}>
+      <icosahedronGeometry args={[0.035, 0]} />
+    </instancedMesh>
     <group ref={root}>
       <group ref={pivot}>
         <group ref={body}>
@@ -352,5 +416,6 @@ export function Jug({ id, anim, state, selected, glow, disabled, onClick }: JugP
         </div>
       </Overlay>
     </group>
+    </>
   );
 }

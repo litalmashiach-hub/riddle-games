@@ -6,11 +6,22 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Jug } from './Jug';
 import { Overlay, Pill } from './Overlay';
 import { Pouring } from './Pouring';
-import { DIMS, FILL_BASE, HOME, MOVE_MS, PIER_LIP_X, PIER_Y, PIER_Z, type Anim } from './layout';
+import { Duck } from './Duck';
+import { oopsSound } from './audio';
+import { DIMS, FILL_BASE, HOME, MOVE_MS, PIER_LIP_X, PIER_Y, PIER_Z, PUMP_POS, type Anim } from './layout';
 import { canDo, CAPACITY, GOAL, JUGS, otherJug, type JugId, type Move, type State } from './rules';
 import { Butterflies, Cobbles, GoalSign, Pump, RiverTarget, Well } from './Yard';
 
 export { MOVE_MS };
+
+/** A short, friendly reason a move would do nothing. */
+function whyNot(s: State, m: Move): string {
+  const cap = CAPACITY[m.jug];
+  if (m.kind === 'fill') return `It's already full! ${cap} of ${cap} L 🌊`;
+  if (m.kind === 'empty') return "It's already empty! 🏜️";
+  if (s[m.jug] === 0) return 'Nothing to pour! 🫗';
+  return `The ${CAPACITY[otherJug(m.jug)]} L jug is full! 🙅`;
+}
 
 const sameMove = (a: Move | null, b: Move | null) => !!a && !!b && a.kind === b.kind && a.jug === b.jug;
 
@@ -19,6 +30,18 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const [selected, setSelected] = useState<JugId | null>(null);
   const [burst, setBurst] = useState(0);
   const [settled, setSettled] = useState(true);
+  /** A refused tap: which jug shakes "no", and the funny reason shown over it. */
+  const [oops, setOops] = useState<{ n: number; jug: JugId | null; at: number; text: string; where: Vec3 } | null>(null);
+  useEffect(() => {
+    if (!oops) return;
+    const t = setTimeout(() => setOops(null), 1500);
+    return () => clearTimeout(t);
+  }, [oops]);
+  const refuse = (jug: JugId | null, text: string, where?: Vec3) => {
+    oopsSound();
+    const w: Vec3 = where ?? (jug ? [HOME[jug][0], HOME[jug][1] + DIMS[jug].h + 0.75, HOME[jug][2]] : [0, 0, 0]);
+    setOops((o) => ({ n: (o?.n ?? 0) + 1, jug, at: performance.now(), text, where: w }));
+  };
   const won = status.kind === 'won';
   const over = status.kind !== 'playing';
   const locked = busy || over;
@@ -81,13 +104,14 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const act = (m: Move) => {
     if (locked) return;
     if (!canDo(state, m)) {
-      sfx.denied();
+      setSelected(null);
+      refuse(m.jug, whyNot(state, m));
       return;
     }
     play(m);
   };
-  const atPump = () => (selected ? act({ kind: 'fill', jug: selected }) : sfx.denied());
-  const atRiver = () => (selected ? act({ kind: 'empty', jug: selected }) : sfx.denied());
+  const atPump = () => (selected ? act({ kind: 'fill', jug: selected }) : refuse(null, 'Pick up a jug first! 🫙', [PUMP_POS[0], PUMP_POS[1] + 1.75, PUMP_POS[2]]));
+  const atRiver = () => (selected ? act({ kind: 'empty', jug: selected }) : refuse(null, 'Pick up a jug first! 🫙', [PIER_LIP_X + 0.3, PIER_Y + 1.1, PIER_Z]));
 
   // Hint: first point at the jug to pick up, then at where it goes.
   let hintAt: { p: Vec3; r: number } | null = null;
@@ -110,6 +134,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       <RiverTarget onClick={atRiver} disabled={locked} />
       <Butterflies />
       <Pouring anim={anim} />
+      <Duck anim={anim} />
+      {oops && (
+        <Overlay key={oops.n} position={oops.where} zIndex={7}>
+          <Pill>{oops.text}</Pill>
+        </Overlay>
+      )}
 
       {JUGS.map((j) => (
         <Jug
@@ -120,6 +150,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           selected={selected === j && !busy}
           glow={celebrate && winner === j}
           disabled={locked}
+          oops={oops?.jug === j ? oops.at : -1e9}
           onClick={() => pick(j)}
         />
       ))}
@@ -171,7 +202,7 @@ const btn = (on: boolean, glow: boolean): CSSProperties => ({
   color: on ? '#1f2937' : '#9ca3af',
   boxShadow: on ? '0 3px 0 rgba(0,0,0,.2), 0 8px 16px rgba(0,0,0,.22)' : 'none',
   whiteSpace: 'nowrap',
-  cursor: on ? 'pointer' : 'default',
+  cursor: 'pointer',
   animation: glow ? 'jugs-pulse 1s ease-in-out infinite' : undefined,
 });
 
@@ -191,7 +222,7 @@ function ActionMenu({ jug, state, hint, onAct }: { jug: JugId; state: State; hin
         {items.map(({ m, label }) => {
           const on = canDo(state, m);
           return (
-            <button key={m.kind} disabled={!on} style={btn(on, sameMove(hint, m))} onClick={() => onAct(m)}>
+            <button key={m.kind} aria-disabled={!on} style={btn(on, sameMove(hint, m))} onClick={() => onAct(m)}>
               {label}
             </button>
           );
