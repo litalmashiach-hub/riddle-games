@@ -2,8 +2,8 @@ import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, Shake, easeInOut, sfx, useSettings, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
 import { Html } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
 import * as THREE from 'three';
 import { FOLK_HEIGHT, Folk, type FolkMood, type MotionInfo } from './Folk';
 import { GAP_HALF, ISLAND_X, LANES, LANTERN_HOOK_Y, deckY, entry, lanternPost, sign, slot, waitSpot } from './layout';
@@ -13,6 +13,8 @@ import { LANTERN_MINUTES, MINUTES, NAMES, TRAVELLERS, crossingMinutes, type Move
 import { SkyIslands } from './SkyIslands';
 
 const WALK_ON_MS = 420;
+/** Ignore a second tap on the same traveller this soon after the first. */
+const TAP_GUARD_MS = 450;
 const WALK_OFF_MS = 480;
 /** Slow walkers take longer on screen too, so the speeds are easy to feel. */
 const crossMs = (minutes: number) => 1100 + minutes * 130;
@@ -122,6 +124,20 @@ function useLegs(ref: RefObject<THREE.Object3D | null>, legs: Leg[], key: string
     }
     last.current.copy(o.position);
   });
+}
+
+/**
+ * A drei <Html> created while the canvas is still setting up can come out blank for good (Zip's badge
+ * and the lantern timer went missing this way). Labels use this as a React key, so they are created
+ * once more after setup and show up reliably.
+ */
+function useHtmlKey() {
+  const [k, setK] = useState(0);
+  useEffect(() => {
+    const t = setTimeout(() => setK(1), 300);
+    return () => clearTimeout(t);
+  }, []);
+  return k;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -248,18 +264,72 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   useLegs(lanternRef, lanternLegs, stepKey, lanternMotion);
 
   // ---- Input ----
+  // When each traveller was last picked or put back, so a double tap (or a doubled touch event)
+  // doesn't pick them and then send them straight back.
+  const lastToggle = useRef<Partial<Record<Traveller, number>>>({});
+  const [full, setFull] = useState(0);
+  useEffect(() => {
+    if (!full) return;
+    const t = setTimeout(() => setFull(0), 1400);
+    return () => clearTimeout(t);
+  }, [full]);
+  // On a small phone screen the travellers stand close together and their tap areas overlap, so a tap
+  // can land on a neighbour (often someone already waiting at the bridge, who then walks back).
+  // Pick whichever traveller's body is closest to the finger instead of whichever was hit first.
+  const getThree = useThree((s) => s.get);
+  const actors = useRef<Partial<Record<Traveller, THREE.Object3D>>>({});
+  const nearest = (hit: Traveller): Traveller => {
+    const { camera, pointer, size } = getThree();
+    // Work in screen pixels, so left-right and up-down distances count the same.
+    const sx = size.width / 2;
+    const sy = size.height / 2;
+    const feet = new THREE.Vector3();
+    const head = new THREE.Vector3();
+    const p = new THREE.Vector2(pointer.x * sx, pointer.y * sy);
+    const seg = new THREE.Line3();
+    const q = new THREE.Vector3();
+    let best = hit;
+    let bestD = Infinity;
+    for (const t of TRAVELLERS) {
+      const o = actors.current[t];
+      if (!o) continue;
+      // Distance on screen from the finger to the line from the traveller's feet to the top of their head.
+      o.getWorldPosition(feet);
+      head.copy(feet).setY(feet.y + FOLK_HEIGHT[t]);
+      feet.y += 0.1;
+      feet.project(camera);
+      head.project(camera);
+      feet.set(feet.x * sx, feet.y * sy, 0);
+      head.set(head.x * sx, head.y * sy, 0);
+      seg.set(feet, head).closestPointToPoint(q.set(p.x, p.y, 0), true, q);
+      const d = Math.hypot(q.x - p.x, q.y - p.y);
+      if (d < bestD) {
+        bestD = d;
+        best = t;
+      }
+    }
+    return best;
+  };
   const toggle = (t: Traveller) => {
     if (busy || over) return;
     if (state.pos[t] !== state.lantern) {
       sfx.denied();
       return;
     }
+    const now = performance.now();
+    if (now - (lastToggle.current[t] ?? -1e9) < TAP_GUARD_MS) return;
     if (picked.includes(t)) {
+      lastToggle.current[t] = now;
       sfx.deselect();
       setPicked(picked.filter((p) => p !== t));
+    } else if (picked.length >= 2) {
+      // The bridge only holds two: say so instead of quietly sending someone back.
+      sfx.denied();
+      setFull((n) => n + 1);
     } else {
+      lastToggle.current[t] = now;
       sfx.select();
-      setPicked(picked.length >= 2 ? [picked[1], t] : [...picked, t]);
+      setPicked([...picked, t]);
     }
   };
   const cross = () => {
@@ -275,7 +345,40 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const hintMatches = hint != null && hinted.length === picked.length && hinted.every((h) => picked.includes(h));
   const pickMinutes = picked.length ? crossingMinutes(picked) : 0;
   const goingRight = state.lantern === 'L';
-  const buttonPos: Vec3 = [sign(state.lantern) * (GAP_HALF + 0.55), -0.15, 1.45];
+  // The Cross button sits in a bar pinned near the bottom of the screen, below the islands, so it can't
+  // cover a traveller and a tap that just misses it can't pick one.
+  const crossButton = (
+    <button
+      onClick={cross}
+      style={{
+        fontFamily: 'Fredoka, system-ui, sans-serif',
+        fontWeight: 700,
+        fontSize: 17,
+        padding: '8px 16px',
+        borderRadius: 999,
+        border: '2px solid rgba(255,255,255,.85)',
+        background: picked.length ? 'linear-gradient(#ffe08a,#f4b03e)' : 'linear-gradient(#ffffff,#e0e7ff)',
+        color: '#1f2937',
+        boxShadow: '0 4px 0 rgba(0,0,0,.2), 0 10px 20px rgba(0,0,0,.25)',
+        whiteSpace: 'nowrap',
+        cursor: picked.length ? 'pointer' : 'default',
+        opacity: picked.length ? 1 : 0.92,
+      }}
+    >
+      {full ? (
+        <span style={{ fontSize: 14 }}>Only 2 fit on the bridge!</span>
+      ) : picked.length === 0 ? (
+        <span style={{ fontSize: 14 }}>Tap 1 or 2 travellers</span>
+      ) : (
+        <>
+          {goingRight ? 'Cross ➜' : '⬅ Cross back'}
+          <span style={{ opacity: 0.75, fontSize: 13, marginLeft: 6 }}>
+            {pickMinutes} min{state.time + pickMinutes > LANTERN_MINUTES ? ' ⚠' : ''}
+          </span>
+        </>
+      )}
+    </button>
+  );
 
   return (
     <Shake trigger={shake} intensity={0.08}>
@@ -312,46 +415,15 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             canPick={!busy && !over && state.pos[t] === state.lantern}
             hideBadge={won && !busy}
             disabled={busy || over}
-            onClick={() => toggle(t)}
+            onClick={() => toggle(nearest(t))}
+            register={(o) => (actors.current[t] = o)}
           />
         ))}
 
         {blackout && <DarkVeil />}
 
-        <TimerBadge minutes={shown} />
+        <BottomBar minutes={shown} button={crossButton} showButton={!busy && !over} buttonFirst={goingRight} />
 
-        {!busy && !over && (
-          <Html position={buttonPos} center zIndexRange={[5, 0]}>
-            <button
-              onClick={cross}
-              style={{
-                fontFamily: 'Fredoka, system-ui, sans-serif',
-                fontWeight: 700,
-                fontSize: 17,
-                padding: '8px 16px',
-                borderRadius: 999,
-                border: '2px solid rgba(255,255,255,.85)',
-                background: picked.length ? 'linear-gradient(#ffe08a,#f4b03e)' : 'linear-gradient(#ffffff,#e0e7ff)',
-                color: '#1f2937',
-                boxShadow: '0 4px 0 rgba(0,0,0,.2), 0 10px 20px rgba(0,0,0,.25)',
-                whiteSpace: 'nowrap',
-                cursor: picked.length ? 'pointer' : 'default',
-                opacity: picked.length ? 1 : 0.92,
-              }}
-            >
-              {picked.length === 0 ? (
-                <span style={{ fontSize: 14 }}>Tap 1 or 2 travellers</span>
-              ) : (
-                <>
-                  {goingRight ? 'Cross ➜' : '⬅ Cross back'}
-                  <span style={{ opacity: 0.75, fontSize: 13, marginLeft: 6 }}>
-                    {pickMinutes} min{state.time + pickMinutes > LANTERN_MINUTES ? ' ⚠' : ''}
-                  </span>
-                </>
-              )}
-            </button>
-          </Html>
-        )}
 
         {hint && !busy && !over && (
           <>
@@ -390,10 +462,15 @@ interface ActorProps {
   hideBadge: boolean;
   disabled: boolean;
   onClick(): void;
+  register(o: THREE.Object3D): void;
 }
 
-function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick }: ActorProps) {
+function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick, register }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
+  useEffect(() => {
+    if (ref.current) register(ref.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const facing = useRef<THREE.Group>(null);
   const motion = useRef({ speed: 0, vx: 0, vz: 0 });
   const lane = crossing ? crossing.walkers.indexOf(kind) : -1;
@@ -433,6 +510,7 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
 
   const picked = pickedIndex >= 0;
   const h = FOLK_HEIGHT[kind];
+  const htmlKey = useHtmlKey();
 
   return (
     <group ref={ref}>
@@ -447,7 +525,7 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
       </group>
       {picked && <HintRing position={[0, 0.05, 0]} radius={0.45} color="#7ee0b0" />}
       {/* Always mounted (hidden with opacity): unmounting a drei <Html> while a Bubble mounts breaks the DOM. */}
-      <Html position={[0, h + 0.18, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+      <Html key={htmlKey} position={[0, h + 0.18 + (pickedIndex === 1 ? 0.3 : 0), 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
         <div
           title={NAMES[kind]}
           style={{
@@ -474,8 +552,21 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
   );
 }
 
-/** "12 / 30 min" with a burning-down bar, floating above the bridge. Updated every frame from a ref. */
-function TimerBadge({ minutes }: { minutes: RefObject<number> }) {
+/**
+ * Pinned just above the game's own buttons, below the islands: the Cross button (on the lantern's side) and "12 / 30 min" with a
+ * burning-down bar. The minutes are updated every frame from a ref.
+ */
+function BottomBar({
+  minutes,
+  button,
+  showButton,
+  buttonFirst,
+}: {
+  minutes: RefObject<number>;
+  button: ReactNode;
+  showButton: boolean;
+  buttonFirst: boolean;
+}) {
   const num = useRef<HTMLSpanElement>(null);
   const bar = useRef<HTMLDivElement>(null);
   const box = useRef<HTMLDivElement>(null);
@@ -483,7 +574,8 @@ function TimerBadge({ minutes }: { minutes: RefObject<number> }) {
   useFrame(() => {
     const m = Math.min(LANTERN_MINUTES, minutes.current ?? 0);
     const whole = Math.round(m * 10) / 10;
-    if (whole === lastShown.current) return;
+    // Redraw when the label is recreated (new element), not only when the minutes change.
+    if (!num.current || (whole === lastShown.current && num.current.textContent)) return;
     lastShown.current = whole;
     if (num.current) num.current.textContent = String(Math.round(m));
     if (bar.current) {
@@ -493,8 +585,25 @@ function TimerBadge({ minutes }: { minutes: RefObject<number> }) {
     }
     if (box.current) box.current.style.transform = m >= LANTERN_MINUTES ? 'scale(1.08)' : 'scale(1)';
   });
+  const htmlKey = useHtmlKey();
   return (
-    <Html position={[0, -1.25, 0.9]} center zIndexRange={[3, 0]} style={{ pointerEvents: 'none' }}>
+    <Html
+      key={htmlKey}
+      calculatePosition={(_el, _cam, size) => [size.width / 2, size.height - 62 - size.height * 0.13]}
+      zIndexRange={[5, 0]}
+      style={{ pointerEvents: 'none' }}
+    >
+      <div
+        style={{
+          transform: 'translate(-50%, -50%)',
+          display: 'flex',
+          flexDirection: buttonFirst ? 'row' : 'row-reverse',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
+        {/* Hidden, not removed, while travellers walk, so the timer doesn't jump sideways. */}
+        <div style={{ pointerEvents: showButton ? 'auto' : 'none', visibility: showButton ? 'visible' : 'hidden' }}>{button}</div>
       <div
         ref={box}
         style={{
@@ -516,6 +625,7 @@ function TimerBadge({ minutes }: { minutes: RefObject<number> }) {
         <div style={{ height: 8, borderRadius: 99, background: 'rgba(30,27,75,.15)', overflow: 'hidden', marginTop: 4 }}>
           <div ref={bar} style={{ height: '100%', width: '100%', borderRadius: 99, background: 'linear-gradient(90deg,#ffb547,#fff1a8)' }} />
         </div>
+      </div>
       </div>
     </Html>
   );
