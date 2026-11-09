@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* Phones held sideways: very little height, so the HUD gets more compact. */
+@custom-variant short (@media (max-height: 500px));
+
 @theme {
   --font-display: 'Fredoka', ui-rounded, system-ui, sans-serif;
   --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif;
@@ -17,11 +20,12 @@ body,
   overscroll-behavior: none;
 }
 
-/* Touch devices: no tap flash, no long-press menus, no double-tap zoom. */
-html {
+/* Touch devices: no tap flash, no long-press menus, no page zoom (pinch or double-tap). Scrolling still works. */
+html,
+body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y;
 }
 body {
   -webkit-user-select: none;

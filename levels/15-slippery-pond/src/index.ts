@@ -21,7 +21,7 @@ const level: RiddleLevel<State, Move> = {
   moveNoun: 'slides',
   moveDurationMs: MOVE_MS,
   endDelayMs: FAIL_MS,
-  camera: { position: [0, 8.7, 6.2], target: [0, -0.5, 0.2], fov: 45 },
+  camera: { position: [0, 8.7, 6.2], target: [0, -0.5, 0.2], fov: 45, fitAspect: 1.15 },
   Scene,
 };
 

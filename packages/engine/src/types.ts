@@ -78,7 +78,11 @@ export interface RiddleLevel<S = any, M = any> {
   /** Extra delay before the win/lose screen, so a fail animation can play. */
   endDelayMs?: number;
   /** Starting camera. The player can orbit a little around `target`. */
-  camera?: { position: [number, number, number]; target: [number, number, number]; fov?: number };
+  /**
+   * `fitAspect`: the narrowest screen shape (width / height) that still shows the whole scene at this framing.
+   * On narrower screens, like phones held upright, the shell pulls the camera back to keep that width. Default 1.7.
+   */
+  camera?: { position: [number, number, number]; target: [number, number, number]; fov?: number; fitAspect?: number };
   /** The 3D scene. Rendered inside the shell's <Canvas>. */
   Scene: ComponentType<SceneProps<S, M>>;
 }
