@@ -1,7 +1,7 @@
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, sfx, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
-import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
+import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { pond } from './audio';
@@ -117,18 +117,6 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     }),
     [],
   );
-
-  // Phones held upright: pull the camera back so the whole pond fits.
-  const size = useThree((st) => st.size);
-  useFrame(({ camera }) => {
-    const aspect = size.width / size.height;
-    const zoom = aspect >= 1.15 ? 1 : Math.max(0.42, aspect * 0.82);
-    const cam = camera as THREE.PerspectiveCamera;
-    if (Math.abs(cam.zoom - zoom) > 1e-3) {
-      cam.zoom = zoom;
-      cam.updateProjectionMatrix();
-    }
-  });
 
   // Input ------------------------------------------------------------------
   const legal = useMemo(() => new Set(rules.legalMoves(state).map((m) => m.dir)), [state]);
