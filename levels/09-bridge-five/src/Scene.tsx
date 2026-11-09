@@ -127,17 +127,45 @@ function useLegs(ref: RefObject<THREE.Object3D | null>, legs: Leg[], key: string
 }
 
 /**
- * A drei <Html> created while the canvas is still setting up can come out blank for good (Zip's badge
- * and the lantern timer went missing this way). Labels use this as a React key, so they are created
- * once more after setup and show up reliably.
+ * Keeps drei <Html> labels from staying blank. When drei rebuilds a label's DOM root (the canvas
+ * switching its event element early on, at an unpredictable moment), the old root's delayed clean-up
+ * can wipe the new content, which is how Zip's badge and the timer went missing. Each label reports
+ * its element through `watch`; if one that should be showing is not on the page, `key` changes and
+ * the labels are built again from scratch.
  */
-function useHtmlKey() {
-  const [k, setK] = useState(0);
+function useHtmlHeal() {
+  const [key, setKey] = useState(0);
+  const els = useRef(new Map<string, { el: HTMLElement | null; on: boolean; ref: (el: HTMLElement | null) => void }>());
   useEffect(() => {
-    const t = setTimeout(() => setK(1), 300);
-    return () => clearTimeout(t);
+    let tries = 0;
+    let missing = false;
+    const id = setInterval(() => {
+      // Labels can take a moment to fill in on slow devices, so only act when one is still missing
+      // on two checks in a row.
+      const now = [...els.current.values()].some(({ el, on }) => on && !el?.isConnected);
+      if (now && missing && tries < 10) {
+        tries += 1;
+        missing = false;
+        setKey((k) => k + 1);
+        return;
+      }
+      missing = now;
+    }, 1500);
+    return () => clearInterval(id);
   }, []);
-  return k;
+  /** Ref for a label's content; `on` says whether that label should be showing right now. */
+  const watch = (name: string, on: boolean) => {
+    let entry = els.current.get(name);
+    if (!entry) {
+      const e = { el: null as HTMLElement | null, on, ref: (el: HTMLElement | null) => void (e.el = el) };
+      els.current.set(name, e);
+      entry = e;
+    }
+    entry.on = on;
+    // The same function every time, so the label's content doesn't count as changed on each render.
+    return entry.ref;
+  };
+  return { key, watch };
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -510,7 +538,7 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
 
   const picked = pickedIndex >= 0;
   const h = FOLK_HEIGHT[kind];
-  const htmlKey = useHtmlKey();
+  const heal = useHtmlHeal();
 
   return (
     <group ref={ref}>
@@ -525,8 +553,9 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
       </group>
       {picked && <HintRing position={[0, 0.05, 0]} radius={0.45} color="#7ee0b0" />}
       {/* Always mounted (hidden with opacity): unmounting a drei <Html> while a Bubble mounts breaks the DOM. */}
-      <Html key={htmlKey} position={[0, h + 0.18 + (pickedIndex === 1 ? 0.3 : 0), 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+      <Html key={heal.key} position={[0, h + 0.18 + (pickedIndex === 1 ? 0.3 : 0), 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
         <div
+          ref={heal.watch('badge', true)}
           title={NAMES[kind]}
           style={{
             fontFamily: 'Fredoka, system-ui, sans-serif',
@@ -585,15 +614,16 @@ function BottomBar({
     }
     if (box.current) box.current.style.transform = m >= LANTERN_MINUTES ? 'scale(1.08)' : 'scale(1)';
   });
-  const htmlKey = useHtmlKey();
+  const heal = useHtmlHeal();
   return (
     <Html
-      key={htmlKey}
+      key={heal.key}
       calculatePosition={(_el, _cam, size) => [size.width / 2, size.height - 62 - size.height * 0.13]}
       zIndexRange={[5, 0]}
       style={{ pointerEvents: 'none' }}
     >
       <div
+        ref={heal.watch('bar', true)}
         style={{
           transform: 'translate(-50%, -50%)',
           display: 'flex',
