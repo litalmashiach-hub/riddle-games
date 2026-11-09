@@ -3,7 +3,7 @@ import { Burst, Clickable, ComicWord, Shake, easeInOut, sfx, useSettings, type V
 import { Bubble, HintRing } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
 import * as THREE from 'three';
 import { FOLK_HEIGHT, Folk, type FolkMood, type MotionInfo } from './Folk';
 import { GAP_HALF, ISLAND_X, LANES, LANTERN_HOOK_Y, deckY, entry, lanternPost, sign, slot, waitSpot } from './layout';
@@ -279,17 +279,30 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const getThree = useThree((s) => s.get);
   const actors = useRef<Partial<Record<Traveller, THREE.Object3D>>>({});
   const nearest = (hit: Traveller): Traveller => {
-    const { camera, pointer } = getThree();
-    const v = new THREE.Vector3();
+    const { camera, pointer, size } = getThree();
+    // Work in screen pixels, so left-right and up-down distances count the same.
+    const sx = size.width / 2;
+    const sy = size.height / 2;
+    const feet = new THREE.Vector3();
+    const head = new THREE.Vector3();
+    const p = new THREE.Vector2(pointer.x * sx, pointer.y * sy);
+    const seg = new THREE.Line3();
+    const q = new THREE.Vector3();
     let best = hit;
     let bestD = Infinity;
     for (const t of TRAVELLERS) {
       const o = actors.current[t];
       if (!o) continue;
-      o.getWorldPosition(v);
-      v.y += FOLK_HEIGHT[t] * 0.5;
-      v.project(camera);
-      const d = Math.hypot(v.x - pointer.x, v.y - pointer.y);
+      // Distance on screen from the finger to the line from the traveller's feet to the top of their head.
+      o.getWorldPosition(feet);
+      head.copy(feet).setY(feet.y + FOLK_HEIGHT[t]);
+      feet.y += 0.1;
+      feet.project(camera);
+      head.project(camera);
+      feet.set(feet.x * sx, feet.y * sy, 0);
+      head.set(head.x * sx, head.y * sy, 0);
+      seg.set(feet, head).closestPointToPoint(q.set(p.x, p.y, 0), true, q);
+      const d = Math.hypot(q.x - p.x, q.y - p.y);
       if (d < bestD) {
         bestD = d;
         best = t;
@@ -332,8 +345,40 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const hintMatches = hint != null && hinted.length === picked.length && hinted.every((h) => picked.includes(h));
   const pickMinutes = picked.length ? crossingMinutes(picked) : 0;
   const goingRight = state.lantern === 'L';
-  // Kept clear of the bridge head, so a tap that just misses the button does not hit a waiting traveller.
-  const buttonPos: Vec3 = [sign(state.lantern) * (GAP_HALF + 1.5), -0.4, 2.0];
+  // The Cross button sits in a bar pinned near the bottom of the screen, below the islands, so it can't
+  // cover a traveller and a tap that just misses it can't pick one.
+  const crossButton = (
+    <button
+      onClick={cross}
+      style={{
+        fontFamily: 'Fredoka, system-ui, sans-serif',
+        fontWeight: 700,
+        fontSize: 17,
+        padding: '8px 16px',
+        borderRadius: 999,
+        border: '2px solid rgba(255,255,255,.85)',
+        background: picked.length ? 'linear-gradient(#ffe08a,#f4b03e)' : 'linear-gradient(#ffffff,#e0e7ff)',
+        color: '#1f2937',
+        boxShadow: '0 4px 0 rgba(0,0,0,.2), 0 10px 20px rgba(0,0,0,.25)',
+        whiteSpace: 'nowrap',
+        cursor: picked.length ? 'pointer' : 'default',
+        opacity: picked.length ? 1 : 0.92,
+      }}
+    >
+      {full ? (
+        <span style={{ fontSize: 14 }}>Only 2 fit on the bridge!</span>
+      ) : picked.length === 0 ? (
+        <span style={{ fontSize: 14 }}>Tap 1 or 2 travellers</span>
+      ) : (
+        <>
+          {goingRight ? 'Cross ➜' : '⬅ Cross back'}
+          <span style={{ opacity: 0.75, fontSize: 13, marginLeft: 6 }}>
+            {pickMinutes} min{state.time + pickMinutes > LANTERN_MINUTES ? ' ⚠' : ''}
+          </span>
+        </>
+      )}
+    </button>
+  );
 
   return (
     <Shake trigger={shake} intensity={0.08}>
@@ -377,42 +422,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
         {blackout && <DarkVeil />}
 
-        <TimerBadge minutes={shown} />
+        <BottomBar minutes={shown} button={crossButton} showButton={!busy && !over} buttonFirst={goingRight} />
 
-        {!busy && !over && (
-          <Html position={buttonPos} center zIndexRange={[5, 0]}>
-            <button
-              onClick={cross}
-              style={{
-                fontFamily: 'Fredoka, system-ui, sans-serif',
-                fontWeight: 700,
-                fontSize: 17,
-                padding: '8px 16px',
-                borderRadius: 999,
-                border: '2px solid rgba(255,255,255,.85)',
-                background: picked.length ? 'linear-gradient(#ffe08a,#f4b03e)' : 'linear-gradient(#ffffff,#e0e7ff)',
-                color: '#1f2937',
-                boxShadow: '0 4px 0 rgba(0,0,0,.2), 0 10px 20px rgba(0,0,0,.25)',
-                whiteSpace: 'nowrap',
-                cursor: picked.length ? 'pointer' : 'default',
-                opacity: picked.length ? 1 : 0.92,
-              }}
-            >
-              {full ? (
-                <span style={{ fontSize: 14 }}>Only 2 fit on the bridge!</span>
-              ) : picked.length === 0 ? (
-                <span style={{ fontSize: 14 }}>Tap 1 or 2 travellers</span>
-              ) : (
-                <>
-                  {goingRight ? 'Cross ➜' : '⬅ Cross back'}
-                  <span style={{ opacity: 0.75, fontSize: 13, marginLeft: 6 }}>
-                    {pickMinutes} min{state.time + pickMinutes > LANTERN_MINUTES ? ' ⚠' : ''}
-                  </span>
-                </>
-              )}
-            </button>
-          </Html>
-        )}
 
         {hint && !busy && !over && (
           <>
@@ -541,8 +552,21 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
   );
 }
 
-/** "12 / 30 min" with a burning-down bar, floating above the bridge. Updated every frame from a ref. */
-function TimerBadge({ minutes }: { minutes: RefObject<number> }) {
+/**
+ * Pinned just above the game's own buttons, below the islands: the Cross button (on the lantern's side) and "12 / 30 min" with a
+ * burning-down bar. The minutes are updated every frame from a ref.
+ */
+function BottomBar({
+  minutes,
+  button,
+  showButton,
+  buttonFirst,
+}: {
+  minutes: RefObject<number>;
+  button: ReactNode;
+  showButton: boolean;
+  buttonFirst: boolean;
+}) {
   const num = useRef<HTMLSpanElement>(null);
   const bar = useRef<HTMLDivElement>(null);
   const box = useRef<HTMLDivElement>(null);
@@ -563,7 +587,23 @@ function TimerBadge({ minutes }: { minutes: RefObject<number> }) {
   });
   const htmlKey = useHtmlKey();
   return (
-    <Html key={htmlKey} position={[0, -1.25, 0.9]} center zIndexRange={[3, 0]} style={{ pointerEvents: 'none' }}>
+    <Html
+      key={htmlKey}
+      calculatePosition={(_el, _cam, size) => [size.width / 2, size.height - 62 - size.height * 0.13]}
+      zIndexRange={[5, 0]}
+      style={{ pointerEvents: 'none' }}
+    >
+      <div
+        style={{
+          transform: 'translate(-50%, -50%)',
+          display: 'flex',
+          flexDirection: buttonFirst ? 'row' : 'row-reverse',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
+        {/* Hidden, not removed, while travellers walk, so the timer doesn't jump sideways. */}
+        <div style={{ pointerEvents: showButton ? 'auto' : 'none', visibility: showButton ? 'visible' : 'hidden' }}>{button}</div>
       <div
         ref={box}
         style={{
@@ -585,6 +625,7 @@ function TimerBadge({ minutes }: { minutes: RefObject<number> }) {
         <div style={{ height: 8, borderRadius: 99, background: 'rgba(30,27,75,.15)', overflow: 'hidden', marginTop: 4 }}>
           <div ref={bar} style={{ height: '100%', width: '100%', borderRadius: 99, background: 'linear-gradient(90deg,#ffb547,#fff1a8)' }} />
         </div>
+      </div>
       </div>
     </Html>
   );
