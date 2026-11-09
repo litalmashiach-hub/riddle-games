@@ -1,5 +1,5 @@
 import { Html } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, sfx, usePath, useFaceYaw, useSettings, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
@@ -80,19 +80,6 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     `${moveCount}|${resetCount}`,
     { face: false },
   );
-
-  // On tall phone screens, pull the camera back further than the shell does so both banks fit.
-  const size = useThree((st) => st.size);
-  useFrame(({ camera }) => {
-    const aspect = size.width / size.height;
-    if (aspect >= 1) return;
-    const zoom = Math.max(0.34, aspect * 0.68);
-    const cam = camera as THREE.PerspectiveCamera;
-    if (Math.abs(cam.zoom - zoom) > 1e-3) {
-      cam.zoom = zoom;
-      cam.updateProjectionMatrix();
-    }
-  });
 
   // Feed the barge position and the mood of the level to the water shader.
   const water = useRef<BioWaterHandle>(null);

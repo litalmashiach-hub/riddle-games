@@ -47,6 +47,21 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [s.ended]);
 
+  // Upright phones show the whole scene but small: suggest turning sideways, once per visit.
+  const [rotateTip, setRotateTip] = useState(false);
+  useEffect(() => {
+    if (showRules || !window.matchMedia('(orientation: portrait) and (max-width: 600px)').matches) return;
+    try {
+      if (sessionStorage.getItem('riddle-rotate-tip')) return;
+      sessionStorage.setItem('riddle-rotate-tip', '1');
+    } catch {
+      /* private mode: show it anyway */
+    }
+    setRotateTip(true);
+    const t = setTimeout(() => setRotateTip(false), 4500);
+    return () => clearTimeout(t);
+  }, [showRules]);
+
   useEffect(() => {
     if (!hintText) return;
     const t = setTimeout(() => setHintText(null), 5000);
@@ -68,7 +83,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   }, [session]);
 
   const Scene = level.Scene;
-  const cam = level.camera ?? { position: [0, 8, 12] as [number, number, number], target: [0, 0, 0] as [number, number, number], fov: 42 };
+  const cam: NonNullable<RiddleLevel['camera']> = level.camera ?? { position: [0, 8, 12], target: [0, 0, 0], fov: 42 };
 
   return (
     <div className="relative h-full w-full select-none overflow-hidden" style={{ background: look.fog }}>
@@ -93,24 +108,24 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
               moveCount={moveCount}
             />
           </WorldStage>
-          <CameraRig position={cam.position} target={cam.target} />
+          <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} />
         </Suspense>
       </Canvas>
 
       {/* Top bar */}
-      <div className="safe-top pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3 sm:p-4">
+      <div className="safe-top pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3 sm:p-4 short:pt-2">
         <div className="pointer-events-auto flex items-center gap-2">
           <Button onClick={onExit} aria-label="Back to levels" className="!px-3">
             <HomeIcon />
           </Button>
-          <div className="glass hidden rounded-2xl px-4 py-1.5 sm:block">
+          <div className="glass hidden rounded-2xl px-4 py-1.5 sm:block short:hidden">
             <div className="text-[11px] font-bold uppercase tracking-widest text-white/75">Level {level.number} · {look.name}</div>
             <div className="font-display text-lg font-semibold leading-tight">{level.title}</div>
           </div>
         </div>
         <div className="glass pointer-events-auto rounded-2xl px-4 py-1.5 text-center">
           <div className="font-display text-2xl font-bold leading-none tabular-nums">{moveCount}</div>
-          <div className="text-[11px] font-bold uppercase tracking-widest text-white/75">{level.moveNoun} · best {level.bestMoves}</div>
+          <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/75"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
         </div>
         <div className="pointer-events-auto flex items-center gap-2">
           <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" aria-label="Graphics quality">
@@ -126,12 +141,12 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       </div>
 
       {/* Bottom controls */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-        <div className="glass pointer-events-auto flex gap-2 rounded-3xl p-2">
-          <Button onClick={s.undo} disabled={moveCount === 0} aria-label="Undo"><UndoIcon /><span className="hidden sm:inline">Undo</span></Button>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))] short:pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+        <div className="glass pointer-events-auto flex gap-2 rounded-3xl p-2 short:p-1.5">
+          <Button onClick={s.undo} disabled={moveCount === 0} aria-label="Undo"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
           <Button onClick={s.redo} disabled={s.future.length === 0} aria-label="Redo"><RedoIcon /></Button>
-          <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} aria-label="Restart"><RestartIcon /><span className="hidden sm:inline">Restart</span></Button>
-          <Button tone="gold" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline">Hint</span></Button>
+          <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} aria-label="Restart"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
+          <Button tone="gold" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline short:hidden">Hint</span></Button>
         </div>
       </div>
 
@@ -140,6 +155,15 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
         {hintText && (
           <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-24 flex justify-center px-4">
             <div className="rounded-2xl bg-amber-300 px-5 py-3 font-display text-lg font-semibold text-amber-950 shadow-xl">💡 {hintText}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Turn-your-phone tip */}
+      <AnimatePresence>
+        {rotateTip && (
+          <motion.div initial={{ y: -16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} className="pointer-events-none absolute inset-x-0 top-[calc(env(safe-area-inset-top)+5rem)] flex justify-center px-4">
+            <div className="glass rounded-2xl px-4 py-2 text-center font-display text-base font-semibold">📱↻ Turn your phone sideways for a bigger view</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -199,13 +223,14 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
 
 function Modal({ children, tone }: { children: React.ReactNode; tone?: 'red' }) {
   return (
-    <motion.div className="absolute inset-0 z-10 grid place-items-center bg-slate-950/35 p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    // Scrolls when the card is taller than the screen (phones held sideways), so its buttons stay reachable.
+    <motion.div className="absolute inset-0 z-10 grid justify-items-center overflow-y-auto overscroll-contain bg-slate-950/35 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <motion.div
         initial={{ scale: 0.8, y: 30 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-        className={`glass w-full max-w-md rounded-[2rem] p-6 text-center ${tone === 'red' ? '!bg-rose-900/40' : ''}`}
+        className={`glass my-auto w-full max-w-md rounded-[2rem] p-5 text-center sm:p-6 ${tone === 'red' ? '!bg-rose-900/40' : ''}`}
       >
         {children}
       </motion.div>
@@ -213,23 +238,58 @@ function Modal({ children, tone }: { children: React.ReactNode; tone?: 'red' }) 
   );
 }
 
-/** Orbit within a small range around the target, with a short fly-in on start. */
-function CameraRig({ position, target }: { position: [number, number, number]; target: [number, number, number] }) {
+/** Most dioramas are framed for a landscape screen about this wide. Narrower screens pull back to keep all of it. */
+const DESIGN_ASPECT = 1.7;
+
+/**
+ * How to frame the scene on this screen: `zoom` widens the lens a little, `pull` moves the camera back for the rest.
+ * Together they keep the full width of the designed view visible on phones held upright.
+ */
+export function fitFor(width: number, height: number, designAspect = DESIGN_ASPECT) {
+  const aspect = width / Math.max(height, 1);
+  const need = Math.max(1, designAspect / aspect);
+  const zoom = Math.max(1 / need, 0.62);
+  // Short landscape phones lose a lot of height to the top and bottom buttons.
+  const short = aspect > 1 && height < 480 ? 1.08 : 1;
+  // Upright phones look down a little more steeply, so the tall screen is filled with the scene, not foreground.
+  const tilt = Math.min(0.22, (need - 1) * 0.12);
+  return { zoom, pull: need * zoom * short, tilt };
+}
+
+/** Orbit within a small range around the target, with a short fly-in on start. Refits when the screen turns. */
+function CameraRig({ position, target, fitAspect }: { position: [number, number, number]; target: [number, number, number]; fitAspect?: number }) {
   const controls = useRef<any>(null);
   const camera = useThree((st) => st.camera);
   const size = useThree((st) => st.size);
   const start = useRef(performance.now());
   const flown = useRef(false);
-  const end = useMemo(() => new THREE.Vector3(...position), [position]);
-  const from = useMemo(() => end.clone().multiplyScalar(1.7).add(new THREE.Vector3(6, 4, 0)), [end]);
+  const fit = fitFor(size.width, size.height, fitAspect);
+  const goal = useMemo(() => new THREE.Vector3(...target), [target]);
+  const end = useMemo(() => {
+    const offset = new THREE.Vector3(...position).sub(goal);
+    const sph = new THREE.Spherical().setFromVector3(offset);
+    sph.phi = Math.max(0.4, sph.phi - fit.tilt);
+    return new THREE.Vector3().setFromSpherical(sph).multiplyScalar(fit.pull).add(goal);
+  }, [position, goal, fit.pull, fit.tilt]);
+  const dist = end.distanceTo(goal);
+  const from = useMemo(() => end.clone().sub(goal).multiplyScalar(1.7).add(goal).add(new THREE.Vector3(6, 4, 0)), [end, goal]);
 
-  // Pull back on tall, narrow screens so the whole diorama fits.
+  useEffect(() => {
+    if (new URLSearchParams(location.search).has('debug')) (window as any).__camera = { camera, controls };
+  }, [camera]);
+
+  // Wider lens on narrow screens. After the fly-in, a turned screen keeps the player's angle but refits the distance.
   useEffect(() => {
     const cam = camera as THREE.PerspectiveCamera;
-    const aspect = size.width / size.height;
-    cam.zoom = aspect < 1 ? Math.max(0.55, aspect * 0.95) : 1;
+    cam.zoom = fit.zoom;
     cam.updateProjectionMatrix();
-  }, [camera, size]);
+    const c = controls.current;
+    if (flown.current && c) {
+      const offset = cam.position.clone().sub(c.target);
+      cam.position.copy(c.target).add(offset.setLength(dist));
+      c.update();
+    }
+  }, [camera, fit.zoom, dist]);
 
   useFrame(() => {
     if (flown.current) return;
@@ -237,7 +297,7 @@ function CameraRig({ position, target }: { position: [number, number, number]; t
     const e = 1 - Math.pow(1 - t, 3);
     // On the last frame t is exactly 1, so the camera always lands on its end pose, even at low fps.
     camera.position.lerpVectors(from, end, e);
-    controls.current?.target.set(...target);
+    controls.current?.target.copy(goal);
     if (t >= 1) flown.current = true;
   });
 
@@ -249,8 +309,9 @@ function CameraRig({ position, target }: { position: [number, number, number]; t
       enablePan={false}
       enableDamping
       dampingFactor={0.08}
-      minDistance={end.length() * 0.6}
-      maxDistance={end.length() * 1.4}
+      // Pinch range is measured from the scene's centre, so zooming back in always works after zooming out.
+      minDistance={dist * 0.55}
+      maxDistance={dist * 1.45}
       minPolarAngle={0.35}
       maxPolarAngle={1.25}
       minAzimuthAngle={-0.7}
