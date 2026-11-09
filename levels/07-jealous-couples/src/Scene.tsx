@@ -10,6 +10,9 @@ import { FeatherPuff, MusicNotes, StormCloud, SweatDrop } from './Drama';
 import { BIRDS, coupleOf, gent, nameOf, roleOf, trouble, type Bird, type Move, type Side, type State } from './rules';
 import { DOCK_X, ISLAND_X, SkyIslands } from './SkyIslands';
 
+/** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
+const pinAboveButtons = (_el: unknown, _cam: unknown, size: { width: number; height: number }) => [size.width / 2, size.height - 62 - size.height * 0.13];
+
 const FLY_MS = 2600;
 const HOP_MS = 520;
 const FLY_HEIGHT = 1.7;
@@ -140,7 +143,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       </group>
 
       {!busy && !over && (
-        <Html position={[0, -1.1, 1.6]} center zIndexRange={[5, 0]}>
+        <Html calculatePosition={pinAboveButtons} center zIndexRange={[5, 0]}>
           <button
             onClick={fly}
             style={{
