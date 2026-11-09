@@ -11,6 +11,9 @@ import { sign, slot, thiefGetaway, thiefSpot } from './layout';
 import { FAIL_PHASES, Mishap, gagSpot, type FailPhase } from './Mishaps';
 import { PEOPLE, raftProblem, roleOf, trouble, type Move, type Person, type Side, type State } from './rules';
 
+/** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
+const pinAboveButtons = (_el: unknown, _cam: unknown, size: { width: number; height: number }) => [size.width / 2, size.height - 62 - size.height * 0.13];
+
 const CROSS_MS = 2300;
 const HOP_MS = 520;
 const BOARD_MS = 300;
@@ -162,7 +165,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           </mesh>
         </Clickable>
         {!busy && !over && (
-          <Html position={[0, 2.45, 0]} center zIndexRange={[6, 0]}>
+          <Html calculatePosition={pinAboveButtons} center zIndexRange={[6, 0]}>
             <button
               onClick={castOff}
               style={{

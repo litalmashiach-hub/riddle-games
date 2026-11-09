@@ -12,6 +12,9 @@ import { Explorer, Guardian, type ExplorerMood, type GuardianMood } from './char
 import { boatX, seat, sign, slot } from './layout';
 import { BOAT_SEATS, EVERYONE, EXPLORERS, GUARDIANS, dangerBank, isExplorer, type Move, type Side, type State, type Who } from './rules';
 
+/** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
+const pinAboveButtons = (_el: unknown, _cam: unknown, size: { width: number; height: number }) => [size.width / 2, size.height - 62 - size.height * 0.13];
+
 const CROSS_MS = 2000;
 const HOP_MS = 520;
 export const MOVE_MS = CROSS_MS + HOP_MS;
@@ -157,7 +160,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           </mesh>
         </Clickable>
         {!busy && !over && (
-          <Html position={[0, 1.75, 0]} center zIndexRange={[5, 0]}>
+          <Html calculatePosition={pinAboveButtons} center zIndexRange={[5, 0]}>
             <button
               onClick={sail}
               style={{

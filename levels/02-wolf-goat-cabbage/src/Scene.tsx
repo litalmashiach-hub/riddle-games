@@ -8,6 +8,9 @@ import * as THREE from 'three';
 import { Barn, Butterflies, Cabbage, GardenBed, Goat, HayBale } from './models';
 import { ITEMS, trouble, type Item, type Move, type Side, type State, type Trouble } from './rules';
 
+/** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
+const pinAboveButtons = (_el: unknown, _cam: unknown, size: { width: number; height: number }) => [size.width / 2, size.height - 62 - size.height * 0.13];
+
 const CROSS_MS = 1900;
 /** Pause after docking before the passenger steps out. */
 const DOCK_MS = 250;
@@ -170,7 +173,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           </Boat>
         </Clickable>
         {!busy && !over && (
-          <Html position={[0, 1.7, 0]} center zIndexRange={[5, 0]}>
+          <Html calculatePosition={pinAboveButtons} center zIndexRange={[5, 0]}>
             <button
               onClick={row}
               style={{
