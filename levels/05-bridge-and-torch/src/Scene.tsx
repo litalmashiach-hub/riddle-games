@@ -267,18 +267,28 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   });
 
   // ---- Input ----
+  const lastToggle = useRef<Partial<Record<Explorer, number>>>({});
   const toggle = (e: Explorer) => {
     if (busy || over) return;
     if (state[e] !== state.torch) {
       sfx.denied();
       return;
     }
+    // Ignore a second tap on the same explorer right after the first, so a double tap doesn't pick
+    // them and then send them straight back.
+    const now = performance.now();
+    if (now - (lastToggle.current[e] ?? -1e9) < 450) return;
     if (picked.includes(e)) {
+      lastToggle.current[e] = now;
       sfx.deselect();
       setPicked(picked.filter((p) => p !== e));
+    } else if (picked.length >= 2) {
+      // The bridge only holds two: refuse instead of quietly sending the first one back.
+      sfx.denied();
     } else {
+      lastToggle.current[e] = now;
       sfx.select();
-      const next = [...(picked.length >= 2 ? picked.slice(1) : picked), e];
+      const next = [...picked, e];
       setPicked(EXPLORERS.filter((x) => next.includes(x)));
     }
   };
@@ -355,12 +365,14 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         ))}
       {picked.length > 0 && !busy && <HintRing position={[s * 3.85, groundY(s * 3.85, 0) + 0.05, 0]} radius={0.7} color="#7ee0b0" />}
 
-      {/* Cross button */}
+      {/* Cross button, pinned just above the game's own buttons (over the chasm), so on a phone it
+          never covers the torch clock or an explorer. */}
       {ready && !busy && !over && (
-        <Html position={[s * 1.7, 1.6, 0.3]} center zIndexRange={[5, 0]}>
+        <Html calculatePosition={(_el, _cam, size) => [size.width / 2, size.height - 62 - size.height * 0.13]} zIndexRange={[5, 0]}>
           <button
             onClick={go}
             style={{
+              transform: 'translate(-50%, -50%)',
               fontFamily: FONT,
               fontWeight: 700,
               fontSize: 17,
