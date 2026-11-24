@@ -11,7 +11,7 @@ import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
-import { hintLine } from '../hint';
+import { hintLine, hintOutlived, winLine } from '../hint';
 
 /** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
 const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -74,6 +74,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
     const t = setTimeout(() => setHintText(null), 5000);
     return () => clearTimeout(t);
   }, [hintText]);
+  // The hint leaves with the position it spoke of, and when a win or loss card comes.
+  useEffect(() => session.subscribe((now, before) => { if (hintOutlived(before, now)) setHintText(null); }), [session]);
 
   // Keyboard: Z / Ctrl+Z undo, Y redo, R restart, H hint.
   useEffect(() => {
@@ -173,8 +175,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       {/* Hint toast */}
       <AnimatePresence>
         {hintText && (
-          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-24 z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
-            <div className="rounded-2xl bg-amber-300 px-5 py-3 font-display text-lg font-semibold text-amber-950 shadow-xl short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
+          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
+            <div className="rounded-2xl bg-amber-300 px-5 py-2 font-display text-lg font-semibold text-amber-950 shadow-xl max-sm:text-base max-sm:leading-snug short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -223,7 +225,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
             <h2 className="font-display text-4xl font-bold short:text-3xl"><span className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
             <div className="mt-3 flex justify-center short:mt-2"><Stars count={stars} size={48} animate /></div>
             <p className="mt-3 text-white/85 short:mt-2">
-              {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {stars === 3 ? 'Perfect, that is the shortest solution!' : `The best is ${level.bestMoves}. Can you do it?`}
+              {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {winLine(moveCount, level.bestMoves, s.hintsUsed)}
             </p>
             <div className="mt-5 grid gap-2 short:mt-3">
               {onNext && <Button tone="gold" className="!py-3 text-lg short:!py-2.5" onClick={onNext}>Next level</Button>}
