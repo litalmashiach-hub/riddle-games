@@ -120,6 +120,14 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   };
 
   const onPieceDown = (i: number, e: ThreeEvent<PointerEvent>) => {
+    // A glowing ring beats a log's invisible padding and its glow (both marked `pad`). Seen from the camera,
+    // those of a log (often the picked one) reach over the ring next to it, and would take the tap meant
+    // for the ring. Only where the log itself is drawn in front of the ring is the touch the log's.
+    const ring = e.intersections.find((h) => h.object.userData.ring);
+    if (ring) {
+      const body = e.intersections.find((h) => h.eventObject === e.eventObject && !h.object.userData.pad);
+      if (!body || body.distance > ring.distance) return;
+    }
     e.stopPropagation();
     if (locked) {
       if (!over) sfx.denied();
@@ -376,7 +384,7 @@ function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selecte
       >
         {index === 0 ? <RaftModel glow={glow} /> : <LogModel piece={pc} seed={index} glow={glow} />}
         {/* A generous invisible hit box, so logs are easy to grab on phones. */}
-        <mesh visible={false}>
+        <mesh visible={false} userData={{ pad: true }}>
           <boxGeometry args={[pc.len - 0.05, 0.9, 0.95]} />
         </mesh>
         {children}
@@ -427,11 +435,15 @@ function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }
       <mesh
         position-y={0.2}
         visible={false}
+        userData={{ ring: true }}
         onPointerOver={(e) => {
           e.stopPropagation();
           setHover(true);
         }}
         onPointerOut={() => setHover(false)}
+        // Swallow the touch: a log behind the ring must not see it, or it would take the tap as its own
+        // and drop the picked log before the ring's click arrives. (Logs in front: see onPieceDown.)
+        onPointerDown={(e) => e.stopPropagation()}
         onClick={(e) => {
           e.stopPropagation();
           onClick();
