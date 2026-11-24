@@ -19,6 +19,7 @@ import logJam from '@riddle/level-18-log-jam';
 import slipperyPond from '@riddle/level-15-slippery-pond';
 
 import fireflyJars from '@riddle/level-16-firefly-jars';
+import berryBridges from '@riddle/level-20-berry-bridges';
 /**
  * Every level in the game, in order. A level that is built is listed with its package;
  * the rest show as "coming soon" cards.
@@ -26,7 +27,7 @@ import fireflyJars from '@riddle/level-16-firefly-jars';
  * To add a level: create levels/NN-name (see docs/adding-a-level.md),
  * add it to apps/web/package.json, import it here and put it in BUILT.
  */
-const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, towerOfHanoi, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, fourPillarTower, familyCrossing, twelveCoins, threeJugs, leapfrogLagoon, fireflyLanterns, slipperyPond, fireflyJars, moonbeamMirrors, logJam, pictureTiles];
+const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, towerOfHanoi, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, fourPillarTower, familyCrossing, twelveCoins, threeJugs, leapfrogLagoon, fireflyLanterns, slipperyPond, fireflyJars, moonbeamMirrors, logJam, pictureTiles, berryBridges];
 
 export interface LevelEntry {
   number: number;
@@ -57,6 +58,7 @@ const PLAN: Omit<LevelEntry, 'level'>[] = [
   { number: 17, id: 'moonbeam-mirrors', title: 'Moonbeam Mirrors', world: 'lagoon', tagline: 'Bounce the moonbeam onto every flower.' },
   { number: 18, id: 'log-jam', title: 'Log Jam', world: 'lagoon', tagline: 'Slide the logs aside and free the duck raft.' },
   { number: 19, id: 'picture-tiles', title: 'Picture Tiles', world: 'lagoon', tagline: 'Slide the stones back into the turtle picture.' },
+  { number: 20, id: 'berry-bridges', title: 'Berry Bridges', world: 'lagoon', tagline: 'Cross every bridge once. Each one sinks behind you.' },
 ];
 
 export const LEVELS: LevelEntry[] = PLAN.map((p) => ({ ...p, level: BUILT.find((b) => b.number === p.number) }));
