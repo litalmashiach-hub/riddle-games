@@ -94,7 +94,7 @@ async function setUp(shot: Shot) {
   await sleep(1500);
 }
 
-export async function runShots(only?: string[], defaultHold = 40_000) {
+export async function runShots(only?: string[], defaultHold = 120_000) {
   (window as any).__sceneWaitMs = 600_000; // a slow simulator is not a stuck scene
   signal('shoot-start');
   for (const shot of SHOTS) {

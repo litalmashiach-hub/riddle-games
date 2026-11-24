@@ -24,14 +24,13 @@ jobs:
   shoot:
     name: ${{ matrix.label }}
     runs-on: macos-26
-    timeout-minutes: 75
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
         include:
           - { label: iphone-69, sim: "iPhone 17 Pro Max" }
           - { label: ipad-13, sim: "iPad Pro 13-inch (M5)" }
-          - { label: iphone-63, sim: "iPhone 17 Pro" }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -62,7 +61,7 @@ jobs:
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build | tail -n 15
       - name: Take the scenes
-        timeout-minutes: 50
+        timeout-minutes: 62
         run: apps/mobile/ios/StoreShots/shoot.sh "${{ matrix.sim }}" "${{ matrix.label }}"
       - name: Pixel sizes and previews
         if: always()

@@ -42,12 +42,12 @@ XP=$!
 while kill -0 "$XP" 2> /dev/null; do
   CUR="$(cat "$OUT/current" 2> /dev/null || true)"
   if [ -n "$CUR" ] && [ "$CUR" != "done" ]; then
-    case "$CUR" in 01-*|02-*|03-*|04-*) MAX=28; GAP=0;; *) MAX=8; GAP=3;; esac
+    MAX=12; GAP=0
     N=$(ls "$OUT/frames/$CUR" 2> /dev/null | wc -l | tr -d " ")
     if [ "$N" -lt "$MAX" ]; then
       mkdir -p "$OUT/frames/$CUR"
       F="$OUT/frames/$CUR/$(printf %02d "$N").png"
-      xcrun simctl io "$UDID" screenshot --type=png "$F" > /dev/null 2>&1 && echo "$(now) $CUR $(basename "$F")" >> "$OUT/frames.txt"
+      xcrun simctl io "$UDID" screenshot --type=png --mask=ignored "$F" > /dev/null 2>&1 && echo "$(now) $CUR $(basename "$F")" >> "$OUT/frames.txt"
       sleep "$GAP"
       continue
     fi
