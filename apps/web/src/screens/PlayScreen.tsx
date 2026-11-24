@@ -84,6 +84,9 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [session]);
 
+  // The HUD steps aside while a card (rules, win or lose) is up: the card has every button the player needs.
+  const cardOpen = showRules || (s.ended && s.status.kind !== 'playing');
+
   const Scene = level.Scene;
   const cam: NonNullable<RiddleLevel['camera']> = level.camera ?? { position: [0, 8, 12], target: [0, 0, 0], fov: 42 };
 
@@ -121,7 +124,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       </AnimatePresence>
 
       {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels. */}
-      <div className={`safe-top pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3 transition-opacity duration-300 sm:p-4 short:justify-start short:pt-2 ${showRules ? 'invisible opacity-0' : ''}`}>
+      <div className={`safe-top pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3 transition-opacity duration-300 sm:p-4 short:justify-start short:pt-2 ${cardOpen ? 'invisible opacity-0' : ''}`}>
         <div className="pointer-events-auto flex items-center gap-2">
           <Button onClick={onExit} aria-label="Back to levels" className="!px-3">
             <HomeIcon />
@@ -149,7 +152,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       </div>
 
       {/* Bottom controls. Sideways on a phone they sit in the two bottom corners, under the thumbs, and leave the scene's lower edge clear. */}
-      <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-opacity duration-300 short:justify-between short:pb-[max(0.5rem,env(safe-area-inset-bottom))] short:pl-[max(0.75rem,env(safe-area-inset-left))] short:pr-[max(0.75rem,env(safe-area-inset-right))] ${showRules ? 'invisible opacity-0' : ''}`}>
+      <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-opacity duration-300 short:justify-between short:pb-[max(0.5rem,env(safe-area-inset-bottom))] short:pl-[max(0.75rem,env(safe-area-inset-left))] short:pr-[max(0.75rem,env(safe-area-inset-right))] ${cardOpen ? 'invisible opacity-0' : ''}`}>
         <div className="glass pointer-events-auto flex gap-2 rounded-3xl p-2 short:flex-col short:gap-1.5 short:p-1.5">
           <Button onClick={s.undo} disabled={moveCount === 0} aria-label="Undo" className="short:!px-3"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
           <Button onClick={s.redo} disabled={s.future.length === 0} aria-label="Redo" className="short:!px-3"><RedoIcon /></Button>
