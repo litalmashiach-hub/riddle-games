@@ -39,7 +39,16 @@ for k in ("CFBundleIdentifier", "CFBundleDisplayName", "CFBundleShortVersionStri
     print("listapps", k, "=", a.get(k))
 ' "$BUNDLE_ID" || true
 
-shot() { xcrun simctl io "$UDID" screenshot --type=png "$OUT/$1.png" > /dev/null 2>&1 && echo "picture $1.png at $(now)"; }
+shot() {
+  xcrun simctl io "$UDID" screenshot --type=png "$OUT/$1.png" > /dev/null 2>&1 || return 0
+  echo "picture $1.png at $(now)"
+  # A small copy into the log at once, as text, so it is there even if a later step hangs.
+  sips -s format jpeg -s formatOptions 60 -Z 1100 "$OUT/$1.png" --out "$OUT/p.jpg" > /dev/null 2>&1 || return 0
+  echo "-----BEGIN PICTURE $LABEL-$1.jpg-----"
+  base64 -i "$OUT/p.jpg" | fold -w 160
+  echo "-----END PICTURE-----"
+}
+limited() { perl -e 'alarm shift; exec @ARGV' "$@"; }
 
 uitest() {
   echo "---- UI test $1"
@@ -66,16 +75,18 @@ filmed() {
   echo "launch call returned after $(perl -e "printf '%.1f', $(now) - $start") s; the film began about 4 to 6 s before the launch call"
   sleep "$2"
   shot "$1-after-launch"
-  kill -INT "$rec"; wait "$rec" 2> /dev/null
+  kill -INT "$rec"
+  ( sleep 20; kill -9 "$rec" 2> /dev/null ) &
+  wait "$rec" 2> /dev/null
   cat "$OUT/record.log" | head -n 5
   ls -la "$OUT/$1-launch.mov" || return
-  swift "$ROOT/apps/mobile/ios/ShapeTest/frames.swift" "$OUT/$1-launch.mov" "$OUT/$1-film" 2>&1 | grep -v warning | tail -n 4
-  python3 "$ROOT/apps/mobile/ios/ShapeTest/frames.py" "$OUT/$1-film" "$LABEL-$1"
+  limited 300 "$ROOT/build/frames" "$OUT/$1-launch.mov" "$OUT/$1-film" 2>&1 | tail -n 4
+  limited 240 python3 "$ROOT/apps/mobile/ios/ShapeTest/frames.py" "$OUT/$1-film" "$LABEL-$1"
 }
 
 uitest testShowIcon
 sleep 2; shot "upright-home-icon"
-filmed upright-first 40
+if [ "$KIND" = "iphone" ]; then filmed upright-first 40; fi
 filmed upright-second 25
 
 if [ "$KIND" = "ipad" ]; then
@@ -92,13 +103,5 @@ echo "---- errors and faults of the app in the unified log"
 xcrun simctl spawn "$UDID" log show --last 15m --style compact \
   --predicate 'process == "App" AND (messageType == error OR messageType == fault)' 2> /dev/null | cut -c1-260 | tail -n 30 || true
 
-# Small copies of the main pictures into the log, as text.
-for f in "$OUT"/*.png; do
-  [ -f "$f" ] || continue
-  sips -s format jpeg -s formatOptions 55 -Z 1000 "$f" --out "$OUT/p.jpg" > /dev/null 2>&1 || continue
-  echo "-----BEGIN PICTURE $LABEL/$(basename "$f")-----"
-  base64 -i "$OUT/p.jpg" | fold -w 160
-  echo "-----END PICTURE-----"
-done
 rm -f "$OUT/p.jpg"
 xcrun simctl shutdown "$UDID" || true

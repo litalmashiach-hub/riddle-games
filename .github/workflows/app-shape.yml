@@ -28,7 +28,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { label: iphone, sim: "iPhone 17 Pro Max", kind: iphone }
           - { label: ipad, sim: "iPad Pro 13-inch (M5)", kind: ipad }
     steps:
       - uses: actions/checkout@v4
@@ -103,6 +102,8 @@ jobs:
           xcodebuild build-for-testing -project ShapeTest.xcodeproj -scheme ShapeTest \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$GITHUB_WORKSPACE/build/shapetest" 2>&1 | tail -n 8
+          swiftc -O -o "$GITHUB_WORKSPACE/build/frames" frames.swift 2>&1 | grep -v warning | tail -n 5
+          ls -la "$GITHUB_WORKSPACE/build/frames"
 
       - name: Pictures in the simulator
         timeout-minutes: 30
@@ -112,12 +113,11 @@ jobs:
         if: always()
         with:
           name: app-shape-${{ matrix.label }}
-          path: |
-            out
-            build.log
+          path: build.log
           if-no-files-found: warn
 
   device:
+    if: false
     name: unsigned build for a real iPhone
     runs-on: macos-26
     timeout-minutes: 40

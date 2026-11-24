@@ -5,11 +5,12 @@ import AppKit
 let args = CommandLine.arguments
 let asset = AVURLAsset(url: URL(fileURLWithPath: args[1]))
 let generator = AVAssetImageGenerator(asset: asset)
-generator.requestedTimeToleranceBefore = .zero
-generator.requestedTimeToleranceAfter = .zero
+let near = CMTime(seconds: 0.04, preferredTimescale: 600)
+generator.requestedTimeToleranceBefore = near
+generator.requestedTimeToleranceAfter = near
 generator.appliesPreferredTrackTransform = true
 generator.maximumSize = CGSize(width: 720, height: 720)
-let length = CMTimeGetSeconds(asset.duration)
+let length = min(CMTimeGetSeconds(asset.duration), 45.0)
 print("video length \(length) s")
 var t = 0.0
 var written = 0
