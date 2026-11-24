@@ -11,6 +11,7 @@ import { ExplorerBody, torchGrip, type Motion } from './Explorers';
 import { BRIDGE_HALF, bridgehead, deckY, dipAt, groundY, sconce, sign, slot, TORCH_REST_Y } from './layout';
 import { Blackout, DarkEyes } from './LightsOut';
 import { Torch, type Flame } from './Torch';
+import { LABEL_WRAP, LabelStem, useLabelSpread } from './useLabelSpread';
 import { crossingMinutes, EXPLORERS, MINUTES, NAMES, TORCH_MINUTES, type Explorer, type Move, type Side, type State } from './rules';
 
 /** Walk to the bridge, cross it, step off to a waiting spot. */
@@ -78,6 +79,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const clockText = useRef<HTMLSpanElement>(null);
   const clockBar = useRef<HTMLDivElement>(null);
   const lastCount = useRef(moveCount);
+  // The name labels step aside for each other when explorers stand close together.
+  const spread = useLabelSpread();
   // drei's <Html> can come up empty if it mounts before the canvas has wired up its events,
   // so the 3D labels wait one frame.
   const [ready, setReady] = useState(false);
@@ -327,6 +330,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
               </mesh>
             </Clickable>
             {ready && !dark && <Html position={[0, e === 'pip' ? 1.0 : e === 'bram' ? 1.3 : 1.18, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+              <div ref={spread.ref(e)} style={LABEL_WRAP}>
               <div
                 style={{
                   fontFamily: FONT,
@@ -343,6 +347,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                 }}
               >
                 {NAMES[e]} · {MINUTES[e]} min
+              </div>
+              <LabelStem />
               </div>
             </Html>}
             <DarkEyes flame={flame} height={EYE_HEIGHT[e]} seed={i} />
