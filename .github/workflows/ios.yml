@@ -1,0 +1,114 @@
+name: iOS build
+
+# Builds the iPhone/iPad app for the simulator on a hosted Mac, unsigned, and screenshots it running.
+# No signing, no certificates, no secrets. See docs/ios-app.md.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT: apps/mobile/ios/App/App.xcodeproj
+  DERIVED: build/ios
+
+jobs:
+  simulator:
+    # Capacitor 8 needs Xcode 26 or newer.
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build the app content and sync Capacitor
+        run: pnpm ios:sync
+
+      - name: The app content has no service worker
+        run: |
+          test -f apps/mobile/ios/App/App/public/index.html
+          test ! -e apps/mobile/ios/App/App/public/sw.js
+          if grep -rl "sw.js" apps/mobile/ios/App/App/public; then echo "The app content still registers a service worker"; exit 1; fi
+
+      - name: Xcode and simulators on this runner
+        run: |
+          xcodebuild -version
+          xcrun simctl list devices available
+
+      - name: Build for the simulator (Debug)
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -scheme App -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build | tail -n 60
+
+      - name: Build for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build | tail -n 60
+
+      - name: Check the built app
+        run: |
+          APP="$DERIVED/Build/Products/Release-iphonesimulator/App.app"
+          test -d "$APP"
+          plutil -p "$APP/Info.plist"
+          # Apple refuses an app icon with an alpha channel.
+          ICON=apps/mobile/ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png
+          sips -g pixelWidth -g pixelHeight -g hasAlpha "$ICON"
+          sips -g hasAlpha "$ICON" | grep -q "hasAlpha: no"
+          echo "APP=$APP" >> "$GITHUB_ENV"
+          echo "BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")" >> "$GITHUB_ENV"
+
+      - name: Run in simulators and take screenshots
+        run: |
+          mkdir -p screenshots
+          pick() { # first available simulator whose name starts with $1
+            xcrun simctl list devices available -j | python3 -c '
+          import json, sys
+          prefix = sys.argv[1]
+          runtimes = json.load(sys.stdin)["devices"]
+          for runtime in sorted(runtimes, reverse=True):
+              if "iOS" not in runtime: continue
+              for d in runtimes[runtime]:
+                  if d["name"].startswith(prefix):
+                      print(d["udid"]); sys.exit(0)
+          ' "$1"
+          }
+          shoot() { # $1 = name prefix, $2 = file label
+            UDID="$(pick "$1")"
+            if [ -z "$UDID" ]; then echo "No simulator named $1*"; return 0; fi
+            echo "== $1: $UDID"
+            xcrun simctl boot "$UDID"
+            xcrun simctl bootstatus "$UDID" -b
+            xcrun simctl install "$UDID" "$APP"
+            xcrun simctl launch "$UDID" "$BUNDLE_ID"
+            sleep 3
+            xcrun simctl io "$UDID" screenshot "screenshots/$2-launch.png"
+            # Give the web view time to load the game and draw the level map.
+            sleep 40
+            xcrun simctl io "$UDID" screenshot "screenshots/$2-level-map.png"
+            xcrun simctl shutdown "$UDID"
+          }
+          shoot "iPhone 17" iphone
+          shoot "iPad" ipad
+          ls -la screenshots
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-simulator-screenshots
+          path: screenshots
+          if-no-files-found: warn
