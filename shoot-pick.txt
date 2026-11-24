@@ -28,3 +28,5 @@
 45486956739 iphone-69 xc/04-balloon 06 balloon-06
 45486956739 iphone-69 xc/05-moonbeam 00 moonbeam-00
 45486956739 iphone-69 xc/06-pancakes 00 pancakes-00
+45501159372 iphone-69 xc/07-hint 01 hint-01
+45501159372 iphone-69 xc/08-map 00 map-00
