@@ -1,0 +1,11 @@
+1795547308.897325 launched
+1795547331.803158 start marker: true
+1795547345.145973 scene 01-river: true
+1795547418.3309278 scene 02-hanoi: true
+1795547488.531355 scene 03-coins: true
+1795547549.751308 scene 04-balloon: true
+1795547621.089606 scene 05-moonbeam: true
+1795547696.614141 scene 06-pancakes: true
+1795547748.79648 scene 07-hint: true
+1795547792.662621 scene 08-map: true
+1795547832.859612 done marker: true
