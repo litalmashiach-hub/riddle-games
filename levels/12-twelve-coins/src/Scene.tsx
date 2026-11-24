@@ -405,6 +405,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
       {!over && (
         <Overlay>
+          <style>{CONTROLS_CSS}</style>
           <Ledger log={shown.log} />
           {canAct && (
             <Controls
@@ -809,7 +810,7 @@ function Chip({ n, tone }: { n: number; tone: 'L' | 'R' }) {
 
 function Ledger({ log }: { log: Weighing[] }) {
   return (
-    <div style={{ ...panel, position: 'absolute', left: 12, top: 84, padding: '10px 12px', width: 'min(250px, calc(100vw - 24px))', pointerEvents: 'none' }}>
+    <div className="tc-ledger" style={{ ...panel, position: 'absolute', padding: '10px 12px', width: 'min(250px, calc(100vw - 24px))', pointerEvents: 'none' }}>
       <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#ffd27a' }}>Weighing ledger</div>
       {Array.from({ length: MAX_WEIGHINGS }, (_, i) => {
         const w = log[i];
@@ -878,14 +879,29 @@ interface ControlsProps {
   onClues(): void;
 }
 
-/** Centred above the shell's bar on phones; a column on the right on wider screens, clear of the coins. */
+/**
+ * Centred above the shell's bar on upright phones; a column on the right on wider screens, clear of the coins.
+ * On a small phone held sideways the shell's buttons sit in the bottom corners, so the controls drop into the
+ * gap between them and leave the coins in view. Short screens also lift both panels up under the top bar.
+ */
 const CONTROLS_CSS = `
+.tc-ledger{left:12px;top:84px}
 .tc-controls{position:absolute;left:0;right:0;bottom:92px;display:flex;justify-content:center;padding:0 12px}
 .tc-buttons{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 @media (min-width:760px){
   .tc-controls{left:auto;right:12px;bottom:auto;top:84px;width:220px;padding:0}
   .tc-controls>div{width:100%}
   .tc-buttons{flex-direction:column;align-items:stretch}
+}
+@media (max-height:500px){
+  .tc-ledger{top:60px;left:max(12px,env(safe-area-inset-left))}
+}
+@media (max-height:500px) and (min-width:760px){
+  .tc-controls{top:60px;right:max(12px,env(safe-area-inset-right))}
+}
+@media (max-height:500px) and (max-width:759px){
+  .tc-controls{bottom:8px;padding:0 116px 0 76px}
+  .tc-buttons{flex-wrap:nowrap;gap:6px}
 }`;
 
 function Controls(p: ControlsProps) {
@@ -933,7 +949,6 @@ function Controls(p: ControlsProps) {
   }
   return (
     <div className="tc-controls">
-      <style>{CONTROLS_CSS}</style>
       <div style={{ ...panel, padding: '8px 10px', maxWidth: 560 }}>
         <div style={{ textAlign: 'center', fontSize: 13, marginBottom: 6, color: '#ffe6b0' }}>{message}</div>
         <div className="tc-buttons">{buttons}</div>
