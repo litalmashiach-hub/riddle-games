@@ -32,6 +32,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   const lastMove = s.moves.length ? s.moves[s.moves.length - 1] : null;
   const moveCount = s.moves.length;
   const [showRules, setShowRules] = useState(true);
+  // False until the scene has drawn its first frames; a curtain in the world's colours covers the wait.
+  const [sceneReady, setSceneReady] = useState(false);
   const [hintText, setHintText] = useState<string | null>(null);
   const { quality, sound, toggleSound, setQuality } = useSettings();
   const look = WORLDS[level.world];
@@ -109,11 +111,17 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
             />
           </WorldStage>
           <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} />
+          <FirstFrames onReady={() => setSceneReady(true)} />
         </Suspense>
       </Canvas>
 
-      {/* Top bar */}
-      <div className="safe-top pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3 sm:p-4 short:pt-2">
+      {/* Curtain while the scene builds */}
+      <AnimatePresence>
+        {!sceneReady && <LoadingCurtain key="curtain" gradient={look.uiGradient} number={level.number} quiet={showRules} />}
+      </AnimatePresence>
+
+      {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels. */}
+      <div className={`safe-top pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3 transition-opacity duration-300 sm:p-4 short:justify-start short:pt-2 ${showRules ? 'invisible opacity-0' : ''}`}>
         <div className="pointer-events-auto flex items-center gap-2">
           <Button onClick={onExit} aria-label="Back to levels" className="!px-3">
             <HomeIcon />
@@ -123,11 +131,11 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
             <div className="font-display text-lg font-semibold leading-tight">{level.title}</div>
           </div>
         </div>
-        <div className="glass pointer-events-auto rounded-2xl px-4 py-1.5 text-center">
-          <div className="font-display text-2xl font-bold leading-none tabular-nums">{moveCount}</div>
-          <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/75"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
+        <div className="glass pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
+          <div className="font-display text-2xl font-bold leading-none tabular-nums short:leading-[inherit]">{moveCount}</div>
+          <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/75 short:leading-[inherit]"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
         </div>
-        <div className="pointer-events-auto flex items-center gap-2">
+        <div className="pointer-events-auto flex items-center gap-2 short:ml-auto">
           <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" aria-label="Graphics quality">
             {quality === 'high' ? 'HD' : 'SD'}
           </Button>
@@ -140,21 +148,22 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
         </div>
       </div>
 
-      {/* Bottom controls */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))] short:pb-[max(0.5rem,env(safe-area-inset-bottom))]">
-        <div className="glass pointer-events-auto flex gap-2 rounded-3xl p-2 short:p-1.5">
-          <Button onClick={s.undo} disabled={moveCount === 0} aria-label="Undo"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
-          <Button onClick={s.redo} disabled={s.future.length === 0} aria-label="Redo"><RedoIcon /></Button>
-          <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} aria-label="Restart"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
-          <Button tone="gold" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline short:hidden">Hint</span></Button>
+      {/* Bottom controls. Sideways on a phone they sit in the two bottom corners, under the thumbs, and leave the scene's lower edge clear. */}
+      <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-opacity duration-300 short:justify-between short:pb-[max(0.5rem,env(safe-area-inset-bottom))] short:pl-[max(0.75rem,env(safe-area-inset-left))] short:pr-[max(0.75rem,env(safe-area-inset-right))] ${showRules ? 'invisible opacity-0' : ''}`}>
+        <div className="glass pointer-events-auto flex gap-2 rounded-3xl p-2 short:flex-col short:gap-1.5 short:p-1.5">
+          <Button onClick={s.undo} disabled={moveCount === 0} aria-label="Undo" className="short:!px-3"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
+          <Button onClick={s.redo} disabled={s.future.length === 0} aria-label="Redo" className="short:!px-3"><RedoIcon /></Button>
+          <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} aria-label="Restart" className="short:!px-3"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
+          <Button tone="gold" className="short:hidden" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline">Hint</span></Button>
         </div>
+        <Button tone="gold" className="pointer-events-auto hidden !rounded-3xl !px-4 !py-3.5 short:inline-flex" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon />Hint</Button>
       </div>
 
       {/* Hint toast */}
       <AnimatePresence>
         {hintText && (
-          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-24 flex justify-center px-4">
-            <div className="rounded-2xl bg-amber-300 px-5 py-3 font-display text-lg font-semibold text-amber-950 shadow-xl">💡 {hintText}</div>
+          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-24 z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
+            <div className="rounded-2xl bg-amber-300 px-5 py-3 font-display text-lg font-semibold text-amber-950 shadow-xl short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -171,32 +180,42 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       {/* Rules */}
       <AnimatePresence>
         {showRules && (
-          <Modal key="rules">
+          <Modal
+            key="rules"
+            wide
+            aside={
+              <>
+                <div className="rounded-2xl bg-black/25 p-3 text-left text-sm text-white/90">
+                  {level.controls.map((t, i) => (<p key={i}>{t}</p>))}
+                </div>
+                <p className="mt-3 text-sm text-white/75">Solve it in {level.bestMoves} {level.moveNoun} for three stars.</p>
+                <Button tone="gold" className="mt-4 w-full !py-3 text-lg short:mt-3" onClick={() => setShowRules(false)}>Let's go!</Button>
+                <div className={`mt-2 flex h-4 items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-white/60 transition-opacity duration-500 ${sceneReady ? 'opacity-0' : ''}`} aria-hidden={sceneReady}>
+                  <LoadingDots />
+                  Setting the scene
+                </div>
+              </>
+            }
+          >
             <div className="text-xs font-bold uppercase tracking-widest" style={{ color: look.accent }}>Level {level.number} · {look.name}</div>
-            <h2 className="mt-1 font-display text-3xl font-bold">{level.title}</h2>
-            <ul className="mt-4 space-y-2 text-left">
+            <h2 className="mt-1 font-display text-3xl font-bold short:text-2xl">{level.title}</h2>
+            <ul className="mt-4 space-y-2 text-left short:mt-3 short:space-y-1.5 short:text-[15px] short:leading-snug">
               {level.instructions.map((t, i) => (
-                <li key={i} className="flex gap-3"><span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/20 text-sm font-bold">{i + 1}</span><span>{t}</span></li>
+                <li key={i} className="flex gap-3"><span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/20 text-sm font-bold short:mt-0">{i + 1}</span><span>{t}</span></li>
               ))}
             </ul>
-            <div className="mt-4 rounded-2xl bg-black/20 p-3 text-left text-sm text-white/85">
-              {level.controls.map((t, i) => (<p key={i}>{t}</p>))}
-            </div>
-            <p className="mt-3 text-sm text-white/75">Solve it in {level.bestMoves} {level.moveNoun} for three stars.</p>
-            <Button tone="gold" className="mt-5 w-full !py-3 text-lg" onClick={() => setShowRules(false)}>Let's go!</Button>
           </Modal>
         )}
 
         {s.ended && s.status.kind === 'won' && (
           <Modal key="won">
-            <div className="text-6xl">🎉</div>
-            <h2 className="mt-2 font-display text-4xl font-bold">Solved!</h2>
-            <div className="mt-3 flex justify-center"><Stars count={stars} size={52} animate /></div>
-            <p className="mt-3 text-white/85">
+            <h2 className="font-display text-4xl font-bold short:text-3xl"><span className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
+            <div className="mt-3 flex justify-center short:mt-2"><Stars count={stars} size={48} animate /></div>
+            <p className="mt-3 text-white/85 short:mt-2">
               {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {stars === 3 ? 'Perfect, that is the shortest solution!' : `The best is ${level.bestMoves}. Can you do it?`}
             </p>
-            <div className="mt-5 grid gap-2">
-              {onNext && <Button tone="gold" className="!py-3 text-lg" onClick={onNext}>Next level</Button>}
+            <div className="mt-5 grid gap-2 short:mt-3">
+              {onNext && <Button tone="gold" className="!py-3 text-lg short:!py-2.5" onClick={onNext}>Next level</Button>}
               <div className="grid grid-cols-2 gap-2">
                 <Button onClick={s.restart}>Play again</Button>
                 <Button onClick={onExit}>All levels</Button>
@@ -207,10 +226,9 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
 
         {s.ended && s.status.kind === 'lost' && (
           <Modal key="lost" tone="red">
-            <div className="text-6xl">😱</div>
-            <h2 className="mt-2 font-display text-4xl font-bold">Oh no!</h2>
-            <p className="mt-3 text-lg text-white/90">{s.status.reason}</p>
-            <div className="mt-5 grid grid-cols-2 gap-2">
+            <h2 className="font-display text-4xl font-bold short:text-3xl"><span className="block text-6xl short:mr-2 short:inline short:text-3xl">😱</span>Oh no!</h2>
+            <p className="mt-3 text-lg text-white/90 short:mt-2 short:text-base">{s.status.reason}</p>
+            <div className="mt-5 grid grid-cols-2 gap-2 short:mt-4">
               <Button tone="gold" onClick={s.undo}><UndoIcon />Undo</Button>
               <Button onClick={s.restart}><RestartIcon />Restart</Button>
             </div>
@@ -221,19 +239,65 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   );
 }
 
-function Modal({ children, tone }: { children: React.ReactNode; tone?: 'red' }) {
+/**
+ * A card over the scene. It never grows past the screen: the body scrolls inside the card when it must,
+ * and `aside` (the buttons) stays in view. On a phone held sideways a `wide` card puts `aside` in a second column.
+ */
+function Modal({ children, aside, tone, wide }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean }) {
   return (
-    // Scrolls when the card is taller than the screen (phones held sideways), so its buttons stay reachable.
-    <motion.div className="absolute inset-0 z-10 grid justify-items-center overflow-y-auto overscroll-contain bg-slate-950/35 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    <motion.div
+      className="absolute inset-0 z-20 flex items-center justify-center bg-slate-950/55 pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <motion.div
         initial={{ scale: 0.8, y: 30 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-        className={`glass my-auto w-full max-w-md rounded-[2rem] p-5 text-center sm:p-6 ${tone === 'red' ? '!bg-rose-900/40' : ''}`}
+        className={`panel flex max-h-full w-full max-w-md flex-col overflow-hidden rounded-[2rem] text-center ${wide ? 'short:max-w-3xl short:flex-row' : ''} ${tone === 'red' ? 'panel-red' : ''}`}
       >
-        {children}
+        <div className={`min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6 short:p-4 ${aside ? 'pb-3 sm:pb-3' : ''} ${wide ? 'short:pb-4 short:text-left' : ''}`}>{children}</div>
+        {aside && (
+          <div className={`shrink-0 px-5 pb-5 sm:px-6 sm:pb-6 ${wide ? 'short:flex short:w-[42%] short:flex-col short:justify-center short:overflow-y-auto short:border-l short:border-white/10 short:bg-black/15 short:p-4' : ''}`}>{aside}</div>
+        )}
       </motion.div>
+    </motion.div>
+  );
+}
+
+/** Tells the shell once the scene has really drawn, a few frames after it mounts. */
+function FirstFrames({ onReady }: { onReady(): void }) {
+  const frames = useRef(0);
+  useFrame(() => {
+    if (frames.current < 0) return;
+    if (++frames.current >= 3) {
+      frames.current = -1;
+      onReady();
+    }
+  });
+  return null;
+}
+
+const LoadingDots = () => (
+  <span className="loading-dots" aria-hidden>
+    <i /><i /><i />
+  </span>
+);
+
+/** Covers the canvas in the world's colours until the scene is ready, then fades away. */
+function LoadingCurtain({ gradient, number, quiet }: { gradient: string; number: number; quiet: boolean }) {
+  return (
+    <motion.div className="pointer-events-none absolute inset-0 z-[6] overflow-hidden" style={{ background: gradient }} initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} role="status" aria-label="Loading level">
+      <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_100%_0%,rgb(255_255_255/0.3),transparent_60%)]" />
+      <div className="absolute -bottom-[0.18em] right-[4%] font-display text-[min(70vh,24rem)] font-bold leading-none text-white/15">{number}</div>
+      {/* The rules card carries its own small indicator; without the card, show one here. */}
+      {!quiet && (
+        <div className="absolute inset-0 grid place-items-center">
+          <div className="flex items-center gap-3 font-display text-lg font-semibold text-white/90"><LoadingDots />Setting the scene</div>
+        </div>
+      )}
     </motion.div>
   );
 }
