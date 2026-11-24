@@ -1,9 +1,11 @@
 import { useSettings } from '@riddle/fx';
+import { useEffect } from 'react';
 
 /** Level sounds, synthesized with WebAudio (no files). */
 let ctx: AudioContext | null = null;
-const audio = () => {
-  if (!useSettings.getState().sound) return null;
+/** Set by the player's first tap. Before it, browsers refuse to start sound, so nothing is played. */
+let unlocked = false;
+const context = () => {
   if (!ctx) {
     const AC = window.AudioContext || (window as any).webkitAudioContext;
     if (!AC) return null;
@@ -12,6 +14,24 @@ const audio = () => {
   if (ctx.state === 'suspended') void ctx.resume();
   return ctx;
 };
+const audio = () => (unlocked && useSettings.getState().sound ? context() : null);
+
+/**
+ * Wakes the level's sound from inside the player's taps, the only place a phone allows it. This level
+ * plays most of its sounds a moment after a tap (as the beam reaches a crystal or a flower), which is
+ * too late to start sound on an iPhone, and its opening beam plays before any tap at all.
+ */
+export function useSoundUnlock() {
+  useEffect(() => {
+    const unlock = () => {
+      unlocked = true;
+      if (useSettings.getState().sound) context();
+    };
+    const types = ['pointerup', 'touchend', 'click', 'keydown'] as const;
+    types.forEach((t) => window.addEventListener(t, unlock, { capture: true, passive: true }));
+    return () => types.forEach((t) => window.removeEventListener(t, unlock, { capture: true }));
+  }, []);
+}
 
 function tone(freq: number, dur: number, type: OscillatorType, gain: number, delay = 0, slideTo?: number) {
   const a = audio();
