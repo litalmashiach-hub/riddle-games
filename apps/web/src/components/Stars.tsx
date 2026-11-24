@@ -19,7 +19,9 @@ const Star = ({ on, size }: { on: boolean; size: number }) => (
   </svg>
 );
 
-export function Stars({ count, size = 18, animate = false }: { count: number; size?: number; animate?: boolean }) {
+export function Stars({ count, size = 18, animate = false, single = false }: { count: number; size?: number; animate?: boolean; single?: boolean }) {
+  // One lit star as an icon beside a total, not a score out of three.
+  if (single) return <Star on size={size} />;
   return (
     <div className="flex items-center gap-0.5" aria-label={`${count} of 3 stars`}>
       {[1, 2, 3].map((i) =>

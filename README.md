@@ -9,6 +9,7 @@ Built with React Three Fiber (Three.js), TypeScript and Vite.
 pnpm install
 pnpm dev        # http://localhost:5173
 pnpm test       # rules and solver tests
+pnpm test:e2e   # builds, then plays all levels in a phone-sized browser (docs/play-through-tests.md)
 pnpm typecheck
 pnpm build      # static site in apps/web/dist
 ```
@@ -71,7 +72,8 @@ packages/engine/     level contract, session (undo/redo/hints), solver, stars, s
 packages/fx/         lighting and sky per world, water shader, post-processing, motion helpers, sound
 packages/props/      shared 3D models: farmer, wolf, sheep, boat, river valley, hint ring, bubbles
 levels/NN-name/      one package per riddle: rules.ts, Scene.tsx, index.ts, rules.test.ts
-docs/                how to add a level, art direction
+e2e/                 play-through tests (Playwright): every level to a win at iPhone sizes
+docs/                how to add a level, art direction, play-through tests
 ```
 
 To build a new level, read [docs/adding-a-level.md](docs/adding-a-level.md).
