@@ -1,0 +1,30 @@
+# Test only. A tiny Xcode project (made by XcodeGen) that holds one UI test: it plays the built app by taps.
+# It does not touch App.xcodeproj; the test finds the app by its bundle identifier.
+name: PlayTest
+options:
+  bundleIdPrefix: test.riddlegames
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  PlayTestUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: test.riddlegames.playtest
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: "5.0"
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        DEVELOPMENT_TEAM: ""
+schemes:
+  PlayTest:
+    build:
+      targets:
+        PlayTestUITests: [test]
+    test:
+      targets:
+        - PlayTestUITests
