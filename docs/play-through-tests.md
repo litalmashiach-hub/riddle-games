@@ -5,7 +5,7 @@ build in a phone-sized browser with a touch screen and play it.
 
 ```bash
 pnpm install
-pnpm test:e2e          # pnpm build, then the tests
+pnpm test:e2e          # pnpm build and pnpm build:app, then the tests
 pnpm test:e2e:built    # the tests alone, against the apps/web/dist that is already there
 ```
 
