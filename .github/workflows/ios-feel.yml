@@ -1,0 +1,111 @@
+name: Simulator feel (test only)
+
+# TEST ONLY, not for merging. Builds the iPhone/iPad app unsigned for the simulator on a hosted Mac, with a
+# small observer added to the page, and looks at safe areas, long presses, page scroll and zoom, and the
+# haptics plugin with a UI test (apps/mobile/ios/FeelTest). No signing, no secrets.
+
+on:
+  push:
+    branches: [native-feel-sim-test]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-feel-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT: apps/mobile/ios/App/App.xcodeproj
+  DERIVED: build/ios
+
+jobs:
+  feel:
+    name: ${{ matrix.label }}
+    runs-on: macos-26
+    timeout-minutes: 50
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: iphone-pro-max, sim: "iPhone 17 Pro Max" }
+          - { label: iphone-17, sim: "iPhone 17" }
+          - { label: ipad-pro-13, sim: "iPad Pro 13-inch (M5)" }
+          - { label: ipad-a16, sim: "iPad (A16)" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Xcode and simulators on this runner
+        run: |
+          xcodebuild -version
+          xcrun simctl list devices available
+
+      - name: Build the UI test (made with XcodeGen)
+        run: |
+          set -o pipefail
+          which xcodegen || brew install xcodegen
+          cd apps/mobile/ios/FeelTest
+          xcodegen generate
+          xcodebuild build-for-testing -project FeelTest.xcodeproj -scheme FeelTest \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$GITHUB_WORKSPACE/build/feeltest" 2>&1 | tail -n 30
+
+      - name: Build the app content and sync Capacitor
+        run: pnpm ios:sync
+
+      - name: The plugin is in the generated package file, as committed
+        run: |
+          git status --short -- apps/mobile/ios || true
+          grep -n "CapacitorHaptics" apps/mobile/ios/App/CapApp-SPM/Package.swift
+          cat apps/mobile/ios/App/App/capacitor.config.json
+
+      - name: Add the test-only observer to the page
+        run: |
+          cp apps/mobile/ios/FeelTest/observer.js apps/mobile/ios/App/App/public/feel-observer.js
+          sed -i '' 's#</body>#<script src="./feel-observer.js"></script></body>#' apps/mobile/ios/App/App/public/index.html
+          grep -c "feel-observer" apps/mobile/ios/App/App/public/index.html
+
+      - name: Build the app for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build | tail -n 25
+
+      - name: Build the app for the simulator (Debug)
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -scheme App -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build | tail -n 25
+
+      - name: The haptics plugin is linked into the app
+        run: |
+          for c in Release Debug; do
+            APP="$DERIVED/Build/Products/$c-iphonesimulator/App.app"
+            echo "== $c"
+            ls "$APP" | head -n 40
+            for f in "$APP"/App "$APP"/App.debug.dylib "$APP"/Frameworks/*/*; do
+              if [ -f "$f" ]; then echo "$f: $(strings "$f" 2> /dev/null | grep -c HapticsPlugin) strings that name HapticsPlugin"; fi
+            done
+          done
+
+      - name: Look at the app in the simulator
+        timeout-minutes: 32
+        run: apps/mobile/ios/FeelTest/feel.sh "${{ matrix.sim }}" "${{ matrix.label }}"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: feel-${{ matrix.label }}
+          path: |
+            out/*/small
+            out/*/feel-log.txt
+            out/*/xcodebuild.log
+          if-no-files-found: warn

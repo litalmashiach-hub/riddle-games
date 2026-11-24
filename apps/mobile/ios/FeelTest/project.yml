@@ -1,0 +1,30 @@
+# Test only, never merged. A tiny Xcode project (made by XcodeGen) with one UI test that looks at how the
+# built app feels: safe areas, long press, page scroll and zoom, and the haptics plugin's answers.
+name: FeelTest
+options:
+  bundleIdPrefix: test.riddlegames
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  FeelTestUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: test.riddlegames.feeltest
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: "5.0"
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        DEVELOPMENT_TEAM: ""
+schemes:
+  FeelTest:
+    build:
+      targets:
+        FeelTestUITests: [test]
+    test:
+      targets:
+        - FeelTestUITests
