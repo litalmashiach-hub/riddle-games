@@ -164,8 +164,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <group raycast={bargeHits}>
             <Barge sailing={sailing} />
           </group>
-          <mesh position-y={0.3} visible={false} raycast={bargePad}>
-            <boxGeometry args={[2.4, 0.7, 1.2]} />
+          <mesh position-y={1.05} visible={false} raycast={bargePad}>
+            <boxGeometry args={[3.4, 2.2, 1.4]} />
           </mesh>
         </Clickable>
         {!busy && !over && (
@@ -346,9 +346,12 @@ function Actor(p: ActorProps) {
             <Guardian mood={gMood} seed={p.seed} />
           )}
           {/* bigger invisible hit area, easier to tap on phones */}
-          <mesh position-y={0.5} visible={false} raycast={personPad}>
-            <sphereGeometry args={[0.6, 8, 8]} />
-          </mesh>
+          {/* None aboard, so the small barge keeps a place of its own to tap even with two on board. */}
+          {!aboard && (
+            <mesh position-y={0.5} visible={false} raycast={personPad}>
+              <sphereGeometry args={[0.6, 8, 8]} />
+            </mesh>
+          )}
         </Clickable>
       </group>
       {seatIndex >= 0 && <HintRing position={[0, 0.06, 0]} radius={0.42} color="#7ee0b0" />}

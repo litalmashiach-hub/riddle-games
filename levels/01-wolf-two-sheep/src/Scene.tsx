@@ -10,6 +10,7 @@ import { ANIMALS, dangerBank, type Animal, type Move, type Side, type State } fr
 const animalPad = tapPadRaycast();
 /** The boat is a backdrop for taps (see tapBackdropRaycast in @riddle/fx): a tap beside an animal on it still picks them, not the boat. */
 const boatHits = tapBackdropRaycast();
+const boatPad = tapPadRaycast({ rank: 1 });
 
 /** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
 const pinAboveButtons = (_el: unknown, _cam: unknown, size: { width: number; height: number }) => [size.width / 2, size.height - 62 - size.height * 0.13];
@@ -167,6 +168,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
               <FarmerInBoat side={state.farmer} rowing={rowing} won={won && !busy} />
             </Boat>
           </group>
+          {/* The hull alone is a thin target on a phone: an invisible padding round it, behind every animal's. */}
+          <mesh position-y={0.3} visible={false} raycast={boatPad}>
+            <boxGeometry args={[2.8, 0.9, 1.5]} />
+          </mesh>
         </Clickable>
         {!busy && !over && (
           <Html calculatePosition={pinAboveButtons} center zIndexRange={[5, 0]}>

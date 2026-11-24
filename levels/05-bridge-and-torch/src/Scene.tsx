@@ -18,6 +18,7 @@ import { crossingMinutes, EXPLORERS, MINUTES, NAMES, TORCH_MINUTES, type Explore
 const walkerPad = tapPadRaycast();
 /** The bridge is a backdrop for taps (see tapBackdropRaycast in @riddle/fx): a tap beside an explorer on it still picks them, not the bridge. */
 const bridgeHits = tapBackdropRaycast();
+const bridgePad = tapPadRaycast({ rank: 1 });
 
 /** Walk to the bridge, cross it, step off to a waiting spot. */
 const PREP_MS = 450;
@@ -321,6 +322,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         <group raycast={bridgeHits}>
           <RopeBridge walkers={onBridge} />
         </group>
+        {/* The rope bridge is a thin target on a phone: an invisible padding along it, behind every explorer's. */}
+        <mesh position-y={-0.05} visible={false} raycast={bridgePad}>
+          <boxGeometry args={[BRIDGE_HALF * 2, 1.0, 1.3]} />
+        </mesh>
       </Clickable>
       <Torch ref={torch} flame={flame} />
       <Blackout flame={flame} />
