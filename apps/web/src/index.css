@@ -129,3 +129,16 @@ canvas {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* The native app only: `app-shell` is put on <html> by nativeFeel.ts in the app build. The website never has it.
+   The page as a whole can't scroll, even by script; lists and long texts scroll inside their own boxes.
+   Nothing can be lifted out of the page by a long press (iPad drag and drop). */
+html.app-shell,
+html.app-shell body {
+  overflow: hidden;
+}
+html.app-shell a,
+html.app-shell img,
+html.app-shell svg {
+  -webkit-user-drag: none;
+}
