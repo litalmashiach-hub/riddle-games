@@ -53,7 +53,7 @@ function signal(text: string) {
     marker = document.createElement('div');
     marker.setAttribute('role', 'img');
     // No background, no border, no text: it paints no pixel, but the accessibility tree has it.
-    marker.style.cssText = 'position:fixed;left:0;top:0;width:2px;height:2px;z-index:99999;';
+    marker.style.cssText = 'position:fixed;left:0;top:0;width:8px;height:8px;z-index:99999;';
     marker.addEventListener('click', () => (acked = true));
     marker.addEventListener('pointerdown', () => (acked = true));
     document.body.appendChild(marker);

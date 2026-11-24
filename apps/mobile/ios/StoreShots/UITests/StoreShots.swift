@@ -48,7 +48,8 @@ final class StoreShots: XCTestCase {
       let until = Date().addingTimeInterval(240)
       while !FileManager.default.fileExists(atPath: hostDone) && Date() < until { Thread.sleep(forTimeInterval: 1) }
       log("host pictures \(name): \(FileManager.default.fileExists(atPath: hostDone))", dir)
-      if m.exists { m.tap() }
+      // The marker is too small for XCUITest to call it hittable: tap its place on the screen.
+      app.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)).withOffset(CGVector(dx: 3, dy: 3)).tap()
       log("tapped \(name)", dir)
     }
     let done = app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", "shoot-done")).firstMatch
