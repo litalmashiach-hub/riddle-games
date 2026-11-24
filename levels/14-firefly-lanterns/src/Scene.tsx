@@ -165,6 +165,13 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   );
 }
 
+const projected = new THREE.Vector3();
+/** Where the meter's spot on the far bank lands on screen, but never up under the game's top bar (a phone held sideways). */
+const belowTopBar = (el: THREE.Object3D, camera: THREE.Camera, size: { width: number; height: number }) => {
+  projected.setFromMatrixPosition(el.matrixWorld).project(camera);
+  return [(projected.x * 0.5 + 0.5) * size.width, Math.max(74, (-projected.y * 0.5 + 0.5) * size.height)];
+};
+
 /** A row of little fireflies on the far bank: each tap uses one up. When they are all asleep, the level is lost. */
 function SleepMeter({ taps }: { taps: number }) {
   // drei's <Html> can stay empty if it mounts on the very first frame, so show it a moment later.
@@ -176,7 +183,7 @@ function SleepMeter({ taps }: { taps: number }) {
   if (!ready) return null;
   const left = Math.max(0, MAX_TAPS - taps);
   return (
-    <Html position={[0, 0.5, -4.3]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+    <Html position={[0, 0.5, -4.3]} calculatePosition={belowTopBar} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
       <div
         style={{
           display: 'flex',
