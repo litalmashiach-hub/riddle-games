@@ -269,14 +269,41 @@ function Modal({ children, aside, tone, wide }: { children: React.ReactNode; asi
   );
 }
 
-/** Tells the shell once the scene has really drawn, a few frames after it mounts. */
+/**
+ * Tells the shell once the scene can really be seen. The renderer compiles its shaders in the background and
+ * skips what is not ready yet, so the first frames are empty: wait for the compile, then for two drawn frames.
+ * A timeout lifts the curtain anyway, so a slow or odd device is never left behind it.
+ */
 function FirstFrames({ onReady }: { onReady(): void }) {
-  const frames = useRef(0);
+  const gl = useThree((st) => st.gl);
+  const scene = useThree((st) => st.scene);
+  const camera = useThree((st) => st.camera);
+  const frames = useRef(-1);
+  const done = useRef(false);
+  const finish = useRef(onReady);
+  finish.current = onReady;
+  useEffect(() => {
+    const ready = () => {
+      if (done.current) return;
+      done.current = true;
+      finish.current();
+    };
+    const arm = () => {
+      if (frames.current < 0) frames.current = 0;
+    };
+    // One frame first, so everything the scene mounts in its effects is in the graph.
+    const raf = requestAnimationFrame(() => gl.compileAsync(scene, camera).then(arm, arm));
+    const giveUp = setTimeout(ready, 10000);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(giveUp);
+    };
+  }, [gl, scene, camera]);
   useFrame(() => {
-    if (frames.current < 0) return;
-    if (++frames.current >= 3) {
-      frames.current = -1;
-      onReady();
+    if (done.current || frames.current < 0) return;
+    if (++frames.current > 2) {
+      done.current = true;
+      finish.current();
     }
   });
   return null;
