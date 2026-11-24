@@ -185,8 +185,21 @@ async function main() {
 
   let onWinCardOf = 0;
 
+  const FRAMES = '() => { if (!window.__fc) { window.__fc = 1; const f = () => { window.__fc++; requestAnimationFrame(f); }; requestAnimationFrame(f); } return { c: window.__fc, t: performance.now() }; }';
   for (const level of levels) {
+    if (args['relaunch-each'] && level.number !== lo) {
+      // A fresh app for each level, so one level's slowness can't carry into the next.
+      try {
+        await run.relaunch();
+        await waitMap();
+        onWinCardOf = 0;
+        log(`L${nn(level.number)}: fresh app`);
+      } catch (e) {
+        log(`fresh app failed: ${e}`);
+      }
+    }
     const started = Date.now();
+    let f0: { c: number; t: number } | null = null;
     const r: LevelResult = {
       level: level.number, id: level.id, title: level.title, device, size: `${size.width}x${size.height}`, quality: null, openedBy: '', state: '', wonByTaps: false, won: false, finishedByHook: false,
       movesByTaps: 0, moves: level.moves.length, touches: 0, stars: null, savedStars: null, fault: null, error: null,
@@ -218,6 +231,7 @@ async function main() {
             r.openedBy = inView ? 'its card on the level map' : 'its card on the level map (scrolled into view by the run)';
           }
           log(`L${nn(level.number)} ${level.id}: opened by ${r.openedBy}`);
+          f0 = await backend.exec<{ c: number; t: number }>(FRAMES).catch(() => null);
           // The loading mark, once, if it can be caught.
           let sawMark = false;
           const end = Date.now() + 180_000;
@@ -347,6 +361,8 @@ async function main() {
         return copy;
       });
       Object.assign(r, f);
+      const f1 = await backend.exec<{ c: number; t: number }>(FRAMES);
+      if (f0 && f1.c >= f0.c) (r as any).fps = Math.round(((f1.c - f0.c) / ((f1.t - f0.t) / 1000)) * 10) / 10;
     } catch (e) {
       log(`could not read the page's faults: ${e}`);
     }
@@ -357,7 +373,7 @@ async function main() {
         : r.won
           ? 'won'
           : `not won${r.error ? `: ${r.error.slice(0, 200)}` : ''}`;
-    log(`L${nn(level.number)} ${level.id}: ${r.state}; stars ${r.stars} (saved ${r.savedStars}); open ${r.seconds.open}s, play ${r.seconds.play}s, total ${r.seconds.total}s; page errors ${r.pageErrors.length}, console errors ${r.consoleErrors.length}`);
+    log(`L${nn(level.number)} ${level.id}: ${r.state}; stars ${r.stars} (saved ${r.savedStars}); open ${r.seconds.open}s, play ${r.seconds.play}s, total ${r.seconds.total}s; page errors ${r.pageErrors.length}, console errors ${r.consoleErrors.length}; frames per second ${(r as any).fps ?? '?'}`);
     results.push(r);
     writeFileSync(join(out, `level-${nn(level.number)}-${level.id}.json`), JSON.stringify(r, null, 1));
     writeFileSync(join(out, 'results.json'), JSON.stringify(results.map(({ log: _l, ...rest }) => rest), null, 1));

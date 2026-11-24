@@ -2,7 +2,7 @@
 # TEST ONLY. Boots one simulator, installs the built app, starts Appium and plays the levels.
 #   ios-play.sh <label> <device name> <orientation PORTRAIT|LANDSCAPE|-> <levels a-b> <extras 0|1>
 set -u
-LABEL="$1"; NAME="$2"; ORIENT="$3"; LEVELS="$4"; EXTRAS="$5"
+LABEL="$1"; NAME="$2"; ORIENT="$3"; LEVELS="$4"; EXTRAS="$5"; FLAGS="${6:-}"
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 OUT="$ROOT/out/$LABEL"
 mkdir -p "$OUT"
@@ -34,6 +34,9 @@ echo "booted in $(( $(date +%s) - T0 )) s" | tee -a "$OUT/device.txt"
 xcrun simctl install "$UDID" "$APP"
 xcrun simctl spawn "$UDID" log stream --style compact --predicate 'process == "App" OR process CONTAINS "WebContent" OR process CONTAINS "GPU"' > "$OUT/unified.txt" 2>&1 &
 LOGPID=$!
+# Every 30 s: the memory and processor use of the app, its web content and the Mac, to tell a slow page from a starved Mac.
+( while :; do echo "== $(date +%H:%M:%S)"; ps -axo pid,rss,%cpu,etime,comm | grep -E "WebContent|GPU|/App$|App.app" | grep -v grep; vm_stat | grep -E "free|compressor|Swap"; sysctl -n vm.loadavg; sleep 30; done ) > "$OUT/usage.txt" 2>&1 &
+USEPID=$!
 
 export APPIUM_HOME="$ROOT/e2e/app/.appium"
 "$ROOT/e2e/app/node_modules/.bin/appium" --address 127.0.0.1 --port 4723 --log-timestamp --log-no-colors --log "$OUT/appium.txt" --log-level info:debug > /dev/null 2>&1 &
@@ -52,9 +55,10 @@ print(json.dumps({
 ARGS=(--backend appium --device "$LABEL" --levels "$LEVELS" --out "$OUT" --caps "$CAPS" --bundle-id "$BUNDLE" --level-minutes 30)
 [ "$ORIENT" != "-" ] && ARGS+=(--orientation "$ORIENT")
 [ "$EXTRAS" = "1" ] && ARGS+=(--extras)
+for F in $FLAGS; do ARGS+=("--$F"); done
 "$ROOT/e2e/app/node_modules/.bin/tsx" "$ROOT/e2e/app/run.ts" "${ARGS[@]}"
 STATUS=$?
-kill $APPIUMPID $LOGPID 2> /dev/null
+kill $APPIUMPID $LOGPID $USEPID 2> /dev/null
 # Crash reports of the app or WebKit, if any.
 mkdir -p "$OUT/crashes"
 find ~/Library/Logs/DiagnosticReports -newer "$OUT/device.txt" \( -name 'App*' -o -name '*WebKit*' -o -name '*WebContent*' \) -exec cp {} "$OUT/crashes/" \; 2> /dev/null
