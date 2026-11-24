@@ -1,6 +1,11 @@
-/** Installs the offline service worker and asks the browser to keep saved progress. */
+import { APP_SHELL } from '../appShell';
+
+/**
+ * Installs the offline service worker and asks the browser to keep saved progress.
+ * Not in the native app: its files are already on the device, and no sw.js is built for it.
+ */
 export function registerPwa() {
-  if (!import.meta.env.PROD || !('serviceWorker' in navigator)) return;
+  if (APP_SHELL || !import.meta.env.PROD || !('serviceWorker' in navigator)) return;
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(() => {
       /* offline play just won't be available */

@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { createHash } from 'node:crypto';
-import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
 
@@ -32,11 +32,45 @@ function offlineServiceWorker(): Plugin {
   };
 }
 
-export default defineConfig({
-  // Relative base so the build works on GitHub Pages, Vercel or any static host.
-  base: './',
-  plugins: [react(), tailwindcss(), offlineServiceWorker()],
-  build: {
-    chunkSizeWarningLimit: 2000,
-  },
+/**
+ * App build only: the native shell has its own icon, launch screen and offline files, so the
+ * home-screen-web-app parts (manifest, launch images, touch icons) are left out of the bundle.
+ */
+function stripWebAppParts(): Plugin {
+  let outDir = '';
+  return {
+    name: 'riddle-app-shell',
+    apply: 'build',
+    configResolved(c) {
+      outDir = join(c.root, c.build.outDir);
+    },
+    transformIndexHtml(html) {
+      return html
+        .split('\n')
+        .filter((line) => !/rel="(manifest|apple-touch-icon|apple-touch-startup-image)"|name="(mobile-web-app-capable|apple-mobile-web-app-[a-z-]+)"|home-screen app/.test(line))
+        .join('\n');
+    },
+    closeBundle() {
+      for (const f of ['splash', 'icons', 'manifest.webmanifest']) rmSync(join(outDir, f), { recursive: true, force: true });
+    },
+  };
+}
+
+/**
+ * Two builds from the same source:
+ * - `vite build` (default): the website, into dist/, with the offline service worker. Unchanged.
+ * - `vite build --mode app`: the content of the native app, into dist-app/. No service worker,
+ *   no web-app manifest, and `?all` / `?debug` do nothing (see src/appShell.ts and docs/ios-app.md).
+ */
+export default defineConfig(({ mode }) => {
+  const appShell = mode === 'app';
+  return {
+    // Relative base so the build works on GitHub Pages, Vercel or any static host.
+    base: './',
+    plugins: [react(), tailwindcss(), appShell ? stripWebAppParts() : offlineServiceWorker()],
+    build: {
+      outDir: appShell ? 'dist-app' : 'dist',
+      chunkSizeWarningLimit: 2000,
+    },
+  };
 });

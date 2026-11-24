@@ -1,0 +1,23 @@
+// ─────────────────────────────────────────────────────────────────────────────
+//  THE APP'S IDENTITY — the one place to change it.
+//
+//  Xcode reads this file for every build (Debug and Release), and
+//  capacitor.config.ts reads it too. Nothing else in the repository repeats
+//  these four values.
+//
+//  All four are PLACEHOLDERS until the owner chooses the final ones.
+//  The bundle identifier must match the App ID registered in the Apple
+//  developer account, and can never change once the app is on the store.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Bundle identifier (reverse-domain, e.g. com.yourname.riddlegames). PLACEHOLDER.
+APP_BUNDLE_ID = com.example.riddlegames
+
+// Name under the icon on the home screen (about 12 characters fit). PLACEHOLDER.
+APP_DISPLAY_NAME = Riddle Games
+
+// Version players see on the store (CFBundleShortVersionString).
+APP_VERSION = 1.0.0
+
+// Build number (CFBundleVersion). Must go up with every upload to App Store Connect.
+APP_BUILD = 1
