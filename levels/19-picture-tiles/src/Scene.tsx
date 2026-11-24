@@ -7,7 +7,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { mosaicTexture, outlineTexture, pieceGeometry } from './art';
 import { ISLAND_TOP, Lagoon, WATER_Y } from './Lagoon';
-import { MAX_SLIDES, SIZE, canSlide, colOf, rowOf, slideDir, type Move, type State } from './rules';
+import { useTiles } from './context';
+import { SIZE, canSlide, colOf, rowOf, slideDir, type Move, type State } from './rules';
 import { Shelly, TUMBLE, type ShellyMode, type TumblePath } from './Shelly';
 
 const SLIDE_MS = 300;
@@ -36,6 +37,7 @@ export function Scene({ state, status, play, busy, hint, resetCount }: SceneProp
   const won = status.kind === 'won';
   const lostNow = status.kind === 'lost' && !busy;
   const wonNow = won && !busy;
+  const { maxSlides: MAX_SLIDES } = useTiles();
   const left = MAX_SLIDES - state.slides;
 
   // When the current ending started (for frame-driven animation).
@@ -130,7 +132,7 @@ export function Scene({ state, status, play, busy, hint, resetCount }: SceneProp
 
       <Shelly mode={mode} since={since} path={SHELLY} yaw={SHELLY_YAW} />
 
-      {uiReady && !over && <PatienceMeter position={[SHELLY.home[0], SHELLY.home[1] + 1.55, SHELLY.home[2]]} left={left} />}
+      {uiReady && !over && <PatienceMeter position={[SHELLY.home[0], SHELLY.home[1] + 1.55, SHELLY.home[2]]} left={left} of={MAX_SLIDES} />}
       {!over && left <= 5 && left > 0 && <Bubble position={[SHELLY.home[0] + 0.5, SHELLY.home[1] + 1.05, SHELLY.home[2]]}>*yaaawn*</Bubble>}
 
       {phase === 'yawn' && <ComicWord position={shellyHead} text="YAAAWN!" color="#c4b5fd" />}
@@ -199,7 +201,8 @@ function StoneTable({ won, since }: { won: boolean; since: number }) {
 
 /** The finished picture, carved into a standing stone behind the table: the goal to copy. */
 function Portrait({ won }: { won: boolean }) {
-  const tex = useMemo(() => mosaicTexture(), []);
+  const { plaque, painter } = useTiles();
+  const tex = useMemo(() => mosaicTexture(painter), [painter]);
   const mat = useMemo(() => new THREE.MeshStandardMaterial({ map: tex, emissiveMap: tex, emissive: '#ffffff', emissiveIntensity: 0.45, roughness: 0.6 }), [tex]);
   useFrame(({ clock }) => {
     mat.emissiveIntensity = won ? 0.9 + Math.sin(clock.elapsedTime * 6) * 0.25 : 0.45;
@@ -216,7 +219,7 @@ function Portrait({ won }: { won: boolean }) {
       {/* a little plaque */}
       <RoundedBox args={[0.9, 0.22, 0.06]} radius={0.04} smoothness={2} position={[0, 0.3, 0.18]} material={toon('#d29a3c', { metal: 0.4, rough: 0.5 })} />
       <Html position={[0, 0.3, 0.22]} center transform scale={0.18} zIndexRange={[1, 0]} style={{ pointerEvents: 'none' }}>
-        <div style={{ fontFamily: 'Fredoka, system-ui, sans-serif', fontWeight: 700, fontSize: 40, color: '#3b2610', whiteSpace: 'nowrap' }}>Shelly</div>
+        <div style={{ fontFamily: 'Fredoka, system-ui, sans-serif', fontWeight: 700, fontSize: 40, color: '#3b2610', whiteSpace: 'nowrap' }}>{plaque}</div>
       </Html>
     </group>
   );
@@ -238,7 +241,8 @@ function Tile({ piece, cell, resetCount, slidable, dirYaw, disabled, wonSince, n
   const ref = useRef<THREE.Group>(null);
   const inner = useRef<THREE.Group>(null);
   const outline = useRef<THREE.MeshBasicMaterial>(null);
-  const tex = useMemo(() => mosaicTexture(), []);
+  const { painter } = useTiles();
+  const tex = useMemo(() => mosaicTexture(painter), [painter]);
   const geo = useMemo(() => pieceGeometry(piece, 0.88), [piece]);
   const mat = useMemo(() => new THREE.MeshStandardMaterial({ map: tex, emissiveMap: tex, emissive: '#ffffff', emissiveIntensity: 0.3, roughness: 0.55 }), [tex]);
   const stone = useMemo(() => toon(['#b9b2a2', '#b3ad9f', '#bdb6a4'][piece % 3]), [piece]);
@@ -305,7 +309,8 @@ function Tile({ piece, cell, resetCount, slidable, dirYaw, disabled, wonSince, n
 function SparePiece({ won, resetCount, since }: { won: boolean; resetCount: number; since: number }) {
   const ref = useRef<THREE.Group>(null);
   const bob = useRef<THREE.Group>(null);
-  const tex = useMemo(() => mosaicTexture(), []);
+  const { painter } = useTiles();
+  const tex = useMemo(() => mosaicTexture(painter), [painter]);
   const geo = useMemo(() => pieceGeometry(9, 0.88), []);
   const mat = useMemo(() => new THREE.MeshStandardMaterial({ map: tex, emissiveMap: tex, emissive: '#ffffff', emissiveIntensity: 0.35, roughness: 0.55 }), [tex]);
   usePath(
@@ -348,8 +353,8 @@ function SparePiece({ won, resetCount, since }: { won: boolean; resetCount: numb
   );
 }
 
-function PatienceMeter({ position, left }: { position: Vec3; left: number }) {
-  const frac = Math.max(0, left / MAX_SLIDES);
+function PatienceMeter({ position, left, of }: { position: Vec3; left: number; of: number }) {
+  const frac = Math.max(0, left / of);
   const color = frac > 0.4 ? '#6ee7b7' : frac > 0.17 ? '#fcd34d' : '#fb7185';
   return (
     <Html position={position} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>

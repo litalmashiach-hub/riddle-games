@@ -54,7 +54,7 @@ function buzzAt(a: AudioContext, t: number, dur: number, base: number, gain: num
 }
 
 /** Pitch of each colour's little chime. */
-const PITCH = { gold: 784, pink: 880, mint: 988, sky: 1175 } as const;
+const PITCH = { gold: 784, pink: 880, mint: 988, sky: 1175, violet: 1319 } as const;
 
 /** A firefly lifts off. */
 export function liftSound() {

@@ -8,9 +8,10 @@ import * as THREE from 'three';
 import { moonSfx, useSoundUnlock } from './audio';
 import { Beam } from './Beam';
 import { Fireflies, LagoonShore, NightWater } from './Lagoon';
-import { PAD_Y, SOURCE, beamPath, cellPos, cellZ, sharedLength, type V3 } from './layout';
+import { useLayout } from './context';
+import { PAD_Y, beamPath, cellPos, cellZ, sharedLength, sourcePos, type V3 } from './layout';
 import { Crystal, MoonFlower, MoonLantern, MossRock, Toad, type ToadMode } from './Pieces';
-import { LAYOUT, type Move, type State } from './rules';
+import type { Move, State } from './rules';
 
 export const MOVE_MS = 1900;
 /** The crystal turns first, then the beam regrows from it. */
@@ -33,11 +34,12 @@ const MOON_PHASES: [MoonPhase, number][] = [
   ['after', 60000],
 ];
 
-const TOAD_HOME = cellPos(LAYOUT.toad.c, LAYOUT.toad.r, 0);
 const FLY_DIST = 1.7;
 
 export function Scene({ state, previous, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
-  const path = useMemo(() => beamPath(state), [state]);
+  const LAYOUT = useLayout();
+  const TOAD_HOME = useMemo(() => cellPos(LAYOUT.toad.c, LAYOUT.toad.r, 0), [LAYOUT]);
+  const path = useMemo(() => beamPath(state, LAYOUT), [state, LAYOUT]);
   const over = status.kind !== 'playing';
   const won = status.kind === 'won';
   const toadLost = status.kind === 'lost' && path.end === 'toad';
@@ -71,7 +73,7 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
     if (!changed) return;
     if (forward && previous) {
       moonSfx.turn();
-      const shared = sharedLength(beamPath(previous), path);
+      const shared = sharedLength(beamPath(previous, LAYOUT), path);
       reveal.current = Math.min(reveal.current, shared);
       const left = Math.max(0, path.total - shared);
       grow.current = { from: shared, start: performance.now() + T_TURN, speed: Math.max(9, left / ((GROW_BY - T_TURN) / 1000)) };
@@ -185,7 +187,7 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
       <NightWater moon={moon} moonGlow={moonGlow} />
       <LagoonShore />
       <Fireflies swarm={party} />
-      <MoonLantern position={SOURCE} />
+      <MoonLantern position={sourcePos(LAYOUT)} />
 
       {LAYOUT.rocks.map((k, i) => (
         <MossRock key={i} c={k.c} r={k.r} />

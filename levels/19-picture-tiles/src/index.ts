@@ -25,3 +25,9 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For another picture and another mix-up in the same scene (see levels/28-family-portrait).
+export { ellipse, glow, paintShelly, type Painter } from './art';
+export { TilesContext, type TilesPuzzle } from './context';
+export { SOLVED, makeRules, type Move, type State } from './rules';
+export { MOVE_MS, Scene } from './Scene';

@@ -24,3 +24,7 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For a taller tower in the same scene (see levels/30-moonlit-tower).
+export { makeRules, type Move, type State } from './rules';
+export { MOVE_MS, Scene } from './Scene';
