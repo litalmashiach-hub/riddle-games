@@ -1,13 +1,23 @@
 Simulator: iPad Pro 13-inch (M5) 2A020491-3EBC-4783-8622-F8314CC00294
     iPad Pro 13-inch (M5) (2A020491-3EBC-4783-8622-F8314CC00294) (Shutdown) 
 Port:
-    UUID: 9A1F46B7-3EDF-4166-8FBA-A710E1DD0F31
+    UUID: 290A50AC-44F5-4309-ACBF-65AF4517706C
     Class: Unknown
     Port Identifier: com.apple.display.captureservice
     Power state: On
 
 Port:
-    UUID: 100CC7E7-73F5-4F51-AA85-AF885B1E598B
+    UUID: 17C7A77B-466E-43EE-9507-74E1BF023C65
+    Class: Display
+    Port Identifier: com.apple.framebuffer.display
+    Power state: On
+    Display class: 1
+    Default width: 720
+    Default height: 480
+    Default pixel format: 'BGRA'
+
+Port:
+    UUID: E765AA34-006F-4F92-BAF4-7C4AF2BC6E13
     Class: Display
     Port Identifier: com.apple.framebuffer.display
     Power state: On
@@ -26,17 +36,7 @@ Port:
         Pixel size casting = Yes
 
 Port:
-    UUID: A2713BBE-B867-4F7C-8AFF-418A8EB81FD0
-    Class: Display
-    Port Identifier: com.apple.framebuffer.display
-    Power state: On
-    Display class: 1
-    Default width: 720
-    Default height: 480
-    Default pixel format: 'BGRA'
-
-Port:
-    UUID: 8CB5E003-7633-4072-82A1-EAFF4045579B
+    UUID: ECF316AD-11CC-4937-9976-F7BECE7B21DD
     Class: DisplayAdapter
     Port Identifier: com.apple.framebuffer.server
     Power state: On
