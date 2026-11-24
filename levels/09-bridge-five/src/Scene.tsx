@@ -11,6 +11,7 @@ import { DarkVeil, Fireflies, GlowEyes } from './Blackout';
 import { Lantern, LanternPost, SPUTTER_S } from './Lantern';
 import { LANTERN_MINUTES, MINUTES, NAMES, TRAVELLERS, crossingMinutes, type Move, type Side, type State, type Traveller } from './rules';
 import { SkyIslands } from './SkyIslands';
+import { LABEL_WRAP, LabelStem, useLabelSpread, type LabelSpread } from './useLabelSpread';
 
 const WALK_ON_MS = 420;
 /** Ignore a second tap on the same traveller this soon after the first. */
@@ -190,6 +191,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const [blackout, setBlackout] = useState(false);
   const [shake, setShake] = useState(0);
   const lastCount = useRef(moveCount);
+  // The time badges step aside for each other when travellers stand close together.
+  const spread = useLabelSpread();
   const forward = moveCount > lastCount.current;
   const stepKey = `${moveCount}|${resetCount}`;
 
@@ -445,6 +448,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             disabled={busy || over}
             onClick={() => toggle(nearest(t))}
             register={(o) => (actors.current[t] = o)}
+            spread={spread}
           />
         ))}
 
@@ -491,9 +495,10 @@ interface ActorProps {
   disabled: boolean;
   onClick(): void;
   register(o: THREE.Object3D): void;
+  spread: LabelSpread;
 }
 
-function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick, register }: ActorProps) {
+function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick, register, spread }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   useEffect(() => {
     if (ref.current) register(ref.current);
@@ -554,6 +559,7 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
       {picked && <HintRing position={[0, 0.05, 0]} radius={0.45} color="#7ee0b0" />}
       {/* Always mounted (hidden with opacity): unmounting a drei <Html> while a Bubble mounts breaks the DOM. */}
       <Html key={heal.key} position={[0, h + 0.18 + (pickedIndex === 1 ? 0.3 : 0), 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+        <div ref={spread.ref(kind)} data-off={bubble || hideBadge ? '' : undefined} style={LABEL_WRAP}>
         <div
           ref={heal.watch('badge', true)}
           title={NAMES[kind]}
@@ -573,6 +579,8 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
           }}
         >
           ⏱ {MINUTES[kind]} min
+        </div>
+        <LabelStem />
         </div>
       </Html>
       {blackout && <GlowEyes kind={kind} seed={seed} />}

@@ -9,6 +9,7 @@ import { Character, HEIGHT } from './People';
 import { DECK_Y, Raft } from './Raft';
 import { sign, slot, thiefGetaway, thiefSpot } from './layout';
 import { FAIL_PHASES, Mishap, gagSpot, type FailPhase } from './Mishaps';
+import { LABEL_WRAP, LabelStem, useLabelSpread, type LabelSpread } from './useLabelSpread';
 import { PEOPLE, raftProblem, roleOf, trouble, type Move, type Person, type Side, type State } from './rules';
 
 /** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
@@ -57,6 +58,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const [loaded, setLoaded] = useState<Person[]>([]);
   const [warning, setWarning] = useState<string | null>(null);
   const [burst, setBurst] = useState(0);
+  // The name labels step aside for each other when people stand close together.
+  const spread = useLabelSpread();
   // `forward` stays true from a new move until the next undo or restart, so the
   // crossing animation is not cut short when the seated people are cleared.
   const seen = useRef({ moveCount, resetCount, forward: false });
@@ -213,6 +216,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           disabled={busy || over}
           showLabel={!over}
           onClick={() => toggle(p)}
+          spread={spread}
         />
       ))}
 
@@ -249,9 +253,10 @@ interface ActorProps {
   disabled: boolean;
   showLabel: boolean;
   onClick(): void;
+  spread: LabelSpread;
 }
 
-function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, fail, won, busy, disabled, showLabel, onClick }: ActorProps) {
+function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, fail, won, busy, disabled, showLabel, onClick, spread }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const side = state[who];
   const rideIndex = forward && previous ? (lastMove?.riders.indexOf(who) ?? -1) : -1;
@@ -328,6 +333,7 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
       </group>
       {showLabel && !busy && (
         <Html position={[0, h + 0.18, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+          <div ref={spread.ref(who)} style={LABEL_WRAP}>
           <div
             style={{
               fontFamily: 'Fredoka, system-ui, sans-serif',
@@ -343,6 +349,8 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
             }}
           >
             {LABEL[who]}
+          </div>
+          <LabelStem color="rgba(255,248,235,.95)" />
           </div>
         </Html>
       )}
