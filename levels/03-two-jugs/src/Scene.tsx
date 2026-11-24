@@ -216,7 +216,7 @@ function ActionMenu({ jug, state, hint, onAct }: { jug: JugId; state: State; hin
   ];
   const home = HOME[jug];
   return (
-    <Overlay position={[home[0], home[1] + DIMS[jug].h + 0.62, home[2]]} zIndex={6} interactive anchor="bottom">
+    <Overlay position={[home[0], home[1] + DIMS[jug].h + 0.62, home[2]]} zIndex={6} interactive anchor="bottom" keepOnScreen>
       <style>{`@keyframes jugs-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@keyframes jugs-pop{from{transform:scale(0)}to{transform:scale(1)}}`}</style>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center', animation: 'jugs-pop .3s cubic-bezier(.34,1.56,.64,1)' }}>
         {items.map(({ m, label }) => {

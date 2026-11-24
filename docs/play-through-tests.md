@@ -23,18 +23,21 @@ With a graphics card it is much faster.
 
 ## What is tested
 
-Two screen sizes, both with touch and the phone held sideways:
+Three screen sizes, all with touch and the phone held sideways:
 
 | Project | Size | Stands for |
 | --- | --- | --- |
 | `iphone-landscape` | 852 by 393 | a current iPhone |
 | `iphone-small-landscape` | 667 by 375 | a small iPhone |
+| `iphone-largest-landscape` | 956 by 440 | the largest iPhone; only `layout.spec.ts` runs here |
 
 | File | What it does |
 | --- | --- |
 | `e2e/tests/levels.spec.ts` | Every level: opens it as a player who solved the earlier ones, taps through the rules card, plays the shortest solution, and checks the top bar's counter while playing, the win card, three stars, the saved stars, the map's star count, and that the next level opens. Saves a screenshot of each win. |
 | `e2e/tests/level-1-by-taps.spec.ts` | Level 1 by taps on the screen alone, from a fresh level map to the win card and on to level 2. Also a loss: the "Oh no!" card, and undo. |
 | `e2e/tests/progress.spec.ts` | Stars and the sound setting survive a restart of the app; locked levels stay locked; the map lists every level. |
+| `e2e/tests/scene-loading.spec.ts` | A level is never a blank screen. The app's loading mark shows until the game has started. A level's loading sign stays until its scene is drawn (the test holds the shaders back). A device that gives no 3D context, or a dead one, gets a card with "Try again" and "All levels", and both work. A context lost while playing brings the same card if it stays lost, and nothing if it comes back within a moment. |
+| `e2e/tests/layout.spec.ts` | Levels 1 to 3 at all three sizes: the rules card's button is whole without scrolling, and no button, counter or hint text overlaps another or leaves the screen, also with level 3's jug menu open. |
 
 Every test fails if the page throws an error, logs a console error, has a request fail, or asks
 anything of another host (the game should make no such request). The few console messages that
@@ -69,7 +72,7 @@ layout changes:
   numbers and words.
 - A level's button on the map is found by "Level N: Title". A locked one may add " (locked)".
   Nothing else may follow the title.
-- Nothing but level 1's animals is tapped by position. Level 1's test asks the page what lies on
+- Nothing but level 1's animals and level 3's jugs is tapped by position. Level 1's test asks the page what lies on
   top at the spot before it taps, so a bar that moves over an animal fails the test.
 
 ## Results

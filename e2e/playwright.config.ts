@@ -37,6 +37,8 @@ export default defineConfig({
   projects: [
     { name: 'iphone-landscape', use: { viewport: { width: 852, height: 393 } } },
     { name: 'iphone-small-landscape', use: { viewport: { width: 667, height: 375 } } },
+    // The largest iPhone. Only the layout checks run here: a play-through would be the same as at 852 by 393.
+    { name: 'iphone-largest-landscape', testMatch: /layout\.spec\.ts$/, use: { viewport: { width: 956, height: 440 } } },
   ],
   webServer: {
     // Serves apps/web/dist as it is. Build first: `pnpm test:e2e` does both.

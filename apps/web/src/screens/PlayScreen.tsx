@@ -8,6 +8,7 @@ import { useStore } from 'zustand';
 import * as THREE from 'three';
 import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
+import { SceneGuard } from '../components/SceneGuard';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
 
@@ -93,6 +94,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
 
   return (
     <div className="relative h-full w-full select-none overflow-hidden" style={{ background: look.fog }}>
+      {/* Never a blank level: a scene that can't be drawn, or loses its 3D context, says so and offers two ways out. */}
+      <SceneGuard onExit={onExit} onRetry={() => setSceneReady(false)}>
       <Canvas
         shadows
         flat
@@ -108,7 +111,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
               lastMove={lastMove}
               status={s.status}
               play={s.play}
-              busy={s.busy || showRules}
+              // Nothing in the scene takes a tap before it can be seen: not behind the rules card, not behind the loading curtain.
+              busy={s.busy || showRules || !sceneReady}
               hint={s.hint}
               resetCount={s.resetCount}
               moveCount={moveCount}
@@ -118,6 +122,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
           <FirstFrames onReady={() => setSceneReady(true)} />
         </Suspense>
       </Canvas>
+      </SceneGuard>
 
       {/* Curtain while the scene builds */}
       <AnimatePresence>
@@ -276,7 +281,8 @@ function Modal({ children, aside, tone, wide }: { children: React.ReactNode; asi
 /**
  * Tells the shell once the scene can really be seen. The renderer compiles its shaders in the background and
  * skips what is not ready yet, so the first frames are empty: wait for the compile, then for two drawn frames.
- * A timeout lifts the curtain anyway, so a slow or odd device is never left behind it.
+ * A timeout lifts the curtain anyway, so an odd device is never left behind it. It is long: a slow device
+ * may need well over ten seconds for a level's first drawing, and until then the sign beats an empty scene.
  */
 function FirstFrames({ onReady }: { onReady(): void }) {
   const gl = useThree((st) => st.gl);
@@ -297,7 +303,7 @@ function FirstFrames({ onReady }: { onReady(): void }) {
     };
     // One frame first, so everything the scene mounts in its effects is in the graph.
     const raf = requestAnimationFrame(() => gl.compileAsync(scene, camera).then(arm, arm));
-    const giveUp = setTimeout(ready, 10000);
+    const giveUp = setTimeout(ready, 30000);
     return () => {
       cancelAnimationFrame(raf);
       clearTimeout(giveUp);

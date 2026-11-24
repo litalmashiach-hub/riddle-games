@@ -29,9 +29,20 @@
     <link rel="apple-touch-startup-image" media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="./splash/splash-2266x1488.jpg" />
     <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="./splash/splash-1536x2048.jpg" />
     <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" href="./splash/splash-2048x1536.jpg" />
+    <!-- The game's loading mark, shown from the first paint until the game itself takes over #root.
+         Inline, so it needs no other file. It waits a moment before it shows, so a fast device never sees it flash. -->
+    <style>
+      html, body { margin: 0; height: 100%; background: #0f2236; }
+      #boot { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; opacity: 0; animation: boot-in 0.4s ease-out 0.6s forwards; }
+      #boot i { width: 0.6rem; height: 0.6rem; border-radius: 9999px; background: #ffd166; animation: boot-dot 0.9s ease-in-out infinite; }
+      #boot i:nth-child(2) { animation-delay: 0.15s; }
+      #boot i:nth-child(3) { animation-delay: 0.3s; }
+      @keyframes boot-in { to { opacity: 1; } }
+      @keyframes boot-dot { 0%, 60%, 100% { transform: translateY(0); opacity: 0.55; } 30% { transform: translateY(-0.55rem); opacity: 1; } }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><div id="boot" role="status" aria-label="Loading Riddle Games"><i></i><i></i><i></i></div></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
