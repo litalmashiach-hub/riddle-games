@@ -1,0 +1,4 @@
+frames/01-river/00.png 1206 2622 
+frames/01-river/01.png 1206 2622 
+frames/01-river/02.png 1206 2622 
+frames/03-coins/00.png 1206 2622 
