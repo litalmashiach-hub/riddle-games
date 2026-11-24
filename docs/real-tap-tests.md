@@ -95,7 +95,8 @@ A listed level stops at its first fault, so the steps after it are not proven by
 
 Listed today (the full account of the first run is in the project's report "real-taps"):
 
-- Level 2, Wolf, Goat and Cabbage: move 5, a tap on the cabbage picks the goat. All sizes.
+- Level 2, Wolf, Goat and Cabbage: move 5, a tap on the cabbage picks the goat. At 852 and 667;
+  at 956 the same tap reached the cabbage.
 - Level 7, Jealous Couples: move 1, a tap on Mrs Coral picks Mr Teal, who stands in front of her.
   All sizes.
 - Level 11, Family Crossing: a tap on the guard picks Dad. Move 1 at 667 and 956; move 1 or 3 at 852,

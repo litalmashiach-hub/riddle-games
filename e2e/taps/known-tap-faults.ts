@@ -27,7 +27,9 @@ const ALL = ['iphone-landscape', 'iphone-small-landscape', 'iphone-large-landsca
 export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {
   'wolf-goat-cabbage': [
     {
-      sizes: ALL,
+      // At 956 by 440 the same tap reached the cabbage and the level was won: the edge of the goat's
+      // sphere lies close to the cabbage's middle there.
+      sizes: ['iphone-landscape', 'iphone-small-landscape'],
       steps: [5],
       kind: 'wrong-pick',
       reason:
