@@ -25,7 +25,8 @@ export interface PrivacyPolicy {
  * published, so the text names "the game's About & settings screen" and not "this screen".
  *
  * What the text says of the game is true of the code, and must stay so: no network call anywhere; two things
- * saved (the stars, and the sound and graphics choices); Reset progress clears the stars and keeps the two
+ * saved (the stars with the first riddle's pointer flag, and the sound and graphics choices); Reset progress
+ * clears the stars and the pointer flag, and keeps the two
  * choices (App.tsx); the Contact page's one link opens the player's own email app (AboutStorePages.tsx).
  */
 export function privacyPolicy(info: AppInfo = APP_INFO): PrivacyPolicy {
@@ -54,7 +55,7 @@ export function privacyPolicy(info: AppInfo = APP_INFO): PrivacyPolicy {
         heading: 'What is saved on your device',
         blocks: [
           'To remember your progress, the game saves two small things on your own device:',
-          { points: ['the stars you have earned on each riddle;', 'your choices for graphics quality and sound.'] },
+          { points: ['the stars you have earned on each riddle, and whether you have seen the short pointer on the first riddle;', 'your choices for graphics quality and sound.'] },
           'The game never sends this information anywhere. We cannot see it, and nobody receives it from us.',
         ],
       },

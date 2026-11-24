@@ -1,4 +1,4 @@
-import { loadProgress, recordStars, saveProgress, type Progress } from '@riddle/engine';
+import { hasSeenGuide, loadProgress, markGuideSeen, recordStars, saveProgress, type Progress } from '@riddle/engine';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCallback, useEffect, useState } from 'react';
 import { LEVELS } from './levels';
@@ -60,6 +60,8 @@ export function App() {
             onExit={() => open(null)}
             onNext={nextBuilt ? () => open(nextBuilt.id) : undefined}
             onSolved={(stars) => setProgress((p) => recordStars(p, entry.id, stars))}
+            guideSeen={hasSeenGuide(progress, entry.id)}
+            onGuideSeen={() => setProgress((p) => markGuideSeen(p, entry.id))}
           />
         </motion.div>
       ) : about ? (
