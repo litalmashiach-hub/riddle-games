@@ -1,0 +1,836 @@
+2026-11-24 23:19:21:243 [Appium] Welcome to Appium v3.9.0 (REV d54a3a451b8c5452c16dca9e10ea2d1a1b014ba5)
+2026-11-24 23:19:21:246 [Appium] Non-default server args:
+2026-11-24 23:19:21:247 [Appium] { address: '127.0.0.1',
+  loglevel: 'info:debug',
+  logNoColors: true,
+  logTimestamp: true }
+2026-11-24 23:19:21:248 [Appium] The APPIUM_HOME environment variable: /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium
+2026-11-24 23:19:21:255 [Appium] Attempting to load driver xcuitest...
+2026-11-24 23:19:21:264 [Appium] Requiring driver at /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/index.js
+2026-11-24 23:19:23:008 [Appium] XCUITestDriver has been successfully loaded in 1.750s
+2026-11-24 23:19:23:053 [Appium] Appium REST http interface listener started on http://127.0.0.1:4723
+2026-11-24 23:19:23:053 [Appium] Available drivers:
+2026-11-24 23:19:23:054 [Appium]   - xcuitest@12.22.8 (automationName 'XCUITest')
+2026-11-24 23:19:23:054 [Appium] No plugins have been installed. Use the "appium plugin" command to install the one(s) you want to use.
+2026-11-24 23:19:24:984 [HTTP] --> GET /status 
+2026-11-24 23:19:24:986 [AppiumDriver@246f] Calling AppiumDriver.getStatus() with args: []
+2026-11-24 23:19:24:987 [AppiumDriver@246f] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"3.9.0","git-sha":"d54a3a451b8c5452c16dca9e10ea2d1a1b014ba5","built":"2026-11-24 23:12:40 +0000"}}
+2026-11-24 23:19:24:991 [HTTP] <-- GET /status 200 6 ms - 199
+2026-11-24 23:19:29:750 [HTTP] --> POST /session {"capabilities":{"alwaysMatch":{"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true},"firstMatch":[{}]}}
+2026-11-24 23:19:29:751 [AppiumDriver@246f] Calling AppiumDriver.createSession() with args: [{"alwaysMatch":{"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true},"firstMatch":[{}]},{"alwaysMatch":{"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appi…
+2026-11-24 23:19:29:752 [AppiumDriver@246f] Event 'newSessionRequested' logged at 1795562369752 (23:19:29 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:19:29:754 [Appium] Attempting to find matching driver for automationName 'XCUITest' and platformName 'iOS'
+2026-11-24 23:19:29:754 [Appium] The 'xcuitest' driver was installed and matched caps.
+2026-11-24 23:19:29:754 [Appium] Will require it at /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver
+2026-11-24 23:19:29:755 [Appium] Requiring driver at /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/index.js
+2026-11-24 23:19:29:756 [AppiumDriver@246f] Appium v3.9.0 creating new XCUITestDriver (v12.22.8) session
+2026-11-24 23:19:29:756 [AppiumDriver@246f] Checking BaseDriver versions for Appium and XCUITestDriver
+2026-11-24 23:19:29:756 [AppiumDriver@246f] Appium's BaseDriver version is 10.8.2
+2026-11-24 23:19:29:756 [AppiumDriver@246f] XCUITestDriver's BaseDriver version is 10.8.2
+2026-11-24 23:19:29:760 [XCUITestDriver@2806] 
+2026-11-24 23:19:29:760 [XCUITestDriver@2806] Creating session with W3C capabilities: {
+  "alwaysMatch": {
+    "platformName": "iOS",
+    "appium:automationName": "XCUITest",
+    "appium:udid": "2A020491-3EBC-4783-8622-F8314CC00294",
+    "appium:bundleId": "com.example.riddlegames",
+    "appium:noReset": true,
+    "appium:newCommandTimeout": 3600,
+    "appium:wdaLaunchTimeout": 1800000,
+    "appium:wdaConnectionTimeout": 1800000,
+    "appium:webviewConnectTimeout": 120000,
+    "appium:includeSafariInWebviews": false,
+    "appium:autoWebview": false,
+    "appium:nativeWebScreenshot": true,
+    "appium:showXcodeLog": false,
+    "appium:waitForIdleTimeout": 0,
+    "appium:skipLogCapture": true,
+    "appium:webviewConnectRetries": 20,
+    "appium:additionalWebviewBundleIds": [
+      "*"
+    ],
+    "appium:forceAppLaunch": true
+  },
+  "firstMatch": [
+    {}
+  ]
+}
+2026-11-24 23:19:29:763 [XCUITestDriver@2806] The following provided capabilities were not recognized by this driver:
+2026-11-24 23:19:29:764 [XCUITestDriver@2806]   nativeWebScreenshot
+2026-11-24 23:19:29:764 [XCUITestDriver@2806] 'platformVersion' capability ('undefined') is not a valid version number. Consider fixing it or be ready to experience an inconsistent driver behavior.
+2026-11-24 23:19:29:765 [d2e939c1][XCUITestDriver@2806] Session created with session id: d2e939c1-a535-481a-bbe7-ec5e9ccad53d
+2026-11-24 23:19:29:769 [d2e939c1][XCUITest] Current user: 'runner'
+2026-11-24 23:19:30:241 [d2e939c1][XCUITest] RemoteXPC devices listing unavailable: Tunnel registry port not found. Please run the tunnel creation script first See https://appium.github.io/appium-xcuitest-driver/latest/guides/remotexpc-tunnels-real-devices/ Falling back to appium-ios-device.
+2026-11-24 23:19:30:242 [d2e939c1][XCUITestDriver@2806] Available real devices: 
+2026-11-24 23:19:33:307 [d2e939c1][XCUITestDriver@2806] Constructing iOS simulator for Xcode version 26.6 with udid '2A020491-3EBC-4783-8622-F8314CC00294'
+2026-11-24 23:19:33:323 [d2e939c1][XCUITestDriver@2806] No platformVersion specified. Using device version: '26.5'
+2026-11-24 23:19:33:324 [d2e939c1][XCUITestDriver@2806] Determining device to run tests on: udid: '2A020491-3EBC-4783-8622-F8314CC00294', real device: false
+2026-11-24 23:19:33:330 [d2e939c1][BaseDriver] Initialized new IPC object with max object size of 1048576 bytes and max topics of 1000
+2026-11-24 23:19:33:331 [d2e939c1][BaseDriver] Subscribing 2806345a-8ee9-4c02-bd6e-7f7c8f0ec97b to topic 'xcuitest:sessionUdidClaimed'
+2026-11-24 23:19:33:331 [d2e939c1][BaseDriver] Subscribing 2806345a-8ee9-4c02-bd6e-7f7c8f0ec97b to topic 'xcuitest:sessionUdidContended'
+2026-11-24 23:19:33:331 [d2e939c1][BaseDriver] Subscribing 2806345a-8ee9-4c02-bd6e-7f7c8f0ec97b to topic 'xcuitest:sessionUdidReleased'
+2026-11-24 23:19:33:331 [d2e939c1][BaseDriver] 2806345a-8ee9-4c02-bd6e-7f7c8f0ec97b is publishing a message to topic xcuitest:sessionUdidClaimed
+2026-11-24 23:19:33:345 [d2e939c1][BaseDriver] Unsubscribing 2806345a-8ee9-4c02-bd6e-7f7c8f0ec97b from topic 'xcuitest:sessionUdidContended'
+2026-11-24 23:19:33:346 [d2e939c1][BaseDriver] Unsubscribing 2806345a-8ee9-4c02-bd6e-7f7c8f0ec97b from topic 'xcuitest:sessionUdidReleased'
+2026-11-24 23:19:33:347 [d2e939c1][XCUITestDriver@2806] Event 'xcodeDetailsRetrieved' logged at 1795562373347 (23:19:33 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:19:33:348 [d2e939c1][XCUITestDriver@2806] Event 'appConfigured' logged at 1795562373348 (23:19:33 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:19:33:348 [d2e939c1][XCUITestDriver@2806] Event 'resetStarted' logged at 1795562373348 (23:19:33 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:19:33:349 [d2e939c1][XCUITestDriver@2806] Reset: noReset is on. Leaving simulator as is
+2026-11-24 23:19:33:349 [d2e939c1][XCUITestDriver@2806] Event 'resetComplete' logged at 1795562373349 (23:19:33 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:19:33:349 [d2e939c1][XCUITestDriver@2806] Using WDA path: '/Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent'
+2026-11-24 23:19:33:349 [d2e939c1][XCUITestDriver@2806] Using WDA agent: '/Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj'
+2026-11-24 23:19:33:364 [d2e939c1][XCUITestDriver@2806] 'skipLogCapture' is set. Skipping starting logs such as crash, system, safari console and safari network.
+2026-11-24 23:19:33:364 [d2e939c1][XCUITestDriver@2806] Setting up simulator
+2026-11-24 23:19:33:365 [d2e939c1][XCUITestDriver@2806] Setting preferences of 2A020491-3EBC-4783-8622-F8314CC00294 Simulator to {"ConnectHardwareKeyboard":false}
+2026-11-24 23:19:33:366 [d2e939c1][XCUITestDriver@2806] Setting common Simulator preferences to {"RotateWindowWhenSignaledByGuest":true,"StartLastDeviceOnLaunch":false,"DetachOnWindowClose":false,"AttachBootedOnStart":true,"ConnectHardwareKeyboard":false,"PasteboardAutomaticSync":false}
+2026-11-24 23:19:33:509 [d2e939c1][XCUITestDriver@2806] Updated 2A020491-3EBC-4783-8622-F8314CC00294 Simulator preferences at '/Users/runner/Library/Preferences/com.apple.iphonesimulator.plist' with {"RotateWindowWhenSignaledByGuest":true,"StartLastDeviceOnLaunch":false,"DetachOnWindowClose":false,"AttachBootedOnStart":true,"ConnectHardwareKeyboard":false,"PasteboardAutomaticSync":false,"DevicePreferences":{"2A020491-3EBC-4783-8622-F8314CC00294":{"ConnectHardwareKeyboard":false}}}
+2026-11-24 23:19:33:657 [d2e939c1][XCUITestDriver@2806] Simulator '2A020491-3EBC-4783-8622-F8314CC00294' is booted while its UI is not visible. Trying to restart it with the Simulator window visible
+2026-11-24 23:19:37:315 [d2e939c1][XCUITestDriver@2806] Starting UI client: open -Fn /Applications/Xcode_26.6.app/Contents/Developer/Applications/Simulator.app
+2026-11-24 23:19:40:046 [d2e939c1][XCUITestDriver@2806] Got UI client PID: 4603
+2026-11-24 23:22:59:254 [d2e939c1][XCUITestDriver@2806] NativeSimError: Device '2A020491-3EBC-4783-8622-F8314CC00294' did not finish booting within 120000ms
+    at wrapNativeError (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/coresim/lib/src/errors.js:79:19)
+    at runCatchingAsync (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/coresim/lib/src/utils/run-catching.js:8:9)
+    at async SimulatorXcode15.waitForBoot (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-ios-simulator/build/lib/extensions/lifecycle.js:106:5)
+    at async SimulatorXcode15.run (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-ios-simulator/build/lib/extensions/ui-client.js:212:9)
+    at async XCUITestDriver.startSim (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/simulator.js:68:5)
+    at async XCUITestDriver.initSimulator (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/simulator.js:13:5)
+    at async XCUITestDriver.setupDevice (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/driver.js:1166:13)
+    at async XCUITestDriver.start (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/driver.js:1056:9)
+    at async XCUITestDriver.createSession (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/driver.js:749:13)
+    at async AppiumDriver.createSession (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:266:44)
+    at async runCommandPromise (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:120:24)
+    at async AppiumDriver.executeCommand (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:161:15)
+    at async defaultBehavior (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:575:24)
+    at async AppiumDriver.executeWrappedCommand (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:683:22)
+    at async AppiumDriver.executeCommand (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:591:21)
+    at async asyncHandler (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/protocol/protocol.js:393:25)
+2026-11-24 23:22:59:718 [d2e939c1][BaseDriver] Unsubscribing 2806345a-8ee9-4c02-bd6e-7f7c8f0ec97b from topic 'xcuitest:sessionUdidClaimed'
+2026-11-24 23:22:59:984 [d2e939c1][XCUITestDriver@2806] Not clearing log files. Use `clearSystemFiles` capability to turn on.
+2026-11-24 23:22:59:985 [d2e939c1][XCUITestDriver@2806] Releasing connections for 2A020491-3EBC-4783-8622-F8314CC00294 device on any port number
+2026-11-24 23:22:59:985 [d2e939c1][XCUITestDriver@2806] No cached connections have been found
+2026-11-24 23:23:01:229 [d2e939c1][AppiumDriver@246f] Event 'newSessionStarted' logged at 1795562580946 (23:23:00 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:23:01:239 [d2e939c1][AppiumDriver@246f] Encountered internal error running command: NativeSimError: Device '2A020491-3EBC-4783-8622-F8314CC00294' did not finish booting within 120000ms
+    at wrapNativeError (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/coresim/lib/src/errors.js:79:19)
+    at runCatchingAsync (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/coresim/lib/src/utils/run-catching.js:8:9)
+    at async SimulatorXcode15.waitForBoot (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-ios-simulator/build/lib/extensions/lifecycle.js:106:5)
+    at async SimulatorXcode15.run (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-ios-simulator/build/lib/extensions/ui-client.js:212:9)
+    at async XCUITestDriver.startSim (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/simulator.js:68:5)
+    at async XCUITestDriver.initSimulator (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/simulator.js:13:5)
+    at async XCUITestDriver.setupDevice (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/driver.js:1166:13)
+    at async XCUITestDriver.start (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/driver.js:1056:9)
+    at async XCUITestDriver.createSession (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/driver.js:749:13)
+    at async AppiumDriver.createSession (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:266:44)
+    at async runCommandPromise (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:120:24)
+    at async AppiumDriver.executeCommand (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:161:15)
+    at async defaultBehavior (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:575:24)
+    at async AppiumDriver.executeWrappedCommand (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:683:22)
+    at async AppiumDriver.executeCommand (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:591:21)
+    at async asyncHandler (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/protocol/protocol.js:393:25)
+2026-11-24 23:23:01:696 [HTTP] <-- POST /session 500 211714 ms - 3430
+2026-11-24 23:23:06:116 [HTTP] --> POST /session {"capabilities":{"alwaysMatch":{"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true},"firstMatch":[{}]}}
+2026-11-24 23:23:06:120 [AppiumDriver@246f] Calling AppiumDriver.createSession() with args: [{"alwaysMatch":{"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true},"firstMatch":[{}]},{"alwaysMatch":{"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appi…
+2026-11-24 23:23:06:122 [AppiumDriver@246f] Event 'newSessionRequested' logged at 1795562586121 (23:23:06 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:23:06:125 [Appium] Attempting to find matching driver for automationName 'XCUITest' and platformName 'iOS'
+2026-11-24 23:23:06:125 [Appium] The 'xcuitest' driver was installed and matched caps.
+2026-11-24 23:23:06:125 [Appium] Will require it at /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver
+2026-11-24 23:23:06:203 [Appium] Requiring driver at /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/index.js
+2026-11-24 23:23:06:306 [AppiumDriver@246f] Appium v3.9.0 creating new XCUITestDriver (v12.22.8) session
+2026-11-24 23:23:06:306 [AppiumDriver@246f] Checking BaseDriver versions for Appium and XCUITestDriver
+2026-11-24 23:23:06:306 [AppiumDriver@246f] Appium's BaseDriver version is 10.8.2
+2026-11-24 23:23:06:306 [AppiumDriver@246f] XCUITestDriver's BaseDriver version is 10.8.2
+2026-11-24 23:23:06:312 [XCUITestDriver@e6a7] 
+2026-11-24 23:23:06:312 [XCUITestDriver@e6a7] Creating session with W3C capabilities: {
+  "alwaysMatch": {
+    "platformName": "iOS",
+    "appium:automationName": "XCUITest",
+    "appium:udid": "2A020491-3EBC-4783-8622-F8314CC00294",
+    "appium:bundleId": "com.example.riddlegames",
+    "appium:noReset": true,
+    "appium:newCommandTimeout": 3600,
+    "appium:wdaLaunchTimeout": 1800000,
+    "appium:wdaConnectionTimeout": 1800000,
+    "appium:webviewConnectTimeout": 120000,
+    "appium:includeSafariInWebviews": false,
+    "appium:autoWebview": false,
+    "appium:nativeWebScreenshot": true,
+    "appium:showXcodeLog": false,
+    "appium:waitForIdleTimeout": 0,
+    "appium:skipLogCapture": true,
+    "appium:webviewConnectRetries": 20,
+    "appium:additionalWebviewBundleIds": [
+      "*"
+    ],
+    "appium:forceAppLaunch": true
+  },
+  "firstMatch": [
+    {}
+  ]
+}
+2026-11-24 23:23:06:332 [XCUITestDriver@e6a7] The following provided capabilities were not recognized by this driver:
+2026-11-24 23:23:06:400 [XCUITestDriver@e6a7]   nativeWebScreenshot
+2026-11-24 23:23:06:401 [XCUITestDriver@e6a7] 'platformVersion' capability ('undefined') is not a valid version number. Consider fixing it or be ready to experience an inconsistent driver behavior.
+2026-11-24 23:23:06:401 [b63f7a35][XCUITestDriver@e6a7] Session created with session id: b63f7a35-bc77-45be-a852-cd769ba7da5f
+2026-11-24 23:23:06:453 [b63f7a35][XCUITest] Current user: 'runner'
+2026-11-24 23:23:06:557 [b63f7a35][XCUITest] RemoteXPC devices listing unavailable: Tunnel registry port not found. Please run the tunnel creation script first See https://appium.github.io/appium-xcuitest-driver/latest/guides/remotexpc-tunnels-real-devices/ Falling back to appium-ios-device.
+2026-11-24 23:23:06:557 [b63f7a35][XCUITestDriver@e6a7] Available real devices: 
+2026-11-24 23:23:06:918 [b63f7a35][XCUITestDriver@e6a7] Constructing iOS simulator for Xcode version 26.6 with udid '2A020491-3EBC-4783-8622-F8314CC00294'
+2026-11-24 23:23:07:029 [b63f7a35][XCUITestDriver@e6a7] No platformVersion specified. Using device version: '26.5'
+2026-11-24 23:23:07:030 [b63f7a35][XCUITestDriver@e6a7] Determining device to run tests on: udid: '2A020491-3EBC-4783-8622-F8314CC00294', real device: false
+2026-11-24 23:23:07:030 [b63f7a35][BaseDriver] Subscribing e6a70b06-a40e-4bae-8bf6-832a213231bd to topic 'xcuitest:sessionUdidClaimed'
+2026-11-24 23:23:07:030 [b63f7a35][BaseDriver] Subscribing e6a70b06-a40e-4bae-8bf6-832a213231bd to topic 'xcuitest:sessionUdidContended'
+2026-11-24 23:23:07:030 [b63f7a35][BaseDriver] Subscribing e6a70b06-a40e-4bae-8bf6-832a213231bd to topic 'xcuitest:sessionUdidReleased'
+2026-11-24 23:23:07:030 [b63f7a35][BaseDriver] e6a70b06-a40e-4bae-8bf6-832a213231bd is publishing a message to topic xcuitest:sessionUdidClaimed
+2026-11-24 23:23:07:112 [b63f7a35][BaseDriver] Unsubscribing e6a70b06-a40e-4bae-8bf6-832a213231bd from topic 'xcuitest:sessionUdidContended'
+2026-11-24 23:23:07:116 [b63f7a35][BaseDriver] Unsubscribing e6a70b06-a40e-4bae-8bf6-832a213231bd from topic 'xcuitest:sessionUdidReleased'
+2026-11-24 23:23:07:144 [b63f7a35][XCUITestDriver@e6a7] Event 'xcodeDetailsRetrieved' logged at 1795562587125 (23:23:07 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:23:07:299 [b63f7a35][XCUITestDriver@e6a7] Event 'appConfigured' logged at 1795562587298 (23:23:07 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:23:07:301 [b63f7a35][XCUITestDriver@e6a7] Event 'resetStarted' logged at 1795562587301 (23:23:07 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:23:07:301 [b63f7a35][XCUITestDriver@e6a7] Reset: noReset is on. Leaving simulator as is
+2026-11-24 23:23:07:301 [b63f7a35][XCUITestDriver@e6a7] Event 'resetComplete' logged at 1795562587301 (23:23:07 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:23:07:303 [b63f7a35][XCUITestDriver@e6a7] Using WDA path: '/Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent'
+2026-11-24 23:23:07:303 [b63f7a35][XCUITestDriver@e6a7] Using WDA agent: '/Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj'
+2026-11-24 23:23:07:602 [b63f7a35][XCUITestDriver@e6a7] 'skipLogCapture' is set. Skipping starting logs such as crash, system, safari console and safari network.
+2026-11-24 23:23:07:603 [b63f7a35][XCUITestDriver@e6a7] Setting up simulator
+2026-11-24 23:23:07:603 [b63f7a35][XCUITestDriver@e6a7] Setting preferences of 2A020491-3EBC-4783-8622-F8314CC00294 Simulator to {"ConnectHardwareKeyboard":false}
+2026-11-24 23:23:07:603 [b63f7a35][XCUITestDriver@e6a7] Setting common Simulator preferences to {"RotateWindowWhenSignaledByGuest":true,"StartLastDeviceOnLaunch":false,"DetachOnWindowClose":false,"AttachBootedOnStart":true,"ConnectHardwareKeyboard":false,"PasteboardAutomaticSync":false}
+2026-11-24 23:23:10:744 [b63f7a35][XCUITestDriver@e6a7] Updated 2A020491-3EBC-4783-8622-F8314CC00294 Simulator preferences at '/Users/runner/Library/Preferences/com.apple.iphonesimulator.plist' with {"RotateWindowWhenSignaledByGuest":true,"StartLastDeviceOnLaunch":false,"DetachOnWindowClose":false,"AttachBootedOnStart":true,"ConnectHardwareKeyboard":false,"PasteboardAutomaticSync":false,"DevicePreferences":{"2A020491-3EBC-4783-8622-F8314CC00294":{"SimulatorExternalDisplay":2114,"ConnectHardwareKeyboard":false,"ChromeTint":""}}}
+2026-11-24 23:23:12:474 [b63f7a35][XCUITestDriver@e6a7] Got UI client PID: 4603
+2026-11-24 23:23:12:476 [b63f7a35][XCUITestDriver@e6a7] Both Simulator with UDID '2A020491-3EBC-4783-8622-F8314CC00294' and the UI client are currently running
+2026-11-24 23:23:12:704 [b63f7a35][XCUITestDriver@e6a7] Event 'simStarted' logged at 1795562592700 (23:23:12 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:24:55:257 [b63f7a35][XCUITestDriver@e6a7] Requesting connection for device 2A020491-3EBC-4783-8622-F8314CC00294 on local port 8100
+2026-11-24 23:24:55:268 [b63f7a35][XCUITestDriver@e6a7] Cached connections count: 0
+2026-11-24 23:24:55:272 [b63f7a35][XCUITestDriver@e6a7] Successfully requested the connection for 2A020491-3EBC-4783-8622-F8314CC00294:8100
+2026-11-24 23:24:55:291 [b63f7a35][XCUITestDriver@e6a7] Starting WebDriverAgent initialization with the synchronization key '/Users/runner/Library/Developer/Xcode/DerivedData/WebDriverAgent-evjinxhtujyojpbxghptdwxeqgzq'
+2026-11-24 23:24:55:811 [b63f7a35][WD Proxy] NoSessionProxy options: {"scheme":"http","server":"127.0.0.1","port":8100,"base":"","reqBasePath":"","sessionId":null,"timeout":3000}
+2026-11-24 23:24:57:126 [b63f7a35][WD Proxy] Matched '/status' to command name 'getStatus'
+2026-11-24 23:24:57:208 [b63f7a35][WD Proxy] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:24:59:917 [b63f7a35][WD Proxy] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:00:821 [b63f7a35][XCUITestDriver@e6a7] WDA is not listening at 'http://127.0.0.1:8100/'. Original error:: Could not proxy command to the remote server. Original error: connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:00:822 [b63f7a35][XCUITestDriver@e6a7] WDA is currently not running. There is nothing to cache
+2026-11-24 23:25:02:954 [b63f7a35][XCUITestDriver@e6a7] Trying to start WebDriverAgent 2 times with 10000ms interval
+2026-11-24 23:25:02:955 [b63f7a35][XCUITestDriver@e6a7] These values can be customized by changing wdaStartupRetries/wdaStartupRetryInterval capabilities
+2026-11-24 23:25:03:098 [b63f7a35][XCUITestDriver@e6a7] Event 'wdaStartAttempted' logged at 1795562702955 (23:25:02 GMT+0000 (Coordinated Universal Time))
+2026-11-24 23:25:03:176 [b63f7a35][XCUITestDriver@e6a7] Selected 'simulator' WebDriverAgent startup strategy
+2026-11-24 23:25:03:210 [b63f7a35][XCUITestDriver@e6a7] Launching WebDriverAgent on the device
+2026-11-24 23:25:03:243 [b63f7a35][XCUITestDriver@e6a7] JWProxy options: {"scheme":"http","server":"127.0.0.1","port":8100,"base":"","reqBasePath":"","sessionId":null,"timeout":1800000,"keepAlive":true}
+2026-11-24 23:25:03:245 [b63f7a35][XCUITestDriver@e6a7] NoSessionProxy options: {"scheme":"http","server":"127.0.0.1","port":8100,"base":"","reqBasePath":"","sessionId":null,"timeout":1800000,"keepAlive":true}
+2026-11-24 23:25:03:806 [b63f7a35][XCUITestDriver@e6a7] There is no need to perform the project cleanup. A fresh install has been detected
+2026-11-24 23:25:03:825 [b63f7a35][WebDriverAgent] Killing running processes 'xcodebuild.*2A020491-3EBC-4783-8622-F8314CC00294, 2A020491-3EBC-4783-8622-F8314CC00294.*XCTRunner, xctest.*2A020491-3EBC-4783-8622-F8314CC00294' for the device 2A020491-3EBC-4783-8622-F8314CC00294...
+2026-11-24 23:25:16:062 [b63f7a35][WebDriverAgent] 'pgrep -if 2A020491-3EBC-4783-8622-F8314CC00294.*XCTRunner' didn't detect any matching processes. Return code: 1
+2026-11-24 23:25:16:088 [b63f7a35][WebDriverAgent] 'pgrep -if xcodebuild.*2A020491-3EBC-4783-8622-F8314CC00294' didn't detect any matching processes. Return code: 1
+2026-11-24 23:25:16:088 [b63f7a35][WebDriverAgent] 'pgrep -if xctest.*2A020491-3EBC-4783-8622-F8314CC00294' didn't detect any matching processes. Return code: 1
+2026-11-24 23:25:16:168 [b63f7a35][XCUITestDriver@e6a7] Beginning test with command 'xcodebuild build-for-testing test-without-building -project /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination id=2A020491-3EBC-4783-8622-F8314CC00294 IPHONEOS_DEPLOYMENT_TARGET=26.5 GCC_TREAT_WARNINGS_AS_ERRORS=0 COMPILER_INDEX_STORE_ENABLE=NO APPIUM_XCODEBUILD_WDA_MARKER=1' in directory '/Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent'
+2026-11-24 23:25:16:186 [b63f7a35][XCUITestDriver@e6a7] Output from xcodebuild will not be logged. To change this, use 'showXcodeLog' desired capability
+2026-11-24 23:25:49:440 [b63f7a35][XCUITestDriver@e6a7] Waiting up to 1800000ms for WebDriverAgent to start
+2026-11-24 23:25:49:481 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:49:489 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:49:628 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:50:634 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:50:635 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:50:653 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:51:674 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:51:691 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:51:755 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:52:765 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:52:778 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:52:791 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:53:883 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:53:884 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:53:990 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:55:004 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:55:005 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:55:009 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:56:012 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:56:020 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:56:049 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:57:053 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:57:054 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:57:073 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:58:079 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:58:083 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:58:095 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:25:59:122 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:25:59:136 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:25:59:422 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:00:448 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:00:474 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:00:494 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:01:553 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:01:554 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:01:633 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:02:702 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:02:702 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:02:706 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:03:710 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:03:711 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:03:719 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:04:726 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:04:727 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:04:772 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:05:778 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:05:778 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:05:780 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:06:794 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:06:797 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:06:803 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:07:807 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:07:807 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:07:813 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:08:823 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:08:823 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:08:881 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:09:888 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:09:890 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:09:899 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:10:900 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:10:900 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:10:906 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:11:911 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:11:913 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:11:920 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:12:922 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:12:922 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:12:925 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:13:927 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:13:928 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:13:950 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:14:957 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:14:960 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:14:991 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:15:998 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:16:001 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:16:006 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:17:013 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:17:014 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:17:018 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:18:022 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:18:022 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:18:049 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:19:073 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:19:075 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:19:274 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:20:278 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:20:279 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:20:358 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:21:395 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:21:514 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:21:823 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:22:852 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:22:852 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:22:854 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:23:868 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:23:884 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:23:901 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:24:903 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:24:904 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:24:909 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:25:917 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:25:930 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:25:936 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:26:939 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:26:939 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:26:944 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:27:947 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:27:947 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:27:951 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:28:977 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:28:980 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:29:002 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:30:011 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:30:012 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:30:018 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:31:024 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:31:024 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:31:029 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:32:032 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:32:032 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:32:035 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:33:041 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:33:041 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:33:045 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:34:063 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:34:071 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:34:085 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:35:088 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:35:089 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:35:093 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:36:098 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:36:099 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:36:103 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:37:106 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:37:106 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:37:108 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:38:113 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:38:115 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:38:147 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:39:178 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:39:180 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:39:190 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:40:201 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:40:201 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:40:207 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:41:215 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:41:216 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:41:221 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:42:225 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:42:225 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:42:228 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:43:238 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:43:238 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:43:264 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:44:280 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:44:281 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:44:293 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:45:296 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:45:296 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:45:297 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:46:321 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:46:321 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:46:331 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:47:341 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:47:343 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:47:350 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:48:352 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:48:353 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:48:361 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:49:371 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:49:395 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:49:399 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:50:401 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:50:401 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:50:407 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:51:413 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:51:415 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:51:421 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:52:424 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:52:425 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:52:431 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:53:432 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:53:433 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:53:527 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:54:539 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:54:541 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:54:571 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:55:573 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:55:573 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:55:576 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:56:584 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:56:586 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:56:594 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:57:597 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:57:597 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:57:600 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:58:606 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:58:612 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:58:626 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:26:59:628 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:26:59:628 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:26:59:633 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:00:636 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:00:636 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:00:638 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:01:666 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:01:672 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:01:697 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:02:702 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:02:702 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:02:738 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:03:747 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:03:748 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:03:749 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:04:773 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:04:779 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:04:800 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:05:804 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:05:804 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:05:805 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:06:808 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:06:808 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:06:812 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:07:821 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:07:823 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:07:843 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:08:846 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:08:847 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:08:849 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:09:854 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:09:855 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:09:862 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:10:867 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:10:868 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:10:878 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:11:892 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:11:892 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:11:901 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:12:907 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:12:916 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:12:932 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:13:950 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:13:951 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:13:985 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:14:987 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:14:989 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:14:996 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:16:045 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:16:052 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:16:060 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:17:063 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:17:064 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:17:070 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:18:075 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:18:095 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:18:159 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:19:164 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:19:165 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:19:169 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:20:174 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:20:175 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:20:182 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:21:184 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:21:184 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:21:188 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:22:220 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:22:227 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:22:234 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:23:236 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:23:236 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:23:260 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:24:333 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:24:334 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:24:339 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:25:349 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:25:349 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:25:379 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:26:504 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:26:505 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:26:562 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:27:568 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:27:569 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:27:575 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:28:576 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:28:577 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:28:595 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:29:603 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:29:605 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:29:614 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:30:616 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:30:616 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:30:618 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:31:631 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:31:633 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:31:637 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:32:638 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:32:639 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:32:641 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:33:656 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:33:658 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:33:683 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:34:685 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:34:685 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:34:687 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:35:702 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:35:705 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:35:722 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:36:725 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:36:725 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:36:727 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:37:734 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:37:739 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:37:745 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:38:747 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:38:747 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:38:762 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:39:765 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:39:766 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:39:777 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:40:780 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:40:780 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:40:781 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:41:785 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:41:785 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:41:786 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:42:801 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:42:805 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:42:819 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:43:824 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:43:824 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:43:943 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:44:959 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:44:966 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:44:996 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:46:004 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:46:004 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:46:007 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:47:031 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:47:041 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:47:083 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:48:090 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:48:091 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:48:093 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:49:110 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:49:111 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:49:173 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:50:183 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:50:183 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:50:186 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:51:219 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:51:220 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:51:231 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:52:233 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:52:233 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:52:234 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:53:270 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:53:273 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:53:281 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:54:283 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:54:284 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:54:288 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:55:293 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:55:296 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:55:306 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:56:308 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:56:308 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:56:310 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:57:312 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:57:312 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:57:317 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:58:336 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:58:343 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:58:363 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:27:59:367 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:27:59:367 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:27:59:379 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:00:387 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:00:389 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:00:451 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:01:461 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:01:462 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:01:479 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:02:480 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:02:481 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:02:500 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:03:506 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:03:510 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:03:520 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:04:522 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:04:523 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:04:525 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:05:561 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:05:561 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:05:564 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:06:571 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:06:572 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:06:592 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:07:598 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:07:603 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:07:609 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:08:612 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:08:613 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:08:615 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:09:840 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:09:841 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:09:895 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:10:897 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:10:897 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:10:902 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:11:903 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:11:904 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:11:906 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:12:912 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:12:913 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:12:931 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:13:936 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:13:937 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:13:941 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:14:962 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:14:962 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:14:964 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:15:969 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:15:970 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:15:976 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:16:978 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:16:978 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:17:001 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:18:007 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:18:008 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:18:022 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:19:029 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:19:029 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:19:031 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:20:034 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:20:034 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:20:035 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:21:063 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:21:079 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:21:097 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:22:119 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:22:120 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:22:123 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:23:128 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:23:129 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:23:136 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:24:138 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:24:138 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:24:142 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:25:157 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:25:177 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:25:247 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:26:256 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:26:258 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:26:262 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:27:280 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:27:280 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:27:287 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:28:308 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:28:309 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:28:350 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:29:354 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:29:355 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:29:357 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:30:360 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:30:361 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:30:379 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:31:392 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:31:397 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:31:440 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:32:445 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:32:445 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:32:460 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:33:498 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:33:500 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:33:526 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:34:529 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:34:530 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:34:531 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:35:536 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:35:538 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:35:573 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:36:576 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:36:577 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:36:600 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:37:624 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:37:625 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:37:633 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:38:635 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:38:636 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:38:644 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:39:646 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:39:646 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:39:648 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:40:658 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:40:660 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:40:686 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:41:701 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:41:702 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:41:721 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:42:740 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:42:743 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:42:754 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:43:762 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:43:763 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:43:790 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:44:818 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:44:821 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:44:836 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:45:839 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:45:839 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:45:846 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:46:849 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:46:849 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:46:851 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:47:879 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:47:881 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:47:888 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:48:889 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:48:889 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:48:910 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:49:916 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:49:917 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:49:919 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:50:920 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:50:921 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:50:923 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:51:938 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:51:939 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:51:943 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:52:945 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:52:945 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:52:947 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:53:949 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:53:949 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:53:972 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:54:988 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:54:991 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:55:016 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:56:024 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:56:025 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:56:028 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:57:041 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:57:046 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:57:054 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:58:056 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:58:056 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:58:061 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:28:59:066 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:28:59:069 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:28:59:080 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:00:083 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:00:084 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:00:099 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:01:102 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:01:102 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:01:105 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:02:113 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:02:117 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:02:143 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:03:148 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:03:148 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:03:149 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:04:151 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:04:152 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:04:153 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:05:165 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:05:167 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:05:178 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:06:180 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:06:180 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:06:182 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:07:187 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:07:189 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:07:214 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:08:218 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:08:218 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:08:224 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:09:228 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:09:229 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:09:235 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:10:263 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:10:268 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:10:320 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:11:323 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:11:323 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:11:327 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:12:335 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:12:335 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:12:373 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:13:377 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:13:377 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:13:379 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:14:396 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:14:397 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:14:400 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:15:404 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:15:405 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:15:409 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:16:426 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:16:426 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:16:427 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:17:430 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:17:430 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:17:448 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:18:473 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:18:474 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:18:480 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100
+2026-11-24 23:29:19:482 [b63f7a35][XCUITestDriver@e6a7] Matched '/status' to command name 'getStatus'
+2026-11-24 23:29:19:482 [b63f7a35][XCUITestDriver@e6a7] Proxying [GET /status] to [GET http://127.0.0.1:8100/status] with no body
+2026-11-24 23:29:19:485 [b63f7a35][XCUITestDriver@e6a7] connect ECONNREFUSED 127.0.0.1:8100

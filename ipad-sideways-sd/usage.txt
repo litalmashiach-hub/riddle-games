@@ -1,0 +1,168 @@
+== 23:19:14
+ 3076 141168   0.0   01:29 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/Unity2025Poster.appex/Unity2025Poster
+ 3092 139952   0.0   01:25 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/UnityPoster.appex/UnityPoster
+ 3098 152720   0.0   01:24 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/WeatherPosterApp.app/Extensions/WeatherPoster.appex/WeatherPoster
+ 3104 174368   0.0   01:23 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/PridePosterApp.app/Extensions/PridePosterExtension.appex/PridePosterExtension
+ 3107 146752   0.0   01:22 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/AegirProxyApp.app/Extensions/AegirPoster.appex/AegirPoster
+ 3109 139536   0.0   01:22 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/ExtragalacticPoster.appex/ExtragalacticPoster
+Pages free:                                     4179.
+Pages stored in compressor:                   300518.
+Pages occupied by compressor:                 102597.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 314.47 144.47 62.60 }
+== 23:20:46
+Pages free:                                    30111.
+Pages stored in compressor:                   291825.
+Pages occupied by compressor:                  96849.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 443.37 236.46 110.00 }
+== 23:22:04
+Pages free:                                     4159.
+Pages stored in compressor:                   264174.
+Pages occupied by compressor:                  90608.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 370.67 239.13 115.38 }
+== 23:22:35
+Pages free:                                     4539.
+Pages stored in compressor:                   249378.
+Pages occupied by compressor:                  85818.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 309.69 238.47 120.13 }
+== 23:23:06
+Pages free:                                     4016.
+Pages stored in compressor:                   266070.
+Pages occupied by compressor:                  92886.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 299.79 243.05 126.52 }
+== 23:23:42
+Pages free:                                     4281.
+Pages stored in compressor:                   277746.
+Pages occupied by compressor:                  97159.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 291.61 246.68 131.89 }
+== 23:24:20
+ 8839 134528   0.0   01:14 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/ExtragalacticPoster.appex/ExtragalacticPoster
+ 8840 138944   0.0   01:13 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/Unity2025Poster.appex/Unity2025Poster
+ 8845 149984   0.0   01:11 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/UnityPoster.appex/UnityPoster
+ 8856 158704   0.0   01:08 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/WeatherPosterApp.app/Extensions/WeatherPoster.appex/WeatherPoster
+ 8885 192336   0.0   01:05 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/PridePosterApp.app/Extensions/PridePosterExtension.appex/PridePosterExtension
+ 8909 151856   0.0   01:03 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/AegirProxyApp.app/Extensions/AegirPoster.appex/AegirPoster
+ 9065 103712   0.0   00:31 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicControl.appex/AdaptiveMusicControl
+ 9256 129584   0.0   00:10 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicWidget.appex/AdaptiveMusicWidget
+Pages free:                                     3775.
+Pages stored in compressor:                   366573.
+Pages occupied by compressor:                 133072.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 434.53 298.70 164.69 }
+== 23:25:57
+ 8839 127392   0.0   01:46 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/ExtragalacticPoster.appex/ExtragalacticPoster
+ 8840 130160   0.0   01:45 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/Unity2025Poster.appex/Unity2025Poster
+ 8845 134144   0.0   01:43 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/UnityPoster.appex/UnityPoster
+ 8856 141392   0.0   01:40 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/WeatherPosterApp.app/Extensions/WeatherPoster.appex/WeatherPoster
+ 8885 169376   0.0   01:37 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/PridePosterApp.app/Extensions/PridePosterExtension.appex/PridePosterExtension
+ 8909 135744   0.0   01:35 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/AegirProxyApp.app/Extensions/AegirPoster.appex/AegirPoster
+ 9065 100128   0.0   01:03 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicControl.appex/AdaptiveMusicControl
+ 9256 117264   0.0   00:42 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicWidget.appex/AdaptiveMusicWidget
+Pages free:                                     4083.
+Pages stored in compressor:                   391876.
+Pages occupied by compressor:                 141317.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 467.17 319.36 176.81 }
+== 23:26:28
+ 8839 121856   0.0   02:17 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/ExtragalacticPoster.appex/ExtragalacticPoster
+ 8840 123552   0.0   02:16 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/Unity2025Poster.appex/Unity2025Poster
+ 8845 127664   0.0   02:14 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/UnityPoster.appex/UnityPoster
+ 8856 134976   0.0   02:11 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/WeatherPosterApp.app/Extensions/WeatherPoster.appex/WeatherPoster
+ 8885 162880   0.0   02:08 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/PridePosterApp.app/Extensions/PridePosterExtension.appex/PridePosterExtension
+ 8909 130272   0.0   02:06 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/AegirProxyApp.app/Extensions/AegirPoster.appex/AegirPoster
+ 9065  90400   0.0   01:34 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicControl.appex/AdaptiveMusicControl
+ 9256 155072   0.0   01:13 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicWidget.appex/AdaptiveMusicWidget
+Pages free:                                     4086.
+Pages stored in compressor:                   411463.
+Pages occupied by compressor:                 149505.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 497.92 341.21 189.68 }
+== 23:26:59
+ 8839 109392   0.0   02:47 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/ExtragalacticPoster.appex/ExtragalacticPoster
+ 8840 108752   0.0   02:46 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/Unity2025Poster.appex/Unity2025Poster
+ 8845 112496   0.0   02:44 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/UnityPoster.appex/UnityPoster
+ 8856 120832   0.0   02:41 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/WeatherPosterApp.app/Extensions/WeatherPoster.appex/WeatherPoster
+ 8885 145280   0.0   02:38 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/PridePosterApp.app/Extensions/PridePosterExtension.appex/PridePosterExtension
+ 8909 115040   0.0   02:36 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/AegirProxyApp.app/Extensions/AegirPoster.appex/AegirPoster
+ 9065  83840   0.0   02:04 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicControl.appex/AdaptiveMusicControl
+ 9256 143744   0.0   01:43 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicWidget.appex/AdaptiveMusicWidget
+Pages free:                                     4322.
+Pages stored in compressor:                   435850.
+Pages occupied by compressor:                 161135.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 390.53 331.37 191.44 }
+== 23:27:29
+ 8839  69728   0.0   03:23 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/ExtragalacticPoster.appex/ExtragalacticPoster
+ 8840  69552   0.0   03:22 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/Unity2025Poster.appex/Unity2025Poster
+ 8845  73632   0.0   03:20 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/UnityPoster.appex/UnityPoster
+ 8856  76208   0.0   03:17 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/WeatherPosterApp.app/Extensions/WeatherPoster.appex/WeatherPoster
+ 8885  86960   0.0   03:14 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/PridePosterApp.app/Extensions/PridePosterExtension.appex/PridePosterExtension
+ 8909  74448   0.0   03:12 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/AegirProxyApp.app/Extensions/AegirPoster.appex/AegirPoster
+ 9065  61856   0.0   02:40 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicControl.appex/AdaptiveMusicControl
+ 9256  96976   0.0   02:19 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicWidget.appex/AdaptiveMusicWidget
+Pages free:                                    12119.
+Pages stored in compressor:                   434301.
+Pages occupied by compressor:                 154495.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 386.49 336.39 198.87 }
+== 23:28:05
+ 8839  66720   0.0   03:54 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/ExtragalacticPoster.appex/ExtragalacticPoster
+ 8840  66720   0.0   03:53 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/Unity2025Poster.appex/Unity2025Poster
+ 8845  68912   0.0   03:51 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/UnityPoster.appex/UnityPoster
+ 8856  70928   0.0   03:48 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/WeatherPosterApp.app/Extensions/WeatherPoster.appex/WeatherPoster
+ 8885  79488   0.0   03:45 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/PridePosterApp.app/Extensions/PridePosterExtension.appex/PridePosterExtension
+ 8909  69920   0.0   03:43 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/AegirProxyApp.app/Extensions/AegirPoster.appex/AegirPoster
+ 9065  60784   0.0   03:11 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicControl.appex/AdaptiveMusicControl
+ 9256  91840   0.0   02:50 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicWidget.appex/AdaptiveMusicWidget
+Pages free:                                     3703.
+Pages stored in compressor:                   435134.
+Pages occupied by compressor:                 155923.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 418.01 348.50 208.01 }
+== 23:28:36
+ 8839  66720   0.0   04:25 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/ExtragalacticPoster.appex/ExtragalacticPoster
+ 8840  66720   0.0   04:24 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/Unity2025Poster.appex/Unity2025Poster
+ 8845  68912   0.0   04:22 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/UnityPoster.appex/UnityPoster
+ 8856  70928   0.0   04:19 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/WeatherPosterApp.app/Extensions/WeatherPoster.appex/WeatherPoster
+ 8885  79488   0.0   04:16 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/PridePosterApp.app/Extensions/PridePosterExtension.appex/PridePosterExtension
+ 8909  69920   0.0   04:14 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/AegirProxyApp.app/Extensions/AegirPoster.appex/AegirPoster
+ 9065  60784   0.0   03:42 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicControl.appex/AdaptiveMusicControl
+ 9256  91840   0.0   03:21 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicWidget.appex/AdaptiveMusicWidget
+Pages free:                                    16726.
+Pages stored in compressor:                   422458.
+Pages occupied by compressor:                 152614.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 476.90 370.55 221.69 }
+== 23:29:07
+ 8839  66720   0.0   04:56 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/ExtragalacticPoster.appex/ExtragalacticPoster
+ 8840  66720   0.0   04:55 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/Unity2025Poster.appex/Unity2025Poster
+ 8845  68912   0.0   04:53 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/UnityPosterApp.app/Extensions/UnityPoster.appex/UnityPoster
+ 8856  70928   0.0   04:50 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/WeatherPosterApp.app/Extensions/WeatherPoster.appex/WeatherPoster
+ 8885  79488   0.0   04:47 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/PridePosterApp.app/Extensions/PridePosterExtension.appex/PridePosterExtension
+ 8909  69920   0.0   04:45 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreServices/AegirProxyApp.app/Extensions/AegirPoster.appex/AegirPoster
+ 9065  60784   0.0   04:13 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicControl.appex/AdaptiveMusicControl
+ 9256  91840   0.0   03:52 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/Applications/AdaptiveMusicApp.app/PlugIns/AdaptiveMusicWidget.appex/AdaptiveMusicWidget
+Pages free:                                     9863.
+Pages stored in compressor:                   411463.
+Pages occupied by compressor:                 149817.
+Swapins:                                           0.
+Swapouts:                                          0.
+{ 495.79 385.89 232.44 }
