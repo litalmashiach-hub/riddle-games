@@ -179,11 +179,13 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             <boxGeometry args={[2.3, 0.6, 1.5]} />
           </mesh>
         </Clickable>
+        {/* Only the button itself takes taps: the box drei wraps round it is larger, and lay over the raft on a small phone. */}
         {!busy && !over && (
-          <Html calculatePosition={pinAboveButtons} center zIndexRange={[6, 0]}>
+          <Html calculatePosition={pinAboveButtons} center zIndexRange={[6, 0]} style={{ pointerEvents: 'none' }}>
             <button
               onClick={castOff}
               style={{
+                pointerEvents: 'auto',
                 fontFamily: 'Fredoka, system-ui, sans-serif',
                 fontWeight: 700,
                 fontSize: 17,
