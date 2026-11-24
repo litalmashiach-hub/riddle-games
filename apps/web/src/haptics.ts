@@ -17,11 +17,12 @@ import { APP_SHELL } from './appShell';
 /** What a player taps outside the 3D scene. A disabled one does nothing, so it gives no tick. */
 const CONTROL = 'button, a[href], [role="button"], [role="switch"], [role="tab"]';
 
-/** Two answers to the same tap (a button that also plays a move, a label over a model) are one tick. */
+/** Two answers within one tap (a tap in the scene that also plays a move, a label over a model) are one tick. */
 const SAME_TAP_MS = 80;
 
 let impact: (() => void) | null = null;
 let last = -Infinity;
+let given = 0;
 
 /** A light tick, if this is the app, the device has one and the sound switch is on. */
 export function tapFeedback() {
@@ -29,6 +30,7 @@ export function tapFeedback() {
   const now = performance.now();
   if (now - last < SAME_TAP_MS) return;
   last = now;
+  given++;
   impact();
 }
 
@@ -41,12 +43,17 @@ export function startHaptics() {
   });
   // Every button, tab, switch and link of every screen, the levels' own included, with no change to any of them.
   // Caught on the way down, so that no screen can swallow the tap first. The tick itself waits until the
-  // button has done its work: the sound switch then ticks when it turns the sound on, and not when it turns it off.
+  // button has done its work: the sound switch then ticks when it turns the sound on, and not when it turns
+  // it off, and a button that plays a move, which ticks by itself, is not answered twice however slow the device.
   document.addEventListener(
     'click',
     (e) => {
       const control = e.target instanceof Element ? e.target.closest(CONTROL) : null;
-      if (control && !control.matches(':disabled, [aria-disabled="true"]')) setTimeout(tapFeedback, 0);
+      if (!control || control.matches(':disabled, [aria-disabled="true"]')) return;
+      const before = given;
+      setTimeout(() => {
+        if (given === before) tapFeedback();
+      }, 0);
     },
     true,
   );

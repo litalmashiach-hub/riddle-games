@@ -41,7 +41,8 @@ async function screenWithInsets(browser: Browser, baseURL: string, s: { width: n
  * Everything a player reads or taps that reaches into an inset, as "what [left, top, right, bottom] by how much".
  * Counted: buttons, links, tabs and switches, and every element with text of its own, as far as it shows
  * (cut by the boxes it scrolls or hides in). Not counted: the 3D canvas, decoration marked `aria-hidden`,
- * the loading curtain, and what rides in a sideways list, which passes under the notch while it is swiped.
+ * the loading curtain, and, along the way it scrolls, what rides in a list: a level card passes under the
+ * notch or the home bar while the map is swiped, as in any app.
  */
 async function underInsets(page: Page, insets: Insets): Promise<string[]> {
   return page.evaluate((ins) => {
@@ -70,22 +71,24 @@ async function underInsets(page: Page, insets: Insets): Promise<string[]> {
         box = range.getBoundingClientRect();
       }
       let [x0, y0, x1, y1] = [box.left, box.top, box.right, box.bottom];
-      let rides = false;
+      let ridesX = false;
+      let ridesY = false;
       for (let e = el.parentElement; e && e !== document.documentElement; e = e.parentElement) {
         const s = getComputedStyle(e);
         const c = e.getBoundingClientRect();
         if (s.overflowX !== 'visible') {
           x0 = Math.max(x0, c.left);
           x1 = Math.min(x1, c.right);
-          if (/auto|scroll/.test(s.overflowX) && e.scrollWidth > e.clientWidth + 1) rides = true;
+          if (/auto|scroll/.test(s.overflowX) && e.scrollWidth > e.clientWidth + 1) ridesX = true;
         }
         if (s.overflowY !== 'visible') {
           y0 = Math.max(y0, c.top);
           y1 = Math.min(y1, c.bottom);
+          if (/auto|scroll/.test(s.overflowY) && e.scrollHeight > e.clientHeight + 1) ridesY = true;
         }
       }
-      if (rides || x1 - x0 < 1 || y1 - y0 < 1 || x1 <= 0 || y1 <= 0 || x0 >= W || y0 >= H) continue;
-      const over = Math.max(ins.left - x0, x1 - (W - ins.right), ins.top - y0, y1 - (H - ins.bottom));
+      if (x1 - x0 < 1 || y1 - y0 < 1 || x1 <= 0 || y1 <= 0 || x0 >= W || y0 >= H) continue;
+      const over = Math.max(ridesX ? 0 : Math.max(ins.left - x0, x1 - (W - ins.right)), ridesY ? 0 : Math.max(ins.top - y0, y1 - (H - ins.bottom)));
       if (over > 0.5) out.push(`${(el.getAttribute('aria-label') || text || el.textContent || '').trim().slice(0, 40)} [${[x0, y0, x1, y1].map(Math.round)}] by ${Math.round(over)}`);
     }
     return out;
@@ -126,20 +129,24 @@ test('nothing to read or tap sits under the notch or the home bar', async ({ bro
     await expect(page.getByRole('heading', { name: 'Riddle Games' })).toBeVisible();
     await page.waitForTimeout(1200);
     await clear('level map');
-    // A sideways list rests inside the insets at both of its ends.
+    // The map's list rests inside the insets at both of its ends, whichever way it scrolls.
     const rests = await page.evaluate((ins) => {
-      const list = [...document.querySelectorAll('*')].find((e) => /auto|scroll/.test(getComputedStyle(e).overflowX) && e.scrollWidth > e.clientWidth + 1);
+      const scrolls = (e: Element, way: 'X' | 'Y') => /auto|scroll/.test(getComputedStyle(e)[`overflow${way}`]) && (way === 'X' ? e.scrollWidth > e.clientWidth + 1 : e.scrollHeight > e.clientHeight + 1);
+      const all = [...document.querySelectorAll('body *')];
+      const sideways = all.find((e) => scrolls(e, 'X'));
+      const list = sideways ?? all.find((e) => scrolls(e, 'Y'));
       if (!list) return null;
-      const cards = [...list.querySelectorAll('button')];
-      list.scrollLeft = 0;
-      const first = cards[0].getBoundingClientRect().left - ins.left;
-      list.scrollLeft = list.scrollWidth;
-      const last = innerWidth - ins.right - cards[cards.length - 1].getBoundingClientRect().right;
-      return { first, last };
+      const cards = [...list.querySelectorAll('button[aria-label^="Level "]')];
+      list.scrollTo(0, 0);
+      const a = cards[0].getBoundingClientRect();
+      list.scrollTo(list.scrollWidth, list.scrollHeight);
+      const b = cards[cards.length - 1].getBoundingClientRect();
+      return sideways ? { first: a.left - ins.left, last: innerWidth - ins.right - b.right } : { first: a.top - ins.top, last: innerHeight - ins.bottom - b.bottom };
     }, s.insets);
+    expect.soft(rests, `${s.name}: the level map scrolls`).not.toBeNull();
     if (rests) {
-      expect.soft(rests.first, `${s.name}: the first level card rests clear of the left inset`).toBeGreaterThanOrEqual(0);
-      expect.soft(rests.last, `${s.name}: the last level card rests clear of the right inset`).toBeGreaterThanOrEqual(0);
+      expect.soft(rests.first, `${s.name}: the first level card rests clear of the inset`).toBeGreaterThanOrEqual(0);
+      expect.soft(rests.last, `${s.name}: the last level card rests clear of the inset`).toBeGreaterThanOrEqual(0);
     }
 
     await page.goto(`?all&debug&quality=low#/level/${one.id}`);
@@ -150,9 +157,10 @@ test('nothing to read or tap sits under the notch or the home bar', async ({ bro
     await passRulesCard(page, one.title);
     await page.waitForTimeout(600);
     await clear('level 1 in play');
-    await page.getByRole('button', { name: 'Hint' }).filter({ visible: true }).tap();
-    // The button's pressed look moves it by 3 px for a moment.
-    await page.waitForTimeout(600);
+    // A click, not a tap: after a tap this browser leaves the button in its pressed look, 3 px lower, which a real finger does not.
+    await page.getByRole('button', { name: 'Hint' }).filter({ visible: true }).dispatchEvent('click');
+    await expect(page.getByText(/^💡/)).toBeVisible();
+    await page.waitForTimeout(1200);
     await clear('level 1 with its hint');
     for (const [i, move] of one.moves.entries()) await playMove(page, move, i + 1);
     await expect(page.getByRole('heading', { name: 'Solved!' })).toBeVisible({ timeout: 30_000 });
@@ -164,7 +172,7 @@ test('nothing to read or tap sits under the notch or the home bar', async ({ bro
   }
 });
 
-test('a long press selects nothing, and the page neither scrolls nor zooms', async ({ page, context }) => {
+test('text can be neither selected nor called out, and the page neither scrolls nor zooms', async ({ page, context }) => {
   const level = LEVELS[1];
   await page.goto(`?all&debug&quality=low#/level/${level.id}`);
   await waitForSession(page, level.id);
@@ -172,11 +180,9 @@ test('a long press selects nothing, and the page neither scrolls nor zooms', asy
   await expect(rule).toBeVisible();
   await page.waitForTimeout(600);
 
-  // A long press on a line of the rules: no text is selected, and no menu is asked for.
-  await page.evaluate(() => {
-    (window as any).__menus = 0;
-    document.addEventListener('contextmenu', (e) => { if (!e.defaultPrevented) (window as any).__menus++; });
-  });
+  // A line of the rules carries the two styles that make a long press do nothing on an iPhone. The long press
+  // itself is made too, but this browser selects nothing on one even where it could, so the styles are the
+  // check here; the gesture was tried in Apple's simulator (see the pull request that added this test).
   const box = (await rule.boundingBox())!;
   await longPress(context, page, box.x + Math.min(60, box.width / 2), box.y + box.height / 2);
   expect(await page.evaluate(() => getSelection()?.toString() ?? ''), 'text selected by a long press').toBe('');
@@ -191,10 +197,13 @@ test('a long press selects nothing, and the page neither scrolls nor zooms', asy
   const pageState = await page.evaluate(() => ({ zoom: visualViewport!.scale, x: scrollX, y: scrollY, taller: document.documentElement.scrollHeight - innerHeight, wider: document.documentElement.scrollWidth - innerWidth }));
   expect(pageState, 'the page as a whole').toEqual({ zoom: 1, x: 0, y: 0, taller: 0, wider: 0 });
 
-  // Long text still scrolls, inside its own box: the rules of the level whose card overflows the most here.
+  // Long text still scrolls, inside its own box. The rules fit their card on today's phones, so the screen
+  // is made lower than any of them for this part, until the card has to scroll.
+  await page.setViewportSize({ width: size.width, height: 170 });
+  await page.waitForTimeout(600);
   const scroller = page.locator('.panel .overflow-y-auto').first();
   const room = await scroller.evaluate((el) => el.scrollHeight - el.clientHeight);
-  test.skip(room < 20, `the rules of level ${level.number} fit their card on this screen, so there is nothing to scroll`);
+  expect(room, `the rules of level ${level.number} overflow their card on a screen 170 high`).toBeGreaterThan(20);
   const inner = (await scroller.boundingBox())!;
   await drag(context, page, inner.x + inner.width / 2, inner.y + inner.height - 30, inner.y + 10);
   expect(await scroller.evaluate((el) => el.scrollTop), 'the rules scrolled inside their card').toBeGreaterThan(10);
