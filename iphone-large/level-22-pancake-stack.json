@@ -1,0 +1,171 @@
+{
+ "level": 22,
+ "id": "pancake-stack",
+ "title": "Pancake Stack",
+ "device": "iphone-large",
+ "size": "956x440",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 7,
+ "touches": 7,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 4.768,
+  "rulesCard": 2.552,
+  "drawn": 4.768,
+  "play": 20.871,
+  "total": 38.021
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-large-L22-loading-mark.png",
+  "iphone-large-L22-rules-card.png",
+  "iphone-large-L22-in-play.png",
+  "iphone-large-L22-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "pancake 2 from the top (size 3)",
+   "kind": "tap",
+   "at": {
+    "x": 415.0356916715862,
+    "y": 197.83992557818272
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8995e823-8a92-434f-afbe-84e3eaeac25d",
+    "world": [
+     0,
+     2.24,
+     0
+    ],
+    "distance": 5.824800651029003
+   }
+  },
+  {
+   "step": 2,
+   "what": "pancake 3 from the top (size 6)",
+   "kind": "tap",
+   "at": {
+    "x": 412.74326598856834,
+    "y": 246.02141810846237
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f6fd2255-0674-4ca8-8377-5456eabab7bb",
+    "world": [
+     0,
+     1.8800000000000001,
+     0
+    ],
+    "distance": 5.847072252540667
+   }
+  },
+  {
+   "step": 3,
+   "what": "pancake 6 from the top (size 2)",
+   "kind": "tap",
+   "at": {
+    "x": 420.3668927094077,
+    "y": 327.49610161654084
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d89e06ee-0e69-461e-bbdc-177c1d77b6d7",
+    "world": [
+     0,
+     0.8,
+     0
+    ],
+    "distance": 6.449650757582616
+   }
+  },
+  {
+   "step": 4,
+   "what": "pancake 2 from the top (size 4)",
+   "kind": "tap",
+   "at": {
+    "x": 413.88648278780903,
+    "y": 201.31028034300752
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8995e823-8a92-434f-afbe-84e3eaeac25d",
+    "world": [
+     0,
+     2.24,
+     0
+    ],
+    "distance": 5.950414208624723
+   }
+  },
+  {
+   "step": 5,
+   "what": "pancake 4 from the top (size 3)",
+   "kind": "tap",
+   "at": {
+    "x": 417.29915952317896,
+    "y": 267.76154219273684
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ad139e40-a33e-4e25-aab5-84bf2cf71dc4",
+    "world": [
+     0,
+     1.52,
+     0
+    ],
+    "distance": 6.297661402150653
+   }
+  },
+  {
+   "step": 6,
+   "what": "pancake 3 from the top (size 2)",
+   "kind": "tap",
+   "at": {
+    "x": 417.25700517436434,
+    "y": 229.5370986264802
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f6fd2255-0674-4ca8-8377-5456eabab7bb",
+    "world": [
+     0,
+     1.8800000000000001,
+     0
+    ],
+    "distance": 6.277868494891675
+   }
+  },
+  {
+   "step": 7,
+   "what": "pancake 2 from the top (size 1)",
+   "kind": "tap",
+   "at": {
+    "x": 417.21479223578336,
+    "y": 191.25952741667598
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8995e823-8a92-434f-afbe-84e3eaeac25d",
+    "world": [
+     0,
+     2.24,
+     0
+    ],
+    "distance": 6.162887152830899
+   }
+  }
+ ]
+}

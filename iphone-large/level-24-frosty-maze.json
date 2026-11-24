@@ -1,0 +1,323 @@
+{
+ "level": 24,
+ "id": "frosty-maze",
+ "title": "Frosty Maze",
+ "device": "iphone-large",
+ "size": "956x440",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 15,
+ "moves": 15,
+ "touches": 15,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 6.2,
+  "rulesCard": 3.823,
+  "drawn": 6.2,
+  "play": 50.014,
+  "total": 69.55
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-large-L24-loading-mark.png",
+  "iphone-large-L24-rules-card.png",
+  "iphone-large-L24-in-play.png",
+  "iphone-large-L24-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 478,
+    "y": 299.24735598609954
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "86d6b1cc-9f6d-4f20-ab0a-0d928d06203f",
+    "world": [
+     0,
+     0.06,
+     2.402334929642551
+    ],
+    "distance": 10.094011251949727
+   }
+  },
+  {
+   "step": 2,
+   "what": "the left arrow",
+   "kind": "tap",
+   "at": {
+    "x": 436.36123402094074,
+    "y": 286.47060262835475
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "806614b2-fc98-4101-b282-b10e4dc61294",
+    "world": [
+     -0.7894671804642918,
+     0.06,
+     2.1
+    ],
+    "distance": 10.262695971315507
+   }
+  },
+  {
+   "step": 3,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 322.98625067436444,
+    "y": 251.28721982908982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "49a69948-ac8f-4222-8c70-b300c3fd2a07",
+    "world": [
+     -3.1500000000000004,
+     0.06,
+     1.3202020338616722
+    ],
+    "distance": 11.033759753735172
+   }
+  },
+  {
+   "step": 4,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 361.92576092653144,
+    "y": 240.18250408910563
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "97cb8487-92d3-4b02-b32c-34ac3e17ede4",
+    "world": [
+     -2.4116725749779704,
+     0.06,
+     1.05
+    ],
+    "distance": 11.03342502192052
+   }
+  },
+  {
+   "step": 5,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 428.8738533816646,
+    "y": 208.16405207388442
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ef47932c-033b-4441-af87-ce1a96e2b35a",
+    "world": [
+     -1.05,
+     0.06,
+     0.26072593620198703
+    ],
+    "distance": 11.16673140471416
+   }
+  },
+  {
+   "step": 6,
+   "what": "the left arrow",
+   "kind": "tap",
+   "at": {
+    "x": 391.1605415685967,
+    "y": 198.87090776774642
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c623cb72-945e-4f6a-9436-49c3db9bbe90",
+    "world": [
+     -1.8496922211574922,
+     0.06,
+     0
+    ],
+    "distance": 11.4048776085631
+   }
+  },
+  {
+   "step": 7,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 384.49948293785906,
+    "y": 170.5433310936992
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d1698177-d036-4df4-ad36-927421b910f8",
+    "world": [
+     -2.1,
+     0.06,
+     -0.7668577076767229
+    ],
+    "distance": 11.920813141768129
+   }
+  },
+  {
+   "step": 8,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 424.3019183056573,
+    "y": 95.78696753347162
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5b0fb5a2-46c1-4277-91df-82432e1dcd1f",
+    "world": [
+     -1.368752057364285,
+     0.06,
+     -3.1500000000000004
+    ],
+    "distance": 13.348245750930618
+   }
+  },
+  {
+   "step": 9,
+   "what": "the down arrow",
+   "kind": "tap",
+   "at": {
+    "x": 434.2836075660445,
+    "y": 119.7466130894445
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2caf3086-740e-49da-b49f-b5eb4de74faa",
+    "world": [
+     -1.05,
+     0.06,
+     -2.3718831211664275
+    ],
+    "distance": 12.754985270527975
+   }
+  },
+  {
+   "step": 10,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 465.63075058021525,
+    "y": 126.83430925830112
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5ab20488-07f9-49b2-a984-06df052691b2",
+    "world": [
+     -0.328315921708466,
+     0.06,
+     -2.1
+    ],
+    "distance": 12.61428752740084
+   }
+  },
+  {
+   "step": 11,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 509.86977328586,
+    "y": 126.83430925830112
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b66447a2-591e-49e4-9721-d8adf9df47f4",
+    "world": [
+     0.7277634148611924,
+     0.06,
+     -2.1
+    ],
+    "distance": 12.63297610928934
+   }
+  },
+  {
+   "step": 12,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 563.3414745954516,
+    "y": 103.81720574556883
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "503b71d9-7d50-4015-99e4-1db4a836a4de",
+    "world": [
+     2.1,
+     0.06,
+     -2.832944462834519
+    ],
+    "distance": 13.240185089082425
+   }
+  },
+  {
+   "step": 13,
+   "what": "the left arrow",
+   "kind": "tap",
+   "at": {
+    "x": 531.0542661377838,
+    "y": 95.58348778215156
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "fbed7e76-a5b4-40c5-b3cd-dc51b9c6989b",
+    "world": [
+     1.3454421694717622,
+     0.06,
+     -3.1500000000000004
+    ],
+    "distance": 13.421577179372536
+   }
+  },
+  {
+   "step": 14,
+   "what": "the down arrow",
+   "kind": "tap",
+   "at": {
+    "x": 521.6878510765334,
+    "y": 119.56264842674685
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "422c760c-c8af-4f60-ba34-4fee9f81c265",
+    "world": [
+     1.05,
+     0.06,
+     -2.371037707157386
+    ],
+    "distance": 12.789609117226965
+   }
+  },
+  {
+   "step": 15,
+   "what": "the down arrow",
+   "kind": "tap",
+   "at": {
+    "x": 525.9839758925998,
+    "y": 189.78214345249813
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1b8a504a-66b9-4c47-bf18-4b8321377def",
+    "world": [
+     1.05,
+     0.06,
+     -0.26860824757869195
+    ],
+    "distance": 11.48915812678379
+   }
+  }
+ ]
+}

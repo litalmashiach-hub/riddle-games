@@ -1,0 +1,82 @@
+{
+ "level": 7,
+ "id": "jealous-couples",
+ "title": "Three Jealous Couples",
+ "device": "iphone-large",
+ "size": "956x440",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won, finished by the debug hook after a known tap fault at step 1 (wrong-pick)",
+ "wonByTaps": false,
+ "won": true,
+ "finishedByHook": true,
+ "movesByTaps": 0,
+ "moves": 11,
+ "touches": 2,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": {
+  "kind": "wrong-pick",
+  "step": 1,
+  "detail": "the tap on Mrs Coral made the Fly button read \"Fly over ➜Mr Coral + Mr Teal\", not \"Mr Coral + Mrs Coral\": Mrs Coral at (311, 210); the first listening object under it has its origin at [-3.5, 0, -0.1]",
+  "known": true,
+  "knownReason": "Level 7, move 1 (Mrs Coral and Mr Coral fly): a tap on the middle of Mrs Coral picks Mr Teal, who stands in front of her with his top hat over her. Aiming at her head instead gets as far as move 10, where only a sliver of her shows beside his hat."
+ },
+ "error": null,
+ "seconds": {
+  "open": 11.954,
+  "rulesCard": 11.555,
+  "drawn": 11.954,
+  "play": 56.9,
+  "total": 82.453
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-large-L07-loading-mark.png",
+  "iphone-large-L07-rules-card.png",
+  "iphone-large-L07-fault-step-1.png",
+  "iphone-large-L07-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "Mr Coral",
+   "kind": "tap",
+   "at": {
+    "x": 346.0955810325056,
+    "y": 202.0158500954151
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "efd7b869-ba83-4a1f-b3a2-7d7e6a9a067b",
+    "world": [
+     -3.15,
+     0,
+     -1.28
+    ],
+    "distance": 12.883706297884782
+   }
+  },
+  {
+   "step": 1,
+   "what": "Mrs Coral",
+   "kind": "tap",
+   "at": {
+    "x": 310.96628377217763,
+    "y": 210.281330558503
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ada46506-7924-4321-8b0e-4d3462e9f74e",
+    "world": [
+     -3.5,
+     4.898587196589413e-17,
+     -0.08
+    ],
+    "distance": 11.973339195618422
+   }
+  }
+ ]
+}

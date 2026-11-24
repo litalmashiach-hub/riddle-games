@@ -1,0 +1,63 @@
+{
+ "level": 12,
+ "id": "twelve-coins",
+ "title": "The Twelve Coins",
+ "device": "iphone-large",
+ "size": "956x440",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won, finished by the debug hook after a known tap fault at step 1 (wrong-pick)",
+ "wonByTaps": false,
+ "won": true,
+ "finishedByHook": true,
+ "movesByTaps": 0,
+ "moves": 4,
+ "touches": 1,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": {
+  "kind": "wrong-pick",
+  "step": 1,
+  "detail": "the tap on coin 5 on the table sent coin 11 to the pan instead: coin 5 on the table at (542, 247); the first listening object under it has its origin at [1.2, 1, 1.2]",
+  "known": true,
+  "knownReason": "Level 12, first weighing: a tap on the middle of coin 3, in the far row, sends coin 9 to the pan. Each coin's unseen grab cylinder (radius 0.4, the coin drawn 0.24) covers the lower half of the coin behind it; coin 4 loses to coin 10 the same way."
+ },
+ "error": null,
+ "seconds": {
+  "open": 10.118,
+  "rulesCard": 9.709,
+  "drawn": 10.118,
+  "play": 17.996,
+  "total": 38.626
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-large-L12-loading-mark.png",
+  "iphone-large-L12-rules-card.png",
+  "iphone-large-L12-fault-step-1.png",
+  "iphone-large-L12-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "coin 5 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 542.0258894729532,
+    "y": 246.88633778381902
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "45cbf1af-ec35-465e-92a7-854c864d4bda",
+    "world": [
+     1.2000000000000002,
+     0.95,
+     1.15
+    ],
+    "distance": 9.881741805029005
+   }
+  }
+ ]
+}
