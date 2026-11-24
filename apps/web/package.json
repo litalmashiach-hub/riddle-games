@@ -36,6 +36,7 @@
     "@riddle/level-19-picture-tiles": "workspace:*",
     "@riddle/level-20-berry-bridges": "workspace:*",
     "@riddle/level-21-cricket-swap": "workspace:*",
+    "@riddle/level-22-pancake-stack": "workspace:*",
     "@riddle/props": "workspace:*",
     "motion": "14.10.1",
     "react": "19.3.1",
