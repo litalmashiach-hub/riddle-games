@@ -1,0 +1,118 @@
+name: App shape (test only)
+
+# TEST ONLY, not for merging. Builds the iPhone/iPad app unsigned for the simulator on a hosted Mac and
+# takes pictures of its launch screen and home-screen icon. No signing, no secrets, nothing uploaded
+# except the run's own artifact.
+
+on:
+  push:
+    branches: [app-shape-mac-test]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-shape-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT: apps/mobile/ios/App/App.xcodeproj
+  DERIVED: build/ios
+
+jobs:
+  shape:
+    name: ${{ matrix.label }}
+    runs-on: macos-26
+    timeout-minutes: 50
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: iphone, sim: "iPhone 17 Pro Max", kind: iphone }
+          - { label: ipad, sim: "iPad Pro 13-inch (M5)", kind: ipad }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Xcode and Mac on this runner
+        run: |
+          xcodebuild -version
+          sw_vers
+          git rev-parse HEAD
+
+      - name: Build the app content and sync Capacitor
+        run: pnpm ios:sync
+
+      - name: What the app content holds (item 3.5)
+        run: |
+          PUB=apps/mobile/ios/App/App/public
+          echo "---- files"; (cd "$PUB" && find . -type f | sort | xargs ls -l | awk '{print $5, $9}')
+          echo "---- no offline worker file"; test ! -e "$PUB/sw.js" && echo "sw.js: absent"
+          for word in serviceWorker sw.js __riddle __camera '"all"' '"debug"' manifest.webmanifest http:// https://; do
+            echo "files that contain $word: $(grep -rlF -- "$word" "$PUB" | wc -l | tr -d ' ')"
+          done
+          echo "---- every http(s) address in the content, by host"
+          grep -rhoE "https?://[A-Za-z0-9._-]+" "$PUB" | sort | uniq -c | sort -rn | head -n 30 || true
+          echo "---- the generated Capacitor settings"; cat apps/mobile/ios/App/App/capacitor.config.json
+
+      - name: Version and identifier in the Xcode project's settings (item 3.12)
+        run: |
+          xcodebuild -project "$PROJECT" -scheme App -configuration Release -sdk iphonesimulator -showBuildSettings 2> /dev/null \
+            | grep -E " (MARKETING_VERSION|CURRENT_PROJECT_VERSION|PRODUCT_BUNDLE_IDENTIFIER|TARGETED_DEVICE_FAMILY|ASSETCATALOG_COMPILER_APPICON_NAME|IPHONEOS_DEPLOYMENT_TARGET) ="
+
+      - name: Build the app for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build > build.log 2>&1 || { tail -n 80 build.log; exit 1; }
+          grep -E "warning:|error:" build.log | sort | uniq -c | cut -c1-300 | head -n 40 || true
+          grep -E "CompileAssetCatalog|CompileStoryboard|LinkStoryboards" build.log | cut -c1-240 | head -n 12 || true
+          tail -n 5 build.log
+
+      - name: The built app (items 3.6, 3.7, 3.8, 3.12)
+        run: |
+          APP="$DERIVED/Build/Products/Release-iphonesimulator/App.app"
+          echo "---- Info.plist of the built app"; plutil -p "$APP/Info.plist"
+          echo "---- version as the built app reports it"
+          echo "CFBundleShortVersionString = $(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Info.plist")"
+          echo "CFBundleVersion = $(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$APP/Info.plist")"
+          echo "---- files at the top of the app"; ls -la "$APP"
+          echo "---- launch screen in the app"; find "$APP" -name "*.storyboardc" -o -name "*.nib" | sort
+          echo "---- the icon's source file"
+          ICON=apps/mobile/ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png
+          sips -g pixelWidth -g pixelHeight -g hasAlpha -g space -g bitsPerSample -g samplesPerPixel "$ICON"
+          sips -g hasAlpha "$ICON" | grep -q "hasAlpha: no" && echo "ALPHA CHECK: the icon has no alpha channel"
+          file "$ICON"
+          echo "---- icons and launch picture inside the built app's asset catalogue"
+          xcrun assetutil --info "$APP/Assets.car" > assets.json
+          python3 apps/mobile/ios/ShapeTest/assets.py assets.json
+          echo "---- loose icon files Xcode made"; ls -la "$APP" | grep -i icon || true
+
+      - name: Build the UI test (made with XcodeGen)
+        run: |
+          set -o pipefail
+          which xcodegen || brew install xcodegen
+          cd apps/mobile/ios/ShapeTest
+          xcodegen generate
+          xcodebuild build-for-testing -project ShapeTest.xcodeproj -scheme ShapeTest \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$GITHUB_WORKSPACE/build/shapetest" 2>&1 | tail -n 8
+
+      - name: Pictures in the simulator
+        timeout-minutes: 30
+        run: apps/mobile/ios/ShapeTest/shape.sh "${{ matrix.sim }}" "${{ matrix.label }}" "${{ matrix.kind }}"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: app-shape-${{ matrix.label }}
+          path: |
+            out
+            build.log
+          if-no-files-found: warn

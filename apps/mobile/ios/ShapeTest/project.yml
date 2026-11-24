@@ -1,0 +1,30 @@
+# Test only. A tiny Xcode project (made by XcodeGen) with one UI test that drives the simulator's home screen:
+# it finds the app's icon and turns the device. It does not touch App.xcodeproj.
+name: ShapeTest
+options:
+  bundleIdPrefix: test.riddlegames
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  ShapeUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: test.riddlegames.shapetest
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: "5.0"
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        DEVELOPMENT_TEAM: ""
+schemes:
+  ShapeTest:
+    build:
+      targets:
+        ShapeUITests: [test]
+    test:
+      targets:
+        - ShapeUITests
