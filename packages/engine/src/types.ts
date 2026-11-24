@@ -47,6 +47,41 @@ export interface SceneProps<S, M> {
    * When it goes down (undo) or resets, snap or quickly move back.
    */
   moveCount: number;
+  /**
+   * Tell the shell what the player has picked but not yet played (an animal put in the boat), or null when
+   * nothing is. Optional: only a level with a first-play `guide` needs it, to move the guide on a step.
+   */
+  onPick?(id: string | null): void;
+}
+
+/** One step of a first-play guide: a calm ring over one thing in the scene, and a few words. */
+export interface GuideStep {
+  /** The point to ring, in scene coordinates. */
+  at: [number, number, number];
+  /** Rough size of the thing, in scene units: the ring's radius. */
+  radius: number;
+  /** A few words, e.g. "Tap the wolf". */
+  say: string;
+  /**
+   * The step lasts until the scene reports this pick through `onPick`, and the next step shows.
+   * A step with none lasts until the first move, which ends the guide.
+   */
+  pick?: string;
+}
+
+/**
+ * A light first-play guide: on the very first play of the level, the shell rings the first thing to tap.
+ * It is a screen overlay that takes no taps (bar its Skip button), shown once ever on a device.
+ */
+export interface FirstPlayGuide {
+  steps: GuideStep[];
+}
+
+/** Which step of a guide shows while the player has `picked` this (see `GuideStep.pick`). */
+export function guideStepFor(guide: FirstPlayGuide, picked: string | null): number {
+  let k = 0;
+  while (k < guide.steps.length - 1 && guide.steps[k].pick != null && guide.steps[k].pick === picked) k++;
+  return k;
 }
 
 export type WorldId = 'meadow' | 'temple' | 'sky' | 'citadel' | 'lagoon';
@@ -83,6 +118,8 @@ export interface RiddleLevel<S = any, M = any> {
    * On narrower screens, like phones held upright, the shell pulls the camera back to keep that width. Default 1.7.
    */
   camera?: { position: [number, number, number]; target: [number, number, number]; fov?: number; fitAspect?: number };
+  /** A first-play guide, shown once ever, on the level's very first play. Level 1 has one. */
+  guide?: FirstPlayGuide;
   /** The 3D scene. Rendered inside the shell's <Canvas>. */
   Scene: ComponentType<SceneProps<S, M>>;
 }

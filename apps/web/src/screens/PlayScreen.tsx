@@ -1,4 +1,4 @@
-import { createSession, starsFor, type RiddleLevel } from '@riddle/engine';
+import { createSession, guideStepFor, starsFor, type RiddleLevel } from '@riddle/engine';
 import { WORLDS, WorldStage, sfx, useSettings } from '@riddle/fx';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -9,6 +9,7 @@ import * as THREE from 'three';
 import { sceneTaps, watchMoves } from '../haptics';
 import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
+import { GuideOverlay, GuideTracker } from '../components/FirstPlayGuide';
 import { SceneGuard, sceneWaitMs } from '../components/SceneGuard';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
@@ -22,9 +23,13 @@ interface Props {
   onExit(): void;
   onNext?: () => void;
   onSolved(stars: number): void;
+  /** True once this level's first-play guide has been shown on this device. */
+  guideSeen?: boolean;
+  /** Called the moment the first-play guide shows, so it is never shown again. */
+  onGuideSeen?: () => void;
 }
 
-export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
+export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false, onGuideSeen }: Props) {
   const session = useMemo(() => createSession(level), [level]);
   // `?debug` exposes the session for automated play-tests: window.__riddle.getState().play(move)
   useEffect(() => {
@@ -46,6 +51,15 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   const { quality, sound, toggleSound, setQuality } = useSettings();
   const look = WORLDS[level.world];
   const stars = s.status.kind === 'won' ? starsFor(moveCount, level.bestMoves, s.hintsUsed) : 0;
+
+  // First-play guide: only on a level that has one, only if it was never shown here, and only until the first
+  // move, a skip, or leaving the level. Decided once, on opening, so marking it seen does not take it away.
+  const [guideOn, setGuideOn] = useState(() => !!level.guide && !guideSeen);
+  const [picked, setPicked] = useState<string | null>(null);
+  const guideRing = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (moveCount > 0) setGuideOn(false);
+  }, [moveCount]);
 
   // End-of-level sounds and saving.
   useEffect(() => {
@@ -97,6 +111,13 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   // The HUD steps aside while a card (rules, win or lose) is up: the card has every button the player needs.
   const cardOpen = showRules || (s.ended && s.status.kind !== 'playing');
 
+  const guideStep = guideOn && level.guide && !cardOpen && sceneReady && !rotateTip && !s.busy && moveCount === 0 ? level.guide.steps[guideStepFor(level.guide, picked)] : null;
+  const guideShown = guideStep != null;
+  useEffect(() => {
+    if (guideShown) onGuideSeen?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guideShown]);
+
   const Scene = level.Scene;
   const cam: NonNullable<RiddleLevel['camera']> = level.camera ?? { position: [0, 8, 12], target: [0, 0, 0], fov: 42 };
 
@@ -125,9 +146,11 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
               hint={s.hint}
               resetCount={s.resetCount}
               moveCount={moveCount}
+              onPick={setPicked}
             />
           </WorldStage>
           <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} />
+          {guideStep && <GuideTracker step={guideStep} ring={guideRing} />}
           <FirstFrames onReady={() => setSceneReady(true)} onStuck={() => setSceneStuck(true)} />
         </Suspense>
       </Canvas>
@@ -136,6 +159,11 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       {/* Curtain while the scene builds */}
       <AnimatePresence>
         {!sceneReady && <LoadingCurtain key="curtain" gradient={look.uiGradient} number={level.number} quiet={showRules} />}
+      </AnimatePresence>
+
+      {/* First-play guide: rings the first thing to tap. It takes no taps itself, bar its Skip button. */}
+      <AnimatePresence>
+        {guideStep && <GuideOverlay key="guide" step={guideStep} ring={guideRing} onSkip={() => setGuideOn(false)} />}
       </AnimatePresence>
 
       {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels. */}
