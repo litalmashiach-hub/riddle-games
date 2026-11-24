@@ -1,23 +1,13 @@
 Simulator: iPhone 17 Pro Max F90353E4-F95D-488C-9F4E-B43F74E385F2
     iPhone 17 Pro Max (F90353E4-F95D-488C-9F4E-B43F74E385F2) (Shutdown) 
 Port:
-    UUID: 2D23490D-CB9C-4F83-9612-6314930865E1
+    UUID: 26100718-46FF-4CF1-9EBB-ED5570B6DF59
     Class: Unknown
     Port Identifier: com.apple.display.captureservice
     Power state: On
 
 Port:
-    UUID: 18463018-8296-4BF4-AF2D-943207112AA1
-    Class: Display
-    Port Identifier: com.apple.framebuffer.display
-    Power state: On
-    Display class: 1
-    Default width: 720
-    Default height: 480
-    Default pixel format: 'BGRA'
-
-Port:
-    UUID: 41365C87-66C0-4095-90F1-D3B8DF956FBF
+    UUID: 585139B1-7E09-4037-A669-9608CE8B3AD3
     Class: Display
     Port Identifier: com.apple.framebuffer.display
     Power state: On
@@ -36,7 +26,17 @@ Port:
         Pixel size casting = Yes
 
 Port:
-    UUID: 263BBD00-DB64-471C-8969-DC6B8CBAB174
+    UUID: DE4CC3BA-D457-4184-9A3C-C5FAAB8F32FB
+    Class: Display
+    Port Identifier: com.apple.framebuffer.display
+    Power state: On
+    Display class: 1
+    Default width: 720
+    Default height: 480
+    Default pixel format: 'BGRA'
+
+Port:
+    UUID: 41D6BDD5-5BA0-44D7-AC8E-1E8774BA1BCD
     Class: DisplayAdapter
     Port Identifier: com.apple.framebuffer.server
     Power state: On
