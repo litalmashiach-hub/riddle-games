@@ -116,3 +116,49 @@ jobs:
             out
             build.log
           if-no-files-found: warn
+
+  device:
+    name: unsigned build for a real iPhone
+    runs-on: macos-26
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode and SDKs on this runner
+        run: |
+          xcodebuild -version
+          xcodebuild -showsdks
+          git rev-parse HEAD
+      - name: Build the app content and sync Capacitor
+        run: pnpm ios:sync
+      - name: Build for the device SDK, code signing off (item 3.1)
+        run: |
+          xcodebuild -project "$PROJECT" -scheme App -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' \
+            -derivedDataPath build/device CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build > device.log 2>&1
+          RC=$?
+          echo "xcodebuild exit code: $RC"
+          grep -E "warning:|error:" device.log | sort | uniq -c | cut -c1-300 | head -n 40 || true
+          tail -n 25 device.log | cut -c1-300
+          APP=build/device/Build/Products/Release-iphoneos/App.app
+          if [ -d "$APP" ]; then
+            echo "---- the device build"
+            plutil -p "$APP/Info.plist" | grep -E "CFBundle(Identifier|ShortVersionString|Version|SupportedPlatforms)|DTSDKName|DTSDKBuild|DTXcode|DTXcodeBuild|DTPlatformVersion|MinimumOSVersion|UIDeviceFamily|BuildMachineOSBuild"
+            lipo -info "$APP/App"
+            file "$APP/App"
+            du -sh "$APP"
+            codesign -dv "$APP" 2>&1 | head -n 6 || true
+            ls -la "$APP" | head -n 40
+          fi
+          exit $RC
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: app-shape-device-log
+          path: device.log
+          if-no-files-found: warn
