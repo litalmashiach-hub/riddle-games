@@ -1,4 +1,4 @@
-import { COLS, LAYOUT, ROWS, trace, type State } from './rules';
+import { COLS, LAYOUT, ROWS, trace, type Layout, type State } from './rules';
 
 /** Distance between lily pad centres. */
 export const S = 1.3;
@@ -14,7 +14,8 @@ export const cellZ = (r: number) => (r - (ROWS - 1) / 2) * S;
 export const cellPos = (c: number, r: number, y = 0): V3 => [cellX(c), y, cellZ(r)];
 
 /** Where the moonstone lantern sits (one cell outside the grid, where the beam enters). */
-export const SOURCE: V3 = cellPos(LAYOUT.source.c - 0.4, LAYOUT.source.r, 0);
+export const sourcePos = (layout: Layout): V3 => cellPos(layout.source.c - 0.4, layout.source.r, 0);
+export const SOURCE: V3 = sourcePos(LAYOUT);
 
 /** The beam as a polyline in world space, with distances along it. */
 export interface BeamPath {
@@ -32,8 +33,8 @@ export type THREE_V2 = [number, number];
 
 const toWorld = ([c, r]: [number, number]): THREE_V2 => [cellX(c), cellZ(r)];
 
-export function beamPath(state: State): BeamPath {
-  const t = trace(state);
+export function beamPath(state: State, layout: Layout = LAYOUT): BeamPath {
+  const t = trace(state, layout);
   const pts: THREE_V2[] = [];
   t.segs.forEach((s, i) => {
     if (i === 0) {
@@ -66,8 +67,8 @@ export function beamPath(state: State): BeamPath {
     }
     return Infinity;
   };
-  const flowerAt = LAYOUT.flowers.map((f, i) => (t.lit.includes(i) ? along(cellX(f.c), cellZ(f.r)) : Infinity));
-  const mirrorAt = LAYOUT.mirrors.map((m, i) => (t.bounced.includes(i) ? along(cellX(m.c), cellZ(m.r)) : Infinity));
+  const flowerAt = layout.flowers.map((f, i) => (t.lit.includes(i) ? along(cellX(f.c), cellZ(f.r)) : Infinity));
+  const mirrorAt = layout.mirrors.map((m, i) => (t.bounced.includes(i) ? along(cellX(m.c), cellZ(m.r)) : Infinity));
   return { pts, dist, total, flowerAt, end: t.end, mirrorAt };
 }
 

@@ -55,34 +55,39 @@ export function slideDir(s: State, cell: number): (typeof DIRS)[number] {
   return 'left';
 }
 
-export const rules: RiddleRules<State, Move> = {
-  initialState: { tiles: START, slides: 0 },
+/** The sliding puzzle from any mixed-up start, with any patience. */
+export function makeRules(start: readonly number[], maxSlides: number): RiddleRules<State, Move> {
+  return {
+    initialState: { tiles: start, slides: 0 },
 
-  legalMoves(s) {
-    return neighbours(gapOf(s)).map((cell) => ({ cell }));
-  },
+    legalMoves(s) {
+      return neighbours(gapOf(s)).map((cell) => ({ cell }));
+    },
 
-  apply(s, { cell }) {
-    const gap = gapOf(s);
-    const tiles = [...s.tiles];
-    tiles[gap] = tiles[cell];
-    tiles[cell] = 0;
-    return { tiles, slides: s.slides + 1 };
-  },
+    apply(s, { cell }) {
+      const gap = gapOf(s);
+      const tiles = [...s.tiles];
+      tiles[gap] = tiles[cell];
+      tiles[cell] = 0;
+      return { tiles, slides: s.slides + 1 };
+    },
 
-  status(s) {
-    if (isSolved(s.tiles)) return { kind: 'won' };
-    if (s.slides >= MAX_SLIDES) return { kind: 'lost', reason: `Shelly waited ${MAX_SLIDES} slides for her portrait and fell fast asleep. Splash!` };
-    return { kind: 'playing' };
-  },
+    status(s) {
+      if (isSolved(s.tiles)) return { kind: 'won' };
+      if (s.slides >= maxSlides) return { kind: 'lost', reason: `Shelly waited ${maxSlides} slides for her portrait and fell fast asleep. Splash!` };
+      return { kind: 'playing' };
+    },
 
-  // The solver does a breadth-first search, so the first time it meets a picture is always the
-  // fewest slides. That is why `slides` can be left out of the key.
-  key: (s) => s.tiles.join(''),
+    // The solver does a breadth-first search, so the first time it meets a picture is always the
+    // fewest slides. That is why `slides` can be left out of the key.
+    key: (s) => s.tiles.join(''),
 
-  describeMove({ cell }, s) {
-    // Directions as the player sees them: row 0 is at the back of the table.
-    const dir = { down: 'towards you', up: 'away from you', right: 'right', left: 'left' }[slideDir(s, cell)];
-    return `Slide tile ${s.tiles[cell]} ${dir}`;
-  },
-};
+    describeMove({ cell }, s) {
+      // Directions as the player sees them: row 0 is at the back of the table.
+      const dir = { down: 'towards you', up: 'away from you', right: 'right', left: 'left' }[slideDir(s, cell)];
+      return `Slide tile ${s.tiles[cell]} ${dir}`;
+    },
+  };
+}
+
+export const rules = makeRules(START, MAX_SLIDES);

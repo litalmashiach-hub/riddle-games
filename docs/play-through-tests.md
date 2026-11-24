@@ -17,7 +17,7 @@ pnpm test:e2e:built -g "level 12"                  # one level
 pnpm test:e2e:built level-1-by-taps                # one file
 ```
 
-The whole run takes about 18 minutes on four cores without a graphics card, since every scene is
+The whole run takes about 50 minutes on four cores without a graphics card, since every scene is
 drawn in software at a few frames a second and every move takes as long as its animation.
 With a graphics card it is much faster.
 
@@ -49,6 +49,11 @@ are not the game's fault are listed with their reason in `e2e/tests/fixtures.ts`
   time, each after the last one's animation. Cards and buttons around them are tapped for real.
 - `e2e/levels.ts` finds the levels by their folders under `levels/`. A new level needs no change to
   the tests, as long as its `rules.ts` exports `rules`.
+  A level that plays in another level's scene (23 to 30) keeps its own puzzle in its own `rules.ts`
+  too, built from the first level's `@riddle/level-NN-name/rules` entry, which loads no React or
+  Three.js.
+- A level folder that the tests cannot load (no `rules.ts`, no `rules` export, no solution) fails
+  one test that names the folder and says why. The other levels are still listed and played.
 - `?quality=low` is set for the level tests, as on a real phone, where the game picks it by itself.
 
 Only level 1 is played by taps on the 3D scene. A tap needs to know where on the screen an animal
@@ -97,10 +102,12 @@ Listed today:
 
 - Level 9, Bridge of Five: a page error when play starts after the rules card.
 - Level 19, Picture Tiles: a page error when the player leaves the level.
+- Level 28, Family Portrait: the same, since it plays in level 19's scene.
 
-Both are the same error, a failed removal of a page element, from the scenes' `<Html>` labels.
-Neither stops the level from being won. Pull request 50 fixes it: once that is on main, both tests
-turn red as described above, and both entries are to be removed from `e2e/known-faults.ts`.
+All are the same error, a failed removal of a page element, from the scenes' `<Html>` labels.
+None stops the level from being won. Pull request 50 fixes it for levels 9 and 19: once that is on
+main, their tests turn red as described above, and their entries are to be removed from
+`e2e/known-faults.ts`. Level 28's entry goes with level 19's if its test turns red too.
 
 ## Browser version
 
