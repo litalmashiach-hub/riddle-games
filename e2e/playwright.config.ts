@@ -44,6 +44,8 @@ export default defineConfig({
     // The app build (apps/web/dist-app): only the About screen differs from the website, so only its tests run here.
     { name: 'app-iphone-landscape', testMatch: ABOUT_ONLY, use: { baseURL: `http://127.0.0.1:${APP_PORT}/`, viewport: { width: 852, height: 393 } } },
     { name: 'app-iphone-small-landscape', testMatch: ABOUT_ONLY, use: { baseURL: `http://127.0.0.1:${APP_PORT}/`, viewport: { width: 667, height: 375 } } },
+    // The largest iPhone. Only the layout checks run here: a play-through would be the same as at 852 by 393.
+    { name: 'iphone-largest-landscape', testMatch: /layout\.spec\.ts$/, use: { viewport: { width: 956, height: 440 } } },
   ],
   webServer: [
     {
