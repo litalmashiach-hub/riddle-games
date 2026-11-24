@@ -79,7 +79,8 @@ export function finishGlide(
   let last: number | null = null;
   const step = (now: number) => {
     if (isZooming(controls) || !homes.has(controls)) return;
-    const dt = last == null ? 1 / 60 : Math.min(0.1, Math.max(0, (now - last) / 1000));
+    // No cap on a long frame: the step is a share of the way left, so a slow frame only covers more of it.
+    const dt = last == null ? 1 / 60 : Math.max(0, (now - last) / 1000);
     last = now;
     if (!glideBack(controls, camera, 1 - Math.exp(-speed * dt))) schedule(step);
   };
