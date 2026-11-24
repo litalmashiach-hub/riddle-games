@@ -3,7 +3,8 @@ import { Clickable, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { GLOW, JAR_BASE_Y, JAR_COUNT, JAR_H, JAR_POS, JAR_R } from './layout';
+import { useJars } from './context';
+import { GLOW, JAR_BASE_Y, JAR_H, JAR_R } from './layout';
 import { isDone, type Jar } from './rules';
 
 /** A soft round glow texture, made once in a canvas. */
@@ -58,7 +59,7 @@ function GlassJar({ index, jar, onClick, disabled, lifted, ok, won }: { index: n
   const wasDone = useRef(done);
   if (done && !wasDone.current) doneAt.current = performance.now() / 1000;
   wasDone.current = done;
-  const [x, y, z] = JAR_POS[index];
+  const [x, y, z] = useJars().row[index];
 
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
@@ -143,7 +144,7 @@ export function JarRow({
 }) {
   return (
     <group>
-      {Array.from({ length: JAR_COUNT }, (_, i) => (
+      {jars.map((_, i) => (
         <GlassJar key={i} index={i} jar={jars[i]} lifted={selected === i} ok={targets[i]} disabled={disabled} won={won} onClick={() => onJar(i)} />
       ))}
     </group>

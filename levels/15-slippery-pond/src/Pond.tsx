@@ -4,17 +4,16 @@ import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { forwardRef, useImperativeHandle, useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { CELL, HALF, WATER_Y, cellPos } from './layout';
-import { BASKET, cellsOf } from './rules';
+import { usePond } from './context';
 
-const HOLES = cellsOf('H');
-const ROCKS = cellsOf('R');
-const SNOW = cellsOf('S');
 const HOLE_R = 0.44;
 
 // ---------------------------------------------------------------- ice sheet
 
 /** Glossy ice with frosted tile seams, cracks, sparkles and holes cut out. */
 function useIceMaterial() {
+  const pond = usePond();
+  const HOLES = useMemo(() => pond.cellsOf('H'), [pond]);
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
@@ -22,7 +21,7 @@ function useIceMaterial() {
       uCell: { value: CELL },
       uHalf: { value: HALF },
     }),
-    [],
+    [HOLES],
   );
   const mat = useMemo(() => {
     const m = new THREE.MeshStandardMaterial({ color: '#cfefff', roughness: 0.12, metalness: 0.05, envMapIntensity: 1.4 });
@@ -112,13 +111,14 @@ function useIceMaterial() {
         );
     };
     return m;
-  }, [uniforms]);
+  }, [uniforms, HOLES]);
   useFrame((_, dt) => (uniforms.uTime.value += dt));
   return mat;
 }
 
 function IceSheet({ onPick }: { onPick: (e: ThreeEvent<MouseEvent>) => void }) {
   const mat = useIceMaterial();
+  const HOLES = usePond().cellsOf('H');
   const side = useMemo(() => new THREE.MeshStandardMaterial({ color: '#8fd3f5', roughness: 0.15, transparent: true, opacity: 0.85, emissive: '#2a6fa0', emissiveIntensity: 0.25 }), []);
   const W = HALF * 2 + 0.3;
   return (
@@ -310,8 +310,10 @@ const rockMat = toon('#6d7698', { rough: 0.9 });
 const rockDark = toon('#525a7a', { rough: 0.9 });
 
 function Rocks() {
+  const pond = usePond();
+  const ROCKS = useMemo(() => pond.cellsOf('R'), [pond]);
   const r = useMemo(() => seeded(7), []);
-  const shapes = useMemo(() => ROCKS.map(() => ({ rot: r() * 6, s: 0.85 + r() * 0.25, tilt: (r() - 0.5) * 0.3, shroom: r() > 0.45 })), [r]);
+  const shapes = useMemo(() => ROCKS.map(() => ({ rot: r() * 6, s: 0.85 + r() * 0.25, tilt: (r() - 0.5) * 0.3, shroom: r() > 0.45 })), [r, ROCKS]);
   return (
     <group>
       {ROCKS.map((c, i) => {
@@ -356,6 +358,7 @@ export interface DriftHandle {
 
 /** Soft snow drifts: the otter plows in and stops on them. */
 export const SnowDrifts = forwardRef<DriftHandle>(function SnowDrifts(_, ref) {
+  const SNOW = usePond().cellsOf('S');
   const groups = useRef<(THREE.Group | null)[]>([]);
   const hitAt = useRef<number[]>(SNOW.map(() => -99));
   useImperativeHandle(ref, () => ({ hit: (i) => (hitAt.current[i] = performance.now()) }));
@@ -407,6 +410,7 @@ export function Basket({ eaten }: { eaten: boolean }) {
     }
     fishes.current?.children.forEach((f, i) => (f.rotation.z = Math.sin(t * 4 + i * 2) * 0.25));
   });
+  const { basket: BASKET } = usePond();
   const [x, , z] = cellPos(BASKET.x, BASKET.y);
   return (
     <group position={[x, 0, z]}>

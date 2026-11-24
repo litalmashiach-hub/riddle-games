@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useStore } from 'zustand';
 import * as THREE from 'three';
+import { sceneTaps, watchMoves } from '../haptics';
 import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
@@ -28,6 +29,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   useEffect(() => {
     if (hasTestFlag('debug')) (window as any).__riddle = session;
   }, [session]);
+  // The app's touch response for each move (nothing on the website).
+  useEffect(() => watchMoves(session), [session]);
   const s = useStore(session);
   const state = s.history[s.history.length - 1];
   const previous = s.history.length > 1 ? s.history[s.history.length - 2] : null;
@@ -100,6 +103,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
         dpr={quality === 'high' ? [1, TOUCH ? 1.5 : 2] : [1, 1.25]}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
         camera={{ position: cam.position, fov: cam.fov ?? 42, near: 0.1, far: 500 }}
+        {...sceneTaps}
       >
         <Suspense fallback={null}>
           <WorldStage world={level.world}>

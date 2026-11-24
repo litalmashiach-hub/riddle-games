@@ -12,8 +12,9 @@ const ABOUT_ONLY = /about\.spec\.ts$/;
 export default defineConfig({
   testDir: './tests',
   outputDir: '../test-results',
-  // A level takes as long as its animations: the longest (20 slides, 17 crossings) need about a minute.
-  timeout: 240_000,
+  // A level takes as long as its animations. Drawn in software, the longest (30 slides, 31 moves) need
+  // three to four minutes, and more when three of them run side by side.
+  timeout: 480_000,
   expect: { timeout: 20_000 },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,

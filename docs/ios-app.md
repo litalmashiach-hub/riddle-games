@@ -7,8 +7,8 @@ The website's own build (`pnpm build` → `apps/web/dist`) and its deploy are no
 ## The one place for the app's identity
 
 `apps/mobile/ios/AppIdentity.xcconfig` holds the bundle identifier, the name under the icon, the version and the
-build number. Xcode and `capacitor.config.ts` both read it. **All four are placeholders** until the owner picks the
-final name and identifier. Raise `APP_BUILD` for every upload to App Store Connect.
+build number. Xcode and `capacitor.config.ts` both read it. The version is 1.0, build 1. **The identifier and the
+name are placeholders** until the owner picks the final ones. Raise `APP_BUILD` for every upload to App Store Connect.
 
 ## The app build of the game
 
@@ -58,8 +58,43 @@ team's workspace, so this run is how a change to the iOS project is proven.
 - No page scroll, bounce or pinch zoom of the page (`GameViewController.swift`, `capacitor.config.ts`);
   text selection and long-press menus are already off in the game's CSS.
 - Launch screen: `Base.lproj/LaunchScreen.storyboard` showing the `Splash` image on the game's dark blue.
+  `GameViewController.swift` keeps the same picture over the web view until the game has drawn its first screen, then fades it
+  out, so the launch screen goes straight into the game with no empty frame between.
 - Icon: one opaque 1024 pixel PNG. Icon and launch image are rendered from `apps/web/public/icons/icon.svg` and
   `apps/mobile/art/launch.svg` by `apps/mobile/scripts/render-art.mjs`; run it only when the art changes.
+
+## Feeling like an app
+
+Apple refuses apps that feel like a wrapped website. What the game does about it, and where:
+
+- **Safe areas.** The scene fills the screen edge to edge. Everything a player reads or taps keeps clear of the
+  notch or Dynamic Island, the rounded corners and the home bar, with `env(safe-area-inset-*)` in the shell's
+  styles (`apps/web/src/screens`, `.safe-top` in `index.css`). A sideways list of level cards passes under
+  the notch while it is swiped and rests inside the insets at both ends, as a native list does.
+- **No web-page gestures.** A long press selects no text and opens no menu, a double tap or pinch does not zoom
+  the page, and the page as a whole never scrolls or bounces. Most of that is in `index.css` and
+  `pwa/register.ts` for the website too. The app adds, in `apps/web/src/nativeFeel.ts` and under
+  `html.app-shell` in `index.css`: no context menu, nothing can be dragged out of the page, the page can't be
+  scrolled even by script, and buttons show their pressed look reliably. Long text (a rules card, the About
+  screen) still scrolls inside its own box. Text that is meant to be copied carries the class `select-text`
+  and keeps its menu.
+- **Touch response.** A tap that does something gives a light tick: every button, tab, switch and link of
+  every screen, a tap on something in the 3D scene that takes taps, and every move. It is in
+  `apps/web/src/haptics.ts` and goes through Capacitor's own plugin, `@capacitor/haptics`
+  (`Haptics.impact`, style light, which is UIKit's `UIImpactFeedbackGenerator`). A device without a haptic
+  engine, such as an iPad, does nothing. So does the website: its build holds none of this code.
+- **Which switch.** The tick follows the game's sound switch. It stands beside the click sound as the game's
+  answer to a tap, so one switch quiets both, and nothing new is stored on the device (the privacy policy
+  speaks of stars and two settings). A player who wants the sound without the tick has iOS's own switch for
+  that: Settings, Sounds & Haptics, System Haptics, which UIKit's feedback generator obeys by itself.
+
+A new screen or level needs to do nothing for the tick or the gestures. For the safe areas, pad anything that
+is fixed to an edge with `max(<its normal gap>, env(safe-area-inset-<edge>))`.
+
+`e2e/tests/native-feel.spec.ts` checks all of this in Chromium: the layout against insets that the test sets
+(Chromium has no notch of its own), the gestures, that the website gives no touch response, and, against the
+app build with a stand-in for the native side of the bridge, that each kind of tap makes exactly one
+`Haptics.impact` call. The tick itself can only be felt on a real iPhone.
 
 ## The privacy manifest
 
@@ -83,9 +118,15 @@ and must bring its own manifest, and Swift code of ours that reads `UserDefaults
 or the system uptime needs an entry with one of Apple's reason codes here. If the app ever talks to a server or
 collects anything, this file and the store's privacy answers change together.
 
+One plugin is installed: `@capacitor/haptics` 8.0.2. Its two Swift files (`Haptics.swift`, `HapticsPlugin.swift`)
+call UIKit's feedback generators, AudioToolbox and CoreHaptics and none of the five groups above, it stores and
+sends nothing, and it ships no manifest of its own because it has nothing to declare. So the app's manifest is
+unchanged by it. `cap sync` writes the plugin into `ios/App/CapApp-SPM/Package.swift`; that file is generated,
+and committed so that the Xcode project opens as it is.
+
 ## Still open before a store upload
 
-- Final name, bundle identifier and version, in `AppIdentity.xcconfig`.
+- Final name and bundle identifier, in `AppIdentity.xcconfig`.
 - Signing with the owner's Apple developer account.
 - `Info.plist` declares that the app uses no non-exempt encryption (`ITSAppUsesNonExemptEncryption` = NO). That
   is true of the code today: the game makes no network calls and has no encryption of its own. It is the owner's

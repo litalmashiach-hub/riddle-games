@@ -26,3 +26,9 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For another jam in the same scene (see levels/27-log-jam-deluxe).
+export { JamContext } from './context';
+export { MOVE_MS } from './layout';
+export { cells, makeJam, SIZE, type Jam, type Move, type Piece, type State } from './rules';
+export { Scene } from './Scene';
