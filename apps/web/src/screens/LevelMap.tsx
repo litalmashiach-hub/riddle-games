@@ -2,13 +2,14 @@ import type { Progress } from '@riddle/engine';
 import { WORLDS, sfx, useSettings } from '@riddle/fx';
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
+import { hasTestFlag } from '../appShell';
 import { Stars } from '../components/Stars';
 import { LockIcon, PlayIcon, SoundIcon } from '../components/Icons';
 import { LEVELS, WORLD_ORDER, type LevelEntry } from '../levels';
 
-/** A built level is open when every built level before it is solved. `?all` opens everything. */
+/** A built level is open when every built level before it is solved. `?all` opens everything (website only). */
 function isUnlocked(entry: LevelEntry, progress: Progress) {
-  if (new URLSearchParams(location.search).has('all') || import.meta.env.DEV) return true;
+  if (hasTestFlag('all') || import.meta.env.DEV) return true;
   return LEVELS.filter((l) => l.level && l.number < entry.number).every((l) => (progress.stars[l.id] ?? 0) > 0);
 }
 

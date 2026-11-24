@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useStore } from 'zustand';
 import * as THREE from 'three';
+import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
@@ -24,7 +25,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   const session = useMemo(() => createSession(level), [level]);
   // `?debug` exposes the session for automated play-tests: window.__riddle.getState().play(move)
   useEffect(() => {
-    if (new URLSearchParams(location.search).has('debug')) (window as any).__riddle = session;
+    if (hasTestFlag('debug')) (window as any).__riddle = session;
   }, [session]);
   const s = useStore(session);
   const state = s.history[s.history.length - 1];
@@ -371,7 +372,7 @@ function CameraRig({ position, target, fitAspect }: { position: [number, number,
   const from = useMemo(() => end.clone().sub(goal).multiplyScalar(1.7).add(goal).add(new THREE.Vector3(6, 4, 0)), [end, goal]);
 
   useEffect(() => {
-    if (new URLSearchParams(location.search).has('debug')) (window as any).__camera = { camera, controls };
+    if (hasTestFlag('debug')) (window as any).__camera = { camera, controls };
   }, [camera]);
 
   // Wider lens on narrow screens. After the fly-in, a turned screen keeps the player's angle but refits the distance.
