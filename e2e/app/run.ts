@@ -27,6 +27,7 @@ const device = args.device ?? 'device';
 const out = resolve(args.out ?? `out/${device}`);
 const shots = join(out, 'shots');
 mkdirSync(shots, { recursive: true });
+(globalThis as any).__outDir = out;
 const [lo, hi] = (args.levels ?? '1-30').split('-').map(Number);
 const LEVEL_BUDGET_MS = Number(args['level-minutes'] ?? 25) * 60_000;
 const bundleId = args['bundle-id'] ?? 'com.example.riddlegames';

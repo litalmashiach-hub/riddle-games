@@ -40,14 +40,24 @@ export class AppiumBackend implements Backend {
     });
     // The game draws all the time: XCTest must not wait for the app to go idle before each touch.
     await this.driver.updateSettings({ waitForIdleTimeout: 0, animationCoolOffTimeout: 0, snapshotMaxDepth: 30 }).catch((e: unknown) => this.log(`settings: ${e}`));
-    await this.toWebview();
+    try {
+      await this.toWebview();
+    } catch (e) {
+      const state = await this.driver.execute('mobile: queryAppState', { bundleId: (this.caps as any)['appium:bundleId'] }).catch((x: unknown) => `? ${x}`);
+      this.log(`app state: ${state}`);
+      const full = await this.driver.execute('mobile: getContexts', { waitForWebviewMs: 20000 }).catch((x: unknown) => `? ${x}`);
+      this.log(`contexts in full: ${JSON.stringify(full).slice(0, 1500)}`);
+      const shot = (globalThis as any).__outDir;
+      if (shot) await this.screenshot(`${shot}/no-webview.png`).catch(() => undefined);
+      throw e;
+    }
   }
 
   /** Finds the app's web view and makes it the place where scripts run. */
   async toWebview(timeout = 180_000) {
     const end = Date.now() + timeout;
     for (;;) {
-      const contexts: any[] = await this.driver.getContexts().catch(() => []);
+      const contexts: any[] = await this.driver.getContexts().catch((x: unknown) => { this.log(`getContexts: ${String(x).slice(0, 200)}`); return []; });
       const names = contexts.map((c) => (typeof c === 'string' ? c : c.id));
       const web = names.find((n) => n.startsWith('WEBVIEW'));
       if (web) {

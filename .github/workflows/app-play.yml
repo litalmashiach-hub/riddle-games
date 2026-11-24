@@ -69,6 +69,8 @@ jobs:
     name: ${{ matrix.label }}
     runs-on: macos-26
     timeout-minutes: 340
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
@@ -94,6 +96,21 @@ jobs:
       - name: Play in the simulator
         timeout-minutes: 320
         run: e2e/app/ios-play.sh "${{ matrix.label }}" "${{ matrix.sim }}" "${{ matrix.orientation }}" "${{ matrix.levels }}" "${{ matrix.extras }}"
+      - name: What Appium said about the web view
+        if: always()
+        run: |
+          gzcat out/*/appium.txt.gz 2> /dev/null | grep -iE "webview|web view|remote ?debugger|inspector|context|error|socket" | head -n 150 || true
+      - name: Keep the results on the branch test/app-play-out/${{ matrix.label }} (test only, overwritten each run)
+        if: always()
+        run: |
+          cd out
+          git init -q -b results
+          git config user.name "app-play run"
+          git config user.email "actions@users.noreply.github.com"
+          echo "Run ${{ github.run_id }}, job ${{ matrix.label }}, commit ${{ github.sha }}" > RUN.txt
+          git add -A
+          git commit -q -m "TEST ONLY: app-play results of run ${{ github.run_id }}, ${{ matrix.label }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "results:refs/heads/test/app-play-out/${{ matrix.label }}"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
