@@ -58,7 +58,7 @@ team's workspace, so this run is how a change to the iOS project is proven.
 - No page scroll, bounce or pinch zoom of the page (`GameViewController.swift`, `capacitor.config.ts`);
   text selection and long-press menus are already off in the game's CSS.
 - Launch screen: `Base.lproj/LaunchScreen.storyboard` showing the `Splash` image on the game's dark blue.
-  `GameViewController.swift` keeps the same picture over the web view until the page has loaded, then fades it
+  `GameViewController.swift` keeps the same picture over the web view until the game has drawn its first screen, then fades it
   out, so the launch screen goes straight into the game with no empty frame between.
 - Icon: one opaque 1024 pixel PNG. Icon and launch image are rendered from `apps/web/public/icons/icon.svg` and
   `apps/mobile/art/launch.svg` by `apps/mobile/scripts/render-art.mjs`; run it only when the art changes.
