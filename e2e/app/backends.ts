@@ -9,7 +9,7 @@ import type { Backend, Point } from './fake-page';
 import { sleep } from './fake-page';
 
 const wrap = (src: string) =>
-  `var __name = function (f) { return f; }; try { var v = (${src})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String((e && e.stack) || e) }; }`;
+  `var __name = function (f) { return f; }; try { var v = (${src})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }`;
 
 /** Maps a point of the page to the point XCTest must touch, found by calibration (see Appium.calibrate). */
 type Transform = { name: string; toDevice(p: Point): Point; toPage(p: Point): Point };
@@ -66,6 +66,7 @@ export class AppiumBackend implements Backend {
         try {
           const ok = await this.exec<boolean>('() => !!document.body');
           if (ok) {
+            this.log(`page: ${JSON.stringify(await this.exec('() => ({ href: location.href, hooks: typeof window.__appq, scene: typeof window.__taps, title: document.title })'))}`);
             await this.measure();
             return;
           }
