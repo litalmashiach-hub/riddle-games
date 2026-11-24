@@ -71,7 +71,7 @@ filmed() {
   sleep 4
   shot "$1-home-before-launch"
   local start; start=$(now)
-  xcrun simctl launch "$UDID" "$BUNDLE_ID" > /dev/null 2>&1
+  limited 120 xcrun simctl launch "$UDID" "$BUNDLE_ID" > /dev/null 2>&1
   echo "launch call returned after $(perl -e "printf '%.1f', $(now) - $start") s; the film began about 4 to 6 s before the launch call"
   sleep "$2"
   shot "$1-after-launch"
