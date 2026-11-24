@@ -1,0 +1,30 @@
+# TEST ONLY (branch store-screenshots-test). A tiny Xcode project (made by XcodeGen) with one UI test that turns the
+# simulator and launches the built app, then reports which screenshot scene is up. It never touches App.xcodeproj.
+name: StoreShots
+options:
+  bundleIdPrefix: test.riddlegames
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  StoreShotsUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: test.riddlegames.storeshots
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: "5.0"
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        DEVELOPMENT_TEAM: ""
+schemes:
+  StoreShots:
+    build:
+      targets:
+        StoreShotsUITests: [test]
+    test:
+      targets:
+        - StoreShotsUITests
