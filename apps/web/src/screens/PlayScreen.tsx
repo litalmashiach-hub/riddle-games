@@ -10,6 +10,7 @@ import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
+import { hintLine } from '../hint';
 
 /** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
 const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -78,7 +79,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       if (k === 'z') session.getState().undo();
       else if (k === 'y') session.getState().redo();
       else if (k === 'r') session.getState().restart();
-      else if (k === 'h') setHintText(session.getState().askHint());
+      else if (k === 'h') setHintText(hintLine(session.getState()));
       else if (k === 'escape') setShowRules(false);
     };
     window.addEventListener('keydown', onKey);
@@ -158,10 +159,10 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
           <Button onClick={s.undo} disabled={moveCount === 0} aria-label="Undo" className="short:!px-3"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
           <Button onClick={s.redo} disabled={s.future.length === 0} aria-label="Redo" className="short:!px-3"><RedoIcon /></Button>
           <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} aria-label="Restart" className="short:!px-3"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
-          <Button tone="gold" className="short:hidden" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline">Hint</span></Button>
+          <Button tone="gold" className="short:hidden" onClick={() => setHintText(hintLine(s))} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline">Hint</span></Button>
         </div>
         <div className="pointer-events-auto hidden short:block">
-          <Button tone="gold" className="!rounded-3xl !px-4 !py-3.5" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon />Hint</Button>
+          <Button tone="gold" className="!rounded-3xl !px-4 !py-3.5" onClick={() => setHintText(hintLine(s))} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon />Hint</Button>
         </div>
       </div>
 

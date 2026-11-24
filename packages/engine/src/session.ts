@@ -107,6 +107,8 @@ export function createSession<S, M>(level: RiddleLevel<S, M>): StoreApi<SessionS
         status: rules.status(rules.initialState),
         busy: false,
         hint: null,
+        // A fresh run: hints taken before the restart no longer count against its stars.
+        hintsUsed: 0,
         ended: false,
         resetCount: s.resetCount + 1,
       }));
