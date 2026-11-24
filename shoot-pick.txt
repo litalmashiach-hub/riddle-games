@@ -16,3 +16,15 @@
 45471104861 ipad-13 07-hint 06 hint-06
 45471104861 ipad-13 07-hint 09 hint-09
 45471104861 ipad-13 08-map 00 map-00
+45486956739 iphone-69 xc/01-river 03 river-03
+45486956739 iphone-69 xc/01-river 04 river-04
+45486956739 iphone-69 xc/01-river 08 river-08
+45486956739 iphone-69 xc/02-hanoi 02 hanoi-02
+45486956739 iphone-69 xc/02-hanoi 04 hanoi-04
+45486956739 iphone-69 xc/02-hanoi 07 hanoi-07
+45486956739 iphone-69 xc/03-coins 04 coins-04
+45486956739 iphone-69 xc/03-coins 06 coins-06
+45486956739 iphone-69 xc/04-balloon 05 balloon-05
+45486956739 iphone-69 xc/04-balloon 06 balloon-06
+45486956739 iphone-69 xc/05-moonbeam 00 moonbeam-00
+45486956739 iphone-69 xc/06-pancakes 00 pancakes-00
