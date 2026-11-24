@@ -52,8 +52,29 @@ async function expectClearOfButtons(page: Page, line: string) {
   }
 }
 
+/** The hint leaves by itself after this long. */
+const HINT_STAYS_MS = 5000;
+
+/**
+ * Lets a test take the hint's own timer away: while `window.__keepHints` is set, a timer of that length
+ * is never started. A hint that leaves then has left for another reason, however slow the machine is.
+ * Call it before the page loads.
+ */
+async function letTestsKeepHints(page: Page, from: 'the start' | 'when asked') {
+  await page.addInitScript(
+    ([ms, on]) => {
+      const w = window as unknown as { __keepHints: boolean; setTimeout: (...args: unknown[]) => unknown };
+      w.__keepHints = on;
+      const start = w.setTimeout.bind(window);
+      w.setTimeout = (...args) => (w.__keepHints && args[1] === ms ? 0 : start(...args));
+    },
+    [HINT_STAYS_MS, from === 'the start'] as const,
+  );
+}
+
 test('level 20: Hint says so where no win is left, and that costs no star', async ({ page }) => {
   const level = LEVELS.find((l) => l.id === 'berry-bridges')!;
+  await letTestsKeepHints(page, 'when asked');
   await seedProgress(page, Object.fromEntries(LEVELS.filter((l) => l.number < level.number).map((l) => [l.id, 3])));
   await page.goto(`?debug&quality=low#/level/${level.id}`);
   await waitForSession(page, level.id);
@@ -77,8 +98,15 @@ test('level 20: Hint says so where no win is left, and that costs no star', asyn
   expect((await session(page)).hintsUsed).toBe(0);
   await expect(page.getByText(NO_WIN_LEFT)).toBeHidden();
 
-  // One step back there is a win again: Hint names a move, as before.
+  // The line speaks of this position only: with its timer taken away, it still leaves at Undo.
+  await page.evaluate(() => ((window as unknown as { __keepHints: boolean }).__keepHints = true));
+  await hintButton(page).tap();
+  await expect(page.getByText(NO_WIN_LEFT)).toBeVisible();
   await page.getByRole('button', { name: 'Undo' }).tap();
+  expect(await session(page)).toMatchObject({ kind: 'playing', moves: 0 });
+  await expect(page.getByText(NO_WIN_LEFT)).toHaveCount(0);
+
+  // One step back there is a win again: Hint names a move, as before.
   await hintButton(page).tap();
   await expect(page.getByText(/Start on the (lantern|reed) islet/)).toBeVisible();
   await expect(page.getByText(NO_WIN_LEFT)).toHaveCount(0);
@@ -87,14 +115,18 @@ test('level 20: Hint says so where no win is left, and that costs no star', asyn
 
 test('level 1: a restart forgets the hints, so the fresh run earns three stars', async ({ page }) => {
   const one = LEVELS[0];
+  await letTestsKeepHints(page, 'the start');
   await page.goto(`?debug&quality=low#/level/${one.id}`);
   await waitForSession(page, one.id);
   await passRulesCard(page, one.title);
 
   await playMove(page, one.moves[0], 1);
+  // An ordinary hint leaves with its position too: here it has no timer, and Restart takes it away.
   await hintButton(page).tap();
+  await expect(page.getByText(/^💡 Row /)).toBeVisible();
   expect((await session(page)).hintsUsed).toBe(1);
   await page.getByRole('button', { name: 'Restart' }).tap();
+  await expect(page.getByText(/^💡 Row /)).toHaveCount(0);
   expect(await session(page)).toMatchObject({ moves: 0, hintsUsed: 0 });
 
   for (const [i, move] of one.moves.entries()) await playMove(page, move, i + 1);
