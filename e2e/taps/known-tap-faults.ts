@@ -25,17 +25,6 @@ export interface KnownTapFault {
 const ALL = ['iphone-landscape', 'iphone-small-landscape', 'iphone-large-landscape'];
 
 export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {
-  'wolf-goat-cabbage': [
-    {
-      // At 956 by 440 the same tap reached the cabbage and the level was won: the edge of the goat's
-      // sphere lies close to the cabbage's middle there.
-      sizes: ['iphone-landscape', 'iphone-small-landscape'],
-      steps: [5],
-      kind: 'wrong-pick',
-      reason:
-        "Level 2, move 5 (row the cabbage across): on the left bank a tap on the middle of the cabbage puts the goat in the boat. The goat stands in front, and its unseen tap sphere (radius 0.6) reaches over the cabbage's middle.",
-    },
-  ],
   'jealous-couples': [
     {
       sizes: ALL,

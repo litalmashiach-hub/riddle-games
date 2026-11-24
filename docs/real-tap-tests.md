@@ -58,6 +58,12 @@ to another host.
   level's own layout code) and taps the middle of the screen box of what that object draws. Where the
   object that listens draws nothing (an unseen pad on an islet, a ring on the water), the tap goes to
   the middle of the drawn thing it stands for; each such case is said in a comment in its player.
+- One player aims another way, and says why: level 2 taps each passenger on its *clear middle*
+  (`tapClear` in `harness.ts`), the middle of the part of it that lies outside the other figures'
+  drawn boxes. On the left bank the goat stands close in front of the cabbage; its head turns all the
+  time and its unseen tap sphere ends right at the middle of the cabbage's box, so a tap on that middle
+  picked the cabbage in some runs and the goat in others. A person taps the cabbage where it is clear
+  of the goat. The point is worked out from what the scene draws, never from where a tap lands.
 - No spot is found by trial, no offset is tuned until a tap lands, and no touch is tried twice.
 - Before each touch the run asks the page what lies on top at that point. If it is not the scene
   (a bar, a button, a label), that is a fault: `covered`.
@@ -95,8 +101,6 @@ A listed level stops at its first fault, so the steps after it are not proven by
 
 Listed today (the full account of the first run is in the project's report "real-taps"):
 
-- Level 2, Wolf, Goat and Cabbage: move 5, a tap on the cabbage picks the goat. At 852 and 667;
-  at 956 the same tap reached the cabbage.
 - Level 7, Jealous Couples: move 1, a tap on Mrs Coral picks Mr Teal, who stands in front of her.
   All sizes.
 - Level 11, Family Crossing: a tap on the guard picks Dad. Move 1 at 667 and 956; move 1 or 3 at 852,
@@ -104,6 +108,11 @@ Listed today (the full account of the first run is in the project's report "real
 - Level 12, Twelve Coins: first weighing, a tap on coin 3 sends coin 9. All sizes.
 - Level 18, Log Jam: move 3, the tap on the ring is lost to a log in front of it. All sizes.
 - Level 27, Timber Tangle: move 9, the tap on the ring is lost to the picked log itself. All sizes.
+
+Level 2, Wolf, Goat and Cabbage, is no longer listed: its player taps the cabbage where it is clear of
+the goat, and wins at every size. The fault in the game stays: the goat's unseen tap sphere reaches to
+the middle of the cabbage on the left bank, so a tap there may pick the goat. That is for a fix in the
+level, not in this run.
 
 ## Adding a level
 

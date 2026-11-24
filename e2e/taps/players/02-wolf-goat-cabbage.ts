@@ -12,7 +12,12 @@ const LABEL: Record<Item, string> = { wolf: 'with wolf', goat: 'with goat', cabb
 /**
  * Level 2: tap the passenger that is to ride (it hops into the boat and the Row button names it), then
  * the scene's own "Row" button. The passenger is found as the listening figure that stands on its place
- * on the bank, and tapped in the middle of what it draws.
+ * on the bank, and tapped on its clear middle: the middle of the part of it that lies outside the
+ * other figures' boxes. On the left bank the goat stands in front of the cabbage, close by: its head,
+ * which turns all the time, is drawn over the cabbage's middle in some frames and not in others, and its
+ * unseen tap sphere (radius 0.6) ends right at that middle. A tap on the middle of the cabbage's box
+ * therefore picks the cabbage in one run and the goat in the next. A person taps the cabbage where it is
+ * clear of the goat, and so does this player.
  */
 const wolfGoatCabbage: TapPlayer<State, Move> = {
   async move(taps, move, state) {
@@ -24,7 +29,7 @@ const wolfGoatCabbage: TapPlayer<State, Move> = {
       const place: [number, number, number] = [(state.farmer === 'L' ? -1 : 1) * s.x, 0, s.z];
       const figure = await taps.targetNear(place, { handler: 'onClick', within: 1.2 });
       if (!figure) return taps.fault('no-response', `no figure that listens stands at the ${move.passenger}'s place`);
-      await taps.tapTarget(figure, `the ${move.passenger}`);
+      await taps.tapClear(figure, `the ${move.passenger}`);
       try {
         await row.filter({ hasText: LABEL[move.passenger] }).waitFor({ state: 'visible', timeout: 10_000 });
       } catch {

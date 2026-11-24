@@ -176,6 +176,79 @@ export const READ_SCENE = () => {
       });
       return out;
     },
+    /**
+     * The clear middle of a listening object: of the screen points, on a grid `step` apart, where a ray
+     * meets one of its own shown meshes and that lie outside the drawn screen box of every other
+     * listening object, the one farthest from any point that is not such a point. That is where a person
+     * taps a thing that stands close behind or beside another one: on the part of it that is clear of
+     * its neighbour, not on the middle of its box, which may be drawn over by the neighbour or lie in the
+     * neighbour's reach. Only shown meshes count, so an unseen grab area does not; the neighbours' boxes
+     * are the boxes of what they draw. Null if no point is clear.
+     */
+    clearMiddle: (uuid: string, step: number) => {
+      const st = three();
+      if (!st) return null;
+      let root: any = null;
+      const others: any[] = [];
+      st.scene.traverse((o: any) => {
+        if (o.uuid === uuid) root = o;
+        else if (listens(o).some((n) => n === 'onClick' || n === 'onPointerDown' || n === 'onPointerUp') && shown(o)) others.push(o);
+      });
+      if (!root) return null;
+      const b = boxOf(st, root, false);
+      if (!b) return null;
+      const near = others.filter((o) => !root.getObjectById(o.id)).map((o) => boxOf(st, o, false)).filter(Boolean) as { x0: number; y0: number; x1: number; y1: number }[];
+      const own: any[] = [];
+      root.traverse((o: any) => {
+        if (o.isMesh && shown(o)) own.push(o);
+      });
+      const rect = st.gl.domElement.getBoundingClientRect();
+      const rc = st.raycaster;
+      const o0 = rc.ray.origin.clone();
+      const d0 = rc.ray.direction.clone();
+      // One ring of cells outside the box, so that the box's edge counts as "not the object".
+      const nx = Math.floor((b.x1 - b.x0) / step) + 3;
+      const ny = Math.floor((b.y1 - b.y0) / step) + 3;
+      const at = (i: number, j: number) => ({ x: b.x0 + (i - 1) * step, y: b.y0 + (j - 1) * step });
+      const seen: boolean[] = new Array(nx * ny).fill(false);
+      for (let j = 1; j < ny - 1; j++)
+        for (let i = 1; i < nx - 1; i++) {
+          const p = at(i, j);
+          if (near.some((n) => p.x >= n.x0 && p.x <= n.x1 && p.y >= n.y0 && p.y <= n.y1)) continue;
+          rc.setFromCamera({ x: ((p.x - rect.left) / rect.width) * 2 - 1, y: -((p.y - rect.top) / rect.height) * 2 + 1 }, st.camera);
+          seen[j * nx + i] = rc.intersectObjects(own, false).length > 0;
+        }
+      rc.ray.origin.copy(o0);
+      rc.ray.direction.copy(d0);
+      // For each cell that shows the object: how far it lies from the nearest cell that does not.
+      const out: [number, number][] = [];
+      const inn: [number, number][] = [];
+      seen.forEach((v, k) => (v ? inn : out).push([k % nx, Math.floor(k / nx)]));
+      if (!inn.length) return null;
+      let cx = 0, cy = 0;
+      for (const [i, j] of inn) {
+        cx += i;
+        cy += j;
+      }
+      cx /= inn.length;
+      cy /= inn.length;
+      // The deepest cell; among equals, the one nearest the middle of the part that shows.
+      let best = inn[0];
+      let bestD = -1;
+      let bestC = Infinity;
+      for (const [i, j] of inn) {
+        let d = Infinity;
+        for (const [oi, oj] of out) d = Math.min(d, (oi - i) ** 2 + (oj - j) ** 2);
+        const c = (i - cx) ** 2 + (j - cy) ** 2;
+        if (d > bestD || (d === bestD && c < bestC)) {
+          best = [i, j];
+          bestD = d;
+          bestC = c;
+        }
+      }
+      const p = at(best[0], best[1]);
+      return { x: p.x, y: p.y, depth: Math.sqrt(bestD) * step };
+    },
     /** The listening object that a ray from the screen point reaches first: what the game's own picking would report first. */
     firstHit: (x: number, y: number) => {
       const st = three();
@@ -210,6 +283,7 @@ declare global {
       camera(): number[] | null;
       targets(): Target[];
       firstHit(x: number, y: number): TapRecord['firstHit'];
+      clearMiddle(uuid: string, step: number): (Point & { depth: number }) | null;
     };
   }
 }
@@ -310,6 +384,21 @@ export class Taps {
   middleOf(t: Target): Point {
     const b = t.drawn ?? t.box;
     return b ? { x: (b.x0 + b.x1) / 2, y: (b.y0 + b.y1) / 2 } : t.screen;
+  }
+
+  /**
+   * Where a person taps a thing that stands close to another one: the clear middle of the part of it
+   * that lies outside its neighbours' boxes (see `clearMiddle` in READ_SCENE). Falls back to `middleOf`
+   * if no part of it is clear.
+   */
+  async clearMiddleOf(t: Target, step = 2): Promise<Point> {
+    const p = await this.page.evaluate(([u, s]) => window.__taps.clearMiddle(u, s), [t.uuid, step] as const);
+    return p ? { x: p.x, y: p.y } : this.middleOf(t);
+  }
+
+  /** One tap on the clear middle of a listening object. */
+  async tapClear(t: Target, what: string): Promise<TapRecord> {
+    return this.tapAt(await this.clearMiddleOf(t), what);
   }
 
   private async look(at: Point, what: string) {
