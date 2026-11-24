@@ -1,5 +1,5 @@
 import { LEVELS } from '../levels';
-import { expect, passRulesCard, playMove, savedStars, SETTINGS_KEY, test, waitForSession } from './fixtures';
+import { expect, mapButton, passRulesCard, playMove, savedStars, SETTINGS_KEY, test, waitForSession } from './fixtures';
 
 test('progress and settings survive a reload', async ({ page }) => {
   const [one, two, three] = LEVELS;
@@ -33,7 +33,7 @@ test('progress and settings survive a reload', async ({ page }) => {
 test('the map lists every level that the tests play', async ({ page }) => {
   await page.goto('');
   for (const level of LEVELS) {
-    await expect(page.getByRole('button', { name: `Level ${level.number}: ${level.title}`, exact: true })).toHaveCount(1);
+    await expect(mapButton(page, level.number, level.title)).toHaveCount(1);
   }
   await expect(page.getByRole('button', { name: /^Level \d+:/ })).toHaveCount(LEVELS.length);
 });

@@ -32,7 +32,7 @@ Two screen sizes, both with touch and the phone held sideways:
 
 | File | What it does |
 | --- | --- |
-| `e2e/tests/levels.spec.ts` | Every level: opens it as a player who solved the earlier ones, taps through the rules card, plays the shortest solution, and checks the win card, three stars, the saved stars, the map's star count, and that the next level opens. Saves a screenshot of each win. |
+| `e2e/tests/levels.spec.ts` | Every level: opens it as a player who solved the earlier ones, taps through the rules card, plays the shortest solution, and checks the top bar's counter while playing, the win card, three stars, the saved stars, the map's star count, and that the next level opens. Saves a screenshot of each win. |
 | `e2e/tests/level-1-by-taps.spec.ts` | Level 1 by taps on the screen alone, from a fresh level map to the win card and on to level 2. Also a loss: the "Oh no!" card, and undo. |
 | `e2e/tests/progress.spec.ts` | Stars and the sound setting survive a restart of the app; locked levels stay locked; the map lists every level. |
 
@@ -55,6 +55,23 @@ stands, and that is different for every level's scene. Level 1's test reads the 
 `?debug` hook to work that out and then taps the touch screen; it copies the animals' places from
 the scene's code, so it needs a change if they move.
 
+## Checks that do not depend on the layout
+
+The tests ask the game what it says rather than where it puts it, so they hold when the shell's
+layout changes:
+
+- Titles, the best number of moves and the word for a move (`moveNoun`) are read from the running
+  level, through the `?debug` hook. Texts on the screen are then compared with them.
+- The top bar's counter is found by its "best N" text and must be in view. It is read while the level
+  is being played (0 moves after the rules card, 1 after the first move), never under a card: the
+  shell may hide the bars while a card is up.
+- The win card must say "N <moveNoun>. Perfect, that is the shortest solution!" with the level's own
+  numbers and words.
+- A level's button on the map is found by "Level N: Title". A locked one may add " (locked)".
+  Nothing else may follow the title.
+- Nothing but level 1's animals is tapped by position. Level 1's test asks the page what lies on
+  top at the spot before it taps, so a bar that moves over an animal fails the test.
+
 ## Results
 
 - `test-results/wins/<project>/NN-<level id>.png`: a screenshot of each level's win card.
@@ -68,10 +85,12 @@ Both folders are in `.gitignore`.
 ## When a test shows a real fault in the game
 
 Do not skip the test, and do not widen the list of ignored console messages for it. Add the level to
-`e2e/known-faults.ts`, with one sentence on what is wrong and a pattern for the page error it throws.
-The level then still has to play through to its win, with no other error. Its test ends as an
-expected failure (a cross in the list, counted as passed), and turns red once the fault is fixed,
-which is the reminder to remove the entry.
+`e2e/known-faults.ts`, with one sentence on what is wrong, a pattern for the page error it throws, and
+when it comes (`start`: from the tap on "Let's go!" to the end of the first move; `leave`: after the
+tap on "All levels"). One such error in that part is set apart. A second one, the same error at any
+other moment, and every other error still fail the test. The level also has to play through to its
+win. Its test ends as an expected failure (a cross in the list, counted as passed), and turns red
+("Expected to fail, but passed") once the fault is fixed, which is the reminder to remove the entry.
 
 Listed today:
 
@@ -79,7 +98,8 @@ Listed today:
 - Level 19, Picture Tiles: a page error when the player leaves the level.
 
 Both are the same error, a failed removal of a page element, from the scenes' `<Html>` labels.
-Neither stops the level from being won.
+Neither stops the level from being won. Pull request 50 fixes it: once that is on main, both tests
+turn red as described above, and both entries are to be removed from `e2e/known-faults.ts`.
 
 ## Browser version
 

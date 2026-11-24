@@ -13,9 +13,13 @@ const IGNORED_CONSOLE_ERRORS: RegExp[] = [
 
 /** What went wrong in the page while a test ran. A clean play-through leaves every list empty. */
 export interface PageFaults {
-  /** Page errors that match a fault listed in e2e/known-faults.ts are kept here, apart from the rest. */
+  /**
+   * The one page error of a fault listed in e2e/known-faults.ts is kept here, apart from the rest:
+   * the first that matches `knownPattern` while `knownOpen` is true. Every other one is a page error.
+   */
   known: string[];
   knownPattern: RegExp | null;
+  knownOpen: boolean;
   pageErrors: string[];
   consoleErrors: string[];
   /** Requests that failed, or were answered with an error status. */
@@ -31,11 +35,12 @@ interface Fixtures {
 export const test = base.extend<Fixtures>({
   faults: [
     async ({ page, baseURL }, use) => {
-      const faults: PageFaults = { known: [], knownPattern: null, pageErrors: [], consoleErrors: [], badRequests: [], outsideRequests: [] };
+      const faults: PageFaults = { known: [], knownPattern: null, knownOpen: false, pageErrors: [], consoleErrors: [], badRequests: [], outsideRequests: [] };
       const origin = new URL(baseURL!).origin;
       page.on('pageerror', (e) => {
         const text = `${e.name}: ${e.message}`;
-        (faults.knownPattern?.test(text) ? faults.known : faults.pageErrors).push(e.stack || text);
+        const known = faults.knownOpen && faults.known.length === 0 && !!faults.knownPattern?.test(text);
+        (known ? faults.known : faults.pageErrors).push(e.stack || text);
       });
       page.on('console', (m) => {
         if (m.type() !== 'error') return;
@@ -91,13 +96,35 @@ export async function savedStars(page: Page): Promise<Record<string, number>> {
   return page.evaluate((key) => JSON.parse(localStorage.getItem(key) ?? '{"stars":{}}').stars ?? {}, PROGRESS_KEY);
 }
 
-/** Waits for the level's rules card and its 3D canvas, then taps "Let's go!" as a player would. */
-export async function passRulesCard(page: Page, title: string) {
+/**
+ * Waits for the level's rules card and its 3D canvas, then taps "Let's go!" as a player would.
+ * `beforeTap` runs once the card is up, just before the tap.
+ */
+export async function passRulesCard(page: Page, title: string, beforeTap?: () => void) {
   await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible();
   await expect(page.locator('canvas')).toBeVisible();
   const go = page.getByRole('button', { name: "Let's go!" });
+  beforeTap?.();
   await go.tap();
   await expect(go).toBeHidden();
+}
+
+/**
+ * The counter of the top bar, read while the level is being played: the moves made so far, and the
+ * level's best. It is found by its "best N" text, wherever the layout puts it. It must be in view:
+ * the game may hide the bar under a card, so this is only asked between the rules card and the end.
+ */
+export async function expectCounter(page: Page, moves: number, bestMoves: number) {
+  const best = page.getByText(new RegExp(`(^|\\s)best ${bestMoves}$`));
+  await expect(best, `the top bar shows "best ${bestMoves}"`).toBeVisible();
+  await expect(best.locator('xpath=..'), `the top bar counts ${moves} moves`).toHaveText(new RegExp(`^${moves}\\D`));
+  await expect(best.locator('xpath=..')).toBeInViewport();
+}
+
+/** A level's button on the map, by its number and title. A locked level may say so after its title. */
+export function mapButton(page: Page, number: number, title: string) {
+  const name = `Level ${number}: ${title}`.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return page.getByRole('button', { name: new RegExp(`^${name}( \\(locked\\))?$`) });
 }
 
 /** Waits until the level's own session is the one behind the debug hook. */
