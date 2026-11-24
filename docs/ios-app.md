@@ -52,7 +52,8 @@ team's workspace, so this run is how a change to the iOS project is proven.
 
 ## What the shell sets
 
-- Sideways only, both directions, on iPhone and iPad (`Info.plist`, and `GameViewController.swift`).
+- iPhone: sideways only, both directions. iPad: turns freely and can be resized, since Apple has deprecated
+  the setting that lets an iPad app refuse to (`Info.plist`, and `GameViewController.swift`).
 - No status bar; the page keeps clear of the notch and home bar with CSS safe-area insets.
 - No page scroll, bounce or pinch zoom of the page (`GameViewController.swift`, `capacitor.config.ts`);
   text selection and long-press menus are already off in the game's CSS.
@@ -64,6 +65,9 @@ team's workspace, so this run is how a change to the iOS project is proven.
 
 - Final name, bundle identifier and version, in `AppIdentity.xcconfig`.
 - Signing with the owner's Apple developer account.
-- The export-compliance answer (`ITSAppUsesNonExemptEncryption`) is not set: it is a declaration for the owner to make.
+- `Info.plist` declares that the app uses no non-exempt encryption (`ITSAppUsesNonExemptEncryption` = NO). That
+  is true of the code today: the game makes no network calls and has no encryption of its own. It is the owner's
+  declaration to Apple when a build is uploaded, so the owner should confirm it, and it must be revisited if the
+  app ever starts to talk to a server.
 - A privacy manifest and the store's privacy answers. The game makes no network calls and stores only progress
   and two settings on the device.
