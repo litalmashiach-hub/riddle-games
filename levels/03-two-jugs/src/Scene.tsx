@@ -1,5 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Sparkles } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
 import { Burst, sfx, type Vec3 } from '@riddle/fx';
 import { Farmer, HintRing, RiverValley, Sheep, groundHeight } from '@riddle/props';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
@@ -206,8 +207,12 @@ const btn = (on: boolean, glow: boolean): CSSProperties => ({
   animation: glow ? 'jugs-pulse 1s ease-in-out infinite' : undefined,
 });
 
-/** Floating buttons above the held jug: fill, empty, pour. */
+/**
+ * Floating buttons above the held jug: fill, empty, pour. On a phone held sideways there is no room
+ * for three of them one above the other between the top edge and the jug's own label, so they stand in a row.
+ */
 function ActionMenu({ jug, state, hint, onAct }: { jug: JugId; state: State; hint: Move | null; onAct(m: Move): void }) {
+  const row = useThree((s) => s.size.width > s.size.height && s.size.height <= 500);
   const to = otherJug(jug);
   const items: { m: Move; label: string }[] = [
     { m: { kind: 'fill', jug }, label: '💧 Fill at pump' },
@@ -215,10 +220,12 @@ function ActionMenu({ jug, state, hint, onAct }: { jug: JugId; state: State; hin
     { m: { kind: 'empty', jug }, label: '🌊 Empty in river' },
   ];
   const home = HOME[jug];
+  // A row is wide enough to reach over the other jug, so it clears the taller jug's label.
+  const top = row ? Math.max(DIMS.small.h, DIMS.big.h) : DIMS[jug].h;
   return (
-    <Overlay position={[home[0], home[1] + DIMS[jug].h + 0.62, home[2]]} zIndex={6} interactive anchor="bottom" keepOnScreen>
+    <Overlay position={[home[0], home[1] + top + 0.62, home[2]]} zIndex={6} interactive anchor="bottom" keepOnScreen>
       <style>{`@keyframes jugs-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@keyframes jugs-pop{from{transform:scale(0)}to{transform:scale(1)}}`}</style>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center', animation: 'jugs-pop .3s cubic-bezier(.34,1.56,.64,1)' }}>
+      <div style={{ display: 'flex', flexDirection: row ? 'row' : 'column', gap: row ? 8 : 6, alignItems: 'center', animation: 'jugs-pop .3s cubic-bezier(.34,1.56,.64,1)' }}>
         {items.map(({ m, label }) => {
           const on = canDo(state, m);
           return (

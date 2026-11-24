@@ -8,7 +8,7 @@ import { useStore } from 'zustand';
 import * as THREE from 'three';
 import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
-import { SceneGuard } from '../components/SceneGuard';
+import { SceneGuard, sceneWaitMs } from '../components/SceneGuard';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
 import { hintLine } from '../hint';
@@ -37,6 +37,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   const [showRules, setShowRules] = useState(true);
   // False until the scene has drawn its first frames; a curtain in the world's colours covers the wait.
   const [sceneReady, setSceneReady] = useState(false);
+  // True when the scene's first drawing has taken longer than its wait: the guard then says so, over the curtain.
+  const [sceneStuck, setSceneStuck] = useState(false);
   const [hintText, setHintText] = useState<string | null>(null);
   const { quality, sound, toggleSound, setQuality } = useSettings();
   const look = WORLDS[level.world];
@@ -96,7 +98,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   return (
     <div className="relative h-full w-full select-none overflow-hidden" style={{ background: look.fog }}>
       {/* Never a blank level: a scene that can't be drawn, or loses its 3D context, says so and offers two ways out. */}
-      <SceneGuard onExit={onExit} onRetry={() => setSceneReady(false)}>
+      <SceneGuard onExit={onExit} onRetry={() => { setSceneReady(false); setSceneStuck(false); }} stuck={sceneStuck && !sceneReady}>
       <Canvas
         shadows
         flat
@@ -120,7 +122,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
             />
           </WorldStage>
           <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} />
-          <FirstFrames onReady={() => setSceneReady(true)} />
+          <FirstFrames onReady={() => setSceneReady(true)} onStuck={() => setSceneStuck(true)} />
         </Suspense>
       </Canvas>
       </SceneGuard>
@@ -282,10 +284,10 @@ function Modal({ children, aside, tone, wide }: { children: React.ReactNode; asi
 /**
  * Tells the shell once the scene can really be seen. The renderer compiles its shaders in the background and
  * skips what is not ready yet, so the first frames are empty: wait for the compile, then for two drawn frames.
- * A timeout lifts the curtain anyway, so an odd device is never left behind it. It is long: a slow device
- * may need well over ten seconds for a level's first drawing, and until then the sign beats an empty scene.
+ * The curtain is never lifted from a scene that is not drawn. After a long wait `onStuck` is called instead,
+ * and the shell's card offers a new try or the map; a scene that is drawn later after all is still reported.
  */
-function FirstFrames({ onReady }: { onReady(): void }) {
+function FirstFrames({ onReady, onStuck }: { onReady(): void; onStuck(): void }) {
   const gl = useThree((st) => st.gl);
   const scene = useThree((st) => st.scene);
   const camera = useThree((st) => st.camera);
@@ -293,18 +295,15 @@ function FirstFrames({ onReady }: { onReady(): void }) {
   const done = useRef(false);
   const finish = useRef(onReady);
   finish.current = onReady;
+  const stuck = useRef(onStuck);
+  stuck.current = onStuck;
   useEffect(() => {
-    const ready = () => {
-      if (done.current) return;
-      done.current = true;
-      finish.current();
-    };
     const arm = () => {
       if (frames.current < 0) frames.current = 0;
     };
     // One frame first, so everything the scene mounts in its effects is in the graph.
     const raf = requestAnimationFrame(() => gl.compileAsync(scene, camera).then(arm, arm));
-    const giveUp = setTimeout(ready, 30000);
+    const giveUp = setTimeout(() => done.current || stuck.current(), sceneWaitMs());
     return () => {
       cancelAnimationFrame(raf);
       clearTimeout(giveUp);

@@ -43,9 +43,13 @@ test('the app shows its loading mark until the game has started', async ({ page 
   await expect(boot).toHaveCount(0);
 });
 
-test('a level shows a loading sign until its scene is drawn', async ({ page }) => {
-  // Slow the scene on purpose: the browser says "still compiling" for every shader until the test lets go.
-  await page.addInitScript(() => {
+/**
+ * Slows the scene on purpose: the browser says "still compiling" for every shader until the test
+ * lets go with `__compiled = true`. `waitMs` replaces the game's own wait for a first drawing.
+ */
+async function holdShaders(page: Page, waitMs?: number) {
+  await page.addInitScript((ms) => {
+    if (ms != null) (window as any).__sceneWaitMs = ms;
     const STATUS = 0x91b1; // COMPLETION_STATUS_KHR
     for (const GL of [WebGLRenderingContext, WebGL2RenderingContext]) {
       const getExtension = GL.prototype.getExtension;
@@ -59,7 +63,12 @@ test('a level shows a loading sign until its scene is drawn', async ({ page }) =
         return getProgramParameter.call(this, program, pname);
       };
     }
-  });
+  }, waitMs ?? null);
+}
+
+test('a level shows a loading sign until its scene is drawn', async ({ page }) => {
+  // The game's patience is set far beyond this test's length, so that a slow test machine can't run into it.
+  await holdShaders(page, 3_600_000);
 
   await page.goto(`?debug&quality=low#/level/${one.id}`);
   await waitForSession(page, one.id);
@@ -80,6 +89,68 @@ test('a level shows a loading sign until its scene is drawn', async ({ page }) =
   await page.evaluate(() => ((window as any).__compiled = true));
   await expect(curtain(page)).toHaveCount(0);
   await expect(page.getByText('Setting the scene')).toHaveCount(0);
+  await playMove(page, one.moves[0], 1);
+});
+
+test('a scene that is still not drawn after the wait gets the card, never a bare screen', async ({ page }) => {
+  // The game's own wait, untouched. The page keeps its own record, on its own clock, so the speed of
+  // the test machine has no part in it: what was up 15 seconds after the loading sign first showed,
+  // and whether the sign was ever gone while neither the card nor the drawn scene had taken its place.
+  await holdShaders(page);
+  await page.addInitScript(() => {
+    const w = window as any;
+    w.__seen = { early: null, bare: false };
+    const look = () => ({
+      sign: !!document.querySelector('[role="status"][aria-label="Loading level"]'),
+      card: !!document.querySelector('[role="alertdialog"]'),
+    });
+    let signed = false;
+    new MutationObserver(() => {
+      const now = look();
+      if (now.sign && !signed) {
+        signed = true;
+        setTimeout(() => (w.__seen.early = look()), 15_000);
+      }
+      if (signed && !now.sign && !w.__compiled) w.__seen.bare = true;
+    }).observe(document, { childList: true, subtree: true });
+  });
+
+  await page.goto(`?debug&quality=low#/level/${one.id}`);
+  await waitForSession(page, one.id);
+  await expect(curtain(page)).toBeVisible();
+
+  // The wait is 30 seconds. Then the card comes, over the rules card and the loading sign.
+  await expect(message(page)).toBeVisible({ timeout: 120_000 });
+  const seen = await page.evaluate(() => (window as any).__seen);
+  expect(seen.early, 'after 15 seconds: the loading sign still, and no card yet').toEqual({ sign: true, card: false });
+  await expect(curtain(page)).toBeVisible();
+  await expect(message(page).getByRole('button', { name: 'All levels' })).toBeInViewport({ ratio: 1 });
+
+  // Trying again starts the wait anew: the card goes, the sign stays.
+  await message(page).getByRole('button', { name: 'Try again' }).tap();
+  await expect(message(page)).toHaveCount(0);
+  await expect(curtain(page)).toBeVisible();
+  expect(await page.evaluate(() => (window as any).__seen.bare), 'the sign was gone with nothing in its place').toBe(false);
+
+  // Once the device gets there, the level is drawn and plays.
+  await page.evaluate(() => ((window as any).__compiled = true));
+  await expect(curtain(page)).toHaveCount(0);
+  await expect(message(page)).toHaveCount(0);
+  await passRulesCard(page, one.title);
+  await playMove(page, one.moves[0], 1);
+});
+
+test('a scene that is drawn late after all takes the card away by itself', async ({ page }) => {
+  await holdShaders(page, 3000);
+  await page.goto(`?debug&quality=low#/level/${one.id}`);
+  await waitForSession(page, one.id);
+  await expect(message(page)).toBeVisible();
+  await expect(curtain(page)).toBeVisible();
+
+  await page.evaluate(() => ((window as any).__compiled = true));
+  await expect(message(page)).toHaveCount(0);
+  await expect(curtain(page)).toHaveCount(0);
+  await passRulesCard(page, one.title);
   await playMove(page, one.moves[0], 1);
 });
 
@@ -149,7 +220,7 @@ for (const [name, plant] of [
   });
 }
 
-/** Takes the 3D context away, as iOS does to an app in the background. `backAfter` hands it back after that many ms. */
+/** Takes the 3D context away, as iOS does to an app in the background. `backAfter` hands it back after that many ms, by the page's own clock. */
 async function loseContext(page: Page, backAfter?: number) {
   await page.evaluate((ms) => {
     const canvas = document.querySelector('canvas')!;
@@ -188,10 +259,20 @@ test('a 3D context that is lost for a moment and comes back shows no card', asyn
   await passRulesCard(page, one.title);
   await expect(curtain(page)).toHaveCount(0);
 
-  await loseContext(page, 500);
+  // The page itself notes a card at any moment, however short: one that flashes up and away counts too.
+  await page.evaluate(() => {
+    const w = window as any;
+    w.__sawCard = false;
+    new MutationObserver(() => {
+      if (document.querySelector('[role="alertdialog"]')) w.__sawCard = true;
+    }).observe(document, { childList: true, subtree: true });
+  });
+  // Gone for a full second: far longer than a blink, well inside the game's patience of 2.5 seconds.
+  await loseContext(page, 1000);
   // Longer than the game waits before it would show the card.
   await page.waitForTimeout(5000);
   await expect(message(page)).toHaveCount(0);
+  expect(await page.evaluate(() => (window as any).__sawCard), 'a card showed while the context was away').toBe(false);
   await playMove(page, one.moves[0], 1);
 
   dropPlanted(faults);

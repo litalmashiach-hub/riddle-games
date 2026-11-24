@@ -20,8 +20,8 @@ interface Box {
 }
 
 /**
- * Every button on the screen, the move counter and the hint text, each with its place. Buttons
- * that belong to a level's own scene (Row across, a jug's menu) are page elements too, so they are in.
+ * Every button on the screen, the move counter, the hint text and level 3's jug labels, each with its place.
+ * Buttons that belong to a level's own scene (Row across, a jug's menu) are page elements too, so they are in.
  */
 async function boxes(page: Page): Promise<Box[]> {
   return page.evaluate(() => {
@@ -45,6 +45,8 @@ async function boxes(page: Page): Promise<Box[]> {
     if (counter) add(counter, 'move counter');
     for (const e of document.querySelectorAll('#root div')) {
       if ([...e.childNodes].some((n) => n.nodeType === 3 && n.textContent!.includes('💡'))) add(e, 'hint text');
+      // Level 3: what each jug holds, written over it ("0 / 5 L").
+      if (/^\d+ \/ \d+ L$/.test(e.textContent!.trim()) && !e.querySelector('div')) add(e, `jug label "${e.textContent!.trim()}"`);
     }
     return out;
   });
@@ -132,6 +134,8 @@ for (const jug of ['big', 'small'] as const) {
     await page.waitForTimeout(600);
     const all = await boxes(page);
     expect(all.filter((b) => /Fill at pump|Pour into|Empty in river/.test(b.name))).toHaveLength(3);
+    // Both jugs' labels are measured too, so the menu may not lie over what a jug holds.
+    expect(all.filter((b) => /^jug label/.test(b.name))).toHaveLength(2);
     expectApart(all, size, `with the ${jug} jug's menu open`);
     await hintApart(page, size, `with the ${jug} jug's menu open and the hint text up`);
   });

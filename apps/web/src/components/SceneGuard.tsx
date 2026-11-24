@@ -1,4 +1,5 @@
 import { Component, useCallback, useEffect, useRef, useState, type ErrorInfo, type ReactNode } from 'react';
+import { hasTestFlag } from '../appShell';
 import { Button } from './Button';
 import { HomeIcon, RestartIcon } from './Icons';
 
@@ -8,23 +9,34 @@ import { HomeIcon, RestartIcon } from './Icons';
  */
 export const CONTEXT_LOST_GRACE_MS = 2500;
 
+/**
+ * How long a scene may take for its first drawing before the player is told. A slow device may need
+ * well over ten seconds, and until then the loading sign beats the card. The play-through tests
+ * (`?debug`, never in the app build) may set another wait, so that they do not hang on the test machine's speed.
+ */
+export const SCENE_WAIT_MS = 30000;
+export const sceneWaitMs = (): number => (hasTestFlag('debug') && (window as any).__sceneWaitMs) || SCENE_WAIT_MS;
+
 interface Props {
   children: ReactNode;
   /** Back to the level map. */
   onExit(): void;
   /** Called when the scene is about to be built again, so the shell can show its loading curtain. */
   onRetry?(): void;
+  /** The scene has not been drawn within its wait (see SCENE_WAIT_MS) and still is not. */
+  stuck?: boolean;
 }
 
 /**
  * Stands around the 3D canvas, so that the player never looks at a blank level.
  *
- * Two things can go wrong with a scene. The device may give no 3D context, or the scene may throw
+ * Three things can go wrong with a scene. The device may give no 3D context, or the scene may throw
  * while it is made: both end up as a render error here. Or the context is lost while playing and
- * does not come back. Either way a card says so in plain words, with two ways out: build the scene
- * again, or go back to the map. The play session lives outside, so trying again keeps the moves.
+ * does not come back. Or the scene is simply never drawn: the shell says so with `stuck`. Either way
+ * a card says so in plain words, with two ways out: build the scene again, or go back to the map.
+ * The play session lives outside, so trying again keeps the moves.
  */
-export function SceneGuard({ children, onExit, onRetry }: Props) {
+export function SceneGuard({ children, onExit, onRetry, stuck = false }: Props) {
   // A new attempt gets a new key: the boundary and the whole canvas are thrown away and made afresh.
   const [attempt, setAttempt] = useState(0);
   const [failed, setFailed] = useState(false);
@@ -68,7 +80,7 @@ export function SceneGuard({ children, onExit, onRetry }: Props) {
           {children}
         </SceneBoundary>
       </div>
-      {(failed || lost) && <SceneMessage onRetry={retry} onExit={onExit} />}
+      {(failed || lost || stuck) && <SceneMessage onRetry={retry} onExit={onExit} />}
     </>
   );
 }
