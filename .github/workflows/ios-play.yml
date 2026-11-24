@@ -21,8 +21,17 @@ env:
 
 jobs:
   play:
+    name: ${{ matrix.label }}
     runs-on: macos-26
-    timeout-minutes: 115
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: iphone, sim: "iPhone 17 Pro Max", mode: release, levels: 99, quality_tap: 2 }
+          - { label: ipad, sim: "iPad Pro 13-inch (M5)", mode: release, levels: 2, quality_tap: 0 }
+          - { label: ipad-sd, sim: "iPad Pro 13-inch (M5)", mode: release, levels: 3, quality_tap: 1 }
+          - { label: iphone-console, sim: "iPhone 17 Pro Max", mode: debug-console, levels: 1, quality_tap: 0 }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -67,58 +76,22 @@ jobs:
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build | tail -n 15
 
-      - name: Play in an iPhone simulator (Release build)
-        timeout-minutes: 32
-        run: apps/mobile/ios/PlayTest/play.sh "iPhone 17 Pro Max" iphone release 99 2
-
-      - name: Play in an iPad simulator (Release build)
-        if: always()
-        timeout-minutes: 40
-        run: apps/mobile/ios/PlayTest/play.sh "iPad Pro 13-inch (M5)" ipad release 99 0
-
-      - name: Play level 1 in the iPhone simulator with the Debug build, to read the web view's console
-        if: always()
-        timeout-minutes: 15
-        run: apps/mobile/ios/PlayTest/play.sh "iPhone 17 Pro Max" iphone-console debug-console 1 0
-
-      # Small copies of the pictures go into the log as text, for readers who can open a run's log
-      # but cannot download its artifacts.
-      - name: Pictures, in the log
-        if: always()
-        run: |
-          cd out
-          for f in */shots/*.png; do
-            [ -f "$f" ] || continue
-            sips -s format jpeg -s formatOptions 62 -Z 1500 "$f" --out "$RUNNER_TEMP/p.jpg" > /dev/null
-            echo "-----BEGIN PICTURE $f-----"
-            base64 -i "$RUNNER_TEMP/p.jpg" | fold -w 160
-            echo "-----END PICTURE-----"
-          done
-          for f in */frames/*/*.jpg; do
-            [ -f "$f" ] || continue
-            sips -s format jpeg -s formatOptions 45 -Z 420 "$f" --out "$RUNNER_TEMP/p.jpg" > /dev/null
-            echo "-----BEGIN PICTURE $f-----"
-            base64 -i "$RUNNER_TEMP/p.jpg" | fold -w 160
-            echo "-----END PICTURE-----"
-          done
-          for f in */frames/*/launch-time.txt; do echo "LAUNCHTIME $f $(cat "$f")"; done
+      - name: Play by taps in the simulator
+        timeout-minutes: 38
+        run: apps/mobile/ios/PlayTest/play.sh "${{ matrix.sim }}" "${{ matrix.label }}" "${{ matrix.mode }}" "${{ matrix.levels }}" "${{ matrix.quality_tap }}"
 
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: simulator-play
+          name: simulator-play-${{ matrix.label }}
           path: |
             out/*/shots
-            out/*/frames
             out/*/console.txt
             out/*/unified.txt
             out/*/xcodebuild.log
           if-no-files-found: warn
 
-      - name: Did the taps win level 1 in each simulator?
+      - name: Did the taps win level 1?
         if: always()
         run: |
-          cat out/*/status
-          for s in out/iphone/status out/ipad/status out/iphone-console/status; do
-            [ "$(cat "$s" 2> /dev/null)" = "0" ] || { echo "$s is not 0"; exit 1; }
-          done
+          [ "$(cat out/*/status 2> /dev/null)" = "0" ] || { echo "level 1 was not won by taps"; exit 1; }

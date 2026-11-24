@@ -74,7 +74,7 @@ final class PlayTests: XCTestCase {
         if let dir = env["PLAY_OUT"] {
             do {
                 try FileManager.default.createDirectory(atPath: dir, withIntermediateDirectories: true)
-                try s.pngRepresentation.write(to: URL(fileURLWithPath: dir).appendingPathComponent(file))
+                try s.pngRepresentation.write(to: URL(fileURLWithPath: dir).appendingPathComponent(file), options: .atomic)
             } catch {
                 log("could not write \(file): \(error)")
             }
@@ -312,12 +312,12 @@ final class PlayTests: XCTestCase {
                 shot("level-\(level)-rules-card")
                 tapCentre(go, "Let's go!")
                 pause(3.0)
-                if hdFromLevel > 0 && level == hdFromLevel && phone {
-                    // A phone starts in SD. One tap on the quality button switches to HD, and the game remembers it.
-                    shot("level-\(level)-start-sd")
+                if hdFromLevel > 0 && level == hdFromLevel {
+                    // A phone starts in SD and an iPad in HD. One tap on the quality button switches, and the game remembers it.
+                    shot("level-\(level)-start-before-quality-tap")
                     let q = button("Graphics quality")
                     if q.exists {
-                        tapCentre(q, "Graphics quality (SD to HD)")
+                        tapCentre(q, "Graphics quality (switches SD and HD)")
                         pause(3.0)
                     } else {
                         problem("level \(level): no Graphics quality button")

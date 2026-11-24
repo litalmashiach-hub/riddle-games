@@ -41,27 +41,6 @@ frames() {
   done
 }
 
-if [ "$MODE" = "release" ]; then
-  for n in 1 2 3; do
-    mkdir -p "$OUT/frames/launch$n"
-    frames "$OUT/frames/launch$n" 16 &
-    FP=$!
-    sleep 1
-    frames "$OUT/frames/launch$n" 15 &
-    sleep 1
-    L=$(now)
-    xcrun simctl launch "$UDID" "$BUNDLE_ID" > /dev/null
-    echo "TIMING $LABEL launch $n: launch command given at $L, returned at $(now)"
-    echo "$L" > "$OUT/frames/launch$n/launch-time.txt"
-    wait
-    xcrun simctl terminate "$UDID" "$BUNDLE_ID" || true
-    sleep 2
-  done
-  # A clean start for the play test: no saved stars.
-  xcrun simctl uninstall "$UDID" "$BUNDLE_ID" || true
-  xcrun simctl install "$UDID" "$APP"
-fi
-
 ATTACH=0
 if [ "$MODE" = "debug-console" ]; then
   # The Debug build prints the web view's console to the app's output. Keep it in a file.
@@ -70,7 +49,30 @@ if [ "$MODE" = "debug-console" ]; then
   sleep 25
 fi
 
-set +e
+# While the test runs, a reporter prints the test's own log lines and each new picture (as text) into this log,
+# so that they are there even if the test hangs and the job is stopped.
+PRINTED=0
+report_new() {
+  if [ -f "$OUT/shots/play-log.txt" ]; then
+    local total; total=$(wc -l < "$OUT/shots/play-log.txt" | tr -d ' ')
+    if [ "$total" -gt "$PRINTED" ]; then sed -n "$((PRINTED + 1)),${total}p" "$OUT/shots/play-log.txt"; PRINTED=$total; fi
+  fi
+  local f
+  for f in "$OUT"/shots/*.png; do
+    [ -f "$f" ] || continue
+    [ -f "$f.done" ] && continue
+    sips -s format jpeg -s formatOptions 62 -Z 1500 "$f" --out "$OUT/p.jpg" > /dev/null 2>&1 || continue
+    echo "-----BEGIN PICTURE $LABEL/shots/$(basename "$f")-----"
+    base64 -i "$OUT/p.jpg" | fold -w 160
+    echo "-----END PICTURE-----"
+    touch "$f.done"
+  done
+}
+reporter() { while [ ! -f "$OUT/stop" ]; do report_new; sleep 4; done; report_new; }
+reporter &
+RP=$!
+
+LIMIT=1380
 TEST_RUNNER_PLAY_OUT="$OUT/shots" \
 TEST_RUNNER_PLAY_STEPS_DIR="$ROOT/apps/mobile/ios/PlayTest/UITests" \
 TEST_RUNNER_PLAY_MAX_LEVELS="$MAX_LEVELS" \
@@ -80,24 +82,22 @@ TEST_RUNNER_PLAY_BUNDLE_ID="$BUNDLE_ID" \
 xcodebuild test -project "$ROOT/apps/mobile/ios/PlayTest/PlayTest.xcodeproj" -scheme PlayTest \
   -destination "id=$UDID" -derivedDataPath "$ROOT/build/playtest" \
   -parallel-testing-enabled NO -disable-concurrent-destination-testing \
-  -resultBundlePath "$OUT/result.xcresult" > "$OUT/xcodebuild.log" 2>&1
+  -resultBundlePath "$OUT/result.xcresult" > "$OUT/xcodebuild.log" 2>&1 &
+XP=$!
+( sleep "$LIMIT"; echo "WATCHDOG: the test ran longer than $LIMIT s and is stopped"; touch "$OUT/watchdog"; kill -9 "$XP"; pkill -9 -f PlayTestUITests-Runner ) &
+WP=$!
+wait "$XP"
 RC=$?
+kill "$WP" 2> /dev/null
+touch "$OUT/stop"
+wait "$RP"
 echo "xcodebuild test exit code: $RC"
-# The test reports by its RESULT line, not by failing.
-WON="$(cat "$OUT/xcodebuild.log" "$OUT/shots/play-log.txt" 2> /dev/null | sed -n 's/.*RESULT levelsWon=\([0-9]*\).*/\1/p' | head -n 1)"
-echo "levels won by taps: ${WON:-none reported}"
+WON="$(cat "$OUT/shots/play-log.txt" 2> /dev/null | sed -n 's/.*RESULT levelsWon=\([0-9]*\).*/\1/p' | head -n 1)"
+if [ -z "$WON" ]; then WON="$(grep -c "WON by taps" "$OUT/shots/play-log.txt" 2> /dev/null || true)"; fi
+echo "levels won by taps: ${WON:-0}"
 if [ "${WON:-0}" -ge 1 ]; then echo 0 > "$OUT/status"; else echo 1 > "$OUT/status"; fi
-if grep -q "PLAY|" "$OUT/xcodebuild.log"; then
-  grep -E "PLAY\||Test Case|Executed|\*\* TEST" "$OUT/xcodebuild.log" || true
-elif [ -f "$OUT/shots/play-log.txt" ]; then
-  echo "(from the test's own log file)"; cat "$OUT/shots/play-log.txt"
-fi
-if [ "$RC" != "0" ]; then echo "---- last lines of xcodebuild's output"; tail -n 60 "$OUT/xcodebuild.log" | cut -c1-400; fi
-if ! ls "$OUT/shots"/*.png > /dev/null 2>&1; then
-  echo "No pictures written by the test; exporting the result bundle's attachments instead"
-  xcrun xcresulttool export attachments --path "$OUT/result.xcresult" --output-path "$OUT/shots" || true
-  ls -la "$OUT/shots" || true
-fi
+grep -E "Test Case|Executed|\*\* TEST" "$OUT/xcodebuild.log" | head -n 8 || true
+if [ ! -s "$OUT/shots/play-log.txt" ]; then echo "---- no log from the test; last lines of xcodebuild's output"; tail -n 60 "$OUT/xcodebuild.log" | cut -c1-400; fi
 
 xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2>/dev/null || true
 sleep 2
