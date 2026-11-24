@@ -1,0 +1,63 @@
+{
+ "level": 11,
+ "id": "family-crossing",
+ "title": "Family Crossing",
+ "device": "iphone-small",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won, finished by the debug hook after a known tap fault at step 1 (wrong-pick)",
+ "wonByTaps": false,
+ "won": true,
+ "finishedByHook": true,
+ "movesByTaps": 0,
+ "moves": 17,
+ "touches": 1,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": {
+  "kind": "wrong-pick",
+  "step": 1,
+  "detail": "the tap on Guard (guard) did not put it on the raft; the Cast off button went from \"Cast off ➜tap people to board\" to \"Cast off ➜Dad\": Guard (guard) at (227, 175); the first listening object under it has its origin at [-3.3, 0.4, -0.4]",
+  "known": true,
+  "knownReason": "Level 11, the guard's first or second crossing: a tap on the middle of the guard puts Dad on the raft. Dad stands in front, and his unseen tap cylinder (radius 0.38) is wider than his body and ends at the guard's middle, so the same tap is lost at move 1 in one run and at move 3 in another."
+ },
+ "error": null,
+ "seconds": {
+  "open": 15.925,
+  "rulesCard": 15.546,
+  "drawn": 15.925,
+  "play": 74.993,
+  "total": 99.634
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-L11-loading-mark.png",
+  "iphone-small-L11-rules-card.png",
+  "iphone-small-L11-fault-step-1.png",
+  "iphone-small-L11-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 226.99650161093754,
+    "y": 174.85660174102816
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2f5a5e6c-989b-4b63-a0f2-7c9ee8dd66ec",
+    "world": [
+     -3.3,
+     0.4,
+     -0.4
+    ],
+    "distance": 11.212196287438266
+   }
+  }
+ ]
+}

@@ -1,0 +1,328 @@
+{
+ "level": 9,
+ "id": "bridge-five",
+ "title": "Bridge of Five",
+ "device": "iphone-small",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 7,
+ "touches": 18,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 4.386,
+  "rulesCard": 1.685,
+  "drawn": 4.386,
+  "play": 65.006,
+  "total": 80.356
+ },
+ "pageErrors": [
+  "removeChild@[native code]\nJg@capacitor://localhost/assets/index-3lMYG3fh.js:9:109783\nYi@capacitor://localhost/assets/index-3lMYG3fh.js:9:111458\nqu@capacitor://localhost/assets/index-3lMYG3fh.js:9:114535\nkl@capacitor://localhost/assets/index-3lMYG3fh.js:9:133148\nu3@capacitor://localhost/assets/index-3lMYG3fh.js:9:132838\nOp@capacitor://localhost/assets/index-3lMYG3fh.js:9:132306\nc3@capacitor://localhost/assets/index-3lMYG3fh.js:9:127620\nDd@capacitor://localhost/assets/index-3lMYG3fh.js:9:126868\nYn@capacitor://localhost/assets/index-3lMYG3fh.js:9:139168\net@capacitor://localhost/assets/index-3lMYG"
+ ],
+ "consoleErrors": [
+  "removeChild@[native code]\nJg@capacitor://localhost/assets/index-3lMYG3fh.js:9:109783\nYi@capacitor://localhost/assets/index-3lMYG3fh.js:9:111458\nqu@capacitor://localhost/assets/index-3lMYG3fh.js:9:114535\nkl@capacitor://localhost/assets/index-3lMYG3fh.js:9:133148\nu3@capacitor://localhost/assets/index-3lMYG3fh.js:9:132838\nOp@capacitor://localhost/assets/index-3lMYG3fh.js:9:132306\nc3@capacitor://localhost/assets/index-3lMYG3fh.js:9:127620\nDd@capacitor://localhost/assets/index-3lMYG3fh.js:9:126868\nYn@capacitor://localhost/assets/index-3lMYG3fh.js:9:139168\net@capacitor://localhost/assets/index-3lMYG"
+ ],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-L09-loading-mark.png",
+  "iphone-small-L09-rules-card.png",
+  "iphone-small-L09-in-play.png",
+  "iphone-small-L09-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "Zip",
+   "kind": "tap",
+   "at": {
+    "x": 200.20127106518936,
+    "y": 191.60148145874
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f8666821-04eb-4ad7-b62e-65294be434d0",
+    "world": [
+     -3.3000000000000003,
+     0,
+     1.3
+    ],
+    "distance": 10.157489213837419
+   }
+  },
+  {
+   "step": 1,
+   "what": "Mira",
+   "kind": "tap",
+   "at": {
+    "x": 161.64634746770122,
+    "y": 199.57673261092384
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1efc4d64-ee63-4e09-a8c6-c37340e2777f",
+    "world": [
+     -4.2,
+     0,
+     1.65
+    ],
+    "distance": 10.194220314929405
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 253.546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "Zip",
+   "kind": "tap",
+   "at": {
+    "x": 466.3696925738633,
+    "y": 192.37924897457026
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f8666821-04eb-4ad7-b62e-65294be434d0",
+    "world": [
+     3.3000000000000003,
+     4.898587196589413e-17,
+     1.3
+    ],
+    "distance": 10.156422341252783
+   }
+  },
+  {
+   "step": 2,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 413.5546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "Zip",
+   "kind": "tap",
+   "at": {
+    "x": 200.5553503479299,
+    "y": 191.7863439079175
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f8666821-04eb-4ad7-b62e-65294be434d0",
+    "world": [
+     -3.3000000000000003,
+     4.898587196589413e-17,
+     1.3
+    ],
+    "distance": 10.158111916086188
+   }
+  },
+  {
+   "step": 3,
+   "what": "Bo",
+   "kind": "tap",
+   "at": {
+    "x": 132.7582050607899,
+    "y": 185.5732828054597
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6807d08b-a9cc-4e1a-9511-fa504a05bd48",
+    "world": [
+     -5.15,
+     6.123233995736766e-17,
+     0.95
+    ],
+    "distance": 11.15820246385608
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 253.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "Zip",
+   "kind": "tap",
+   "at": {
+    "x": 466.21158761650975,
+    "y": 191.58003752766848
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f8666821-04eb-4ad7-b62e-65294be434d0",
+    "world": [
+     3.3000000000000003,
+     4.898587196589413e-17,
+     1.3
+    ],
+    "distance": 10.159895652118994
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 413.5546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "Granny Elm",
+   "kind": "tap",
+   "at": {
+    "x": 154.2451394518244,
+    "y": 168.81808927995502
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a152e410-d087-4c3c-a85b-d1fb410792a7",
+    "world": [
+     -5.2,
+     6.123233995736766e-17,
+     -0.3
+    ],
+    "distance": 12.218285193330637
+   }
+  },
+  {
+   "step": 5,
+   "what": "Tuk",
+   "kind": "tap",
+   "at": {
+    "x": 202.44940014946627,
+    "y": 166.22823890475541
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3327b287-4a24-4af8-baba-d5d03f5686f0",
+    "world": [
+     -3.95,
+     6.123233995736766e-17,
+     -0.85
+    ],
+    "distance": 12.259457763162196
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 253.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "Mira",
+   "kind": "tap",
+   "at": {
+    "x": 505.3870353350095,
+    "y": 199.24226895898886
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1efc4d64-ee63-4e09-a8c6-c37340e2777f",
+    "world": [
+     4.2,
+     6.123233995736766e-17,
+     1.65
+    ],
+    "distance": 10.1951014651388
+   }
+  },
+  {
+   "step": 6,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 413.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 7,
+   "what": "Zip",
+   "kind": "tap",
+   "at": {
+    "x": 200.20299042565716,
+    "y": 191.72333367278463
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f8666821-04eb-4ad7-b62e-65294be434d0",
+    "world": [
+     -3.3000000000000003,
+     6.123233995736766e-17,
+     1.3
+    ],
+    "distance": 10.157091253736853
+   }
+  },
+  {
+   "step": 7,
+   "what": "Mira",
+   "kind": "tap",
+   "at": {
+    "x": 161.39220041442115,
+    "y": 199.01971138545758
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1efc4d64-ee63-4e09-a8c6-c37340e2777f",
+    "world": [
+     -4.2,
+     4.898587196589413e-17,
+     1.65
+    ],
+    "distance": 10.195406645294792
+   }
+  },
+  {
+   "step": 7,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 253.546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ]
+}

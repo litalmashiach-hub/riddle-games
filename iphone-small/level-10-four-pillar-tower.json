@@ -1,0 +1,684 @@
+{
+ "level": 10,
+ "id": "four-pillar-tower",
+ "title": "Four-Pillar Tower",
+ "device": "iphone-small",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 17,
+ "moves": 17,
+ "touches": 34,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 6.851,
+  "rulesCard": 6.2,
+  "drawn": 6.851,
+  "play": 56.45,
+  "total": 75.111
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-L10-loading-mark.png",
+  "iphone-small-L10-rules-card.png",
+  "iphone-small-L10-in-play.png",
+  "iphone-small-L10-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 1,
+   "what": "the second pillar",
+   "kind": "tap",
+   "at": {
+    "x": 284.2223913857625,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ddf14a4e-0e82-4f35-a559-53d95cd662ae",
+    "world": [
+     -1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 2,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 2,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  },
+  {
+   "step": 3,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 3,
+   "what": "the third pillar",
+   "kind": "tap",
+   "at": {
+    "x": 382.7776086142376,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8930f7f7-756e-4536-95cb-ce92022a5122",
+    "world": [
+     1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 4,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  },
+  {
+   "step": 4,
+   "what": "the third pillar",
+   "kind": "tap",
+   "at": {
+    "x": 382.7776086142376,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8930f7f7-756e-4536-95cb-ce92022a5122",
+    "world": [
+     1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 5,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 5,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  },
+  {
+   "step": 6,
+   "what": "the second pillar",
+   "kind": "tap",
+   "at": {
+    "x": 284.2223913857625,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ddf14a4e-0e82-4f35-a559-53d95cd662ae",
+    "world": [
+     -1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 6,
+   "what": "the third pillar",
+   "kind": "tap",
+   "at": {
+    "x": 382.7776086142376,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8930f7f7-756e-4536-95cb-ce92022a5122",
+    "world": [
+     1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 7,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 7,
+   "what": "the second pillar",
+   "kind": "tap",
+   "at": {
+    "x": 284.2223913857625,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ddf14a4e-0e82-4f35-a559-53d95cd662ae",
+    "world": [
+     -1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 8,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  },
+  {
+   "step": 8,
+   "what": "the second pillar",
+   "kind": "tap",
+   "at": {
+    "x": 284.2223913857625,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ddf14a4e-0e82-4f35-a559-53d95cd662ae",
+    "world": [
+     -1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 9,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 9,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  },
+  {
+   "step": 10,
+   "what": "the second pillar",
+   "kind": "tap",
+   "at": {
+    "x": 284.2223913857625,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ddf14a4e-0e82-4f35-a559-53d95cd662ae",
+    "world": [
+     -1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 10,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 11,
+   "what": "the second pillar",
+   "kind": "tap",
+   "at": {
+    "x": 284.2223913857625,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ddf14a4e-0e82-4f35-a559-53d95cd662ae",
+    "world": [
+     -1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 11,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  },
+  {
+   "step": 12,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 12,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  },
+  {
+   "step": 13,
+   "what": "the third pillar",
+   "kind": "tap",
+   "at": {
+    "x": 382.7776086142376,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8930f7f7-756e-4536-95cb-ce92022a5122",
+    "world": [
+     1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 13,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 14,
+   "what": "the third pillar",
+   "kind": "tap",
+   "at": {
+    "x": 382.7776086142376,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8930f7f7-756e-4536-95cb-ce92022a5122",
+    "world": [
+     1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 14,
+   "what": "the second pillar",
+   "kind": "tap",
+   "at": {
+    "x": 284.2223913857625,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ddf14a4e-0e82-4f35-a559-53d95cd662ae",
+    "world": [
+     -1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 15,
+   "what": "the third pillar",
+   "kind": "tap",
+   "at": {
+    "x": 382.7776086142376,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8930f7f7-756e-4536-95cb-ce92022a5122",
+    "world": [
+     1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 15,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  },
+  {
+   "step": 16,
+   "what": "the second pillar",
+   "kind": "tap",
+   "at": {
+    "x": 284.2223913857625,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ddf14a4e-0e82-4f35-a559-53d95cd662ae",
+    "world": [
+     -1.25,
+     0,
+     0
+    ],
+    "distance": 11.414015919048353
+   }
+  },
+  {
+   "step": 16,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  },
+  {
+   "step": 17,
+   "what": "the first pillar",
+   "kind": "tap",
+   "at": {
+    "x": 188.6688094914333,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b1a4435-de41-4abf-85fa-0ce4c676def6",
+    "world": [
+     -3.75,
+     0,
+     0
+    ],
+    "distance": 11.93470219430669
+   }
+  },
+  {
+   "step": 17,
+   "what": "the fourth pillar",
+   "kind": "tap",
+   "at": {
+    "x": 479.1909125488909,
+    "y": 176.3160483734784
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a02cce4-a5d7-459b-af84-78e967d5ad7f",
+    "world": [
+     3.75,
+     0,
+     0
+    ],
+    "distance": 11.933956049920237
+   }
+  }
+ ]
+}

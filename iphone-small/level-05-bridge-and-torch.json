@@ -1,0 +1,245 @@
+{
+ "level": 5,
+ "id": "bridge-and-torch",
+ "title": "Bridge and Torch",
+ "device": "iphone-small",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 5,
+ "moves": 5,
+ "touches": 13,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 16.927,
+  "rulesCard": 16.01,
+  "drawn": 16.927,
+  "play": 103.851,
+  "total": 136.258
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-L05-loading-mark.png",
+  "iphone-small-L05-rules-card.png",
+  "iphone-small-L05-in-play.png",
+  "iphone-small-L05-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "Pip",
+   "kind": "tap",
+   "at": {
+    "x": 151.7895981373553,
+    "y": 200.38281673679575
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4f895645-845f-48b5-b552-8799cc816827",
+    "world": [
+     -4.4,
+     1.8369701987210297e-17,
+     1.75
+    ],
+    "distance": 10.023645791871044
+   }
+  },
+  {
+   "step": 1,
+   "what": "Juno",
+   "kind": "tap",
+   "at": {
+    "x": 114.51587622349759,
+    "y": 186.76067716603592
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a9e54c5-a0f5-4515-a2c4-190ad735c807",
+    "world": [
+     -5.5,
+     1.8369701987210297e-17,
+     1.2
+    ],
+    "distance": 10.955441190953245
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 333.5546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "Pip",
+   "kind": "tap",
+   "at": {
+    "x": 515.3730170373574,
+    "y": 200.51305135571528
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4f895645-845f-48b5-b552-8799cc816827",
+    "world": [
+     4.4,
+     1.8369701987210297e-17,
+     1.75
+    ],
+    "distance": 10.023684766266154
+   }
+  },
+  {
+   "step": 2,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 333.5546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "Bram",
+   "kind": "tap",
+   "at": {
+    "x": 103.43483000633601,
+    "y": 169.25437077828246
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3de0f27c-a655-4d5c-9c1e-f5ffd03472cf",
+    "world": [
+     -6.35,
+     -0.02390564355906275,
+     0.2
+    ],
+    "distance": 12.172295909648984
+   }
+  },
+  {
+   "step": 3,
+   "what": "Grandpa Mo",
+   "kind": "tap",
+   "at": {
+    "x": 160.40604949040454,
+    "y": 155.5578974265569
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ef278d12-b765-4865-be13-a14c88996902",
+    "world": [
+     -5.3,
+     1.8369701987210297e-17,
+     -0.95
+    ],
+    "distance": 12.61907296721307
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 333.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "Juno",
+   "kind": "tap",
+   "at": {
+    "x": 552.975217769696,
+    "y": 186.76056163534167
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a9e54c5-a0f5-4515-a2c4-190ad735c807",
+    "world": [
+     5.5,
+     1.8369701987210297e-17,
+     1.2
+    ],
+    "distance": 10.955219288576602
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 333.5234375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "Pip",
+   "kind": "tap",
+   "at": {
+    "x": 151.71765616312257,
+    "y": 200.10797787375805
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4f895645-845f-48b5-b552-8799cc816827",
+    "world": [
+     -4.4,
+     1.8369701987210297e-17,
+     1.75
+    ],
+    "distance": 10.021771861159436
+   }
+  },
+  {
+   "step": 5,
+   "what": "Juno",
+   "kind": "tap",
+   "at": {
+    "x": 114.326661387537,
+    "y": 186.98456184821663
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6a9e54c5-a0f5-4515-a2c4-190ad735c807",
+    "world": [
+     -5.5,
+     1.8369701987210297e-17,
+     1.2
+    ],
+    "distance": 10.954523707259591
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Cross button",
+   "kind": "button",
+   "at": {
+    "x": 333.5546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ]
+}

@@ -1,0 +1,501 @@
+{
+ "level": 6,
+ "id": "explorers-guardians",
+ "title": "Explorers and Guardians",
+ "device": "iphone-small",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 11,
+ "moves": 11,
+ "touches": 29,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 12.5,
+  "rulesCard": 10.493,
+  "drawn": 12.5,
+  "play": 108.349,
+  "total": 132.719
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-L06-loading-mark.png",
+  "iphone-small-L06-rules-card.png",
+  "iphone-small-L06-in-play.png",
+  "iphone-small-L06-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "explorer e0",
+   "kind": "tap",
+   "at": {
+    "x": 176.7254075516338,
+    "y": 227.4611308316309
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "bfa93cc4-240d-49a9-80b5-83c64b3a23ab",
+    "world": [
+     -3.55,
+     0.4,
+     0.95
+    ],
+    "distance": 10.413740278912673
+   }
+  },
+  {
+   "step": 1,
+   "what": "guardian g0",
+   "kind": "tap",
+   "at": {
+    "x": 195.45008698212354,
+    "y": 192.7695532655252
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2b1be120-df1b-4e1b-bb03-87701d925985",
+    "world": [
+     -3.65,
+     0.4,
+     -0.8
+    ],
+    "distance": 11.932282510525907
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.421875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "explorer e0",
+   "kind": "tap",
+   "at": {
+    "x": 489.0337641547093,
+    "y": 226.92155438355252
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "bfa93cc4-240d-49a9-80b5-83c64b3a23ab",
+    "world": [
+     3.55,
+     0.40000000000000013,
+     0.95
+    ],
+    "distance": 10.41968274898692
+   }
+  },
+  {
+   "step": 2,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.46875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "guardian g1",
+   "kind": "tap",
+   "at": {
+    "x": 165.47188578830125,
+    "y": 189.87275740009375
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "bfa93cc4-240d-49a9-80b5-83c64b3a23ab",
+    "world": [
+     -3.5330321310725625,
+     1.279573897186896,
+     0.9434206222526264
+    ],
+    "distance": 10.072845509430472
+   }
+  },
+  {
+   "step": 3,
+   "what": "guardian g2",
+   "kind": "tap",
+   "at": {
+    "x": 131.43527179096338,
+    "y": 193.0214772816817
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a64b2424-eef3-4292-8d70-e0412f0c36b8",
+    "world": [
+     -5.35,
+     0.4,
+     -0.8
+    ],
+    "distance": 12.540270547176728
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.59375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "guardian g0",
+   "kind": "tap",
+   "at": {
+    "x": 471.6838130883169,
+    "y": 192.77787372194342
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2b1be120-df1b-4e1b-bb03-87701d925985",
+    "world": [
+     3.65,
+     0.4,
+     -0.8
+    ],
+    "distance": 11.931520275427776
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.4375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "explorer e0",
+   "kind": "tap",
+   "at": {
+    "x": 176.5861794558076,
+    "y": 226.85254584502036
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "bfa93cc4-240d-49a9-80b5-83c64b3a23ab",
+    "world": [
+     -3.55,
+     0.4,
+     0.95
+    ],
+    "distance": 10.414713349334257
+   }
+  },
+  {
+   "step": 5,
+   "what": "explorer e1",
+   "kind": "tap",
+   "at": {
+    "x": 140.36768005493911,
+    "y": 231.5598025926057
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4a72675b-0bfe-4faa-a515-9687e3a46bc2",
+    "world": [
+     -4.3,
+     0.4,
+     1.15
+    ],
+    "distance": 10.527069516750112
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.4921875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "explorer e0",
+   "kind": "tap",
+   "at": {
+    "x": 489.76981522751015,
+    "y": 227.37075267089
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "bfa93cc4-240d-49a9-80b5-83c64b3a23ab",
+    "world": [
+     3.55,
+     0.40000000000000013,
+     0.95
+    ],
+    "distance": 10.415831857144228
+   }
+  },
+  {
+   "step": 6,
+   "what": "guardian g1",
+   "kind": "tap",
+   "at": {
+    "x": 501.13249932524025,
+    "y": 190.18255910327133
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "299a4f6b-f731-4c09-88fc-7837cca27b22",
+    "world": [
+     4.5,
+     0.4,
+     -1
+    ],
+    "distance": 12.37935208054215
+   }
+  },
+  {
+   "step": 6,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.453125,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 7,
+   "what": "explorer e0",
+   "kind": "tap",
+   "at": {
+    "x": 177.11150559123428,
+    "y": 227.29873269001197
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "bfa93cc4-240d-49a9-80b5-83c64b3a23ab",
+    "world": [
+     -3.55,
+     0.40000000000000013,
+     0.95
+    ],
+    "distance": 10.415566146822588
+   }
+  },
+  {
+   "step": 7,
+   "what": "explorer e2",
+   "kind": "tap",
+   "at": {
+    "x": 110.66053107359596,
+    "y": 227.54468817728707
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "05f6e6f0-2f3d-48e3-8cf5-28f54d2bd5aa",
+    "world": [
+     -5.05,
+     0.4,
+     0.95
+    ],
+    "distance": 10.997772222280153
+   }
+  },
+  {
+   "step": 7,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.4921875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 8,
+   "what": "guardian g2",
+   "kind": "tap",
+   "at": {
+    "x": 536.1323459503274,
+    "y": 192.89544088608255
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a64b2424-eef3-4292-8d70-e0412f0c36b8",
+    "world": [
+     5.35,
+     0.4,
+     -0.8
+    ],
+    "distance": 12.539595058486402
+   }
+  },
+  {
+   "step": 8,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.4375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 9,
+   "what": "guardian g0",
+   "kind": "tap",
+   "at": {
+    "x": 195.09430425404992,
+    "y": 192.75860935826972
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2b1be120-df1b-4e1b-bb03-87701d925985",
+    "world": [
+     -3.65,
+     0.4,
+     -0.8
+    ],
+    "distance": 11.930415998777654
+   }
+  },
+  {
+   "step": 9,
+   "what": "guardian g1",
+   "kind": "tap",
+   "at": {
+    "x": 165.82648494521982,
+    "y": 189.93791754433596
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "299a4f6b-f731-4c09-88fc-7837cca27b22",
+    "world": [
+     -4.5,
+     0.4,
+     -1
+    ],
+    "distance": 12.38039264483956
+   }
+  },
+  {
+   "step": 9,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.59375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 10,
+   "what": "explorer e0",
+   "kind": "tap",
+   "at": {
+    "x": 490.0630600514281,
+    "y": 227.64243964645925
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "bfa93cc4-240d-49a9-80b5-83c64b3a23ab",
+    "world": [
+     3.55,
+     0.4,
+     0.95
+    ],
+    "distance": 10.414083235061925
+   }
+  },
+  {
+   "step": 10,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.46875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 11,
+   "what": "explorer e0",
+   "kind": "tap",
+   "at": {
+    "x": 176.61381855937697,
+    "y": 227.1423774844813
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "bfa93cc4-240d-49a9-80b5-83c64b3a23ab",
+    "world": [
+     -3.55,
+     0.40000000000000013,
+     0.95
+    ],
+    "distance": 10.41461054514462
+   }
+  },
+  {
+   "step": 11,
+   "what": "guardian g2",
+   "kind": "tap",
+   "at": {
+    "x": 130.8021710347254,
+    "y": 193.1283811887443
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a64b2424-eef3-4292-8d70-e0412f0c36b8",
+    "world": [
+     -5.35,
+     0.4,
+     -0.8
+    ],
+    "distance": 12.538367678245795
+   }
+  },
+  {
+   "step": 11,
+   "what": "the Sail button",
+   "kind": "button",
+   "at": {
+    "x": 333.421875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ]
+}

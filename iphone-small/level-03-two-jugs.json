@@ -1,0 +1,218 @@
+{
+ "level": 3,
+ "id": "two-jugs",
+ "title": "Two Jugs",
+ "device": "iphone-small",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 6,
+ "moves": 6,
+ "touches": 12,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 8.093,
+  "rulesCard": 6.782,
+  "drawn": 8.093,
+  "play": 34.358,
+  "total": 51.479
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-L03-loading-mark.png",
+  "iphone-small-L03-rules-card.png",
+  "iphone-small-L03-in-play.png",
+  "iphone-small-L03-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 401.2007570885688,
+    "y": 214.09397852974058
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9c9e363b-b1f1-4707-b237-215d0a39a0bb",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 1,
+   "what": "the fill button",
+   "kind": "button",
+   "at": {
+    "x": 250.57675170898438,
+    "y": 106.02702331542969
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 401.2007570885688,
+    "y": 214.09397852974058
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9c9e363b-b1f1-4707-b237-215d0a39a0bb",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 2,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 396.5767517089844,
+    "y": 106.02702331542969
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "the 3 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 290.1387675273079,
+    "y": 228.49245043502134
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e40e0e61-ca64-4ff7-be3c-e347e4bb7b7a",
+    "world": [
+     4.15,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.678280692784722
+   }
+  },
+  {
+   "step": 3,
+   "what": "the empty button",
+   "kind": "button",
+   "at": {
+    "x": 426.6726379394531,
+    "y": 111.44174194335938
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 401.2007570885688,
+    "y": 214.09397852974058
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9c9e363b-b1f1-4707-b237-215d0a39a0bb",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 4,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 396.5767517089844,
+    "y": 106.02702331542969
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 401.2007570885688,
+    "y": 214.09397852974058
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9c9e363b-b1f1-4707-b237-215d0a39a0bb",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 5,
+   "what": "the fill button",
+   "kind": "button",
+   "at": {
+    "x": 250.57675170898438,
+    "y": 106.02702331542969
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 401.2007570885688,
+    "y": 214.09397852974058
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9c9e363b-b1f1-4707-b237-215d0a39a0bb",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 6,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 396.5767517089844,
+    "y": 106.02702331542969
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ]
+}

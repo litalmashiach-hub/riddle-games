@@ -1,0 +1,3 @@
+device iPhone SE (3rd generation): 6B8029AE-8C9E-4D64-B74A-BE25866D28AA
+    iPhone SE (3rd generation) (6B8029AE-8C9E-4D64-B74A-BE25866D28AA) (Shutdown) 
+booted in 90 s

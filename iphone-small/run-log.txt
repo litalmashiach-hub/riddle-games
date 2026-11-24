@@ -1,0 +1,44 @@
+    0.0s device iphone-small; levels 1-30 (30); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"6B8029AE-8C9E-4D64-B74A-BE25866D28AA","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  436.8s page in WEBVIEW_16040.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  436.8s web view found: WEBVIEW_16040.1, 667 by 375
+  448.8s calibration: touched [{"x":200,"y":150},{"x":467,"y":281}], the page saw [{"x":200,"y":150},{"x":467,"y":281}]: same (error 0.0 pt)
+  455.7s page in WEBVIEW_16040.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  457.9s L01 wolf-two-sheep: opened by its card on the level map
+  536.0s L01 wolf-two-sheep: won by taps; stars 3 (saved 3); open 15.663s, play 49.77s, total 87.188s; page errors 0, console errors 0
+  537.5s L02 wolf-goat-cabbage: opened by "Next level" on the win card
+  572.0s L02: tap fault at step 5 (wrong-pick, known): the tap on the cabbage made the Row button read "Row across ➜with goat": the cabbage at (122, 178); the first listening object under it has its origin at [-4.8, 0.4, 0.5]
+  590.7s L02 wolf-goat-cabbage: won, finished by the debug hook after a known tap fault at step 5 (wrong-pick); stars 3 (saved 3); open 3.562s, play 42.491s, total 54.398s; page errors 0, console errors 0
+  591.8s L03 two-jugs: opened by "Next level" on the win card
+  642.2s L03 two-jugs: won by taps; stars 3 (saved 3); open 8.093s, play 34.358s, total 51.479s; page errors 0, console errors 0
+  643.3s L04 tower-of-hanoi: opened by "Next level" on the win card
+  719.1s L04 tower-of-hanoi: won by taps; stars 3 (saved 3); open 4.437s, play 62.677s, total 76.168s; page errors 0, console errors 0
+  723.7s L05 bridge-and-torch: opened by "Next level" on the win card
+  856.2s L05 bridge-and-torch: won by taps; stars 3 (saved 3); open 16.927s, play 103.851s, total 136.258s; page errors 0, console errors 0
+  859.7s L06 explorers-guardians: opened by "Next level" on the win card
+  989.6s L06 explorers-guardians: won by taps; stars 3 (saved 3); open 12.5s, play 108.349s, total 132.719s; page errors 0, console errors 0
+  991.5s L07 jealous-couples: opened by "Next level" on the win card
+ 1015.0s L07: tap fault at step 1 (wrong-pick, known): the tap on Mrs Coral made the Fly button read "Fly over ➜Mr Coral + Mr Teal", not "Mr Coral + Mrs Coral": Mrs Coral at (191, 179); the first listening object under it has its origin at [-3.5, 0, -0.1]
+ 1069.1s L07 jealous-couples: won, finished by the debug hook after a known tap fault at step 1 (wrong-pick); stars 3 (saved 3); open 5.598s, play 62.853s, total 78.996s; page errors 0, console errors 0
+ 1070.9s L08 three-jugs: opened by "Next level" on the win card
+ 1121.9s L08 three-jugs: won by taps; stars 3 (saved 3); open 8.024s, play 36.002s, total 52.771s; page errors 0, console errors 0
+ 1123.2s L09 bridge-five: opened by "Next level" on the win card
+ 1202.3s L09 bridge-five: won by taps; stars 3 (saved 3); open 4.386s, play 65.006s, total 80.356s; page errors 1, console errors 1
+ 1203.5s L10 four-pillar-tower: opened by "Next level" on the win card
+ 1277.5s L10 four-pillar-tower: won by taps; stars 3 (saved 3); open 6.851s, play 56.45s, total 75.111s; page errors 0, console errors 0
+ 1278.7s L11 family-crossing: opened by "Next level" on the win card
+ 1310.7s L11: tap fault at step 1 (wrong-pick, known): the tap on Guard (guard) did not put it on the raft; the Cast off button went from "Cast off ➜tap people to board" to "Cast off ➜Dad": Guard (guard) at (227, 175); the first listening object under it has its origin at [-3.3, 0.4, -0.4]
+ 1377.2s L11 family-crossing: won, finished by the debug hook after a known tap fault at step 1 (wrong-pick); stars 3 (saved 3); open 15.925s, play 74.993s, total 99.634s; page errors 0, console errors 0
+ 1378.1s L12 twelve-coins: opened by "Next level" on the win card
+ 1405.2s L12: tap fault at step 1 (wrong-pick, known): the tap on coin 3 on the table sent coin 9 to the pan instead: coin 3 on the table at (315, 210); the first listening object under it has its origin at [-0.4, 1, 1.9]
+ 1423.3s L12 twelve-coins: won, finished by the debug hook after a known tap fault at step 1 (wrong-pick); stars 3 (saved 3); open 5.763s, play 31.917s, total 46.038s; page errors 0, console errors 0
+ 1424.1s L13 leapfrog-lagoon: opened by "Next level" on the win card
+ 1470.8s L13 leapfrog-lagoon: won by taps; stars 3 (saved 3); open 3.167s, play 36.008s, total 47.485s; page errors 0, console errors 0
+ 1472.0s L14 firefly-lanterns: opened by "Next level" on the win card
+ 1500.8s L14 firefly-lanterns: won by taps; stars 3 (saved 3); open 5.078s, play 16.313s, total 29.778s; page errors 0, console errors 0
+ 1502.3s L15 slippery-pond: opened by "Next level" on the win card
+ 1552.5s L15 slippery-pond: won by taps; stars 3 (saved 3); open 6.945s, play 33.858s, total 51.552s; page errors 0, console errors 0
+ 1556.1s L16 firefly-jars: opened by "Next level" on the win card
+ 1679.0s L16 firefly-jars: won by taps; stars 3 (saved 3); open 6.822s, play 104.419s, total 126.064s; page errors 0, console errors 0
+ 1682.2s L17 moonbeam-mirrors: opened by "Next level" on the win card
+ 3791.2s L17: ERROR level budget of 30 min ran out

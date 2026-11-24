@@ -1,0 +1,323 @@
+{
+ "level": 13,
+ "id": "leapfrog-lagoon",
+ "title": "Leapfrog Lagoon",
+ "device": "iphone-small",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 15,
+ "moves": 15,
+ "touches": 15,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 3.167,
+  "rulesCard": 2.716,
+  "drawn": 3.167,
+  "play": 36.008,
+  "total": 47.485
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-L13-loading-mark.png",
+  "iphone-small-L13-rules-card.png",
+  "iphone-small-L13-in-play.png",
+  "iphone-small-L13-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the green frog on pad 3",
+   "kind": "tap",
+   "at": {
+    "x": 265.2295625922336,
+    "y": 189.1383351822667
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "59b4a783-1efc-434c-9922-4e78441afff9",
+    "world": [
+     -1.42,
+     0.07,
+     0
+    ],
+    "distance": 9.181405820105152
+   }
+  },
+  {
+   "step": 2,
+   "what": "the orange frog on pad 5",
+   "kind": "tap",
+   "at": {
+    "x": 401.77220061925516,
+    "y": 188.84367209481525
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b1a1ab33-0b76-4327-9da0-b165ba0dab47",
+    "world": [
+     1.42,
+     0.07,
+     0
+    ],
+    "distance": 9.179774243120034
+   }
+  },
+  {
+   "step": 3,
+   "what": "the orange frog on pad 6",
+   "kind": "tap",
+   "at": {
+    "x": 468.45881952990396,
+    "y": 189.72137547746956
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "affc774e-070f-4ba8-96b0-b7b4c0bf2f90",
+    "world": [
+     2.84,
+     0.07,
+     0
+    ],
+    "distance": 9.490034600543842
+   }
+  },
+  {
+   "step": 4,
+   "what": "the green frog on pad 4",
+   "kind": "tap",
+   "at": {
+    "x": 332.31379614465936,
+    "y": 188.91100891306314
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "59b4a783-1efc-434c-9922-4e78441afff9",
+    "world": [
+     0,
+     0.07,
+     0
+    ],
+    "distance": 9.105382059759336
+   }
+  },
+  {
+   "step": 5,
+   "what": "the green frog on pad 2",
+   "kind": "tap",
+   "at": {
+    "x": 198.48841997543232,
+    "y": 189.23990292738875
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b8faf2a-561d-4b04-a161-423be5149900",
+    "world": [
+     -2.84,
+     0.07,
+     0
+    ],
+    "distance": 9.487724865241349
+   }
+  },
+  {
+   "step": 6,
+   "what": "the green frog on pad 1",
+   "kind": "tap",
+   "at": {
+    "x": 131.82476835968697,
+    "y": 189.87675957670365
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "43688d60-d106-44f8-8673-77761d51af08",
+    "world": [
+     -4.26,
+     0.07,
+     0
+    ],
+    "distance": 9.997626241066477
+   }
+  },
+  {
+   "step": 7,
+   "what": "the orange frog on pad 3",
+   "kind": "tap",
+   "at": {
+    "x": 267.62048764625445,
+    "y": 189.0580531012104
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b1a1ab33-0b76-4327-9da0-b165ba0dab47",
+    "world": [
+     -1.42,
+     0.07,
+     0
+    ],
+    "distance": 9.21929185429612
+   }
+  },
+  {
+   "step": 8,
+   "what": "the orange frog on pad 5",
+   "kind": "tap",
+   "at": {
+    "x": 401.7510155341836,
+    "y": 189.66131710044704
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "affc774e-070f-4ba8-96b0-b7b4c0bf2f90",
+    "world": [
+     1.42,
+     0.07,
+     0
+    ],
+    "distance": 9.184194160932572
+   }
+  },
+  {
+   "step": 9,
+   "what": "the orange frog on pad 7",
+   "kind": "tap",
+   "at": {
+    "x": 535.2795336083515,
+    "y": 188.82017907834378
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2028b23f-2c24-48f1-b8a7-0fc3c2eb42c8",
+    "world": [
+     4.26,
+     0.07,
+     0
+    ],
+    "distance": 9.993013693237438
+   }
+  },
+  {
+   "step": 10,
+   "what": "the green frog on pad 6",
+   "kind": "tap",
+   "at": {
+    "x": 466.1487030070482,
+    "y": 188.88584553534295
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "59b4a783-1efc-434c-9922-4e78441afff9",
+    "world": [
+     2.84,
+     0.07,
+     0
+    ],
+    "distance": 9.514837344703938
+   }
+  },
+  {
+   "step": 11,
+   "what": "the green frog on pad 4",
+   "kind": "tap",
+   "at": {
+    "x": 332.28421199278364,
+    "y": 189.84920303819928
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4b8faf2a-561d-4b04-a161-423be5149900",
+    "world": [
+     0,
+     0.07,
+     0
+    ],
+    "distance": 9.110560755944796
+   }
+  },
+  {
+   "step": 12,
+   "what": "the green frog on pad 2",
+   "kind": "tap",
+   "at": {
+    "x": 198.541493068482,
+    "y": 189.93787969643626
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "43688d60-d106-44f8-8673-77761d51af08",
+    "world": [
+     -2.84,
+     0.07,
+     0
+    ],
+    "distance": 9.490941368632614
+   }
+  },
+  {
+   "step": 13,
+   "what": "the orange frog on pad 3",
+   "kind": "tap",
+   "at": {
+    "x": 267.63404533389763,
+    "y": 189.21245501357777
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "affc774e-070f-4ba8-96b0-b7b4c0bf2f90",
+    "world": [
+     -1.42,
+     0.07,
+     0
+    ],
+    "distance": 9.220125259511931
+   }
+  },
+  {
+   "step": 14,
+   "what": "the orange frog on pad 5",
+   "kind": "tap",
+   "at": {
+    "x": 401.7773659579692,
+    "y": 188.65298607842243
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2028b23f-2c24-48f1-b8a7-0fc3c2eb42c8",
+    "world": [
+     1.42,
+     0.07,
+     0
+    ],
+    "distance": 9.178749705670795
+   }
+  },
+  {
+   "step": 15,
+   "what": "the green frog on pad 4",
+   "kind": "tap",
+   "at": {
+    "x": 332.2852038555334,
+    "y": 189.81878365534067
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "43688d60-d106-44f8-8673-77761d51af08",
+    "world": [
+     0,
+     0.07,
+     0
+    ],
+    "distance": 9.110392030537412
+   }
+  }
+ ]
+}
