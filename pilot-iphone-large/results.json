@@ -1,0 +1,117 @@
+[
+ {
+  "level": 1,
+  "id": "wolf-two-sheep",
+  "title": "Wolf and Two Sheep",
+  "device": "pilot-iphone-large",
+  "size": "956x440",
+  "quality": "SD",
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 82.134,
+   "rulesCard": 80.271,
+   "drawn": 82.134,
+   "play": 49.883,
+   "total": 173.055
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "pilot-iphone-large-L01-loading-mark.png",
+   "pilot-iphone-large-L01-rules-card.png",
+   "pilot-iphone-large-L01-in-play.png",
+   "pilot-iphone-large-L01-win-card.png"
+  ]
+ },
+ {
+  "level": 2,
+  "id": "wolf-goat-cabbage",
+  "title": "Wolf, Goat and Cabbage",
+  "device": "pilot-iphone-large",
+  "size": "956x440",
+  "quality": "SD",
+  "openedBy": "\"Next level\" on the win card",
+  "state": "won, finished by the debug hook after a known tap fault at step 5 (wrong-pick)",
+  "wonByTaps": false,
+  "won": true,
+  "finishedByHook": true,
+  "movesByTaps": 4,
+  "moves": 7,
+  "touches": 8,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": {
+   "kind": "wrong-pick",
+   "step": 5,
+   "detail": "the tap on the cabbage made the Row button read \"Row across ➜with goat\": the cabbage at (230, 209); the first listening object under it has its origin at [-3.8, 0.4, 1.4]",
+   "known": true,
+   "knownReason": "Level 2, move 5 (row the cabbage across): on the left bank a tap on the middle of the cabbage puts the goat in the boat. The goat stands in front, and its unseen tap sphere (radius 0.6) reaches over the cabbage's middle."
+  },
+  "error": null,
+  "seconds": {
+   "open": 4.057,
+   "rulesCard": 3.648,
+   "drawn": 4.057,
+   "play": 43.02,
+   "total": 57.981
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "pilot-iphone-large-L02-loading-mark.png",
+   "pilot-iphone-large-L02-rules-card.png",
+   "pilot-iphone-large-L02-in-play.png",
+   "pilot-iphone-large-L02-fault-step-5.png",
+   "pilot-iphone-large-L02-win-card.png"
+  ]
+ },
+ {
+  "level": 3,
+  "id": "two-jugs",
+  "title": "Two Jugs",
+  "device": "pilot-iphone-large",
+  "size": "956x440",
+  "quality": "SD",
+  "openedBy": "\"Next level\" on the win card",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 6,
+  "moves": 6,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 7.2,
+   "rulesCard": 6.821,
+   "drawn": 7.2,
+   "play": 166.299,
+   "total": 183.798
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "pilot-iphone-large-L03-loading-mark.png",
+   "pilot-iphone-large-L03-rules-card.png",
+   "pilot-iphone-large-L03-in-play.png",
+   "pilot-iphone-large-L03-win-card.png"
+  ]
+ }
+]

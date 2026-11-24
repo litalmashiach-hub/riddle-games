@@ -1,0 +1,267 @@
+{
+ "stars-over-restart": {
+  "before": "9 / 90",
+  "after": "9 / 90",
+  "savedSame": true,
+  "shots": [
+   "pilot-iphone-large-extra-map-before-restart.png",
+   "pilot-iphone-large-extra-map-after-restart.png"
+  ]
+ },
+ "launch": {
+  "mapAfter": 22.821,
+  "shots": [
+   {
+    "at": 2.366,
+    "file": "pilot-iphone-large-extra-launch-00.png"
+   },
+   {
+    "at": 3.833,
+    "file": "pilot-iphone-large-extra-launch-01.png"
+   },
+   {
+    "at": 6.324,
+    "file": "pilot-iphone-large-extra-launch-02.png"
+   },
+   {
+    "at": 8.135,
+    "file": "pilot-iphone-large-extra-launch-03.png"
+   },
+   {
+    "at": 10.111,
+    "file": "pilot-iphone-large-extra-launch-04.png"
+   },
+   {
+    "at": 11.785,
+    "file": "pilot-iphone-large-extra-launch-05.png"
+   },
+   {
+    "at": 13.618,
+    "file": "pilot-iphone-large-extra-launch-06.png"
+   },
+   {
+    "at": 15.789,
+    "file": "pilot-iphone-large-extra-launch-07.png"
+   },
+   {
+    "at": 18.593,
+    "file": "pilot-iphone-large-extra-launch-08.png"
+   },
+   {
+    "at": 20.463,
+    "file": "pilot-iphone-large-extra-launch-09.png"
+   }
+  ]
+ },
+ "level-map": {
+  "screen": {
+   "w": 956,
+   "h": 440
+  },
+  "safe": {
+   "top": "0px",
+   "right": "62px",
+   "bottom": "20px",
+   "left": "62px"
+  },
+  "cards": 30,
+  "cardsFullyInView": 5,
+  "distinctColumns": 30,
+  "distinctRows": 1,
+  "cardWidth": {
+   "min": 168,
+   "max": 168
+  },
+  "cardHeight": 332,
+  "scrollers": [
+   {
+    "tag": "DIV",
+    "cls": "no-scrollbar relative flex min-h-0 flex-1 gap-6 overflow-x-a",
+    "scrollW": 5560,
+    "clientW": 956,
+    "scrollH": 385,
+    "clientH": 384
+   }
+  ],
+  "first": {
+   "label": "Level 1: Wolf and Two Sheep",
+   "x": -158,
+   "y": 88,
+   "w": 168,
+   "h": 332
+  },
+  "last": {
+   "label": "Level 30: Moonlit Tower (locked)",
+   "x": 5110,
+   "y": 88,
+   "w": 168,
+   "h": 332
+  },
+  "shot": "pilot-iphone-large-extra-level-map.png"
+ },
+ "about": {
+  "Settings": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 894,
+     "y1": 420
+    },
+    "screen": {
+     "w": 956,
+     "h": 440
+    },
+    "scrollTop": 0,
+    "scrollHeight": 362,
+    "clientHeight": 362,
+    "offScreen": []
+   },
+   "scrolled": "nothing to scroll",
+   "shot": "pilot-iphone-large-extra-about-settings.png"
+  },
+  "Privacy": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 894,
+     "y1": 420
+    },
+    "screen": {
+     "w": 956,
+     "h": 440
+    },
+    "scrollTop": 0,
+    "scrollHeight": 1568,
+    "clientHeight": 362,
+    "offScreen": []
+   },
+   "scrolled": {
+    "before": 0,
+    "after": 451,
+    "of": 1206
+   },
+   "shot": "pilot-iphone-large-extra-about-privacy.png"
+  },
+  "Contact": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 894,
+     "y1": 420
+    },
+    "screen": {
+     "w": 956,
+     "h": 440
+    },
+    "scrollTop": 0,
+    "scrollHeight": 362,
+    "clientHeight": 362,
+    "offScreen": []
+   },
+   "scrolled": "nothing to scroll",
+   "shot": "pilot-iphone-large-extra-about-contact.png",
+   "emailTap": {
+    "shot": "pilot-iphone-large-extra-about-contact-after-email-tap.png",
+    "appStillAnswers": true
+   },
+   "appStateAfterEmailTap": 4
+  },
+  "Credits": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 894,
+     "y1": 420
+    },
+    "screen": {
+     "w": 956,
+     "h": 440
+    },
+    "scrollTop": 0,
+    "scrollHeight": 2746,
+    "clientHeight": 362,
+    "offScreen": [
+     {
+      "what": "MIT LicenseRead",
+      "x0": 251,
+      "y0": 2511,
+      "x1": 865,
+      "y1": 2559
+     },
+     {
+      "what": "zlib LicenseRead",
+      "x0": 251,
+      "y0": 2567,
+      "x1": 865,
+      "y1": 2615
+     },
+     {
+      "what": "SIL Open Font License 1.1Read",
+      "x0": 251,
+      "y0": 2623,
+      "x1": 865,
+      "y1": 2671
+     },
+     {
+      "what": "Apache License 2.0Read",
+      "x0": 251,
+      "y0": 2679,
+      "x1": 865,
+      "y1": 2727
+     },
+     {
+      "what": "CC0 1.0 UniversalRead",
+      "x0": 251,
+      "y0": 2735,
+      "x1": 865,
+      "y1": 2783
+     }
+    ]
+   },
+   "scrolled": {
+    "before": 0,
+    "after": 294,
+    "of": 2384
+   },
+   "shot": "pilot-iphone-large-extra-about-credits.png"
+  }
+ },
+ "background-mid-level": {
+  "before": {
+   "moves": 1
+  },
+  "after": {
+   "moves": 1,
+   "ready": true,
+   "card": false,
+   "lost": false
+  },
+  "shots": [
+   "pilot-iphone-large-extra-background-before.png",
+   "pilot-iphone-large-extra-background-back-1s.png",
+   "pilot-iphone-large-extra-background-back-6s.png"
+  ],
+  "consoleErrors": [],
+  "pageErrors": []
+ },
+ "scene-error-card": {
+  "lost": "lost",
+  "cardShownAfterSeconds": 2.586,
+  "text": [
+   "Your device didn't draw the 3D scene this time. Your moves are kept. Try again, or go back and pick a level.",
+   "Try again"
+  ],
+  "redrawnAfterSeconds": 2.289,
+  "movesKept": 0,
+  "shots": [
+   "pilot-iphone-large-extra-error-card-before.png",
+   "pilot-iphone-large-extra-error-card.png",
+   "pilot-iphone-large-extra-error-card-after-try-again.png"
+  ]
+ },
+ "back-to-map": "ok"
+}

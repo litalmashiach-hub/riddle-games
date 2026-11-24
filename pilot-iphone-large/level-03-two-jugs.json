@@ -1,0 +1,218 @@
+{
+ "level": 3,
+ "id": "two-jugs",
+ "title": "Two Jugs",
+ "device": "pilot-iphone-large",
+ "size": "956x440",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 6,
+ "moves": 6,
+ "touches": 12,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 7.2,
+  "rulesCard": 6.821,
+  "drawn": 7.2,
+  "play": 166.299,
+  "total": 183.798
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "pilot-iphone-large-L03-loading-mark.png",
+  "pilot-iphone-large-L03-rules-card.png",
+  "pilot-iphone-large-L03-in-play.png",
+  "pilot-iphone-large-L03-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 557.4355549839207,
+    "y": 251.2036014748956
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a7ee3e6e-c309-49a7-aa16-64575aa22300",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 1,
+   "what": "the fill button",
+   "kind": "button",
+   "at": {
+    "x": 407.29852294921875,
+    "y": 127.8717041015625
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 557.4355549839207,
+    "y": 251.2036014748956
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a7ee3e6e-c309-49a7-aa16-64575aa22300",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 2,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 553.2985229492188,
+    "y": 127.8717041015625
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "the 3 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 427.1228205653746,
+    "y": 268.097808510425
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "93041ff3-0a92-4bb3-a262-d98c315ec8ef",
+    "world": [
+     4.15,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.678280692784722
+   }
+  },
+  {
+   "step": 3,
+   "what": "the empty button",
+   "kind": "button",
+   "at": {
+    "x": 562.8900299072266,
+    "y": 134.2249755859375
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 557.4355549839207,
+    "y": 251.2036014748956
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a7ee3e6e-c309-49a7-aa16-64575aa22300",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 4,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 553.2985229492188,
+    "y": 127.8717041015625
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 557.4355549839207,
+    "y": 251.2036014748956
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a7ee3e6e-c309-49a7-aa16-64575aa22300",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 5,
+   "what": "the fill button",
+   "kind": "button",
+   "at": {
+    "x": 407.29852294921875,
+    "y": 127.8717041015625
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 557.4355549839207,
+    "y": 251.2036014748956
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a7ee3e6e-c309-49a7-aa16-64575aa22300",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  },
+  {
+   "step": 6,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 553.2985229492188,
+    "y": 127.8717041015625
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ]
+}
