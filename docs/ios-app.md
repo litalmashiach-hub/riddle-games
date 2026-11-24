@@ -7,8 +7,8 @@ The website's own build (`pnpm build` → `apps/web/dist`) and its deploy are no
 ## The one place for the app's identity
 
 `apps/mobile/ios/AppIdentity.xcconfig` holds the bundle identifier, the name under the icon, the version and the
-build number. Xcode and `capacitor.config.ts` both read it. **All four are placeholders** until the owner picks the
-final name and identifier. Raise `APP_BUILD` for every upload to App Store Connect.
+build number. Xcode and `capacitor.config.ts` both read it. The version is 1.0, build 1. **The identifier and the
+name are placeholders** until the owner picks the final ones. Raise `APP_BUILD` for every upload to App Store Connect.
 
 ## The app build of the game
 
@@ -58,6 +58,8 @@ team's workspace, so this run is how a change to the iOS project is proven.
 - No page scroll, bounce or pinch zoom of the page (`GameViewController.swift`, `capacitor.config.ts`);
   text selection and long-press menus are already off in the game's CSS.
 - Launch screen: `Base.lproj/LaunchScreen.storyboard` showing the `Splash` image on the game's dark blue.
+  `GameViewController.swift` keeps the same picture over the web view until the game has drawn its first screen, then fades it
+  out, so the launch screen goes straight into the game with no empty frame between.
 - Icon: one opaque 1024 pixel PNG. Icon and launch image are rendered from `apps/web/public/icons/icon.svg` and
   `apps/mobile/art/launch.svg` by `apps/mobile/scripts/render-art.mjs`; run it only when the art changes.
 
@@ -85,7 +87,7 @@ collects anything, this file and the store's privacy answers change together.
 
 ## Still open before a store upload
 
-- Final name, bundle identifier and version, in `AppIdentity.xcconfig`.
+- Final name and bundle identifier, in `AppIdentity.xcconfig`.
 - Signing with the owner's Apple developer account.
 - `Info.plist` declares that the app uses no non-exempt encryption (`ITSAppUsesNonExemptEncryption` = NO). That
   is true of the code today: the game makes no network calls and has no encryption of its own. It is the owner's

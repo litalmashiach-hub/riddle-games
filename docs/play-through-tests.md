@@ -38,6 +38,7 @@ Three screen sizes, all with touch and the phone held sideways:
 | `e2e/tests/progress.spec.ts` | Stars and the sound setting survive a restart of the app; locked levels stay locked; the map lists every level. |
 | `e2e/tests/scene-loading.spec.ts` | A level is never a blank screen. The app's loading mark shows until the game has started. A level's loading sign stays until its scene is drawn (the test holds the shaders back). A device that gives no 3D context, or a dead one, gets a card with "Try again" and "All levels", and both work. A context lost while playing brings the same card if it stays lost, and nothing if it comes back within a moment. |
 | `e2e/tests/layout.spec.ts` | Levels 1 to 3 at all three sizes: the rules card's button is whole without scrolling, and no button, counter or hint text overlaps another or leaves the screen, also with level 3's jug menu open. |
+| `e2e/tests/hint.spec.ts` | Hint where no win is left: in level 20, after a start that cannot win, a tap on Hint shows the line that says so, whole on the screen and clear of every button, at the project's size and at 956 by 440 (the largest iPhone); no hint is counted. Also: a restart forgets the hints, so the run after it earns three stars. |
 
 Every test fails if the page throws an error, logs a console error, has a request fail, or asks
 anything of another host (the game should make no such request). The few console messages that
