@@ -1,23 +1,10 @@
 import type { RiddleLevel } from '@riddle/engine';
-import { FAIL_MS, MOVE_MS, PondContext, Scene as PondScene, makePond, type Move, type State } from '@riddle/level-15-slippery-pond';
+import { FAIL_MS, MOVE_MS, PondContext, Scene as PondScene, type Move, type State } from '@riddle/level-15-slippery-pond';
 import { createElement } from 'react';
 
-/**
- * Slippery Pond (level 15) on another sheet of ice: same scene, same rules, a route twice as long.
- * Drawn like level 15's board: R rock, S snow drift, H ice hole, G fish basket, O the otter.
- */
-export const BOARD = [
-  'R..R...', //
-  'R..S..R',
-  '..RHSH.',
-  'R......',
-  '...RG..',
-  '.......',
-  'H.RO...',
-];
+import { BOARD, pond, rules } from './rules';
 
-export const pond = makePond(BOARD);
-export const rules = pond.rules;
+export { BOARD, pond, rules };
 
 const Scene: RiddleLevel<State, Move>['Scene'] = (props) => createElement(PondContext.Provider, { value: pond }, createElement(PondScene, props));
 

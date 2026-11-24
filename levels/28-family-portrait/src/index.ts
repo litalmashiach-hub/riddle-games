@@ -1,18 +1,11 @@
 import type { RiddleLevel } from '@riddle/engine';
-import { MOVE_MS, Scene as TilesScene, TilesContext, makeRules, type Move, type State, type TilesPuzzle } from '@riddle/level-19-picture-tiles';
+import { MOVE_MS, Scene as TilesScene, TilesContext, type Move, type State, type TilesPuzzle } from '@riddle/level-19-picture-tiles';
 import { createElement } from 'react';
 import { paintFamily } from './art';
 
-/**
- * Picture Tiles (level 19) with a new picture and a worse muddle: same scene, same rules.
- * `tiles[cell]` is the tile in that cell, row by row from the top-left; 0 is the gap.
- * 24 slides from solved (proved by the test). No stone starts where it belongs.
- */
-export const START: readonly number[] = [5, 1, 0, 2, 4, 8, 6, 7, 3];
-/** Shelly's patience. One more slide than this and she nods off. */
-export const MAX_SLIDES = 80;
+import { MAX_SLIDES, START, rules } from './rules';
 
-export const rules = makeRules(START, MAX_SLIDES);
+export { MAX_SLIDES, START, rules };
 
 const puzzle: TilesPuzzle = { maxSlides: MAX_SLIDES, painter: paintFamily, plaque: 'Family' };
 const Scene: RiddleLevel<State, Move>['Scene'] = (props) => createElement(TilesContext.Provider, { value: puzzle }, createElement(TilesScene, props));

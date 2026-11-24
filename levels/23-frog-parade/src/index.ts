@@ -1,9 +1,9 @@
 import type { RiddleLevel } from '@riddle/engine';
-import { FAIL_MS, MOVE_MS, Scene, makeRules, type Move, type State } from '@riddle/level-13-leapfrog-lagoon';
+import { FAIL_MS, MOVE_MS, Scene, type Move, type State } from '@riddle/level-13-leapfrog-lagoon';
 
-/** Leapfrog Lagoon (level 13) with a longer row: four frogs a side on nine pads. Same scene, same rules. */
-export const START: State = 'GGGG.OOOO';
-export const rules = makeRules(START);
+import { START, rules } from './rules';
+
+export { START, rules };
 
 const level: RiddleLevel<State, Move> = {
   id: 'frog-parade',

@@ -1,27 +1,10 @@
 import type { RiddleLevel } from '@riddle/engine';
-import { FAIL_MS, JarsContext, MOVE_MS, Scene as JarsScene, jarRow, makeRules, type Jar, type JarsPuzzle, type Move, type State } from '@riddle/level-16-firefly-jars';
+import { FAIL_MS, JarsContext, MOVE_MS, Scene as JarsScene, jarRow, type JarsPuzzle, type Move, type State } from '@riddle/level-16-firefly-jars';
 import { createElement } from 'react';
 
-/**
- * Firefly Jars (level 16) with a fifth colour and a seventh jar: same scene, same rules, a longer sort.
- * Jar contents, bottom first. Five full jars and two empty ones.
- */
-export const START: Jar[] = [
-  ['sky', 'violet', 'gold', 'pink'],
-  ['violet', 'mint', 'pink', 'sky'],
-  ['mint', 'gold', 'mint', 'violet'],
-  ['violet', 'sky', 'pink', 'mint'],
-  ['gold', 'pink', 'gold', 'sky'],
-  [],
-  [],
-];
+import { BEST, PATIENCE, START, rules } from './rules';
 
-/** Shortest solution length (checked by the test). */
-export const BEST = 20;
-/** After this many moves without solving, the fireflies have had enough. */
-export const PATIENCE = 36;
-
-export const rules = makeRules(START, PATIENCE);
+export { BEST, PATIENCE, START, rules };
 
 const puzzle: JarsPuzzle = { start: START, patience: PATIENCE, row: jarRow(START.length) };
 const Scene: RiddleLevel<State, Move>['Scene'] = (props) => createElement(JarsContext.Provider, { value: puzzle }, createElement(JarsScene, props));

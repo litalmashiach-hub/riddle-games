@@ -1,17 +1,10 @@
 import type { RiddleLevel } from '@riddle/engine';
-import { BoardContext, MOVE_MS, Scene as CricketScene, makeRules, type Board, type Move, type State } from '@riddle/level-21-cricket-swap';
+import { BoardContext, MOVE_MS, Scene as CricketScene, type Move, type State } from '@riddle/level-21-cricket-swap';
 import { createElement } from 'react';
 
-/**
- * Cricket Swap (level 21) on a longer patch: twelve toadstools, three crickets a side, and no jar in the way.
- * Same scene, same leap. On the small patch the eight toadstools form one ring, so the crickets can only
- * chase each other round it. Here the paths branch and cross, and a careless leap blocks a friend.
- *
- * Cells are numbered row by row: 0 1 2 is the back row (far from the camera), 9 10 11 the front row.
- */
-export const BOARD: Board = { cols: 3, rows: 4, start: 'AAA......BBB', goal: 'BBB......AAA', jars: [] };
+import { BOARD, rules } from './rules';
 
-export const rules = makeRules(BOARD);
+export { BOARD, rules };
 
 const Scene: RiddleLevel<State, Move>['Scene'] = (props) => createElement(BoardContext.Provider, { value: BOARD }, createElement(CricketScene, props));
 
