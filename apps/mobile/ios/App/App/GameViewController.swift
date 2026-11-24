@@ -31,5 +31,9 @@ class GameViewController: CAPBridgeViewController {
     // A first swipe from the bottom edge only shows the home bar; the second one leaves the game.
     override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge { .bottom }
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .landscape }
+    // iPhone: sideways only, both directions. iPad: turns and resizes freely, as Apple asks of iPad apps
+    // (the setting that let an iPad app refuse to rotate, UIRequiresFullScreen, is deprecated).
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        UIDevice.current.userInterfaceIdiom == .phone ? .landscape : .all
+    }
 }
