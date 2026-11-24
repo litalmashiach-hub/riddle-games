@@ -41,12 +41,21 @@ importers:
       '@capacitor/core':
         specifier: 8.6.2
         version: 8.6.2
+      '@capacitor/haptics':
+        specifier: 8.0.2
+        version: 8.0.2(@capacitor/core@8.6.2)
       '@capacitor/ios':
         specifier: 8.6.2
         version: 8.6.2(@capacitor/core@8.6.2)
 
   apps/web:
     dependencies:
+      '@capacitor/core':
+        specifier: 8.6.2
+        version: 8.6.2
+      '@capacitor/haptics':
+        specifier: 8.0.2
+        version: 8.0.2(@capacitor/core@8.6.2)
       '@fontsource/fredoka':
         specifier: 5.3.0
         version: 5.3.0
@@ -865,6 +874,11 @@ packages:
 
   '@capacitor/core@8.6.2':
     resolution: {integrity: sha512-UEb9crRuqEAe2Iu2eGOEuQ8rLQxpwg7ZZIpl17UJoytEpnV1e4oXXW0K7yYS2NsCOGmJjyLeKjNlgG7tkAoX8g==}
+
+  '@capacitor/haptics@8.0.2':
+    resolution: {integrity: sha512-c2hZzRR5Fk1tbTvhG1jhh2XBAf3EhnIerMIb2sl7Mt41Gxx1fhBJFDa0/BI1IbY4loVepyyuqNC9820/GZuoWQ==}
+    peerDependencies:
+      '@capacitor/core': '>=8.0.0'
 
   '@capacitor/ios@8.6.2':
     resolution: {integrity: sha512-YnVm0lRA1mQWK0SKd2bdJIOG+PXRRDDdndZ1+nGqeiob+QmHZmb4wWo5gVpWhoHO37pGi2qzH5w5WGvfKrs+Gg==}
@@ -2532,6 +2546,10 @@ snapshots:
   '@capacitor/core@8.6.2':
     dependencies:
       tslib: 2.9.1
+
+  '@capacitor/haptics@8.0.2(@capacitor/core@8.6.2)':
+    dependencies:
+      '@capacitor/core': 8.6.2
 
   '@capacitor/ios@8.6.2(@capacitor/core@8.6.2)':
     dependencies:
