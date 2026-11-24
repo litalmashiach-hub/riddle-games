@@ -58,7 +58,7 @@
       for (var e = el.parentElement; e && e !== document.documentElement; e = e.parentElement) {
         var s = getComputedStyle(e), c = e.getBoundingClientRect();
         if (s.overflowX !== 'visible') { x0 = Math.max(x0, c.left); x1 = Math.min(x1, c.right); if (/auto|scroll/.test(s.overflowX) && e.scrollWidth > e.clientWidth + 1) rides = true; }
-        if (s.overflowY !== 'visible') { y0 = Math.max(y0, c.top); y1 = Math.min(y1, c.bottom); }
+        if (s.overflowY !== 'visible') { y0 = Math.max(y0, c.top); y1 = Math.min(y1, c.bottom); if (/auto|scroll/.test(s.overflowY) && e.scrollHeight > e.clientHeight + 1) rides = true; }
       }
       if (rides || x1 - x0 < 1 || y1 - y0 < 1 || x1 <= 0 || y1 <= 0 || x0 >= W || y0 >= H) continue;
       count++;

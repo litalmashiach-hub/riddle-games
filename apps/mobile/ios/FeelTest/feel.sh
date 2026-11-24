@@ -47,4 +47,12 @@ for f in "$OUT"/*.png; do
   [ -f "$f" ] || continue
   sips -s format jpeg -s formatOptions 70 -Z 1600 "$f" --out "$OUT/small/$(basename "$f" .png).jpg" > /dev/null 2>&1 || true
 done
+# The pictures as text in the log, small, for readers who can open a log but not an artifact.
+for f in "$OUT"/01-*.png "$OUT"/05-*.png "$OUT"/06-*.png "$OUT"/07-*.png "$OUT"/09-*.png "$OUT"/10-*.png "$OUT"/11-*.png; do
+  [ -f "$f" ] || continue
+  sips -s format jpeg -s formatOptions 60 -Z 1200 "$f" --out "$OUT/p.jpg" > /dev/null 2>&1 || continue
+  echo "-----BEGIN PICTURE $LABEL-$(basename "$f" .png)-----"
+  base64 -i "$OUT/p.jpg" | fold -w 160
+  echo "-----END PICTURE-----"
+done
 grep -q "RESULT done" "$OUT/feel-log.txt"
