@@ -106,7 +106,17 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const camera = useThree((s) => s.camera);
   const gl = useThree((s) => s.gl);
   const pieceRefs = useMemo(() => PIECES.map(() => ({ current: null as THREE.Group | null })), []);
-  const drag = useRef<{ i: number; start: THREE.Vector3; base: number; min: number; max: number; off: number; moved: boolean } | null>(null);
+  const drag = useRef<{
+    i: number;
+    start: THREE.Vector3;
+    base: number;
+    min: number;
+    max: number;
+    off: number;
+    moved: boolean;
+    /** The touch began on this log's unseen box over a glowing ring: a tap there is the ring's, a drag the log's. */
+    ring: boolean;
+  } | null>(null);
   const stateRef = useRef(state);
   stateRef.current = state;
 
@@ -123,9 +133,13 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     // A glowing ring beats a log's invisible padding and its glow (both marked `pad`). Seen from the camera,
     // those of a log (often the picked one) reach over the ring next to it, and would take the tap meant
     // for the ring. Only where the log itself is drawn in front of the ring is the touch the log's.
-    // Where bark is drawn over a ring's unseen box, the touch is the log's (see barkWins).
-    if (ringUnder(e) && !barkWins(e, e.eventObject)) return;
-    e.stopPropagation();
+    // Where bark is drawn over a ring's unseen box, the touch is the log's (see barkWins). Where the ring wins,
+    // the ring still gets the touch (no stopPropagation), but the log keeps the drag: a finger that slides
+    // from there slides the log, as it always did, and the camera stays put.
+    const ringTakes = !!ringUnder(e) && !barkWins(e, e.eventObject);
+    if (!ringTakes) e.stopPropagation();
+    // Another log's box nearer the eye, also over that ring, already holds this touch's drag.
+    else if (drag.current) return;
     if (locked) {
       if (!over) sfx.denied();
       return;
@@ -135,7 +149,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     const s = stateRef.current;
     const r = reach(s.pos, i);
     const base = s.pos[i];
-    drag.current = { i, start, base, min: Math.min(base, ...r), max: Math.max(base, ...r), off: 0, moved: false };
+    drag.current = { i, start, base, min: Math.min(base, ...r), max: Math.max(base, ...r), off: 0, moved: false, ring: ringTakes };
     if (controls) controls.enabled = false;
 
     const move = (ev: PointerEvent) => {
@@ -144,7 +158,10 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       const p = groundHit(ev.clientX, ev.clientY);
       if (!p) return;
       const delta = PIECES[d.i].axis === 'h' ? p.x - d.start.x : p.z - d.start.z;
-      if (Math.abs(delta) > 0.18) d.moved = true;
+      if (Math.abs(delta) > 0.18) {
+        d.moved = true;
+        if (d.ring) touch.slid = true;
+      }
       if (!d.moved) return;
       // A little rubber band past the ends, so a blocked log still feels alive.
       let at = d.base + delta;
@@ -163,6 +180,8 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       drag.current = null;
       if (!d) return;
       if (!d.moved) {
+        // A tap over a glowing ring is the ring's: its click slides the log there.
+        if (d.ring) return;
         // A tap: pick this log (or drop it).
         if (selected === d.i) {
           sfx.deselect();
@@ -416,6 +435,10 @@ const PIECE = { piece: true };
 /** How far a ring reaches as drawn, from its middle, at its largest pulse with the finger over it (0.34 x 1.19). */
 const RING_DRAWN_R = 0.41;
 
+/** Set when a touch that a ring took turned into a log's drag (see onPieceDown); cleared by every new touch. */
+const touch = { slid: false };
+if (typeof window !== 'undefined') window.addEventListener('pointerdown', () => (touch.slid = false), true);
+
 /** The glowing ring whose unseen hit box is under the touch, if any. */
 const ringUnder = (e: ThreeEvent<PointerEvent>) => e.intersections.find((h) => h.object.userData.ring);
 
@@ -489,6 +512,7 @@ function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }
         onClick={(e) => {
           if (!took.current) return;
           took.current = false;
+          if (touch.slid) return; // the finger slid the log instead (a mouse sends a click after a drag)
           e.stopPropagation();
           onClick();
         }}
