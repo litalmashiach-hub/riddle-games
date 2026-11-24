@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2732 2732">
+  <!-- Native launch screen art. Square, with everything that matters in the middle: iOS fills the
+       screen with it and crops the rest, sideways or upright. Colours are the level map's. -->
+  <defs>
+    <radialGradient id="bg" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0" stop-color="#1f4a75"/><stop offset="0.45" stop-color="#16314f"/><stop offset="1" stop-color="#0f2236"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffd166" stop-opacity="0.35"/><stop offset="1" stop-color="#ffd166" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff3b0"/><stop offset="0.45" stop-color="#ffd166"/><stop offset="1" stop-color="#f4a12a"/>
+    </linearGradient>
+  </defs>
+  <rect width="2732" height="2732" fill="url(#bg)"/>
+  <circle cx="1366" cy="1366" r="620" fill="url(#glow)"/>
+  <!-- the question mark of public/icons/icon.svg, centred -->
+  <g transform="translate(1366 1366) scale(0.86) translate(-512 -520)">
+    <path d="M352 360 a160 160 0 1 1 236 140 c-46 26 -66 46 -66 110" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round"/>
+    <path d="M352 360 a160 160 0 1 1 236 140 c-46 26 -66 46 -66 110" fill="none" stroke="url(#gold)" stroke-width="112" stroke-linecap="round"/>
+    <path d="M392 330 a120 120 0 0 1 150 -86" fill="none" stroke="#fff" stroke-opacity="0.7" stroke-width="26" stroke-linecap="round"/>
+    <circle cx="522" cy="760" r="75" fill="#fff"/>
+    <circle cx="522" cy="760" r="56" fill="url(#gold)"/>
+    <circle cx="504" cy="740" r="16" fill="#fff" opacity="0.75"/>
+  </g>
+</svg>

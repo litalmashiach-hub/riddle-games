@@ -54,7 +54,7 @@ export const rules: RiddleRules<State, Move> = {
 
   status(s) {
     const t = trouble(s);
-    if (t?.eater === 'wolf') return { kind: 'lost', reason: 'The wolf was left alone with the goat and gobbled it up!' };
+    if (t?.eater === 'wolf') return { kind: 'lost', reason: 'The wolf was left alone with the goat. Now the goat has no beard, and the wolf is wearing it!' };
     if (t?.eater === 'goat') return { kind: 'lost', reason: 'The goat was left alone with the cabbage and munched it!' };
     if (s.farmer === 'R' && ITEMS.every((a) => s[a] === 'R')) return { kind: 'won' };
     return { kind: 'playing' };
