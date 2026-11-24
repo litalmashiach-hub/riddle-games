@@ -1,11 +1,7 @@
-1795547312.183051 launched
-1795547329.361415 start marker: true
-1795547340.590788 scene 01-river: true
-1795547411.688282 scene 02-hanoi: true
-1795547479.862873 scene 03-coins: true
-1795547547.581162 scene 04-balloon: true
-1795547618.828981 scene 05-moonbeam: true
-1795547674.9647899 scene 06-pancakes: true
-1795547741.1499991 scene 07-hint: true
-1795547785.353204 scene 08-map: true
-1795547825.5318851 done marker: true
+1795549215.654629 launched
+1795549228.6351051 start marker: true
+1795549250.72362 scene 01-river: true
+1795549400.887148 scene 02-hanoi: true
+1795549550.004682 scene 03-coins: true
+1795549693.1141272 scene 04-balloon: true
+1795549842.395019 scene 05-moonbeam: true
