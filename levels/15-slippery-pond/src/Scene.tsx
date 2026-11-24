@@ -20,14 +20,17 @@ import {
 import { Otter, newRig, type OtterRig } from './Otter';
 import { Particles, type ParticlesHandle } from './Particles';
 import { Pond, type DriftHandle, type WaterHandle } from './Pond';
-import { BASKET, DIRS, STEP, cellsOf, rules, slide, type Dir, type Move, type State, type Stopper } from './rules';
+import { usePond } from './context';
+import { DIRS, STEP, type Dir, type Move, type State, type Stopper } from './rules';
 
 export { MOVE_MS } from './layout';
 
-const SNOW = cellsOf('S');
 type Beat = 'teeter' | 'splash' | 'brrr' | null;
 
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
+  const puzzle = usePond();
+  const { basket: BASKET, rules } = puzzle;
+  const SNOW = useMemo(() => puzzle.cellsOf('S'), [puzzle]);
   // Work out during render whether the newest change is a forward move (animate the slide)
   // or an undo / restart (glide back), like level 1.
   const dir = useRef({ count: moveCount, reset: resetCount, forward: false });
@@ -244,6 +247,7 @@ function OtterActor({
   dizzy: boolean;
   events: Events;
 }) {
+  const { slide } = usePond();
   const mover = useRef<THREE.Group>(null);
   const yawG = useRef<THREE.Group>(null);
   const rig = useRef<OtterRig>(newRig());

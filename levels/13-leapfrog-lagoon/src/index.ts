@@ -26,3 +26,7 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For a second helping of this riddle with a longer row (see levels/23-frog-parade).
+export { makeRules, goalOf, type Move, type State } from './rules';
+export { FAIL_MS, MOVE_MS, Scene } from './Scene';

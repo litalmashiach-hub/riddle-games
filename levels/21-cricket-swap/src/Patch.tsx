@@ -4,25 +4,26 @@ import { toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { CAP_TOP, GROUND, capPos } from './layout';
-import { CELLS } from './rules';
+import { useBoard } from './context';
 
 /** Cap colours: a cricket is home when it sits on a toadstool of its own colour. */
 const AMBER_CAP = '#ffc85e';
 const BLUE_CAP = '#4fb8ff';
 const PLAIN_CAP = '#f1e7d6';
-export const capColour = (cell: number) => (cell === 0 || cell === 2 ? BLUE_CAP : cell === 6 || cell === 8 ? AMBER_CAP : PLAIN_CAP);
+export const capColour = (goal: string, cell: number) => (goal[cell] === 'B' ? BLUE_CAP : goal[cell] === 'A' ? AMBER_CAP : PLAIN_CAP);
 
 /** The mossy islet with its nine toadstools. The middle one holds a firefly jar: no cricket can ever land there. */
 export function Patch({ party }: { party: boolean }) {
   const high = useSettings((s) => s.quality) === 'high';
+  const board = useBoard();
+  const CELLS = board.cols * board.rows;
   const stems = useRef<THREE.InstancedMesh>(null);
   const caps = useRef<THREE.InstancedMesh>(null);
-  const jar = useRef<THREE.Mesh>(null);
   const o = useMemo(() => new THREE.Object3D(), []);
   useLayoutEffect(() => {
     const c = new THREE.Color();
     for (let i = 0; i < CELLS; i++) {
-      const [x, , z] = capPos(i);
+      const [x, , z] = capPos(i, board);
       o.position.set(x, (GROUND + CAP_TOP - 0.16) / 2, z);
       o.rotation.set(0, i * 0.9, 0);
       o.scale.set(1, 1, 1);
@@ -31,19 +32,16 @@ export function Patch({ party }: { party: boolean }) {
       o.position.set(x, CAP_TOP - 0.09, z);
       o.updateMatrix();
       caps.current!.setMatrixAt(i, o.matrix);
-      caps.current!.setColorAt(i, c.set(capColour(i)));
+      caps.current!.setColorAt(i, c.set(capColour(board.goal, i)));
     }
     stems.current!.instanceMatrix.needsUpdate = true;
     caps.current!.instanceMatrix.needsUpdate = true;
     if (caps.current!.instanceColor) caps.current!.instanceColor.needsUpdate = true;
-  }, [o]);
+  }, [o, board, CELLS]);
   useFrame(({ clock }) => {
-    const m = jar.current;
-    if (!m) return;
     const k = party ? 4.5 + Math.sin(clock.elapsedTime * 12) * 1.5 : 2.6 + Math.sin(clock.elapsedTime * 2.5) * 0.5;
-    (m.material as THREE.MeshStandardMaterial).emissiveIntensity = k;
+    jarGlow.emissiveIntensity = k;
   });
-  const [mx, , mz] = capPos(4);
   const jarGlow = useMemo(() => new THREE.MeshStandardMaterial({ color: '#f4ffb0', emissive: '#d8ff5a', emissiveIntensity: 2.6, roughness: 0.4 }), []);
   return (
     <group>
@@ -60,9 +58,10 @@ export function Patch({ party }: { party: boolean }) {
       <instancedMesh ref={caps} args={[undefined, undefined, CELLS]} material={toon('#ffffff', { rough: 0.6 })} castShadow receiveShadow>
         <cylinderGeometry args={[0.5, 0.66, 0.18, 10]} />
       </instancedMesh>
-      {/* firefly jar on the middle toadstool */}
-      <group position={[mx, CAP_TOP, mz]}>
-        <mesh ref={jar} position-y={0.2} material={jarGlow}>
+      {/* a firefly jar on each toadstool nobody can land on (level 21: the middle one) */}
+      {board.jars.map((cell) => (
+      <group key={cell} position={[capPos(cell, board)[0], CAP_TOP, capPos(cell, board)[2]]}>
+        <mesh position-y={0.2} material={jarGlow}>
           <cylinderGeometry args={[0.17, 0.19, 0.36, 10]} />
         </mesh>
         <mesh position-y={0.42} material={toon('#7a5a3a')}>
@@ -70,6 +69,7 @@ export function Patch({ party }: { party: boolean }) {
         </mesh>
         {high && <pointLight position-y={0.4} color="#e6ff8a" intensity={5} distance={5} decay={1.6} />}
       </group>
+      ))}
       {/* a few reeds and pebbles around the rim */}
       {[[-2.9, -0.9], [2.85, -1.2], [-2.7, 1.3], [2.8, 1.1], [0.2, -2.9]].map(([x, z], i) => (
         <group key={i} position={[x, GROUND, z]}>
