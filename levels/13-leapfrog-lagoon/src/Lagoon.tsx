@@ -6,7 +6,9 @@ import { useLayoutEffect, useMemo, useRef, type MutableRefObject } from 'react';
 import * as THREE from 'three';
 
 export const PAD_GAP = 1.42;
-export const padX = (i: number) => (i - 3) * PAD_GAP;
+/** Pads sit a little closer when the row is longer than seven, so it still fits between the banks. */
+export const padGap = (pads: number) => Math.min(PAD_GAP, 10.1 / (pads - 1));
+export const padX = (i: number, pads = 7) => (i - (pads - 1) / 2) * padGap(pads);
 /** Top of a lily pad, where frogs sit. */
 export const PAD_TOP = 0.07;
 
@@ -58,9 +60,9 @@ function Shore() {
 }
 
 /** One notched lily pad. Its dip value (set when a frog lands) makes it bounce in the water. */
-function Pad({ index, dips }: { index: number; dips: MutableRefObject<number[]> }) {
+function Pad({ index, pads, dips }: { index: number; pads: number; dips: MutableRefObject<number[]> }) {
   const ref = useRef<THREE.Group>(null);
-  const x = padX(index);
+  const x = padX(index, pads);
   useFrame(({ clock }) => {
     const g = ref.current;
     if (!g) return;
@@ -93,11 +95,11 @@ function Pad({ index, dips }: { index: number; dips: MutableRefObject<number[]> 
   );
 }
 
-export function LilyPads({ dips }: { dips: MutableRefObject<number[]> }) {
+export function LilyPads({ dips, pads = 7 }: { dips: MutableRefObject<number[]>; pads?: number }) {
   return (
     <group>
-      {Array.from({ length: 7 }, (_, i) => (
-        <Pad key={i} index={i} dips={dips} />
+      {Array.from({ length: pads }, (_, i) => (
+        <Pad key={i} index={i} pads={pads} dips={dips} />
       ))}
     </group>
   );
@@ -349,7 +351,7 @@ function Moon() {
   );
 }
 
-export function Lagoon({ dips }: { dips: MutableRefObject<number[]> }) {
+export function Lagoon({ dips, pads = 7 }: { dips: MutableRefObject<number[]>; pads?: number }) {
   const high = useSettings((s) => s.quality) === 'high';
   return (
     <group>
@@ -358,7 +360,7 @@ export function Lagoon({ dips }: { dips: MutableRefObject<number[]> }) {
       <group rotation-y={Math.PI / 2} position={[0, 0, 0.1]}>
         <Water width={7.4} length={44} shallow="#1f7385" deep="#0a2440" foam="#7fcfe0" flow={0.08} waveHeight={0.025} segments={high ? 160 : 70} />
       </group>
-      <LilyPads dips={dips} />
+      <LilyPads dips={dips} pads={pads} />
       <Lotuses />
       <Rocks />
       <Reeds count={high ? 70 : 34} />

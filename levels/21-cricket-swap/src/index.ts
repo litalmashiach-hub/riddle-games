@@ -23,3 +23,8 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For the same swap on a bigger patch (see levels/29-cricket-crossing).
+export { BoardContext } from './context';
+export { leaps, makeRules, type Board, type Move, type State } from './rules';
+export { MOVE_MS, Scene } from './Scene';

@@ -55,6 +55,14 @@ The offline service worker is generated at build time (`apps/web/vite.config.ts`
 | 20 | Firefly Lagoon | Berry Bridges (cross every bridge once) | Built |
 | 21 | Firefly Lagoon | Cricket Swap (four knights swap sides) | Built |
 | 22 | Firefly Lagoon | Pancake Stack (sort by flipping the top) | Built |
+| 23 | Firefly Lagoon | Frog Parade (level 13 with four frogs a side) | Built |
+| 24 | Firefly Lagoon | Frosty Maze (level 15 on a longer sheet of ice) | Built |
+| 25 | Firefly Lagoon | Firefly Rainbow (level 16 with five colours and seven jars) | Built |
+| 26 | Firefly Lagoon | Moonbeam Maze (level 17 with eleven crystals and five flowers) | Built |
+| 27 | Firefly Lagoon | Timber Tangle (level 18 with a tighter jam) | Built |
+| 28 | Firefly Lagoon | Family Portrait (level 19 with a new picture, mixed up worse) | Built |
+| 29 | Firefly Lagoon | Cricket Crossing (level 21 with six crickets on twelve toadstools) | Built |
+| 30 | Firefly Lagoon | Moonlit Tower (level 4 with five discs, by night) | Built |
 
 ## Layout
 

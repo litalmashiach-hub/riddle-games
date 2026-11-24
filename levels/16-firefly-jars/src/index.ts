@@ -25,3 +25,9 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For a longer sort in the same scene (see levels/25-firefly-rainbow).
+export { JarsContext, type JarsPuzzle } from './context';
+export { jarRow } from './layout';
+export { CAPACITY, makeRules, type Color, type Jar, type Move, type State } from './rules';
+export { FAIL_MS, MOVE_MS, Scene } from './Scene';

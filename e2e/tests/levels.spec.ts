@@ -1,8 +1,15 @@
 import { mkdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { LEVELS } from '../levels';
+import { BROKEN_LEVELS, LEVELS } from '../levels';
 import { KNOWN_FAULTS } from '../known-faults';
 import { expect, expectClean, expectCounter, mapButton, passRulesCard, playMove, savedStars, seedProgress, test, waitForSession } from './fixtures';
+
+/** A level folder that the tests cannot load fails here by name, and the other levels are still played. */
+for (const { dir, error } of BROKEN_LEVELS) {
+  test(`level folder ${dir}: can be loaded by the tests`, () => {
+    throw new Error(error);
+  });
+}
 
 /**
  * Each level, played to a win with the shortest solution from the game's own solver.

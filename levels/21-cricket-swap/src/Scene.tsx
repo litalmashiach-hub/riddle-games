@@ -2,22 +2,25 @@ import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, sfx, type Vec3 } from '@riddle/fx';
 import { HintRing } from '@riddle/props';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Backdrop } from './Backdrop';
 import { Cricket, LEAP_MS } from './Cricket';
-import { CAP_TOP, capPos } from './layout';
+import { CAP_TOP, capPos as capPosOn } from './layout';
 import { Patch } from './Patch';
-import { CELLS, START, freeLeaps, type Colour, type Move, type State } from './rules';
+import { useBoard } from './context';
+import { freeLeaps as freeLeapsOn, type Board, type Colour, type Move, type State } from './rules';
 
 export const MOVE_MS = LEAP_MS + 140;
 
-/** The four crickets keep their identity between moves, so each one visibly leaps (the rules only know colours). */
-const COLOURS: Colour[] = ['A', 'A', 'B', 'B'];
-const START_CELLS = COLOURS.map((c, i) => START.split('').flatMap((ch, cell) => (ch === c ? [cell] : []))[i % 2]);
+/** The crickets keep their identity between moves, so each one visibly leaps (the rules only know colours). */
+function castOf(board: Board) {
+  const cells = board.start.split('').flatMap((ch, cell) => (ch === '.' ? [] : [cell]));
+  return { colours: cells.map((cell) => board.start[cell] as Colour), cells };
+}
 
 /** After any change to the board, work out which cricket sits where, moving as few of them as possible. */
-function follow(where: number[], board: string): number[] {
+function follow(where: number[], board: string, COLOURS: Colour[]): number[] {
   const next = where.slice();
   const taken = new Set<number>();
   const loose: number[] = [];
@@ -34,14 +37,20 @@ function follow(where: number[], board: string): number[] {
 }
 
 export function Scene({ state, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
+  const board = useBoard();
+  const { colours: COLOURS, cells: START_CELLS } = useMemo(() => castOf(board), [board]);
+  const CELLS = board.cols * board.rows;
+  const capPos = (cell: number) => capPosOn(cell, board);
+  const freeLeaps = (s: State, cell: number) => freeLeapsOn(s, cell, board);
+  const ring = (cell: number): Vec3 => [capPos(cell)[0], CAP_TOP + 0.015, capPos(cell)[2]];
   // Was the latest change a new move (a big leap) or an undo / restart (hop back quickly)?
-  const track = useRef({ count: moveCount, reset: resetCount, forward: false, where: follow(START_CELLS, state.board) });
+  const track = useRef({ count: moveCount, reset: resetCount, forward: false, where: follow(START_CELLS, state.board, COLOURS) });
   if (track.current.count !== moveCount || track.current.reset !== resetCount) {
     track.current = {
       count: moveCount,
       reset: resetCount,
       forward: resetCount === track.current.reset && moveCount > track.current.count,
-      where: follow(track.current.where, state.board),
+      where: follow(track.current.where, state.board, COLOURS),
     };
   }
   const { forward, where } = track.current;
@@ -96,7 +105,7 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
       <Patch party={won} />
 
       {Array.from({ length: CELLS }, (_, cell) => {
-        if (cell === 4) return null;
+        if (board.jars.includes(cell)) return null;
         const [x, y, z] = capPos(cell);
         return (
           <group key={cell} position={[x, 0, z]}>
@@ -122,8 +131,6 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
     </group>
   );
 }
-
-const ring = (cell: number): Vec3 => [capPos(cell)[0], CAP_TOP + 0.015, capPos(cell)[2]];
 
 /** A soft ring on each toadstool the chosen cricket can leap to. */
 function LandRing({ y }: { y: number }) {

@@ -1,5 +1,5 @@
 import type { Vec3 } from '@riddle/fx';
-import { EXIT_ROW, PIECES, SIZE } from './rules';
+import { EXIT_ROW, PIECES, SIZE, type Piece } from './rules';
 
 /** One grid cell is one world unit. The pond is centred on the origin. */
 export const HALF = SIZE / 2;
@@ -12,8 +12,8 @@ export const FLOAT_Y = 0.1;
 export const LOG_R = 0.34;
 
 /** World centre of piece `i` when its start is at `p`. */
-export function pieceCenter(i: number, p: number): Vec3 {
-  const pc = PIECES[i];
+export function pieceCenter(i: number, p: number, pieces: Piece[] = PIECES): Vec3 {
+  const pc = pieces[i];
   const along = p + pc.len / 2 - HALF;
   return pc.axis === 'h' ? [along, FLOAT_Y, cellZ(pc.line)] : [cellX(pc.line), FLOAT_Y, along];
 }

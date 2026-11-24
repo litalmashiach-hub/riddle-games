@@ -3,11 +3,8 @@ import { useSettings } from '@riddle/fx';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { GLOW, HOVER_Y, hoverPos, slotPos } from './layout';
-import { CAPACITY, START, isDone, type Color, type Jar } from './rules';
-
-/** Every firefly keeps its own identity (and colour) so moves animate the right one. */
-const COLORS_BY_ID: Color[] = START.flat();
-const N = COLORS_BY_ID.length;
+import { useJars } from './context';
+import { CAPACITY, isDone, type Color, type Jar } from './rules';
 
 /** Where the angry swarm is, `k` seconds after the fireflies lose patience. */
 export function swarmCenter(k: number, out = new THREE.Vector3()) {
@@ -44,7 +41,8 @@ interface Bug {
 }
 
 /** Keep fireflies that did not move where they are; match the rest by colour, nearest first. */
-function assign(prev: (Place | null)[], jars: Jar[]): Place[] {
+function assign(prev: (Place | null)[], jars: Jar[], COLORS_BY_ID: Color[]): Place[] {
+  const N = COLORS_BY_ID.length;
   const next: (Place | null)[] = new Array(N).fill(null);
   const taken = new Set<string>();
   prev.forEach((p, id) => {
@@ -130,11 +128,15 @@ export function Fireflies({
   const quality = useSettings((s) => s.quality);
   const low = quality === 'low';
 
-  const places = useRef<Place[]>(assign([], START));
+  const { start, row } = useJars();
+  /** Every firefly keeps its own identity (and colour) so moves animate the right one. */
+  const COLORS_BY_ID = useMemo<Color[]>(() => start.flat(), [start]);
+  const N = COLORS_BY_ID.length;
+  const places = useRef<Place[]>(assign([], start, COLORS_BY_ID));
   const bugs = useMemo<Bug[]>(
     () =>
       places.current.map((p, i) => {
-        const v = new THREE.Vector3(...slotPos(p.jar, p.slot));
+        const v = new THREE.Vector3(...slotPos(p.jar, p.slot, row));
         return { pos: v.clone(), from: v.clone(), to: v.clone(), start: 0, dur: 1, flying: false, landing: false, landJar: -1, yaw: 0, seed: i * 1.37 + 0.4, cheer: -10 };
       }),
     [],
@@ -147,12 +149,12 @@ export function Fireflies({
   const planKey = `${jars.map((j) => j.join(',')).join('|')}#${selected}#${phase}`;
   useEffect(() => {
     if (phase === 'lost') return;
-    places.current = assign(places.current, jars);
+    places.current = assign(places.current, jars, COLORS_BY_ID);
     const now = performance.now() / 1000;
     places.current.forEach((p, id) => {
       const b = bugs[id];
       const isTop = p.slot === jars[p.jar].length - 1;
-      const target = new THREE.Vector3(...(selected === p.jar && isTop && phase === 'play' ? hoverPos(p.jar) : slotPos(p.jar, p.slot)));
+      const target = new THREE.Vector3(...(selected === p.jar && isTop && phase === 'play' ? hoverPos(p.jar, row) : slotPos(p.jar, p.slot, row)));
       if (target.distanceTo(b.to) < 1e-3 && (b.flying || b.pos.distanceTo(target) < 1e-3)) return;
       b.from.copy(b.pos);
       b.to.copy(target);
