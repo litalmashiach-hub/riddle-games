@@ -112,6 +112,19 @@ jobs:
         timeout-minutes: 12
         run: '"$RUNNER_TEMP/shoot.sh" "iPad" ipad'
 
+      # The full-size screenshots are in the artifact below. These small copies go into the log as text,
+      # for readers who can open a run's log but cannot download its artifacts.
+      - name: Small previews of the screenshots, in the log
+        if: always()
+        run: |
+          for f in screenshots/*-level-map.png; do
+            [ -f "$f" ] || continue
+            sips -s format jpeg -s formatOptions 55 -Z 1100 "$f" --out "$RUNNER_TEMP/preview.jpg" >/dev/null
+            echo "-----BEGIN PREVIEW $(basename "$f" .png)-----"
+            base64 -i "$RUNNER_TEMP/preview.jpg" | fold -w 120
+            echo "-----END PREVIEW-----"
+          done
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
