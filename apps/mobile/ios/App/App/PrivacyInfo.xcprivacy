@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+	The app's privacy manifest. See docs/ios-app.md, "The privacy manifest".
+	Everything here is a statement to Apple about the app's own code, so keep it true:
+	the app tracks nobody, contacts no domain, collects no data, and its own Swift code
+	calls none of Apple's "required reason" APIs. Add an entry the day that changes.
+-->
+<dict>
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array/>
+</dict>
+</plist>
