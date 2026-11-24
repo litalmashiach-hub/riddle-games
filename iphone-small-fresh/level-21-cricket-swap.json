@@ -1,0 +1,495 @@
+{
+ "level": 21,
+ "id": "cricket-swap",
+ "title": "Cricket Swap",
+ "device": "iphone-small-fresh",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 16,
+ "moves": 16,
+ "touches": 24,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 6.478,
+  "rulesCard": 4.48,
+  "drawn": 6.478,
+  "play": 52.965,
+  "total": 77.835
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-fresh-L21-loading-mark.png",
+  "iphone-small-fresh-L21-rules-card.png",
+  "iphone-small-fresh-L21-in-play.png",
+  "iphone-small-fresh-L21-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the cricket on the back left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 250.244695181679,
+    "y": 97.54311041948087
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1baa46eb-ede3-4279-b157-2fa4b0cc9135",
+    "world": [
+     -1.55,
+     0,
+     -1.7
+    ],
+    "distance": 9.307696270631244
+   }
+  },
+  {
+   "step": 1,
+   "what": "the middle right toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 425.0457063801427,
+    "y": 165.83281402286642
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "85930a09-81d0-4137-a4c6-0ce90cac0b71",
+    "world": [
+     1.55,
+     0,
+     -0.15
+    ],
+    "distance": 8.607251832480989
+   }
+  },
+  {
+   "step": 2,
+   "what": "the cricket on the back right toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 416.75530481832106,
+    "y": 97.54311041948087
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "45d1028d-7cc4-490f-9846-54bf614aa7f4",
+    "world": [
+     1.55,
+     0,
+     -1.7
+    ],
+    "distance": 9.307696270631244
+   }
+  },
+  {
+   "step": 2,
+   "what": "the front middle toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 239.30681179701728
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e6376c3c-7719-4b21-84f0-17f371bd46f9",
+    "world": [
+     0,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.483417800967612
+   }
+  },
+  {
+   "step": 3,
+   "what": "the cricket on the front left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 226.84399345630533,
+    "y": 228.90021593420855
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d6da644b-f617-41e2-a9f0-41eba1b72816",
+    "world": [
+     -1.55,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.2404532006598945
+   }
+  },
+  {
+   "step": 4,
+   "what": "the cricket on the middle right toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 427.01394892506835,
+    "y": 155.12881071952293
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "85930a09-81d0-4137-a4c6-0ce90cac0b71",
+    "world": [
+     1.55,
+     0,
+     -0.15
+    ],
+    "distance": 8.208968673815225
+   }
+  },
+  {
+   "step": 4,
+   "what": "the front left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 229.39677551167856,
+    "y": 239.30681179701728
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d6da644b-f617-41e2-a9f0-41eba1b72816",
+    "world": [
+     -1.55,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.633190614292182
+   }
+  },
+  {
+   "step": 5,
+   "what": "the cricket on the front middle toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 228.90021593420855
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e6376c3c-7719-4b21-84f0-17f371bd46f9",
+    "world": [
+     0,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.091025527382595
+   }
+  },
+  {
+   "step": 5,
+   "what": "the back left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 251.80839569402968,
+    "y": 108.17649470667637
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1baa46eb-ede3-4279-b157-2fa4b0cc9135",
+    "world": [
+     -1.55,
+     0,
+     -1.7
+    ],
+    "distance": 9.717617156583968
+   }
+  },
+  {
+   "step": 6,
+   "what": "the cricket on the back left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 250.244695181679,
+    "y": 97.54311041948087
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1baa46eb-ede3-4279-b157-2fa4b0cc9135",
+    "world": [
+     -1.55,
+     0,
+     -1.7
+    ],
+    "distance": 9.307696270631244
+   }
+  },
+  {
+   "step": 6,
+   "what": "the middle right toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 425.0457063801427,
+    "y": 165.83281402286642
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "85930a09-81d0-4137-a4c6-0ce90cac0b71",
+    "world": [
+     1.55,
+     0,
+     -0.15
+    ],
+    "distance": 8.607251832480989
+   }
+  },
+  {
+   "step": 7,
+   "what": "the cricket on the front right toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 440.1560065436946,
+    "y": 228.90021593420855
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4801e459-a94b-4697-8cdf-7ac7b888040a",
+    "world": [
+     1.55,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.240453200659892
+   }
+  },
+  {
+   "step": 8,
+   "what": "the cricket on the back middle toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 97.54311041948087
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "0800aa62-a599-4d0b-ac59-61ad7b015173",
+    "world": [
+     0,
+     0,
+     -1.7
+    ],
+    "distance": 9.191936158686493
+   }
+  },
+  {
+   "step": 9,
+   "what": "the cricket on the middle left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 239.98605107493168,
+    "y": 155.12881071952293
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "001fa7e8-aad2-4f8d-b62c-8026859dc94d",
+    "world": [
+     -1.55,
+     0,
+     -0.15
+    ],
+    "distance": 8.208968673815223
+   }
+  },
+  {
+   "step": 10,
+   "what": "the cricket on the back right toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 416.75530481832106,
+    "y": 97.54311041948087
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "45d1028d-7cc4-490f-9846-54bf614aa7f4",
+    "world": [
+     1.55,
+     0,
+     -1.7
+    ],
+    "distance": 9.307696270631244
+   }
+  },
+  {
+   "step": 10,
+   "what": "the front middle toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 239.30681179701728
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e6376c3c-7719-4b21-84f0-17f371bd46f9",
+    "world": [
+     0,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.483417800967612
+   }
+  },
+  {
+   "step": 11,
+   "what": "the cricket on the front left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 226.84399345630533,
+    "y": 228.90021593420855
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d6da644b-f617-41e2-a9f0-41eba1b72816",
+    "world": [
+     -1.55,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.2404532006598945
+   }
+  },
+  {
+   "step": 12,
+   "what": "the cricket on the middle right toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 427.01394892506835,
+    "y": 155.12881071952293
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "85930a09-81d0-4137-a4c6-0ce90cac0b71",
+    "world": [
+     1.55,
+     0,
+     -0.15
+    ],
+    "distance": 8.208968673815225
+   }
+  },
+  {
+   "step": 12,
+   "what": "the front left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 229.39677551167856,
+    "y": 239.30681179701728
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d6da644b-f617-41e2-a9f0-41eba1b72816",
+    "world": [
+     -1.55,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.633190614292182
+   }
+  },
+  {
+   "step": 13,
+   "what": "the cricket on the front middle toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 228.90021593420855
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e6376c3c-7719-4b21-84f0-17f371bd46f9",
+    "world": [
+     0,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.091025527382595
+   }
+  },
+  {
+   "step": 13,
+   "what": "the back left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 251.80839569402968,
+    "y": 108.17649470667637
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1baa46eb-ede3-4279-b157-2fa4b0cc9135",
+    "world": [
+     -1.55,
+     0,
+     -1.7
+    ],
+    "distance": 9.717617156583968
+   }
+  },
+  {
+   "step": 14,
+   "what": "the cricket on the front right toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 440.1560065436946,
+    "y": 228.90021593420855
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4801e459-a94b-4697-8cdf-7ac7b888040a",
+    "world": [
+     1.55,
+     0,
+     1.4000000000000001
+    ],
+    "distance": 7.240453200659892
+   }
+  },
+  {
+   "step": 15,
+   "what": "the cricket on the back middle toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 97.54311041948087
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "0800aa62-a599-4d0b-ac59-61ad7b015173",
+    "world": [
+     0,
+     0,
+     -1.7
+    ],
+    "distance": 9.191936158686493
+   }
+  },
+  {
+   "step": 16,
+   "what": "the cricket on the middle left toadstool",
+   "kind": "tap",
+   "at": {
+    "x": 239.98605107493168,
+    "y": 155.12881071952293
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "001fa7e8-aad2-4f8d-b62c-8026859dc94d",
+    "world": [
+     -1.55,
+     0,
+     -0.15
+    ],
+    "distance": 8.208968673815223
+   }
+  }
+ ],
+ "fps": 23.9
+}

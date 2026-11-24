@@ -1,0 +1,799 @@
+{
+ "level": 25,
+ "id": "firefly-rainbow",
+ "title": "Firefly Rainbow",
+ "device": "iphone-small-fresh",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 20,
+ "moves": 20,
+ "touches": 40,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 8.151,
+  "rulesCard": 7.507,
+  "drawn": 8.151,
+  "play": 92.718,
+  "total": 115.463
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-fresh-L25-loading-mark.png",
+  "iphone-small-fresh-L25-rules-card.png",
+  "iphone-small-fresh-L25-in-play.png",
+  "iphone-small-fresh-L25-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "jar 1 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 154.31343804583489,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "de697777-c610-4e78-b772-d70cdc0726f1",
+    "world": [
+     -3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 1,
+   "what": "jar 6 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 458.5368726657549,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5c87639a-27d9-462c-8265-e7bf5d885c81",
+    "world": [
+     2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464852
+   }
+  },
+  {
+   "step": 2,
+   "what": "jar 2 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 208.46312733424512,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1e3e6a7b-6ee7-4219-b52b-1cce75be3e5e",
+    "world": [
+     -2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464855
+   }
+  },
+  {
+   "step": 2,
+   "what": "jar 7 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 512.6865619541651,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5f4567b8-22ca-4ded-a95c-6da7de898055",
+    "world": [
+     3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 3,
+   "what": "jar 2 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 208.46312733424512,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1e3e6a7b-6ee7-4219-b52b-1cce75be3e5e",
+    "world": [
+     -2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464855
+   }
+  },
+  {
+   "step": 3,
+   "what": "jar 6 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 458.5368726657549,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5c87639a-27d9-462c-8265-e7bf5d885c81",
+    "world": [
+     2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464852
+   }
+  },
+  {
+   "step": 4,
+   "what": "jar 4 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 176.88244962414782
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c13dc37f-ed30-4209-9378-f0aafd420e16",
+    "world": [
+     0,
+     0.55,
+     0.25
+    ],
+    "distance": 7.591028067780541
+   }
+  },
+  {
+   "step": 4,
+   "what": "jar 2 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 208.46312733424512,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1e3e6a7b-6ee7-4219-b52b-1cce75be3e5e",
+    "world": [
+     -2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464855
+   }
+  },
+  {
+   "step": 5,
+   "what": "jar 4 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 176.88244962414782
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c13dc37f-ed30-4209-9378-f0aafd420e16",
+    "world": [
+     0,
+     0.55,
+     0.25
+    ],
+    "distance": 7.591028067780541
+   }
+  },
+  {
+   "step": 5,
+   "what": "jar 6 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 458.5368726657549,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5c87639a-27d9-462c-8265-e7bf5d885c81",
+    "world": [
+     2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464852
+   }
+  },
+  {
+   "step": 6,
+   "what": "jar 4 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 176.88244962414782
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c13dc37f-ed30-4209-9378-f0aafd420e16",
+    "world": [
+     0,
+     0.55,
+     0.25
+    ],
+    "distance": 7.591028067780541
+   }
+  },
+  {
+   "step": 6,
+   "what": "jar 7 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 512.6865619541651,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5f4567b8-22ca-4ded-a95c-6da7de898055",
+    "world": [
+     3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 7,
+   "what": "jar 3 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 267.6271538885155,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7121d0ea-a184-4300-bdf0-c05c850c9b2d",
+    "world": [
+     -1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906208
+   }
+  },
+  {
+   "step": 7,
+   "what": "jar 4 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 176.88244962414782
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c13dc37f-ed30-4209-9378-f0aafd420e16",
+    "world": [
+     0,
+     0.55,
+     0.25
+    ],
+    "distance": 7.591028067780541
+   }
+  },
+  {
+   "step": 8,
+   "what": "jar 3 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 267.6271538885155,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7121d0ea-a184-4300-bdf0-c05c850c9b2d",
+    "world": [
+     -1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906208
+   }
+  },
+  {
+   "step": 8,
+   "what": "jar 2 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 208.46312733424512,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1e3e6a7b-6ee7-4219-b52b-1cce75be3e5e",
+    "world": [
+     -2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464855
+   }
+  },
+  {
+   "step": 9,
+   "what": "jar 5 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 399.3728461114845,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3b1d154d-a6fc-4dcf-b12a-fee24f5e1e03",
+    "world": [
+     1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906211
+   }
+  },
+  {
+   "step": 9,
+   "what": "jar 7 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 512.6865619541651,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5f4567b8-22ca-4ded-a95c-6da7de898055",
+    "world": [
+     3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 10,
+   "what": "jar 5 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 399.3728461114845,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3b1d154d-a6fc-4dcf-b12a-fee24f5e1e03",
+    "world": [
+     1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906211
+   }
+  },
+  {
+   "step": 10,
+   "what": "jar 1 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 154.31343804583489,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "de697777-c610-4e78-b772-d70cdc0726f1",
+    "world": [
+     -3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 11,
+   "what": "jar 5 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 399.3728461114845,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3b1d154d-a6fc-4dcf-b12a-fee24f5e1e03",
+    "world": [
+     1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906211
+   }
+  },
+  {
+   "step": 11,
+   "what": "jar 6 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 458.5368726657549,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5c87639a-27d9-462c-8265-e7bf5d885c81",
+    "world": [
+     2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464852
+   }
+  },
+  {
+   "step": 12,
+   "what": "jar 1 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 154.31343804583489,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "de697777-c610-4e78-b772-d70cdc0726f1",
+    "world": [
+     -3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 12,
+   "what": "jar 5 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 399.3728461114845,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3b1d154d-a6fc-4dcf-b12a-fee24f5e1e03",
+    "world": [
+     1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906211
+   }
+  },
+  {
+   "step": 13,
+   "what": "jar 1 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 154.31343804583489,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "de697777-c610-4e78-b772-d70cdc0726f1",
+    "world": [
+     -3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 13,
+   "what": "jar 5 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 399.3728461114845,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3b1d154d-a6fc-4dcf-b12a-fee24f5e1e03",
+    "world": [
+     1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906211
+   }
+  },
+  {
+   "step": 14,
+   "what": "jar 1 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 154.31343804583489,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "de697777-c610-4e78-b772-d70cdc0726f1",
+    "world": [
+     -3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 14,
+   "what": "jar 4 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 176.88244962414782
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c13dc37f-ed30-4209-9378-f0aafd420e16",
+    "world": [
+     0,
+     0.55,
+     0.25
+    ],
+    "distance": 7.591028067780541
+   }
+  },
+  {
+   "step": 15,
+   "what": "jar 1 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 154.31343804583489,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "de697777-c610-4e78-b772-d70cdc0726f1",
+    "world": [
+     -3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 15,
+   "what": "jar 7 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 512.6865619541651,
+    "y": 168.18236766407264
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5f4567b8-22ca-4ded-a95c-6da7de898055",
+    "world": [
+     3.4000000000000004,
+     0.55,
+     -0.3125
+    ],
+    "distance": 8.7956935543831
+   }
+  },
+  {
+   "step": 16,
+   "what": "jar 3 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 267.6271538885155,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7121d0ea-a184-4300-bdf0-c05c850c9b2d",
+    "world": [
+     -1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906208
+   }
+  },
+  {
+   "step": 16,
+   "what": "jar 5 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 399.3728461114845,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3b1d154d-a6fc-4dcf-b12a-fee24f5e1e03",
+    "world": [
+     1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906211
+   }
+  },
+  {
+   "step": 17,
+   "what": "jar 2 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 208.46312733424512,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1e3e6a7b-6ee7-4219-b52b-1cce75be3e5e",
+    "world": [
+     -2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464855
+   }
+  },
+  {
+   "step": 17,
+   "what": "jar 3 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 267.6271538885155,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7121d0ea-a184-4300-bdf0-c05c850c9b2d",
+    "world": [
+     -1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906208
+   }
+  },
+  {
+   "step": 18,
+   "what": "jar 2 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 208.46312733424512,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1e3e6a7b-6ee7-4219-b52b-1cce75be3e5e",
+    "world": [
+     -2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464855
+   }
+  },
+  {
+   "step": 18,
+   "what": "jar 3 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 267.6271538885155,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7121d0ea-a184-4300-bdf0-c05c850c9b2d",
+    "world": [
+     -1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906208
+   }
+  },
+  {
+   "step": 19,
+   "what": "jar 2 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 208.46312733424512,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1e3e6a7b-6ee7-4219-b52b-1cce75be3e5e",
+    "world": [
+     -2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464855
+   }
+  },
+  {
+   "step": 19,
+   "what": "jar 3 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 267.6271538885155,
+    "y": 175.8609958795374
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7121d0ea-a184-4300-bdf0-c05c850c9b2d",
+    "world": [
+     -1.1333333333333335,
+     0.55,
+     0.1875
+    ],
+    "distance": 7.737208932906208
+   }
+  },
+  {
+   "step": 20,
+   "what": "jar 2 (to lift its top firefly)",
+   "kind": "tap",
+   "at": {
+    "x": 208.46312733424512,
+    "y": 172.8816518119139
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1e3e6a7b-6ee7-4219-b52b-1cce75be3e5e",
+    "world": [
+     -2.266666666666667,
+     0.55,
+     0
+    ],
+    "distance": 8.152848365464855
+   }
+  },
+  {
+   "step": 20,
+   "what": "jar 4 (to send the firefly there)",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 176.88244962414782
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c13dc37f-ed30-4209-9378-f0aafd420e16",
+    "world": [
+     0,
+     0.55,
+     0.25
+    ],
+    "distance": 7.591028067780541
+   }
+  }
+ ],
+ "fps": 25.9
+}

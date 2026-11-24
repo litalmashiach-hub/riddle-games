@@ -1,0 +1,53 @@
+    0.0s device iphone-small-fresh; levels 17-30 (14); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"3F0D3FAD-9389-41C1-93F0-1B0AC2D279AA","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  452.8s page in WEBVIEW_14531.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  453.5s web view found: WEBVIEW_14531.1, 667 by 375
+  459.5s calibration: touched [{"x":200,"y":150},{"x":467,"y":281}], the page saw [{"x":200,"y":150},{"x":467,"y":281}]: same (error 0.0 pt)
+  464.1s page in WEBVIEW_14531.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  466.4s L17 moonbeam-mirrors: opened by its card on the level map
+  527.5s L17 moonbeam-mirrors: won by taps; stars 3 (saved 3); open 19.161s, play 30.163s, total 67.673s; page errors 0, console errors 0; frames per second 12.2
+  548.7s page in WEBVIEW_16197.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  548.9s L18: fresh app
+  555.1s page in WEBVIEW_16197.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  563.2s L18 log-jam: opened by its card on the level map
+  707.6s L18: tap fault at step 3 (no-move, known): no move followed the touches for {"piece":8,"to":4}. Last touch: the ring on row 1, column 6 at (376, 118); the first listening object under it has its origin at [2.5, 0.1, -1]
+  742.6s L18 log-jam: won, finished by the debug hook after a known tap fault at step 3 (no-move); stars 3 (saved 3); open 60.128s, play 84.105s, total 193.481s; page errors 0, console errors 0; frames per second 22.6
+  757.2s page in WEBVIEW_19080.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  757.3s L19: fresh app
+  762.2s page in WEBVIEW_19080.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  764.3s L19 picture-tiles: opened by its card on the level map
+  803.5s L19 picture-tiles: won by taps; stars 3 (saved 3); open 6.629s, play 25.134s, total 46.167s; page errors 0, console errors 0; frames per second 18.6
+  815.8s page in WEBVIEW_20749.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  815.8s L20: fresh app
+  820.0s page in WEBVIEW_20749.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  823.2s L20 berry-bridges: opened by its card on the level map
+  882.4s L20 berry-bridges: won by taps; stars 3 (saved 3); open 6.625s, play 43.94s, total 66.407s; page errors 0, console errors 0; frames per second 32.1
+  908.8s page in WEBVIEW_22057.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  909.0s L21: fresh app
+  913.2s page in WEBVIEW_22057.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  915.9s L21 cricket-swap: opened by its card on the level map
+  986.9s L21 cricket-swap: won by taps; stars 3 (saved 3); open 6.478s, play 52.965s, total 77.835s; page errors 0, console errors 0; frames per second 23.9
+ 1014.9s page in WEBVIEW_24056.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1015.2s L22: fresh app
+ 1019.8s page in WEBVIEW_24056.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1022.9s L22 pancake-stack: opened by its card on the level map
+ 1050.6s L22 pancake-stack: won by taps; stars 3 (saved 3); open 5.785s, play 15.132s, total 35.356s; page errors 0, console errors 0; frames per second 32.6
+ 1062.2s page in WEBVIEW_24810.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1062.4s L23: fresh app
+ 1066.6s page in WEBVIEW_24810.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1068.7s L23 frog-parade: opened by its card on the level map
+ 1134.7s L23 frog-parade: won by taps; stars 3 (saved 3); open 6.528s, play 52s, total 72.129s; page errors 0, console errors 0; frames per second 23
+ 1147.5s page in WEBVIEW_26534.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1147.5s L24: fresh app
+ 1151.6s page in WEBVIEW_26534.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1153.8s L24 frosty-maze: opened by its card on the level map
+ 1231.8s L24 frosty-maze: won by taps; stars 3 (saved 3); open 7.736s, play 61.679s, total 84.209s; page errors 0, console errors 0; frames per second 25
+ 1248.0s page in WEBVIEW_27954.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1248.2s L25: fresh app
+ 1252.4s page in WEBVIEW_27954.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1254.8s L25 firefly-rainbow: opened by its card on the level map
+ 1363.8s L25 firefly-rainbow: won by taps; stars 3 (saved 3); open 8.151s, play 92.718s, total 115.463s; page errors 0, console errors 0; frames per second 25.9
+ 1378.0s page in WEBVIEW_29845.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1378.1s L26: fresh app
+ 1382.5s page in WEBVIEW_29845.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1384.5s L26 moonbeam-maze: opened by its card on the level map
