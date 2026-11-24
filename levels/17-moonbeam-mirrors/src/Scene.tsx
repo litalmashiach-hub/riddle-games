@@ -5,7 +5,7 @@ import { Burst, ComicWord, FocusCam, Shake, sfx, usePhases } from '@riddle/fx';
 import { HintRing } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { moonSfx } from './audio';
+import { moonSfx, useSoundUnlock } from './audio';
 import { Beam } from './Beam';
 import { Fireflies, LagoonShore, NightWater } from './Lagoon';
 import { PAD_Y, SOURCE, beamPath, cellPos, cellZ, sharedLength, type V3 } from './layout';
@@ -17,8 +17,8 @@ export const MOVE_MS = 1900;
 const T_TURN = 380;
 /** The beam must reach its end before this, so lose/win checks see the final picture. */
 const GROW_BY = 1680;
-/** On the first load the beam shoots out once the camera has flown in. */
-const INTRO_MS = 1600;
+/** The opening beam shoots out this soon after the rules card is dismissed. */
+const INTRO_MS = 400;
 
 type ToadPhase = 'tickle' | 'sneeze' | 'fly' | 'after';
 const TOAD_PHASES: [ToadPhase, number][] = [
@@ -46,11 +46,21 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
   // ---- Beam growth ----
   const reveal = useRef(0);
   const power = useRef(1);
-  const grow = useRef<{ from: number; start: number; speed: number } | null>({ from: 0, start: performance.now() + INTRO_MS, speed: 9 });
+  const grow = useRef<{ from: number; start: number; speed: number } | null>(null);
   const lastCount = useRef(moveCount);
   const lastReset = useRef(resetCount);
   const litFlowers = useRef<boolean[]>(LAYOUT.flowers.map(() => false));
   const litMirrors = useRef<boolean[]>(LAYOUT.mirrors.map(() => false));
+
+  // The opening beam waits for the rules card to go, so its chimes follow the player's first tap and are heard.
+  useSoundUnlock();
+  const introDone = useRef(false);
+  useEffect(() => {
+    if (busy || introDone.current) return;
+    introDone.current = true;
+    if (moveCount === 0) grow.current = { from: 0, start: performance.now() + INTRO_MS, speed: 9 };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [busy]);
 
   useEffect(() => {
     const forward = moveCount > lastCount.current && resetCount === lastReset.current;
