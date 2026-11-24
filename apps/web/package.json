@@ -34,6 +34,7 @@
     "@riddle/level-17-moonbeam-mirrors": "workspace:*",
     "@riddle/level-18-log-jam": "workspace:*",
     "@riddle/level-19-picture-tiles": "workspace:*",
+    "@riddle/level-20-berry-bridges": "workspace:*",
     "@riddle/props": "workspace:*",
     "motion": "14.10.1",
     "react": "19.3.1",
