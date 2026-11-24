@@ -11,7 +11,8 @@ import { Dottie, Duckling, type DuckMood } from './Duck';
 import { EXIT_Z, FLOAT_Y, HALF, LAGOON, LOG_R, MOVE_MS, RAFT_HOME, SAIL_MS, SLIDE_MS, cellX, cellZ, pieceCenter } from './layout';
 import { Frog, LogFlowers, LogModel, LogMushrooms, RaftModel, Snail } from './Logs';
 import { Pond } from './Pond';
-import { EXIT_ROW, PATIENCE, PIECES, SIZE, grid, reach, type Move, type State } from './rules';
+import { useJam } from './context';
+import { EXIT_ROW, SIZE, type Move, type Piece, type State } from './rules';
 
 export { MOVE_MS };
 
@@ -25,8 +26,7 @@ const PHASES: [Phase, number][] = [
 ];
 
 /** The grid cell a piece's leading end moves into when it slides to `to`. */
-function leadCell(i: number, from: number, to: number): [number, number] {
-  const pc = PIECES[i];
+function leadCell(pc: Piece, from: number, to: number): [number, number] {
   const k = to > from ? to + pc.len - 1 : to;
   return pc.axis === 'h' ? [pc.line, k] : [k, pc.line];
 }
@@ -43,6 +43,7 @@ const DUCKLING_PARTY: Vec3[] = [
 ];
 
 export function Scene({ state, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
+  const { pieces: PIECES, patience: PATIENCE, grid, reach } = useJam();
   const [selected, setSelected] = useState<number | null>(null);
   const [snap, setSnap] = useState(0);
   const [burst, setBurst] = useState(0);
@@ -146,7 +147,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       if (at > d.max) at = d.max + Math.min(0.12, (at - d.max) * 0.25);
       d.off = at - d.base;
       const g = pieceRefs[d.i].current;
-      if (g) g.position.set(...pieceCenter(d.i, at));
+      if (g) g.position.set(...pieceCenter(d.i, at, PIECES));
     };
     const up = () => {
       window.removeEventListener('pointermove', move);
@@ -192,7 +193,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const targets = useMemo(() => {
     if (selected === null || locked) return [];
     const from = state.pos[selected];
-    return reach(state.pos, selected).map((to) => ({ to, cell: leadCell(selected, from, to) }));
+    return reach(state.pos, selected).map((to) => ({ to, cell: leadCell(PIECES[selected], from, to) }));
   }, [selected, locked, state.pos]);
 
   const left = PATIENCE - state.moves;
@@ -201,7 +202,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   // ---- The fail: Dottie hops along her row towards the gap, slips, and splashes. ----
   const failPlan = useMemo(() => {
     const g = grid(state.pos);
-    const raft = pieceCenter(0, state.pos[0]);
+    const raft = pieceCenter(0, state.pos[0], PIECES);
     const start: Vec3 = [raft[0] + 0.15, FLOAT_Y + 0.12, raft[2]];
     const hops: Vec3[] = [];
     let splash: Vec3 | null = null;
@@ -222,7 +223,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   }, [state.pos]);
 
   const raftHidden = phase !== null && phase !== 'huff';
-  const hintTarget = hint && !busy ? leadCell(hint.piece, state.pos[hint.piece], hint.to) : null;
+  const hintTarget = hint && !busy ? leadCell(PIECES[hint.piece], state.pos[hint.piece], hint.to) : null;
 
   return (
     <Shake trigger={shake} intensity={0.18}>
@@ -312,6 +313,7 @@ interface ActorProps {
 }
 
 function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selected, hinted, disabled, onDown, children }: ActorProps) {
+  const { pieces: PIECES } = useJam();
   const pc = PIECES[index];
   const inner = useRef<THREE.Group>(null);
   const ripple = useRef<THREE.Mesh>(null);
@@ -319,7 +321,7 @@ function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selecte
   const [hover, setHover] = useState(false);
   useCursor(hover && !disabled);
 
-  const target = pieceCenter(index, to);
+  const target = pieceCenter(index, to, PIECES);
   const segs: PathSegment[] = useMemo(() => {
     if (moved) {
       const slide: PathSegment = {

@@ -19,6 +19,17 @@ import logJam from '@riddle/level-18-log-jam';
 import slipperyPond from '@riddle/level-15-slippery-pond';
 
 import fireflyJars from '@riddle/level-16-firefly-jars';
+import berryBridges from '@riddle/level-20-berry-bridges';
+import cricketSwap from '@riddle/level-21-cricket-swap';
+import pancakeStack from '@riddle/level-22-pancake-stack';
+import frogParade from '@riddle/level-23-frog-parade';
+import frostyMaze from '@riddle/level-24-frosty-maze';
+import fireflyRainbow from '@riddle/level-25-firefly-rainbow';
+import moonbeamMaze from '@riddle/level-26-moonbeam-maze';
+import timberTangle from '@riddle/level-27-timber-tangle';
+import familyPortrait from '@riddle/level-28-family-portrait';
+import cricketCrossing from '@riddle/level-29-cricket-crossing';
+import moonlitTower from '@riddle/level-30-moonlit-tower';
 /**
  * Every level in the game, in order. A level that is built is listed with its package;
  * the rest show as "coming soon" cards.
@@ -26,7 +37,7 @@ import fireflyJars from '@riddle/level-16-firefly-jars';
  * To add a level: create levels/NN-name (see docs/adding-a-level.md),
  * add it to apps/web/package.json, import it here and put it in BUILT.
  */
-const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, towerOfHanoi, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, fourPillarTower, familyCrossing, twelveCoins, threeJugs, leapfrogLagoon, fireflyLanterns, slipperyPond, fireflyJars, moonbeamMirrors, logJam, pictureTiles];
+const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, towerOfHanoi, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, fourPillarTower, familyCrossing, twelveCoins, threeJugs, leapfrogLagoon, fireflyLanterns, slipperyPond, fireflyJars, moonbeamMirrors, logJam, pictureTiles, berryBridges, cricketSwap, pancakeStack, frogParade, frostyMaze, fireflyRainbow, moonbeamMaze, timberTangle, familyPortrait, cricketCrossing, moonlitTower];
 
 export interface LevelEntry {
   number: number;
@@ -57,6 +68,17 @@ const PLAN: Omit<LevelEntry, 'level'>[] = [
   { number: 17, id: 'moonbeam-mirrors', title: 'Moonbeam Mirrors', world: 'lagoon', tagline: 'Bounce the moonbeam onto every flower.' },
   { number: 18, id: 'log-jam', title: 'Log Jam', world: 'lagoon', tagline: 'Slide the logs aside and free the duck raft.' },
   { number: 19, id: 'picture-tiles', title: 'Picture Tiles', world: 'lagoon', tagline: 'Slide the stones back into the turtle picture.' },
+  { number: 20, id: 'berry-bridges', title: 'Berry Bridges', world: 'lagoon', tagline: 'Cross every bridge once. Each one sinks behind you.' },
+  { number: 21, id: 'cricket-swap', title: 'Cricket Swap', world: 'lagoon', tagline: 'Two amber crickets, two blue ones, and every leap is an L.' },
+  { number: 22, id: 'pancake-stack', title: 'Pancake Stack', world: 'lagoon', tagline: 'Flip the top of the stack until the biggest is at the bottom.' },
+  { number: 23, id: 'frog-parade', title: 'Frog Parade', world: 'lagoon', tagline: 'Four green frogs, four orange frogs, and still only one empty pad.' },
+  { number: 24, id: 'frosty-maze', title: 'Frosty Maze', world: 'lagoon', tagline: 'The fish are in the middle of the ice, and the way in is anything but straight.' },
+  { number: 25, id: 'firefly-rainbow', title: 'Firefly Rainbow', world: 'lagoon', tagline: 'Five colours of firefly now, and only two jars to spare.' },
+  { number: 26, id: 'moonbeam-maze', title: 'Moonbeam Maze', world: 'lagoon', tagline: 'Five moon-flowers, eleven crystals and one very light sleeper.' },
+  { number: 27, id: 'timber-tangle', title: 'Timber Tangle', world: 'lagoon', tagline: 'A tighter knot of logs, and Dottie is no more patient than before.' },
+  { number: 28, id: 'family-portrait', title: 'Family Portrait', world: 'lagoon', tagline: 'Shelly has a new mosaic of the whole family, and it is in a worse muddle.' },
+  { number: 29, id: 'cricket-crossing', title: 'Cricket Crossing', world: 'lagoon', tagline: 'Three amber crickets, three blue ones and twelve toadstools to cross.' },
+  { number: 30, id: 'moonlit-tower', title: 'Moonlit Tower', world: 'lagoon', tagline: 'The jade tower again, by night, and one disc taller.' },
 ];
 
 export const LEVELS: LevelEntry[] = PLAN.map((p) => ({ ...p, level: BUILT.find((b) => b.number === p.number) }));

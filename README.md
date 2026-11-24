@@ -9,6 +9,7 @@ Built with React Three Fiber (Three.js), TypeScript and Vite.
 pnpm install
 pnpm dev        # http://localhost:5173
 pnpm test       # rules and solver tests
+pnpm test:e2e   # builds, then plays all levels in a phone-sized browser (docs/play-through-tests.md)
 pnpm typecheck
 pnpm build      # static site in apps/web/dist
 ```
@@ -51,6 +52,17 @@ The offline service worker is generated at build time (`apps/web/vite.config.ts`
 | 17 | Firefly Lagoon | Moonbeam Mirrors (light beams) | Built |
 | 18 | Firefly Lagoon | Log Jam (sliding blocks) | Built |
 | 19 | Firefly Lagoon | Picture Tiles (8-puzzle) | Built |
+| 20 | Firefly Lagoon | Berry Bridges (cross every bridge once) | Built |
+| 21 | Firefly Lagoon | Cricket Swap (four knights swap sides) | Built |
+| 22 | Firefly Lagoon | Pancake Stack (sort by flipping the top) | Built |
+| 23 | Firefly Lagoon | Frog Parade (level 13 with four frogs a side) | Built |
+| 24 | Firefly Lagoon | Frosty Maze (level 15 on a longer sheet of ice) | Built |
+| 25 | Firefly Lagoon | Firefly Rainbow (level 16 with five colours and seven jars) | Built |
+| 26 | Firefly Lagoon | Moonbeam Maze (level 17 with eleven crystals and five flowers) | Built |
+| 27 | Firefly Lagoon | Timber Tangle (level 18 with a tighter jam) | Built |
+| 28 | Firefly Lagoon | Family Portrait (level 19 with a new picture, mixed up worse) | Built |
+| 29 | Firefly Lagoon | Cricket Crossing (level 21 with six crickets on twelve toadstools) | Built |
+| 30 | Firefly Lagoon | Moonlit Tower (level 4 with five discs, by night) | Built |
 
 ## Layout
 
@@ -60,7 +72,8 @@ packages/engine/     level contract, session (undo/redo/hints), solver, stars, s
 packages/fx/         lighting and sky per world, water shader, post-processing, motion helpers, sound
 packages/props/      shared 3D models: farmer, wolf, sheep, boat, river valley, hint ring, bubbles
 levels/NN-name/      one package per riddle: rules.ts, Scene.tsx, index.ts, rules.test.ts
-docs/                how to add a level, art direction
+e2e/                 play-through tests (Playwright): every level to a win at iPhone sizes
+docs/                how to add a level, art direction, play-through tests
 ```
 
 To build a new level, read [docs/adding-a-level.md](docs/adding-a-level.md).

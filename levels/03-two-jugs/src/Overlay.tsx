@@ -4,6 +4,9 @@ import { useEffect, useMemo, useRef, type ReactNode, type RefObject } from 'reac
 import { createRoot, type Root } from 'react-dom/client';
 import * as THREE from 'three';
 
+/** How close to the screen's edge a `keepOnScreen` overlay may come, in pixels. */
+const EDGE = 8;
+
 /**
  * HTML pinned to a point in the 3D scene.
  * Like drei's <Html center>, but its DOM root is created in a plain effect, so it always
@@ -17,6 +20,7 @@ export function Overlay({
   interactive = false,
   anchor = 'center',
   shrink = false,
+  keepOnScreen = false,
 }: {
   position?: Vec3;
   /** Pin to this object (plus `position` as an offset) instead of a fixed point. */
@@ -28,6 +32,8 @@ export function Overlay({
   anchor?: 'center' | 'bottom';
   /** Scale down on narrow (phone) screens. */
   shrink?: boolean;
+  /** Nudge the HTML back inside the screen when its point would put part of it over an edge. */
+  keepOnScreen?: boolean;
 }) {
   const gl = useThree((s) => s.gl);
   const camera = useThree((s) => s.camera);
@@ -66,7 +72,19 @@ export function Overlay({
     v.project(camera);
     const behind = v.z > 1;
     div.style.visibility = behind ? 'hidden' : 'visible';
-    div.style.transform = `translate3d(${((v.x + 1) / 2) * size.width}px,${((1 - v.y) / 2) * size.height}px,0)`;
+    let x = ((v.x + 1) / 2) * size.width;
+    let y = ((1 - v.y) / 2) * size.height;
+    const box = keepOnScreen ? (div.firstElementChild as HTMLElement | null) : null;
+    if (box) {
+      // Layout sizes, so the pop-in animation does not make the menu wander.
+      const w = box.offsetWidth;
+      const h = box.offsetHeight;
+      const above = anchor === 'bottom' ? h : h / 2;
+      const below = h - above;
+      x = Math.min(Math.max(x, w / 2 + EDGE), Math.max(size.width - w / 2 - EDGE, w / 2 + EDGE));
+      y = Math.min(Math.max(y, above + EDGE), Math.max(size.height - below - EDGE, above + EDGE));
+    }
+    div.style.transform = `translate3d(${x}px,${y}px,0)`;
   });
 
   return null;

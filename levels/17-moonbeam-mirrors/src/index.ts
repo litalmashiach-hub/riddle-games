@@ -25,3 +25,8 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For another layout in the same scene (see levels/26-moonbeam-maze).
+export { LayoutContext } from './context';
+export { makeRules, trace, type Layout, type Move, type State } from './rules';
+export { MOVE_MS, Scene } from './Scene';

@@ -55,7 +55,11 @@ The shell gives the scene `state`, `previous`, `lastMove`, `status`, `play(move)
 ```bash
 pnpm install && pnpm typecheck && pnpm test && pnpm build
 pnpm dev   # open http://localhost:5173/?all#/level/<id>
+pnpm test:e2e   # plays every level, yours included, to a win in a phone-sized browser
 ```
+
+The play-through tests find a new level by its folder and play it with the solver's moves: see
+[play-through-tests.md](play-through-tests.md).
 
 For scripted checks: `?debug&quality=low#/level/<id>` exposes `window.__riddle`, so
 `window.__riddle.getState().play(move)` plays a move. Headless Chromium renders slowly, so use
