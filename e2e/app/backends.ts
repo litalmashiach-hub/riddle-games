@@ -59,19 +59,20 @@ export class AppiumBackend implements Backend {
     for (;;) {
       const contexts: any[] = await this.driver.getContexts().catch((x: unknown) => { this.log(`getContexts: ${String(x).slice(0, 200)}`); return []; });
       const names = contexts.map((c) => (typeof c === 'string' ? c : c.id));
-      const web = names.find((n) => n.startsWith('WEBVIEW'));
-      if (web) {
-        await this.driver.switchContext(web);
-        this.webview = web;
+      for (const web of names.filter((n) => n.startsWith('WEBVIEW')).reverse()) {
         try {
-          const ok = await this.exec<boolean>('() => !!document.body');
-          if (ok) {
-            this.log(`page: ${JSON.stringify(await this.exec('() => ({ href: location.href, hooks: typeof window.__appq, scene: typeof window.__taps, title: document.title })'))}`);
+          await this.driver.switchContext(web);
+          this.webview = web;
+          // The web view can be found before the game's page is in it (about:blank): wait for the page and its hooks.
+          const r = await this.driver.execute(wrap("() => ({ ok: !!document.body && location.protocol === 'capacitor:' && typeof window.__appq === 'function', href: location.href, hooks: typeof window.__appq, scene: typeof window.__taps })"), null);
+          if (r?.ok && r.v?.ok) {
+            this.log(`page in ${web}: ${JSON.stringify(r.v)}`);
             await this.measure();
             return;
           }
+          this.log(`${web}: not the game page yet (${JSON.stringify(r?.v ?? r).slice(0, 200)})`);
         } catch (e) {
-          this.log(`web view not ready: ${String(e).slice(0, 200)}`);
+          this.log(`${web} not ready: ${String(e).slice(0, 200)}`);
         }
       }
       if (Date.now() > end) throw new Error(`no web view found in ${timeout / 1000} s; contexts: ${names.join(', ')}`);

@@ -73,6 +73,8 @@ jobs:
       contents: write
     strategy:
       fail-fast: false
+      # Hosted Macs are scarce: more than two at once were not handed out (run 45479296218).
+      max-parallel: 2
       matrix:
         include: ${{ fromJSON(needs.plan.outputs.matrix) }}
     steps:
