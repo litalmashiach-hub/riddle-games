@@ -67,8 +67,12 @@ and the repository's checks stay green. The check is `releaseBlockers()` in `app
 that really end up in the built files (code that survived tree-shaking, stylesheets and fonts) and **fails, naming
 the package, if one has no notice**. So after adding or updating a dependency: build, and add what the build names.
 
+Capacitor's JavaScript and its haptics plugin are in the app build alone (the website build drops them), so it is
+the app build's comparison that names them: run `pnpm build:app` too.
+
 Three entries are not found by that comparison and are kept by hand: Tailwind CSS (its style reset is written into
-the stylesheet), and Capacitor with its Cordova layer (linked into the iPhone and iPad app, not the website).
+the stylesheet), and Capacitor's native side with its Cordova layer (linked into the iPhone and iPad app by Xcode).
+The haptics plugin's native side is two Swift files of the same package as its JavaScript, under the same notice.
 
 The licence texts in `licenceTexts.ts` are copied word for word from the licence files of the installed packages.
 

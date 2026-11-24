@@ -90,7 +90,7 @@ test('the screen opens from the map, shows every section, and leads back', async
   await expect(page.getByTestId('about-page')).toContainText(`${nameHere()} is built with these open-source libraries and fonts.`);
   const notices = page.getByTestId('notices').getByRole('listitem');
   expect(await notices.count()).toBeGreaterThanOrEqual(20);
-  for (const name of ['three.js', 'React', 'postprocessing', 'Motion', 'Fredoka (font)', 'Nunito (font)', 'Capacitor']) {
+  for (const name of ['three.js', 'React', 'postprocessing', 'Motion', 'Fredoka (font)', 'Nunito (font)', 'Capacitor', 'Capacitor Haptics']) {
     await expect(notices.filter({ hasText: name }).first()).toContainText(/Copyright/);
   }
   const texts: [string, string][] = [
