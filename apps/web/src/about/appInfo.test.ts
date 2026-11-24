@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { APP_INFO, releaseAsked, releaseBlockers, type AppInfo } from './appInfo';
-import { privacyPolicy } from './privacyPolicy';
+import { policyPhrases, privacyPolicy } from './privacyPolicy';
 
 const READY: AppInfo = { name: 'Riddlebrook', version: '1.0', contactEmail: 'hello@riddlebrook.app', publisherName: 'A. Publisher', policyEffectiveDate: '1 December 2026' };
 
@@ -61,6 +61,35 @@ describe('the privacy policy text', () => {
 
   it('has every part that Apple asks a policy to answer', () => {
     const headings = privacyPolicy(READY).sections.map((s) => s.heading);
-    expect(headings).toEqual(['What we collect', 'What is saved on your device', 'Sharing', 'Keeping and deleting', 'Children', 'Apple', 'Changes', 'Contact']);
+    expect(headings).toEqual(['What we collect', 'What is saved on your device', 'Sharing', 'Keeping and deleting', 'If you write to us', 'Children', 'Apple', 'Changes', 'Contact']);
+  });
+
+  it('says of the game what the launch policy says, in the five places where the two once differed', () => {
+    const all = privacyPolicy(READY).sections.flatMap((s) => s.blocks.flatMap((b) => (typeof b === 'string' ? [b] : b.points))).join('\n');
+    for (const sentence of [
+      'The game never connects to the internet.',
+      'The game never sends this information anywhere. We cannot see it, and nobody receives it from us.',
+      "To erase your stars, use Reset progress on the Settings page of the game's About & settings screen; your sound and graphics choices stay. To erase everything the game has saved, delete the app.",
+      "The game's Contact page opens your own email app. If you send us an email, we receive your email address and whatever you write, and we use them only to answer you.",
+      "If you back up your device, the backup may include the game's saved stars and settings, as it does for your other apps. All of that is governed by Apple's own privacy policy, not this one.",
+    ]) {
+      expect(all).toContain(sentence);
+    }
+    expect(all).not.toMatch(/while you play|never leaves your device|Settings page of this screen/);
+  });
+
+  it('gives the search of the built files words from every sentence, the name and the blanks cut out', () => {
+    const phrases = policyPhrases(READY);
+    const blocks = privacyPolicy(READY).sections.flatMap((s) => s.blocks.flatMap((b) => (typeof b === 'string' ? [b] : b.points)));
+    for (const block of blocks) {
+      if (block.startsWith('Questions about this policy')) continue; // too short once the address is cut out; the heading test covers it
+      expect(phrases.some((phrase) => block.includes(phrase)), block).toBe(true);
+    }
+    for (const phrase of phrases) {
+      expect(phrase.length).toBeGreaterThanOrEqual(24);
+      expect(phrase).not.toMatch(/Riddlebrook|A\. Publisher|hello@|['"`]/);
+    }
+    expect(phrases).toContain('The game never connects to the internet.');
+    expect(phrases).toContain('your sound and graphics choices stay.');
   });
 });

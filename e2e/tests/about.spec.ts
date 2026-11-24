@@ -3,6 +3,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { APP_ONLY_WORDS } from '../../apps/web/src/about/appInfo';
+import { policyPhrases } from '../../apps/web/src/about/privacyPolicy';
 import { LEVELS } from '../levels';
 import { expect, savedStars, seedProgress, SETTINGS_KEY, test } from './fixtures';
 
@@ -67,10 +68,15 @@ test('the screen opens from the map, shows every section, and leads back', async
     // Privacy: the whole policy, as text.
     await page.getByRole('tab', { name: 'Privacy' }).tap();
     await expect(page.getByRole('heading', { name: `${nameHere()} Privacy Policy` })).toBeVisible();
-    for (const heading of ['What we collect', 'What is saved on your device', 'Sharing', 'Keeping and deleting', 'Children', 'Apple', 'Changes', 'Contact']) {
+    for (const heading of ['What we collect', 'What is saved on your device', 'Sharing', 'Keeping and deleting', 'If you write to us', 'Children', 'Apple', 'Changes', 'Contact']) {
       await expect(page.getByRole('heading', { name: heading, exact: true })).toHaveCount(1);
     }
     await expect(page.getByText('collects nothing about you')).toBeVisible();
+    // What the page promises of the game, as the launch policy has it.
+    for (const words of ['The game never connects to the internet.', 'The game never sends this information anywhere.', 'your sound and graphics choices stay', 'we use them only to answer you', 'If you back up your device']) {
+      await expect(page.getByTestId('about-page')).toContainText(words);
+    }
+    await expect(page.getByTestId('about-page')).not.toContainText(/while you play|never leaves your device|Settings page of this screen/);
     await expect(page.getByTestId('about-page')).not.toContainText(/\[[A-Z' ]+\]|null|undefined/);
 
     // Contact.
@@ -292,5 +298,10 @@ test('the website build leaves the policy, the contact and the working name out;
     expect(web.includes(words), `the website's files hold no ${what} text`).toBe(false);
     expect(app.includes(words), `the app's files hold the ${what} text`).toBe(true);
   }
+  // Every sentence of the policy, the new ones too.
+  const phrases = policyPhrases();
+  expect(phrases.length).toBeGreaterThan(20);
+  expect(phrases.filter((phrase) => web.includes(phrase)), "words of the policy in the website's files").toEqual([]);
+  expect(phrases.filter((phrase) => !app.includes(phrase)), "words of the policy missing from the app's files").toEqual([]);
   expect(web).not.toMatch(/Privacy Policy|Questions about this policy|Write an email/);
 });

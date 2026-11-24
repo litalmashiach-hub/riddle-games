@@ -1,6 +1,7 @@
 import type { Plugin } from 'vite';
 import { APP_ONLY_WORDS, releaseAsked, releaseBlockers } from './src/about/appInfo';
 import { missingNotices, packageOf } from './src/about/notices';
+import { policyPhrases } from './src/about/privacyPolicy';
 
 /**
  * Three checks on every build, of the website and of the app alike:
@@ -61,6 +62,12 @@ export function releaseChecks(): Plugin {
         if (appBuild && !found) this.error(`The app build has lost its ${what} text ("${words}"). It must keep the Privacy and Contact pages: see apps/web/src/about/shown.ts.`);
         if (!appBuild && found) this.error(`The website build holds the app's ${what} text ("${words}"). The website must not publish it: see apps/web/src/about/shown.ts.`);
       }
+      // Every sentence of the policy, not only the one above: the website build holds no run of words from any.
+      const phrases = policyPhrases();
+      const leaked = phrases.filter((phrase) => built.includes(phrase));
+      if (!appBuild && leaked.length > 0) this.error(`The website build holds ${leaked.length} run(s) of words from the app's privacy policy, the first: "${leaked[0]}". The website must not publish it: see apps/web/src/about/shown.ts.`);
+      const lost = phrases.filter((phrase) => !built.includes(phrase));
+      if (appBuild && lost.length > 0) this.error(`The app build has lost ${lost.length} run(s) of words of its privacy policy, the first: "${lost[0]}". It must keep the Privacy page whole: see apps/web/src/about/shown.ts.`);
       this.info(appBuild ? 'app build: holds the privacy policy, the contact line and the working name' : 'website build: holds no privacy policy, no contact line and no working name');
       this.info(`open-source notices cover all ${shipped.size} packages in the bundle`);
     },

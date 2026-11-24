@@ -31,7 +31,12 @@ build check below will then need the same change, on purpose.
 
 Every build checks itself (`apps/web/releaseChecks.ts`, with the words to look for in `APP_ONLY_WORDS` of
 `appInfo.ts`): a website build that holds a sentence of the policy, the contact line or the working name fails,
-and so does an app build that has lost one of them.
+and so does an app build that has lost one of them. The policy is searched for whole: `policyPhrases()` in
+`privacyPolicy.ts` gives runs of words from every one of its sentences, so a sentence added there is covered at once.
+
+The policy's wording is the launch policy's, word for word. The public page of the policy must say the same, and
+what it says of the game (no connection, two saved things, what Reset progress removes and keeps, the Contact
+page's email link) must stay true of the code: change the two together.
 
 ## The one place for the name and the contact
 
