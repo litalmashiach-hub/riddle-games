@@ -1,0 +1,102 @@
+name: App play (test only)
+
+# TEST ONLY, not for merging. Builds the iPhone/iPad app unsigned for the simulator on a hosted Mac,
+# then plays every level inside it, by real touches placed live where the scene draws each thing
+# (e2e/app, Appium). No signing, no secrets, nothing uploaded except the run's own artifacts.
+# Which simulators and levels: e2e/app/matrix.json.
+
+on:
+  push:
+    branches: [test/app-play-every-level]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-play-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: echo "matrix=$(jq -c . e2e/app/matrix.json)" >> "$GITHUB_OUTPUT"
+
+  build:
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode and Mac
+        run: |
+          xcodebuild -version; sw_vers; sysctl -n machdep.cpu.brand_string hw.ncpu hw.memsize
+          xcrun simctl list runtimes
+          xcrun simctl list devicetypes | grep -E "iPhone|iPad"
+      - name: App content with the test hooks, synced into the iOS project
+        run: |
+          # TEST ONLY: a stand-in contact address, so that the Contact page's email button shows.
+          sed -i '' "s/^export const CONTACT_EMAIL: string | null = null;/export const CONTACT_EMAIL: string | null = 'test-only@example.com';/" apps/web/src/about/appInfo.ts
+          grep -n "CONTACT_EMAIL: string" apps/web/src/about/appInfo.ts
+          VITE_APP_TEST_HOOKS=1 pnpm build:app
+          npm --prefix e2e/app install --no-audit --no-fund
+          e2e/app/node_modules/.bin/tsx e2e/app/prepare-app-build.ts
+          CAP_TEST_INSPECTABLE=1 pnpm --filter @riddle/mobile exec cap sync ios
+          cat apps/mobile/ios/App/App/capacitor.config.json
+      - name: Build the app for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project apps/mobile/ios/App/App.xcodeproj -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build | tail -n 20
+          tar -czf app.tgz -C build/ios/Build/Products/Release-iphonesimulator App.app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: app.tgz
+
+  play:
+    needs: [plan, build]
+    name: ${{ matrix.label }}
+    runs-on: macos-26
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: app
+      - name: Runner, Appium and its iOS driver
+        run: |
+          mkdir -p build/ios/Build/Products/Release-iphonesimulator
+          tar -xzf app.tgz -C build/ios/Build/Products/Release-iphonesimulator
+          npm --prefix e2e/app install --no-audit --no-fund
+          export APPIUM_HOME="$PWD/e2e/app/.appium"
+          e2e/app/node_modules/.bin/appium driver install xcuitest@12.22.8
+      - name: Play in the simulator
+        timeout-minutes: 320
+        run: e2e/app/ios-play.sh "${{ matrix.label }}" "${{ matrix.sim }}" "${{ matrix.orientation }}" "${{ matrix.levels }}" "${{ matrix.extras }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: app-play-${{ matrix.label }}
+          path: out/
+          if-no-files-found: warn
