@@ -72,11 +72,14 @@ jobs:
           echo "APP=$APP" >> "$GITHUB_ENV"
           echo "BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")" >> "$GITHUB_ENV"
 
-      - name: Run in simulators and take screenshots
+      - name: Simulator helper
         run: |
           mkdir -p screenshots
-          pick() { # first available simulator whose name starts with $1
-            xcrun simctl list devices available -j | python3 -c '
+          cat > "$RUNNER_TEMP/shoot.sh" <<'SH'
+          #!/bin/bash
+          # shoot.sh <simulator name prefix> <file label>: run the app in the newest matching simulator and screenshot it.
+          set -euxo pipefail
+          UDID="$(xcrun simctl list devices available -j | python3 -c '
           import json, sys
           prefix = sys.argv[1]
           runtimes = json.load(sys.stdin)["devices"]
@@ -85,26 +88,29 @@ jobs:
               for d in runtimes[runtime]:
                   if d["name"].startswith(prefix):
                       print(d["udid"]); sys.exit(0)
-          ' "$1"
-          }
-          shoot() { # $1 = name prefix, $2 = file label
-            UDID="$(pick "$1")"
-            if [ -z "$UDID" ]; then echo "No simulator named $1*"; return 0; fi
-            echo "== $1: $UDID"
-            xcrun simctl boot "$UDID"
-            xcrun simctl bootstatus "$UDID" -b
-            xcrun simctl install "$UDID" "$APP"
-            xcrun simctl launch "$UDID" "$BUNDLE_ID"
-            sleep 3
-            xcrun simctl io "$UDID" screenshot "screenshots/$2-launch.png"
-            # Give the web view time to load the game and draw the level map.
-            sleep 40
-            xcrun simctl io "$UDID" screenshot "screenshots/$2-level-map.png"
-            xcrun simctl shutdown "$UDID"
-          }
-          shoot "iPhone 17" iphone
-          shoot "iPad" ipad
-          ls -la screenshots
+          ' "$1")"
+          if [ -z "$UDID" ]; then echo "No simulator named $1*"; exit 1; fi
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID"
+          xcrun simctl install "$UDID" "$APP"
+          xcrun simctl launch "$UDID" "$BUNDLE_ID"
+          sleep 3
+          xcrun simctl io "$UDID" screenshot "screenshots/$2-launch.png"
+          # Give the web view time to load the game and draw the level map.
+          sleep 40
+          xcrun simctl io "$UDID" screenshot "screenshots/$2-level-map.png"
+          xcrun simctl shutdown "$UDID"
+          SH
+          chmod +x "$RUNNER_TEMP/shoot.sh"
+
+      - name: Run in an iPhone simulator and take screenshots
+        timeout-minutes: 12
+        run: '"$RUNNER_TEMP/shoot.sh" "iPhone 17" iphone'
+
+      - name: Run in an iPad simulator and take screenshots
+        if: always()
+        timeout-minutes: 12
+        run: '"$RUNNER_TEMP/shoot.sh" "iPad" ipad'
 
       - uses: actions/upload-artifact@v4
         if: always()
