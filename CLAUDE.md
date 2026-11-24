@@ -7,4 +7,3 @@
 - In a level PR, only touch your level folder plus its registration lines (`apps/web/src/levels.ts`, `apps/web/package.json`, README row). Shared-package changes go in their own small PR.
 - Screenshots in headless Chromium: use `?all&quality=low&debug#/level/<id>` and a small viewport; HD mode is very slow without a GPU.
 - Don't use N8AO from @react-three/postprocessing: it crashes with three 0.187.
-- iPhone/iPad app: Capacitor shell in `apps/mobile`, see `docs/ios-app.md`. App name, bundle id and version live only in `apps/mobile/ios/AppIdentity.xcconfig`.
