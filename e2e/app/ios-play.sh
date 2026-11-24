@@ -34,8 +34,7 @@ echo "booted in $(( $(date +%s) - T0 )) s" | tee -a "$OUT/device.txt"
 xcrun simctl install "$UDID" "$APP"
 xcrun simctl spawn "$UDID" log stream --style compact --predicate 'process == "App" OR process CONTAINS "WebContent" OR process CONTAINS "GPU"' > "$OUT/unified.txt" 2>&1 &
 LOGPID=$!
-# Every 30 s: the memory and processor use of the app, its web content and the Mac, to tell a slow page from a starved Mac.
-( while :; do echo "== $(date +%H:%M:%S)"; ps -axo pid,rss,%cpu,etime,comm | grep -E "WebContent|GPU|/App$|App.app" | grep -v grep; vm_stat | grep -E "free|compressor|Swap"; sysctl -n vm.loadavg; sleep 30; done ) > "$OUT/usage.txt" 2>&1 &
+"$ROOT/e2e/app/watch-usage.sh" "$OUT" "$UDID" "$BUNDLE" &
 USEPID=$!
 
 export APPIUM_HOME="$ROOT/e2e/app/.appium"

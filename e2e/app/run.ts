@@ -7,7 +7,7 @@
  *   tsx e2e/app/run.ts --backend appium --device iphone-large --levels 1-30 --out out/iphone-large
  *   tsx e2e/app/run.ts --backend chromium --device local-852 --size 852x393 --levels 1-3 --out out/local
  */
-import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { LEVELS, type LevelCase } from '../levels';
 import { KNOWN_TAP_FAULTS } from '../taps/known-tap-faults';
@@ -341,6 +341,8 @@ async function main() {
       ]);
     } catch (e) {
       r.error = (r.error ? r.error + '; ' : '') + String(e instanceof Error ? e.message : e).slice(0, 800);
+      const dog = join(out, 'watchdog.txt');
+      if (existsSync(dog) && statSync(dog).mtimeMs >= started) r.error += '; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)';
       log(`L${nn(level.number)}: ERROR ${r.error}`);
       r.shots.push(await shot(`L${nn(level.number)}-error`));
       onWinCardOf = 0;
