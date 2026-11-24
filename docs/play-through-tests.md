@@ -35,6 +35,7 @@ Two screen sizes, both with touch and the phone held sideways:
 | `e2e/tests/levels.spec.ts` | Every level: opens it as a player who solved the earlier ones, taps through the rules card, plays the shortest solution, and checks the top bar's counter while playing, the win card, three stars, the saved stars, the map's star count, and that the next level opens. Saves a screenshot of each win. |
 | `e2e/tests/level-1-by-taps.spec.ts` | Level 1 by taps on the screen alone, from a fresh level map to the win card and on to level 2. Also a loss: the "Oh no!" card, and undo. |
 | `e2e/tests/progress.spec.ts` | Stars and the sound setting survive a restart of the app; locked levels stay locked; the map lists every level. |
+| `e2e/tests/hint.spec.ts` | Hint where no win is left: in level 20, after a start that cannot win, a tap on Hint shows the line that says so, whole on the screen and clear of every button, at the project's size and at 956 by 440 (the largest iPhone); no hint is counted. Also: a restart forgets the hints, so the run after it earns three stars. |
 
 Every test fails if the page throws an error, logs a console error, has a request fail, or asks
 anything of another host (the game should make no such request). The few console messages that
