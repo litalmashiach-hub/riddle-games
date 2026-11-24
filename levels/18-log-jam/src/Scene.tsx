@@ -123,11 +123,8 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     // A glowing ring beats a log's invisible padding and its glow (both marked `pad`). Seen from the camera,
     // those of a log (often the picked one) reach over the ring next to it, and would take the tap meant
     // for the ring. Only where the log itself is drawn in front of the ring is the touch the log's.
-    const ring = e.intersections.find((h) => h.object.userData.ring);
-    if (ring) {
-      const body = e.intersections.find((h) => h.eventObject === e.eventObject && !h.object.userData.pad);
-      if (!body || body.distance > ring.distance) return;
-    }
+    // Where bark is drawn over a ring's unseen box, the touch is the log's (see barkWins).
+    if (ringUnder(e) && !barkWins(e, e.eventObject)) return;
     e.stopPropagation();
     if (locked) {
       if (!over) sfx.denied();
@@ -374,6 +371,7 @@ function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selecte
     <group ref={groupRef}>
       <group
         ref={inner}
+        userData={PIECE}
         onPointerDown={onDown}
         onPointerOver={(e) => {
           e.stopPropagation();
@@ -412,9 +410,49 @@ function FrogRider({ index, moveCount, lastMove, forward }: { index: number; mov
   return <Frog excited={at} />;
 }
 
+/** Marks a log's (or the raft's) group, whose meshes but the `pad` ones are drawn wood. */
+const PIECE = { piece: true };
+
+/** How far a ring reaches as drawn, from its middle, at its largest pulse with the finger over it (0.34 x 1.19). */
+const RING_DRAWN_R = 0.41;
+
+/** The glowing ring whose unseen hit box is under the touch, if any. */
+const ringUnder = (e: ThreeEvent<PointerEvent>) => e.intersections.find((h) => h.object.userData.ring);
+
+/**
+ * Does a log's bark (not its unseen grab box or its glow) win this touch from the ring under it? `owner`: only that
+ * log's bark counts; else any log's. A ring's hit box is tall and wide, so that it is easy to hit; seen from the
+ * slanted camera it reaches over the bark of a log right beside it. The eye sees the bark there, so the touch is
+ * the log's, where the bark is drawn in front of the ring (nearer than the ring's flat plane on the water) or where
+ * the touch meets that plane outside the ring as drawn.
+ */
+function barkWins(e: ThreeEvent<PointerEvent>, owner?: THREE.Object3D): boolean {
+  const ring = ringUnder(e);
+  if (!ring?.object.parent) return false;
+  const c = ring.object.parent.getWorldPosition(new THREE.Vector3());
+  const { origin, direction } = e.ray;
+  const t = direction.y < 0 ? (c.y - origin.y) / direction.y : Infinity;
+  const off = Number.isFinite(t) ? Math.hypot(origin.x + direction.x * t - c.x, origin.z + direction.z * t - c.z) : Infinity;
+  return e.intersections.some(
+    (h) =>
+      (owner ? h.eventObject === owner : h.eventObject.userData.piece) &&
+      !h.object.userData.pad &&
+      (h.distance <= t || off > RING_DRAWN_R),
+  );
+}
+
 /** A glowing lily ring on a cell the picked log can slide to. Tap it to slide there. */
 function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }) {
   const ring = useRef<THREE.Mesh>(null);
+  // Set when this ring took a touch's pointer-down. A click counts only then: the scene's event system sends a
+  // click to everything that lay under the touch when it began, also when a log in front took that touch.
+  const took = useRef(false);
+  useEffect(() => {
+    // Every new touch starts untaken; the ring's own pointer-down, which comes after this, may take it.
+    const reset = () => (took.current = false);
+    window.addEventListener('pointerdown', reset, true);
+    return () => window.removeEventListener('pointerdown', reset, true);
+  }, []);
   const [hover, setHover] = useState(false);
   useCursor(hover);
   useFrame(({ clock }) => {
@@ -442,9 +480,15 @@ function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }
         }}
         onPointerOut={() => setHover(false)}
         // Swallow the touch: a log behind the ring must not see it, or it would take the tap as its own
-        // and drop the picked log before the ring's click arrives. (Logs in front: see onPieceDown.)
-        onPointerDown={(e) => e.stopPropagation()}
+        // and drop the picked log before the ring's click arrives. But bark the eye sees over the ring's unseen
+        // box keeps the touch (see barkWins), and so does a log drawn in front of the ring (see onPieceDown).
+        onPointerDown={(e) => {
+          took.current = !barkWins(e);
+          if (took.current) e.stopPropagation();
+        }}
         onClick={(e) => {
+          if (!took.current) return;
+          took.current = false;
           e.stopPropagation();
           onClick();
         }}
