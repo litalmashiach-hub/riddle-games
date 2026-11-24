@@ -38,6 +38,66 @@ describe('session', () => {
   });
 });
 
+describe('hints', () => {
+  // Reach 5 by adding 2 only: from 1 every path ends on 3 or passes 5, so no win is left there.
+  const odd: RiddleRules<number, number> = {
+    ...rules,
+    initialState: 0,
+    legalMoves: (s) => (s === 0 ? [1, 2] : s + 2 <= 5 ? [2] : []),
+    status: (s) => (s === 3 ? { kind: 'lost', reason: 'Landed on 3' } : s === 4 ? { kind: 'won' } : { kind: 'playing' }),
+  };
+  const oddLevel = { rules: odd, moveDurationMs: 10, bestMoves: 2 } as unknown as RiddleLevel<number, number>;
+
+  it('gives no hint, and counts none, where no win is left', () => {
+    vi.useFakeTimers();
+    const s = createSession(oddLevel);
+    s.getState().play(1);
+    vi.advanceTimersByTime(20);
+    expect(s.getState().status.kind).toBe('playing');
+    expect(solve(odd, 1)).toBeNull();
+    expect(s.getState().askHint()).toBeNull();
+    expect(s.getState().hint).toBeNull();
+    expect(s.getState().hintsUsed).toBe(0);
+    // One step back there is a win again, and that hint is counted.
+    s.getState().undo();
+    expect(s.getState().askHint()).toBe('Add 2');
+    expect(s.getState().hintsUsed).toBe(1);
+    vi.useRealTimers();
+  });
+
+  it('forgets the hints at a restart, so a fresh run can earn three stars', () => {
+    vi.useFakeTimers();
+    const s = createSession(level);
+    expect(s.getState().askHint()).toMatch(/Add/);
+    expect(s.getState().askHint()).toMatch(/Add/);
+    expect(s.getState().hintsUsed).toBe(2);
+    s.getState().restart();
+    expect(s.getState().hintsUsed).toBe(0);
+    expect(s.getState().hint).toBeNull();
+    for (const d of solve(rules)!.moves) {
+      s.getState().play(d);
+      vi.advanceTimersByTime(20);
+    }
+    const end = s.getState();
+    expect(end.status.kind).toBe('won');
+    expect(starsFor(end.moves.length, level.bestMoves, end.hintsUsed)).toBe(3);
+    vi.useRealTimers();
+  });
+
+  it('keeps the hints through undo and redo', () => {
+    vi.useFakeTimers();
+    const s = createSession(level);
+    s.getState().askHint();
+    s.getState().play(1);
+    vi.advanceTimersByTime(20);
+    s.getState().undo();
+    expect(s.getState().hintsUsed).toBe(1);
+    s.getState().redo();
+    expect(s.getState().hintsUsed).toBe(1);
+    vi.useRealTimers();
+  });
+});
+
 describe('stars', () => {
   it('rewards optimal play', () => {
     expect(starsFor(7, 7, 0)).toBe(3);
