@@ -1,10 +1,12 @@
-// TEST ONLY (branch store-screenshots-test). Turns the simulator sideways, launches the app, and waits for the
-// screenshot director inside the app to name each scene (one accessibility label). It writes the scene's name to a
-// file on the Mac, where shoot.sh takes the pictures with simctl. It taps nothing.
+// TEST ONLY (branch store-screenshots-test). Turns the simulator sideways and launches the app. For each scene that
+// the screenshot director inside the app names (one accessibility label on a 2-point element in the top-left
+// corner that paints nothing), it takes pictures with XCUIScreen, asks shoot.sh on the Mac to take its own with
+// simctl, and then taps that element: the director goes on to the next scene. It taps nothing else.
 import XCTest
 
 final class StoreShots: XCTestCase {
   let shots = ["01-river", "02-hanoi", "03-coins", "04-balloon", "05-moonbeam", "06-pancakes", "07-hint", "08-map"]
+  let live: Set<String> = ["01-river", "02-hanoi", "03-coins", "04-balloon"]
 
   func log(_ s: String, _ dir: String) {
     let line = "\(Date().timeIntervalSince1970) \(s)\n"
@@ -19,6 +21,7 @@ final class StoreShots: XCTestCase {
     let dir = env["SHOOT_OUT"] ?? "/tmp/shoot"
     let bundle = env["SHOOT_BUNDLE_ID"] ?? "com.example.riddlegames"
     continueAfterFailure = true
+    executionTimeAllowance = 7200
     XCUIDevice.shared.orientation = .landscapeLeft
     let app = XCUIApplication(bundleIdentifier: bundle)
     app.launch()
@@ -28,10 +31,25 @@ final class StoreShots: XCTestCase {
     log("start marker: \(started.waitForExistence(timeout: 300))", dir)
     for name in shots {
       let m = app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", "shoot-" + name)).firstMatch
-      let ok = m.waitForExistence(timeout: 420)
+      let ok = m.waitForExistence(timeout: 600)
       log("scene \(name): \(ok)", dir)
+      let sub = dir + "/xc/" + name
+      try? FileManager.default.createDirectory(atPath: sub, withIntermediateDirectories: true)
+      let count = live.contains(name) ? 10 : 4
+      for i in 0..<count {
+        let shot = XCUIScreen.main.screenshot()
+        try? shot.pngRepresentation.write(to: URL(fileURLWithPath: sub + String(format: "/%02d.png", i)))
+        log("xc picture \(name) \(i) \(Int(shot.image.size.width))x\(Int(shot.image.size.height)) scale \(shot.image.scale)", dir)
+        Thread.sleep(forTimeInterval: live.contains(name) ? 0.4 : 2.0)
+      }
+      // Now the Mac's own pictures of the same scene.
       try? name.write(toFile: dir + "/current", atomically: true, encoding: .utf8)
-      // shoot.sh takes the pictures while the director holds the scene; wait for the next name.
+      let hostDone = dir + "/host-done-" + name
+      let until = Date().addingTimeInterval(240)
+      while !FileManager.default.fileExists(atPath: hostDone) && Date() < until { Thread.sleep(forTimeInterval: 1) }
+      log("host pictures \(name): \(FileManager.default.fileExists(atPath: hostDone))", dir)
+      if m.exists { m.tap() }
+      log("tapped \(name)", dir)
     }
     let done = app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", "shoot-done")).firstMatch
     log("done marker: \(done.waitForExistence(timeout: 300))", dir)

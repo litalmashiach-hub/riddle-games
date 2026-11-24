@@ -45,13 +45,17 @@ async function until(test: () => boolean, ms: number, step = 100) {
 }
 
 let marker: HTMLDivElement | null = null;
+/** Set when the UI test taps the marker: its pictures of this scene are taken, the next one may come. */
+let acked = false;
 /** One label for the UI test, off the screen and transparent. */
 function signal(text: string) {
   if (!marker) {
     marker = document.createElement('div');
     marker.setAttribute('role', 'img');
     // No background, no border, no text: it paints no pixel, but the accessibility tree has it.
-    marker.style.cssText = 'position:fixed;left:0;top:0;width:2px;height:2px;pointer-events:none;';
+    marker.style.cssText = 'position:fixed;left:0;top:0;width:2px;height:2px;z-index:99999;';
+    marker.addEventListener('click', () => (acked = true));
+    marker.addEventListener('pointerdown', () => (acked = true));
     document.body.appendChild(marker);
   }
   marker.setAttribute('aria-label', text);
@@ -94,14 +98,17 @@ async function setUp(shot: Shot) {
   await sleep(1500);
 }
 
-export async function runShots(only?: string[], defaultHold = 120_000) {
+export async function runShots(only?: string[], defaultHold = 600_000) {
   (window as any).__sceneWaitMs = 600_000; // a slow simulator is not a stuck scene
   signal('shoot-start');
   for (const shot of SHOTS) {
     if (only && !only.includes(shot.name)) continue;
     await setUp(shot);
+    acked = false;
     signal(`shoot-${shot.name}`);
-    const end = Date.now() + (shot.holdMs ?? defaultHold);
+    // Held until the UI test taps the marker, or for the longest wait.
+    const deadline = Date.now() + (shot.holdMs ?? defaultHold);
+    const over = () => acked || Date.now() > deadline;
     if (shot.liveMoves) {
       await sleep(3000);
       const st = session()!.getState();
@@ -111,17 +118,17 @@ export async function runShots(only?: string[], defaultHold = 120_000) {
         session()!.getState().play(sol.moves[i]);
       }
       // The pictures are taken from outside at their own pace: show the move again and again (undo, then redo).
-      while (Date.now() < end) {
+      while (!over()) {
         await until(() => !session()!.getState().busy, 20_000, 50);
         await sleep(1500);
-        if (Date.now() >= end) break;
+        if (over()) break;
         session()!.getState().undo();
         await sleep(700);
         session()!.getState().redo();
       }
     }
     if (shot.hint) key('h');
-    while (Date.now() < end) {
+    while (!over()) {
       await sleep(500);
       // The hint toast leaves after 5 s; ask again so it stays up while the pictures are taken.
       if (shot.hint && !document.body.innerText.includes('💡')) key('h');

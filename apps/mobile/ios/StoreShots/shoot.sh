@@ -38,23 +38,20 @@ xcodebuild test -project "$ROOT/apps/mobile/ios/StoreShots/StoreShots.xcodeproj"
   -resultBundlePath "$OUT/result.xcresult" > "$OUT/xcodebuild.log" 2>&1 &
 XP=$!
 
-# Pictures: while a scene is up, one picture after another. Scenes with a move in motion get more.
+# The Mac's pictures: when the UI test names a scene, two pictures with simctl, then say so.
 while kill -0 "$XP" 2> /dev/null; do
   CUR="$(cat "$OUT/current" 2> /dev/null || true)"
-  if [ -n "$CUR" ] && [ "$CUR" != "done" ]; then
-    MAX=12; GAP=0
-    N=$(ls "$OUT/frames/$CUR" 2> /dev/null | wc -l | tr -d " ")
-    if [ "$N" -lt "$MAX" ]; then
-      mkdir -p "$OUT/frames/$CUR"
-      F="$OUT/frames/$CUR/$(printf %02d "$N").png"
-      xcrun simctl io "$UDID" screenshot --type=png --mask=ignored "$F" > /dev/null 2>&1 && echo "$(now) $CUR $(basename "$F")" >> "$OUT/frames.txt"
-      sleep "$GAP"
-      continue
-    fi
+  if [ -n "$CUR" ] && [ "$CUR" != "done" ] && [ ! -f "$OUT/host-done-$CUR" ]; then
+    mkdir -p "$OUT/frames/$CUR"
+    for N in 00 01; do
+      xcrun simctl io "$UDID" screenshot --type=png --mask=ignored "$OUT/frames/$CUR/$N.png" > /dev/null 2>&1 && echo "$(now) $CUR $N.png" >> "$OUT/frames.txt"
+    done
+    touch "$OUT/host-done-$CUR"
   fi
   sleep 0.5
 done
 wait "$XP"; echo "xcodebuild test exit code: $?"
 cat "$OUT/test-log.txt" 2> /dev/null
 grep -E "Test Case|Executed|\*\* TEST|error:" "$OUT/xcodebuild.log" | head -n 20
+tail -n 80 "$OUT/xcodebuild.log" > "$OUT/xcodebuild-tail.txt"
 xcrun simctl shutdown "$UDID" || true

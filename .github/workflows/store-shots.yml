@@ -68,7 +68,7 @@ jobs:
         run: |
           cd out/${{ matrix.label }}
           : > sizes.txt
-          for f in frames/*/*.png; do
+          for f in frames/*/*.png xc/*/*.png; do
             [ -f "$f" ] || continue
             echo "$f $(sips -g pixelWidth -g pixelHeight "$f" | awk '/pixel/{printf "%s ", $2}')" >> sizes.txt
             mkdir -p "previews/$(dirname "$f")"
@@ -79,7 +79,9 @@ jobs:
         if: always()
         with:
           name: store-shots-${{ matrix.label }}
-          path: out/${{ matrix.label }}/frames
+          path: |
+            out/${{ matrix.label }}/frames
+            out/${{ matrix.label }}/xc
           retention-days: 7
       - name: Commit the previews and logs to this test branch
         if: always()
