@@ -1,80 +1,80 @@
-    t =    51.57s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
-    t =    51.57s         Checking existence of `Any (First Match)`
-    t =    51.70s         Capturing element debug description
-    t =    52.57s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
-    t =    52.58s         Checking existence of `Any (First Match)`
-    t =    52.66s         Capturing element debug description
-    t =    53.57s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
-    t =    53.59s         Checking existence of `Any (First Match)`
-    t =    53.77s         Capturing element debug description
-    t =    54.60s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
-    t =    54.61s         Checking existence of `Any (First Match)`
-    t =    54.69s         Capturing element debug description
-    t =    55.55s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
-    t =    55.55s         Checking existence of `Any (First Match)`
-SHOTLOG 1795552586.106862 scene 01-river: true
-SHOTLOG 1795552588.0178108 xc picture 01-river 0 1376x1032 scale 2.0
-SHOTLOG 1795552589.762347 xc picture 01-river 1 1376x1032 scale 2.0
-SHOTLOG 1795552591.081551 xc picture 01-river 2 1376x1032 scale 2.0
-SHOTLOG 1795552592.402767 xc picture 01-river 3 1376x1032 scale 2.0
-SHOTLOG 1795552593.720743 xc picture 01-river 4 1376x1032 scale 2.0
-SHOTLOG 1795552595.199198 xc picture 01-river 5 1376x1032 scale 2.0
-SHOTLOG 1795552596.4461122 xc picture 01-river 6 1376x1032 scale 2.0
-SHOTLOG 1795552597.646225 xc picture 01-river 7 1376x1032 scale 2.0
-SHOTLOG 1795552598.851227 xc picture 01-river 8 1376x1032 scale 2.0
-SHOTLOG 1795552600.014097 xc picture 01-river 9 1376x1032 scale 2.0
-SHOTLOG 1795552670.1166558 host pictures 01-river: true
-    t =   139.73s Checking existence of `Any (First Match)`
-    t =   141.36s Tap Any (First Match)
-    t =   141.36s     Wait for com.example.riddlegames to idle
-    t =   141.37s     Find the Any (First Match)
-    t =   141.52s     Check for interrupting elements affecting "shoot-01-river" Image
-    t =   142.34s         Wait for com.apple.springboard to idle
-    t =   143.50s     Synthesize event
-    t =   143.67s         Scroll element to visible
-    t =   143.98s         Find the "shoot-01-river" Image
-    t =   144.14s         Computed hit point {-1, -1} after scrolling to visible
-    t =   144.14s         Failed: Not hittable: Image, {{0.0, 0.0}, {2.0, 2.0}}, label: 'shoot-01-river'
-    t =   145.15s     Retrying `Tap Any (First Match)` (attempt #2)
-    t =   145.16s         Wait for com.example.riddlegames to idle
-    t =   145.17s         Find the "shoot-01-river" Image
-    t =   145.27s         Check for interrupting elements affecting "shoot-01-river" Image
-    t =   145.38s             Wait for com.apple.springboard to idle
-    t =   145.53s         Synthesize event
-    t =   145.55s             Scroll element to visible
-    t =   145.55s             Find the "shoot-01-river" Image
-    t =   145.67s             Computed hit point {-1, -1} after scrolling to visible
-    t =   145.67s             Failed: Not hittable: Image, {{0.0, 0.0}, {2.0, 2.0}}, label: 'shoot-01-river'
-    t =   146.69s     Retrying `Tap Any (First Match)` (attempt #3)
-    t =   146.69s         Wait for com.example.riddlegames to idle
-    t =   146.70s         Find the "shoot-01-river" Image
-    t =   146.80s         Check for interrupting elements affecting "shoot-01-river" Image
-    t =   146.88s             Wait for com.apple.springboard to idle
-    t =   147.00s         Synthesize event
-    t =   147.01s             Scroll element to visible
-    t =   147.01s             Find the "shoot-01-river" Image
-    t =   147.14s             Computed hit point {-1, -1} after scrolling to visible
-    t =   147.15s             Failed: Not hittable: Image, {{0.0, 0.0}, {2.0, 2.0}}, label: 'shoot-01-river'
-    t =   147.15s Requesting snapshot of accessibility hierarchy for app with pid 11611
-/Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/StoreShots/UITests/StoreShots.swift:51: error: -[StoreShotsUITests.StoreShots testShoot] : Failed to not hittable: Image, {{0.0, 0.0}, {2.0, 2.0}}, label: 'shoot-01-river'
-    t =   150.16s Tear Down
-Test Case '-[StoreShotsUITests.StoreShots testShoot]' failed (152.016 seconds).
-Test Suite 'StoreShots' failed at 2026-11-24 20:38:02.448.
-	 Executed 1 test, with 1 failure (0 unexpected) in 152.016 (152.035) seconds
-Test Suite 'StoreShotsUITests.xctest' failed at 2026-11-24 20:38:02.452.
-	 Executed 1 test, with 1 failure (0 unexpected) in 152.016 (152.039) seconds
-Test Suite 'All tests' failed at 2026-11-24 20:38:02.453.
-	 Executed 1 test, with 1 failure (0 unexpected) in 152.016 (152.043) seconds
-2026-11-24 20:39:46.614 xcodebuild[7929:29888] [MT] IDETestOperationsObserverDebug: 281.392 elapsed -- Testing started completed.
-2026-11-24 20:39:46.617 xcodebuild[7929:29888] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
-2026-11-24 20:39:46.617 xcodebuild[7929:29888] [MT] IDETestOperationsObserverDebug: 281.393 sec, +281.393 sec -- end
+    t =  1279.44s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =  1279.44s         Checking existence of `Any (First Match)`
+    t =  1279.65s         Capturing element debug description
+    t =  1280.51s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =  1280.52s         Checking existence of `Any (First Match)`
+    t =  1280.76s         Capturing element debug description
+    t =  1281.50s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =  1281.50s         Checking existence of `Any (First Match)`
+SHOTLOG 1795555883.208996 scene 07-hint: true
+SHOTLOG 1795555884.67489 xc picture 07-hint 0 1376x1032 scale 2.0
+SHOTLOG 1795555887.837586 xc picture 07-hint 1 1376x1032 scale 2.0
+SHOTLOG 1795555890.714827 xc picture 07-hint 2 1376x1032 scale 2.0
+SHOTLOG 1795555893.7066069 xc picture 07-hint 3 1376x1032 scale 2.0
+SHOTLOG 1795556034.4920259 host pictures 07-hint: true
+    t =  1433.14s Tap Application 'com.example.riddlegames'[0.00, 0.00] -> (3.0, 3.0)
+    t =  1433.39s     Wait for com.example.riddlegames to idle
+    t =  1433.56s     Find the Application 'com.example.riddlegames'
+    t =  1434.16s     Check for interrupting elements affecting "Riddle Games" Application
+    t =  1434.83s         Wait for com.apple.springboard to idle
+    t =  1435.42s     Synthesize event
+    t =  1435.45s         Find the Application 'com.example.riddlegames'
+    t =  1435.55s         Find the Application 'com.example.riddlegames'
+    t =  1435.72s         Find the Application 'com.example.riddlegames'
+    t =  1436.41s     Wait for com.example.riddlegames to idle
+SHOTLOG 1795556037.9412022 tapped 07-hint
+    t =  1436.49s Waiting 600.0s for Any (First Match) to exist
+    t =  1437.54s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =  1437.59s         Checking existence of `Any (First Match)`
+    t =  1437.98s         Capturing element debug description
+    t =  1438.49s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =  1438.50s         Checking existence of `Any (First Match)`
+    t =  1438.79s         Capturing element debug description
+    t =  1439.55s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =  1439.55s         Checking existence of `Any (First Match)`
+    t =  1439.95s         Capturing element debug description
+    t =  1440.49s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =  1440.50s         Checking existence of `Any (First Match)`
+    t =  1440.89s         Capturing element debug description
+    t =  1441.53s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =  1441.53s         Checking existence of `Any (First Match)`
+SHOTLOG 1795556043.3044071 scene 08-map: true
+SHOTLOG 1795556045.006095 xc picture 08-map 0 1376x1032 scale 2.0
+SHOTLOG 1795556047.859802 xc picture 08-map 1 1376x1032 scale 2.0
+SHOTLOG 1795556050.5591722 xc picture 08-map 2 1376x1032 scale 2.0
+SHOTLOG 1795556053.2898211 xc picture 08-map 3 1376x1032 scale 2.0
+SHOTLOG 1795556295.50825 host pictures 08-map: false
+    t =  1694.07s Tap Application 'com.example.riddlegames'[0.00, 0.00] -> (3.0, 3.0)
+    t =  1694.09s     Wait for com.example.riddlegames to idle
+    t =  1694.15s     Find the Application 'com.example.riddlegames'
+    t =  1694.77s     Check for interrupting elements affecting "Riddle Games" Application
+    t =  1695.13s         Wait for com.apple.springboard to idle
+    t =  1695.54s     Synthesize event
+    t =  1695.56s         Find the Application 'com.example.riddlegames'
+    t =  1695.64s         Find the Application 'com.example.riddlegames'
+    t =  1695.80s         Find the Application 'com.example.riddlegames'
+    t =  1696.29s     Wait for com.example.riddlegames to idle
+SHOTLOG 1795556297.763488 tapped 08-map
+    t =  1696.30s Waiting 300.0s for Any (First Match) to exist
+    t =  1697.34s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =  1697.39s         Checking existence of `Any (First Match)`
+SHOTLOG 1795556299.0540009 done marker: true
+    t =  1706.01s Tear Down
+Test Case '-[StoreShotsUITests.StoreShots testShoot]' passed (1732.724 seconds).
+Test Suite 'StoreShots' passed at 2026-11-24 21:38:54.213.
+	 Executed 1 test, with 0 failures (0 unexpected) in 1732.724 (1732.752) seconds
+Test Suite 'StoreShotsUITests.xctest' passed at 2026-11-24 21:38:54.217.
+	 Executed 1 test, with 0 failures (0 unexpected) in 1732.724 (1732.756) seconds
+Test Suite 'All tests' passed at 2026-11-24 21:38:54.217.
+	 Executed 1 test, with 0 failures (0 unexpected) in 1732.724 (1732.850) seconds
+2026-11-24 21:39:34.092034+0000 StoreShotsUITests-Runner[8998:73125] [Default] Xcode took 39.05 seconds to acknowledge that testing finished.
+2026-11-24 21:42:12.303 xcodebuild[6762:25075] [MT] IDETestOperationsObserverDebug: 2038.518 elapsed -- Testing started completed.
+2026-11-24 21:42:12.313 xcodebuild[6762:25075] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-24 21:42:12.314 xcodebuild[6762:25075] [MT] IDETestOperationsObserverDebug: 2038.530 sec, +2038.530 sec -- end
 
 Test session results, code coverage, and logs:
 	/Users/runner/work/riddle-games/riddle-games/out/ipad-13/result.xcresult
 
-Failing tests:
-	StoreShots.testShoot()
-
-** TEST FAILED **
+** TEST SUCCEEDED **
 
 Testing started
