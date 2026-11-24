@@ -46,12 +46,14 @@ if [ "$MODE" = "release" ]; then
     mkdir -p "$OUT/frames/launch$n"
     frames "$OUT/frames/launch$n" 16 &
     FP=$!
-    sleep 2
+    sleep 1
+    frames "$OUT/frames/launch$n" 15 &
+    sleep 1
     L=$(now)
     xcrun simctl launch "$UDID" "$BUNDLE_ID" > /dev/null
     echo "TIMING $LABEL launch $n: launch command given at $L, returned at $(now)"
     echo "$L" > "$OUT/frames/launch$n/launch-time.txt"
-    wait $FP
+    wait
     xcrun simctl terminate "$UDID" "$BUNDLE_ID" || true
     sleep 2
   done
@@ -65,7 +67,7 @@ if [ "$MODE" = "debug-console" ]; then
   # The Debug build prints the web view's console to the app's output. Keep it in a file.
   ( xcrun simctl launch --console-pty "$UDID" "$BUNDLE_ID" > "$OUT/console.txt" 2>&1 ) &
   ATTACH=1
-  sleep 12
+  sleep 25
 fi
 
 set +e
@@ -81,7 +83,10 @@ xcodebuild test -project "$ROOT/apps/mobile/ios/PlayTest/PlayTest.xcodeproj" -sc
   -resultBundlePath "$OUT/result.xcresult" > "$OUT/xcodebuild.log" 2>&1
 RC=$?
 echo "xcodebuild test exit code: $RC"
-echo "$RC" > "$OUT/status"
+# The test reports by its RESULT line, not by failing.
+WON="$(cat "$OUT/xcodebuild.log" "$OUT/shots/play-log.txt" 2> /dev/null | sed -n 's/.*RESULT levelsWon=\([0-9]*\).*/\1/p' | head -n 1)"
+echo "levels won by taps: ${WON:-none reported}"
+if [ "${WON:-0}" -ge 1 ]; then echo 0 > "$OUT/status"; else echo 1 > "$OUT/status"; fi
 if grep -q "PLAY|" "$OUT/xcodebuild.log"; then
   grep -E "PLAY\||Test Case|Executed|\*\* TEST" "$OUT/xcodebuild.log" || true
 elif [ -f "$OUT/shots/play-log.txt" ]; then

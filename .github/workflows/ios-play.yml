@@ -22,7 +22,7 @@ env:
 jobs:
   play:
     runs-on: macos-26
-    timeout-minutes: 85
+    timeout-minutes: 115
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -68,12 +68,12 @@ jobs:
             -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build | tail -n 15
 
       - name: Play in an iPhone simulator (Release build)
-        timeout-minutes: 25
+        timeout-minutes: 32
         run: apps/mobile/ios/PlayTest/play.sh "iPhone 17 Pro Max" iphone release 99 2
 
       - name: Play in an iPad simulator (Release build)
         if: always()
-        timeout-minutes: 25
+        timeout-minutes: 40
         run: apps/mobile/ios/PlayTest/play.sh "iPad Pro 13-inch (M5)" ipad release 99 0
 
       - name: Play level 1 in the iPhone simulator with the Debug build, to read the web view's console

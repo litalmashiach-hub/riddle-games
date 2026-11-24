@@ -1,0 +1,1153 @@
+{
+ "size": [
+  1032,
+  1376
+ ],
+ "steps": [
+  {
+   "do": "openLevel",
+   "label": "Level 1: Wolf and Two Sheep"
+  },
+  {
+   "do": "rules",
+   "title": "Wolf and Two Sheep"
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row the wolf across",
+   "moves": 0
+  },
+  {
+   "do": "tap",
+   "x": 0.205,
+   "y": 0.4614,
+   "ring": [
+    -4.1,
+    0.38,
+    -0.3
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.3871,
+   "y": 0.4757,
+   "ring": [
+    -1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 1
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row back alone",
+   "moves": 1
+  },
+  {
+   "do": "tap",
+   "x": 0.6129,
+   "y": 0.4757,
+   "ring": [
+    1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 2
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row a sheep across",
+   "moves": 2
+  },
+  {
+   "do": "tap",
+   "x": 0.1905,
+   "y": 0.5228,
+   "ring": [
+    -3.9,
+    0.38,
+    1.4
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.3871,
+   "y": 0.4757,
+   "ring": [
+    -1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 3
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row the wolf back",
+   "moves": 3
+  },
+  {
+   "do": "tap",
+   "x": 0.795,
+   "y": 0.4614,
+   "ring": [
+    4.1,
+    0.38,
+    -0.3
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.6129,
+   "y": 0.4757,
+   "ring": [
+    1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 4
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row a sheep across",
+   "moves": 4
+  },
+  {
+   "do": "tap",
+   "x": 0.1172,
+   "y": 0.5,
+   "ring": [
+    -5,
+    0.37,
+    0.8
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.3871,
+   "y": 0.4757,
+   "ring": [
+    -1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 5
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row back alone",
+   "moves": 5
+  },
+  {
+   "do": "tap",
+   "x": 0.6129,
+   "y": 0.4757,
+   "ring": [
+    1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 6
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row the wolf across",
+   "moves": 6
+  },
+  {
+   "do": "tap",
+   "x": 0.205,
+   "y": 0.4614,
+   "ring": [
+    -4.1,
+    0.38,
+    -0.3
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.3871,
+   "y": 0.4757,
+   "ring": [
+    -1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 7
+  },
+  {
+   "do": "won",
+   "title": "Wolf and Two Sheep",
+   "summary": "7 crossings · 7 hints. The best is 7. Can you do it?"
+  },
+  {
+   "do": "next"
+  },
+  {
+   "do": "rules",
+   "title": "Wolf, Goat and Cabbage"
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row the goat across",
+   "moves": 0
+  },
+  {
+   "do": "tap",
+   "x": 0.1984,
+   "y": 0.5228,
+   "ring": [
+    -3.8,
+    0.38,
+    1.4
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.3871,
+   "y": 0.4757,
+   "ring": [
+    -1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 1
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row back alone",
+   "moves": 1
+  },
+  {
+   "do": "tap",
+   "x": 0.6129,
+   "y": 0.4757,
+   "ring": [
+    1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 2
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row the wolf across",
+   "moves": 2
+  },
+  {
+   "do": "tap",
+   "x": 0.1973,
+   "y": 0.4485,
+   "ring": [
+    -4.3,
+    0.38,
+    -0.7
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.3871,
+   "y": 0.4757,
+   "ring": [
+    -1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 3
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row the goat back",
+   "moves": 3
+  },
+  {
+   "do": "tap",
+   "x": 0.8016,
+   "y": 0.5228,
+   "ring": [
+    3.8,
+    0.38,
+    1.4
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.6129,
+   "y": 0.4757,
+   "ring": [
+    1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 4
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row the cabbage across",
+   "moves": 4
+  },
+  {
+   "do": "tap",
+   "x": 0.1354,
+   "y": 0.4854,
+   "ring": [
+    -4.85,
+    0.42,
+    0.45
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.3871,
+   "y": 0.4757,
+   "ring": [
+    -1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 5
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row back alone",
+   "moves": 5
+  },
+  {
+   "do": "tap",
+   "x": 0.6129,
+   "y": 0.4757,
+   "ring": [
+    1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 6
+  },
+  {
+   "do": "hint",
+   "text": "💡 Row the goat across",
+   "moves": 6
+  },
+  {
+   "do": "tap",
+   "x": 0.1984,
+   "y": 0.5228,
+   "ring": [
+    -3.8,
+    0.38,
+    1.4
+   ],
+   "r": 0.6,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.3871,
+   "y": 0.4757,
+   "ring": [
+    -1.55,
+    0.28,
+    0
+   ],
+   "r": 1.4,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 7
+  },
+  {
+   "do": "won",
+   "title": "Wolf, Goat and Cabbage",
+   "summary": "7 crossings · 7 hints. The best is 7. Can you do it?"
+  },
+  {
+   "do": "next"
+  },
+  {
+   "do": "rules",
+   "title": "Two Jugs"
+  },
+  {
+   "do": "hint",
+   "text": "💡 Fill the 5 L jug at the pump",
+   "moves": 0
+  },
+  {
+   "do": "tap",
+   "x": 0.6055,
+   "y": 0.5497,
+   "ring": [
+    5.45,
+    0.63,
+    0.7
+   ],
+   "r": 0.54,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.6146,
+   "y": 0.3668,
+   "button": "💧 Fill at pump"
+  },
+  {
+   "do": "moved",
+   "moves": 1
+  },
+  {
+   "do": "hint",
+   "text": "💡 Pour the 5 L jug into the 3 L jug",
+   "moves": 1
+  },
+  {
+   "do": "tap",
+   "x": 0.6055,
+   "y": 0.5497,
+   "ring": [
+    5.45,
+    0.63,
+    0.7
+   ],
+   "r": 0.54,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.4294,
+   "y": 0.5629,
+   "ring": [
+    4.15,
+    0.63,
+    0.7
+   ],
+   "r": 0.5,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 2
+  },
+  {
+   "do": "hint",
+   "text": "💡 Empty the 3 L jug into the river",
+   "moves": 2
+  },
+  {
+   "do": "tap",
+   "x": 0.4294,
+   "y": 0.5629,
+   "ring": [
+    4.15,
+    0.63,
+    0.7
+   ],
+   "r": 0.5,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.2291,
+   "y": 0.5025,
+   "ring": [
+    2.6,
+    0.34,
+    -1.15
+   ],
+   "r": 0.5,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 3
+  },
+  {
+   "do": "hint",
+   "text": "💡 Pour the 5 L jug into the 3 L jug",
+   "moves": 3
+  },
+  {
+   "do": "tap",
+   "x": 0.6055,
+   "y": 0.5497,
+   "ring": [
+    5.45,
+    0.63,
+    0.7
+   ],
+   "r": 0.54,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.4294,
+   "y": 0.5629,
+   "ring": [
+    4.15,
+    0.63,
+    0.7
+   ],
+   "r": 0.5,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 4
+  },
+  {
+   "do": "hint",
+   "text": "💡 Fill the 5 L jug at the pump",
+   "moves": 4
+  },
+  {
+   "do": "tap",
+   "x": 0.6055,
+   "y": 0.5497,
+   "ring": [
+    5.45,
+    0.63,
+    0.7
+   ],
+   "r": 0.54,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.6146,
+   "y": 0.3668,
+   "button": "💧 Fill at pump"
+  },
+  {
+   "do": "moved",
+   "moves": 5
+  },
+  {
+   "do": "hint",
+   "text": "💡 Pour the 5 L jug into the 3 L jug",
+   "moves": 5
+  },
+  {
+   "do": "tap",
+   "x": 0.6055,
+   "y": 0.5497,
+   "ring": [
+    5.45,
+    0.63,
+    0.7
+   ],
+   "r": 0.54,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.4294,
+   "y": 0.5629,
+   "ring": [
+    4.15,
+    0.63,
+    0.7
+   ],
+   "r": 0.5,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 6
+  },
+  {
+   "do": "won",
+   "title": "Two Jugs",
+   "summary": "6 moves · 6 hints. The best is 6. Can you do it?"
+  },
+  {
+   "do": "next"
+  },
+  {
+   "do": "rules",
+   "title": "Tower of Hanoi"
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move the smallest disc from the left pillar to the middle pillar",
+   "moves": 0
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 1
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move disc 2 from the left pillar to the right pillar",
+   "moves": 1
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 2
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move the smallest disc from the middle pillar to the right pillar",
+   "moves": 2
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 3
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move disc 3 from the left pillar to the middle pillar",
+   "moves": 3
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 4
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move the smallest disc from the right pillar to the left pillar",
+   "moves": 4
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 5
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move disc 2 from the right pillar to the middle pillar",
+   "moves": 5
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 6
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move the smallest disc from the left pillar to the middle pillar",
+   "moves": 6
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 7
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move the biggest disc from the left pillar to the right pillar",
+   "moves": 7
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 8
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move the smallest disc from the middle pillar to the right pillar",
+   "moves": 8
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 9
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move disc 2 from the middle pillar to the left pillar",
+   "moves": 9
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 10
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move the smallest disc from the right pillar to the left pillar",
+   "moves": 10
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 11
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move disc 3 from the middle pillar to the right pillar",
+   "moves": 11
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 12
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move the smallest disc from the left pillar to the middle pillar",
+   "moves": 12
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 13
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move disc 2 from the left pillar to the right pillar",
+   "moves": 13
+  },
+  {
+   "do": "tap",
+   "x": 0.308,
+   "y": 0.524,
+   "ring": [
+    -2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 14
+  },
+  {
+   "do": "hint",
+   "text": "💡 Move the smallest disc from the middle pillar to the right pillar",
+   "moves": 14
+  },
+  {
+   "do": "tap",
+   "x": 0.5,
+   "y": 0.524,
+   "ring": [
+    0,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "tap",
+   "x": 0.692,
+   "y": 0.524,
+   "ring": [
+    2.7,
+    0.46,
+    0
+   ],
+   "r": 1.45,
+   "off": "p3"
+  },
+  {
+   "do": "moved",
+   "moves": 15
+  },
+  {
+   "do": "won",
+   "title": "Tower of Hanoi",
+   "summary": "15 moves · 15 hints. The best is 15. Can you do it?"
+  }
+ ],
+ "errors": []
+}
