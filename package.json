@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "pnpm --filter @riddle/web dev",
     "build": "pnpm --filter @riddle/web build",
+    "build:app": "pnpm --filter @riddle/web build:app",
+    "ios:sync": "pnpm build:app && pnpm --filter @riddle/mobile exec cap sync ios",
     "preview": "pnpm --filter @riddle/web preview",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json && tsc -p e2e/tsconfig.json",
