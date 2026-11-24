@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { APP_INFO, releaseBlockers, type AppInfo } from './appInfo';
+import { APP_INFO, releaseAsked, releaseBlockers, type AppInfo } from './appInfo';
 import { privacyPolicy } from './privacyPolicy';
 
 const READY: AppInfo = { name: 'Riddlebrook', version: '1.0', contactEmail: 'hello@riddlebrook.app', publisherName: 'A. Publisher', policyEffectiveDate: '1 December 2026' };
 
 /** Set by whoever makes a store build: `RELEASE=1 pnpm test`. */
-const RELEASE = !!(globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env.RELEASE;
+const RELEASE = releaseAsked((globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env.RELEASE);
 
 describe('release placeholders', () => {
   it('names each placeholder that stops a release', () => {
@@ -18,6 +18,11 @@ describe('release placeholders', () => {
     expect(releaseBlockers({ ...READY, policyEffectiveDate: null })[0]).toMatch(/effective date/);
     expect(releaseBlockers({ ...READY, version: 'one' })[0]).toMatch(/not a version number/);
     expect(releaseBlockers({ ...READY, contactEmail: null, publisherName: null, policyEffectiveDate: null })).toHaveLength(3);
+  });
+
+  it('is asked for by RELEASE=1, and not by 0, false or nothing', () => {
+    for (const off of [undefined, null, '', '  ', '0', 'false', 'FALSE', ' false ']) expect(releaseAsked(off), JSON.stringify(off)).toBe(false);
+    for (const on of ['1', 'true', 'yes', 'store']) expect(releaseAsked(on), on).toBe(true);
   });
 
   /**

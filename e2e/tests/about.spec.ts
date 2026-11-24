@@ -1,10 +1,35 @@
 import type { Page } from '@playwright/test';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { APP_ONLY_WORDS } from '../../apps/web/src/about/appInfo';
 import { LEVELS } from '../levels';
 import { expect, savedStars, seedProgress, SETTINGS_KEY, test } from './fixtures';
 
-/** The About and settings screen: reached from the level map, see docs/about-screen.md. */
+/**
+ * The About and settings screen: reached from the level map, see docs/about-screen.md.
+ *
+ * This file runs against both builds. The `iphone-*` projects open the website build (apps/web/dist), which
+ * shows Settings and Credits under the website's name. The `app-iphone-*` projects open the app build
+ * (apps/web/dist-app), which shows all four pages under the working name.
+ */
 
-const PAGES = ['Settings', 'Privacy', 'Contact', 'Credits'] as const;
+const ALL_PAGES = ['Settings', 'Privacy', 'Contact', 'Credits'] as const;
+const WEBSITE_PAGES = ['Settings', 'Credits'] as const;
+
+/** True in the projects that open the app build. */
+const appBuild = () => test.info().project.name.startsWith('app-');
+const pagesHere = () => (appBuild() ? ALL_PAGES : WEBSITE_PAGES);
+const nameHere = () => (appBuild() ? APP_ONLY_WORDS.name : 'Riddle Games');
+
+/** Every built file of a build, as text. */
+function builtText(dir: string): string {
+  const walk = (d: string): string[] => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]));
+  return walk(dir)
+    .filter((f) => /\.(js|css|html|json|webmanifest|txt|map)$/.test(f))
+    .map((f) => readFileSync(f, 'utf8'))
+    .join('\n');
+}
 
 /** Sideways iPhones (small, standard, large), an upright phone in a browser, and an iPad both ways up. */
 const SIZES = [
@@ -29,8 +54,8 @@ const settings = (page: Page) => page.evaluate((key) => JSON.parse(localStorage.
 test('the screen opens from the map, shows every section, and leads back', async ({ page }) => {
   await openAbout(page);
   await expect(page).toHaveURL(/#\/about$/);
-  await expect(page.getByRole('tab')).toHaveText([...PAGES]);
-  await expect(page.getByTestId('version').filter({ visible: true })).toHaveText(/^\S.* · Version 1\.0$/);
+  await expect(page.getByRole('tab')).toHaveText([...pagesHere()]);
+  await expect(page.getByTestId('version').filter({ visible: true })).toHaveText(`${nameHere()} · Version 1.0`);
 
   // Settings: the two switches and the reset.
   await expect(page.getByRole('tab', { name: 'Settings' })).toHaveAttribute('aria-selected', 'true');
@@ -38,22 +63,25 @@ test('the screen opens from the map, shows every section, and leads back', async
   await expect(page.getByRole('switch', { name: 'HD graphics' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Reset progress' })).toBeVisible();
 
-  // Privacy: the whole policy, as text.
-  await page.getByRole('tab', { name: 'Privacy' }).tap();
-  await expect(page.getByRole('heading', { name: /Privacy Policy$/ })).toBeVisible();
-  for (const heading of ['What we collect', 'What is saved on your device', 'Sharing', 'Keeping and deleting', 'Children', 'Apple', 'Changes', 'Contact']) {
-    await expect(page.getByRole('heading', { name: heading, exact: true })).toHaveCount(1);
-  }
-  await expect(page.getByText('collects nothing about you')).toBeVisible();
-  await expect(page.getByTestId('about-page')).not.toContainText(/\[[A-Z' ]+\]|null|undefined/);
+  if (appBuild()) {
+    // Privacy: the whole policy, as text.
+    await page.getByRole('tab', { name: 'Privacy' }).tap();
+    await expect(page.getByRole('heading', { name: `${nameHere()} Privacy Policy` })).toBeVisible();
+    for (const heading of ['What we collect', 'What is saved on your device', 'Sharing', 'Keeping and deleting', 'Children', 'Apple', 'Changes', 'Contact']) {
+      await expect(page.getByRole('heading', { name: heading, exact: true })).toHaveCount(1);
+    }
+    await expect(page.getByText('collects nothing about you')).toBeVisible();
+    await expect(page.getByTestId('about-page')).not.toContainText(/\[[A-Z' ]+\]|null|undefined/);
 
-  // Contact.
-  await page.getByRole('tab', { name: 'Contact' }).tap();
-  await expect(page.getByRole('heading', { name: 'Contact', exact: true })).toBeVisible();
-  await expect(page.getByTestId('contact-line')).toBeVisible();
+    // Contact.
+    await page.getByRole('tab', { name: 'Contact' }).tap();
+    await expect(page.getByRole('heading', { name: 'Contact', exact: true })).toBeVisible();
+    await expect(page.getByTestId('contact-line')).toBeVisible();
+  }
 
   // Credits: every notice, and each licence in full once opened.
   await page.getByRole('tab', { name: 'Credits' }).tap();
+  await expect(page.getByTestId('about-page')).toContainText(`${nameHere()} is built with these open-source libraries and fonts.`);
   const notices = page.getByTestId('notices').getByRole('listitem');
   expect(await notices.count()).toBeGreaterThanOrEqual(20);
   for (const name of ['three.js', 'React', 'postprocessing', 'Motion', 'Fredoka (font)', 'Nunito (font)', 'Capacitor']) {
@@ -91,7 +119,7 @@ test('nothing overflows or is cut off, at every screen size', async ({ page }) =
   for (const size of SIZES) {
     await page.setViewportSize({ width: size.width, height: size.height });
     await openAbout(page);
-    for (const name of PAGES) {
+    for (const name of pagesHere()) {
       const at = `${name} at ${size.name}`;
       await page.getByRole('tab', { name }).tap();
       const card = page.getByTestId('about-page');
@@ -119,20 +147,25 @@ test('nothing overflows or is cut off, at every screen size', async ({ page }) =
       expect(box.bottom - box.top, `${at}: the card has room to read in`).toBeGreaterThanOrEqual(200);
       // The way back, every page name and the version stay on screen whatever the card shows.
       await expect(page.getByRole('button', { name: 'Back to levels' }), at).toBeInViewport({ ratio: 1 });
-      for (const tab of PAGES) await expect(page.getByRole('tab', { name: tab }), at).toBeInViewport({ ratio: 1 });
+      for (const tab of pagesHere()) await expect(page.getByRole('tab', { name: tab }), at).toBeInViewport({ ratio: 1 });
       await expect(page.getByTestId('version').filter({ visible: true }), at).toBeInViewport({ ratio: 1 });
     }
     // Long text scrolls inside the card, to its very end.
-    await page.getByRole('tab', { name: 'Privacy' }).tap();
-    const last = page.getByText(/^Questions about this policy/);
-    await last.scrollIntoViewIfNeeded();
-    await expect(last, `the policy's last line at ${size.name}`).toBeInViewport({ ratio: 1 });
+    if (appBuild()) {
+      await page.getByRole('tab', { name: 'Privacy' }).tap();
+      const last = page.getByText(/^Questions about this policy/);
+      await last.scrollIntoViewIfNeeded();
+      await expect(last, `the policy's last line at ${size.name}`).toBeInViewport({ ratio: 1 });
+    }
     // The confirm card fits too, with both of its buttons.
     await page.getByRole('tab', { name: 'Settings' }).tap();
     await page.getByRole('button', { name: 'Reset progress' }).tap();
     await expect(page.getByRole('alertdialog'), size.name).toBeInViewport({ ratio: 1 });
     await expect(page.getByRole('button', { name: 'Keep my stars' }), size.name).toBeInViewport({ ratio: 1 });
     await expect(page.getByRole('button', { name: 'Erase stars' }), size.name).toBeInViewport({ ratio: 1 });
+    // The card hides what is behind it: no see-through in its own colour.
+    const alphas = await page.getByRole('alertdialog').evaluate((el) => [...getComputedStyle(el).backgroundImage.matchAll(/rgba\([^)]*,\s*([\d.]+)\)/g)].map((m) => Number(m[1])));
+    expect(alphas.filter((a) => a < 1), `${size.name}: the confirm card is solid`).toEqual([]);
     await page.getByRole('button', { name: 'Keep my stars' }).tap();
   }
   expect(await savedStars(page)).toEqual(STARS);
@@ -204,7 +237,7 @@ test('the sound and graphics switches work and are remembered', async ({ page })
 test('the screen has no link out but the contact', async ({ page }) => {
   await openAbout(page);
   const links: string[] = [];
-  for (const name of PAGES) {
+  for (const name of pagesHere()) {
     await page.getByRole('tab', { name }).tap();
     if (name === 'Credits') for (const b of await page.getByRole('button', { name: /License|Universal/ }).all()) await b.tap();
     links.push(...(await page.locator('#root').locator('a[href], [src], form, iframe').evaluateAll((els) => els.map((e) => e.getAttribute('href') ?? e.outerHTML.slice(0, 80)))));
@@ -212,4 +245,52 @@ test('the screen has no link out but the contact', async ({ page }) => {
   expect(links.filter((l) => !l.startsWith('mailto:'))).toEqual([]);
   expect(links.length, 'at most the one contact link').toBeLessThanOrEqual(1);
   // The fixture also fails this test on any request to another host.
+});
+
+test('the confirm card invites keeping the stars, not erasing them', async ({ page }) => {
+  await seedProgress(page, STARS);
+  await openAbout(page);
+  await page.getByRole('button', { name: 'Reset progress' }).tap();
+  const dialog = page.getByRole('alertdialog');
+  const keep = dialog.getByRole('button', { name: 'Keep my stars' });
+  const erase = dialog.getByRole('button', { name: 'Erase stars' });
+  // Gold is the game's "go on" colour. Only the button that keeps the stars wears it, and it holds the focus.
+  const gold = (b: typeof keep) => b.evaluate((el) => el.className.includes('amber'));
+  expect(await gold(keep), 'keeping is the gold button').toBe(true);
+  expect(await gold(erase), 'erasing is not').toBe(false);
+  await expect(keep).toBeFocused();
+  // Behind the card, the page's own words are covered: the point at the card's middle belongs to the card.
+  const box = (await dialog.boundingBox())!;
+  const top = await page.evaluate(([x, y]) => !!document.elementFromPoint(x, y)?.closest('[role="alertdialog"]'), [box.x + box.width / 2, box.y + box.height / 2] as const);
+  expect(top).toBe(true);
+});
+
+test('the website build leaves the policy, the contact and the working name out; the app build has them', async ({ page }) => {
+  // On screen. No tab leads to them, and their words are on no page.
+  await openAbout(page);
+  if (appBuild()) {
+    await expect(page.getByRole('tab', { name: 'Privacy' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: 'Contact' })).toBeVisible();
+  } else {
+    await expect(page.getByRole('tab', { name: /Privacy|Contact/ })).toHaveCount(0);
+    for (const name of pagesHere()) {
+      await page.getByRole('tab', { name }).tap();
+      await expect(page.locator('#root')).not.toContainText(/privacy|contact|Riddlebrook/i);
+    }
+    // No address opens them either.
+    for (const hash of ['#/about/privacy', '#/about/contact', '#/privacy', '#/contact', '#/about?page=privacy']) {
+      await page.goto('about:blank');
+      await page.goto(hash);
+      await expect(page.locator('#root')).not.toBeEmpty();
+      await expect(page.locator('#root')).not.toContainText(/privacy policy|contact address|Riddlebrook/i);
+    }
+  }
+  // In the built files themselves, as served.
+  const web = builtText(fileURLToPath(new URL('../../apps/web/dist', import.meta.url)));
+  const app = builtText(fileURLToPath(new URL('../../apps/web/dist-app', import.meta.url)));
+  for (const [what, words] of Object.entries(APP_ONLY_WORDS)) {
+    expect(web.includes(words), `the website's files hold no ${what} text`).toBe(false);
+    expect(app.includes(words), `the app's files hold the ${what} text`).toBe(true);
+  }
+  expect(web).not.toMatch(/Privacy Policy|Questions about this policy|Write an email/);
 });

@@ -1,6 +1,9 @@
 import { defineConfig } from '@playwright/test';
 
 const PORT = Number(process.env.E2E_PORT ?? 4173);
+/** The app build is served beside the website build, for the About screen's tests. */
+const APP_PORT = Number(process.env.E2E_APP_PORT ?? PORT + 1);
+const ABOUT_ONLY = /about\.spec\.ts$/;
 
 /**
  * Play-through tests: they run the production build (apps/web/dist) in Chromium with touch,
@@ -37,12 +40,24 @@ export default defineConfig({
   projects: [
     { name: 'iphone-landscape', use: { viewport: { width: 852, height: 393 } } },
     { name: 'iphone-small-landscape', use: { viewport: { width: 667, height: 375 } } },
+    // The app build (apps/web/dist-app): only the About screen differs from the website, so only its tests run here.
+    { name: 'app-iphone-landscape', testMatch: ABOUT_ONLY, use: { baseURL: `http://127.0.0.1:${APP_PORT}/`, viewport: { width: 852, height: 393 } } },
+    { name: 'app-iphone-small-landscape', testMatch: ABOUT_ONLY, use: { baseURL: `http://127.0.0.1:${APP_PORT}/`, viewport: { width: 667, height: 375 } } },
   ],
-  webServer: {
-    // Serves apps/web/dist as it is. Build first: `pnpm test:e2e` does both.
-    command: `pnpm --filter @riddle/web exec vite preview --host 127.0.0.1 --port ${PORT} --strictPort`,
-    url: `http://127.0.0.1:${PORT}/`,
-    reuseExistingServer: !process.env.CI,
-    timeout: 60_000,
-  },
+  webServer: [
+    {
+      // Serves apps/web/dist as it is. Build first: `pnpm test:e2e` builds both.
+      command: `pnpm --filter @riddle/web exec vite preview --host 127.0.0.1 --port ${PORT} --strictPort`,
+      url: `http://127.0.0.1:${PORT}/`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 60_000,
+    },
+    {
+      // Serves apps/web/dist-app, the content of the iPhone and iPad app.
+      command: `pnpm --filter @riddle/web exec vite preview --mode app --host 127.0.0.1 --port ${APP_PORT} --strictPort`,
+      url: `http://127.0.0.1:${APP_PORT}/`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 60_000,
+    },
+  ],
 });

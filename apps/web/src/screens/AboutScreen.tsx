@@ -1,10 +1,12 @@
 import type { Progress } from '@riddle/engine';
 import { sfx, useSettings } from '@riddle/fx';
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
-import { APP_INFO } from '../about/appInfo';
+import { useEffect, useId, useRef, useState } from 'react';
+import { APP_VERSION } from '../about/appInfo';
 import { LICENCE_NAMES, LICENCE_TEXTS, type LicenceId } from '../about/licenceTexts';
 import { LICENCES_IN_USE, NOTICES } from '../about/notices';
-import { privacyPolicy } from '../about/privacyPolicy';
+import { PAGES, SHOWN_NAME, type PageId } from '../about/shown';
+import { APP_SHELL } from '../appShell';
+import { ContactPage, PageTitle, PrivacyPage } from './AboutStorePages';
 import { Button } from '../components/Button';
 import { Stars } from '../components/Stars';
 
@@ -22,18 +24,11 @@ const BackIcon = () => (<svg {...ICON}><path d="M15 5l-7 7 7 7" /></svg>);
 /** The same night-blue as the level map, so the screen reads as part of it. */
 const BACKGROUND = 'radial-gradient(1200px 700px at 20% -10%, #3b82c4 0%, #1b3b5f 45%, #0f2236 100%)';
 
-const PAGES = [
-  { id: 'settings', label: 'Settings' },
-  { id: 'privacy', label: 'Privacy' },
-  { id: 'contact', label: 'Contact' },
-  { id: 'credits', label: 'Credits' },
-] as const;
-type PageId = (typeof PAGES)[number]['id'];
-
 /**
- * About and settings: the two switches, reset of progress, the privacy policy, the contact line and the
- * open-source notices. Everything on it is text inside the game: it reads no file and makes no request,
- * and its one link out is the contact address.
+ * About and settings: the two switches, reset of progress and the open-source notices, and in the app build
+ * also the privacy policy and the contact line (src/about/shown.ts decides which build shows what).
+ * Everything on it is text inside the game: it reads no file and makes no request, and its one link out
+ * is the contact address.
  *
  * Layout: a slim header with the way back, then the page names (a rail on the left where the screen is
  * wide enough, a row on top on an upright phone) beside one card that scrolls inside itself.
@@ -49,7 +44,7 @@ export function AboutScreen({ progress, onBack, onReset }: { progress: Progress;
 
   const version = (
     <p className="font-display text-xs font-medium tracking-wide text-sky-100/60" data-testid="version">
-      {APP_INFO.name} · Version {APP_INFO.version}
+      {SHOWN_NAME} · Version {APP_VERSION}
     </p>
   );
 
@@ -67,7 +62,7 @@ export function AboutScreen({ progress, onBack, onReset }: { progress: Progress;
 
       <div className="relative mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col gap-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] sm:flex-row sm:gap-4">
         <nav className="flex shrink-0 flex-col sm:w-40 short:w-36" aria-label="About and settings">
-          <div role="tablist" aria-orientation="horizontal" className="grid grid-cols-4 gap-2 sm:grid-cols-1 short:gap-1.5">
+          <div role="tablist" aria-orientation="horizontal" className={`grid ${APP_SHELL ? 'grid-cols-4' : 'grid-cols-2'} gap-2 sm:grid-cols-1 short:gap-1.5`}>
             {PAGES.map((p) => (
               <Button
                 key={p.id}
@@ -96,18 +91,14 @@ export function AboutScreen({ progress, onBack, onReset }: { progress: Progress;
           className="panel min-h-0 min-w-0 flex-1 overflow-y-auto overscroll-contain rounded-3xl px-5 py-4 outline-none [-webkit-overflow-scrolling:touch] sm:px-7 sm:py-5"
         >
           {page === 'settings' && <SettingsPage progress={progress} onReset={onReset} />}
-          {page === 'privacy' && <PrivacyPage />}
-          {page === 'contact' && <ContactPage />}
+          {APP_SHELL && page === 'privacy' && <PrivacyPage />}
+          {APP_SHELL && page === 'contact' && <ContactPage />}
           {page === 'credits' && <CreditsPage />}
         </div>
         <div className="shrink-0 text-center sm:hidden">{version}</div>
       </div>
     </div>
   );
-}
-
-function PageTitle({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <h2 className={`text-outline font-display text-xl font-semibold leading-tight sm:text-2xl ${className}`}>{children}</h2>;
 }
 
 /** An on/off switch in the game's own look: a gold pill when on. */
@@ -186,7 +177,13 @@ function SettingsPage({ progress, onReset }: { progress: Progress; onReset: () =
   );
 }
 
-/** The confirm step of the reset: a red card over the screen, like the game's "try again" card. */
+/** The red of the game's "try again" card, without its see-through: the page behind must not show through the question. */
+const CONFIRM_BACKGROUND = 'linear-gradient(180deg, rgb(136 19 55), rgb(76 5 25))';
+
+/**
+ * The confirm step of the reset: a solid red card over the screen. Keeping the stars is the gold, inviting
+ * button and the one in focus; erasing is the plain one.
+ */
 function ConfirmReset({ stars, onKeep, onErase }: { stars: number; onKeep: () => void; onErase: () => void }) {
   const title = useId();
   const text = useId();
@@ -197,72 +194,16 @@ function ConfirmReset({ stars, onKeep, onErase }: { stars: number; onKeep: () =>
   }, [onKeep]);
   return (
     <div className="fixed inset-0 z-20 grid place-items-center bg-black/55 p-[max(1rem,env(safe-area-inset-top))_max(1rem,env(safe-area-inset-right))_max(1rem,env(safe-area-inset-bottom))_max(1rem,env(safe-area-inset-left))]" onClick={onKeep}>
-      <div role="alertdialog" aria-modal="true" aria-labelledby={title} aria-describedby={text} className="panel panel-red max-h-full w-full max-w-md overflow-y-auto rounded-3xl p-5 text-center short:p-4" onClick={(e) => e.stopPropagation()}>
+      <div role="alertdialog" aria-modal="true" aria-labelledby={title} aria-describedby={text} className="panel max-h-full w-full max-w-md overflow-y-auto rounded-3xl p-5 text-center short:p-4" style={{ background: CONFIRM_BACKGROUND }} onClick={(e) => e.stopPropagation()}>
         <h3 id={title} className="text-outline font-display text-2xl font-bold">Erase your stars?</h3>
         <p id={text} className="mx-auto mt-2 max-w-sm text-base leading-snug text-rose-50/95">
           {stars === 1 ? 'Your star' : `All ${stars} of your stars`} will be gone, and the riddles after the first lock again. Your sound and graphics choices stay. This can't be undone.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
-          <Button autoFocus onClick={onKeep}>Keep my stars</Button>
-          <Button tone="gold" onClick={onErase}>Erase stars</Button>
+          <Button autoFocus tone="gold" onClick={onKeep}>Keep my stars</Button>
+          <Button onClick={onErase}>Erase stars</Button>
         </div>
       </div>
-    </div>
-  );
-}
-
-function PrivacyPage() {
-  const policy = privacyPolicy();
-  return (
-    <article className="mx-auto max-w-2xl">
-      <PageTitle>{policy.title}</PageTitle>
-      {policy.effective && <p className="mt-1 text-sm text-sky-100/70">{policy.effective}</p>}
-      <p className="mt-3 text-base leading-relaxed text-sky-50/90">{policy.intro}</p>
-      <p className="mt-3 rounded-2xl bg-amber-200/15 px-4 py-2.5 font-display text-base font-semibold text-amber-100">{policy.short}</p>
-      {policy.sections.map((s) => (
-        <section key={s.heading} className="mt-5">
-          <h3 className="font-display text-lg font-semibold text-amber-100">{s.heading}</h3>
-          {s.blocks.map((b, i) =>
-            typeof b === 'string' ? (
-              <p key={i} className="mt-1.5 text-base leading-relaxed text-sky-50/90">{b}</p>
-            ) : (
-              <ul key={i} className="mt-1.5 list-disc space-y-1 pl-5 text-base leading-relaxed text-sky-50/90 marker:text-amber-300">
-                {b.points.map((point) => (<li key={point}>{point}</li>))}
-              </ul>
-            ),
-          )}
-        </section>
-      ))}
-    </article>
-  );
-}
-
-function ContactPage() {
-  const { name, contactEmail, publisherName, version } = APP_INFO;
-  return (
-    <div className="mx-auto max-w-xl">
-      <PageTitle>Contact</PageTitle>
-      <p className="mt-3 text-base leading-relaxed text-sky-50/90">A question, a riddle that misbehaves, or an idea for the game? Write to us. It helps to say which iPhone or iPad you use and which riddle you were on.</p>
-      <div className="mt-4 rounded-2xl bg-white/[0.07] px-4 py-4 text-center" data-testid="contact-line">
-        {contactEmail ? (
-          <>
-            <a
-              href={`mailto:${contactEmail}?subject=${encodeURIComponent(`${name} ${version}`)}`}
-              onClick={() => sfx.click()}
-              className="btn-3d inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-b from-amber-200 via-amber-300 to-amber-500 px-5 py-2.5 font-display text-base font-semibold text-amber-950"
-            >
-              Write an email
-            </a>
-            <p className="mt-3 select-text break-all font-display text-lg font-semibold [-webkit-touch-callout:default]">{contactEmail}</p>
-          </>
-        ) : (
-          <p className="text-base leading-relaxed text-sky-100/80">The contact address will be here before the game is released.</p>
-        )}
-      </div>
-      <p className="mt-4 text-sm text-sky-100/70">
-        {name}
-        {publisherName ? ` is made by ${publisherName}.` : '.'} Version {version}.
-      </p>
     </div>
   );
 }
@@ -271,7 +212,7 @@ function CreditsPage() {
   return (
     <div className="mx-auto max-w-2xl">
       <PageTitle>Open-source credits</PageTitle>
-      <p className="mt-3 text-base leading-relaxed text-sky-50/90">{APP_INFO.name} is built with these open-source libraries and fonts. Thank you to the people who made them. Each is used under the licence named beside it; the full licence texts follow the list.</p>
+      <p className="mt-3 text-base leading-relaxed text-sky-50/90">{SHOWN_NAME} is built with these open-source libraries and fonts. Thank you to the people who made them. Each is used under the licence named beside it; the full licence texts follow the list.</p>
       <ul className="mt-4 space-y-2" data-testid="notices">
         {NOTICES.map((n) => (
           <li key={n.name} className="rounded-2xl bg-white/[0.07] px-4 py-2.5">

@@ -5,8 +5,8 @@ build in a phone-sized browser with a touch screen and play it.
 
 ```bash
 pnpm install
-pnpm test:e2e          # pnpm build, then the tests
-pnpm test:e2e:built    # the tests alone, against the apps/web/dist that is already there
+pnpm test:e2e          # pnpm build and pnpm build:app, then the tests
+pnpm test:e2e:built    # the tests alone, against the apps/web/dist and dist-app that are already there
 ```
 
 Run one part:
@@ -29,6 +29,10 @@ Two screen sizes, both with touch and the phone held sideways:
 | --- | --- | --- |
 | `iphone-landscape` | 852 by 393 | a current iPhone |
 | `iphone-small-landscape` | 667 by 375 | a small iPhone |
+| `app-iphone-landscape`, `app-iphone-small-landscape` | the same two | the app build (`apps/web/dist-app`), for `about.spec.ts` only |
+
+All other files run against the website build. The app build differs from it on the About screen alone
+(see `docs/about-screen.md`), so that screen's tests run against both.
 
 | File | What it does |
 | --- | --- |

@@ -8,8 +8,14 @@
  * while one of them is still null (see appInfo.test.ts, releaseChecks.ts and docs/about-screen.md).
  */
 
-/** Working name. Change it here when the owner picks the final one. */
+/**
+ * Working name, shown by the app build only. Change it here when the owner picks the final one.
+ * The website build never shows it: see WEBSITE_NAME, and src/about/shown.ts for which build shows what.
+ */
 export const APP_NAME = 'Riddlebrook';
+
+/** The name the public website carries today, as on the level map and the browser tab. The website build shows this one. */
+export const WEBSITE_NAME = 'Riddle Games';
 
 /** The version players see. Keep in step with APP_VERSION in apps/mobile/ios/AppIdentity.xcconfig. */
 export const APP_VERSION = '1.0';
@@ -42,6 +48,26 @@ export const APP_INFO: AppInfo = {
   publisherName: PUBLISHER_NAME,
   policyEffectiveDate: POLICY_EFFECTIVE_DATE,
 };
+
+/**
+ * Whether a RELEASE value from the environment asks for the release check. Unset, empty, `0` and `false`
+ * leave it off; anything else (`1`, `true`, ...) turns it on.
+ */
+export function releaseAsked(value: string | undefined | null): boolean {
+  const v = (value ?? '').trim().toLowerCase();
+  return v !== '' && v !== '0' && v !== 'false';
+}
+
+/**
+ * Words that only the Privacy and Contact pages and the working name carry. The website build must hold none
+ * of them in its built files, and the app build must hold all of them: the build checks both (releaseChecks.ts),
+ * and so does e2e/tests/about.spec.ts on the files as served. Keep each a plain run of text from the page.
+ */
+export const APP_ONLY_WORDS = {
+  policy: 'Because we collect nothing, we have nothing to share, sell or pass on',
+  contact: 'The contact address will be here before the game is released',
+  name: APP_NAME,
+} as const;
 
 /**
  * What still stops a store release, in plain words; empty when nothing does.
