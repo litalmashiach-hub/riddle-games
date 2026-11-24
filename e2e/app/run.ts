@@ -145,6 +145,12 @@ async function main() {
   const run = await backendFor();
   const { backend } = run;
   const page = new FakePage(backend);
+  if (args.quality === 'low' || args.quality === 'high') {
+    // The player's own HD/SD switch, set before play: a hosted Mac has no real graphics chip, and HD there crawls.
+    await backend.exec(`(q) => { const k = 'riddle-games:settings:v1'; let s = {}; try { s = JSON.parse(localStorage.getItem(k) || '{}'); } catch {} s.quality = q; localStorage.setItem(k, JSON.stringify(s)); return true; }`, args.quality);
+    await run.reload();
+    log(`graphics quality set to ${args.quality === 'low' ? 'SD' : 'HD'} by the player's setting`);
+  }
   const size = backend.size();
   const results: LevelResult[] = [];
   writeFileSync(join(out, 'device.json'), JSON.stringify({ device, size, calibration: run.calibration, args }, null, 1));

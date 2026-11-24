@@ -55,7 +55,7 @@ print(json.dumps({
 ARGS=(--backend appium --device "$LABEL" --levels "$LEVELS" --out "$OUT" --caps "$CAPS" --bundle-id "$BUNDLE" --level-minutes 30)
 [ "$ORIENT" != "-" ] && ARGS+=(--orientation "$ORIENT")
 [ "$EXTRAS" = "1" ] && ARGS+=(--extras)
-for F in $FLAGS; do ARGS+=("--$F"); done
+for F in $FLAGS; do case "$F" in *=*) ARGS+=("--${F%%=*}" "${F#*=}");; *) ARGS+=("--$F");; esac; done
 "$ROOT/e2e/app/node_modules/.bin/tsx" "$ROOT/e2e/app/run.ts" "${ARGS[@]}"
 STATUS=$?
 kill $APPIUMPID $LOGPID $USEPID 2> /dev/null
