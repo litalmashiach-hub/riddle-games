@@ -28,10 +28,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { label: iphone, sim: "iPhone 17 Pro Max", mode: release, levels: 99, quality_tap: 2 }
-          - { label: ipad, sim: "iPad Pro 13-inch (M5)", mode: release, levels: 2, quality_tap: 0 }
-          - { label: ipad-sd, sim: "iPad Pro 13-inch (M5)", mode: release, levels: 3, quality_tap: 1 }
-          - { label: iphone-console, sim: "iPhone 17 Pro Max", mode: debug-console, levels: 1, quality_tap: 0 }
+          - { label: iphone-quality-tap, sim: "iPhone 17 Pro Max", mode: release, levels: 2, quality_tap: 2 }
+          - { label: ipad-quality-tap, sim: "iPad Pro 13-inch (M5)", mode: release, levels: 1, quality_tap: 1 }
+          - { label: iphone-levels, sim: "iPhone 17 Pro Max", mode: release, levels: 99, quality_tap: 0 }
+          - { label: ipad-levels, sim: "iPad Pro 13-inch (M5)", mode: release, levels: 99, quality_tap: 0 }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

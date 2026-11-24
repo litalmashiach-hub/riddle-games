@@ -97,6 +97,8 @@ if [ -z "$WON" ]; then WON="$(grep -c "WON by taps" "$OUT/shots/play-log.txt" 2>
 echo "levels won by taps: ${WON:-0}"
 if [ "${WON:-0}" -ge 1 ]; then echo 0 > "$OUT/status"; else echo 1 > "$OUT/status"; fi
 grep -E "Test Case|Executed|\*\* TEST" "$OUT/xcodebuild.log" | head -n 8 || true
+echo "---- failures that XCTest itself reported, with the lines before each"
+grep -n -B 12 -E "error: -\[|Failed to |not running|crashed|Lost connection|Terminating" "$OUT/xcodebuild.log" | cut -c1-420 | tail -n 90 || true
 if [ ! -s "$OUT/shots/play-log.txt" ]; then echo "---- no log from the test; last lines of xcodebuild's output"; tail -n 60 "$OUT/xcodebuild.log" | cut -c1-400; fi
 
 xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2>/dev/null || true
@@ -118,6 +120,13 @@ grep -i -E "crash|jetsam|killed|terminated|memory warning|exceeded" "$OUT/unifie
 echo "-- most frequent messages"
 cut -c40-200 "$OUT/unified.txt" | sed -E 's/[0-9a-fx]{6,}/N/g; s/[0-9]+/N/g' | sort | uniq -c | sort -rn | head -n 25 || true
 echo "---- crash reports on the Mac that name the app or WebKit"
-ls -la "$HOME/Library/Logs/DiagnosticReports" 2> /dev/null | grep -i -E "App|WebKit|WebContent" || echo "none"
+sleep 25
+ls -la "$HOME/Library/Logs/DiagnosticReports" 2> /dev/null || true
+for r in "$HOME/Library/Logs/DiagnosticReports"/*; do
+  [ -f "$r" ] || continue
+  case "$r" in *App*|*WebKit*|*WebContent*|*GPU*) echo "---- $r"; head -c 6000 "$r" | cut -c1-300 | head -n 70;; esac
+done
+echo "---- unified log around the app's end, any level"
+xcrun simctl spawn "$UDID" log show --last 25m --style compact --predicate 'eventMessage CONTAINS[c] "riddlegames" AND (eventMessage CONTAINS[c] "exit" OR eventMessage CONTAINS[c] "terminat" OR eventMessage CONTAINS[c] "crash" OR eventMessage CONTAINS[c] "jetsam" OR eventMessage CONTAINS[c] "kill")' 2> /dev/null | cut -c1-330 | tail -n 40 || true
 
 xcrun simctl shutdown "$UDID" || true
