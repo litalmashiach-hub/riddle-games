@@ -790,13 +790,11 @@ const panel: CSSProperties = {
 function Chip({ n, tone }: { n: number; tone: 'L' | 'R' }) {
   return (
     <span
+      className="tc-chip"
       style={{
         display: 'inline-grid',
         placeItems: 'center',
-        width: 20,
-        height: 20,
         borderRadius: 999,
-        fontSize: 11,
         fontWeight: 700,
         color: '#4a2a05',
         background: tone === 'L' ? 'radial-gradient(circle at 35% 30%, #fff1b8, #e9b343)' : 'radial-gradient(circle at 35% 30%, #fff1b8, #d9a03a)',
@@ -810,22 +808,22 @@ function Chip({ n, tone }: { n: number; tone: 'L' | 'R' }) {
 
 function Ledger({ log }: { log: Weighing[] }) {
   return (
-    <div className="tc-ledger" style={{ ...panel, position: 'absolute', padding: '10px 12px', width: 'min(250px, calc(100vw - 24px))', pointerEvents: 'none' }}>
+    <div className="tc-ledger" style={{ ...panel, position: 'absolute', pointerEvents: 'none' }}>
       <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#ffd27a' }}>Weighing ledger</div>
       {Array.from({ length: MAX_WEIGHINGS }, (_, i) => {
         const w = log[i];
         return (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 7, opacity: w ? 1 : 0.45, fontSize: 13 }}>
+          <div key={i} className="tc-row" style={{ display: 'flex', alignItems: 'center', opacity: w ? 1 : 0.45, fontSize: 13 }}>
             <span style={{ width: 9, height: 9, borderRadius: 99, flexShrink: 0, background: w ? '#4a3a34' : '#ffb84a', boxShadow: w ? 'none' : '0 0 8px #ffae2b' }} />
             {w ? (
               <>
-                <span style={{ display: 'flex', flexWrap: 'wrap', gap: 2, maxWidth: 92 }}>
+                <span className="tc-chips">
                   {[...w.left].sort((a, b) => a - b).map((c) => (
                     <Chip key={c} n={c} tone="L" />
                   ))}
                 </span>
                 <span style={{ fontWeight: 700, fontSize: 15, color: '#ffd27a', minWidth: 14, textAlign: 'center' }}>{w.tilt === 'left' ? '>' : w.tilt === 'right' ? '<' : '='}</span>
-                <span style={{ display: 'flex', flexWrap: 'wrap', gap: 2, maxWidth: 92 }}>
+                <span className="tc-chips">
                   {[...w.right].sort((a, b) => a - b).map((c) => (
                     <Chip key={c} n={c} tone="R" />
                   ))}
@@ -881,11 +879,15 @@ interface ControlsProps {
 
 /**
  * Centred above the shell's bar on upright phones; a column on the right on wider screens, clear of the coins.
- * On a small phone held sideways the shell's buttons sit in the bottom corners, so the controls drop into the
- * gap between them and leave the coins in view. Short screens also lift both panels up under the top bar.
+ * A phone held sideways is short: both panels lift up under the top bar, and the ledger slims down so that it
+ * stays left of the left pan and above the shell's undo buttons. On a small one the controls stay a (narrower)
+ * column on the right, which leaves the bottom middle free for the shell's hint sentence and the coins in view.
  */
 const CONTROLS_CSS = `
-.tc-ledger{left:12px;top:84px}
+.tc-ledger{left:12px;top:84px;padding:10px 12px;width:min(250px,calc(100vw - 24px))}
+.tc-row{gap:6px;margin-top:7px}
+.tc-chips{display:flex;flex-wrap:wrap;gap:2px;max-width:92px}
+.tc-chip{width:20px;height:20px;font-size:11px}
 .tc-controls{position:absolute;left:0;right:0;bottom:92px;display:flex;justify-content:center;padding:0 12px}
 .tc-buttons{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 @media (min-width:760px){
@@ -894,14 +896,18 @@ const CONTROLS_CSS = `
   .tc-buttons{flex-direction:column;align-items:stretch}
 }
 @media (max-height:500px){
-  .tc-ledger{top:60px;left:max(12px,env(safe-area-inset-left))}
+  .tc-ledger{top:60px;left:max(12px,env(safe-area-inset-left));padding:8px;width:196px}
+  .tc-row{gap:4px;margin-top:5px}
+  .tc-chips{max-width:70px}
+  .tc-chip{width:16px;height:16px;font-size:10px}
 }
 @media (max-height:500px) and (min-width:760px){
   .tc-controls{top:60px;right:max(12px,env(safe-area-inset-right))}
 }
 @media (max-height:500px) and (max-width:759px){
-  .tc-controls{bottom:8px;padding:0 116px 0 76px}
-  .tc-buttons{flex-wrap:nowrap;gap:6px}
+  .tc-controls{left:auto;right:max(12px,env(safe-area-inset-right));bottom:auto;top:60px;width:172px;padding:0}
+  .tc-controls>div{width:100%}
+  .tc-buttons{flex-direction:column;align-items:stretch;gap:6px}
 }`;
 
 function Controls(p: ControlsProps) {
