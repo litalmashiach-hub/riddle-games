@@ -51,56 +51,40 @@ uitest() {
   grep -E "SHAPE|Test Case|\*\* TEST|error:" "$OUT/uitest-$1.log" | cut -c1-300 | head -n 12
 }
 
-# The launch screen alone: the app is started but held before its first line of code runs,
-# so what the system shows is the launch screen and nothing of the app's own.
-held() {
-  echo "---- launch screen, app held before it runs ($1)"
+# A launch filmed by the simulator itself, then cut into one frame per tenth of a second.
+filmed() {
+  echo "---- launch, filmed ($1)"
+  mkdir -p "$OUT/$1-film"
   xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2> /dev/null || true
   sleep 2
-  ( xcrun simctl launch --wait-for-debugger "$UDID" "$BUNDLE_ID" 2>&1 | sed 's/^/launch: /' ) &
-  sleep 5; shot "$1-launch-screen-held-5s"
-  sleep 5; shot "$1-launch-screen-held-10s"
-  xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2> /dev/null || true
-  pkill -f "simctl launch --wait-for-debugger" 2> /dev/null || true
-  sleep 3
-}
-
-# A normal launch, with pictures taken as fast as the Mac allows, each named by seconds since the launch call.
-launch_frames() {
-  echo "---- normal launch, frame by frame ($1)"
-  mkdir -p "$OUT/$1-frames"
-  xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2> /dev/null || true
-  sleep 2
+  xcrun simctl io "$UDID" recordVideo --codec=h264 --force "$OUT/$1-launch.mov" > "$OUT/record.log" 2>&1 &
+  local rec=$!
+  sleep 4
+  shot "$1-home-before-launch"
   local start; start=$(now)
-  ( xcrun simctl launch "$UDID" "$BUNDLE_ID" > /dev/null 2>&1; echo "launch call returned after $(perl -e "printf '%.1f', $(now) - $start") s" ) &
-  while perl -e "exit(($(now) - $start) < $2 ? 0 : 1)"; do
-    local t; t=$(perl -e "printf '%06.2f', $(now) - $start")
-    xcrun simctl io "$UDID" screenshot --type=jpeg "$OUT/$1-frames/$t.jpg" > /dev/null 2>&1 || true
-  done
-  wait
-  echo "frames: $(ls "$OUT/$1-frames" | wc -l | tr -d ' ')"
-  # One line per frame: its time and the colours of a 4 by 4 reduction, so the log shows when the picture changed.
-  for f in "$OUT/$1-frames"/*.jpg; do
-    sips -z 4 4 -s format bmp "$f" --out "$OUT/tiny.bmp" > /dev/null 2>&1 || continue
-    python3 "$ROOT/apps/mobile/ios/ShapeTest/tiny.py" "$f" "$OUT/tiny.bmp" || true
-  done
+  xcrun simctl launch "$UDID" "$BUNDLE_ID" > /dev/null 2>&1
+  echo "launch call returned after $(perl -e "printf '%.1f', $(now) - $start") s; the film began about 4 to 6 s before the launch call"
+  sleep "$2"
   shot "$1-after-launch"
+  kill -INT "$rec"; wait "$rec" 2> /dev/null
+  cat "$OUT/record.log" | head -n 5
+  ls -la "$OUT/$1-launch.mov" || return
+  swift "$ROOT/apps/mobile/ios/ShapeTest/frames.swift" "$OUT/$1-launch.mov" "$OUT/$1-film" 2>&1 | grep -v warning | tail -n 4
+  python3 "$ROOT/apps/mobile/ios/ShapeTest/frames.py" "$OUT/$1-film" "$LABEL-$1"
 }
 
-held upright
-launch_frames upright 40
-xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2> /dev/null || true
 uitest testShowIcon
 sleep 2; shot "upright-home-icon"
+filmed upright-first 40
+filmed upright-second 25
 
 if [ "$KIND" = "ipad" ]; then
-  uitest testTurnSideways
-  sleep 2; shot "sideways-home-icon"
-  held sideways
-  launch_frames sideways 40
   xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2> /dev/null || true
+  uitest testTurnSideways
   uitest testShowIcon
-  sleep 2; shot "sideways-home-icon-2"
+  sleep 2; shot "sideways-home-icon"
+  filmed sideways 30
+  xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2> /dev/null || true
   uitest testTurnUpright
 fi
 
@@ -116,5 +100,5 @@ for f in "$OUT"/*.png; do
   base64 -i "$OUT/p.jpg" | fold -w 160
   echo "-----END PICTURE-----"
 done
-rm -f "$OUT/p.jpg" "$OUT/tiny.bmp"
+rm -f "$OUT/p.jpg"
 xcrun simctl shutdown "$UDID" || true
