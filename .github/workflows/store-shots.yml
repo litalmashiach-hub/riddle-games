@@ -17,6 +17,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  VITE_SHOOT_ONLY: 07-hint,08-map
+  VITE_SHOOT_HOLD: '150000'
+  SHOOT_NO_HOST: '1'
   PROJECT: apps/mobile/ios/App/App.xcodeproj
   DERIVED: build/ios
 
@@ -30,7 +33,6 @@ jobs:
       matrix:
         include:
           - { label: iphone-69, sim: "iPhone 17 Pro Max" }
-          - { label: ipad-13, sim: "iPad Pro 13-inch (M5)" }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

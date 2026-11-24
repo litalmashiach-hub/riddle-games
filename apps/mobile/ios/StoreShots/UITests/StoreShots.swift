@@ -5,7 +5,7 @@
 import XCTest
 
 final class StoreShots: XCTestCase {
-  let shots = ["01-river", "02-hanoi", "03-coins", "04-balloon", "05-moonbeam", "06-pancakes", "07-hint", "08-map"]
+  var shots = ["01-river", "02-hanoi", "03-coins", "04-balloon", "05-moonbeam", "06-pancakes", "07-hint", "08-map"]
   let live: Set<String> = ["01-river", "02-hanoi", "03-coins", "04-balloon"]
 
   func log(_ s: String, _ dir: String) {
@@ -21,6 +21,8 @@ final class StoreShots: XCTestCase {
     let dir = env["SHOOT_OUT"] ?? "/tmp/shoot"
     let bundle = env["SHOOT_BUNDLE_ID"] ?? "com.example.riddlegames"
     continueAfterFailure = true
+    if let only = env["SHOOT_ONLY"], !only.isEmpty { shots = only.split(separator: ",").map(String.init) }
+    let noHost = env["SHOOT_NO_HOST"] == "1"
     executionTimeAllowance = 7200
     XCUIDevice.shared.orientation = .landscapeLeft
     let app = XCUIApplication(bundleIdentifier: bundle)
@@ -42,6 +44,7 @@ final class StoreShots: XCTestCase {
         log("xc picture \(name) \(i) \(Int(shot.image.size.width))x\(Int(shot.image.size.height)) scale \(shot.image.scale)", dir)
         Thread.sleep(forTimeInterval: live.contains(name) ? 0.4 : 2.0)
       }
+      if noHost { app.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)).withOffset(CGVector(dx: 3, dy: 3)).tap(); log("tapped \(name)", dir); continue }
       // Now the Mac's own pictures of the same scene.
       try? name.write(toFile: dir + "/current", atomically: true, encoding: .utf8)
       let hostDone = dir + "/host-done-" + name

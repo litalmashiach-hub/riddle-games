@@ -31,7 +31,7 @@ xcrun simctl install "$UDID" "$APP"
 # What the simulator itself says about its screen.
 xcrun simctl io "$UDID" enumerate 2>/dev/null | head -n 40 | tee -a "$OUT/device.txt" || true
 
-TEST_RUNNER_SHOOT_OUT="$OUT" TEST_RUNNER_SHOOT_BUNDLE_ID="$BUNDLE_ID" \
+TEST_RUNNER_SHOOT_OUT="$OUT" TEST_RUNNER_SHOOT_BUNDLE_ID="$BUNDLE_ID" TEST_RUNNER_SHOOT_ONLY="${VITE_SHOOT_ONLY:-}" TEST_RUNNER_SHOOT_NO_HOST="${SHOOT_NO_HOST:-0}" \
 xcodebuild test -project "$ROOT/apps/mobile/ios/StoreShots/StoreShots.xcodeproj" -scheme StoreShots \
   -destination "id=$UDID" -derivedDataPath "$ROOT/build/storeshots" \
   -parallel-testing-enabled NO -disable-concurrent-destination-testing \

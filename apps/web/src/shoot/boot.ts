@@ -20,8 +20,8 @@ if (SHOOTING) {
   } catch {
     /* ignore */
   }
-  const only = params.get('shoot')?.split(',').filter(Boolean);
-  const hold = Number(params.get('hold')) || undefined;
+  const only = (params.get('shoot') ?? import.meta.env.VITE_SHOOT_ONLY ?? '').split(',').filter(Boolean);
+  const hold = Number(params.get('hold') ?? import.meta.env.VITE_SHOOT_HOLD) || undefined;
   setTimeout(() => {
     void import('./director').then((d) => d.runShots(only && only.length ? only : undefined, hold));
   }, 4000);
