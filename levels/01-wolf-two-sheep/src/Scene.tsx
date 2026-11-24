@@ -1,4 +1,4 @@
-import type { SceneProps } from '@riddle/engine';
+import type { FirstPlayGuide, SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, DizzyStars, FightCloud, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Boat, Bubble, Farmer, HintRing, RiverValley, Sheep, Wolf, groundHeight, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
@@ -51,9 +51,23 @@ const fightSpot = (state: State, bank: Side): Vec3 => {
   return [(w[0] + sh[0] * 2) / 3, (w[1] + sh[1] * 2) / 3, (w[2] + sh[2] * 2) / 3];
 };
 
-export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
+/**
+ * The first-play guide (shown by the shell, once ever): ring the wolf, the right first passenger, then the boat.
+ * The points are where the wolf stands on the near bank and where the boat waits there.
+ */
+const wolfHome = slot('wolf', 'L');
+export const GUIDE: FirstPlayGuide = {
+  steps: [
+    { at: [wolfHome[0], wolfHome[1] + 0.6, wolfHome[2]], radius: 0.72, say: 'Tap the wolf', pick: 'wolf' },
+    { at: [boatX('L'), 0.35, 0], radius: 1.25, say: 'Tap the boat' },
+  ],
+};
+
+export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount, onPick }: SceneProps<State, Move>) {
   /** The animal the player has put in the boat but not rowed yet (UI only, not a move). */
   const [loaded, setLoaded] = useState<Animal | null>(null);
+  // The shell's first-play guide moves on when the wolf is in the boat.
+  useEffect(() => onPick?.(loaded), [loaded, onPick]);
   const [burst, setBurst] = useState(0);
   // Work out the move direction during render (not in an effect), so the render that shows a new
   // move sees forward = true and the passenger rides the boat. An effect would flip it back to false

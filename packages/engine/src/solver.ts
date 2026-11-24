@@ -4,6 +4,9 @@ export interface Solution<M> {
   moves: M[];
 }
 
+/** The solver gives up, and returns null, once it has this many positions open. */
+export const SOLVER_LIMIT = 500_000;
+
 /**
  * Breadth-first search for the shortest winning sequence of moves.
  * Lost states are dead ends. Returns null if the riddle cannot be won.
@@ -12,7 +15,7 @@ export interface Solution<M> {
 export function solve<S, M>(
   rules: RiddleRules<S, M>,
   from: S = rules.initialState,
-  maxStates = 500_000,
+  maxStates = SOLVER_LIMIT,
 ): Solution<M> | null {
   const start = rules.status(from);
   if (start.kind === 'won') return { moves: [] };

@@ -12,3 +12,18 @@ export function hintLine(s: Pick<SessionState, 'askHint' | 'status'>): string | 
   if (s.status.kind !== 'playing') return null;
   return s.askHint() ?? NO_WIN_LEFT;
 }
+
+/**
+ * A hint speaks of one position. True when it has outlived it: a move, an undo, a redo or a restart
+ * changed the position, or a win or loss card came. Asking for a hint changes neither.
+ */
+export function hintOutlived(before: Pick<SessionState, 'history' | 'ended'>, now: Pick<SessionState, 'history' | 'ended'>): boolean {
+  return now.history !== before.history || (now.ended && !before.ended);
+}
+
+/** The win card's line under the stars. It only asks "can you do it?" of a player who has not yet. */
+export function winLine(moves: number, best: number, hintsUsed: number): string {
+  if (moves > best) return `The best is ${best}. Can you do it?`;
+  if (hintsUsed > 0) return 'That is the shortest solution! Can you do it without a hint?';
+  return 'Perfect, that is the shortest solution!';
+}
