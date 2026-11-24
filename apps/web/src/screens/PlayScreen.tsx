@@ -156,7 +156,9 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
           <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} aria-label="Restart" className="short:!px-3"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
           <Button tone="gold" className="short:hidden" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline">Hint</span></Button>
         </div>
-        <Button tone="gold" className="pointer-events-auto hidden !rounded-3xl !px-4 !py-3.5 short:inline-flex" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon />Hint</Button>
+        <div className="pointer-events-auto hidden short:block">
+          <Button tone="gold" className="!rounded-3xl !px-4 !py-3.5" onClick={() => setHintText(s.askHint())} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon />Hint</Button>
+        </div>
       </div>
 
       {/* Hint toast */}
