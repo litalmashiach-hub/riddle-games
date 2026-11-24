@@ -61,6 +61,28 @@ team's workspace, so this run is how a change to the iOS project is proven.
 - Icon: one opaque 1024 pixel PNG. Icon and launch image are rendered from `apps/web/public/icons/icon.svg` and
   `apps/mobile/art/launch.svg` by `apps/mobile/scripts/render-art.mjs`; run it only when the art changes.
 
+## The privacy manifest
+
+`apps/mobile/ios/App/App/PrivacyInfo.xcprivacy` is the app's privacy manifest. It is in the Xcode project's
+resources, so it is copied to the top of the built `App.app`. It declares:
+
+- no tracking (`NSPrivacyTracking` = false) and no tracking domains;
+- no collected data types;
+- no "required reason" API.
+
+The last list is empty because it is true, not because it was skipped. Apple names five groups of such APIs:
+file timestamps, system boot time, disk space, active keyboards and `UserDefaults`. Apple asks an app to declare
+what its own code calls, and an SDK to declare its own calls in its own manifest. The app's three Swift files call
+none of them. Capacitor and Cordova 8.6.2 carry their own manifests inside their frameworks, also with nothing
+declared, and their sources call none either. The game's stars and settings are kept by the web view's
+`localStorage`, which is WebKit's own storage and not a call to `UserDefaults` by the app.
+
+Keep it true. Before adding native code or a Capacitor plugin, check it against Apple's list
+(developer.apple.com, "Describing use of required reason API"): a plugin such as Preferences uses `UserDefaults`
+and must bring its own manifest, and Swift code of ours that reads `UserDefaults`, a file's dates, free disk space
+or the system uptime needs an entry with one of Apple's reason codes here. If the app ever talks to a server or
+collects anything, this file and the store's privacy answers change together.
+
 ## Still open before a store upload
 
 - Final name, bundle identifier and version, in `AppIdentity.xcconfig`.
@@ -69,5 +91,5 @@ team's workspace, so this run is how a change to the iOS project is proven.
   is true of the code today: the game makes no network calls and has no encryption of its own. It is the owner's
   declaration to Apple when a build is uploaded, so the owner should confirm it, and it must be revisited if the
   app ever starts to talk to a server.
-- A privacy manifest and the store's privacy answers. The game makes no network calls and stores only progress
-  and two settings on the device.
+- The store's privacy answers in App Store Connect ("Data Not Collected"), to match the privacy manifest. The
+  game makes no network calls and stores only progress and two settings on the device.
