@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, easeInOut, sfx, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, easeInOut, sfx, tapPadRaycast, tapBackdropRaycast, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -13,6 +13,11 @@ import { Blackout, DarkEyes } from './LightsOut';
 import { Torch, type Flame } from './Torch';
 import { LABEL_WRAP, LabelStem, useLabelSpread } from './useLabelSpread';
 import { crossingMinutes, EXPLORERS, MINUTES, NAMES, TORCH_MINUTES, type Explorer, type Move, type Side, type State } from './rules';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const walkerPad = tapPadRaycast();
+/** The bridge is a backdrop for taps (see tapBackdropRaycast in @riddle/fx): a tap beside an explorer on it still picks them, not the bridge. */
+const bridgeHits = tapBackdropRaycast();
 
 /** Walk to the bridge, cross it, step off to a waiting spot. */
 const PREP_MS = 450;
@@ -313,7 +318,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     <group>
       <Chasm won={won && !busy} />
       <Clickable onClick={go} disabled={busy || over || picked.length === 0} hoverScale={1}>
-        <RopeBridge walkers={onBridge} />
+        <group raycast={bridgeHits}>
+          <RopeBridge walkers={onBridge} />
+        </group>
       </Clickable>
       <Torch ref={torch} flame={flame} />
       <Blackout flame={flame} />
@@ -325,7 +332,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <group key={e} ref={(g) => void (groups.current[e] = g ?? undefined)}>
             <Clickable onClick={() => toggle(e)} disabled={busy || over}>
               <ExplorerBody kind={e} mood={mood} motion={motions[e]} seed={i} />
-              <mesh position-y={0.5} visible={false}>
+              <mesh position-y={0.5} visible={false} raycast={walkerPad}>
                 <sphereGeometry args={[0.5, 8, 8]} />
               </mesh>
             </Clickable>

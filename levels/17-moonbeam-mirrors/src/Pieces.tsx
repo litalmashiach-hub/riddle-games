@@ -1,11 +1,14 @@
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Clickable, DizzyStars, useSettings } from '@riddle/fx';
+import { Clickable, DizzyStars, useSettings, tapPadRaycast } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 import { COLS, ROWS, type Tilt } from './rules';
 import { BEAM_Y, PAD_Y, cellPos, type V3 } from './layout';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const crystalPad = tapPadRaycast();
 
 /** Gentle bob of the lily pad at a cell, shared by everything that sits on it. */
 export const padBob = (c: number, r: number, t: number) => Math.sin(t * 1.3 + c * 1.7 + r * 2.3) * 0.018;
@@ -222,7 +225,7 @@ export function Crystal({ c, r, tilt, lit, index, onClick, disabled, blown, part
               </mesh>
             );
           })}
-          <mesh position-y={0.45} visible={false}>
+          <mesh position-y={0.45} visible={false} raycast={crystalPad}>
             <sphereGeometry args={[0.62, 8, 8]} />
           </mesh>
         </Clickable>
