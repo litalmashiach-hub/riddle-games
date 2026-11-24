@@ -52,6 +52,7 @@ The offline service worker is generated at build time (`apps/web/vite.config.ts`
 | 18 | Firefly Lagoon | Log Jam (sliding blocks) | Built |
 | 19 | Firefly Lagoon | Picture Tiles (8-puzzle) | Built |
 | 20 | Firefly Lagoon | Berry Bridges (cross every bridge once) | Built |
+| 21 | Firefly Lagoon | Cricket Swap (four knights swap sides) | Built |
 
 ## Layout
 
