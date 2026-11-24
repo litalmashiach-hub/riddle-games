@@ -1,0 +1,60 @@
+name: QA launch cover (test only)
+
+# TEST ONLY, not for merging, no pull request. A second look at pull request 60 by the QA tester:
+# builds a trial merge of that pull request with main for the simulator on a hosted Mac, unsigned, and
+# takes single pictures of the launch. No signing, no secrets, nothing uploaded.
+
+on:
+  push:
+    branches: [qa-launch-cover-mac-test]
+
+permissions:
+  contents: read
+
+env:
+  PROJECT: apps/mobile/ios/App/App.xcodeproj
+  DERIVED: build/ios
+
+jobs:
+  launch:
+    name: ${{ matrix.label }}
+    runs-on: macos-26
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: ipad, sim: "iPad Pro 13-inch (M5)" }
+          - { label: iphone, sim: "iPhone 17 Pro Max" }
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 3
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode, Mac and commit
+        run: |
+          xcodebuild -version
+          sw_vers
+          git log --format='%H %P %s' -n 2
+      - name: Build the app content and sync Capacitor
+        run: pnpm ios:sync
+      - name: Build the app for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build > build.log 2>&1 || { tail -n 80 build.log; exit 1; }
+          grep -E "warning:|error:" build.log | sort | uniq -c | cut -c1-300 | head -n 40 || true
+          tail -n 3 build.log
+          APP="$DERIVED/Build/Products/Release-iphonesimulator/App.app"
+          echo "CFBundleShortVersionString = $(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Info.plist")"
+          echo "CFBundleVersion = $(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$APP/Info.plist")"
+          echo "CFBundleIdentifier = $(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")"
+      - name: Pictures of the launch
+        timeout-minutes: 25
+        run: bash apps/mobile/ios/QaLaunchTest/launch.sh "${{ matrix.sim }}" "${{ matrix.label }}"
