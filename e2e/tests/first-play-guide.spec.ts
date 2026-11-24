@@ -1,3 +1,4 @@
+import { KNOWN_FAULTS } from '../known-faults';
 import { LEVELS } from '../levels';
 import { expect, passRulesCard, PROGRESS_KEY, test, waitForSession } from './fixtures';
 import type { Page } from '@playwright/test';
@@ -169,12 +170,20 @@ test('level 1: Skip takes the guide away, and it stays away after a restart', as
   await expect(guide(page)).toHaveCount(0);
 });
 
-test('no other level shows a guide, on a fresh start', async ({ page }) => {
+test('no other level shows a guide, on a fresh start', async ({ page, faults }) => {
   test.setTimeout(LEVELS.length * 40_000);
   for (const level of LEVELS.slice(1)) {
+    const errorsBefore = faults.pageErrors.length;
     await openLevel(page, `?all&debug&quality=low#/level/${level.id}`, level.id, level.title);
     await expect(guide(page), `level ${level.number} (${level.title})`).toHaveCount(0);
     expect(await guidesSeen(page), `level ${level.number} saved no guide`).toBeUndefined();
     await page.goto('about:blank');
+    // A level with a fault listed in e2e/known-faults.ts may throw its one known page error on opening or
+    // leaving; levels.spec.ts tracks those. Set that one aside here; any other error still fails the test.
+    const known = KNOWN_FAULTS[level.id];
+    if (known) {
+      const i = faults.pageErrors.findIndex((e, k) => k >= errorsBefore && known.pageError.test(e));
+      if (i >= 0) faults.known.push(...faults.pageErrors.splice(i, 1));
+    }
   }
 });
