@@ -32,8 +32,8 @@ class GameViewController: CAPBridgeViewController {
 
     /// The system takes its launch screen away as soon as this view exists, which is before the page
     /// has drawn anything. So the same picture, laid out the same way as in LaunchScreen.storyboard,
-    /// stays on top until the page has loaded, and then fades into the game. Without it the player
-    /// would see the launch picture, then an empty dark screen, then the game.
+    /// stays on top until the game's first screen has been drawn, and then fades into it. Without it
+    /// the player would see the launch picture, then an empty dark screen, then the game.
     private func coverUntilDrawn(_ webView: WKWebView) {
         guard launchCover == nil, let picture = UIImage(named: "Splash") else { return }
         let cover = UIImageView(image: picture)
@@ -45,13 +45,30 @@ class GameViewController: CAPBridgeViewController {
         cover.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webView.addSubview(cover)
         launchCover = cover
-        // The page's scripts have run, and so drawn the first screen, when the web view stops loading.
         loadingWatch = webView.observe(\.isLoading, options: [.new]) { [weak self] webView, _ in
             guard !webView.isLoading, webView.url != nil else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { self?.uncover() }
+            DispatchQueue.main.async { self?.uncoverOnceDrawn(webView) }
         }
-        // Never keep the game hidden, whatever happens to the page load.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in self?.uncover() }
+        // Never keep the game hidden, whatever happens to the page.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 20) { [weak self] in self?.uncover() }
+    }
+
+    /// Asks the loaded page to answer once its first screen is in place: something is inside the
+    /// game's root element, two frames have been drawn, and the first screen's own fade-in is over.
+    private func uncoverOnceDrawn(_ webView: WKWebView) {
+        guard launchCover != nil, loadingWatch != nil else { return }
+        loadingWatch = nil
+        let drawn = """
+            await new Promise((done) => {
+              const look = () => document.querySelector('#root > *')
+                ? requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(done, 450)))
+                : setTimeout(look, 50);
+              look();
+            });
+            """
+        webView.callAsyncJavaScript(drawn, arguments: [:], in: nil, in: .page) { [weak self] _ in
+            self?.uncover()
+        }
     }
 
     override func viewDidLayoutSubviews() {
