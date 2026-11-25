@@ -1,0 +1,62 @@
+import type { TapPlayer, Vec3 } from '../harness';
+import { coupleOf, nameOf, roleOf, type Bird, type Move, type Side, type State } from '../../../levels/07-jealous-couples/src/rules';
+
+/** Polls a reading of the page until it gives something, for up to `ms`. */
+async function until<T>(read: () => Promise<T | null | false>, ms = 10_000): Promise<T | null> {
+  for (const end = Date.now() + ms; ; ) {
+    const got = await read();
+    if (got) return got;
+    if (Date.now() > end) return null;
+    await new Promise((r) => setTimeout(r, 150));
+  }
+}
+
+const near = (a: Vec3, b: Vec3, d: number) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]) <= d;
+
+// The places below are copied from levels/07-jealous-couples/src/Scene.tsx (slot, seat), with DOCK_X
+// from SkyIslands.tsx and BASKET_FLOOR from Balloon.tsx: those files draw with React and Three.
+const sign = (s: Side) => (s === 'L' ? -1 : 1);
+const DOCK_X = 1.95;
+const BASKET_Y = 0.08 * 1.15;
+/** Where a bird stands on an island. */
+const slot = (b: Bird, s: Side): Vec3 => {
+  const c = coupleOf(b);
+  const inward = (roleOf(b) === 'gent' ? 3.15 : 3.95) + (c === 1 ? 0.35 : 0);
+  return [sign(s) * inward, 0, (c - 1) * 1.2 + (roleOf(b) === 'gent' ? -0.08 : 0.08)];
+};
+/** The two spots in the basket. */
+const seat = (s: Side, i: number): Vec3 => [sign(s) * DOCK_X + (i === 0 ? -0.21 : 0.21), BASKET_Y, 0.03];
+
+/**
+ * Level 7: tap each bird that is to fly (it hops into the basket and the Fly button names it), then
+ * the scene's own Fly button. A bird is found as the listening figure that stands on its place on the
+ * island and tapped in the middle of what it draws. The birds stand in a tight bunch, so the middle of a
+ * bird in the back row can lie under the bird in front of it: that is the fault this level is listed for.
+ */
+const jealousCouples: TapPlayer<State, Move> = {
+  async move(taps, move, state) {
+    const fly = taps.page.getByRole('button', { name: /Fly/ });
+    for (const [i, b] of move.riders.entries()) {
+      const fig = await until(() => taps.targetNear(slot(b, state.balloon), { handler: 'onClick', within: 0.1 }));
+      if (!fig) return taps.fault('no-response', `no figure that listens came to stand at the place of ${nameOf(b)}`);
+      const before = await fly.textContent();
+      await taps.tapTarget(fig, nameOf(b));
+      const want = move.riders.slice(0, i + 1).map(nameOf).join(' + ');
+      const named = await until(async () => ((await fly.textContent().catch(() => null)) ?? '').endsWith(want));
+      if (!named) {
+        const after = await fly.textContent().catch(() => null);
+        if (after !== before) return taps.fault('wrong-pick', `the tap on ${nameOf(b)} made the Fly button read "${after}", not "${want}": ${taps.lastTouch()}`);
+        return taps.fault('no-response', `the tap did not put ${nameOf(b)} in the basket (the Fly button still reads "${after}"): ${taps.lastTouch()}`);
+      }
+      // Let it land in the basket before the next touch.
+      const seated = await until(async () => {
+        const now = (await taps.targets()).find((t) => t.uuid === fig.uuid);
+        return !!now && near(now.world, seat(state.balloon, i), 0.05);
+      });
+      if (!seated) return taps.fault('no-response', `${nameOf(b)} was named on the Fly button and did not come to sit in the basket: ${taps.lastTouch()}`);
+    }
+    await taps.tapButton(fly, 'the Fly button');
+  },
+};
+
+export const players: Record<string, TapPlayer> = { 'jealous-couples': jealousCouples };

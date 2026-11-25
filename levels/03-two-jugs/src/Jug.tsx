@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { Clickable, type Vec3 } from '@riddle/fx';
+import { Clickable, tapPadRaycast, type Vec3 } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useMemo, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
@@ -24,6 +24,9 @@ import {
 import { sloshSound } from './audio';
 import { Overlay } from './Overlay';
 import { CAPACITY, GOAL, otherJug, type JugId, type State } from './rules';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const jugPad = { small: tapPadRaycast({ axis: DIMS.small.h + 0.4 }), big: tapPadRaycast({ axis: DIMS.big.h + 0.4 }) };
 
 // ---------------------------------------------------------------------------
 // Liquid: the inside of the jug, cut by a world-space water plane. Front faces are
@@ -391,7 +394,7 @@ export function Jug({ id, anim, state, selected, glow, disabled, oops, onClick }
               <cylinderGeometry args={[d.r + 0.015, d.r + 0.025, 0.025, 32]} />
             </mesh>
             {/* Big invisible hit area for phones. */}
-            <mesh position-y={d.h / 2} visible={false}>
+            <mesh position-y={d.h / 2} visible={false} raycast={jugPad[id]}>
               <cylinderGeometry args={[d.r + 0.25, d.r + 0.25, d.h + 0.4, 8]} />
             </mesh>
           </Clickable>

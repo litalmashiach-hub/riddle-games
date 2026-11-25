@@ -1,6 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
@@ -9,6 +9,9 @@ import { coinFaceTexture, vaultSfx } from './art';
 import { Balance, PIVOT_Y, SCALE_POS, panCentre, type Beam } from './Balance';
 import { COINS, MAX_WEIGHINGS, coinName, revealFake, type Know, type Move, type State, type Tilt, type Weighing } from './rules';
 import { DOOR_POS, TABLE_Y, TABLE_Z, Vault } from './Vault';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const coinPad = tapPadRaycast();
 
 export const MOVE_MS = 3000;
 /** Weighing timeline (ms after Weigh is pressed). */
@@ -372,7 +375,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <group ref={(g) => void (tilt.current[i] = g)}>
             <Clickable onClick={() => onCoin(i)} disabled={!canAct} hoverScale={1.12}>
               <mesh geometry={coinGeo} material={[edge, faces[i], faces[i]]} rotation-y={Math.PI / 2} castShadow receiveShadow />
-              <mesh visible={false}>
+              <mesh visible={false} raycast={coinPad}>
                 <cylinderGeometry args={[0.4, 0.4, 0.34, 10]} />
               </mesh>
             </Clickable>

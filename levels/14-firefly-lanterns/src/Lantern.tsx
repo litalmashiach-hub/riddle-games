@@ -1,10 +1,14 @@
-import { Clickable, useSettings } from '@riddle/fx';
+import { Clickable, useSettings, tapPadRaycast } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { glowTexture } from './glow';
 import { LANTERN_COLORS, padPos, type Glows } from './layout';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const lanternPad = tapPadRaycast();
+const noHit = () => {};
 
 /** Profile of a round paper lantern, turned on a lathe. */
 const LANTERN_PROFILE = [
@@ -165,13 +169,14 @@ export function Lantern({ cell, lit, delayMs, stomp, stompDelayMs, glows, sleepy
               <sphereGeometry args={[1, 8, 6]} />
               <meshBasicMaterial color={new THREE.Color('#fff6d8').multiplyScalar(4)} toneMapped={false} />
             </mesh>
-            <sprite ref={halo} position-y={0.32} renderOrder={3}>
+            {/* The glow is light, not a body: a tap through it goes to whatever the player sees behind it. */}
+            <sprite ref={halo} position-y={0.32} renderOrder={3} raycast={noHit}>
               <spriteMaterial map={tex} color={color} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={0} />
             </sprite>
             {high && <pointLight ref={light} position-y={0.45} color={color} distance={3.2} decay={2} intensity={0} />}
           </group>
           {/* big invisible tap target */}
-          <mesh position-y={0.35} visible={false}>
+          <mesh position-y={0.35} visible={false} raycast={lanternPad}>
             <cylinderGeometry args={[0.8, 0.8, 0.9, 10]} />
           </mesh>
         </group>
