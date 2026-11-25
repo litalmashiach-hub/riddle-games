@@ -41,7 +41,10 @@ export function App() {
     setAbout(show);
   }, []);
 
-  /** Clears the stars, on the device and on screen. The sound and graphics choices are kept apart and stay. */
+  /**
+   * Clears the stars, on the device and on screen, and with them the note that level 1's first-play guide was
+   * seen, so the guide shows again. The sound and graphics choices are kept apart and stay.
+   */
   const resetProgress = useCallback(() => {
     const empty: Progress = { stars: {} };
     saveProgress(empty);
