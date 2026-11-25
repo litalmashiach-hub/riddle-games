@@ -103,8 +103,6 @@ Listed today (the full account of the first run is in the project's report "real
 
 - Level 7, Jealous Couples: move 1, a tap on Mrs Coral picks Mr Teal, who stands in front of her.
   All sizes.
-- Level 11, Family Crossing: a tap on the guard picks Dad. Move 1 at 667 and 956; move 1 or 3 at 852,
-  where the aim point lies on the very edge of what takes the touch.
 - Level 12, Twelve Coins: first weighing, a tap on coin 3 sends coin 9. All sizes.
 - Level 18, Log Jam: move 3, the tap on the ring is lost to a log in front of it. All sizes.
 - Level 27, Timber Tangle: move 9, the tap on the ring is lost to the picked log itself. All sizes.
@@ -113,6 +111,9 @@ Level 2, Wolf, Goat and Cabbage, is no longer listed: its player taps the cabbag
 the goat, and wins at every size. The fault in the game stays: the goat's unseen tap sphere reaches to
 the middle of the cabbage on the left bank, so a tap there may pick the goat. That is for a fix in the
 level, not in this run.
+
+Level 11, Family Crossing, is no longer listed: pull request 55 makes a tap pick the character the
+player sees, and the level is won by taps at every size.
 
 ## Adding a level
 
