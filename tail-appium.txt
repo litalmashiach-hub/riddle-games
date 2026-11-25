@@ -1,0 +1,400 @@
+2026-11-25 21:14:44:218 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:44:218 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:44:721 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:44:721 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:44:885 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:44:885 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:45:400 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:45:400 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:45:622 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:45:622 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:46:132 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:46:132 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:46:322 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:46:322 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:46:826 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:46:826 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:47:005 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:47:006 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:47:508 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:47:508 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:47:724 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:47:725 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:48:228 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:48:228 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:48:405 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:48:406 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:48:909 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:48:909 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:49:085 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:49:086 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:49:591 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:49:592 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:49:773 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:49:773 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:50:276 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:50:276 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:50:479 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:50:480 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:50:984 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:50:984 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:51:150 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:51:150 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:51:654 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:51:654 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:51:815 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:51:815 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:52:318 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:52:318 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:52:507 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:52:508 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:53:012 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:53:012 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:53:171 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:53:171 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:53:672 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:53:672 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:53:840 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:53:840 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:54:343 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:54:343 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:54:568 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:54:568 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:55:079 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:55:080 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:55:259 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:55:260 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:55:762 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:55:763 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:55:956 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:55:956 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:56:459 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:56:459 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:56:631 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:56:632 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:57:135 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:57:135 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:57:329 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:57:329 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:57:830 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:57:830 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:57:979 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:57:979 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:58:491 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:58:491 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:58:666 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:58:667 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:59:175 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:59:176 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:14:59:443 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:14:59:445 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:14:59:963 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:14:59:965 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:00:227 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:00:227 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:00:729 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:00:729 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:00:920 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:00:920 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:01:423 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:01:423 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:01:596 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:01:596 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:02:099 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:02:099 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:02:261 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:02:261 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:02:767 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:02:767 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:02:939 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:02:939 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:03:441 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:03:442 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:03:609 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:03:609 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:04:110 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:04:110 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:04:293 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:04:293 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:04:796 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:04:796 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:04:973 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:04:973 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:05:477 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:05:477 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:05:691 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:05:691 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:06:195 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:06:196 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:06:404 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:06:404 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:06:910 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:06:911 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:07:201 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:07:202 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:07:721 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:07:721 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:07:986 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:07:986 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:08:489 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:08:489 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:08:683 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:08:684 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:09:187 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:09:188 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:09:402 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:09:403 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:09:927 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:09:928 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:10:146 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:10:146 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:10:649 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:10:649 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:10:855 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:10:856 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:11:363 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:11:363 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:11:594 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:11:594 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:12:098 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:12:098 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:12:381 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:12:382 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:12:885 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:12:886 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:13:091 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:13:091 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:13:593 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:13:594 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:13:759 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:13:759 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:14:262 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:14:263 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:14:494 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:14:494 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:14:998 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:14:998 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:15:216 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:15:216 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:15:719 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:15:719 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:15:962 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:15:962 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:16:465 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:16:465 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:16:662 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:16:662 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:17:186 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:17:187 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:17:455 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:17:456 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:17:957 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:17:957 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:18:124 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:18:124 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:18:626 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:18:627 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:18:795 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:18:795 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:19:298 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:19:298 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:19:483 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:19:484 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:19:986 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:19:986 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:20:175 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:20:175 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:20:677 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:20:677 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:20:812 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:20:813 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:21:317 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:21:317 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:21:516 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:21:516 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:22:017 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:22:018 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:22:230 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:22:230 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:22:733 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:22:733 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:22:882 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:22:882 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:23:386 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:23:386 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:23:548 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:23:548 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:24:053 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:24:054 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:24:250 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:24:251 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:24:754 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:24:754 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:24:926 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:24:926 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:25:429 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:25:429 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:25:613 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:25:613 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:26:116 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:26:116 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:26:311 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:26:312 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:26:813 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:26:814 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:27:007 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:27:007 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:27:510 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:27:510 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:27:727 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:27:736 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:28:239 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:28:239 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:28:491 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:28:491 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:28:994 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:28:995 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:29:291 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:29:292 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:29:794 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:29:794 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:30:009 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:30:010 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:30:512 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:30:512 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:30:724 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:30:724 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:31:229 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:31:229 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:31:541 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:31:541 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:32:045 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:32:045 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:32:281 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:32:281 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:32:784 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:32:785 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:32:937 [dd68c7d1][XCUITestDriver@1949] Error received while executing atom: The atom execution has timed out after 120000ms
+2026-11-25 21:15:32:939 [dd68c7d1][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:12482', page '1', target 'page-8' (id: 20): 'Runtime.evaluate'
+2026-11-25 21:15:33:023 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:33:024 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:33:527 [dd68c7d1][XCUITestDriver@1949] Matched '/alert/text' to command name 'getAlertText'
+2026-11-25 21:15:33:527 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /alert/text] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/alert/text] with no body
+2026-11-25 21:15:33:752 [dd68c7d1][XCUITestDriver@1949] Got response with status 404: {"value":{"error":"no such alert","message":"An attempt was made to operate on a modal dialog when one was not open","traceback":""},"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:33:752 [dd68c7d1][W3C] Matched W3C error code 'no such alert' to NoSuchAlertError
+2026-11-25 21:15:33:972 [dd68c7d1][XCUITestDriver@1949] Encountered internal error running command: TimeoutError: The remote Safari debugger did not respond to the requested command after 120003.365ms. It appears that JavaScript execution is blocked, which could be caused by either a modal dialog obstructing the current page, or a JavaScript routine monopolizing the event loop. You may also consider adjusting the timeout by setting the 'webviewAtomWaitTimeout' driver capability.
+    at XCUITestDriver.generateAtomTimeoutError (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/web.js:446:12)
+    at async handlePromiseError (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/web.js:328:49)
+    at async XCUITestDriver.waitForAtom (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/web.js:361:16)
+    at async XCUITestDriver.executeAtom (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/web.js:206:12)
+    at async AtomsBackend.executeScript (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/web-execution/atoms-backend.js:304:24)
+    at async XCUITestDriver.execute (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/execute.js:17:16)
+    at async runCommandPromise (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:120:24)
+2026-11-25 21:15:33:980 [dd68c7d1][HTTP] <-- POST /session/dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347/execute/sync 408 121051 ms - 2061
+2026-11-25 21:15:33:993 [dd68c7d1][HTTP] --> POST /session/dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347/execute/sync {"script":"mobile: queryAppState","args":[{"bundleId":"com.example.riddlegames"}]}
+2026-11-25 21:15:33:995 [dd68c7d1][XCUITestDriver@1949] Calling AppiumDriver.execute() with args: ["mobile: queryAppState",[{"bundleId":"com.example.riddlegames"}],"dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347"]
+2026-11-25 21:15:33:996 [dd68c7d1][XCUITestDriver@1949] Executing command 'execute'
+2026-11-25 21:15:34:018 [dd68c7d1][XCUITestDriver@1949] Proxying [POST /wda/apps/state] to [POST http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/wda/apps/state] with body: {"bundleId":"com.example.riddlegames"}
+2026-11-25 21:15:34:024 [dd68c7d1][XCUITestDriver@1949] Got response with status 200: {"value":4,"sessionId":"AA177639-7110-4288-B1BA-CA017E38388E"}
+2026-11-25 21:15:34:024 [dd68c7d1][XCUITestDriver@1949] Responding to client with driver.execute() result: 4
+2026-11-25 21:15:34:025 [dd68c7d1][HTTP] <-- POST /session/dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347/execute/sync 200 31 ms - 11
+2026-11-25 21:15:34:038 [dd68c7d1][HTTP] --> POST /session/dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347/execute/sync {"script":"mobile: getContexts","args":[{"waitForWebviewMs":20000}]}
+2026-11-25 21:15:34:039 [dd68c7d1][XCUITestDriver@1949] Calling AppiumDriver.execute() with args: ["mobile: getContexts",[{"waitForWebviewMs":20000}],"dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347"]
+2026-11-25 21:15:34:039 [dd68c7d1][XCUITestDriver@1949] Executing command 'execute'
+2026-11-25 21:15:34:041 [dd68c7d1][XCUITestDriver@1949] Getting list of available contexts
+2026-11-25 21:15:34:041 [dd68c7d1][XCUITestDriver@1949] Retrieving contexts and views
+2026-11-25 21:15:34:041 [dd68c7d1][XCUITestDriver@1949] Selecting by url: false
+2026-11-25 21:15:34:043 [dd68c7d1][XCUITestDriver@1949] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger] Selecting application
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger] Current applications available:
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]     Application: "PID:12482"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         id: "PID:12482"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         isProxy: false
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         name: "App"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         bundleId: "process-App"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         hostId: undefined
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         isActive: true
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         pageArray:
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]           - id: 1
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]             title: ""
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]             url: "about:blank"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]             isKey: true
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]     Application: "PID:11544"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         id: "PID:11544"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         isProxy: false
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         name: "fitcored"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         bundleId: "com.apple.fitcored"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         hostId: undefined
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         isActive: false
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 21:15:34:043 [dd68c7d1][RemoteDebugger]     Application: "PID:11393"
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger]         id: "PID:11393"
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger]         isProxy: false
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger]         name: "PromotedContentJetService"
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger]         bundleId: "process-PromotedContentJetService"
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger]         hostId: undefined
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger]         isActive: false
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger] Returning all apps because the list of matching bundle identifiers includes a wildcard
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger] Trying out the possible app ids: PID:12482, PID:11544, PID:11393 (try #1 of 20)
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger] Attempting app 'PID:12482'
+2026-11-25 21:15:34:044 [dd68c7d1][RemoteDebugger] Sending '_rpc_forwardGetListing:' message to app 'PID:12482' (id: 22): 'connectToApp'
+2026-11-25 21:15:34:104 [dd68c7d1][RemoteDebugger] Received response from send (id: 22): '["PID:12482",{"1":{"WIROverrideNameKey":"","WIRConnectionIdentifierKey":"d0fb8e2c-47af-4010-b183-751c2507bd6c","WIRTypeKey":"WIRTypeWebPage","WIRPageIdentifierKey":1,"WIRTitleKey":"","WIRURLKey":"abo…'
+2026-11-25 21:15:34:104 [dd68c7d1][RemoteDebugger] Received page change notice for app 'PID:12482' but the listing has not changed. Ignoring.
+2026-11-25 21:15:34:104 [dd68c7d1][RemoteDebugger] Sending to Web Inspector took 60ms
+2026-11-25 21:15:34:105 [dd68c7d1][RemoteDebugger] Current applications available:
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]     Application: "PID:12482"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         id: "PID:12482"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         isProxy: false
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         name: "App"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         bundleId: "process-App"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         hostId: undefined
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         isActive: true
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         pageArray:
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]           - id: 1
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]             title: ""
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]             url: "about:blank"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]             isKey: true
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]     Application: "PID:11544"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         id: "PID:11544"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         isProxy: false
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         name: "fitcored"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         bundleId: "com.apple.fitcored"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         hostId: undefined
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         isActive: false
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 21:15:34:106 [dd68c7d1][RemoteDebugger]     Application: "PID:11393"
+2026-11-25 21:15:34:109 [dd68c7d1][RemoteDebugger]         id: "PID:11393"
+2026-11-25 21:15:34:109 [dd68c7d1][RemoteDebugger]         isProxy: false
+2026-11-25 21:15:34:109 [dd68c7d1][RemoteDebugger]         name: "PromotedContentJetService"
+2026-11-25 21:15:34:109 [dd68c7d1][RemoteDebugger]         bundleId: "process-PromotedContentJetService"
+2026-11-25 21:15:34:111 [dd68c7d1][RemoteDebugger]         hostId: undefined
+2026-11-25 21:15:34:111 [dd68c7d1][RemoteDebugger]         isActive: false
+2026-11-25 21:15:34:111 [dd68c7d1][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 21:15:34:111 [dd68c7d1][RemoteDebugger] Finally selecting app PID:12482
+2026-11-25 21:15:34:111 [dd68c7d1][RemoteDebugger] Selected app after 68ms
+2026-11-25 21:15:34:111 [dd68c7d1][XCUITestDriver@1949] Found webview context after 71ms
+2026-11-25 21:15:34:112 [dd68c7d1][XCUITestDriver@1949] Responding to client with driver.execute() result: [{"id":"NATIVE_APP"},{"id":"WEBVIEW_12482.1","title":"","url":"about:blank","bundleId":"process-App"}]
+2026-11-25 21:15:34:116 [dd68c7d1][HTTP] <-- POST /session/dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347/execute/sync 200 76 ms - 112
+2026-11-25 21:15:34:248 [dd68c7d1][HTTP] --> GET /session/dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347/screenshot 
+2026-11-25 21:15:34:251 [dd68c7d1][XCUITestDriver@1949] Calling AppiumDriver.getScreenshot() with args: ["dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347"]
+2026-11-25 21:15:34:251 [dd68c7d1][XCUITestDriver@1949] Executing command 'getScreenshot'
+2026-11-25 21:15:34:251 [dd68c7d1][XCUITestDriver@1949] Taking screenshot with WDA
+2026-11-25 21:15:34:275 [dd68c7d1][XCUITestDriver@1949] Matched '/screenshot' to command name 'getScreenshot'
+2026-11-25 21:15:34:275 [dd68c7d1][XCUITestDriver@1949] Proxying [GET /screenshot] to [GET http://127.0.0.1:8100/session/AA177639-7110-4288-B1BA-CA017E38388E/screenshot] with no body
+2026-11-25 21:15:35:715 [dd68c7d1][XCUITestDriver@1949] Got response with status 200: {"value":"iVBORw0KGgoAAAANSUhEUgAACBAAAArACAIAAACcHMoSAAAAAXNSR0IArs4c6QAAAHplWElmTU0AKgAAAAgAAwEOAAIAAAALAAAAMgESAAMAAAABAAEAAIdpAAQAAAABAAAAPgAAAABTY3JlZW5zaG90AAAAA5KGAAcAAAASAAAAaKACAAQAAAABAAAIEKADAAQAAAABAAAKwAAAAABBU0NJSQAAAFNjcmVlbnNob3QUc7FtAAACo2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNi4wLjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDxkYzpkZXNjcmlwdGlvbj4KICAgICAgICAgICAgPHJkZjpBbHQ+CiAgICAgICAgICAgICAgIDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+U2NyZWVuc2hvdDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpBbHQ+CiAgICAgICAgIDwvZGM6ZGVzY3JpcHRpb24+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgI…
+2026-11-25 21:15:35:721 [dd68c7d1][XCUITestDriver@1949] Responding to client with driver.getScreenshot() result: "iVBORw0KGgoAAAANSUhEUgAACBAAAArACAIAAACcHMoSAAAAAXNSR0IArs4c6QAAAHplWElmTU0AKgAAAAgAAwEOAAIAAAALAAAAMgESAAMAAAABAAEAAIdpAAQAAAABAAAAPgAAAABTY3JlZW5zaG90AAAAA5KGAAcAAAASAAAAaKACAAQAAAABAAAIEKADAAQAAAABAAAKwAAAAABBU0NJSQAAAFNjcmVlbnNob3QUc7FtAAACo2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNi4wLjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDxkYzpkZXNjcmlwdGlvbj4KICAgICAgICAgICAgPHJkZjpBbHQ+CiAgICAgICAgICAgICAgIDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+U2NyZWVuc2hvdDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpBbHQ+CiAgICAgICAgIDwvZGM6ZGVzY3JpcHRpb24+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgICAgIDxleG…
+2026-11-25 21:15:35:727 [dd68c7d1][HTTP] <-- GET /session/dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347/screenshot 200 1478 ms - 106484
+2026-11-25 22:15:35:765 [dd68c7d1][XCUITestDriver@1949] Shutting down because we waited 3600 seconds for a command
+2026-11-25 22:15:35:777 [dd68c7d1][AppiumDriver@8107] Ending session, cause was 'New Command Timeout of 3600 seconds expired. Try customizing the timeout using the 'newCommandTimeout' desired capability'
+2026-11-25 22:15:35:778 [dd68c7d1][AppiumDriver@8107] Removing session 'dd68c7d1-5c22-49bc-a9ad-7b1e2f46d347' from our master session list
+2026-11-25 22:15:35:785 [dd68c7d1][BaseDriver] Unsubscribing 1949f801-eb29-4c60-b715-600e2f99d3e7 from topic 'xcuitest:sessionUdidClaimed'
+2026-11-25 22:15:35:793 [dd68c7d1][XCUITestDriver@1949] Not clearing log files. Use `clearSystemFiles` capability to turn on.
+2026-11-25 22:15:35:795 [dd68c7d1][XCUITestDriver@1949] Releasing connections for 2A020491-3EBC-4783-8622-F8314CC00294 device on any port number
+2026-11-25 22:15:35:795 [dd68c7d1][XCUITestDriver@1949] Found cached connections to release: ["2A020491-3EBC-4783-8622-F8314CC00294:8100","2A020491-3EBC-4783-8622-F8314CC00294:9100"]
+2026-11-25 22:15:35:795 [dd68c7d1][XCUITestDriver@1949] Cached connections count: 0
+2026-11-25 22:15:35:796 [dd68c7d1][XCUITestDriver@1949] Found a remote debugger session. Removing...
+2026-11-25 22:15:35:799 [dd68c7d1][RemoteDebugger] Disconnecting from remote debugger
+2026-11-25 22:15:35:801 [dd68c7d1][RemoteDebugger] Cleaning up listeners

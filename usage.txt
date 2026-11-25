@@ -1,0 +1,3423 @@
+== 21:01:42 swapouts 0 (+0) load { 435.30 190.69 82.57 }
+Pages free:                                     4111.
+Pages stored in compressor:                   344725.
+Pages occupied by compressor:                 114172.
+PID   COMMAND         MEM  CMPRS
+2004  SimMetalHost    268M 9280K
+2000  SimRenderServer 258M 39M  
+490   mediaanalysisd  208M 205M 
+2012  SpringBoard     105M 51M  
+1008  Runner.Worker   103M 79M  
+440   Spotlight       78M  72M  
+994   Runner.Listener 76M  56M  
+160   WindowServer    61M  37M  
+== 21:02:08 swapouts 0 (+0) load { 490.99 223.43 97.51 }
+Pages free:                                     4023.
+Pages stored in compressor:                   365840.
+Pages occupied by compressor:                 125135.
+PID   COMMAND         MEM  CMPRS
+2004  SimMetalHost    258M 12M  
+2000  SimRenderServer 247M 40M  
+4626  node            215M 0B   
+490   mediaanalysisd  208M 205M 
+4171  node            129M 4832K
+2012  SpringBoard     106M 59M  
+1008  Runner.Worker   103M 77M  
+440   Spotlight       78M  71M  
+== 21:03:33 swapouts 0 (+0) load { 417.07 261.79 124.56 }
+Pages free:                                     3708.
+Pages stored in compressor:                   279101.
+Pages occupied by compressor:                  91933.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    258M 11M  
+5422  SimRenderServer 255M 32M  
+490   mediaanalysisd  208M 205M 
+4171  node            105M 66M  
+1008  Runner.Worker   103M 83M  
+5520  SpringBoard     100M 59M  
+160   WindowServer    86M  38M  
+4626  node            85M  48M  
+== 21:04:08 swapouts 0 (+0) load { 324.11 256.00 127.33 }
+Pages free:                                     3825.
+Pages stored in compressor:                   335431.
+Pages occupied by compressor:                 115035.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    258M 13M  
+5422  SimRenderServer 250M 34M  
+490   mediaanalysisd  208M 204M 
+4171  node            107M 57M  
+1008  Runner.Worker   103M 91M  
+5520  SpringBoard     98M  60M  
+4626  node            86M  59M  
+440   Spotlight       78M  75M  
+== 21:04:41 swapouts 0 (+0) load { 195.69 231.74 123.69 }
+Pages free:                                     3943.
+Pages stored in compressor:                   363715.
+Pages occupied by compressor:                 124785.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    258M 17M  
+5422  SimRenderServer 248M 35M  
+490   mediaanalysisd  208M 206M 
+4171  node            108M 68M  
+1008  Runner.Worker   103M 93M  
+5520  SpringBoard     98M  79M  
+4626  node            87M  59M  
+440   Spotlight       78M  71M  
+== 21:05:02 swapouts 0 (+0) load { 166.61 222.41 122.83 }
+Pages free:                                     4301.
+Pages stored in compressor:                   381722.
+Pages occupied by compressor:                 133193.
+PID   COMMAND         MEM  CMPRS
+7264  clang           276M 28M  
+5440  SimMetalHost    258M 17M  
+5422  SimRenderServer 248M 38M  
+490   mediaanalysisd  208M 205M 
+7675  clang           144M 0B   
+6230  SWBBuildService 110M 37M  
+4171  node            108M 70M  
+1008  Runner.Worker   103M 93M  
+== 21:05:23 swapouts 0 (+0) load { 167.48 218.98 123.91 }
+Pages free:                                     3849.
+Pages stored in compressor:                   365186.
+Pages occupied by compressor:                 126618.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    258M 17M  
+5422  SimRenderServer 248M 35M  
+490   mediaanalysisd  208M 205M 
+7752  clang           127M 0B   
+6230  SWBBuildService 110M 40M  
+4171  node            108M 67M  
+1008  Runner.Worker   103M 92M  
+5520  SpringBoard     98M  71M  
+== 21:05:44 swapouts 0 (+0) load { 181.35 218.71 126.02 }
+Pages free:                                    13238.
+Pages stored in compressor:                   377915.
+Pages occupied by compressor:                 131100.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    258M 17M  
+5422  SimRenderServer 248M 35M  
+490   mediaanalysisd  208M 205M 
+8951  clang           148M 0B   
+6230  SWBBuildService 128M 83M  
+4171  node            109M 67M  
+1008  Runner.Worker   103M 88M  
+5520  SpringBoard     98M  72M  
+== 21:06:05 swapouts 0 (+0) load { 212.36 223.35 129.84 }
+Pages free:                                    17290.
+Pages stored in compressor:                   370164.
+Pages occupied by compressor:                 129346.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    258M 17M  
+5422  SimRenderServer 248M 35M  
+490   mediaanalysisd  208M 205M 
+6230  SWBBuildService 128M 80M  
+9523  clang           126M 0B   
+4171  node            109M 65M  
+1008  Runner.Worker   103M 88M  
+5520  SpringBoard     98M  71M  
+== 21:06:26 swapouts 0 (+0) load { 220.11 224.69 132.51 }
+Pages free:                                    12729.
+Pages stored in compressor:                   363216.
+Pages occupied by compressor:                 127113.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    258M 17M  
+5422  SimRenderServer 248M 35M  
+490   mediaanalysisd  208M 204M 
+9970  clang           185M 0B   
+6230  SWBBuildService 137M 38M  
+4171  node            109M 63M  
+1008  Runner.Worker   103M 88M  
+5520  SpringBoard     98M  71M  
+== 21:06:46 swapouts 0 (+0) load { 225.68 225.18 135.32 }
+Pages free:                                     3727.
+Pages stored in compressor:                   341219.
+Pages occupied by compressor:                 123533.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    259M 11M  
+5422  SimRenderServer 248M 36M  
+6230  SWBBuildService 141M 69M  
+4171  node            110M 65M  
+1008  Runner.Worker   103M 90M  
+5520  SpringBoard     99M  52M  
+4626  node            90M  63M  
+6110  xcodebuild      86M  49M  
+== 21:07:16 swapouts 0 (+0) load { 244.39 229.67 139.55 }
+Pages free:                                     3967.
+Pages stored in compressor:                   367812.
+Pages occupied by compressor:                 134186.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    260M 12M  
+5422  SimRenderServer 248M 34M  
+6230  SWBBuildService 141M 140M 
+6110  xcodebuild      117M 55M  
+4171  node            110M 70M  
+1008  Runner.Worker   103M 96M  
+5520  SpringBoard     99M  50M  
+4626  node            91M  63M  
+== 21:07:38 swapouts 0 (+0) load { 288.24 240.79 146.14 }
+Pages free:                                     3677.
+Pages stored in compressor:                   387575.
+Pages occupied by compressor:                 142387.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    260M 16M  
+5422  SimRenderServer 248M 36M  
+6230  SWBBuildService 141M 137M 
+6110  xcodebuild      118M 81M  
+4171  node            111M 74M  
+1008  Runner.Worker   103M 90M  
+5520  SpringBoard     99M  77M  
+4626  node            92M  64M  
+== 21:08:02 swapouts 0 (+0) load { 347.79 258.49 155.26 }
+Pages free:                                     3944.
+Pages stored in compressor:                   403118.
+Pages occupied by compressor:                 143062.
+PID   COMMAND         MEM  CMPRS
+5440  SimMetalHost    270M 16M  
+5422  SimRenderServer 242M 33M  
+5520  SpringBoard     169M 56M  
+6230  SWBBuildService 141M 140M 
+6110  xcodebuild      118M 98M  
+4171  node            111M 74M  
+1008  Runner.Worker   103M 94M  
+4626  node            92M  64M  
+== 21:08:31 swapouts 0 (+0) load { 423.12 283.03 167.07 }
+Pages free:                                     3885.
+Pages stored in compressor:                   413126.
+Pages occupied by compressor:                 148641.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 271M 34M  
+5440  SimMetalHost    270M 18M  
+5520  SpringBoard     175M 111M 
+6230  SWBBuildService 141M 140M 
+6110  xcodebuild      118M 103M 
+4171  node            112M 32M  
+4626  node            104M 47M  
+1008  Runner.Worker   103M 95M  
+== 21:08:52 swapouts 0 (+0) load { 312.43 269.32 165.55 }
+Pages free:                                     3847.
+Pages stored in compressor:                   420368.
+Pages occupied by compressor:                 154218.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 270M 34M  
+5440  SimMetalHost    261M 17M  
+5520  SpringBoard     175M 135M 
+6230  SWBBuildService 141M 139M 
+6110  xcodebuild      118M 112M 
+4171  node            112M 39M  
+4626  node            104M 50M  
+1008  Runner.Worker   103M 85M  
+== 21:09:23 swapouts 0 (+0) load { 233.37 253.32 163.29 }
+Pages free:                                     3412.
+Pages stored in compressor:                   431431.
+Pages occupied by compressor:                 157210.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 35M  
+5440  SimMetalHost    265M 12M  
+5520  SpringBoard     175M 146M 
+6110  xcodebuild      118M 111M 
+4171  node            112M 101M 
+4626  node            105M 75M  
+6230  SWBBuildService 104M 103M 
+1008  Runner.Worker   103M 97M  
+== 21:09:44 swapouts 0 (+0) load { 197.02 243.47 161.83 }
+Pages free:                                     3838.
+Pages stored in compressor:                   427114.
+Pages occupied by compressor:                 156316.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 35M  
+5440  SimMetalHost    263M 11M  
+5520  SpringBoard     175M 151M 
+4171  node            108M 96M  
+6110  xcodebuild      106M 101M 
+1008  Runner.Worker   94M  88M  
+4626  node            82M  35M  
+994   Runner.Listener 73M  54M  
+== 21:10:06 swapouts 0 (+0) load { 194.66 239.77 162.39 }
+Pages free:                                     3911.
+Pages stored in compressor:                   426258.
+Pages occupied by compressor:                 156785.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 35M  
+5440  SimMetalHost    263M 13M  
+5520  SpringBoard     175M 145M 
+4171  node            108M 96M  
+6110  xcodebuild      106M 101M 
+1008  Runner.Worker   94M  85M  
+4626  node            82M  35M  
+994   Runner.Listener 73M  54M  
+== 21:10:27 swapouts 0 (+0) load { 162.56 228.54 160.58 }
+Pages free:                                     4119.
+Pages stored in compressor:                   426822.
+Pages occupied by compressor:                 157637.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    263M 17M  
+5520  SpringBoard     175M 148M 
+4171  node            108M 96M  
+6110  xcodebuild      106M 101M 
+1008  Runner.Worker   94M  85M  
+4626  node            82M  34M  
+160   WindowServer    78M  31M  
+== 21:10:48 swapouts 0 (+0) load { 138.12 219.00 158.76 }
+Pages free:                                     3901.
+Pages stored in compressor:                   432627.
+Pages occupied by compressor:                 160617.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    263M 17M  
+5520  SpringBoard     175M 145M 
+4171  node            108M 96M  
+6110  xcodebuild      106M 101M 
+1008  Runner.Worker   94M  86M  
+4626  node            83M  50M  
+994   Runner.Listener 74M  51M  
+== 21:11:08 swapouts 0 (+0) load { 143.30 215.25 158.83 }
+Pages free:                                     4283.
+Pages stored in compressor:                   428790.
+Pages occupied by compressor:                 160770.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    263M 17M  
+5520  SpringBoard     175M 146M 
+4171  node            108M 96M  
+6110  xcodebuild      106M 101M 
+1008  Runner.Worker   94M  86M  
+4626  node            83M  50M  
+994   Runner.Listener 73M  55M  
+== 21:11:29 swapouts 0 (+0) load { 153.35 212.94 159.31 }
+Pages free:                                     3806.
+Pages stored in compressor:                   434039.
+Pages occupied by compressor:                 162924.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 36M  
+5440  SimMetalHost    263M 17M  
+5520  SpringBoard     175M 149M 
+4171  node            108M 96M  
+6110  xcodebuild      106M 102M 
+1008  Runner.Worker   94M  86M  
+4626  node            83M  50M  
+994   Runner.Listener 73M  61M  
+== 21:11:49 swapouts 0 (+0) load { 154.26 209.02 159.14 }
+Pages free:                                     3818.
+Pages stored in compressor:                   433607.
+Pages occupied by compressor:                 162862.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 36M  
+5440  SimMetalHost    263M 18M  
+5520  SpringBoard     176M 132M 
+4171  node            109M 61M  
+6110  xcodebuild      107M 97M  
+1008  Runner.Worker   94M  85M  
+4626  node            83M  45M  
+994   Runner.Listener 74M  50M  
+== 21:12:10 swapouts 0 (+0) load { 164.61 207.76 159.84 }
+Pages free:                                     3854.
+Pages stored in compressor:                   425446.
+Pages occupied by compressor:                 160612.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 35M  
+5440  SimMetalHost    263M 16M  
+5520  SpringBoard     176M 129M 
+4171  node            109M 59M  
+6110  xcodebuild      108M 96M  
+1008  Runner.Worker   94M  86M  
+4626  node            83M  48M  
+440   Spotlight       75M  33M  
+== 21:12:33 swapouts 0 (+0) load { 145.16 200.00 158.44 }
+Pages free:                                     4025.
+Pages stored in compressor:                   424440.
+Pages occupied by compressor:                 160938.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 34M  
+5440  SimMetalHost    264M 14M  
+5520  SpringBoard     176M 136M 
+4171  node            109M 67M  
+6110  xcodebuild      108M 97M  
+1008  Runner.Worker   94M  84M  
+4626  node            83M  52M  
+440   Spotlight       75M  36M  
+== 21:12:53 swapouts 0 (+0) load { 136.95 194.29 157.34 }
+Pages free:                                     4491.
+Pages stored in compressor:                   430620.
+Pages occupied by compressor:                 162284.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 36M  
+5440  SimMetalHost    264M 16M  
+5520  SpringBoard     176M 140M 
+4171  node            109M 65M  
+6110  xcodebuild      109M 97M  
+1008  Runner.Worker   94M  84M  
+4626  node            83M  51M  
+440   Spotlight       75M  54M  
+== 21:13:14 swapouts 0 (+0) load { 154.17 194.50 158.28 }
+Pages free:                                     3533.
+Pages stored in compressor:                   432496.
+Pages occupied by compressor:                 163117.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    264M 17M  
+5520  SpringBoard     176M 141M 
+6110  xcodebuild      109M 97M  
+4171  node            109M 64M  
+1008  Runner.Worker   96M  77M  
+4626  node            83M  51M  
+994   Runner.Listener 77M  51M  
+== 21:13:34 swapouts 0 (+0) load { 162.37 193.88 158.90 }
+Pages free:                                     4317.
+Pages stored in compressor:                   437178.
+Pages occupied by compressor:                 164450.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    264M 19M  
+5520  SpringBoard     176M 143M 
+549   mds_stores      115M 9008K
+6110  xcodebuild      110M 98M  
+4171  node            110M 57M  
+1008  Runner.Worker   96M  75M  
+4626  node            83M  44M  
+== 21:13:56 swapouts 0 (+0) load { 155.22 190.33 158.45 }
+Pages free:                                     3969.
+Pages stored in compressor:                   439181.
+Pages occupied by compressor:                 165079.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    264M 19M  
+5520  SpringBoard     176M 144M 
+6110  xcodebuild      110M 98M  
+4171  node            110M 55M  
+1008  Runner.Worker   96M  75M  
+4626  node            84M  45M  
+994   Runner.Listener 77M  49M  
+== 21:14:17 swapouts 0 (+0) load { 125.21 181.27 155.94 }
+Pages free:                                     4051.
+Pages stored in compressor:                   446428.
+Pages occupied by compressor:                 165093.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 292M 38M  
+5440   SimMetalHost    264M 17M  
+25112  mediaanalysisd  213M 172M 
+5520   SpringBoard     176M 144M 
+6110   xcodebuild      111M 98M  
+4171   node            110M 54M  
+1008   Runner.Worker   96M  77M  
+4626   node            84M  45M  
+== 21:14:38 swapouts 0 (+0) load { 133.65 178.80 155.79 }
+Pages free:                                     6306.
+Pages stored in compressor:                   462216.
+Pages occupied by compressor:                 179775.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 292M 38M  
+25112  mediaanalysisd  270M 228M 
+5440   SimMetalHost    264M 17M  
+5520   SpringBoard     176M 154M 
+6110   xcodebuild      112M 99M  
+4171   node            111M 57M  
+1008   Runner.Worker   96M  85M  
+4626   node            85M  47M  
+== 21:14:59 swapouts 0 (+0) load { 161.10 182.13 157.52 }
+Pages free:                                     4222.
+Pages stored in compressor:                   445738.
+Pages occupied by compressor:                 167872.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    264M 17M  
+5520  SpringBoard     176M 145M 
+6110  xcodebuild      112M 99M  
+4171  node            111M 58M  
+1008  Runner.Worker   96M  85M  
+4626  node            85M  46M  
+994   Runner.Listener 80M  48M  
+== 21:15:19 swapouts 0 (+0) load { 186.01 186.43 159.63 }
+Pages free:                                     8345.
+Pages stored in compressor:                   443333.
+Pages occupied by compressor:                 166875.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    264M 17M  
+5520  SpringBoard     176M 144M 
+6110  xcodebuild      112M 99M  
+4171  node            111M 55M  
+1008  Runner.Worker   96M  84M  
+4626  node            86M  45M  
+994   Runner.Listener 79M  48M  
+== 21:15:40 swapouts 0 (+0) load { 196.58 188.85 161.12 }
+Pages free:                                     6691.
+Pages stored in compressor:                   439527.
+Pages occupied by compressor:                 164680.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 17M  
+5520  SpringBoard     176M 144M 
+6110  xcodebuild      113M 99M  
+4171  node            112M 27M  
+1008  Runner.Worker   96M  70M  
+4626  node            87M  35M  
+549   mds_stores      82M  9360K
+== 21:16:01 swapouts 0 (+0) load { 202.18 190.62 162.40 }
+Pages free:                                     4286.
+Pages stored in compressor:                   442776.
+Pages occupied by compressor:                 165573.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 17M  
+5520  SpringBoard     176M 144M 
+6110  xcodebuild      113M 100M 
+4171  node            112M 27M  
+1008  Runner.Worker   96M  70M  
+4626  node            87M  33M  
+549   mds_stores      86M  9504K
+== 21:16:22 swapouts 0 (+0) load { 184.13 187.02 161.75 }
+Pages free:                                     3932.
+Pages stored in compressor:                   442222.
+Pages occupied by compressor:                 165421.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 17M  
+5520  SpringBoard     176M 144M 
+6110  xcodebuild      113M 100M 
+4171  node            112M 27M  
+1008  Runner.Worker   96M  70M  
+4626  node            87M  33M  
+994   Runner.Listener 80M  49M  
+== 21:16:42 swapouts 0 (+0) load { 177.37 185.43 161.77 }
+Pages free:                                     7814.
+Pages stored in compressor:                   443521.
+Pages occupied by compressor:                 165852.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 17M  
+5520  SpringBoard     176M 144M 
+6110  xcodebuild      113M 100M 
+4171  node            112M 27M  
+1008  Runner.Worker   96M  70M  
+4626  node            87M  32M  
+994   Runner.Listener 80M  50M  
+== 21:17:03 swapouts 0 (+0) load { 140.17 176.58 159.30 }
+Pages free:                                     4427.
+Pages stored in compressor:                   438778.
+Pages occupied by compressor:                 164794.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 17M  
+5520  SpringBoard     176M 143M 
+6110  xcodebuild      113M 100M 
+4171  node            112M 28M  
+1008  Runner.Worker   96M  70M  
+4626  node            87M  33M  
+994   Runner.Listener 80M  49M  
+== 21:17:23 swapouts 0 (+0) load { 129.30 171.79 157.98 }
+Pages free:                                     8539.
+Pages stored in compressor:                   447775.
+Pages occupied by compressor:                 167944.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 17M  
+5520  SpringBoard     176M 142M 
+6110  xcodebuild      113M 100M 
+4171  node            112M 29M  
+1008  Runner.Worker   96M  69M  
+4626  node            87M  33M  
+994   Runner.Listener 80M  49M  
+== 21:17:44 swapouts 0 (+0) load { 123.54 167.72 156.84 }
+Pages free:                                     5518.
+Pages stored in compressor:                   455905.
+Pages occupied by compressor:                 170968.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 144M 
+6110  xcodebuild      113M 102M 
+4171  node            112M 32M  
+1008  Runner.Worker   96M  68M  
+4626  node            87M  33M  
+994   Runner.Listener 80M  70M  
+== 21:18:04 swapouts 0 (+0) load { 110.09 161.88 155.01 }
+Pages free:                                     4182.
+Pages stored in compressor:                   461040.
+Pages occupied by compressor:                 173957.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 144M 
+6110  xcodebuild      113M 105M 
+4171  node            112M 93M  
+1008  Runner.Worker   96M  84M  
+4626  node            87M  50M  
+994   Runner.Listener 80M  59M  
+== 21:18:25 swapouts 0 (+0) load { 123.28 161.47 155.01 }
+Pages free:                                     4493.
+Pages stored in compressor:                   458322.
+Pages occupied by compressor:                 173351.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 147M 
+6110  xcodebuild      113M 106M 
+4171  node            112M 91M  
+1008  Runner.Worker   96M  84M  
+4626  node            87M  48M  
+994   Runner.Listener 80M  59M  
+== 21:18:45 swapouts 0 (+0) load { 115.30 156.98 153.54 }
+Pages free:                                     6142.
+Pages stored in compressor:                   459006.
+Pages occupied by compressor:                 173763.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 147M 
+6110  xcodebuild      113M 106M 
+4171  node            112M 93M  
+1008  Runner.Worker   96M  84M  
+4626  node            87M  47M  
+994   Runner.Listener 80M  59M  
+== 21:19:06 swapouts 0 (+0) load { 99.47 150.40 151.24 }
+Pages free:                                     4731.
+Pages stored in compressor:                   467133.
+Pages occupied by compressor:                 176805.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 148M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 95M  
+1008  Runner.Worker   96M  87M  
+4626  node            87M  50M  
+994   Runner.Listener 80M  59M  
+== 21:19:27 swapouts 0 (+0) load { 113.03 150.13 151.12 }
+Pages free:                                     4545.
+Pages stored in compressor:                   466031.
+Pages occupied by compressor:                 176739.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 95M  
+1008  Runner.Worker   96M  87M  
+4626  node            87M  49M  
+994   Runner.Listener 80M  58M  
+== 21:19:47 swapouts 0 (+0) load { 117.32 148.94 150.69 }
+Pages free:                                     3675.
+Pages stored in compressor:                   468075.
+Pages occupied by compressor:                 177336.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 36M  
+5440  SimMetalHost    264M 19M  
+5520  SpringBoard     176M 148M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 95M  
+1008  Runner.Worker   96M  88M  
+549   mds_stores      87M  9456K
+4626  node            87M  49M  
+== 21:20:08 swapouts 0 (+0) load { 103.19 143.67 148.75 }
+Pages free:                                     4084.
+Pages stored in compressor:                   461819.
+Pages occupied by compressor:                 175044.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 313M 38M  
+5440  SimMetalHost    264M 20M  
+5520  SpringBoard     176M 147M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 100M 
+1008  Runner.Worker   96M  84M  
+4626  node            87M  52M  
+994   Runner.Listener 80M  58M  
+== 21:20:29 swapouts 0 (+0) load { 75.93 134.03 145.13 }
+Pages free:                                     3917.
+Pages stored in compressor:                   468804.
+Pages occupied by compressor:                 177314.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 314M 35M  
+5440  SimMetalHost    264M 20M  
+5520  SpringBoard     176M 145M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 100M 
+1008  Runner.Worker   96M  84M  
+4626  node            88M  40M  
+5441  SimMetalHost    82M  35M  
+== 21:20:50 swapouts 0 (+0) load { 95.46 134.86 145.18 }
+Pages free:                                     3982.
+Pages stored in compressor:                   460018.
+Pages occupied by compressor:                 175427.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 35M  
+5440  SimMetalHost    264M 20M  
+5520  SpringBoard     176M 150M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 100M 
+1008  Runner.Worker   96M  89M  
+4626  node            88M  39M  
+994   Runner.Listener 80M  60M  
+== 21:21:11 swapouts 0 (+0) load { 79.99 128.66 142.71 }
+Pages free:                                     4114.
+Pages stored in compressor:                   468854.
+Pages occupied by compressor:                 177987.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 36M  
+5440  SimMetalHost    264M 20M  
+5520  SpringBoard     176M 146M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 100M 
+1008  Runner.Worker   96M  89M  
+4626  node            88M  54M  
+994   Runner.Listener 80M  60M  
+== 21:21:31 swapouts 0 (+0) load { 58.11 120.52 139.46 }
+Pages free:                                     3663.
+Pages stored in compressor:                   478070.
+Pages occupied by compressor:                 181100.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    264M 20M  
+5520  SpringBoard     176M 148M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 100M 
+1008  Runner.Worker   96M  89M  
+4626  node            88M  56M  
+994   Runner.Listener 80M  66M  
+== 21:21:52 swapouts 0 (+0) load { 51.65 115.19 137.12 }
+Pages free:                                     4246.
+Pages stored in compressor:                   477540.
+Pages occupied by compressor:                 181851.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 35M  
+5440  SimMetalHost    264M 20M  
+5520  SpringBoard     176M 141M 
+6110  xcodebuild      113M 108M 
+4171  node            112M 101M 
+1008  Runner.Worker   96M  90M  
+4626  node            88M  57M  
+994   Runner.Listener 80M  62M  
+== 21:22:12 swapouts 0 (+0) load { 50.25 110.91 135.08 }
+Pages free:                                     4322.
+Pages stored in compressor:                   484494.
+Pages occupied by compressor:                 184012.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    264M 20M  
+5520  SpringBoard     176M 151M 
+6110  xcodebuild      113M 109M 
+4171  node            112M 100M 
+1008  Runner.Worker   96M  89M  
+4626  node            88M  57M  
+994   Runner.Listener 80M  62M  
+== 21:22:33 swapouts 0 (+0) load { 46.14 106.16 132.82 }
+Pages free:                                     4283.
+Pages stored in compressor:                   489550.
+Pages occupied by compressor:                 184962.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 38M  
+5440  SimMetalHost    264M 20M  
+5520  SpringBoard     176M 160M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 100M 
+1008  Runner.Worker   96M  86M  
+4626  node            88M  57M  
+994   Runner.Listener 80M  77M  
+== 21:22:54 swapouts 0 (+0) load { 49.72 103.15 131.13 }
+Pages free:                                     3966.
+Pages stored in compressor:                   503427.
+Pages occupied by compressor:                 189671.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 292M 36M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 148M 
+6110  xcodebuild      113M 108M 
+4171  node            112M 102M 
+1008  Runner.Worker   96M  91M  
+4626  node            88M  60M  
+994   Runner.Listener 80M  64M  
+== 21:23:15 swapouts 0 (+0) load { 59.29 101.57 129.78 }
+Pages free:                                     3690.
+Pages stored in compressor:                   498310.
+Pages occupied by compressor:                 188272.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 316M 37M  
+5440  SimMetalHost    264M 20M  
+5520  SpringBoard     176M 138M 
+6110  xcodebuild      113M 107M 
+4171  node            112M 100M 
+1008  Runner.Worker   96M  89M  
+4626  node            88M  56M  
+994   Runner.Listener 80M  69M  
+== 21:23:36 swapouts 0 (+0) load { 46.69 96.03 127.14 }
+Pages free:                                     3667.
+Pages stored in compressor:                   506908.
+Pages occupied by compressor:                 190704.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 37M  
+5440   SimMetalHost    264M 20M  
+5520   SpringBoard     176M 159M 
+6110   xcodebuild      113M 106M 
+4171   node            112M 100M 
+1008   Runner.Worker   96M  88M  
+4626   node            88M  56M  
+54166  MobileCal       82M  49M  
+== 21:23:56 swapouts 944 (+944) load { 42.45 91.99 124.97 }
+Pages free:                                     3768.
+Pages stored in compressor:                   516326.
+Pages occupied by compressor:                 193473.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 38M  
+5440   SimMetalHost    264M 20M  
+5520   SpringBoard     176M 166M 
+6110   xcodebuild      111M 104M 
+4171   node            107M 93M  
+1008   Runner.Worker   96M  91M  
+4626   node            84M  60M  
+54166  MobileCal       83M  81M  
+== 21:24:17 swapouts 1488 (+544) load { 39.51 88.12 122.82 }
+Pages free:                                     3997.
+Pages stored in compressor:                   516501.
+Pages occupied by compressor:                 193278.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 32M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     176M 160M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  87M  
+4626   node            84M  55M  
+54166  MobileCal       83M  81M  
+== 21:24:38 swapouts 6172 (+4684) load { 41.47 85.42 121.04 }
+Pages free:                                     3863.
+Pages stored in compressor:                   524984.
+Pages occupied by compressor:                 191160.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    263M 18M  
+5520   SpringBoard     176M 172M 
+6110   xcodebuild      111M 108M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  89M  
+4626   node            85M  61M  
+54166  MobileCal       83M  81M  
+== 21:24:59 swapouts 6172 (+0) load { 39.96 82.17 119.05 }
+Pages free:                                     3829.
+Pages stored in compressor:                   524860.
+Pages occupied by compressor:                 191066.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 32M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     176M 155M 
+6110   xcodebuild      111M 108M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  89M  
+4626   node            85M  55M  
+54166  MobileCal       83M  81M  
+== 21:25:20 swapouts 6864 (+692) load { 32.35 77.73 116.60 }
+Pages free:                                     3967.
+Pages stored in compressor:                   528697.
+Pages occupied by compressor:                 192062.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 314M 32M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     176M 166M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  89M  
+4626   node            85M  61M  
+54166  MobileCal       83M  78M  
+== 21:25:40 swapouts 8856 (+1992) load { 27.85 73.14 113.82 }
+Pages free:                                     3792.
+Pages stored in compressor:                   523195.
+Pages occupied by compressor:                 188320.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 314M 31M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     177M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 90M  
+1008   Runner.Worker   94M  87M  
+4626   node            86M  60M  
+54166  MobileCal       83M  56M  
+== 21:26:01 swapouts 8856 (+0) load { 26.22 69.87 111.71 }
+Pages free:                                     3976.
+Pages stored in compressor:                   515754.
+Pages occupied by compressor:                 185674.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     177M 144M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 96M  
+1008   Runner.Worker   94M  86M  
+4626   node            87M  41M  
+54166  MobileCal       83M  67M  
+== 21:26:22 swapouts 8856 (+0) load { 19.78 65.57 109.19 }
+Pages free:                                    19433.
+Pages stored in compressor:                   527626.
+Pages occupied by compressor:                 189208.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     176M 151M 
+6110   xcodebuild      111M 108M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  86M  
+4626   node            87M  53M  
+54166  MobileCal       83M  74M  
+== 21:26:42 swapouts 8856 (+0) load { 18.57 62.40 107.05 }
+Pages free:                                     5069.
+Pages stored in compressor:                   526814.
+Pages occupied by compressor:                 189115.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 32M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     176M 150M 
+6110   xcodebuild      111M 108M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  84M  
+4626   node            87M  52M  
+54166  MobileCal       83M  81M  
+== 21:27:02 swapouts 8912 (+56) load { 15.87 58.98 104.78 }
+Pages free:                                     3911.
+Pages stored in compressor:                   532150.
+Pages occupied by compressor:                 190818.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 32M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     176M 153M 
+6110   xcodebuild      111M 107M 
+4171   node            107M 96M  
+1008   Runner.Worker   94M  86M  
+4626   node            87M  56M  
+54166  MobileCal       83M  76M  
+== 21:27:23 swapouts 8912 (+0) load { 15.22 56.11 102.69 }
+Pages free:                                     4098.
+Pages stored in compressor:                   524333.
+Pages occupied by compressor:                 188497.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 29M  
+5440   SimMetalHost    263M 17M  
+5520   SpringBoard     176M 167M 
+6110   xcodebuild      111M 107M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  89M  
+4626   node            87M  54M  
+54166  MobileCal       83M  76M  
+== 21:27:43 swapouts 9960 (+1048) load { 13.00 52.95 100.48 }
+Pages free:                                    13065.
+Pages stored in compressor:                   540392.
+Pages occupied by compressor:                 192459.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 32M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     176M 160M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  79M  
+4626   node            87M  56M  
+54166  MobileCal       83M  82M  
+== 21:28:04 swapouts 9960 (+0) load { 10.08 49.70 98.21 }
+Pages free:                                     4045.
+Pages stored in compressor:                   540321.
+Pages occupied by compressor:                 192219.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 32M  
+5440   SimMetalHost    263M 19M  
+5520   SpringBoard     176M 154M 
+6110   xcodebuild      111M 108M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  88M  
+4626   node            87M  56M  
+54166  MobileCal       83M  76M  
+== 21:28:24 swapouts 10436 (+476) load { 7.87 46.62 95.98 }
+Pages free:                                     4366.
+Pages stored in compressor:                   532436.
+Pages occupied by compressor:                 189461.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 153M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  87M  
+4626   node            87M  54M  
+54166  MobileCal       83M  76M  
+== 21:28:45 swapouts 10436 (+0) load { 6.06 43.70 93.78 }
+Pages free:                                     4195.
+Pages stored in compressor:                   526994.
+Pages occupied by compressor:                 187617.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  87M  
+4626   node            87M  53M  
+54166  MobileCal       83M  76M  
+== 21:29:05 swapouts 10436 (+0) load { 5.06 41.03 91.66 }
+Pages free:                                     4454.
+Pages stored in compressor:                   521815.
+Pages occupied by compressor:                 185747.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  86M  
+4626   node            87M  52M  
+54166  MobileCal       83M  76M  
+== 21:29:26 swapouts 10436 (+0) load { 4.23 38.52 89.58 }
+Pages free:                                     3629.
+Pages stored in compressor:                   520257.
+Pages occupied by compressor:                 185308.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  86M  
+4626   node            87M  51M  
+54166  MobileCal       83M  76M  
+== 21:29:47 swapouts 10436 (+0) load { 5.52 36.14 87.25 }
+Pages free:                                     4568.
+Pages stored in compressor:                   518830.
+Pages occupied by compressor:                 184780.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  86M  
+4626   node            87M  50M  
+54166  MobileCal       83M  76M  
+== 21:30:07 swapouts 10436 (+0) load { 13.68 35.98 86.00 }
+Pages free:                                     3887.
+Pages stored in compressor:                   514411.
+Pages occupied by compressor:                 183284.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  34M  
+54166  MobileCal       83M  76M  
+== 21:30:28 swapouts 10436 (+0) load { 10.61 33.84 84.07 }
+Pages free:                                     3918.
+Pages stored in compressor:                   513016.
+Pages occupied by compressor:                 182808.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  32M  
+54166  MobileCal       83M  76M  
+== 21:30:48 swapouts 10436 (+0) load { 8.81 31.94 82.22 }
+Pages free:                                     4621.
+Pages stored in compressor:                   511920.
+Pages occupied by compressor:                 182434.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  32M  
+54166  MobileCal       83M  76M  
+== 21:31:09 swapouts 10436 (+0) load { 9.45 30.57 80.56 }
+Pages free:                                     4646.
+Pages stored in compressor:                   511757.
+Pages occupied by compressor:                 182332.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  32M  
+54166  MobileCal       83M  76M  
+== 21:31:29 swapouts 10436 (+0) load { 10.69 29.41 78.98 }
+Pages free:                                     4073.
+Pages stored in compressor:                   512278.
+Pages occupied by compressor:                 182527.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  31M  
+54166  MobileCal       83M  76M  
+== 21:31:50 swapouts 10436 (+0) load { 10.68 28.25 77.42 }
+Pages free:                                     4241.
+Pages stored in compressor:                   511822.
+Pages occupied by compressor:                 182444.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  79M  
+4626   node            86M  31M  
+54166  MobileCal       83M  76M  
+== 21:32:10 swapouts 10436 (+0) load { 10.97 27.25 75.92 }
+Pages free:                                     4584.
+Pages stored in compressor:                   514556.
+Pages occupied by compressor:                 183429.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  79M  
+4626   node            86M  31M  
+54166  MobileCal       83M  80M  
+== 21:32:31 swapouts 10436 (+0) load { 9.23 25.80 74.27 }
+Pages free:                                     4844.
+Pages stored in compressor:                   512694.
+Pages occupied by compressor:                 182869.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  77M  
+4626   node            86M  30M  
+54166  MobileCal       83M  80M  
+== 21:32:51 swapouts 10436 (+0) load { 9.28 24.80 72.78 }
+Pages free:                                     4223.
+Pages stored in compressor:                   512254.
+Pages occupied by compressor:                 182710.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    263M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  77M  
+4626   node            86M  30M  
+54166  MobileCal       83M  80M  
+== 21:33:12 swapouts 10436 (+0) load { 9.02 23.76 71.30 }
+Pages free:                                     4219.
+Pages stored in compressor:                   521271.
+Pages occupied by compressor:                 185352.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 32M  
+5440  SimMetalHost    263M 20M  
+5520  SpringBoard     176M 152M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  77M  
+4626  node            86M  34M  
+994   Runner.Listener 83M  48M  
+== 21:33:32 swapouts 10436 (+0) load { 8.36 22.66 69.80 }
+Pages free:                                     4211.
+Pages stored in compressor:                   518630.
+Pages occupied by compressor:                 184611.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 32M  
+5440  SimMetalHost    263M 20M  
+5520  SpringBoard     176M 152M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  75M  
+4626  node            86M  32M  
+994   Runner.Listener 83M  48M  
+== 21:33:53 swapouts 10436 (+0) load { 11.88 22.54 68.66 }
+Pages free:                                     4119.
+Pages stored in compressor:                   518186.
+Pages occupied by compressor:                 184712.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  76M  
+4626  node            86M  33M  
+994   Runner.Listener 84M  49M  
+== 21:34:13 swapouts 10436 (+0) load { 14.06 22.30 67.50 }
+Pages free:                                     4807.
+Pages stored in compressor:                   516245.
+Pages occupied by compressor:                 184203.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  77M  
+4626  node            86M  32M  
+994   Runner.Listener 83M  49M  
+== 21:34:33 swapouts 10436 (+0) load { 10.71 21.00 65.98 }
+Pages free:                                     4539.
+Pages stored in compressor:                   516405.
+Pages occupied by compressor:                 184270.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  80M  
+4626  node            86M  31M  
+994   Runner.Listener 84M  48M  
+== 21:34:54 swapouts 10436 (+0) load { 10.56 20.35 64.71 }
+Pages free:                                     4361.
+Pages stored in compressor:                   515435.
+Pages occupied by compressor:                 184008.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  81M  
+4626  node            86M  30M  
+994   Runner.Listener 84M  47M  
+== 21:35:14 swapouts 10436 (+0) load { 12.36 20.20 63.63 }
+Pages free:                                     4416.
+Pages stored in compressor:                   518143.
+Pages occupied by compressor:                 184865.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  82M  
+4626  node            86M  32M  
+994   Runner.Listener 84M  49M  
+== 21:35:35 swapouts 10436 (+0) load { 9.53 19.05 62.21 }
+Pages free:                                     3655.
+Pages stored in compressor:                   516258.
+Pages occupied by compressor:                 184296.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  82M  
+4626  node            86M  31M  
+994   Runner.Listener 84M  49M  
+== 21:35:55 swapouts 10436 (+0) load { 9.02 18.30 60.93 }
+Pages free:                                     3902.
+Pages stored in compressor:                   515593.
+Pages occupied by compressor:                 184111.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  82M  
+4626  node            86M  31M  
+994   Runner.Listener 84M  49M  
+== 21:36:16 swapouts 10436 (+0) load { 7.16 17.28 59.57 }
+Pages free:                                     4779.
+Pages stored in compressor:                   514685.
+Pages occupied by compressor:                 183824.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  81M  
+4626  node            86M  31M  
+994   Runner.Listener 84M  49M  
+== 21:36:36 swapouts 10436 (+0) load { 5.40 16.22 58.21 }
+Pages free:                                     4234.
+Pages stored in compressor:                   513961.
+Pages occupied by compressor:                 183599.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  81M  
+4626  node            86M  31M  
+994   Runner.Listener 84M  49M  
+== 21:36:57 swapouts 10436 (+0) load { 10.05 16.66 57.40 }
+Pages free:                                     4084.
+Pages stored in compressor:                   513577.
+Pages occupied by compressor:                 183470.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  81M  
+4626  node            86M  30M  
+994   Runner.Listener 84M  49M  
+== 21:37:17 swapouts 10436 (+0) load { 11.25 16.44 56.37 }
+Pages free:                                     3968.
+Pages stored in compressor:                   512464.
+Pages occupied by compressor:                 183298.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  81M  
+4626  node            86M  30M  
+994   Runner.Listener 84M  49M  
+== 21:37:38 swapouts 10436 (+0) load { 10.67 15.98 55.05 }
+Pages free:                                     3704.
+Pages stored in compressor:                   512104.
+Pages occupied by compressor:                 183144.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  80M  
+4626  node            86M  30M  
+994   Runner.Listener 84M  49M  
+== 21:37:58 swapouts 10436 (+0) load { 10.86 15.66 54.03 }
+Pages free:                                     4233.
+Pages stored in compressor:                   510149.
+Pages occupied by compressor:                 182482.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  80M  
+4626  node            86M  30M  
+994   Runner.Listener 84M  43M  
+== 21:38:19 swapouts 10436 (+0) load { 9.21 14.99 52.90 }
+Pages free:                                     4297.
+Pages stored in compressor:                   509669.
+Pages occupied by compressor:                 182316.
+PID   COMMAND         MEM  CMPRS
+5422  SimRenderServer 310M 31M  
+5440  SimMetalHost    264M 15M  
+5520  SpringBoard     176M 149M 
+6110  xcodebuild      111M 106M 
+4171  node            107M 94M  
+1008  Runner.Worker   94M  80M  
+4626  node            86M  29M  
+994   Runner.Listener 84M  43M  
+== 21:38:39 swapouts 10436 (+0) load { 9.87 14.75 51.93 }
+Pages free:                                     4377.
+Pages stored in compressor:                   509201.
+Pages occupied by compressor:                 182158.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  28M  
+54166  MobileCal       83M  76M  
+== 21:39:00 swapouts 10436 (+0) load { 7.48 13.89 50.76 }
+Pages free:                                     5706.
+Pages stored in compressor:                   510734.
+Pages occupied by compressor:                 182643.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  28M  
+54166  MobileCal       83M  76M  
+== 21:39:20 swapouts 10436 (+0) load { 5.71 13.07 49.61 }
+Pages free:                                     4729.
+Pages stored in compressor:                   509717.
+Pages occupied by compressor:                 182385.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  28M  
+54166  MobileCal       83M  76M  
+== 21:39:41 swapouts 10436 (+0) load { 7.27 12.98 48.72 }
+Pages free:                                     4115.
+Pages stored in compressor:                   503720.
+Pages occupied by compressor:                 180960.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  28M  
+54166  MobileCal       83M  76M  
+== 21:40:02 swapouts 10436 (+0) load { 10.95 13.37 48.03 }
+Pages free:                                     5205.
+Pages stored in compressor:                   495236.
+Pages occupied by compressor:                 178496.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            86M  28M  
+54166  MobileCal       83M  76M  
+== 21:40:22 swapouts 10436 (+0) load { 11.40 13.25 47.18 }
+Pages free:                                     4365.
+Pages stored in compressor:                   488248.
+Pages occupied by compressor:                 176044.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            87M  28M  
+54166  MobileCal       83M  76M  
+== 21:40:43 swapouts 10436 (+0) load { 11.78 13.19 46.36 }
+Pages free:                                     5380.
+Pages stored in compressor:                   482397.
+Pages occupied by compressor:                 174252.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            87M  28M  
+54166  MobileCal       83M  76M  
+== 21:41:03 swapouts 10436 (+0) load { 8.99 12.46 45.33 }
+Pages free:                                     5748.
+Pages stored in compressor:                   474956.
+Pages occupied by compressor:                 171784.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  80M  
+4626   node            87M  28M  
+54166  MobileCal       83M  76M  
+== 21:41:24 swapouts 10436 (+0) load { 6.70 11.72 44.30 }
+Pages free:                                     4755.
+Pages stored in compressor:                   473316.
+Pages occupied by compressor:                 171299.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  79M  
+4626   node            87M  28M  
+54166  MobileCal       83M  76M  
+== 21:41:44 swapouts 10436 (+0) load { 5.43 11.10 43.32 }
+Pages free:                                     4521.
+Pages stored in compressor:                   472237.
+Pages occupied by compressor:                 170989.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  79M  
+4626   node            87M  28M  
+54166  MobileCal       83M  76M  
+== 21:42:04 swapouts 10436 (+0) load { 5.56 10.78 42.46 }
+Pages free:                                     4084.
+Pages stored in compressor:                   471816.
+Pages occupied by compressor:                 170846.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  79M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:42:25 swapouts 10436 (+0) load { 8.72 11.20 41.87 }
+Pages free:                                     4019.
+Pages stored in compressor:                   470790.
+Pages occupied by compressor:                 170488.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   94M  79M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:42:45 swapouts 10436 (+0) load { 8.84 11.12 41.14 }
+Pages free:                                     4638.
+Pages stored in compressor:                   470081.
+Pages occupied by compressor:                 170207.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  72M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:43:05 swapouts 10436 (+0) load { 9.25 11.09 40.43 }
+Pages free:                                     4580.
+Pages stored in compressor:                   469806.
+Pages occupied by compressor:                 170118.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  72M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:43:26 swapouts 10436 (+0) load { 12.59 11.70 39.97 }
+Pages free:                                     4540.
+Pages stored in compressor:                   469720.
+Pages occupied by compressor:                 170096.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  72M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:43:46 swapouts 10436 (+0) load { 9.44 11.04 39.07 }
+Pages free:                                     4753.
+Pages stored in compressor:                   469640.
+Pages occupied by compressor:                 170066.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  72M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:44:06 swapouts 10436 (+0) load { 7.64 10.53 38.24 }
+Pages free:                                     4742.
+Pages stored in compressor:                   469569.
+Pages occupied by compressor:                 170042.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  72M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:44:27 swapouts 10436 (+0) load { 5.97 9.96 37.39 }
+Pages free:                                     6211.
+Pages stored in compressor:                   471634.
+Pages occupied by compressor:                 170646.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  72M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:44:47 swapouts 10436 (+0) load { 7.85 10.13 36.81 }
+Pages free:                                     5659.
+Pages stored in compressor:                   470768.
+Pages occupied by compressor:                 170374.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  66M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:45:08 swapouts 10436 (+0) load { 10.37 10.57 36.35 }
+Pages free:                                     5107.
+Pages stored in compressor:                   470605.
+Pages occupied by compressor:                 170342.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  66M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:45:28 swapouts 10436 (+0) load { 10.29 10.56 35.75 }
+Pages free:                                     4750.
+Pages stored in compressor:                   470590.
+Pages occupied by compressor:                 170336.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  66M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:45:48 swapouts 10436 (+0) load { 7.87 9.99 34.96 }
+Pages free:                                     4964.
+Pages stored in compressor:                   470498.
+Pages occupied by compressor:                 170248.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  66M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:46:09 swapouts 10436 (+0) load { 10.11 10.43 34.54 }
+Pages free:                                     4536.
+Pages stored in compressor:                   470458.
+Pages occupied by compressor:                 170233.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  66M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:46:29 swapouts 10436 (+0) load { 7.51 9.81 33.76 }
+Pages free:                                     4619.
+Pages stored in compressor:                   469409.
+Pages occupied by compressor:                 169854.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  66M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:46:50 swapouts 10436 (+0) load { 7.41 9.65 33.14 }
+Pages free:                                     4224.
+Pages stored in compressor:                   469375.
+Pages occupied by compressor:                 169841.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  66M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:47:10 swapouts 10436 (+0) load { 5.87 9.15 32.41 }
+Pages free:                                     4017.
+Pages stored in compressor:                   468910.
+Pages occupied by compressor:                 169747.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  66M  
+4626   node            87M  27M  
+54166  MobileCal       83M  76M  
+== 21:47:30 swapouts 10436 (+0) load { 6.36 8.97 31.67 }
+Pages free:                                     4185.
+Pages stored in compressor:                   471626.
+Pages occupied by compressor:                 170561.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  65M  
+4626   node            87M  27M  
+54166  MobileCal       83M  80M  
+== 21:47:51 swapouts 10436 (+0) load { 5.08 8.51 30.98 }
+Pages free:                                     4048.
+Pages stored in compressor:                   470345.
+Pages occupied by compressor:                 169996.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  52M  
+4626   node            87M  27M  
+54166  MobileCal       83M  80M  
+== 21:48:11 swapouts 10436 (+0) load { 6.73 8.72 30.54 }
+Pages free:                                     4316.
+Pages stored in compressor:                   469488.
+Pages occupied by compressor:                 169719.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  51M  
+4626   node            87M  27M  
+54166  MobileCal       83M  77M  
+== 21:48:32 swapouts 10436 (+0) load { 7.60 8.84 30.08 }
+Pages free:                                     4362.
+Pages stored in compressor:                   469510.
+Pages occupied by compressor:                 169719.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  51M  
+4626   node            87M  27M  
+54166  MobileCal       83M  77M  
+== 21:48:52 swapouts 10436 (+0) load { 8.31 8.94 29.62 }
+Pages free:                                     4276.
+Pages stored in compressor:                   469220.
+Pages occupied by compressor:                 169633.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  51M  
+4626   node            87M  27M  
+54166  MobileCal       83M  77M  
+== 21:49:12 swapouts 10436 (+0) load { 6.30 8.44 28.96 }
+Pages free:                                     4163.
+Pages stored in compressor:                   469319.
+Pages occupied by compressor:                 169652.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  51M  
+4626   node            87M  26M  
+54166  MobileCal       83M  76M  
+== 21:49:33 swapouts 10436 (+0) load { 5.32 8.07 28.35 }
+Pages free:                                     5057.
+Pages stored in compressor:                   469402.
+Pages occupied by compressor:                 169681.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  51M  
+4626   node            87M  26M  
+54166  MobileCal       83M  76M  
+== 21:49:53 swapouts 10436 (+0) load { 5.00 7.81 27.78 }
+Pages free:                                     6699.
+Pages stored in compressor:                   470789.
+Pages occupied by compressor:                 170040.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  51M  
+4626   node            87M  26M  
+54166  MobileCal       83M  76M  
+== 21:50:13 swapouts 10436 (+0) load { 7.78 8.25 27.48 }
+Pages free:                                     5475.
+Pages stored in compressor:                   470420.
+Pages occupied by compressor:                 169920.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  51M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:50:34 swapouts 10436 (+0) load { 7.77 8.23 27.02 }
+Pages free:                                     4971.
+Pages stored in compressor:                   470392.
+Pages occupied by compressor:                 169915.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  51M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:50:54 swapouts 10436 (+0) load { 8.23 8.36 26.63 }
+Pages free:                                     5007.
+Pages stored in compressor:                   470139.
+Pages occupied by compressor:                 169845.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  51M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:51:14 swapouts 10436 (+0) load { 11.49 9.02 26.44 }
+Pages free:                                     4976.
+Pages stored in compressor:                   470123.
+Pages occupied by compressor:                 169837.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:51:35 swapouts 10436 (+0) load { 8.74 8.55 25.87 }
+Pages free:                                     4096.
+Pages stored in compressor:                   469808.
+Pages occupied by compressor:                 169714.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:51:55 swapouts 10436 (+0) load { 11.59 9.29 25.73 }
+Pages free:                                     4244.
+Pages stored in compressor:                   469697.
+Pages occupied by compressor:                 169664.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:52:16 swapouts 10436 (+0) load { 11.00 9.35 25.38 }
+Pages free:                                     4753.
+Pages stored in compressor:                   470313.
+Pages occupied by compressor:                 169835.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:52:36 swapouts 10436 (+0) load { 11.16 9.48 25.05 }
+Pages free:                                     4808.
+Pages stored in compressor:                   469764.
+Pages occupied by compressor:                 169682.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:52:57 swapouts 10436 (+0) load { 8.51 8.98 24.51 }
+Pages free:                                     4295.
+Pages stored in compressor:                   469486.
+Pages occupied by compressor:                 169591.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:53:17 swapouts 10436 (+0) load { 6.36 8.46 23.96 }
+Pages free:                                     4847.
+Pages stored in compressor:                   469480.
+Pages occupied by compressor:                 169583.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:53:38 swapouts 10436 (+0) load { 8.94 8.96 23.78 }
+Pages free:                                     4871.
+Pages stored in compressor:                   469416.
+Pages occupied by compressor:                 169575.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:53:58 swapouts 10436 (+0) load { 6.90 8.50 23.27 }
+Pages free:                                     4355.
+Pages stored in compressor:                   469422.
+Pages occupied by compressor:                 169567.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:54:19 swapouts 10436 (+0) load { 6.20 8.25 22.84 }
+Pages free:                                     4259.
+Pages stored in compressor:                   469299.
+Pages occupied by compressor:                 169537.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:54:39 swapouts 10436 (+0) load { 5.06 7.86 22.36 }
+Pages free:                                     4783.
+Pages stored in compressor:                   469244.
+Pages occupied by compressor:                 169511.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:55:00 swapouts 10436 (+0) load { 3.92 7.41 21.86 }
+Pages free:                                     3798.
+Pages stored in compressor:                   468930.
+Pages occupied by compressor:                 169442.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    264M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:55:20 swapouts 10436 (+0) load { 5.75 7.66 21.62 }
+Pages free:                                     6016.
+Pages stored in compressor:                   471528.
+Pages occupied by compressor:                 170157.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:55:41 swapouts 10436 (+0) load { 4.46 7.24 21.14 }
+Pages free:                                     5902.
+Pages stored in compressor:                   471272.
+Pages occupied by compressor:                 170084.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  50M  
+4626   node            87M  24M  
+54166  MobileCal       83M  76M  
+== 21:56:01 swapouts 10436 (+0) load { 8.19 7.99 21.09 }
+Pages free:                                     4307.
+Pages stored in compressor:                   474110.
+Pages occupied by compressor:                 171042.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 30M  
+5440   SimMetalHost    265M 15M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  53M  
+4626   node            87M  25M  
+54166  MobileCal       83M  76M  
+== 21:56:22 swapouts 10436 (+0) load { 21.70 11.12 21.91 }
+Pages free:                                     4256.
+Pages stored in compressor:                   475057.
+Pages occupied by compressor:                 171352.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 30M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 146M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  53M  
+4626   node            87M  25M  
+54166  MobileCal       83M  76M  
+== 21:56:52 swapouts 10436 (+0) load { 63.51 22.02 25.47 }
+Pages free:                                     3780.
+Pages stored in compressor:                   481481.
+Pages occupied by compressor:                 172994.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 30M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 151M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  58M  
+4626   node            87M  33M  
+54166  MobileCal       83M  82M  
+== 21:57:13 swapouts 10436 (+0) load { 65.13 25.98 26.82 }
+Pages free:                                     4291.
+Pages stored in compressor:                   477604.
+Pages occupied by compressor:                 171466.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 30M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 145M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  58M  
+4626   node            87M  34M  
+54166  MobileCal       83M  76M  
+== 21:57:34 swapouts 10436 (+0) load { 58.31 27.01 27.17 }
+Pages free:                                     3788.
+Pages stored in compressor:                   476114.
+Pages occupied by compressor:                 171120.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 30M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 145M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  55M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 21:57:55 swapouts 10436 (+0) load { 62.60 29.89 28.19 }
+Pages free:                                     3553.
+Pages stored in compressor:                   476467.
+Pages occupied by compressor:                 171257.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 30M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 145M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  54M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 21:58:15 swapouts 10436 (+0) load { 59.05 31.24 28.72 }
+Pages free:                                     4133.
+Pages stored in compressor:                   480328.
+Pages occupied by compressor:                 172148.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  80M  
+4626   node            87M  34M  
+54166  MobileCal       83M  76M  
+== 21:58:36 swapouts 10436 (+0) load { 54.12 31.85 28.99 }
+Pages free:                                     4937.
+Pages stored in compressor:                   479458.
+Pages occupied by compressor:                 171867.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  79M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 21:58:56 swapouts 10436 (+0) load { 42.51 30.69 28.64 }
+Pages free:                                     5548.
+Pages stored in compressor:                   478661.
+Pages occupied by compressor:                 171590.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  73M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 21:59:17 swapouts 10436 (+0) load { 31.05 28.85 28.03 }
+Pages free:                                     4186.
+Pages stored in compressor:                   479883.
+Pages occupied by compressor:                 171889.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 316M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  74M  
+4626   node            87M  35M  
+54166  MobileCal       83M  76M  
+== 21:59:37 swapouts 10436 (+0) load { 22.99 27.14 27.43 }
+Pages free:                                     3780.
+Pages stored in compressor:                   478938.
+Pages occupied by compressor:                 171585.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  74M  
+4626   node            87M  34M  
+54166  MobileCal       83M  76M  
+== 21:59:57 swapouts 10436 (+0) load { 17.04 25.51 26.84 }
+Pages free:                                     4337.
+Pages stored in compressor:                   478351.
+Pages occupied by compressor:                 171392.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  73M  
+4626   node            87M  34M  
+54166  MobileCal       83M  76M  
+== 22:00:18 swapouts 10436 (+0) load { 12.59 23.95 26.25 }
+Pages free:                                     4843.
+Pages stored in compressor:                   477423.
+Pages occupied by compressor:                 171115.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  73M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 22:00:38 swapouts 10436 (+0) load { 10.27 22.68 25.74 }
+Pages free:                                     7734.
+Pages stored in compressor:                   476894.
+Pages occupied by compressor:                 170996.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  73M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 22:00:59 swapouts 10436 (+0) load { 12.94 22.49 25.60 }
+Pages free:                                     7323.
+Pages stored in compressor:                   476732.
+Pages occupied by compressor:                 170960.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  73M  
+4626   node            87M  32M  
+54166  MobileCal       83M  76M  
+== 22:01:19 swapouts 10436 (+0) load { 9.60 21.11 25.03 }
+Pages free:                                     5420.
+Pages stored in compressor:                   476530.
+Pages occupied by compressor:                 170917.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  73M  
+4626   node            87M  32M  
+54166  MobileCal       83M  76M  
+== 22:01:39 swapouts 10436 (+0) load { 7.37 19.85 24.49 }
+Pages free:                                     4403.
+Pages stored in compressor:                   475999.
+Pages occupied by compressor:                 170761.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  73M  
+4626   node            87M  31M  
+54166  MobileCal       83M  76M  
+== 22:02:00 swapouts 10436 (+0) load { 8.39 19.24 24.16 }
+Pages free:                                     3902.
+Pages stored in compressor:                   475910.
+Pages occupied by compressor:                 170706.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  73M  
+4626   node            87M  31M  
+54166  MobileCal       83M  76M  
+== 22:02:20 swapouts 10436 (+0) load { 10.23 18.91 23.92 }
+Pages free:                                     4607.
+Pages stored in compressor:                   475650.
+Pages occupied by compressor:                 170637.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  73M  
+4626   node            87M  30M  
+54166  MobileCal       83M  76M  
+== 22:02:40 swapouts 10436 (+0) load { 8.43 17.93 23.45 }
+Pages free:                                     5307.
+Pages stored in compressor:                   475289.
+Pages occupied by compressor:                 170508.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  71M  
+4626   node            87M  30M  
+54166  MobileCal       83M  76M  
+== 22:03:01 swapouts 10436 (+0) load { 6.66 16.91 22.96 }
+Pages free:                                     4021.
+Pages stored in compressor:                   474944.
+Pages occupied by compressor:                 170406.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  71M  
+4626   node            87M  30M  
+54166  MobileCal       83M  76M  
+== 22:03:21 swapouts 10436 (+0) load { 7.77 16.55 22.69 }
+Pages free:                                     4695.
+Pages stored in compressor:                   474863.
+Pages occupied by compressor:                 170388.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  71M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:03:42 swapouts 10436 (+0) load { 7.72 15.96 22.34 }
+Pages free:                                     4075.
+Pages stored in compressor:                   480299.
+Pages occupied by compressor:                 171968.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  72M  
+4626   node            87M  30M  
+54166  MobileCal       83M  76M  
+== 22:04:03 swapouts 10436 (+0) load { 8.27 15.51 21.99 }
+Pages free:                                     4087.
+Pages stored in compressor:                   494716.
+Pages occupied by compressor:                 175870.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 150M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  72M  
+4626   node            87M  50M  
+54166  MobileCal       83M  76M  
+== 22:04:23 swapouts 10436 (+0) load { 6.94 14.73 21.56 }
+Pages free:                                    14297.
+Pages stored in compressor:                   505505.
+Pages occupied by compressor:                 179172.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  78M  
+4626   node            87M  50M  
+54166  MobileCal       83M  80M  
+== 22:04:43 swapouts 10436 (+0) load { 7.55 14.41 21.29 }
+Pages free:                                    12271.
+Pages stored in compressor:                   504146.
+Pages occupied by compressor:                 178870.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  76M  
+4626   node            87M  50M  
+54166  MobileCal       83M  80M  
+== 22:05:04 swapouts 10436 (+0) load { 9.12 14.31 21.09 }
+Pages free:                                     4314.
+Pages stored in compressor:                   509318.
+Pages occupied by compressor:                 180823.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 150M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  87M  
+4626   node            87M  56M  
+54166  MobileCal       83M  76M  
+== 22:05:24 swapouts 10436 (+0) load { 9.39 14.06 20.85 }
+Pages free:                                     4168.
+Pages stored in compressor:                   506414.
+Pages occupied by compressor:                 179862.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  87M  
+4626   node            87M  56M  
+54166  MobileCal       83M  76M  
+== 22:05:45 swapouts 10436 (+0) load { 6.99 13.21 20.38 }
+Pages free:                                     4087.
+Pages stored in compressor:                   505832.
+Pages occupied by compressor:                 179734.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 18M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  86M  
+4626   node            87M  55M  
+54166  MobileCal       83M  76M  
+== 22:06:05 swapouts 10436 (+0) load { 5.96 12.56 19.98 }
+Pages free:                                     4015.
+Pages stored in compressor:                   505327.
+Pages occupied by compressor:                 179688.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  88M  
+4626   node            87M  56M  
+54166  MobileCal       83M  76M  
+== 22:06:25 swapouts 10436 (+0) load { 6.61 12.30 19.72 }
+Pages free:                                     4406.
+Pages stored in compressor:                   505015.
+Pages occupied by compressor:                 179619.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  87M  
+4626   node            87M  55M  
+54166  MobileCal       83M  76M  
+== 22:06:46 swapouts 10436 (+0) load { 7.98 12.23 19.52 }
+Pages free:                                     3994.
+Pages stored in compressor:                   503620.
+Pages occupied by compressor:                 179218.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  87M  
+4626   node            87M  54M  
+54166  MobileCal       83M  76M  
+== 22:07:06 swapouts 10436 (+0) load { 6.22 11.55 19.10 }
+Pages free:                                     4452.
+Pages stored in compressor:                   503216.
+Pages occupied by compressor:                 179082.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  87M  
+4626   node            87M  54M  
+54166  MobileCal       83M  76M  
+== 22:07:27 swapouts 10436 (+0) load { 4.99 10.92 18.70 }
+Pages free:                                     4855.
+Pages stored in compressor:                   501438.
+Pages occupied by compressor:                 178671.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  87M  
+4626   node            87M  53M  
+54166  MobileCal       83M  76M  
+== 22:07:47 swapouts 10436 (+0) load { 4.49 10.43 18.35 }
+Pages free:                                     4296.
+Pages stored in compressor:                   498154.
+Pages occupied by compressor:                 177732.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  79M  
+4626   node            87M  53M  
+54166  MobileCal       83M  76M  
+== 22:08:08 swapouts 10436 (+0) load { 6.62 10.52 18.19 }
+Pages free:                                     4323.
+Pages stored in compressor:                   497508.
+Pages occupied by compressor:                 177531.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  79M  
+4626   node            87M  52M  
+54166  MobileCal       83M  76M  
+== 22:08:28 swapouts 10436 (+0) load { 7.28 10.37 17.96 }
+Pages free:                                     4127.
+Pages stored in compressor:                   496944.
+Pages occupied by compressor:                 177359.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  79M  
+4626   node            87M  52M  
+54166  MobileCal       83M  76M  
+== 22:08:49 swapouts 10436 (+0) load { 10.13 10.89 17.97 }
+Pages free:                                     4268.
+Pages stored in compressor:                   495516.
+Pages occupied by compressor:                 176756.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 149M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  79M  
+4626   node            87M  36M  
+54166  MobileCal       83M  76M  
+== 22:09:09 swapouts 10436 (+0) load { 10.61 10.93 17.82 }
+Pages free:                                     4629.
+Pages stored in compressor:                   494783.
+Pages occupied by compressor:                 176504.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  79M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 22:09:30 swapouts 10436 (+0) load { 10.75 11.00 17.69 }
+Pages free:                                     4087.
+Pages stored in compressor:                   491064.
+Pages occupied by compressor:                 175325.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  79M  
+4626   node            87M  32M  
+54166  MobileCal       83M  76M  
+== 22:09:50 swapouts 10436 (+0) load { 11.85 11.18 17.59 }
+Pages free:                                     6151.
+Pages stored in compressor:                   484726.
+Pages occupied by compressor:                 173052.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 150M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  81M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 22:10:11 swapouts 10436 (+0) load { 11.61 11.18 17.44 }
+Pages free:                                     4374.
+Pages stored in compressor:                   475656.
+Pages occupied by compressor:                 170348.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 150M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  80M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 22:10:31 swapouts 10436 (+0) load { 16.04 12.28 17.70 }
+Pages free:                                     6149.
+Pages stored in compressor:                   460272.
+Pages occupied by compressor:                 164895.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 150M 
+6110   xcodebuild      111M 106M 
+4171   node            107M 94M  
+1008   Runner.Worker   97M  80M  
+4626   node            87M  33M  
+54166  MobileCal       83M  76M  
+== 22:10:52 swapouts 10436 (+0) load { 11.95 11.60 17.32 }
+Pages free:                                     6047.
+Pages stored in compressor:                   442990.
+Pages occupied by compressor:                 158402.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   97M  80M  
+4626   node            87M  32M  
+54166  MobileCal       83M  75M  
+== 22:11:12 swapouts 10436 (+0) load { 9.38 11.06 16.97 }
+Pages free:                                     4230.
+Pages stored in compressor:                   437209.
+Pages occupied by compressor:                 156549.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 31M  
+5440   SimMetalHost    265M 17M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   97M  80M  
+4626   node            87M  32M  
+54166  MobileCal       83M  75M  
+== 22:11:33 swapouts 10436 (+0) load { 9.47 10.96 16.79 }
+Pages free:                                     6134.
+Pages stored in compressor:                   437278.
+Pages occupied by compressor:                 156637.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   97M  80M  
+4626   node            87M  31M  
+54166  MobileCal       83M  80M  
+== 22:11:53 swapouts 10436 (+0) load { 7.61 10.44 16.47 }
+Pages free:                                     4342.
+Pages stored in compressor:                   436832.
+Pages occupied by compressor:                 156497.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   97M  80M  
+4626   node            87M  31M  
+54166  MobileCal       83M  80M  
+== 22:12:13 swapouts 10436 (+0) load { 6.34 9.96 16.16 }
+Pages free:                                     4941.
+Pages stored in compressor:                   436158.
+Pages occupied by compressor:                 156288.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   97M  80M  
+4626   node            87M  31M  
+54166  MobileCal       83M  75M  
+== 22:12:34 swapouts 10436 (+0) load { 5.84 9.62 15.89 }
+Pages free:                                     4026.
+Pages stored in compressor:                   435783.
+Pages occupied by compressor:                 156190.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   100M 73M  
+4626   node            87M  31M  
+54166  MobileCal       83M  75M  
+== 22:12:54 swapouts 10436 (+0) load { 4.45 9.06 15.54 }
+Pages free:                                     4149.
+Pages stored in compressor:                   435546.
+Pages occupied by compressor:                 156122.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   100M 73M  
+4626   node            87M  31M  
+54166  MobileCal       83M  75M  
+== 22:13:14 swapouts 10436 (+0) load { 4.87 8.83 15.31 }
+Pages free:                                     4844.
+Pages stored in compressor:                   435705.
+Pages occupied by compressor:                 156159.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   100M 73M  
+4626   node            87M  30M  
+54166  MobileCal       83M  75M  
+== 22:13:35 swapouts 10436 (+0) load { 6.08 8.87 15.17 }
+Pages free:                                     4408.
+Pages stored in compressor:                   435351.
+Pages occupied by compressor:                 156034.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   100M 69M  
+4626   node            87M  30M  
+54166  MobileCal       83M  75M  
+== 22:13:55 swapouts 10436 (+0) load { 7.56 9.05 15.09 }
+Pages free:                                     5001.
+Pages stored in compressor:                   435402.
+Pages occupied by compressor:                 156035.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   100M 69M  
+4626   node            87M  30M  
+54166  MobileCal       83M  75M  
+== 22:14:15 swapouts 10436 (+0) load { 5.70 8.53 14.76 }
+Pages free:                                     4199.
+Pages stored in compressor:                   435764.
+Pages occupied by compressor:                 156118.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   95M  69M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:14:36 swapouts 10436 (+0) load { 4.91 8.17 14.49 }
+Pages free:                                     5593.
+Pages stored in compressor:                   436700.
+Pages occupied by compressor:                 156361.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   95M  69M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:14:56 swapouts 10436 (+0) load { 4.34 7.82 14.22 }
+Pages free:                                     4670.
+Pages stored in compressor:                   436561.
+Pages occupied by compressor:                 156321.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 148M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   95M  69M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:15:17 swapouts 10436 (+0) load { 5.97 7.99 14.13 }
+Pages free:                                     5569.
+Pages stored in compressor:                   436541.
+Pages occupied by compressor:                 156314.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 92M  
+1008   Runner.Worker   95M  69M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:15:37 swapouts 10436 (+0) load { 4.92 7.61 13.85 }
+Pages free:                                     4277.
+Pages stored in compressor:                   434619.
+Pages occupied by compressor:                 155586.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  68M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:15:57 swapouts 10436 (+0) load { 9.21 8.44 14.00 }
+Pages free:                                     4420.
+Pages stored in compressor:                   434441.
+Pages occupied by compressor:                 155528.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  68M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:16:18 swapouts 10436 (+0) load { 8.87 8.37 13.85 }
+Pages free:                                     4638.
+Pages stored in compressor:                   434917.
+Pages occupied by compressor:                 155667.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    265M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  68M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:16:38 swapouts 10436 (+0) load { 11.29 9.03 13.96 }
+Pages free:                                     7144.
+Pages stored in compressor:                   436164.
+Pages occupied by compressor:                 156036.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  68M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:16:59 swapouts 10436 (+0) load { 8.88 8.62 13.70 }
+Pages free:                                     5879.
+Pages stored in compressor:                   435700.
+Pages occupied by compressor:                 155902.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  68M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:17:19 swapouts 10436 (+0) load { 9.35 8.77 13.63 }
+Pages free:                                     4841.
+Pages stored in compressor:                   435135.
+Pages occupied by compressor:                 155740.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  68M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:17:39 swapouts 10436 (+0) load { 7.44 8.38 13.38 }
+Pages free:                                     4650.
+Pages stored in compressor:                   434099.
+Pages occupied by compressor:                 155475.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  67M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:18:00 swapouts 10436 (+0) load { 9.09 8.63 13.35 }
+Pages free:                                     4445.
+Pages stored in compressor:                   434079.
+Pages occupied by compressor:                 155465.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  67M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:18:20 swapouts 10436 (+0) load { 11.63 9.25 13.46 }
+Pages free:                                     4361.
+Pages stored in compressor:                   433745.
+Pages occupied by compressor:                 155382.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  67M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:18:40 swapouts 10436 (+0) load { 9.35 8.87 13.23 }
+Pages free:                                     4538.
+Pages stored in compressor:                   433527.
+Pages occupied by compressor:                 155319.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  67M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:19:01 swapouts 10436 (+0) load { 7.27 8.43 12.96 }
+Pages free:                                     4168.
+Pages stored in compressor:                   433082.
+Pages occupied by compressor:                 155196.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:19:21 swapouts 10436 (+0) load { 5.72 8.00 12.70 }
+Pages free:                                     4534.
+Pages stored in compressor:                   433238.
+Pages occupied by compressor:                 155244.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:19:42 swapouts 10436 (+0) load { 4.71 7.61 12.45 }
+Pages free:                                     4711.
+Pages stored in compressor:                   433106.
+Pages occupied by compressor:                 155179.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  77M  
+== 22:20:02 swapouts 10436 (+0) load { 10.89 8.82 12.77 }
+Pages free:                                     4669.
+Pages stored in compressor:                   433220.
+Pages occupied by compressor:                 155261.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:20:22 swapouts 10436 (+0) load { 10.87 8.99 12.75 }
+Pages free:                                     4558.
+Pages stored in compressor:                   433796.
+Pages occupied by compressor:                 155427.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:20:43 swapouts 10436 (+0) load { 10.17 8.97 12.65 }
+Pages free:                                     4856.
+Pages stored in compressor:                   433681.
+Pages occupied by compressor:                 155400.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:21:03 swapouts 10436 (+0) load { 10.12 9.03 12.59 }
+Pages free:                                     4527.
+Pages stored in compressor:                   433664.
+Pages occupied by compressor:                 155397.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:21:24 swapouts 10436 (+0) load { 9.96 9.03 12.50 }
+Pages free:                                     5286.
+Pages stored in compressor:                   433652.
+Pages occupied by compressor:                 155391.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:21:44 swapouts 10436 (+0) load { 9.33 8.97 12.40 }
+Pages free:                                     4666.
+Pages stored in compressor:                   433551.
+Pages occupied by compressor:                 155355.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:22:04 swapouts 10436 (+0) load { 11.67 9.52 12.52 }
+Pages free:                                     5796.
+Pages stored in compressor:                   434700.
+Pages occupied by compressor:                 155672.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:22:25 swapouts 10436 (+0) load { 8.87 9.02 12.27 }
+Pages free:                                     5796.
+Pages stored in compressor:                   434523.
+Pages occupied by compressor:                 155631.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:22:45 swapouts 10436 (+0) load { 11.21 9.54 12.38 }
+Pages free:                                     4570.
+Pages stored in compressor:                   434404.
+Pages occupied by compressor:                 155592.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:23:06 swapouts 10436 (+0) load { 8.55 9.05 12.13 }
+Pages free:                                     4645.
+Pages stored in compressor:                   434291.
+Pages occupied by compressor:                 155553.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:23:26 swapouts 10436 (+0) load { 9.11 9.09 12.07 }
+Pages free:                                     4326.
+Pages stored in compressor:                   434285.
+Pages occupied by compressor:                 155551.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:23:47 swapouts 10436 (+0) load { 8.17 8.91 11.94 }
+Pages free:                                     4777.
+Pages stored in compressor:                   434272.
+Pages occupied by compressor:                 155548.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:24:07 swapouts 10436 (+0) load { 10.44 9.40 12.05 }
+Pages free:                                     4241.
+Pages stored in compressor:                   433688.
+Pages occupied by compressor:                 155383.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  75M  
+== 22:24:27 swapouts 10436 (+0) load { 8.46 9.01 11.85 }
+Pages free:                                     3919.
+Pages stored in compressor:                   433337.
+Pages occupied by compressor:                 155286.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:24:48 swapouts 10436 (+0) load { 7.32 8.72 11.68 }
+Pages free:                                     3882.
+Pages stored in compressor:                   432954.
+Pages occupied by compressor:                 155175.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:25:08 swapouts 10436 (+0) load { 5.92 8.31 11.46 }
+Pages free:                                     4439.
+Pages stored in compressor:                   433145.
+Pages occupied by compressor:                 155232.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:25:29 swapouts 10436 (+0) load { 6.80 8.41 11.42 }
+Pages free:                                     4976.
+Pages stored in compressor:                   433291.
+Pages occupied by compressor:                 155265.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:25:49 swapouts 10436 (+0) load { 5.75 8.06 11.23 }
+Pages free:                                     4692.
+Pages stored in compressor:                   433284.
+Pages occupied by compressor:                 155265.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:26:09 swapouts 10436 (+0) load { 5.58 7.85 11.08 }
+Pages free:                                     4336.
+Pages stored in compressor:                   433695.
+Pages occupied by compressor:                 155349.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:26:30 swapouts 10436 (+0) load { 9.13 8.48 11.21 }
+Pages free:                                     4033.
+Pages stored in compressor:                   433557.
+Pages occupied by compressor:                 155315.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:26:50 swapouts 10436 (+0) load { 6.95 8.02 10.98 }
+Pages free:                                     4279.
+Pages stored in compressor:                   433712.
+Pages occupied by compressor:                 155347.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:27:11 swapouts 10436 (+0) load { 8.37 8.27 11.00 }
+Pages free:                                     4224.
+Pages stored in compressor:                   433537.
+Pages occupied by compressor:                 155304.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:27:31 swapouts 10436 (+0) load { 9.63 8.51 11.02 }
+Pages free:                                     5837.
+Pages stored in compressor:                   434044.
+Pages occupied by compressor:                 155452.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:27:51 swapouts 10436 (+0) load { 7.95 8.20 10.85 }
+Pages free:                                     5834.
+Pages stored in compressor:                   433840.
+Pages occupied by compressor:                 155389.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 16M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  28M  
+54166  MobileCal       83M  75M  
+== 22:28:12 swapouts 10436 (+0) load { 7.56 8.10 10.75 }
+Pages free:                                     4666.
+Pages stored in compressor:                   435045.
+Pages occupied by compressor:                 155890.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:28:32 swapouts 10436 (+0) load { 5.71 7.64 10.52 }
+Pages free:                                     4700.
+Pages stored in compressor:                   434521.
+Pages occupied by compressor:                 155716.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:28:53 swapouts 10436 (+0) load { 6.20 7.63 10.45 }
+Pages free:                                     4357.
+Pages stored in compressor:                   434329.
+Pages occupied by compressor:                 155668.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:29:13 swapouts 10436 (+0) load { 6.05 7.53 10.35 }
+Pages free:                                     4948.
+Pages stored in compressor:                   434210.
+Pages occupied by compressor:                 155636.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:29:34 swapouts 10436 (+0) load { 4.68 7.12 10.14 }
+Pages free:                                     4824.
+Pages stored in compressor:                   434085.
+Pages occupied by compressor:                 155595.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:29:54 swapouts 10436 (+0) load { 3.76 6.76 9.94 }
+Pages free:                                     4602.
+Pages stored in compressor:                   433679.
+Pages occupied by compressor:                 155498.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:30:14 swapouts 10436 (+0) load { 3.32 6.46 9.76 }
+Pages free:                                     4586.
+Pages stored in compressor:                   433607.
+Pages occupied by compressor:                 155487.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:30:35 swapouts 10436 (+0) load { 8.45 7.40 10.01 }
+Pages free:                                     4810.
+Pages stored in compressor:                   433588.
+Pages occupied by compressor:                 155477.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:30:55 swapouts 10436 (+0) load { 9.09 7.60 10.02 }
+Pages free:                                     4616.
+Pages stored in compressor:                   433564.
+Pages occupied by compressor:                 155473.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:31:16 swapouts 10436 (+0) load { 8.42 7.57 9.96 }
+Pages free:                                     4478.
+Pages stored in compressor:                   433784.
+Pages occupied by compressor:                 155548.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:31:36 swapouts 10436 (+0) load { 11.22 8.26 10.15 }
+Pages free:                                     4237.
+Pages stored in compressor:                   433714.
+Pages occupied by compressor:                 155528.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:31:56 swapouts 10436 (+0) load { 8.57 7.85 9.96 }
+Pages free:                                     4231.
+Pages stored in compressor:                   434378.
+Pages occupied by compressor:                 155744.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  80M  
+== 22:32:17 swapouts 10436 (+0) load { 7.66 7.71 9.86 }
+Pages free:                                     4482.
+Pages stored in compressor:                   434107.
+Pages occupied by compressor:                 155656.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:32:37 swapouts 10436 (+0) load { 9.05 7.99 9.91 }
+Pages free:                                     4887.
+Pages stored in compressor:                   433988.
+Pages occupied by compressor:                 155624.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:32:57 swapouts 10436 (+0) load { 9.32 8.11 9.91 }
+Pages free:                                     6743.
+Pages stored in compressor:                   434437.
+Pages occupied by compressor:                 155810.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:33:18 swapouts 10436 (+0) load { 8.18 7.94 9.80 }
+Pages free:                                     4230.
+Pages stored in compressor:                   435878.
+Pages occupied by compressor:                 156142.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  66M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:33:38 swapouts 10436 (+0) load { 9.18 8.13 9.82 }
+Pages free:                                     4665.
+Pages stored in compressor:                   435856.
+Pages occupied by compressor:                 156022.
+PID    COMMAND         MEM  CMPRS
+5422   SimRenderServer 310M 30M  
+5440   SimMetalHost    266M 17M  
+5520   SpringBoard     176M 147M 
+6110   xcodebuild      111M 105M 
+4171   node            107M 77M  
+1008   Runner.Worker   95M  51M  
+4626   node            87M  29M  
+54166  MobileCal       83M  76M  
+== 22:33:46 swapouts 10436 (+0) load { 8.08 7.93 9.73 }
+Pages free:                                     7032.
+Pages stored in compressor:                   435912.
+Pages occupied by compressor:                 155268.
