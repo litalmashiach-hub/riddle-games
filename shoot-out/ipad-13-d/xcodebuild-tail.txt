@@ -1,0 +1,80 @@
+    t =    18.64s         Capturing element debug description
+    t =    19.54s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =    19.54s         Checking existence of `Any (First Match)`
+    t =    20.36s         Capturing element debug description
+    t =    20.55s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =    20.55s         Checking existence of `Any (First Match)`
+    t =    20.69s         Capturing element debug description
+    t =    21.46s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =    21.47s         Checking existence of `Any (First Match)`
+    t =    21.70s         Capturing element debug description
+    t =    22.48s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =    22.48s         Checking existence of `Any (First Match)`
+    t =    22.67s         Capturing element debug description
+    t =    23.54s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =    23.55s         Checking existence of `Any (First Match)`
+SHOTLOG 1795620258.0363889 start marker: true
+    t =    25.11s Waiting 600.0s for Any (First Match) to exist
+    t =    26.17s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =    26.17s         Checking existence of `Any (First Match)`
+    t =    86.31s         Capturing element debug description
+    t =    87.16s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =    87.18s         Checking existence of `Any (First Match)`
+    t =   108.70s         Capturing element debug description
+    t =   109.37s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   109.42s         Checking existence of `Any (First Match)`
+    t =   109.76s         Capturing element debug description
+    t =   110.14s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   110.14s         Checking existence of `Any (First Match)`
+    t =   110.86s         Capturing element debug description
+    t =   111.12s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   111.13s         Checking existence of `Any (First Match)`
+    t =   111.27s         Capturing element debug description
+    t =   112.17s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   112.18s         Checking existence of `Any (First Match)`
+    t =   112.82s         Capturing element debug description
+    t =   113.21s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   113.21s         Checking existence of `Any (First Match)`
+    t =   113.77s         Capturing element debug description
+    t =   114.14s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   114.14s         Checking existence of `Any (First Match)`
+SHOTLOG 1795620356.1192331 scene 07-hint: true
+SHOTLOG 1795620362.204895 xc picture 07-hint 0 1376x1032 scale 2.0
+SHOTLOG 1795620367.871725 xc picture 07-hint 1 1376x1032 scale 2.0
+SHOTLOG 1795620370.918026 xc picture 07-hint 2 1376x1032 scale 2.0
+SHOTLOG 1795620374.514271 xc picture 07-hint 3 1376x1032 scale 2.0
+SHOTLOG 1795620377.780976 xc picture 07-hint 4 1376x1032 scale 2.0
+SHOTLOG 1795620380.920527 xc picture 07-hint 5 1376x1032 scale 2.0
+    t =   150.55s Tap Application 'com.example.riddlegames'[0.00, 0.00] -> (3.0, 3.0)
+    t =   150.70s     Wait for com.example.riddlegames to idle
+    t =   151.01s     Find the Application 'com.example.riddlegames'
+    t =   151.98s     Check for interrupting elements affecting "Riddle Games" Application
+    t =   153.27s         Wait for com.apple.springboard to idle
+    t =   165.50s     Synthesize event
+    t =   165.64s         Find the Application 'com.example.riddlegames'
+    t =   165.81s         Find the Application 'com.example.riddlegames'
+    t =   165.94s         Find the Application 'com.example.riddlegames'
+    t =   168.24s     Wait for com.example.riddlegames to idle
+SHOTLOG 1795620401.2220368 tapped 07-hint
+    t =   168.30s Waiting 300.0s for Any (First Match) to exist
+    t =   169.30s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   169.34s         Checking existence of `Any (First Match)`
+SHOTLOG 1795620402.8188372 done marker: true
+    t =   169.93s Tear Down
+Test Case '-[StoreShotsUITests.StoreShots testShoot]' passed (182.492 seconds).
+Test Suite 'StoreShots' passed at 2026-11-25 15:26:55.466.
+	 Executed 1 test, with 0 failures (0 unexpected) in 182.492 (182.522) seconds
+Test Suite 'StoreShotsUITests.xctest' passed at 2026-11-25 15:26:55.467.
+	 Executed 1 test, with 0 failures (0 unexpected) in 182.492 (182.524) seconds
+Test Suite 'All tests' passed at 2026-11-25 15:26:55.467.
+	 Executed 1 test, with 0 failures (0 unexpected) in 182.492 (182.527) seconds
+2026-11-25 15:27:07.643 xcodebuild[5561:22652] [MT] IDETestOperationsObserverDebug: 295.625 elapsed -- Testing started completed.
+2026-11-25 15:27:07.644 xcodebuild[5561:22652] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-25 15:27:07.644 xcodebuild[5561:22652] [MT] IDETestOperationsObserverDebug: 295.625 sec, +295.625 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/out/ipad-13-d/result.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started
