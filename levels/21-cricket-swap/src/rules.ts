@@ -15,7 +15,8 @@ import type { RiddleRules } from '@riddle/engine';
 export const SIZE = 3;
 export const CELLS = SIZE * SIZE;
 export type Colour = 'A' | 'B';
-export const COLOUR_NAME: Record<Colour, string> = { A: 'amber', B: 'blue' };
+/** Each team is named by its mark and its colour: the marks tell the teams apart for a player who cannot tell the colours apart. */
+export const COLOUR_NAME: Record<Colour, string> = { A: 'striped amber', B: 'spotted blue' };
 
 export interface State {
   /** One character per cell: 'A' amber cricket, 'B' blue cricket, '.' empty. */

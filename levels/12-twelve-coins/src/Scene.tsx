@@ -351,11 +351,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   });
 
   // ---- Hint rings ----
-  const hintRings: { coin: number; color: string }[] = [];
+  // The two groups of a weighing differ in shape as well as in colour: round rings for one pan, squares for the other.
+  const hintRings: { coin: number; color: string; square?: boolean }[] = [];
   if (hint && !busy && !pending) {
     if (hint.kind === 'weigh') {
       hint.left.forEach((c) => hintRings.push({ coin: c, color: '#ffd166' }));
-      hint.right.forEach((c) => hintRings.push({ coin: c, color: '#7dd3fc' }));
+      hint.right.forEach((c) => hintRings.push({ coin: c, color: '#7dd3fc', square: true }));
     } else hintRings.push({ coin: hint.coin, color: '#ff7b9c' });
   }
 
@@ -386,9 +387,13 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         </group>
       ))}
 
-      {hintRings.map(({ coin, color }) => {
+      {hintRings.map(({ coin, color, square }) => {
         const p = traySlot(coin);
-        return <HintRing key={`${coin}${color}`} position={[p.x, TABLE_Y + 0.012, p.z]} radius={0.4} color={color} />;
+        return square ? (
+          <HintSquare key={`${coin}${color}`} position={[p.x, TABLE_Y + 0.012, p.z]} color={color} />
+        ) : (
+          <HintRing key={`${coin}${color}`} position={[p.x, TABLE_Y + 0.012, p.z]} radius={0.4} color={color} />
+        );
       })}
       {accusing && picked != null && (
         <HintRing position={[traySlot(picked).x, TABLE_Y + 0.012, traySlot(picked).z]} radius={0.42} color="#ff7b9c" />
@@ -681,6 +686,25 @@ function Marker({ heavy, seed }: { heavy: boolean; seed: number }) {
         <boxGeometry args={[0.05, 0.1, 0.05]} />
       </mesh>
     </group>
+  );
+}
+
+/** A hint mark like the shared HintRing, but a square: it marks the coins for the other pan, so the two groups differ in shape. */
+function HintSquare({ position, color }: { position: [number, number, number]; color: string }) {
+  const ref = useRef<THREE.Mesh>(null);
+  useFrame(({ clock }) => {
+    const m = ref.current;
+    if (!m) return;
+    const s = 1 + Math.sin(clock.elapsedTime * 5) * 0.08;
+    m.scale.set(s, s, s);
+    (m.material as THREE.MeshBasicMaterial).opacity = 0.65 + Math.sin(clock.elapsedTime * 5) * 0.25;
+  });
+  return (
+    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2}>
+      {/* four corners make a square; turned an eighth so its sides run along the rows of coins */}
+      <ringGeometry args={[0.43, 0.56, 4, 1, Math.PI / 4]} />
+      <meshBasicMaterial color={color} transparent toneMapped={false} depthWrite={false} />
+    </mesh>
   );
 }
 
