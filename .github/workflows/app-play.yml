@@ -1,7 +1,7 @@
 name: App play (test only)
 
-# TEST ONLY, not for merging. This branch is main plus pull request #76's commit (the memory fix),
-# merged only here, to see whether the levels that were never won in the app can be won with it. Builds the iPhone/iPad app unsigned for the simulator on a hosted Mac,
+# TEST ONLY, not for merging. This branch is main at 65b6585 WITHOUT pull request #76's commit, plus the
+# test-only runner, to see whether the test's frame cap alone holds the simulator's drawing memory down. Builds the iPhone/iPad app unsigned for the simulator on a hosted Mac,
 # then plays every level inside it, by real touches placed live where the scene draws each thing
 # (e2e/app, Appium). No signing, no secrets, nothing uploaded except the run's own artifacts.
 # Which simulators and levels: e2e/app/matrix.json.
