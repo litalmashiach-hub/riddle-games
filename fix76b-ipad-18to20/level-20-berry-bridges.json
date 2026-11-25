@@ -1,0 +1,286 @@
+{
+ "level": 20,
+ "id": "berry-bridges",
+ "title": "Berry Bridges",
+ "device": "fix76b-ipad-18to20",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map (scrolled into view by the run)",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 13,
+ "moves": 13,
+ "touches": 13,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 38.571,
+  "rulesCard": 38.021,
+  "drawn": 38.571,
+  "play": 24.024,
+  "total": 85.532
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76b-ipad-18to20-L20-loading-mark.png",
+  "fix76b-ipad-18to20-L20-rules-card.png",
+  "fix76b-ipad-18to20-L20-in-play.png",
+  "fix76b-ipad-18to20-L20-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the lantern islet",
+   "kind": "tap",
+   "at": {
+    "x": 442.18041413256117,
+    "y": 391.553757317486
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "29d97f71-a329-41e1-9637-d91a33f6e08a",
+    "world": [
+     -4.2,
+     0,
+     -1.8
+    ],
+    "distance": 10.3552319607854
+   }
+  },
+  {
+   "step": 2,
+   "what": "the mushroom islet",
+   "kind": "tap",
+   "at": {
+    "x": 677.0988635711523,
+    "y": 380.61791691484683
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2c648e7c-08f8-4df6-91e8-864d02e7f65a",
+    "world": [
+     -1,
+     0,
+     -2
+    ],
+    "distance": 10.05836629120696
+   }
+  },
+  {
+   "step": 3,
+   "what": "the willow islet",
+   "kind": "tap",
+   "at": {
+    "x": 913.8323812303711,
+    "y": 383.3321367289907
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9a40817c-cdfe-4816-bda8-b35c98dcbea6",
+    "world": [
+     2.25,
+     0,
+     -1.95
+    ],
+    "distance": 10.380949133172681
+   }
+  },
+  {
+   "step": 4,
+   "what": "the boulder islet",
+   "kind": "tap",
+   "at": {
+    "x": 1151.4110288685754,
+    "y": 394.32093771412195
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f0a8f70f-34f2-4ad7-80ee-b95c17e07dab",
+    "world": [
+     5.45,
+     0,
+     -1.75
+    ],
+    "distance": 11.513911716069
+   }
+  },
+  {
+   "step": 5,
+   "what": "the shell islet",
+   "kind": "tap",
+   "at": {
+    "x": 1233.977225974834,
+    "y": 608.4490378141782
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c39d10a5-132e-4fbd-9210-a9bab044a6e3",
+    "world": [
+     5.4,
+     0,
+     1.5
+    ],
+    "distance": 9.915017860572986
+   }
+  },
+  {
+   "step": 6,
+   "what": "the willow islet",
+   "kind": "tap",
+   "at": {
+    "x": 913.8323812303711,
+    "y": 383.3321367289907
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9a40817c-cdfe-4816-bda8-b35c98dcbea6",
+    "world": [
+     2.25,
+     0,
+     -1.95
+    ],
+    "distance": 10.380949133172681
+   }
+  },
+  {
+   "step": 7,
+   "what": "the reed islet",
+   "kind": "tap",
+   "at": {
+    "x": 955.9837371606536,
+    "y": 616.3190079898772
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c67825a8-f625-4ed0-b27c-84468dd62d7c",
+    "world": [
+     2.2,
+     0,
+     1.6
+    ],
+    "distance": 8.68154025578756
+   }
+  },
+  {
+   "step": 8,
+   "what": "the lotus islet",
+   "kind": "tap",
+   "at": {
+    "x": 670.5790073383198,
+    "y": 604.5480248543998
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8dedc590-2be2-47a5-b226-38fef071793d",
+    "world": [
+     -1.05,
+     0,
+     1.45
+    ],
+    "distance": 8.331171769597294
+   }
+  },
+  {
+   "step": 9,
+   "what": "the stump islet",
+   "kind": "tap",
+   "at": {
+    "x": 390.128705417796,
+    "y": 612.3726333057089
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "04cb57c9-5f79-471c-8e56-95d2afd72b67",
+    "world": [
+     -4.25,
+     0,
+     1.55
+    ],
+    "distance": 8.796703714084906
+   }
+  },
+  {
+   "step": 10,
+   "what": "the lantern islet",
+   "kind": "tap",
+   "at": {
+    "x": 442.18041413256117,
+    "y": 391.553757317486
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "29d97f71-a329-41e1-9637-d91a33f6e08a",
+    "world": [
+     -4.2,
+     0,
+     -1.8
+    ],
+    "distance": 10.3552319607854
+   }
+  },
+  {
+   "step": 11,
+   "what": "the lotus islet",
+   "kind": "tap",
+   "at": {
+    "x": 670.5790073383198,
+    "y": 604.5480248543998
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8dedc590-2be2-47a5-b226-38fef071793d",
+    "world": [
+     -1.05,
+     0,
+     1.45
+    ],
+    "distance": 8.331171769597294
+   }
+  },
+  {
+   "step": 12,
+   "what": "the mushroom islet",
+   "kind": "tap",
+   "at": {
+    "x": 677.0988635711523,
+    "y": 380.61791691484683
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2c648e7c-08f8-4df6-91e8-864d02e7f65a",
+    "world": [
+     -1,
+     0,
+     -2
+    ],
+    "distance": 10.05836629120696
+   }
+  },
+  {
+   "step": 13,
+   "what": "the reed islet",
+   "kind": "tap",
+   "at": {
+    "x": 955.9837371606536,
+    "y": 616.3190079898772
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c67825a8-f625-4ed0-b27c-84468dd62d7c",
+    "world": [
+     2.2,
+     0,
+     1.6
+    ],
+    "distance": 8.68154025578756
+   }
+  }
+ ],
+ "fps": 6.7
+}

@@ -1,0 +1,158 @@
+{
+ "level": 18,
+ "id": "log-jam",
+ "title": "Log Jam",
+ "device": "fix76b-ipad-18to20",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map (scrolled into view by the run)",
+ "state": "won, finished by the debug hook after a known tap fault at step 3 (no-move)",
+ "wonByTaps": false,
+ "won": true,
+ "finishedByHook": true,
+ "movesByTaps": 2,
+ "moves": 20,
+ "touches": 6,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": {
+  "kind": "no-move",
+  "step": 3,
+  "detail": "no move followed the touches for {\"piece\":8,\"to\":4}. Last touch: the ring on row 1, column 6 at (786, 350); the first listening object under it has its origin at [2.5, 0.2, -2.5]",
+  "known": true,
+  "knownReason": "Level 18: with the log picked, a tap on the middle of its glowing ring is lost to the upright log on the next cell toward the camera, which takes the touch with its unseen grab box (move 3, and in a run that gets past it, move 17 or 19, both on a ring that lies right behind a log). Dragging the log works."
+ },
+ "error": null,
+ "seconds": {
+  "open": 94.735,
+  "rulesCard": 94.735,
+  "drawn": 94.735,
+  "play": 55.256,
+  "total": 169.594
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76b-ipad-18to20-L18-rules-card.png",
+  "fix76b-ipad-18to20-L18-fault-step-3.png",
+  "fix76b-ipad-18to20-L18-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "log 1",
+   "kind": "tap",
+   "at": {
+    "x": 424.5335452047252,
+    "y": 632.4857219385708
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a76b4d9f-a35e-4037-abb4-466355302fdd",
+    "world": [
+     -1.5,
+     0.08588132899827085,
+     2
+    ],
+    "distance": 10.566136217327706
+   }
+  },
+  {
+   "step": 1,
+   "what": "the ring on row 4, column 2",
+   "kind": "tap",
+   "at": {
+    "x": 452.43829293648474,
+    "y": 535.588572118913
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4c88a6d4-a8ca-4f4f-99e8-7d33f3ad17f6",
+    "world": [
+     -1.5,
+     0.23,
+     0.5
+    ],
+    "distance": 11.294739026647065
+   }
+  },
+  {
+   "step": 2,
+   "what": "log 6",
+   "kind": "tap",
+   "at": {
+    "x": 574.1748269373427,
+    "y": 590.9385523999256
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "76bf414d-ed12-40ac-8c6c-4920c7dedde8",
+    "world": [
+     0,
+     0.10945593935290661,
+     1.5
+    ],
+    "distance": 10.515139087737754
+   }
+  },
+  {
+   "step": 2,
+   "what": "the ring on row 5, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 715.5913677419911,
+    "y": 610.9082578749556
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2d5d4331-1417-48ee-a100-1a51627ccef6",
+    "world": [
+     1.5,
+     0.23,
+     1.5
+    ],
+    "distance": 10.47856491857675
+   }
+  },
+  {
+   "step": 3,
+   "what": "log 8",
+   "kind": "tap",
+   "at": {
+    "x": 672.4942960403334,
+    "y": 326.8610778435518
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "72f58725-734c-427b-abf4-e5924c1ee752",
+    "world": [
+     1,
+     0.08794970876498291,
+     -2.5
+    ],
+    "distance": 13.008298347489763
+   }
+  },
+  {
+   "step": 3,
+   "what": "the ring on row 1, column 6",
+   "kind": "tap",
+   "at": {
+    "x": 786.269239398416,
+    "y": 349.87141733094074
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1a37d96e-dca8-4075-af87-3f77d04c9c91",
+    "world": [
+     2.5,
+     0.23,
+     -2.5
+    ],
+    "distance": 12.920886505666754
+   }
+  }
+ ],
+ "fps": 6.8
+}

@@ -1,0 +1,27 @@
+    0.0s device fix76b-ipad-18to20; levels 18-20 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  409.3s WEBVIEW_16080.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  424.4s page in WEBVIEW_16080.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  468.8s web view found: WEBVIEW_16080.1, 1032 by 1376
+  566.6s turned LANDSCAPE: 1376 by 1032
+  626.2s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  640.1s page in WEBVIEW_16080.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  641.1s graphics quality set to SD by the player's setting
+  654.6s page in WEBVIEW_16080.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  655.7s frames capped at 6 a second by the test (page says 6)
+  660.9s page in WEBVIEW_16080.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  745.8s L18 log-jam: opened by its card on the level map (scrolled into view by the run)
+  801.4s L18: tap fault at step 3 (no-move, known): no move followed the touches for {"piece":8,"to":4}. Last touch: the ring on row 1, column 6 at (786, 350); the first listening object under it has its origin at [2.5, 0.2, -2.5]
+  825.4s L18 log-jam: won, finished by the debug hook after a known tap fault at step 3 (no-move); stars 3 (saved 3); open 94.735s, play 55.256s, total 169.594s; page errors 0, console errors 0; frames per second 6.8
+  850.3s page in WEBVIEW_19976.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  851.1s L19: fresh app
+  859.5s page in WEBVIEW_19976.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  897.7s L19 picture-tiles: opened by its card on the level map (scrolled into view by the run)
+  941.2s L19 picture-tiles: won by taps; stars 3 (saved 3); open 40.642s, play 25.716s, total 90.059s; page errors 0, console errors 0; frames per second 6
+  960.5s page in WEBVIEW_21847.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  961.5s L20: fresh app
+  969.9s page in WEBVIEW_21847.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  997.5s L20 berry-bridges: opened by its card on the level map (scrolled into view by the run)
+ 1047.0s L20 berry-bridges: won by taps; stars 3 (saved 3); open 38.571s, play 24.024s, total 85.532s; page errors 0, console errors 0; frames per second 6.7
+ 1047.1s script calls: 646, median 21 ms, 90th 142 ms
+ 1047.2s done: 3 of 3 levels won, 2 by taps alone
