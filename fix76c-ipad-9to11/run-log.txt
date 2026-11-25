@@ -1,0 +1,27 @@
+    0.0s device fix76c-ipad-9to11; levels 9-11 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  497.6s WEBVIEW_17791.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  499.8s WEBVIEW_17791.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  547.1s page in WEBVIEW_17791.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  547.3s web view found: WEBVIEW_17791.1, 1032 by 1376
+  767.2s turned LANDSCAPE: 1376 by 1032
+  832.0s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  840.9s page in WEBVIEW_17791.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  841.1s graphics quality set to SD by the player's setting
+  848.3s page in WEBVIEW_17791.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  848.4s frames capped at 6 a second by the test (page says 6)
+  853.3s page in WEBVIEW_17791.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  858.3s L09 bridge-five: opened by its card on the level map (scrolled into view by the run)
+  944.4s L09 bridge-five: won by taps; stars 3 (saved 3); open 28.425s, play 48.38s, total 95.914s; page errors 0, console errors 0; frames per second 5
+  967.6s page in WEBVIEW_22668.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  968.1s L10: fresh app
+  973.5s page in WEBVIEW_22668.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  978.1s L10 four-pillar-tower: opened by its card on the level map (scrolled into view by the run)
+ 1040.6s L10 four-pillar-tower: won by taps; stars 3 (saved 3); open 11.376s, play 44.411s, total 72.452s; page errors 0, console errors 0; frames per second 6.9
+ 1063.5s page in WEBVIEW_25004.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1063.9s L11: fresh app
+ 1068.6s page in WEBVIEW_25004.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1076.4s L11 family-crossing: opened by its card on the level map (scrolled into view by the run)
+ 1203.0s L11 family-crossing: won by taps; stars 3 (saved 3); open 19.957s, play 102.219s, total 139.119s; page errors 0, console errors 0; frames per second 6.6
+ 1203.0s script calls: 1064, median 24 ms, 90th 88 ms
+ 1203.2s done: 3 of 3 levels won, 3 by taps alone

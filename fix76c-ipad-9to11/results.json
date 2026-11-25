@@ -1,0 +1,113 @@
+[
+ {
+  "level": 9,
+  "id": "bridge-five",
+  "title": "Bridge of Five",
+  "device": "fix76c-ipad-9to11",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 18,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 28.425,
+   "rulesCard": 20.9,
+   "drawn": 28.425,
+   "play": 48.38,
+   "total": 95.914
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-9to11-L09-loading-mark.png",
+   "fix76c-ipad-9to11-L09-rules-card.png",
+   "fix76c-ipad-9to11-L09-in-play.png",
+   "fix76c-ipad-9to11-L09-win-card.png"
+  ],
+  "fps": 5
+ },
+ {
+  "level": 10,
+  "id": "four-pillar-tower",
+  "title": "Four-Pillar Tower",
+  "device": "fix76c-ipad-9to11",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 17,
+  "moves": 17,
+  "touches": 34,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 11.376,
+   "rulesCard": 10.844,
+   "drawn": 11.376,
+   "play": 44.411,
+   "total": 72.452
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-9to11-L10-loading-mark.png",
+   "fix76c-ipad-9to11-L10-rules-card.png",
+   "fix76c-ipad-9to11-L10-in-play.png",
+   "fix76c-ipad-9to11-L10-win-card.png"
+  ],
+  "fps": 6.9
+ },
+ {
+  "level": 11,
+  "id": "family-crossing",
+  "title": "Family Crossing",
+  "device": "fix76c-ipad-9to11",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 17,
+  "moves": 17,
+  "touches": 45,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 19.957,
+   "rulesCard": 15.854,
+   "drawn": 19.957,
+   "play": 102.219,
+   "total": 139.119
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-9to11-L11-loading-mark.png",
+   "fix76c-ipad-9to11-L11-rules-card.png",
+   "fix76c-ipad-9to11-L11-in-play.png",
+   "fix76c-ipad-9to11-L11-win-card.png"
+  ],
+  "fps": 6.6
+ }
+]
