@@ -1,0 +1,19 @@
+    0.0s device fix76d-ipad-27-fps3; levels 27 (1); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  482.9s WEBVIEW_15750.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  491.0s page in WEBVIEW_15750.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  491.9s web view found: WEBVIEW_15750.1, 1032 by 1376
+  561.7s turned LANDSCAPE: 1376 by 1032
+  605.1s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  656.2s page in WEBVIEW_15750.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  658.0s graphics quality set to SD by the player's setting
+  670.9s page in WEBVIEW_15750.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  673.0s frames capped at 3 a second by the test (page says 3)
+  684.5s page in WEBVIEW_15750.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  692.9s L27 timber-tangle: opened by its card on the level map (scrolled into view by the run)
+  749.1s L27: ERROR timed out waiting for button "Let's go!" to be hidden
+  774.7s page in WEBVIEW_18313.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  774.8s app relaunched after the error
+  775.0s L27 timber-tangle: not won: timed out waiting for button "Let's go!" to be hidden; stars null (saved null); open 24.987s, play nulls, total 100.8s; page errors 0, console errors 0; frames per second 0
+  775.0s script calls: 127, median 47 ms, 90th 1685 ms
+  775.2s done: 0 of 1 levels won, 0 by taps alone
