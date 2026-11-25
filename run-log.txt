@@ -1,0 +1,11 @@
+    0.0s device fix76-iphone-small-26; levels 26 (1); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"D5905C04-9832-4B1E-A0D4-21B70CEE5EAC","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  471.6s WEBVIEW_16511.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  473.7s WEBVIEW_16511.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  475.7s WEBVIEW_16511.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  494.5s page in WEBVIEW_16511.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  494.7s web view found: WEBVIEW_16511.1, 667 by 375
+  500.4s calibration: touched [{"x":200,"y":150},{"x":467,"y":281}], the page saw [{"x":200,"y":150},{"x":467,"y":281}]: same (error 0.0 pt)
+  505.0s page in WEBVIEW_16511.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  507.7s L26 moonbeam-maze: opened by its card on the level map
+ 1995.2s L26: ERROR level budget of 20 min ran out; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)

@@ -1,0 +1,3 @@
+device iPhone SE (3rd generation): D5905C04-9832-4B1E-A0D4-21B70CEE5EAC
+    iPhone SE (3rd generation) (D5905C04-9832-4B1E-A0D4-21B70CEE5EAC) (Shutdown) 
+booted in 166 s
