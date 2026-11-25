@@ -1,6 +1,162 @@
 [
-  { "label": "fix76-iphone-small-26", "sim": "iPhone SE (3rd generation)", "orientation": "-", "levels": "26", "extras": "0", "flags": "relaunch-each level-minutes=20 sit-seconds=40" },
-  { "label": "fix76-iphone-large-28-30", "sim": "iPhone 17 Pro Max", "orientation": "-", "levels": "28-30", "extras": "0", "flags": "relaunch-each level-minutes=20" },
-  { "label": "fix76-ipad-03-05", "sim": "iPad Pro 13-inch (M5)", "orientation": "LANDSCAPE", "levels": "3-5", "extras": "0", "flags": "quality=low relaunch-each level-minutes=20" },
-  { "label": "fix76-ipad-mini-03-05", "sim": "iPad mini (A17 Pro)", "orientation": "LANDSCAPE", "levels": "3-5", "extras": "0", "flags": "quality=low relaunch-each level-minutes=20" }
+ {
+  "label": "fix76b-iphone-large-26",
+  "sim": "iPhone 17 Pro Max",
+  "orientation": "-",
+  "levels": "26",
+  "extras": "0",
+  "flags": "relaunch-each level-minutes=15 fps=6 sit-seconds=40"
+ },
+ {
+  "label": "fix76b-iphone-large-27",
+  "sim": "iPhone 17 Pro Max",
+  "orientation": "-",
+  "levels": "27",
+  "extras": "0",
+  "flags": "relaunch-each level-minutes=15 fps=6 sit-seconds=40"
+ },
+ {
+  "label": "fix76b-iphone-large-28-30",
+  "sim": "iPhone 17 Pro Max",
+  "orientation": "-",
+  "levels": "28-30",
+  "extras": "0",
+  "flags": "relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-iphone-small-26",
+  "sim": "iPhone SE (3rd generation)",
+  "orientation": "-",
+  "levels": "26",
+  "extras": "0",
+  "flags": "relaunch-each level-minutes=15 fps=6 sit-seconds=40"
+ },
+ {
+  "label": "fix76b-iphone-small-27",
+  "sim": "iPhone SE (3rd generation)",
+  "orientation": "-",
+  "levels": "27",
+  "extras": "0",
+  "flags": "relaunch-each level-minutes=15 fps=6 sit-seconds=40"
+ },
+ {
+  "label": "fix76b-iphone-small-28-30",
+  "sim": "iPhone SE (3rd generation)",
+  "orientation": "-",
+  "levels": "28-30",
+  "extras": "0",
+  "flags": "relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-iphone-large-17",
+  "sim": "iPhone 17 Pro Max",
+  "orientation": "-",
+  "levels": "17",
+  "extras": "0",
+  "flags": "relaunch-each level-minutes=15 fps=6 sit-seconds=40"
+ },
+ {
+  "label": "fix76b-iphone-small-17",
+  "sim": "iPhone SE (3rd generation)",
+  "orientation": "-",
+  "levels": "17",
+  "extras": "0",
+  "flags": "relaunch-each level-minutes=15 fps=6 sit-seconds=40"
+ },
+ {
+  "label": "fix76b-ipad-3to5",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "3-5",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-ipad-6to8",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "6-8",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-ipad-9to11",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "9-11",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-ipad-12to14",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "12-14",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-ipad-15to16",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "15-16",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-ipad-17",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "17",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6 sit-seconds=40"
+ },
+ {
+  "label": "fix76b-ipad-18to20",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "18-20",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-ipad-21to23",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "21-23",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-ipad-24to25",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "24-25",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+ },
+ {
+  "label": "fix76b-ipad-26",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "26",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6 sit-seconds=40"
+ },
+ {
+  "label": "fix76b-ipad-27",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "27",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6 sit-seconds=40"
+ },
+ {
+  "label": "fix76b-ipad-28to30",
+  "sim": "iPad Pro 13-inch (M5)",
+  "orientation": "LANDSCAPE",
+  "levels": "28-30",
+  "extras": "0",
+  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+ }
 ]
