@@ -419,12 +419,58 @@ export async function waitCameraStill(page: Page, quietMs = 600, timeout = 30_00
   throw new Error('the camera never came to rest');
 }
 
+/**
+ * A made-up pointer for presses sent as pointer events alone (`pressWithoutClick`). The browser knows no
+ * such pointer, so the camera's pointer capture of it would throw: `ALLOW_FAKE_POINTER`, put on the page
+ * before the game starts, makes capture a no-op for this one id. Real touches are untouched.
+ */
+export const FAKE_POINTER = 41;
+export const ALLOW_FAKE_POINTER = (id: number) => {
+  for (const name of ['setPointerCapture', 'releasePointerCapture'] as const) {
+    const real = Element.prototype[name];
+    Element.prototype[name] = function (this: Element, pointerId: number) {
+      if (pointerId !== id) real.call(this, pointerId);
+    };
+  }
+};
+
+/**
+ * A finger put down at `at`, held `holdMs`, and lifted, as pointer events alone: no click follows. That is
+ * what iOS does after a press held a little long, and the case a click handler misses. With `via`, the
+ * finger goes to each of those points on the way (in screen pixels), and lifts at the last one.
+ */
+export async function pressWithoutClick(page: Page, at: Point, holdMs: number, via: Point[] = []) {
+  const send = (type: string, p: Point) =>
+    page.evaluate(
+      ([t, x, y, id]) => {
+        const el = document.elementFromPoint(x, y) ?? document.body;
+        const init = { bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, pointerId: id, pointerType: 'touch', isPrimary: true, button: t === 'pointermove' ? -1 : 0, buttons: t === 'pointerup' ? 0 : 1 };
+        el.dispatchEvent(new PointerEvent(t, init));
+      },
+      [type, p.x, p.y, FAKE_POINTER] as const,
+    );
+  await send('pointerdown', at);
+  await page.waitForTimeout(holdMs);
+  let last = at;
+  for (const p of via) {
+    await send('pointermove', p);
+    await page.waitForTimeout(40);
+    last = p;
+  }
+  await send('pointerup', last);
+}
+
 /** What one level's player gets for each move. */
 export class Taps {
   /** Every touch of this level's run, in order. */
   readonly log: TapRecord[] = [];
   /** The number of the move being made, from 1. */
   step = 0;
+  /**
+   * When set, every tap on the scene is a press held this long and lifted with no click after it
+   * (`pressWithoutClick`), in place of a touch-screen tap. The page needs `ALLOW_FAKE_POINTER` first.
+   */
+  pressHoldMs: number | null = null;
 
   constructor(
     readonly page: Page,
@@ -520,7 +566,8 @@ export class Taps {
     const rec: TapRecord = { step: this.step, what, kind: 'tap', at, ...seen };
     this.log.push(rec);
     if (seen.onTop !== 'CANVAS') throw new TapFault('covered', this.step, `${what} at ${fmt(at)} lies under ${seen.onTop}`);
-    await this.page.touchscreen.tap(at.x, at.y);
+    if (this.pressHoldMs !== null) await pressWithoutClick(this.page, at, this.pressHoldMs);
+    else await this.page.touchscreen.tap(at.x, at.y);
     return rec;
   }
 

@@ -8,4 +8,5 @@ export * from './motion';
 export * from './Burst';
 export * from './Clickable';
 export * from './tapPad';
+export * from './pressOnLift';
 export * from './cartoon';
