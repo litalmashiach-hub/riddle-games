@@ -7,7 +7,7 @@ name: App play (test only)
 
 on:
   push:
-    branches: [test/app-play-every-level, test/app-play-small-again, test/app-play-sd-again, test/app-play-large-tail]
+    branches: [test/app-play-every-level, test/app-play-small-again, test/app-play-sd-again, test/app-play-large-tail, test/app-play-ipad-ckpt]
 
 permissions:
   contents: read
