@@ -1,0 +1,113 @@
+[
+ {
+  "level": 28,
+  "id": "family-portrait",
+  "title": "Family Portrait",
+  "device": "fix76b-iphone-large-28-30",
+  "size": "956x440",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 24,
+  "moves": 24,
+  "touches": 24,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 17.476,
+   "rulesCard": 2.539,
+   "drawn": 17.476,
+   "play": 34.417,
+   "total": 66.756
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-iphone-large-28-30-L28-loading-mark.png",
+   "fix76b-iphone-large-28-30-L28-rules-card.png",
+   "fix76b-iphone-large-28-30-L28-in-play.png",
+   "fix76b-iphone-large-28-30-L28-win-card.png"
+  ],
+  "fps": 4.3
+ },
+ {
+  "level": 29,
+  "id": "cricket-crossing",
+  "title": "Cricket Crossing",
+  "device": "fix76b-iphone-large-28-30",
+  "size": "956x440",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 16,
+  "moves": 16,
+  "touches": 27,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 8.48,
+   "rulesCard": 8.167,
+   "drawn": 8.48,
+   "play": 28.77,
+   "total": 50.217
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-iphone-large-28-30-L29-loading-mark.png",
+   "fix76b-iphone-large-28-30-L29-rules-card.png",
+   "fix76b-iphone-large-28-30-L29-in-play.png",
+   "fix76b-iphone-large-28-30-L29-win-card.png"
+  ],
+  "fps": 6.4
+ },
+ {
+  "level": 30,
+  "id": "moonlit-tower",
+  "title": "Moonlit Tower",
+  "device": "fix76b-iphone-large-28-30",
+  "size": "956x440",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 31,
+  "moves": 31,
+  "touches": 62,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 6.01,
+   "rulesCard": 3.684,
+   "drawn": 6.01,
+   "play": 76.857,
+   "total": 95.546
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-iphone-large-28-30-L30-loading-mark.png",
+   "fix76b-iphone-large-28-30-L30-rules-card.png",
+   "fix76b-iphone-large-28-30-L30-in-play.png",
+   "fix76b-iphone-large-28-30-L30-win-card.png"
+  ],
+  "fps": 7
+ }
+]
