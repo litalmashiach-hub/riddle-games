@@ -2,6 +2,7 @@ import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import * as THREE from 'three';
+import { finishGlide, glideBack, heldView, holdView, isZooming, zoomEnded, zoomStarted } from './focusView';
 
 /*
  * Cartoon "fail scene" kit. Kid-friendly slapstick, never scary:
@@ -211,39 +212,39 @@ export function Shake({ trigger, intensity = 0.12, durationMs = 500, children }:
 /**
  * Dramatic zoom: while `active`, glide the camera in toward `target` (keeps the viewing angle,
  * `closer` = fraction of the distance kept). When it turns off (undo/restart), glide back.
+ * A level may also mount it only while there is a loss to show: when it leaves the scene zoomed in,
+ * the glide back is finished without it (see focusView.ts).
  * Needs the shell's OrbitControls (they are `makeDefault`).
  */
 export function FocusCam({ target, active, closer = 0.55, speed = 3 }: { target: V3; active: boolean; closer?: number; speed?: number }) {
   const controls = useThree((s) => s.controls) as unknown as { target: THREE.Vector3; enabled: boolean } | null;
   const camera = useThree((s) => s.camera);
-  const saved = useRef<{ target: THREE.Vector3; pos: THREE.Vector3 } | null>(null);
-  const returning = useRef(false);
   const focus = useMemo(() => new THREE.Vector3(...target), [target[0], target[1], target[2]]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!controls) return;
-    if (active && !saved.current) {
-      saved.current = { target: controls.target.clone(), pos: camera.position.clone() };
-      returning.current = false;
-    } else if (!active && saved.current) returning.current = true;
+    if (!controls || !active) return;
+    holdView(controls, camera);
+    zoomStarted(controls);
+    return () => zoomEnded(controls);
   }, [active, controls, camera]);
 
+  // Leaving the scene (the level drops its fail scene on undo or restart) must not leave the camera zoomed in.
+  useEffect(() => {
+    if (!controls) return;
+    return () => {
+      if (heldView(controls)) finishGlide(controls, camera, speed * 1.5);
+    };
+  }, [controls, camera, speed]);
+
   useFrame((_, dt) => {
-    const sv = saved.current;
-    if (!controls || !sv) return;
+    const home = controls && heldView(controls);
+    if (!controls || !home) return;
     const k = 1 - Math.exp(-speed * dt);
     if (active) {
-      const offset = sv.pos.clone().sub(sv.target).multiplyScalar(closer);
+      const offset = home.pos.clone().sub(home.target).multiplyScalar(closer);
       controls.target.lerp(focus, k);
       camera.position.lerp(focus.clone().add(offset), k);
-    } else if (returning.current) {
-      controls.target.lerp(sv.target, k * 1.5);
-      camera.position.lerp(sv.pos, k * 1.5);
-      if (camera.position.distanceTo(sv.pos) < 0.02) {
-        saved.current = null;
-        returning.current = false;
-      }
-    }
+    } else if (!isZooming(controls)) glideBack(controls, camera, Math.min(1, k * 1.5));
   });
   return null;
 }
