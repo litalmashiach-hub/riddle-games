@@ -34,21 +34,6 @@ export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {
         "Level 7, move 1 (Mrs Coral and Mr Coral fly): a tap on the middle of Mrs Coral picks Mr Teal, who stands in front of her with his top hat over her. Aiming at her head instead gets as far as move 10, where only a sliver of her shows beside his hat.",
     },
   ],
-  'family-crossing': [
-    {
-      sizes: ['iphone-landscape'],
-      steps: [1, 3],
-      kind: 'wrong-pick',
-      reason:
-        "Level 11, the guard's first or second crossing: a tap on the middle of the guard puts Dad on the raft. Dad stands in front, and his unseen tap cylinder (radius 0.38) is wider than his body and ends at the guard's middle, so the same tap is lost at move 1 in one run and at move 3 in another.",
-    },
-    {
-      sizes: ['iphone-small-landscape', 'iphone-large-landscape'],
-      steps: [1],
-      kind: 'wrong-pick',
-      reason: "Level 11, move 1 (the guard and the thief cross): a tap on the middle of the guard puts Dad on the raft. Dad's unseen tap cylinder is wider than his body and covers the guard's middle.",
-    },
-  ],
   'twelve-coins': [
     {
       sizes: ALL,

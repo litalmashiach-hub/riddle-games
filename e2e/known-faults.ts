@@ -22,22 +22,4 @@ export interface KnownFault {
   when: 'start' | 'leave';
 }
 
-const HTML_LABEL = /NotFoundError: Failed to execute 'removeChild' on 'Node'/;
-
-export const KNOWN_FAULTS: Record<string, KnownFault> = {
-  'bridge-five': {
-    reason: "Level 9 throws a page error (removeChild on a node that is not a child) when play starts after the rules card: one of the scene's drei <Html> labels is removed twice.",
-    pageError: HTML_LABEL,
-    when: 'start',
-  },
-  'picture-tiles': {
-    reason: "Level 19 throws a page error (removeChild on a node that is not a child) when the player leaves the level: one of the scene's drei <Html> labels is removed twice.",
-    pageError: HTML_LABEL,
-    when: 'leave',
-  },
-  'family-portrait': {
-    reason: "Level 28 plays in level 19's scene and has level 19's fault: a page error (removeChild on a node that is not a child) when the player leaves the level. One fix in levels/19-picture-tiles mends both.",
-    pageError: HTML_LABEL,
-    when: 'leave',
-  },
-};
+export const KNOWN_FAULTS: Record<string, KnownFault> = {};
