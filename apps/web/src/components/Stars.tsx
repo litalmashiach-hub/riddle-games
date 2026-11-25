@@ -23,7 +23,7 @@ export function Stars({ count, size = 18, animate = false, single = false }: { c
   // One lit star as an icon beside a total, not a score out of three.
   if (single) return <Star on size={size} />;
   return (
-    <div className="flex items-center gap-0.5" aria-label={`${count} of 3 stars`}>
+    <div className="flex items-center gap-0.5" role="img" aria-label={`${count} of 3 stars`}>
       {[1, 2, 3].map((i) =>
         animate ? (
           <motion.div

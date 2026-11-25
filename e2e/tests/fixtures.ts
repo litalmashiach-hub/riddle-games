@@ -121,10 +121,10 @@ export async function expectCounter(page: Page, moves: number, bestMoves: number
   await expect(best.locator('xpath=..')).toBeInViewport();
 }
 
-/** A level's button on the map, by its number and title. A locked level may say so after its title. */
+/** A level's button on the map, by its number and title. Its name goes on to say what the card shows: stars, "locked" or "not solved yet". */
 export function mapButton(page: Page, number: number, title: string) {
   const name = `Level ${number}: ${title}`.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return page.getByRole('button', { name: new RegExp(`^${name}( \\(locked\\))?$`) });
+  return page.getByRole('button', { name: new RegExp(`^${name}, `) });
 }
 
 /** Waits until the level's own session is the one behind the debug hook. */

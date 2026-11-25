@@ -333,14 +333,14 @@ test('the app build: a tap that does something gives one light tick, and none wi
   expect((await ticks(page)).length, 'after the crossing').toBe(5);
 
   // Sound off: the switch itself is silent on the way out, and so is everything after it.
-  await page.getByRole('button', { name: 'Mute' }).tap();
+  await page.getByRole('button', { name: 'Sound', pressed: true }).tap();
   await page.waitForTimeout(300);
   await expect(page.getByRole('button', { name: 'Undo' })).toBeEnabled({ timeout: 30_000 });
   await page.getByRole('button', { name: 'Undo' }).tap();
   await page.waitForTimeout(300);
   expect((await ticks(page)).length, 'with the sound off').toBe(5);
   // Sound back on: the switch ticks, as it clicks.
-  await page.getByRole('button', { name: 'Unmute' }).tap();
+  await page.getByRole('button', { name: 'Sound', pressed: false }).tap();
   await expect.poll(() => ticks(page).then((t) => t.length), 'turning the sound back on').toBe(6);
   expect(new Set((await ticks(page)).map((t) => JSON.stringify(t))).size, 'every call is the same light impact').toBe(1);
 });
