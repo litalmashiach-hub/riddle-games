@@ -1,0 +1,42 @@
+Simulator: iPad Pro 13-inch (M5) 2A020491-3EBC-4783-8622-F8314CC00294
+    iPad Pro 13-inch (M5) (2A020491-3EBC-4783-8622-F8314CC00294) (Shutdown) 
+Port:
+    UUID: BFD2DF9E-905A-4602-B81F-32D381096306
+    Class: Unknown
+    Port Identifier: com.apple.display.captureservice
+    Power state: On
+
+Port:
+    UUID: 76B81E24-DE02-4405-843A-5B8D513AF2C8
+    Class: Display
+    Port Identifier: com.apple.framebuffer.display
+    Power state: On
+    Display class: 0
+    Default width: 2064
+    Default height: 2752
+    Default pixel format: 'BGRA'
+    IOSurface port:
+        width              = 2064
+        height             = 2752
+        bytes per row      = 8256
+        size               = 22720512
+        pixel format       = 'BGRA'
+        bytes per element  = 4
+        CPU cache mode     = Default cache
+        Pixel size casting = Yes
+
+Port:
+    UUID: 803456BC-8A34-406C-9002-5A8709BBB4E2
+    Class: Display
+    Port Identifier: com.apple.framebuffer.display
+    Power state: On
+    Display class: 1
+    Default width: 720
+    Default height: 480
+    Default pixel format: 'BGRA'
+
+Port:
+    UUID: AF310F73-311B-437A-BB23-43256249BC6B
+    Class: DisplayAdapter
+    Port Identifier: com.apple.framebuffer.server
+    Power state: On
