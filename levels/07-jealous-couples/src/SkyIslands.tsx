@@ -4,12 +4,13 @@ import { seeded, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { DOCK_X } from './places';
 
 /** Island centers and size. The island tops are flat at y = 0. */
 export const ISLAND_X = 5.1;
 export const ISLAND_R = 3.0;
 /** Where the balloon moors, at the end of each island's dock. */
-export const DOCK_X = 1.95;
+export { DOCK_X };
 
 const sideSign = (s: 'L' | 'R') => (s === 'L' ? -1 : 1);
 

@@ -116,14 +116,18 @@ was seen on main in a run of the whole level, at one size or another, and each e
 
 Level 7's player taps each bird on its *visible middle* (`tapVisible` in `harness.ts`): the middle of
 the part of the bird that the screen shows, found by casting a ray through each point of the bird's box
-and keeping the points where the first drawn mesh met is the bird's own. The middle of Mrs Coral's box
-is drawn over by Mr Teal's top hat, so a tap there tested a spot where she does not show.
+and keeping the points where the first drawn mesh met is the bird's own. The birds stand in a bunch, and
+the middle of a bird's box can be drawn over by the bird in front, so a tap there would test a spot
+where the bird does not show. The player reads each bird's place from the level's own
+`levels/07-jealous-couples/src/places.ts`: nothing is copied.
 
 Level 7, Jealous Couples, is no longer listed. It was listed as "only sometimes" (3 runs in about 50):
 a tap on the sliver of Mrs Coral that shows beside Mr Teal's top hat put Mr Teal in the basket. His hat
 sways with his head, and its brim swept over the spot between the aim and the touch. A tap on a hat's
 brim now goes to the bird whose body lies behind it (`levels/07-jealous-couples/src/brim.ts`), and the
-level wins by taps at every size. No level uses `sometimes` today.
+level wins by taps at every size. No level uses `sometimes` today. The birds have since been stood
+further apart (`places.ts`), so that each shows a part about 20 points across on a small iPhone;
+`Bird.test.ts` fails if the brim loses its rule, and `places.test.ts` if two birds are bunched again.
 
 Level 12, Twelve Coins, is no longer listed: it wins by taps at every size since the tap fix of pull
 request #70.

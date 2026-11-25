@@ -1,5 +1,6 @@
 import type { RiddleLevel } from '@riddle/engine';
-import { rules, type Move, type State } from './rules';
+import { CAMERA } from './places';
+import { COUPLE_NAMES, COUPLE_PATTERNS, rules, type Move, type State } from './rules';
 import { MOVE_MS, Scene } from './Scene';
 
 const level: RiddleLevel<State, Move> = {
@@ -10,6 +11,7 @@ const level: RiddleLevel<State, Move> = {
   tagline: 'A balloon for two and a lot of jealousy.',
   instructions: [
     'Fly all three bird couples to the far island.',
+    `A couple shares a colour and a pattern: ${COUPLE_NAMES.map((n, i) => `the ${n}s are ${COUPLE_PATTERNS[i]}`).join(', ')}.`,
     'The balloon carries one or two birds, and someone must be aboard to fly it.',
     'The gents are jealous: a lady may never be with another gent unless her own gent is there too.',
     'That counts on both islands and inside the balloon basket. Ladies alone together are fine.',
@@ -20,7 +22,7 @@ const level: RiddleLevel<State, Move> = {
   moveNoun: 'flights',
   moveDurationMs: MOVE_MS,
   endDelayMs: 2800,
-  camera: { position: [0, 4.5, 10.2], target: [0, 0.6, 0], fov: 44 },
+  camera: CAMERA,
   Scene,
 };
 

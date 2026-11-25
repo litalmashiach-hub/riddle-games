@@ -4,11 +4,12 @@ import { Bubble, HintRing, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { Balloon, BASKET_FLOOR } from './Balloon';
+import { Balloon } from './Balloon';
 import { Bird as BirdModel, COUPLE_COLORS, Steam } from './Bird';
 import { FeatherPuff, MusicNotes, StormCloud, SweatDrop } from './Drama';
 import { BIRDS, coupleOf, gent, nameOf, roleOf, trouble, type Bird, type Move, type Side, type State } from './rules';
-import { DOCK_X, ISLAND_X, SkyIslands } from './SkyIslands';
+import { BALLOON_SCALE, DOCK_X, seat, sign, slot } from './places';
+import { ISLAND_X, SkyIslands } from './SkyIslands';
 
 /** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
 const birdPad = tapPadRaycast();
@@ -24,22 +25,10 @@ const FLY_MS = 2600;
 const HOP_MS = 520;
 const FLY_HEIGHT = 1.7;
 const BOARD_MS = 420;
-const BALLOON_SCALE = 1.15;
 const BIRD_SCALE = 1.22;
 export const MOVE_MS = FLY_MS + HOP_MS + 200;
 
-const sign = (s: Side) => (s === 'L' ? -1 : 1);
 const balloonPos = (s: Side): Vec3 => [sign(s) * DOCK_X, 0, 0];
-/** Two spots in the basket, side by side so both riders face the camera. */
-const seat = (s: Side, i: number): Vec3 => [sign(s) * DOCK_X + (i === 0 ? -0.21 : 0.21), BASKET_FLOOR * BALLOON_SCALE, 0.03];
-
-/** Each couple stands together in a row; the gent nearer the dock. */
-const slot = (b: Bird, s: Side): Vec3 => {
-  const c = coupleOf(b);
-  const row = c - 1;
-  const inward = (roleOf(b) === 'gent' ? 3.15 : 3.95) + (c === 1 ? 0.35 : 0);
-  return [sign(s) * inward, 0, row * 1.2 + (roleOf(b) === 'gent' ? -0.08 : 0.08)];
-};
 
 /** Faces toward the gap but turned three-quarters to the camera. */
 const islandYaw = (s: Side) => (s === 'L' ? 0.9 : -0.9);
