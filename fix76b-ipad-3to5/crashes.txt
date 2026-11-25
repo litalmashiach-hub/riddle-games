@@ -1,0 +1,1 @@
+com.apple.WebKit.GPU-2026-11-25-202120.ips

@@ -1,0 +1,109 @@
+[
+ {
+  "level": 3,
+  "id": "two-jugs",
+  "title": "Two Jugs",
+  "device": "fix76b-ipad-3to5",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "not won: the level did not open within 180 s (rules card never, scene never; loading mark seen: false)",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 0,
+  "moves": 6,
+  "touches": 0,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "the level did not open within 180 s (rules card never, scene never; loading mark seen: false)",
+  "seconds": {
+   "open": null,
+   "rulesCard": null,
+   "drawn": null,
+   "play": null,
+   "total": 327.601
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-3to5-L03-error.png"
+  ],
+  "fps": 0
+ },
+ {
+  "level": 4,
+  "id": "tower-of-hanoi",
+  "title": "Tower of Hanoi",
+  "device": "fix76b-ipad-3to5",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 15,
+  "moves": 15,
+  "touches": 30,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 24.2,
+   "rulesCard": 23.8,
+   "drawn": 24.2,
+   "play": 89.922,
+   "total": 171.79
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-3to5-L04-loading-mark.png",
+   "fix76b-ipad-3to5-L04-rules-card.png",
+   "fix76b-ipad-3to5-L04-in-play.png",
+   "fix76b-ipad-3to5-L04-win-card.png"
+  ],
+  "fps": 4.1
+ },
+ {
+  "level": 5,
+  "id": "bridge-and-torch",
+  "title": "Bridge and Torch",
+  "device": "fix76b-ipad-3to5",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 5,
+  "moves": 5,
+  "touches": 13,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 43.583,
+   "rulesCard": 43.583,
+   "drawn": 43.583,
+   "play": 50.176,
+   "total": 128.471
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-3to5-L05-rules-card.png",
+   "fix76b-ipad-3to5-L05-in-play.png",
+   "fix76b-ipad-3to5-L05-win-card.png"
+  ],
+  "fps": 5
+ }
+]

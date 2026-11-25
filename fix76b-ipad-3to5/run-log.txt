@@ -1,0 +1,28 @@
+    0.0s device fix76b-ipad-3to5; levels 3-5 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  482.0s page in WEBVIEW_14427.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  482.1s web view found: WEBVIEW_14427.1, 1032 by 1376
+  488.3s turned LANDSCAPE: 1376 by 1032
+  508.7s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  521.8s page in WEBVIEW_14427.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  522.8s graphics quality set to SD by the player's setting
+  531.8s page in WEBVIEW_14427.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  531.9s frames capped at 6 a second by the test (page says 6)
+  539.7s page in WEBVIEW_14427.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  547.7s L03 two-jugs: opened by its card on the level map
+  735.0s L03: ERROR the level did not open within 180 s (rules card never, scene never; loading mark seen: false)
+  857.2s page in WEBVIEW_15983.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  859.3s app relaunched after the error
+  860.7s L03 two-jugs: not won: the level did not open within 180 s (rules card never, scene never; loading mark seen: false); stars null (saved null); open nulls, play nulls, total 327.601s; page errors 0, console errors 0; frames per second 0
+  901.4s page in WEBVIEW_16315.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  910.8s L04: fresh app
+  952.4s page in WEBVIEW_16315.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  965.3s L04 tower-of-hanoi: opened by its card on the level map
+ 1082.7s L04 tower-of-hanoi: won by taps; stars 3 (saved 3); open 24.2s, play 89.922s, total 171.79s; page errors 0, console errors 0; frames per second 4.1
+ 1103.2s page in WEBVIEW_20484.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1105.6s L05: fresh app
+ 1115.3s page in WEBVIEW_20484.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1159.7s L05 bridge-and-torch: opened by its card on the level map
+ 1234.1s L05 bridge-and-torch: won by taps; stars 3 (saved 3); open 43.583s, play 50.176s, total 128.471s; page errors 0, console errors 0; frames per second 5
+ 1234.1s script calls: 466, median 43 ms, 90th 1567 ms
+ 1234.2s done: 2 of 3 levels won, 2 by taps alone
