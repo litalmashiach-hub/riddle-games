@@ -167,10 +167,10 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
       </AnimatePresence>
 
       {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels.
-          The counter and the level name use the tinted readout glass, so they stay readable over a white sky. */}
+          The counter, the level name and the round buttons use the tinted readout glass, so they stay readable over a white sky. */}
       <div className={`safe-top pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3 transition-opacity duration-300 sm:p-4 short:justify-start short:pt-2 ${cardOpen ? 'invisible opacity-0' : ''}`}>
         <div className="pointer-events-auto flex items-center gap-2">
-          <Button onClick={onExit} aria-label="Back to levels" className="!px-3">
+          <Button onClick={onExit} tone="readout" aria-label="Back to levels" className="!px-3">
             <HomeIcon />
           </Button>
           <div className="glass-readout hidden rounded-2xl px-4 py-1.5 sm:block short:hidden">
@@ -183,13 +183,13 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
           <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/90 short:leading-[inherit]"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
         </div>
         <div className="pointer-events-auto flex items-center gap-2 short:ml-auto">
-          <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" aria-label="Graphics quality">
+          <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" tone="readout" aria-label="Graphics quality">
             {quality === 'high' ? 'HD' : 'SD'}
           </Button>
-          <Button onClick={toggleSound} className="!px-3" aria-label={sound ? 'Mute' : 'Unmute'}>
+          <Button onClick={toggleSound} className="!px-3" tone="readout" aria-label={sound ? 'Mute' : 'Unmute'}>
             <SoundIcon on={sound} />
           </Button>
-          <Button onClick={() => setShowRules(true)} className="!px-3" aria-label="Rules">
+          <Button onClick={() => setShowRules(true)} className="!px-3" tone="readout" aria-label="Rules">
             <InfoIcon />
           </Button>
         </div>
@@ -198,9 +198,9 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
       {/* Bottom controls. Sideways on a phone they sit in the two bottom corners, under the thumbs, and leave the scene's lower edge clear. */}
       <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-opacity duration-300 short:justify-between short:pb-[max(0.5rem,env(safe-area-inset-bottom))] short:pl-[max(0.75rem,env(safe-area-inset-left))] short:pr-[max(0.75rem,env(safe-area-inset-right))] ${cardOpen ? 'invisible opacity-0' : ''}`}>
         <div className="glass pointer-events-auto flex gap-2 rounded-3xl p-2 short:flex-col short:gap-1.5 short:p-1.5">
-          <Button onClick={s.undo} disabled={moveCount === 0} aria-label="Undo" className="short:!px-3"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
-          <Button onClick={s.redo} disabled={s.future.length === 0} aria-label="Redo" className="short:!px-3"><RedoIcon /></Button>
-          <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} aria-label="Restart" className="short:!px-3"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
+          <Button onClick={s.undo} disabled={moveCount === 0} tone="readout" aria-label="Undo" className="short:!px-3"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
+          <Button onClick={s.redo} disabled={s.future.length === 0} tone="readout" aria-label="Redo" className="short:!px-3"><RedoIcon /></Button>
+          <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} tone="readout" aria-label="Restart" className="short:!px-3"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
           <Button tone="gold" className="short:hidden" onClick={() => setHintText(hintLine(s))} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline">Hint</span></Button>
         </div>
         <div className="pointer-events-auto hidden short:block">
