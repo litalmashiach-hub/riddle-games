@@ -1,12 +1,14 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { sfx } from '@riddle/fx';
 
-type Tone = 'gold' | 'glass' | 'green' | 'red';
+type Tone = 'gold' | 'glass' | 'readout' | 'green' | 'red';
 const TONES: Record<Tone, string> = {
   gold: 'bg-gradient-to-b from-amber-200 via-amber-300 to-amber-500 text-amber-950',
   green: 'bg-gradient-to-b from-emerald-300 to-emerald-500 text-emerald-950',
   red: 'bg-gradient-to-b from-rose-300 to-rose-500 text-rose-950',
   glass: 'glass text-white',
+  // Tinted glass for buttons that sit over the scene, so their white icons stay readable over a white sky.
+  readout: 'glass-readout text-white',
 };
 
 export function Button({
