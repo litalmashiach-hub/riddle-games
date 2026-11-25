@@ -191,6 +191,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <Html calculatePosition={pinAboveButtons} center zIndexRange={[5, 0]}>
             <button
               onClick={row}
+              // VoiceOver reads this label in place of the text, so it never says "right arrow".
+              aria-label={`${state.farmer === 'L' ? 'Row across' : 'Row back'}, ${loaded ? (loaded === 'wolf' ? 'with wolf' : 'with sheep') : 'alone'}`}
               style={{
                 fontFamily: 'Fredoka, system-ui, sans-serif',
                 fontWeight: 700,

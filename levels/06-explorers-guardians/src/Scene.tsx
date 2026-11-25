@@ -172,6 +172,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <Html calculatePosition={pinAboveButtons} center zIndexRange={[5, 0]}>
             <button
               onClick={sail}
+              // VoiceOver reads this label in place of the text, so it never says "right arrow" or "plus".
+              aria-label={`${state.boat === 'L' ? 'Sail across' : 'Sail back'}, ${groupLabel(loaded).replace(' + ', ' and ')}`}
               style={{
                 fontFamily: 'Fredoka, system-ui, sans-serif',
                 fontWeight: 700,
