@@ -132,6 +132,11 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         gl={{ antialias: false, powerPreference: 'high-performance' }}
         camera={{ position: cam.position, fov: cam.fov ?? 42, near: 0.1, far: 500 }}
         {...sceneTaps}
+        // The scene itself is drawn, not made of controls: the canvas gets a name, so VoiceOver says where the player is.
+        onCreated={({ gl }) => {
+          gl.domElement.setAttribute('role', 'img');
+          gl.domElement.setAttribute('aria-label', `Level ${level.number}: ${level.title}, the riddle's scene`);
+        }}
       >
         <Suspense fallback={null}>
           <WorldStage world={level.world}>
@@ -178,15 +183,15 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
             <div className="font-display text-lg font-semibold leading-tight">{level.title}</div>
           </div>
         </div>
-        <div className="glass-readout pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
+        <div role="img" aria-label={`${moveCount} ${level.moveNoun}, best ${level.bestMoves}`} className="glass-readout pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
           <div className="font-display text-2xl font-bold leading-none tabular-nums short:leading-[inherit]">{moveCount}</div>
           <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/90 short:leading-[inherit]"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
         </div>
         <div className="pointer-events-auto flex items-center gap-2 short:ml-auto">
-          <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" aria-label="Graphics quality">
+          <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" aria-label={quality === 'high' ? 'HD graphics' : 'SD graphics'}>
             {quality === 'high' ? 'HD' : 'SD'}
           </Button>
-          <Button onClick={toggleSound} className="!px-3" aria-label={sound ? 'Mute' : 'Unmute'}>
+          <Button onClick={toggleSound} className="!px-3" aria-label="Sound" aria-pressed={sound}>
             <SoundIcon on={sound} />
           </Button>
           <Button onClick={() => setShowRules(true)} className="!px-3" aria-label="Rules">
@@ -208,7 +213,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         </div>
       </div>
 
-      {/* Hint toast */}
+      {/* Hint toast. Its wrapper is always in the page, a live region, so VoiceOver reads each new hint; it adds no box of its own. */}
+      <div role="status" aria-live="polite" data-testid="hint-spoken">
       <AnimatePresence>
         {hintText && (
           <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
@@ -216,12 +222,13 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
 
       {/* Turn-your-phone tip */}
       <AnimatePresence>
         {rotateTip && (
           <motion.div initial={{ y: -16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} className="pointer-events-none absolute inset-x-0 top-[calc(env(safe-area-inset-top)+5rem)] flex justify-center px-4">
-            <div className="glass rounded-2xl px-4 py-2 text-center font-display text-base font-semibold">📱↻ Turn your phone sideways for a bigger view</div>
+            <div className="glass rounded-2xl px-4 py-2 text-center font-display text-base font-semibold"><span aria-hidden>📱↻ </span>Turn your phone sideways for a bigger view</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -231,6 +238,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         {showRules && (
           <Modal
             key="rules"
+            label={`Rules: level ${level.number}, ${level.title}`}
             wide
             aside={
               <>
@@ -257,8 +265,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         )}
 
         {s.ended && s.status.kind === 'won' && (
-          <Modal key="won">
-            <h2 className="font-display text-4xl font-bold short:text-3xl"><span className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
+          <Modal key="won" label="Solved!">
+            <h2 className="font-display text-4xl font-bold short:text-3xl"><span aria-hidden className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
             <div className="mt-3 flex justify-center short:mt-2"><Stars count={stars} size={48} animate /></div>
             <p className="mt-3 text-white/85 short:mt-2">
               {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {winLine(moveCount, level.bestMoves, s.hintsUsed)}
@@ -274,8 +282,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         )}
 
         {s.ended && s.status.kind === 'lost' && (
-          <Modal key="lost" tone="red">
-            <h2 className="font-display text-4xl font-bold short:text-3xl"><span className="block text-6xl short:mr-2 short:inline short:text-3xl">😱</span>Oh no!</h2>
+          <Modal key="lost" tone="red" label="Oh no!">
+            <h2 className="font-display text-4xl font-bold short:text-3xl"><span aria-hidden className="block text-6xl short:mr-2 short:inline short:text-3xl">😱</span>Oh no!</h2>
             <p className="mt-3 text-lg text-white/90 short:mt-2 short:text-base">{s.status.reason}</p>
             <div className="mt-5 grid grid-cols-2 gap-2 short:mt-4">
               <Button tone="gold" onClick={s.undo}><UndoIcon />Undo</Button>
@@ -292,7 +300,12 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
  * A card over the scene. It never grows past the screen: the body scrolls inside the card when it must,
  * and `aside` (the buttons) stays in view. On a phone held sideways a `wide` card puts `aside` in a second column.
  */
-function Modal({ children, aside, tone, wide }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean }) {
+function Modal({ children, aside, tone, wide, label }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean; label: string }) {
+  // VoiceOver starts reading at the card when it opens, not at whatever was touched before it.
+  const panel = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    panel.current?.focus({ preventScroll: true });
+  }, []);
   return (
     <motion.div
       className="absolute inset-0 z-20 flex items-center justify-center bg-slate-950/55 pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))]"
@@ -301,11 +314,16 @@ function Modal({ children, aside, tone, wide }: { children: React.ReactNode; asi
       exit={{ opacity: 0 }}
     >
       <motion.div
+        ref={panel}
+        role="dialog"
+        aria-modal="true"
+        aria-label={label}
+        tabIndex={-1}
         initial={{ scale: 0.8, y: 30 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-        className={`panel flex max-h-full w-full max-w-md flex-col overflow-hidden rounded-[2rem] text-center ${wide ? 'short:max-w-3xl short:flex-row' : ''} ${tone === 'red' ? 'panel-red' : ''}`}
+        className={`panel flex max-h-full w-full max-w-md flex-col outline-none overflow-hidden rounded-[2rem] text-center ${wide ? 'short:max-w-3xl short:flex-row' : ''} ${tone === 'red' ? 'panel-red' : ''}`}
       >
         <div className={`min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6 short:p-4 ${aside ? 'pb-3 sm:pb-3' : ''} ${wide ? 'short:pb-4 short:text-left' : ''}`}>{children}</div>
         {aside && (
