@@ -60,10 +60,10 @@ case "${1:-}" in
     if [ "${REHEARSAL:-}" != "1" ]; then
       case "$kind" in
         "Apple Distribution"|"iPhone Distribution") ;;
-        *) die "The certificate is \"$kind\", not Apple Distribution. Make an Apple Distribution certificate (make-signing-files.sh, step 7 of the launch steps)." ;;
+        *) die "The certificate is \"$kind\", not Apple Distribution. Make an Apple Distribution certificate (make-signing-files.sh, step 8 of the launch steps)." ;;
       esac
       if ! security find-identity -v -p codesigning "$keychain" | grep -q "$sha1"; then
-        die "The certificate is not valid now: expired, revoked, or not issued by Apple. Make a new one (step 7 of the launch steps)."
+        die "The certificate is not valid now: expired, revoked, or not issued by Apple. Make a new one (step 8 of the launch steps)."
       fi
     fi
     echo "Imported signing identity: $kind, SHA-1 $sha1" >&2

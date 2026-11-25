@@ -60,10 +60,10 @@ fi
 decodes() { tr -d ' \t\r\n' <<<"$1" | base64 --decode 2>/dev/null; }
 # Both files are binary DER: they start with a SEQUENCE byte (0x30).
 starts_der() { [ "$(decodes "$1" | head -c 1 | od -An -tx1 | tr -d ' \n')" = "30" ]; }
-remake="Make it again with apps/mobile/scripts/make-signing-files.sh (launch steps, step 7) and paste the whole file."
+remake="Make it again with apps/mobile/scripts/make-signing-files.sh (launch steps, step 8) and paste the whole file."
 
 if [ -z "${CERT_P12_B64:-}" ]; then
-  missing+=("Secret APPLE_DISTRIBUTION_CERTIFICATE: your Apple Distribution certificate with its key, the whole of the file APPLE_DISTRIBUTION_CERTIFICATE.txt that make-signing-files.sh writes (launch steps, step 7).")
+  missing+=("Secret APPLE_DISTRIBUTION_CERTIFICATE: your Apple Distribution certificate with its key, the whole of the file APPLE_DISTRIBUTION_CERTIFICATE.txt that make-signing-files.sh writes (launch steps, step 8).")
 elif ! starts_der "$CERT_P12_B64"; then
   missing+=("Secret APPLE_DISTRIBUTION_CERTIFICATE is set but is not a certificate file in base64 text. $remake")
 fi
@@ -73,7 +73,7 @@ if [ -z "${CERT_PASSWORD:-}" ]; then
 fi
 
 if [ -z "${PROFILE_B64:-}" ]; then
-  missing+=("Secret APPSTORE_PROVISIONING_PROFILE: the app's App Store provisioning profile, the whole of the file APPSTORE_PROVISIONING_PROFILE.txt that make-signing-files.sh writes (launch steps, step 7).")
+  missing+=("Secret APPSTORE_PROVISIONING_PROFILE: the app's App Store provisioning profile, the whole of the file APPSTORE_PROVISIONING_PROFILE.txt that make-signing-files.sh writes (launch steps, step 8).")
 elif ! starts_der "$PROFILE_B64"; then
   missing+=("Secret APPSTORE_PROVISIONING_PROFILE is set but is not a provisioning profile in base64 text. $remake")
 elif decodes "$PROFILE_B64" | LC_ALL=C grep -aq "<key>ProvisionedDevices</key>"; then

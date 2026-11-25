@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Makes the app's App Store signing files without a Mac, for the TestFlight upload workflow.
 # The owner runs it once, on any computer with a terminal and openssl: Windows with Git for Windows ("Git Bash"),
-# Linux, or a GitHub codespace on this repository. See docs/launch-steps.md, step 7.
+# Linux, or a GitHub codespace on this repository. See docs/launch-steps.md, step 8.
 #
 #   1. make-signing-files.sh request
-#        Makes a private key and a certificate signing request (CSR) in ~/apple-signing (or $SIGNING_DIR).
+#        Makes a private key and a certificate signing request (CSR) in a folder apple-signing, in the folder
+#        you run it from (or in $SIGNING_DIR). This repository ignores that folder, so it is never committed.
 #        Upload the CSR on developer.apple.com: Certificates, plus, Apple Distribution. Download the .cer file.
 #   2. Make the App Store provisioning profile on developer.apple.com (Profiles, plus, App Store Connect) for the
 #      app's identifier and the certificate from step 1, and download the .mobileprovision file.
@@ -21,7 +22,7 @@ set -euo pipefail
 # Git Bash on Windows would otherwise turn "/CN=..." into a Windows path.
 export MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*'
 
-dir="${SIGNING_DIR:-$HOME/apple-signing}"
+dir="${SIGNING_DIR:-$PWD/apple-signing}"
 key="$dir/distribution.key"
 csr="$dir/distribution.csr"
 
@@ -114,7 +115,7 @@ case "${1:-}" in
     ;;
 
   *)
-    sed -n '2,21p' "$0" | sed 's/^# \{0,1\}//'
+    sed -n '2,22p' "$0" | sed 's/^# \{0,1\}//'
     exit 2
     ;;
 esac
