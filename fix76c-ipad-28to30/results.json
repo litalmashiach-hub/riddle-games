@@ -1,0 +1,113 @@
+[
+ {
+  "level": 28,
+  "id": "family-portrait",
+  "title": "Family Portrait",
+  "device": "fix76c-ipad-28to30",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 24,
+  "moves": 24,
+  "touches": 24,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 18.224,
+   "rulesCard": 17.848,
+   "drawn": 18.224,
+   "play": 28.539,
+   "total": 73.991
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-28to30-L28-loading-mark.png",
+   "fix76c-ipad-28to30-L28-rules-card.png",
+   "fix76c-ipad-28to30-L28-in-play.png",
+   "fix76c-ipad-28to30-L28-win-card.png"
+  ],
+  "fps": 4.8
+ },
+ {
+  "level": 29,
+  "id": "cricket-crossing",
+  "title": "Cricket Crossing",
+  "device": "fix76c-ipad-28to30",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 16,
+  "moves": 16,
+  "touches": 27,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 37.362,
+   "rulesCard": 36.333,
+   "drawn": 37.362,
+   "play": 39.483,
+   "total": 117.93
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-28to30-L29-loading-mark.png",
+   "fix76c-ipad-28to30-L29-rules-card.png",
+   "fix76c-ipad-28to30-L29-in-play.png",
+   "fix76c-ipad-28to30-L29-win-card.png"
+  ],
+  "fps": 5.9
+ },
+ {
+  "level": 30,
+  "id": "moonlit-tower",
+  "title": "Moonlit Tower",
+  "device": "fix76c-ipad-28to30",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 31,
+  "moves": 31,
+  "touches": 62,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 10.47,
+   "rulesCard": 7.068,
+   "drawn": 10.47,
+   "play": 88.181,
+   "total": 122.958
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-28to30-L30-loading-mark.png",
+   "fix76c-ipad-28to30-L30-rules-card.png",
+   "fix76c-ipad-28to30-L30-in-play.png",
+   "fix76c-ipad-28to30-L30-win-card.png"
+  ],
+  "fps": 7
+ }
+]
