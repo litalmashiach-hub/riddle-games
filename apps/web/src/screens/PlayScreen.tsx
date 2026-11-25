@@ -1,4 +1,4 @@
-import { createSession, starsFor, type RiddleLevel } from '@riddle/engine';
+import { createSession, guideStepFor, starsFor, type RiddleLevel } from '@riddle/engine';
 import { WORLDS, WorldStage, sfx, useSettings } from '@riddle/fx';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -9,6 +9,7 @@ import * as THREE from 'three';
 import { sceneTaps, watchMoves } from '../haptics';
 import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
+import { GuideOverlay, GuideTracker } from '../components/FirstPlayGuide';
 import { SceneGuard, sceneWaitMs } from '../components/SceneGuard';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
@@ -22,9 +23,13 @@ interface Props {
   onExit(): void;
   onNext?: () => void;
   onSolved(stars: number): void;
+  /** True once this level's first-play guide has been shown on this device. */
+  guideSeen?: boolean;
+  /** Called the moment the first-play guide shows, so it is never shown again. */
+  onGuideSeen?: () => void;
 }
 
-export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
+export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false, onGuideSeen }: Props) {
   const session = useMemo(() => createSession(level), [level]);
   // `?debug` exposes the session for automated play-tests: window.__riddle.getState().play(move)
   useEffect(() => {
@@ -46,6 +51,15 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   const { quality, sound, toggleSound, setQuality } = useSettings();
   const look = WORLDS[level.world];
   const stars = s.status.kind === 'won' ? starsFor(moveCount, level.bestMoves, s.hintsUsed) : 0;
+
+  // First-play guide: only on a level that has one, only if it was never shown here, and only until the first
+  // move, a skip, or leaving the level. Decided once, on opening, so marking it seen does not take it away.
+  const [guideOn, setGuideOn] = useState(() => !!level.guide && !guideSeen);
+  const [picked, setPicked] = useState<string | null>(null);
+  const guideRing = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (moveCount > 0) setGuideOn(false);
+  }, [moveCount]);
 
   // End-of-level sounds and saving.
   useEffect(() => {
@@ -97,6 +111,13 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   // The HUD steps aside while a card (rules, win or lose) is up: the card has every button the player needs.
   const cardOpen = showRules || (s.ended && s.status.kind !== 'playing');
 
+  const guideStep = guideOn && level.guide && !cardOpen && sceneReady && !rotateTip && !s.busy && moveCount === 0 ? level.guide.steps[guideStepFor(level.guide, picked)] : null;
+  const guideShown = guideStep != null;
+  useEffect(() => {
+    if (guideShown) onGuideSeen?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guideShown]);
+
   const Scene = level.Scene;
   const cam: NonNullable<RiddleLevel['camera']> = level.camera ?? { position: [0, 8, 12], target: [0, 0, 0], fov: 42 };
 
@@ -111,6 +132,11 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
         gl={{ antialias: false, powerPreference: 'high-performance' }}
         camera={{ position: cam.position, fov: cam.fov ?? 42, near: 0.1, far: 500 }}
         {...sceneTaps}
+        // The scene itself is drawn, not made of controls: the canvas gets a name, so VoiceOver says where the player is.
+        onCreated={({ gl }) => {
+          gl.domElement.setAttribute('role', 'img');
+          gl.domElement.setAttribute('aria-label', `Level ${level.number}: ${level.title}, the riddle's scene`);
+        }}
       >
         <Suspense fallback={null}>
           <WorldStage world={level.world}>
@@ -125,9 +151,11 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
               hint={s.hint}
               resetCount={s.resetCount}
               moveCount={moveCount}
+              onPick={setPicked}
             />
           </WorldStage>
           <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} />
+          {guideStep && <GuideTracker step={guideStep} ring={guideRing} />}
           <FirstFrames onReady={() => setSceneReady(true)} onStuck={() => setSceneStuck(true)} />
         </Suspense>
       </Canvas>
@@ -138,29 +166,35 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
         {!sceneReady && <LoadingCurtain key="curtain" gradient={look.uiGradient} number={level.number} quiet={showRules} />}
       </AnimatePresence>
 
-      {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels. */}
+      {/* First-play guide: rings the first thing to tap. It takes no taps itself, bar its Skip button. */}
+      <AnimatePresence>
+        {guideStep && <GuideOverlay key="guide" step={guideStep} ring={guideRing} onSkip={() => setGuideOn(false)} />}
+      </AnimatePresence>
+
+      {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels.
+          The counter, the level name and the round buttons use the tinted readout glass, so they stay readable over a white sky. */}
       <div className={`safe-top pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3 transition-opacity duration-300 sm:p-4 short:justify-start short:pt-2 ${cardOpen ? 'invisible opacity-0' : ''}`}>
         <div className="pointer-events-auto flex items-center gap-2">
-          <Button onClick={onExit} aria-label="Back to levels" className="!px-3">
+          <Button onClick={onExit} tone="readout" aria-label="Back to levels" className="!px-3">
             <HomeIcon />
           </Button>
-          <div className="glass hidden rounded-2xl px-4 py-1.5 sm:block short:hidden">
-            <div className="text-[11px] font-bold uppercase tracking-widest text-white/75">Level {level.number} · {look.name}</div>
+          <div className="glass-readout hidden rounded-2xl px-4 py-1.5 sm:block short:hidden">
+            <div className="text-[11px] font-bold uppercase tracking-widest text-white/90">Level {level.number} · {look.name}</div>
             <div className="font-display text-lg font-semibold leading-tight">{level.title}</div>
           </div>
         </div>
-        <div className="glass pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
+        <div role="img" aria-label={`${moveCount} ${level.moveNoun}, best ${level.bestMoves}`} className="glass-readout pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
           <div className="font-display text-2xl font-bold leading-none tabular-nums short:leading-[inherit]">{moveCount}</div>
-          <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/75 short:leading-[inherit]"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
+          <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/90 short:leading-[inherit]"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
         </div>
         <div className="pointer-events-auto flex items-center gap-2 short:ml-auto">
-          <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" aria-label="Graphics quality">
+          <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" tone="readout" aria-label={quality === 'high' ? 'HD graphics' : 'SD graphics'}>
             {quality === 'high' ? 'HD' : 'SD'}
           </Button>
-          <Button onClick={toggleSound} className="!px-3" aria-label={sound ? 'Mute' : 'Unmute'}>
+          <Button onClick={toggleSound} className="!px-3" tone="readout" aria-label="Sound" aria-pressed={sound}>
             <SoundIcon on={sound} />
           </Button>
-          <Button onClick={() => setShowRules(true)} className="!px-3" aria-label="Rules">
+          <Button onClick={() => setShowRules(true)} className="!px-3" tone="readout" aria-label="Rules">
             <InfoIcon />
           </Button>
         </div>
@@ -169,9 +203,9 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       {/* Bottom controls. Sideways on a phone they sit in the two bottom corners, under the thumbs, and leave the scene's lower edge clear. */}
       <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-opacity duration-300 short:justify-between short:pb-[max(0.5rem,env(safe-area-inset-bottom))] short:pl-[max(0.75rem,env(safe-area-inset-left))] short:pr-[max(0.75rem,env(safe-area-inset-right))] ${cardOpen ? 'invisible opacity-0' : ''}`}>
         <div className="glass pointer-events-auto flex gap-2 rounded-3xl p-2 short:flex-col short:gap-1.5 short:p-1.5">
-          <Button onClick={s.undo} disabled={moveCount === 0} aria-label="Undo" className="short:!px-3"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
-          <Button onClick={s.redo} disabled={s.future.length === 0} aria-label="Redo" className="short:!px-3"><RedoIcon /></Button>
-          <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} aria-label="Restart" className="short:!px-3"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
+          <Button onClick={s.undo} disabled={moveCount === 0} tone="readout" aria-label="Undo" className="short:!px-3"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
+          <Button onClick={s.redo} disabled={s.future.length === 0} tone="readout" aria-label="Redo" className="short:!px-3"><RedoIcon /></Button>
+          <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} tone="readout" aria-label="Restart" className="short:!px-3"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
           <Button tone="gold" className="short:hidden" onClick={() => setHintText(hintLine(s))} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline">Hint</span></Button>
         </div>
         <div className="pointer-events-auto hidden short:block">
@@ -179,7 +213,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
         </div>
       </div>
 
-      {/* Hint toast */}
+      {/* Hint toast. Its wrapper is always in the page, a live region, so VoiceOver reads each new hint; it adds no box of its own. */}
+      <div role="status" aria-live="polite" data-testid="hint-spoken">
       <AnimatePresence>
         {hintText && (
           <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
@@ -187,12 +222,13 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
 
       {/* Turn-your-phone tip */}
       <AnimatePresence>
         {rotateTip && (
           <motion.div initial={{ y: -16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} className="pointer-events-none absolute inset-x-0 top-[calc(env(safe-area-inset-top)+5rem)] flex justify-center px-4">
-            <div className="glass rounded-2xl px-4 py-2 text-center font-display text-base font-semibold">📱↻ Turn your phone sideways for a bigger view</div>
+            <div className="glass rounded-2xl px-4 py-2 text-center font-display text-base font-semibold"><span aria-hidden>📱↻ </span>Turn your phone sideways for a bigger view</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -202,6 +238,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
         {showRules && (
           <Modal
             key="rules"
+            label={`Rules: level ${level.number}, ${level.title}`}
             wide
             aside={
               <>
@@ -228,8 +265,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
         )}
 
         {s.ended && s.status.kind === 'won' && (
-          <Modal key="won">
-            <h2 className="font-display text-4xl font-bold short:text-3xl"><span className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
+          <Modal key="won" label="Solved!">
+            <h2 className="font-display text-4xl font-bold short:text-3xl"><span aria-hidden className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
             <div className="mt-3 flex justify-center short:mt-2"><Stars count={stars} size={48} animate /></div>
             <p className="mt-3 text-white/85 short:mt-2">
               {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {winLine(moveCount, level.bestMoves, s.hintsUsed)}
@@ -245,8 +282,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
         )}
 
         {s.ended && s.status.kind === 'lost' && (
-          <Modal key="lost" tone="red">
-            <h2 className="font-display text-4xl font-bold short:text-3xl"><span className="block text-6xl short:mr-2 short:inline short:text-3xl">😱</span>Oh no!</h2>
+          <Modal key="lost" tone="red" label="Oh no!">
+            <h2 className="font-display text-4xl font-bold short:text-3xl"><span aria-hidden className="block text-6xl short:mr-2 short:inline short:text-3xl">😱</span>Oh no!</h2>
             <p className="mt-3 text-lg text-white/90 short:mt-2 short:text-base">{s.status.reason}</p>
             <div className="mt-5 grid grid-cols-2 gap-2 short:mt-4">
               <Button tone="gold" onClick={s.undo}><UndoIcon />Undo</Button>
@@ -263,7 +300,12 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
  * A card over the scene. It never grows past the screen: the body scrolls inside the card when it must,
  * and `aside` (the buttons) stays in view. On a phone held sideways a `wide` card puts `aside` in a second column.
  */
-function Modal({ children, aside, tone, wide }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean }) {
+function Modal({ children, aside, tone, wide, label }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean; label: string }) {
+  // VoiceOver starts reading at the card when it opens, not at whatever was touched before it.
+  const panel = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    panel.current?.focus({ preventScroll: true });
+  }, []);
   return (
     <motion.div
       className="absolute inset-0 z-20 flex items-center justify-center bg-slate-950/55 pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))]"
@@ -272,11 +314,16 @@ function Modal({ children, aside, tone, wide }: { children: React.ReactNode; asi
       exit={{ opacity: 0 }}
     >
       <motion.div
+        ref={panel}
+        role="dialog"
+        aria-modal="true"
+        aria-label={label}
+        tabIndex={-1}
         initial={{ scale: 0.8, y: 30 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-        className={`panel flex max-h-full w-full max-w-md flex-col overflow-hidden rounded-[2rem] text-center ${wide ? 'short:max-w-3xl short:flex-row' : ''} ${tone === 'red' ? 'panel-red' : ''}`}
+        className={`panel flex max-h-full w-full max-w-md flex-col outline-none overflow-hidden rounded-[2rem] text-center ${wide ? 'short:max-w-3xl short:flex-row' : ''} ${tone === 'red' ? 'panel-red' : ''}`}
       >
         <div className={`min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6 short:p-4 ${aside ? 'pb-3 sm:pb-3' : ''} ${wide ? 'short:pb-4 short:text-left' : ''}`}>{children}</div>
         {aside && (

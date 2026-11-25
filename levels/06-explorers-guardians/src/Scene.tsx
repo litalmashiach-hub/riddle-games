@@ -1,7 +1,7 @@
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, sfx, usePath, useFaceYaw, useSettings, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, sfx, usePath, useFaceYaw, useSettings, tapPadRaycast, tapBackdropRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -11,6 +11,13 @@ import { Cavern } from './Cavern';
 import { Explorer, Guardian, type ExplorerMood, type GuardianMood } from './characters';
 import { boatX, seat, sign, slot } from './layout';
 import { BOAT_SEATS, EVERYONE, EXPLORERS, GUARDIANS, dangerBank, isExplorer, type Move, type Side, type State, type Who } from './rules';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const personPad = tapPadRaycast();
+/** The barge's padding lies behind everyone's, so a tap beside someone aboard picks them, not the barge. */
+const bargePad = tapPadRaycast({ rank: 1 });
+/** The barge is a backdrop for taps (see tapBackdropRaycast in @riddle/fx): a tap beside someone on it still picks them, not the barge. */
+const bargeHits = tapBackdropRaycast();
 
 /** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
 const pinAboveButtons = (_el: unknown, _cam: unknown, size: { width: number; height: number }) => [size.width / 2, size.height - 62 - size.height * 0.13];
@@ -154,15 +161,19 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
       <group ref={barge}>
         <Clickable onClick={sail} disabled={busy || over} hoverScale={1.03}>
-          <Barge sailing={sailing} />
-          <mesh position-y={0.3} visible={false}>
-            <boxGeometry args={[2.4, 0.7, 1.2]} />
+          <group raycast={bargeHits}>
+            <Barge sailing={sailing} />
+          </group>
+          <mesh position-y={1.05} visible={false} raycast={bargePad}>
+            <boxGeometry args={[3.4, 2.2, 1.4]} />
           </mesh>
         </Clickable>
         {!busy && !over && (
           <Html calculatePosition={pinAboveButtons} center zIndexRange={[5, 0]}>
             <button
               onClick={sail}
+              // VoiceOver reads this label in place of the text, so it never says "right arrow" or "plus".
+              aria-label={`${state.boat === 'L' ? 'Sail across' : 'Sail back'}, ${groupLabel(loaded).replace(' + ', ' and ')}`}
               style={{
                 fontFamily: 'Fredoka, system-ui, sans-serif',
                 fontWeight: 700,
@@ -337,9 +348,12 @@ function Actor(p: ActorProps) {
             <Guardian mood={gMood} seed={p.seed} />
           )}
           {/* bigger invisible hit area, easier to tap on phones */}
-          <mesh position-y={0.5} visible={false}>
-            <sphereGeometry args={[0.6, 8, 8]} />
-          </mesh>
+          {/* None aboard, so the small barge keeps a place of its own to tap even with two on board. */}
+          {!aboard && (
+            <mesh position-y={0.5} visible={false} raycast={personPad}>
+              <sphereGeometry args={[0.6, 8, 8]} />
+            </mesh>
+          )}
         </Clickable>
       </group>
       {seatIndex >= 0 && <HintRing position={[0, 0.06, 0]} radius={0.42} color="#7ee0b0" />}

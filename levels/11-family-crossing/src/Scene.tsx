@@ -9,8 +9,9 @@ import { Character, HEIGHT } from './People';
 import { DECK_Y, Raft } from './Raft';
 import { sign, slot, thiefGetaway, thiefSpot } from './layout';
 import { FAIL_PHASES, Mishap, gagSpot, type FailPhase } from './Mishaps';
+import { padRaycast } from './tapTargets';
 import { LABEL_WRAP, LabelStem, useLabelSpread, type LabelSpread } from './useLabelSpread';
-import { PEOPLE, raftProblem, roleOf, trouble, type Move, type Person, type Side, type State } from './rules';
+import { PEOPLE, raftProblem, roleOf, trouble, type Move, type Person, type Role, type Side, type State } from './rules';
 
 /** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
 const pinAboveButtons = (_el: unknown, _cam: unknown, size: { width: number; height: number }) => [size.width / 2, size.height - 62 - size.height * 0.13];
@@ -35,6 +36,17 @@ const LABEL: Record<Person, string> = {
   daughterB: 'Daughter',
   guard: 'Guard',
   thief: 'Thief',
+};
+
+/** Invisible tap padding (see tapTargets.ts): a tap goes to a drawn figure first, to padding only where no figure is. */
+const raftPad = padRaycast({ rank: 1 });
+const personPad: Record<Role, ReturnType<typeof padRaycast>> = {
+  father: padRaycast({ axis: HEIGHT.father + 0.2 }),
+  mother: padRaycast({ axis: HEIGHT.mother + 0.2 }),
+  son: padRaycast({ axis: HEIGHT.son + 0.2 }),
+  daughter: padRaycast({ axis: HEIGHT.daughter + 0.2 }),
+  guard: padRaycast({ axis: HEIGHT.guard + 0.2 }),
+  thief: padRaycast({ axis: HEIGHT.thief + 0.2 }),
 };
 
 const towardRiver = (side: Side) => (side === 'L' ? Math.PI / 2 : -Math.PI / 2);
@@ -162,8 +174,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       <group ref={raft}>
         <Clickable onClick={castOff} disabled={busy || over} hoverScale={1.03}>
           <Raft moving={crossing} dir={state.raft === 'R' ? 1 : -1} />
-          {/* bigger invisible hit box */}
-          <mesh position={[0, 0.3, 0]} visible={false}>
+          {/* bigger invisible hit box; anyone standing on the raft is picked before it */}
+          <mesh position={[0, 0.3, 0]} visible={false} raycast={raftPad}>
             <boxGeometry args={[2.3, 0.6, 1.5]} />
           </mesh>
         </Clickable>
@@ -171,6 +183,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <Html calculatePosition={pinAboveButtons} center zIndexRange={[6, 0]}>
             <button
               onClick={castOff}
+              // VoiceOver reads this label in place of the text, so it never says "right arrow" or "plus".
+              aria-label={`${state.raft === 'L' ? 'Cast off' : 'Cast off back'}, ${loaded.length === 0 ? 'tap people to board' : loaded.map((p) => LABEL[p]).join(' and ')}`}
               style={{
                 fontFamily: 'Fredoka, system-ui, sans-serif',
                 fontWeight: 700,
@@ -326,7 +340,8 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
       <group ref={facing} visible={!hidden}>
         <Clickable onClick={onClick} disabled={disabled}>
           <Character who={who} mood={mood} seed={seed} flushed={react && problem?.kind === 'mom' && culprit} bigSack={react && problem?.kind === 'thief' && culprit} />
-          <mesh position-y={h * 0.5} visible={false}>
+          {/* wider invisible tap padding; a figure the player can see is picked before it */}
+          <mesh position-y={h * 0.5} visible={false} raycast={personPad[role]}>
             <cylinderGeometry args={[0.38, 0.38, h + 0.2, 8]} />
           </mesh>
         </Clickable>

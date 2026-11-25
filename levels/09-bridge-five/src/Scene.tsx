@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, Shake, easeInOut, sfx, useSettings, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, Shake, easeInOut, sfx, useSettings, tapPadRaycast, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -12,6 +12,9 @@ import { Lantern, LanternPost, SPUTTER_S } from './Lantern';
 import { LANTERN_MINUTES, MINUTES, NAMES, TRAVELLERS, crossingMinutes, type Move, type Side, type State, type Traveller } from './rules';
 import { SkyIslands } from './SkyIslands';
 import { LABEL_WRAP, LabelStem, useLabelSpread, type LabelSpread } from './useLabelSpread';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const folkPad = tapPadRaycast();
 
 const WALK_ON_MS = 420;
 /** Ignore a second tap on the same traveller this soon after the first. */
@@ -381,6 +384,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const crossButton = (
     <button
       onClick={cross}
+      // VoiceOver reads this label in place of the text, so it never says "right arrow" or "warning sign".
+      aria-label={
+        full || picked.length === 0
+          ? undefined
+          : `${goingRight ? 'Cross' : 'Cross back'}, ${pickMinutes} ${pickMinutes === 1 ? 'minute' : 'minutes'}${state.time + pickMinutes > LANTERN_MINUTES ? ', more than the lantern has left' : ''}`
+      }
       style={{
         fontFamily: 'Fredoka, system-ui, sans-serif',
         fontWeight: 700,
@@ -551,7 +560,7 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
         <Clickable onClick={onClick} disabled={disabled}>
           <Folk kind={kind} mood={mood} motion={motion} seed={seed} />
           {/* bigger invisible hit area, easier to tap on phones */}
-          <mesh position-y={0.45} visible={false}>
+          <mesh position-y={0.45} visible={false} raycast={folkPad}>
             <sphereGeometry args={[0.5, 8, 8]} />
           </mesh>
         </Clickable>

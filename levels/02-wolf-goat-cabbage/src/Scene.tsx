@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, DizzyStars, FightCloud, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FightCloud, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, tapPadRaycast, tapBackdropRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Boat, Bubble, Farmer, HintRing, RiverValley, Wolf, groundHeight, toon, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -7,6 +7,12 @@ import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 import { Barn, Butterflies, Cabbage, GardenBed, Goat, HayBale } from './models';
 import { ITEMS, trouble, type Item, type Move, type Side, type State, type Trouble } from './rules';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to a drawn figure first, to padding only where none is drawn. */
+const animalPad = tapPadRaycast();
+/** The boat is a backdrop for taps (see tapBackdropRaycast in @riddle/fx): a tap beside a passenger on it still picks them, not the boat. */
+const boatHits = tapBackdropRaycast();
+const boatPad = tapPadRaycast({ rank: 1 });
 
 /** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
 const pinAboveButtons = (_el: unknown, _cam: unknown, size: { width: number; height: number }) => [size.width / 2, size.height - 62 - size.height * 0.13];
@@ -42,10 +48,15 @@ const boatX = (s: Side) => sign(s) * 1.55;
 /** Passenger seat: the end of the boat nearest the bank it boarded from. */
 const seat = (boatSide: Side, boardedFrom: Side): Vec3 => [boatX(boatSide) + sign(boardedFrom) * 0.72, 0.05, 0];
 
+/**
+ * Where each one stands on the right bank (mirrored on the left). The goat stands nearest the camera,
+ * so the cabbage keeps well to the outside of it: close by, the goat (and its unseen tap sphere) was
+ * drawn over the cabbage, and a tap on the cabbage could put the goat in the boat.
+ */
 const SLOTS: Record<Item, { x: number; z: number }> = {
   wolf: { x: 4.3, z: -0.7 },
   goat: { x: 3.8, z: 1.4 },
-  cabbage: { x: 4.85, z: 0.45 },
+  cabbage: { x: 5.5, z: 0.35 },
 };
 const slot = (a: Item, side: Side): Vec3 => {
   const x = sign(side) * SLOTS[a].x;
@@ -168,14 +179,22 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
       <group ref={boat}>
         <Clickable onClick={row} disabled={busy || over} hoverScale={1.03}>
-          <Boat rowing={rowing}>
-            <FarmerInBoat side={state.farmer} rowing={rowing} won={won && !busy} />
-          </Boat>
+          <group raycast={boatHits}>
+            <Boat rowing={rowing}>
+              <FarmerInBoat side={state.farmer} rowing={rowing} won={won && !busy} />
+            </Boat>
+          </group>
+          {/* The hull alone is a thin target on a phone: an invisible padding round it, behind every animal's. */}
+          <mesh position-y={0.3} visible={false} raycast={boatPad}>
+            <boxGeometry args={[2.8, 0.9, 1.5]} />
+          </mesh>
         </Clickable>
         {!busy && !over && (
           <Html calculatePosition={pinAboveButtons} center zIndexRange={[5, 0]}>
             <button
               onClick={row}
+              // VoiceOver reads this label in place of the text, so it never says "right arrow".
+              aria-label={`${state.farmer === 'L' ? 'Row across' : 'Row back'}, ${loaded ? LABEL[loaded] : 'alone'}`}
               style={{
                 fontFamily: 'Fredoka, system-ui, sans-serif',
                 fontWeight: 700,
@@ -399,7 +418,7 @@ function Actor({ kind, seed, state, previous, lastMove, forward, loaded, animKey
             )}
             {kind === 'cabbage' && <Cabbage mood={mood} seed={seed} scale={1.15} />}
             {/* bigger invisible hit area, easier to tap on phones */}
-            <mesh position-y={0.5} visible={false}>
+            <mesh position-y={0.5} visible={false} raycast={animalPad}>
               <sphereGeometry args={[0.6, 8, 8]} />
             </mesh>
           </Clickable>

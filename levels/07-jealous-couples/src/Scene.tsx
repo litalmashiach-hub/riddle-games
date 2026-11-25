@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, sfx, useFaceYaw, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, sfx, useFaceYaw, usePath, tapPadRaycast, tapBackdropRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -9,6 +9,13 @@ import { Bird as BirdModel, COUPLE_COLORS, Steam } from './Bird';
 import { FeatherPuff, MusicNotes, StormCloud, SweatDrop } from './Drama';
 import { BIRDS, coupleOf, gent, nameOf, roleOf, trouble, type Bird, type Move, type Side, type State } from './rules';
 import { DOCK_X, ISLAND_X, SkyIslands } from './SkyIslands';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const birdPad = tapPadRaycast();
+/** The balloon's padding lies behind every bird's, so a tap beside a bird in the basket picks the bird, not the balloon. */
+const balloonPad = tapPadRaycast({ rank: 1 });
+/** The balloon is a backdrop for taps (see tapBackdropRaycast in @riddle/fx): a tap beside a bird on it still picks them, not the balloon. */
+const balloonHits = tapBackdropRaycast();
 
 /** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
 const pinAboveButtons = (_el: unknown, _cam: unknown, size: { width: number; height: number }) => [size.width / 2, size.height - 62 - size.height * 0.13];
@@ -130,11 +137,11 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
       <group ref={balloon}>
         <Clickable onClick={fly} disabled={busy || over} hoverScale={1.03}>
-          <group scale={BALLOON_SCALE}>
+          <group scale={BALLOON_SCALE} raycast={balloonHits}>
             <Balloon burning={flying || (won && !busy)} />
           </group>
           {/* big invisible tap target around the basket */}
-          <mesh position-y={0.5} visible={false}>
+          <mesh position-y={0.5} visible={false} raycast={balloonPad}>
             <sphereGeometry args={[0.8, 8, 8]} />
           </mesh>
         </Clickable>
@@ -146,6 +153,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         <Html calculatePosition={pinAboveButtons} center zIndexRange={[5, 0]}>
           <button
             onClick={fly}
+            // VoiceOver reads this label in place of the text, so it never says "right arrow" or "plus".
+            aria-label={`${state.balloon === 'L' ? 'Fly over' : 'Fly back'}, ${loaded.length ? loaded.map(nameOf).join(' and ') : 'tap birds to board'}`}
             style={{
               fontFamily: 'Fredoka, system-ui, sans-serif',
               fontWeight: 700,
@@ -273,7 +282,7 @@ function BirdActor({ bird, seed, state, previous, lastMove, forward, boardMs, se
             <BirdModel couple={coupleOf(bird)} role={roleOf(bird)} mood={mood} seed={seed} act={react && isRival ? 'whistle' : react && isLady ? 'fluster' : undefined} />
           </group>
           {/* bigger invisible hit area, easier to tap on phones */}
-          <mesh position-y={0.5} visible={false}>
+          <mesh position-y={0.5} visible={false} raycast={birdPad}>
             <sphereGeometry args={[0.55, 8, 8]} />
           </mesh>
         </Clickable>

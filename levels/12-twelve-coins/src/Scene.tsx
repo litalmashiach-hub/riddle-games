@@ -1,6 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
@@ -9,6 +9,9 @@ import { coinFaceTexture, vaultSfx } from './art';
 import { Balance, PIVOT_Y, SCALE_POS, panCentre, type Beam } from './Balance';
 import { COINS, MAX_WEIGHINGS, coinName, revealFake, type Know, type Move, type State, type Tilt, type Weighing } from './rules';
 import { DOOR_POS, TABLE_Y, TABLE_Z, Vault } from './Vault';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const coinPad = tapPadRaycast();
 
 export const MOVE_MS = 3000;
 /** Weighing timeline (ms after Weigh is pressed). */
@@ -372,7 +375,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <group ref={(g) => void (tilt.current[i] = g)}>
             <Clickable onClick={() => onCoin(i)} disabled={!canAct} hoverScale={1.12}>
               <mesh geometry={coinGeo} material={[edge, faces[i], faces[i]]} rotation-y={Math.PI / 2} castShadow receiveShadow />
-              <mesh visible={false}>
+              <mesh visible={false} raycast={coinPad}>
                 <cylinderGeometry args={[0.4, 0.4, 0.34, 10]} />
               </mesh>
             </Clickable>
@@ -920,8 +923,8 @@ function Controls(p: ControlsProps) {
       <>
         {p.picked != null && (
           <>
-            <button style={btn('red')} onClick={() => p.onVerdict(true)}>⬆ Heavier</button>
-            <button style={btn('blue')} onClick={() => p.onVerdict(false)}>⬇ Lighter</button>
+            <button style={btn('red')} onClick={() => p.onVerdict(true)}><span aria-hidden="true">⬆</span> Heavier</button>
+            <button style={btn('blue')} onClick={() => p.onVerdict(false)}><span aria-hidden="true">⬇</span> Lighter</button>
           </>
         )}
         <button style={btn('plain')} onClick={p.onCancel}>Back</button>
@@ -943,10 +946,10 @@ function Controls(p: ControlsProps) {
         )}
         {left > 0 && (
           <button style={btn('gold', !p.canWeigh)} onClick={p.onWeigh} disabled={!p.canWeigh}>
-            ⚖ Weigh <span style={{ opacity: 0.7, fontSize: 12 }}>({left} left)</span>
+            <span aria-hidden="true">⚖</span> Weigh <span style={{ opacity: 0.7, fontSize: 12 }}>({left} left)</span>
           </button>
         )}
-        <button style={btn(left === 0 ? 'gold' : 'plain')} onClick={p.onAccuse}>🔍 Name the fake</button>
+        <button style={btn(left === 0 ? 'gold' : 'plain')} onClick={p.onAccuse}><span aria-hidden="true">🔍</span> Name the fake</button>
         <button style={{ ...btn('plain'), fontSize: 12, padding: '6px 10px' }} onClick={p.onClues} title="Show what the weighings prove about each coin">
           Clues {p.clues ? 'on' : 'off'}
         </button>

@@ -214,10 +214,11 @@ const btn = (on: boolean, glow: boolean): CSSProperties => ({
 function ActionMenu({ jug, state, hint, onAct }: { jug: JugId; state: State; hint: Move | null; onAct(m: Move): void }) {
   const row = useThree((s) => s.size.width > s.size.height && s.size.height <= 500);
   const to = otherJug(jug);
-  const items: { m: Move; label: string }[] = [
-    { m: { kind: 'fill', jug }, label: '💧 Fill at pump' },
-    { m: { kind: 'pour', jug }, label: `Pour into ${CAPACITY[to]} L ${to === 'big' ? '➜' : '⬅'}` },
-    { m: { kind: 'empty', jug }, label: '🌊 Empty in river' },
+  // `say` is what VoiceOver reads in place of the label, so it never says "droplet" or "right arrow".
+  const items: { m: Move; label: string; say: string }[] = [
+    { m: { kind: 'fill', jug }, label: '💧 Fill at pump', say: 'Fill at pump' },
+    { m: { kind: 'pour', jug }, label: `Pour into ${CAPACITY[to]} L ${to === 'big' ? '➜' : '⬅'}`, say: `Pour into the ${CAPACITY[to]} litre jug` },
+    { m: { kind: 'empty', jug }, label: '🌊 Empty in river', say: 'Empty in river' },
   ];
   const home = HOME[jug];
   // A row is wide enough to reach over the other jug, so it clears the taller jug's label.
@@ -226,10 +227,10 @@ function ActionMenu({ jug, state, hint, onAct }: { jug: JugId; state: State; hin
     <Overlay position={[home[0], home[1] + top + 0.62, home[2]]} zIndex={6} interactive anchor="bottom" keepOnScreen>
       <style>{`@keyframes jugs-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@keyframes jugs-pop{from{transform:scale(0)}to{transform:scale(1)}}`}</style>
       <div style={{ display: 'flex', flexDirection: row ? 'row' : 'column', gap: row ? 8 : 6, alignItems: 'center', animation: 'jugs-pop .3s cubic-bezier(.34,1.56,.64,1)' }}>
-        {items.map(({ m, label }) => {
+        {items.map(({ m, label, say }) => {
           const on = canDo(state, m);
           return (
-            <button key={m.kind} aria-disabled={!on} style={btn(on, sameMove(hint, m))} onClick={() => onAct(m)}>
+            <button key={m.kind} aria-label={say} aria-disabled={!on} style={btn(on, sameMove(hint, m))} onClick={() => onAct(m)}>
               {label}
             </button>
           );

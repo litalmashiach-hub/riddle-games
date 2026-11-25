@@ -17,7 +17,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  VITE_SHOOT_ONLY: 07-hint,08-map
   VITE_SHOOT_HOLD: '150000'
   SHOOT_NO_HOST: '1'
   PROJECT: apps/mobile/ios/App/App.xcodeproj
@@ -28,11 +27,23 @@ jobs:
     name: ${{ matrix.label }}
     runs-on: macos-26
     timeout-minutes: 90
+    # One size and a few scenes per job: each job is its own Mac and a fresh launch of the app, so the heavy
+    # beam level (05) never follows four other levels in the same web view.
+    env:
+      VITE_SHOOT_ONLY: ${{ matrix.only }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - { label: iphone-69, sim: "iPhone 17 Pro Max" }
+          - { label: iphone-63-a, sim: "iPhone 17 Pro", only: "01-river,02-hanoi,03-coins,04-balloon" }
+          - { label: iphone-63-b, sim: "iPhone 17 Pro", only: "05-moonbeam" }
+          - { label: iphone-63-c, sim: "iPhone 17 Pro", only: "06-pancakes,07-hint,08-map" }
+          - { label: iphone-69-a, sim: "iPhone 17 Pro Max", only: "01-river,02-hanoi,03-coins,04-balloon" }
+          - { label: iphone-69-b, sim: "iPhone 17 Pro Max", only: "05-moonbeam" }
+          - { label: iphone-69-c, sim: "iPhone 17 Pro Max", only: "06-pancakes,07-hint,08-map" }
+          - { label: ipad-13-a, sim: "iPad Pro 13-inch (M5)", only: "01-river,02-hanoi,03-coins,04-balloon" }
+          - { label: ipad-13-b, sim: "iPad Pro 13-inch (M5)", only: "05-moonbeam" }
+          - { label: ipad-13-c, sim: "iPad Pro 13-inch (M5)", only: "06-pancakes,07-hint,08-map" }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -94,8 +105,9 @@ jobs:
           cp -R "out/$L/previews" "shoot-out/$L/" 2> /dev/null || true
           cp out/$L/*.txt "shoot-out/$L/" 2> /dev/null || true
           echo "${{ github.run_id }}" > "shoot-out/$L/run-id"
+          git rev-parse HEAD > "shoot-out/$L/commit"
           git config user.name "store-shots test"
           git config user.email "store-shots-test@users.noreply.github.com"
           git add -A shoot-out
           git commit -m "TEST ONLY: previews of store screenshot run ${{ github.run_id }} ($L)" || exit 0
-          for i in 1 2 3 4 5; do git pull --rebase origin store-screenshots-test && git push origin HEAD:store-screenshots-test && break; sleep $((i * 7)); done
+          for i in 1 2 3 4 5 6 7 8 9 10; do git pull --rebase origin store-screenshots-test && git push origin HEAD:store-screenshots-test && break; sleep $((i * 7)); done

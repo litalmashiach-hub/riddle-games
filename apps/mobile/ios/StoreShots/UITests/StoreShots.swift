@@ -37,7 +37,7 @@ final class StoreShots: XCTestCase {
       log("scene \(name): \(ok)", dir)
       let sub = dir + "/xc/" + name
       try? FileManager.default.createDirectory(atPath: sub, withIntermediateDirectories: true)
-      let count = live.contains(name) ? 10 : 4
+      let count = live.contains(name) ? 12 : 6
       for i in 0..<count {
         let shot = XCUIScreen.main.screenshot()
         try? shot.pngRepresentation.write(to: URL(fileURLWithPath: sub + String(format: "/%02d.png", i)))

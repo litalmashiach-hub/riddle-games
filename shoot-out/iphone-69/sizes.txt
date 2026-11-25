@@ -1,8 +1,0 @@
-xc/07-hint/00.png 1320 2868 
-xc/07-hint/01.png 1320 2868 
-xc/07-hint/02.png 1320 2868 
-xc/07-hint/03.png 1320 2868 
-xc/08-map/00.png 1320 2868 
-xc/08-map/01.png 1320 2868 
-xc/08-map/02.png 1320 2868 
-xc/08-map/03.png 1320 2868 
