@@ -29,6 +29,14 @@ function useShortScreen() {
   return short;
 }
 
+/**
+ * Backings that keep the map's text readable (docs/text-contrast.md, guarded by e2e/tests/contrast.spec.ts).
+ * Small labels over the drifting lights sit on a pill of the panels' deep blue; on a card, the words sit on
+ * a shade of the card's own colour, so every world keeps its look.
+ */
+const LABEL_PILL = 'rounded-full bg-[rgb(15_34_54/0.8)] ring-1 ring-white/15';
+const CARD_SHADE = 'before:pointer-events-none before:absolute before:-z-10 before:bg-[linear-gradient(to_top,rgb(0_0_0/0.5),rgb(0_0_0/0.45)_calc(100%-2.5rem),transparent)]';
+
 const MAP_BACKGROUND = 'radial-gradient(1200px 700px at 20% -10%, #3b82c4 0%, #1b3b5f 45%, #0f2236 100%)';
 
 export function LevelMap(props: { progress: Progress; onPlay: (id: string) => void; onAbout: () => void }) {
@@ -53,12 +61,12 @@ function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay
       <header className="relative flex shrink-0 items-center justify-between gap-4 pb-1 pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pt-[max(0.625rem,env(safe-area-inset-top))]">
         <div className="flex min-w-0 items-baseline gap-3">
           <h1 className="title-shadow shrink-0 font-display text-[2rem] font-bold leading-none">
-            <span className="bg-gradient-to-b from-white via-amber-100 to-amber-300 bg-clip-text text-transparent">Riddle Games</span>
+            <span className="bg-gradient-to-b from-white via-amber-100 to-amber-200 bg-clip-text text-transparent">Riddle Games</span>
           </h1>
-          <p className="truncate font-display text-[11px] font-semibold uppercase tracking-[0.3em] text-amber-200/90">{LEVELS.length} legendary puzzles</p>
+          <p className={`truncate px-2 py-1 font-display text-[11px] font-semibold uppercase leading-none tracking-[0.22em] text-amber-200 ${LABEL_PILL}`}>{LEVELS.length} legendary puzzles</p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <div className="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5" role="img" aria-label={starTotal(totalStars, LEVELS.length * 3)}>
+          <div className="glass-readout inline-flex items-center gap-2 rounded-full px-3.5 py-1.5" role="img" aria-label={starTotal(totalStars, LEVELS.length * 3)}>
             <Stars count={1} size={16} single />
             <span className="font-display font-semibold tabular-nums">{totalStars} / {LEVELS.length * 3}</span>
           </div>
@@ -75,9 +83,11 @@ function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay
           const look = WORLDS[w];
           return (
             <section key={w} className="flex shrink-0 flex-col" aria-label={look.name}>
-              <div className="sticky left-0 flex h-7 shrink-0 items-baseline gap-2 whitespace-nowrap">
-                <span className="font-display text-[11px] font-semibold uppercase tracking-widest" style={{ color: look.accent }}>World {wi + 1}</span>
-                <h2 className="text-outline font-display text-lg font-semibold leading-none">{look.name}</h2>
+              <div className="sticky left-0 flex h-7 shrink-0 items-start whitespace-nowrap">
+                <div className={`flex h-6 items-baseline gap-2 px-2.5 ${LABEL_PILL}`}>
+                  <span className="font-display text-[11px] font-semibold uppercase tracking-widest" style={{ color: look.accent }}>World {wi + 1}</span>
+                  <h2 className="text-outline font-display text-lg font-semibold leading-6">{look.name}</h2>
+                </div>
               </div>
               <div className="flex min-h-0 flex-1 gap-3">
                 {LEVELS.filter((l) => l.world === w).map((entry) => (
@@ -127,7 +137,7 @@ function TallMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (i
           return (
             <motion.section key={w} initial={{ y: 40, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: '-60px' }} transition={{ delay: 0.05 * wi, type: 'spring', stiffness: 90, damping: 16 }} className="mt-12">
               <div className="mb-4 flex items-baseline gap-3">
-                <span className="font-display text-sm font-semibold uppercase tracking-widest" style={{ color: look.accent }}>World {wi + 1}</span>
+                <span className={`px-2.5 py-0.5 font-display text-sm font-semibold uppercase tracking-widest ${LABEL_PILL}`} style={{ color: look.accent }}>World {wi + 1}</span>
                 <h2 className="text-outline font-display text-2xl font-semibold sm:text-3xl">{look.name}</h2>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
@@ -146,7 +156,9 @@ function TallMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (i
 function LevelCard({ entry, stars, unlocked, onPlay, compact, current }: { entry: LevelEntry; stars: number; unlocked: boolean; onPlay: (id: string) => void; compact?: boolean; current?: boolean }) {
   const look = WORLDS[entry.world];
   const playable = !!entry.level && unlocked;
-  const badge = entry.level ? (unlocked ? <Stars count={stars} size={18} /> : <LockIcon />) : <span className="rounded-full bg-white/25 px-2.5 py-0.5 text-xs font-bold">Coming soon</span>;
+  // The lock sits on a dark disc: white on the card's pale corner would not show.
+  const lock = <span className="grid h-6 w-6 place-items-center rounded-full bg-black/45 [&>svg]:h-4 [&>svg]:w-4"><LockIcon /></span>;
+  const badge = entry.level ? (unlocked ? <Stars count={stars} size={18} /> : lock) : <span className="rounded-full bg-white/25 px-2.5 py-0.5 text-xs font-bold">Coming soon</span>;
   return (
     <motion.button
       whileHover={playable ? { y: compact ? -3 : -6, rotate: -0.6 } : undefined}
@@ -157,26 +169,32 @@ function LevelCard({ entry, stars, unlocked, onPlay, compact, current }: { entry
       aria-label={levelCardName(entry, stars, unlocked)}
     >
       <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_100%_0%,rgb(255_255_255/0.35),transparent_60%)]" />
+      {/* A card that can't be played yet is dimmed and greyed by a veil over its colours. Its words stay white, so they stay readable. */}
+      {!playable && <div className="absolute inset-0 bg-slate-800/55" />}
       {compact ? (
         // The number is the card's picture: big, centred, like a stamped medallion.
-        <div className={`relative flex h-full flex-col items-center p-3 text-center ${playable ? '' : 'opacity-70 saturate-50'}`}>
+        <div className="relative isolate flex h-full flex-col items-center p-3 text-center">
           <div className="flex h-6 items-center">{badge}</div>
           <div className="grid min-h-0 flex-1 place-items-center">
-            <div className="grid h-[4.5rem] w-[4.5rem] place-items-center rounded-full bg-white/20 font-display text-[2.6rem] font-bold leading-none shadow-[inset_0_2px_0_rgb(255_255_255/0.45),0_6px_14px_rgb(0_0_0/0.25)] [text-shadow:0_2px_0_rgb(0_0_0/0.25)]">{entry.number}</div>
+            <div className="grid h-[4.5rem] w-[4.5rem] place-items-center rounded-full bg-black/30 font-display text-[2.6rem] font-bold leading-none shadow-[inset_0_2px_0_rgb(255_255_255/0.45),0_6px_14px_rgb(0_0_0/0.25)] [text-shadow:0_2px_0_rgb(0_0_0/0.25)]">{entry.number}</div>
           </div>
-          <h3 className="text-outline font-display text-[1.05rem] font-semibold leading-tight">{entry.title}</h3>
-          <p className="mt-1 line-clamp-2 min-h-[2.1rem] text-xs leading-snug text-white/85">{entry.tagline}</p>
+          <div className={`relative w-full before:-inset-x-3 before:-bottom-3 before:-top-10 ${CARD_SHADE}`}>
+            <h3 className="text-outline font-display text-[1.05rem] font-semibold leading-tight">{entry.title}</h3>
+            <p className="mt-1 line-clamp-2 min-h-[2.1rem] text-xs leading-snug text-white/90">{entry.tagline}</p>
+          </div>
         </div>
       ) : (
         <>
-          <div className="absolute -bottom-10 -right-6 font-display text-[9rem] font-bold leading-none text-white/15 transition-transform duration-500 group-hover:scale-110">{entry.number}</div>
-          <div className={`relative flex h-full flex-col p-5 ${playable ? '' : 'opacity-70 saturate-50'}`}>
+          <div aria-hidden className="absolute -bottom-10 -right-6 font-display text-[9rem] font-bold leading-none text-white/15 transition-transform duration-500 group-hover:scale-110">{entry.number}</div>
+          <div className="relative isolate flex h-full flex-col p-5">
             <div className="flex items-center justify-between">
-              <span className="rounded-full bg-black/25 px-2.5 py-0.5 font-display text-xs font-semibold tracking-wider">LEVEL {entry.number}</span>
+              <span className="rounded-full bg-black/50 px-2.5 py-0.5 font-display text-xs font-semibold tracking-wider">LEVEL {entry.number}</span>
               {badge}
             </div>
-            <h3 className="text-outline mt-auto font-display text-xl font-semibold leading-tight">{entry.title}</h3>
-            <p className="mt-1 text-sm text-white/85">{entry.tagline}</p>
+            <div className={`relative mt-auto before:-inset-x-5 before:-bottom-5 before:-top-10 ${CARD_SHADE}`}>
+              <h3 className="text-outline font-display text-xl font-semibold leading-tight">{entry.title}</h3>
+              <p className="mt-1 text-sm text-white/90">{entry.tagline}</p>
+            </div>
           </div>
           {playable && (
             <div className="absolute bottom-4 right-4 grid h-11 w-11 place-items-center rounded-full bg-white text-slate-900 opacity-0 shadow-lg transition-all duration-300 group-hover:opacity-100">
