@@ -1,0 +1,3 @@
+device iPhone SE (3rd generation): C32455C7-291B-4A2E-AF9E-5C51F3A8A553
+    iPhone SE (3rd generation) (C32455C7-291B-4A2E-AF9E-5C51F3A8A553) (Shutdown) 
+booted in 123 s
