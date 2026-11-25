@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CLICK_ECHO_MS, ClickGuard, LiftPress, PRESS_SLOP } from './pressOnLift';
+import { CLICK_ECHO_MS, ClickGuard, LiftPress, liftTapped, onLiftTap, PRESS_SLOP } from './pressOnLift';
 
 const at = (x: number, y: number, pointerId = 1) => ({ pointerId, clientX: x, clientY: y });
 
@@ -143,5 +143,17 @@ describe('a press that wandered off and came back', () => {
     p.move(at(108, 104));
     p.move(at(103, 99));
     expect(p.lift(at(102, 100))).toBe('tap');
+  });
+});
+
+describe('onLiftTap', () => {
+  it('hears each tap taken on a lift, until it stops listening', () => {
+    let heard = 0;
+    const stop = onLiftTap(() => heard++);
+    liftTapped();
+    liftTapped();
+    stop();
+    liftTapped();
+    expect(heard).toBe(2);
   });
 });

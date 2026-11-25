@@ -1,5 +1,5 @@
 import { events as createPointerEvents, type RootStore } from '@react-three/fiber';
-import { useSettings } from '@riddle/fx';
+import { onLiftTap, useSettings } from '@riddle/fx';
 import type { StoreApi } from 'zustand';
 import { APP_SHELL } from './appShell';
 
@@ -57,6 +57,11 @@ export function startHaptics() {
     },
     true,
   );
+  // A tap on the scene that a Clickable takes when the finger lifts: its click is held off, so it ticks here.
+  // Asked before the tap acts, as the scene's click below is, so that the move it starts doesn't count as busy.
+  onLiftTap(() => {
+    if (playing && !playing.getState().busy) tapFeedback();
+  });
 }
 
 /** The play session, as far as the touch response needs it. */

@@ -120,6 +120,23 @@ export class ClickGuard {
   }
 }
 
+const liftTaps = new Set<() => void>();
+
+/**
+ * Calls `fn` each time a Clickable takes a lift as a tap, just before it acts (so `fn` sees the scene as it was
+ * when the finger lifted). The click of that tap is held off, so whatever answered a tap on the scene's click
+ * (the app's light tick) listens here as well. Returns the cleanup.
+ */
+export function onLiftTap(fn: () => void): () => void {
+  liftTaps.add(fn);
+  return () => liftTaps.delete(fn);
+}
+
+/** A Clickable took a lift as a tap. */
+export function liftTapped() {
+  for (const fn of liftTaps) fn();
+}
+
 let guard: ClickGuard | null = null;
 
 /** The page's one guard, made on first use. */

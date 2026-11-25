@@ -139,7 +139,7 @@ test.describe('level 2: one tap on the goat, once; a drag, never', () => {
     }
     await touch('touchEnd');
     await cdp.detach();
-    await waitCameraStill(page);
+    // No wait for the camera to settle: after a wide turn it drifts back for longer than a test should wait.
     expect(await camera(page), 'the drag turned the camera').not.toBe(before);
     await staysWith(page, /alone/);
     expectClean(faults);

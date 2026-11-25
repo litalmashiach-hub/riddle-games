@@ -1,7 +1,7 @@
 import { useCursor } from '@react-three/drei';
 import type { ThreeEvent } from '@react-three/fiber';
 import { useState, type ReactNode } from 'react';
-import { clickGuard, LiftPress, PRESS_SLOP } from './pressOnLift';
+import { clickGuard, LiftPress, liftTapped, PRESS_SLOP } from './pressOnLift';
 
 /** Lifts that a Clickable has already taken: one inside another doesn't take the same lift again. */
 const taken = new WeakSet<Event>();
@@ -48,7 +48,9 @@ export function Clickable({
         taken.add(lift);
         // A drag that began here turned the camera: its click is no tap either.
         clickGuard().holdOffClick(lift);
-        if (was === 'tap' && !disabled) onClick();
+        if (was !== 'tap') return;
+        liftTapped();
+        if (!disabled) onClick();
       }}
       onClick={(e: ThreeEvent<MouseEvent>) => {
         e.stopPropagation();
