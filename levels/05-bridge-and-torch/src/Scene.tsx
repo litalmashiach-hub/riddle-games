@@ -85,6 +85,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const clockText = useRef<HTMLSpanElement>(null);
   const clockBar = useRef<HTMLDivElement>(null);
   const lastCount = useRef(moveCount);
+  // The sound that follows the torch's splash when it burns out. An undo, a restart or leaving the level cancels it.
+  const fizzle = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(fizzle.current), []);
   // The name labels step aside for each other when explorers stand close together.
   const spread = useLabelSpread();
   // drei's <Html> can come up empty if it mounts before the canvas has wired up its events,
@@ -103,6 +106,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     setDark(false);
     flame.outAt = null;
     cross.current = null;
+    // The torch's last fizzle, if it is still to come, belongs to the crossing that just ended.
+    clearTimeout(fizzle.current);
     if (!forward || !lastMove || !previous) return;
     const minutes = crossingMinutes(lastMove);
     const walk = walkMs(minutes);
@@ -236,7 +241,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         if (!c.played.out) {
           c.played.out = true;
           sfx.splash();
-          setTimeout(() => sfx.deselect(), 350);
+          fizzle.current = setTimeout(() => sfx.deselect(), 350);
         }
       }
       if (!c.played.arrive && c.outAt == null && el > PREP_MS + c.walk) {

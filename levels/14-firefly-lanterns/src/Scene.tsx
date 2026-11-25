@@ -107,7 +107,9 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     }
     if (fail === 'surfaced') {
       sfx.boing();
-      setTimeout(() => sfx.sadTrombone(), 350);
+      // An undo or a restart ends the fail scene before the sad trombone: then it stays silent.
+      const t = setTimeout(() => sfx.sadTrombone(), 350);
+      return () => clearTimeout(t);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fail]);

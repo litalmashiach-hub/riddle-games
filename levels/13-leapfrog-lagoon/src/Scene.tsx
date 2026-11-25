@@ -85,26 +85,31 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const [bonkAt, setBonkAt] = useState(0);
   const [splashAt, setSplashAt] = useState(0);
   useEffect(() => {
+    // Each beat's late sound waits on a timer. An undo, a restart or leaving the level ends the fail scene,
+    // and with it the sounds still to come.
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const at = (ms: number, f: () => void) => timers.push(setTimeout(f, ms));
     if (phase === 'windup') {
       failStart.current = performance.now();
       sfx.squeak();
     } else if (phase === 'bonk') {
-      setTimeout(() => {
+      at(180, () => {
         frogSfx.bonk();
         sfx.boing();
         setBonkAt(performance.now());
         setShake((s) => s + 1);
-      }, 180);
+      });
     } else if (phase === 'tumble') {
       frogSfx.whistle();
-      setTimeout(() => {
+      at(720, () => {
         sfx.splash();
         setSplashAt(performance.now());
         setShake((s) => s + 1);
-      }, 720);
+      });
     } else if (phase === 'after') {
-      setTimeout(() => frogSfx.glub(), 150);
+      at(150, () => frogSfx.glub());
     } else if (phase === null) failStart.current = 0;
+    return () => timers.forEach(clearTimeout);
   }, [phase]);
 
   const bonkPos: Vec3 = pair >= 0 ? [(padX(pair, pads) + padX(pair + 1, pads)) / 2, 0.55, 0] : [0, 0.5, 0];
