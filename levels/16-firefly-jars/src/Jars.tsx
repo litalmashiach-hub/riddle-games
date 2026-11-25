@@ -1,11 +1,14 @@
 import { useFrame } from '@react-three/fiber';
-import { Clickable, useSettings } from '@riddle/fx';
+import { Clickable, useSettings, tapPadRaycast } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useJars } from './context';
 import { GLOW, JAR_BASE_Y, JAR_H, JAR_R } from './layout';
 import { isDone, type Jar } from './rules';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const jarPad = tapPadRaycast({ axis: JAR_H + 1.2 });
 
 /** A soft round glow texture, made once in a canvas. */
 let glowTex: THREE.Texture | null = null;
@@ -94,7 +97,7 @@ function GlassJar({ index, jar, onClick, disabled, lifted, ok, won }: { index: n
     <group ref={root} position={[x, y, z]}>
       <Clickable onClick={onClick} disabled={disabled} hoverScale={1.04}>
         {/* Big invisible tap target. */}
-        <mesh position={[0, JAR_H / 2 + 0.3, 0]} visible={false}>
+        <mesh position={[0, JAR_H / 2 + 0.3, 0]} visible={false} raycast={jarPad}>
           <cylinderGeometry args={[JAR_R + 0.22, JAR_R + 0.22, JAR_H + 1.2, 12]} />
           <meshBasicMaterial />
         </mesh>

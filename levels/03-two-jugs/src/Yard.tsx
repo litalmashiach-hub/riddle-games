@@ -1,10 +1,15 @@
 import { useFrame } from '@react-three/fiber';
-import { Clickable, seeded, useSettings } from '@riddle/fx';
+import { Clickable, seeded, useSettings, tapPadRaycast } from '@riddle/fx';
 import { groundHeight, toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { pumpSound } from './audio';
 import { FLOW_END, GO_MS, PUMP_POS, SPOUT, YARD_CENTER, YARD_RADIUS, YARD_Y, type Anim } from './layout';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const pumpPad = tapPadRaycast({ axis: 1.5 });
+/** The river's tap area has nothing drawn of its own: it lies behind the jugs' and the pump's padding. */
+const riverPad = tapPadRaycast({ rank: 1 });
 
 /** Round cobbled yard. One draw call for all cobbles. */
 export function Cobbles() {
@@ -126,7 +131,7 @@ export function Pump({ anim, onClick, disabled }: { anim: RefObject<Anim>; onCli
           </mesh>
         </group>
         {/* Bigger hit area for phones. */}
-        <mesh position-y={0.7} visible={false}>
+        <mesh position-y={0.7} visible={false} raycast={pumpPad}>
           <cylinderGeometry args={[0.45, 0.45, 1.5, 8]} />
         </mesh>
       </Clickable>
@@ -310,7 +315,7 @@ export function Butterflies() {
 export function RiverTarget({ onClick, disabled }: { onClick(): void; disabled: boolean }) {
   return (
     <Clickable onClick={onClick} disabled={disabled} hoverScale={1}>
-      <mesh position={[2.0, 0.35, -1.15]} visible={false}>
+      <mesh position={[2.0, 0.35, -1.15]} visible={false} raycast={riverPad}>
         <boxGeometry args={[2.2, 0.8, 1.8]} />
       </mesh>
     </Clickable>
