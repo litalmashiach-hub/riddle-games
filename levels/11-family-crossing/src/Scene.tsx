@@ -183,6 +183,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <Html calculatePosition={pinAboveButtons} center zIndexRange={[6, 0]}>
             <button
               onClick={castOff}
+              // VoiceOver reads this label in place of the text, so it never says "right arrow" or "plus".
+              aria-label={`${state.raft === 'L' ? 'Cast off' : 'Cast off back'}, ${loaded.length === 0 ? 'tap people to board' : loaded.map((p) => LABEL[p]).join(' and ')}`}
               style={{
                 fontFamily: 'Fredoka, system-ui, sans-serif',
                 fontWeight: 700,

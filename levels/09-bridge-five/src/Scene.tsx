@@ -384,6 +384,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const crossButton = (
     <button
       onClick={cross}
+      // VoiceOver reads this label in place of the text, so it never says "right arrow" or "warning sign".
+      aria-label={
+        full || picked.length === 0
+          ? undefined
+          : `${goingRight ? 'Cross' : 'Cross back'}, ${pickMinutes} ${pickMinutes === 1 ? 'minute' : 'minutes'}${state.time + pickMinutes > LANTERN_MINUTES ? ', more than the lantern has left' : ''}`
+      }
       style={{
         fontFamily: 'Fredoka, system-ui, sans-serif',
         fontWeight: 700,

@@ -923,8 +923,8 @@ function Controls(p: ControlsProps) {
       <>
         {p.picked != null && (
           <>
-            <button style={btn('red')} onClick={() => p.onVerdict(true)}>⬆ Heavier</button>
-            <button style={btn('blue')} onClick={() => p.onVerdict(false)}>⬇ Lighter</button>
+            <button style={btn('red')} onClick={() => p.onVerdict(true)}><span aria-hidden="true">⬆</span> Heavier</button>
+            <button style={btn('blue')} onClick={() => p.onVerdict(false)}><span aria-hidden="true">⬇</span> Lighter</button>
           </>
         )}
         <button style={btn('plain')} onClick={p.onCancel}>Back</button>
@@ -946,10 +946,10 @@ function Controls(p: ControlsProps) {
         )}
         {left > 0 && (
           <button style={btn('gold', !p.canWeigh)} onClick={p.onWeigh} disabled={!p.canWeigh}>
-            ⚖ Weigh <span style={{ opacity: 0.7, fontSize: 12 }}>({left} left)</span>
+            <span aria-hidden="true">⚖</span> Weigh <span style={{ opacity: 0.7, fontSize: 12 }}>({left} left)</span>
           </button>
         )}
-        <button style={btn(left === 0 ? 'gold' : 'plain')} onClick={p.onAccuse}>🔍 Name the fake</button>
+        <button style={btn(left === 0 ? 'gold' : 'plain')} onClick={p.onAccuse}><span aria-hidden="true">🔍</span> Name the fake</button>
         <button style={{ ...btn('plain'), fontSize: 12, padding: '6px 10px' }} onClick={p.onClues} title="Show what the weighings prove about each coin">
           Clues {p.clues ? 'on' : 'off'}
         </button>

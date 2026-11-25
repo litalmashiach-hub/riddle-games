@@ -389,6 +389,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         <Html calculatePosition={(_el, _cam, size) => [size.width / 2, size.height - 62 - size.height * 0.13]} zIndexRange={[5, 0]}>
           <button
             onClick={go}
+            // VoiceOver reads this label in place of the text, so it never says "right arrow".
+            aria-label={picked.length ? `${state.torch === 'L' ? 'Cross' : 'Cross back'}, ${pickedMinutes} ${pickedMinutes === 1 ? 'minute' : 'minutes'}` : undefined}
             style={{
               transform: 'translate(-50%, -50%)',
               fontFamily: FONT,
