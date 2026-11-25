@@ -35,15 +35,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { label: iphone-63-a, sim: "iPhone 17 Pro", only: "01-river,02-hanoi,03-coins,04-balloon" }
-          - { label: iphone-63-b, sim: "iPhone 17 Pro", only: "05-moonbeam" }
-          - { label: iphone-63-c, sim: "iPhone 17 Pro", only: "06-pancakes,07-hint,08-map" }
-          - { label: iphone-69-a, sim: "iPhone 17 Pro Max", only: "01-river,02-hanoi,03-coins,04-balloon" }
-          - { label: iphone-69-b, sim: "iPhone 17 Pro Max", only: "05-moonbeam" }
-          - { label: iphone-69-c, sim: "iPhone 17 Pro Max", only: "06-pancakes,07-hint,08-map" }
-          - { label: ipad-13-a, sim: "iPad Pro 13-inch (M5)", only: "01-river,02-hanoi,03-coins,04-balloon" }
-          - { label: ipad-13-b, sim: "iPad Pro 13-inch (M5)", only: "05-moonbeam" }
-          - { label: ipad-13-c, sim: "iPad Pro 13-inch (M5)", only: "06-pancakes,07-hint,08-map" }
+          - { label: iphone-69-b2, sim: "iPhone 17 Pro Max", only: "05-moonbeam" }
+          - { label: ipad-13-d, sim: "iPad Pro 13-inch (M5)", only: "07-hint" }
+          - { label: ipad-13-e, sim: "iPad Pro 13-inch (M5)", only: "08-map" }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
