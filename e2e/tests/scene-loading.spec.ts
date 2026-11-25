@@ -52,7 +52,8 @@ async function holdShaders(page: Page, waitMs?: number) {
     if (ms != null) (window as any).__sceneWaitMs = ms;
     const STATUS = 0x91b1; // COMPLETION_STATUS_KHR
     for (const GL of [WebGLRenderingContext, WebGL2RenderingContext]) {
-      const getExtension = GL.prototype.getExtension;
+      // Typed by name alone: the WebXR types add a narrower overload that `.call` would pick.
+      const getExtension: (this: WebGLRenderingContextBase, name: string) => unknown = GL.prototype.getExtension;
       GL.prototype.getExtension = function (this: any, name: string) {
         const real = getExtension.call(this, name);
         return name === 'KHR_parallel_shader_compile' ? (real ?? { COMPLETION_STATUS_KHR: STATUS }) : real;
