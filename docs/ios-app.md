@@ -50,6 +50,48 @@ every pull request: builds the app content, syncs Capacitor, builds the app unsi
 in a simulator and uploads screenshots as the run's `ios-simulator-screenshots` artifact. There is no Mac in the
 team's workspace, so this run is how a change to the iOS project is proven.
 
+## Upload to TestFlight
+
+`.github/workflows/testflight.yml` builds the store version on a hosted Mac, signs it with the owner's Apple team
+and uploads it to App Store Connect, where it shows under TestFlight. It is run by hand (Actions, "TestFlight
+upload", Run workflow). The owner's own steps, from joining Apple's program to Submit for Review, are in
+`docs/launch-steps.md`.
+
+What it needs, all added by the owner in the repository's settings (Settings, Secrets and variables, Actions);
+nothing is committed:
+
+| Name | Kind | What it is |
+| --- | --- | --- |
+| `APP_BUNDLE_ID` | variable | The bundle identifier of the app's record in App Store Connect. Not needed once `AppIdentity.xcconfig` holds the real one. |
+| `APPLE_TEAM_ID` | variable (or secret) | The Apple team ID, 10 characters. |
+| `APP_STORE_CONNECT_KEY_ID` | secret | The API key's Key ID. |
+| `APP_STORE_CONNECT_ISSUER_ID` | secret | The Issuer ID shown above the team's keys. |
+| `APP_STORE_CONNECT_KEY` | secret | The whole text of the key's `.p8` file. |
+| `BUILD_NUMBER_OFFSET` | variable, optional | Added to the run number, if builds were ever uploaded some other way with higher numbers. |
+
+What a run does, in order:
+
+1. `apps/mobile/scripts/testflight-preflight.sh` checks that each of the above is set and well formed, and that the
+   bundle identifier is not the `com.example` placeholder. If not, the run stops there, before anything is built,
+   and lists what to add where. It prints only whether each value is set, never a value.
+2. Sets the bundle identifier and the build number in the runner's copy of `AppIdentity.xcconfig`. The build
+   number is `BUILD_NUMBER_OFFSET + the run number`, so it goes up with every run. Nothing is committed.
+3. `pnpm test` and `pnpm ios:sync` with `RELEASE=1`, so the About screen's placeholder check fails the run while the
+   contact, publisher or policy date is still empty.
+4. `xcodebuild archive` with automatic signing through the API key (`-allowProvisioningUpdates` and the
+   `-authenticationKey*` flags, `DEVELOPMENT_TEAM` from the variable). Xcode registers what it needs in the
+   owner's account and gets its certificates for the run; they live in a keychain that is deleted at the end.
+5. `xcodebuild -exportArchive` with `method` app-store-connect and `destination` upload: export and upload in one.
+6. Removes the key file and the keychain, whatever happened.
+
+On a pull request that changes the workflow or its script, and by hand with "Check mode" ticked, it runs steps 1
+to 3, reports what is missing without failing, archives the app unsigned and checks the archive's identifier,
+build number and privacy manifest, and stops before signing. A pull request never signs or uploads.
+
+Two things it cannot know until the owner's first real run: whether the key's role is enough for Xcode to make the
+distribution certificate (see `docs/launch-steps.md`, step 6), and whether Apple accepts the upload. If a run fails
+at signing or upload, its log and the `testflight-export-logs` artifact say why.
+
 ## What the shell sets
 
 - iPhone: sideways only, both directions. iPad: turns freely and can be resized, since Apple has deprecated
@@ -127,7 +169,8 @@ and committed so that the Xcode project opens as it is.
 ## Still open before a store upload
 
 - Final name and bundle identifier, in `AppIdentity.xcconfig`.
-- Signing with the owner's Apple developer account.
+- Signing with the owner's Apple developer account: `.github/workflows/testflight.yml` does it once the owner
+  has added their key and team (above).
 - `Info.plist` declares that the app uses no non-exempt encryption (`ITSAppUsesNonExemptEncryption` = NO). That
   is true of the code today: the game makes no network calls and has no encryption of its own. It is the owner's
   declaration to Apple when a build is uploaded, so the owner should confirm it, and it must be revisited if the
