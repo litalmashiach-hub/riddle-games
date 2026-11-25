@@ -41,7 +41,7 @@ The shell gives the scene `state`, `previous`, `lastMove`, `status`, `play(move)
 - On a win, fire `<Burst>` confetti and make the characters celebrate (`mood="happy"`).
 - Do not add lights, sky, fog or post-processing: `WorldStage` does that per world. Add only local lights
   (torches, glowing potions).
-- Make tap targets big (add an invisible hit sphere) so it works on phones.
+- Make tap targets big (add an invisible hit sphere) so it works on phones. Give that invisible mesh `raycast={pad}`, with `const pad = tapPadRaycast()` from `@riddle/fx` made once outside the component: the padding then never takes a tap from a figure drawn behind it. A big thing that others stand on (a boat, a bridge) goes in a `<group raycast={tapBackdropRaycast()}>`, so a tap beside a passenger still picks the passenger.
 - UI that belongs to the level (like the "Row across" button) can be drawn with drei's `<Html>`.
 
 ## 4. Register it
