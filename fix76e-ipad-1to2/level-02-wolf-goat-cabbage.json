@@ -1,0 +1,210 @@
+{
+ "level": 2,
+ "id": "wolf-goat-cabbage",
+ "title": "Wolf, Goat and Cabbage",
+ "device": "fix76e-ipad-1to2",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 7,
+ "touches": 12,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 8.704,
+  "rulesCard": 8.704,
+  "drawn": 8.704,
+  "play": 43.154,
+  "total": 75.82
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76e-ipad-1to2-L02-rules-card.png",
+  "fix76e-ipad-1to2-L02-in-play.png",
+  "fix76e-ipad-1to2-L02-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the goat",
+   "kind": "tap",
+   "at": {
+    "x": 271.75893322316466,
+    "y": 526.1549217257414
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9b3b7330-9238-4545-944a-b8c4bd1348ab",
+    "world": [
+     -3.8,
+     0.35,
+     1.4
+    ],
+    "distance": 9.00889875716145
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 688.078125,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 688.046875,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 298.7785025528383,
+    "y": 413.10526577356865
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9e2e1f96-da80-4729-aa9a-1ae328a29f83",
+    "world": [
+     -4.3,
+     0.3500000000000001,
+     -0.7
+    ],
+    "distance": 10.855354936072782
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 688.078125,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "the goat",
+   "kind": "tap",
+   "at": {
+    "x": 1124.2633154218618,
+    "y": 532.6374040135485
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9b3b7330-9238-4545-944a-b8c4bd1348ab",
+    "world": [
+     3.8,
+     0.3500000000000001,
+     1.4
+    ],
+    "distance": 8.584479983096783
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 688.1015625,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "the cabbage",
+   "kind": "tap",
+   "at": {
+    "x": 126.83389290994299,
+    "y": 487.4349492813747
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "0471a07a-96ac-4008-9079-211af4ae6d46",
+    "world": [
+     -5.5,
+     0.3607496398979386,
+     0.35
+    ],
+    "distance": 10.715146898427987
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 687.9765625,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 688.046875,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 7,
+   "what": "the goat",
+   "kind": "tap",
+   "at": {
+    "x": 229.64469063904025,
+    "y": 534.526793245123
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9b3b7330-9238-4545-944a-b8c4bd1348ab",
+    "world": [
+     -3.8,
+     0.3500000000000001,
+     1.4
+    ],
+    "distance": 9.088265195771005
+   }
+  },
+  {
+   "step": 7,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 688.078125,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 6.3
+}

@@ -1,0 +1,43 @@
+    0.0s device fix76e-ipad-1to2; levels 1-2 (2); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  490.0s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  492.2s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  494.2s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  496.3s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  498.4s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  500.5s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  502.6s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  504.8s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  507.0s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  509.1s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  512.1s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  514.1s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  516.2s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  518.4s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  520.5s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  522.7s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  524.7s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  526.9s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  529.0s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  531.1s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  533.2s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  535.3s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  537.5s WEBVIEW_15171.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  539.8s page in WEBVIEW_15171.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  540.4s web view found: WEBVIEW_15171.1, 1032 by 1376
+  564.8s turned LANDSCAPE: 1376 by 1032
+  572.3s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  578.7s page in WEBVIEW_15171.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  578.7s graphics quality set to SD by the player's setting
+  583.9s page in WEBVIEW_15171.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  584.7s frames capped at 6 a second by the test (page says 6)
+  591.2s page in WEBVIEW_15171.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  609.0s L01 wolf-two-sheep: opened by its card on the level map
+  702.8s L01 wolf-two-sheep: won by taps; stars 3 (saved 3); open 33.608s, play 50.96s, total 117.916s; page errors 0, console errors 0; frames per second 5.8
+  723.5s page in WEBVIEW_20560.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  723.8s L02: fresh app
+  729.9s page in WEBVIEW_20560.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  738.6s L02 wolf-goat-cabbage: opened by its card on the level map
+  799.7s L02 wolf-goat-cabbage: won by taps; stars 3 (saved 3); open 8.704s, play 43.154s, total 75.82s; page errors 0, console errors 0; frames per second 6.3
+  799.7s script calls: 346, median 40 ms, 90th 383 ms
+  799.9s done: 2 of 2 levels won, 2 by taps alone

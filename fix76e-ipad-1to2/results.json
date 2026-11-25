@@ -1,0 +1,74 @@
+[
+ {
+  "level": 1,
+  "id": "wolf-two-sheep",
+  "title": "Wolf and Two Sheep",
+  "device": "fix76e-ipad-1to2",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 33.608,
+   "rulesCard": 33.607,
+   "drawn": 33.608,
+   "play": 50.96,
+   "total": 117.916
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76e-ipad-1to2-L01-rules-card.png",
+   "fix76e-ipad-1to2-L01-in-play.png",
+   "fix76e-ipad-1to2-L01-win-card.png"
+  ],
+  "fps": 5.8
+ },
+ {
+  "level": 2,
+  "id": "wolf-goat-cabbage",
+  "title": "Wolf, Goat and Cabbage",
+  "device": "fix76e-ipad-1to2",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 8.704,
+   "rulesCard": 8.704,
+   "drawn": 8.704,
+   "play": 43.154,
+   "total": 75.82
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76e-ipad-1to2-L02-rules-card.png",
+   "fix76e-ipad-1to2-L02-in-play.png",
+   "fix76e-ipad-1to2-L02-win-card.png"
+  ],
+  "fps": 6.3
+ }
+]
