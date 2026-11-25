@@ -210,8 +210,8 @@ test('reset clears the stars after the confirm, not before, and leaves the setti
   await expect(page.getByText(`0 / ${LEVELS.length * 3}`)).toBeVisible();
   await page.reload();
   await expect(page.getByText(`0 / ${LEVELS.length * 3}`)).toBeVisible();
-  await expect(page.getByRole('button', { name: new RegExp(`^Level ${LEVELS[1].number}: .*\\(locked\\)$`) })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Unmute' })).toBeVisible();
+  await expect(page.getByRole('button', { name: new RegExp(`^Level ${LEVELS[1].number}: .*, locked$`) })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Sound', pressed: false })).toBeVisible();
   expect(await savedStars(page)).toEqual({});
 });
 
@@ -230,7 +230,7 @@ test('the sound and graphics switches work and are remembered', async ({ page })
 
   // The map's own sound button shows the same choice, and a fresh start keeps both.
   await page.getByRole('button', { name: 'Back to levels' }).tap();
-  await expect(page.getByRole('button', { name: 'Unmute' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Sound', pressed: false })).toBeVisible();
   await page.goto('about:blank');
   await page.goto('#/about');
   await expect(sound).toHaveAttribute('aria-checked', 'false');

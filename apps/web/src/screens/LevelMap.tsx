@@ -7,6 +7,7 @@ import { Stars } from '../components/Stars';
 import { LockIcon, PlayIcon, SoundIcon } from '../components/Icons';
 import { LEVELS, WORLD_ORDER, type LevelEntry } from '../levels';
 import { GearIcon } from './AboutScreen';
+import { levelCardName, starTotal } from '../spoken';
 
 /** A built level is open when every built level before it is solved. `?all` opens everything (website only). */
 function isUnlocked(entry: LevelEntry, progress: Progress) {
@@ -57,14 +58,14 @@ function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay
           <p className="truncate font-display text-[11px] font-semibold uppercase tracking-[0.3em] text-amber-200/90">{LEVELS.length} legendary puzzles</p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <div className="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5">
+          <div className="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5" role="img" aria-label={starTotal(totalStars, LEVELS.length * 3)}>
             <Stars count={1} size={16} single />
             <span className="font-display font-semibold tabular-nums">{totalStars} / {LEVELS.length * 3}</span>
           </div>
           <button className="glass btn-3d rounded-full p-2.5" onClick={() => { sfx.click(); onAbout(); }} aria-label="About and settings">
             <GearIcon />
           </button>
-          <button className="glass btn-3d rounded-full p-2.5" onClick={toggleSound} aria-label={sound ? 'Mute' : 'Unmute'}>
+          <button className="glass btn-3d rounded-full p-2.5" onClick={toggleSound} aria-label="Sound" aria-pressed={sound}>
             <SoundIcon on={sound} />
           </button>
         </div>
@@ -104,7 +105,7 @@ function TallMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (i
           <button className="glass btn-3d rounded-full p-2.5" onClick={() => { sfx.click(); onAbout(); }} aria-label="About and settings">
             <GearIcon />
           </button>
-          <button className="glass btn-3d rounded-full p-2.5" onClick={toggleSound} aria-label={sound ? 'Mute' : 'Unmute'}>
+          <button className="glass btn-3d rounded-full p-2.5" onClick={toggleSound} aria-label="Sound" aria-pressed={sound}>
             <SoundIcon on={sound} />
           </button>
         </div>
@@ -114,7 +115,7 @@ function TallMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (i
             <span className="bg-gradient-to-b from-white via-amber-100 to-amber-300 bg-clip-text text-transparent">Riddle Games</span>
           </h1>
           <p className="mx-auto mt-4 max-w-md text-base text-sky-100/85 sm:text-lg">Cross rivers, measure potions and outsmart the scales. Every level is harder than the last.</p>
-          <div className="glass mx-auto mt-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5">
+          <div className="glass mx-auto mt-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5" role="img" aria-label={starTotal(totalStars, LEVELS.length * 3)}>
             <Stars count={1} size={16} single />
             <span className="font-display font-semibold">{totalStars} / {LEVELS.length * 3}</span>
           </div>
@@ -153,7 +154,7 @@ function LevelCard({ entry, stars, unlocked, onPlay, compact, current }: { entry
       onClick={() => (playable ? onPlay(entry.id) : sfx.denied())}
       className={`group relative overflow-hidden text-left ${compact ? 'h-full w-full rounded-[1.4rem] shadow-[0_10px_24px_rgb(0_0_0/0.35)]' : 'h-36 rounded-3xl shadow-[0_18px_40px_rgb(0_0_0/0.35)] sm:h-44'} ${current && compact ? 'ring-[3px] ring-amber-200' : ''} ${playable ? 'cursor-pointer' : 'cursor-default'}`}
       style={{ background: look.uiGradient }}
-      aria-label={`Level ${entry.number}: ${entry.title}${entry.level ? (unlocked ? '' : ' (locked)') : ' (coming soon)'}`}
+      aria-label={levelCardName(entry, stars, unlocked)}
     >
       <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_100%_0%,rgb(255_255_255/0.35),transparent_60%)]" />
       {compact ? (
