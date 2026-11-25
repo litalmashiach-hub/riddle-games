@@ -12,14 +12,14 @@ test('progress and settings survive a reload', async ({ page }) => {
 
   // Back to the map, and turn the sound off there.
   await page.getByRole('button', { name: 'All levels' }).tap();
-  await page.getByRole('button', { name: 'Mute' }).tap();
-  await expect(page.getByRole('button', { name: 'Unmute' })).toBeVisible();
+  await page.getByRole('button', { name: 'Sound', pressed: true }).tap();
+  await expect(page.getByRole('button', { name: 'Sound', pressed: false })).toBeVisible();
 
   // A fresh start of the app, with none of the test's address options.
   await page.goto('about:blank');
   await page.goto('');
   await expect(page.getByText(`3 / ${LEVELS.length * 3}`)).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Unmute' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Sound', pressed: false })).toBeVisible();
   expect(await savedStars(page)).toEqual({ [one.id]: 3 });
   expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).sound, SETTINGS_KEY)).toBe(false);
 

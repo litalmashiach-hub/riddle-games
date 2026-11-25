@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
+import { releaseChecks } from './releaseChecks';
 
 /** Lists every built file into dist/sw.js so the installed app works offline. */
 function offlineServiceWorker(): Plugin {
@@ -67,7 +68,7 @@ export default defineConfig(({ mode }) => {
   return {
     // Relative base so the build works on GitHub Pages, Vercel or any static host.
     base: './',
-    plugins: [react(), tailwindcss(), appShell ? stripWebAppParts() : offlineServiceWorker()],
+    plugins: [react(), tailwindcss(), appShell ? stripWebAppParts() : offlineServiceWorker(), releaseChecks()],
     build: {
       outDir: appShell ? 'dist-app' : 'dist',
       chunkSizeWarningLimit: 2000,
