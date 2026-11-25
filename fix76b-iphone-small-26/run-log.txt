@@ -1,0 +1,12 @@
+    0.0s device fix76b-iphone-small-26; levels 26 (1); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"79990E7C-C85A-40DD-AC78-9F65BFAD5121","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  348.1s page in WEBVIEW_15251.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  348.2s web view found: WEBVIEW_15251.1, 667 by 375
+  353.8s calibration: touched [{"x":200,"y":150},{"x":467,"y":281}], the page saw [{"x":200,"y":150},{"x":467,"y":281}]: same (error 0.0 pt)
+  358.1s page in WEBVIEW_15251.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  358.1s frames capped at 6 a second by the test (page says 6)
+  363.3s page in WEBVIEW_15251.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  366.2s L26 moonbeam-maze: opened by its card on the level map
+  469.9s L26 moonbeam-maze: won by taps; stars 3 (saved 3); open 14.319s, play 41.944s, total 111.641s; page errors 0, console errors 0; frames per second 6.4
+  469.9s script calls: 120, median 54 ms, 90th 503 ms
+  470.1s done: 1 of 1 levels won, 1 by taps alone

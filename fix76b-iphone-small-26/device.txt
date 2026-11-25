@@ -1,0 +1,3 @@
+device iPhone SE (3rd generation): 79990E7C-C85A-40DD-AC78-9F65BFAD5121
+    iPhone SE (3rd generation) (79990E7C-C85A-40DD-AC78-9F65BFAD5121) (Shutdown) 
+booted in 167 s

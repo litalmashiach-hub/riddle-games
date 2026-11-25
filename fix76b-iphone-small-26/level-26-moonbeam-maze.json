@@ -1,0 +1,210 @@
+{
+ "level": 26,
+ "id": "moonbeam-maze",
+ "title": "Moonbeam Maze",
+ "device": "fix76b-iphone-small-26",
+ "size": "667x375",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 9,
+ "moves": 9,
+ "touches": 9,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 14.319,
+  "rulesCard": 13.941,
+  "drawn": 14.319,
+  "play": 41.944,
+  "total": 111.641
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76b-iphone-small-26-L26-loading-mark.png",
+  "fix76b-iphone-small-26-L26-rules-card.png",
+  "fix76b-iphone-small-26-L26-in-play.png",
+  "fix76b-iphone-small-26-L26-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the crystal on row 5, column 3",
+   "kind": "tap",
+   "at": {
+    "x": 333.76536304898445,
+    "y": 250.21051100687617
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b7b1a3d9-738c-424a-9988-5925c515ce34",
+    "world": [
+     0,
+     0.003693954197303775,
+     2.6
+    ],
+    "distance": 10.339945772427283
+   }
+  },
+  {
+   "step": 2,
+   "what": "the crystal on row 3, column 3",
+   "kind": "tap",
+   "at": {
+    "x": 333.36713724552135,
+    "y": 162.9589896359627
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "92d0b40b-fdfd-4f81-8a1c-2f2b2faec9b8",
+    "world": [
+     0,
+     -0.004557754719361495,
+     0
+    ],
+    "distance": 11.860396714367061
+   }
+  },
+  {
+   "step": 3,
+   "what": "the crystal on row 4, column 1",
+   "kind": "tap",
+   "at": {
+    "x": 228.93951202751848,
+    "y": 201.02787561654497
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3bf4c148-7111-481a-a8cf-e980a015eeab",
+    "world": [
+     -2.6,
+     0.008558533498213495,
+     1.3
+    ],
+    "distance": 11.344146410494266
+   }
+  },
+  {
+   "step": 4,
+   "what": "the crystal on row 2, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 424.1775041793717,
+    "y": 126.98011719518979
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b8223c94-d86b-43a4-b4d9-a37bea087c02",
+    "world": [
+     2.6,
+     0.0012061829989624287,
+     -1.3
+    ],
+    "distance": 12.830465004320983
+   }
+  },
+  {
+   "step": 5,
+   "what": "the crystal on row 3, column 4",
+   "kind": "tap",
+   "at": {
+    "x": 381.6441775175425,
+    "y": 160.83911171538824
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "414098b8-0acd-4214-9632-4efd70703d6d",
+    "world": [
+     1.3,
+     0.014622051749325212,
+     0
+    ],
+    "distance": 11.921832860783725
+   }
+  },
+  {
+   "step": 6,
+   "what": "the crystal on row 1, column 4",
+   "kind": "tap",
+   "at": {
+    "x": 376.437770701461,
+    "y": 96.47142215856859
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "fea2c001-7001-4a63-953e-8ae34d65dcc8",
+    "world": [
+     1.3,
+     0.017958217110165427,
+     -2.6
+    ],
+    "distance": 13.715255549114024
+   }
+  },
+  {
+   "step": 7,
+   "what": "the crystal on row 4, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 437.4418629375931,
+    "y": 203.0330186737787
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "baa0d49f-a974-4ff5-ac46-a3080542bfa5",
+    "world": [
+     2.6,
+     0.017647323151653252,
+     1.3
+    ],
+    "distance": 11.408648652994387
+   }
+  },
+  {
+   "step": 8,
+   "what": "the crystal on row 2, column 2",
+   "kind": "tap",
+   "at": {
+    "x": 287.7412243441314,
+    "y": 127.05370443467729
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "59abe395-eaf5-4322-99da-845985a6cd3b",
+    "world": [
+     -1.3,
+     0.016793806211627155,
+     -1.3
+    ],
+    "distance": 12.821183924666567
+   }
+  },
+  {
+   "step": 9,
+   "what": "the crystal on row 1, column 2",
+   "kind": "tap",
+   "at": {
+    "x": 290.449334174175,
+    "y": 96.46629369789042
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "797c734f-2607-43c7-bd1e-dcac43ea2b7b",
+    "world": [
+     -1.3,
+     -0.001208132486205818,
+     -2.6
+    ],
+    "distance": 13.720409549328078
+   }
+  }
+ ],
+ "fps": 6.4
+}
