@@ -300,7 +300,8 @@ async function main() {
           f0 = await backend.exec<{ c: number; t: number }>(FRAMES).catch(() => null);
           // The loading mark, once, if it can be caught.
           let sawMark = false;
-          const end = Date.now() + 180_000;
+          const OPEN_MS = Number(args['open-seconds'] ?? 180) * 1000;
+          const end = Date.now() + OPEN_MS;
           for (;;) {
             const st = await page.evaluate(() => ({
               mark: !!Array.from(document.querySelectorAll('[role=status][aria-label="Loading level"]')).find((e) => e.getBoundingClientRect().width > 0),
@@ -316,7 +317,7 @@ async function main() {
             if (st.go && r.seconds.rulesCard === null) r.seconds.rulesCard = (Date.now() - openTap) / 1000;
             if (st.ready && !st.mark && st.session === level.id && r.seconds.drawn === null) r.seconds.drawn = (Date.now() - openTap) / 1000;
             if (r.seconds.rulesCard !== null && r.seconds.drawn !== null) break;
-            if (Date.now() > end) throw new Error(`the level did not open within 180 s (rules card ${r.seconds.rulesCard ?? 'never'}, scene ${r.seconds.drawn ?? 'never'}; loading mark seen: ${sawMark})`);
+            if (Date.now() > end) throw new Error(`the level did not open within ${OPEN_MS / 1000} s (rules card ${r.seconds.rulesCard ?? 'never'}, scene ${r.seconds.drawn ?? 'never'}; loading mark seen: ${sawMark})`);
             await sleep(300);
           }
           r.seconds.open = Math.max(r.seconds.rulesCard ?? 0, r.seconds.drawn ?? 0);
@@ -331,8 +332,28 @@ async function main() {
             await page.evaluate((spec) => (window as any).__appScrollTo(spec, 0), { steps: (go as any).steps });
             await sleep(500);
           }
-          await go.tap();
-          await go.waitFor({ state: 'hidden', timeout: 30_000 });
+          // What the page says of the button and of each touch on it: where it is, what lies on top at its
+          // middle, and whether the page saw the touch. A touch that gets no answer in CARD_MS is made again
+          // (at most three), and each one is written down: a card that needs a second touch is a finding.
+          const CARD_MS = Number(args['card-seconds'] ?? 30) * 1000;
+          const GO_LOOK = `() => { const b = Array.from(document.querySelectorAll('button')).find((x) => (x.textContent || '').trim() === "Let's go!"); if (!b) return { there: false, touches: (window.__appTouches || []).slice(-3) }; const r = b.getBoundingClientRect(); const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { there: true, box: [Math.round(r.x), Math.round(r.y), Math.round(r.width), Math.round(r.height)], screen: [innerWidth, innerHeight], onTop: top ? top.tagName + (top === b || b.contains(top) ? ' (the button)' : ' (NOT the button: ' + String(top.className).slice(0, 60) + ')') : 'nothing', disabled: b.disabled, touches: (window.__appTouches || []).slice(-3), now: Date.now() }; }`;
+          let closed = false;
+          for (let n = 1; n <= 3 && !closed; n++) {
+            log(`L${nn(level.number)}: before touch ${n} on "Let's go!": ${JSON.stringify(await backend.exec(GO_LOOK).catch((e) => String(e)))}`);
+            const tapAt = Date.now();
+            await go.tap();
+            log(`L${nn(level.number)}: touch ${n} on "Let's go!" sent (${Date.now() - tapAt} ms)`);
+            try {
+              await go.waitFor({ state: 'hidden', timeout: CARD_MS });
+              closed = true;
+              log(`L${nn(level.number)}: rules card closed ${((Date.now() - tapAt) / 1000).toFixed(1)} s after touch ${n}`);
+              if (n > 1) r.error = `the rules card closed only at touch ${n} on "Let's go!"`;
+            } catch {
+              log(`L${nn(level.number)}: rules card still up ${CARD_MS / 1000} s after touch ${n}: ${JSON.stringify(await backend.exec(GO_LOOK).catch((e) => String(e)))}`);
+              r.shots.push(await shot(`L${nn(level.number)}-card-still-up-${n}`));
+            }
+          }
+          if (!closed) throw new Error(`timed out waiting for button "Let's go!" to be hidden, after three touches`);
           await page.waitForFunction(() => (window as any).__taps.ready(), undefined, { timeout: 60_000 });
           await waitCameraStill(page);
           await waitIdle(page);
