@@ -1,0 +1,3 @@
+device iPad Pro 11-inch (M5): E6D22F64-35F4-4792-92E9-462C0B7C23BA
+    iPad Pro 11-inch (M5) (E6D22F64-35F4-4792-92E9-462C0B7C23BA) (Shutdown) 
+booted in 126 s
