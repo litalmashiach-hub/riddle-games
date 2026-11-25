@@ -53,6 +53,22 @@ canvas {
   -webkit-backdrop-filter: blur(14px) saturate(140%);
 }
 
+/*
+ * Glass for words that sit over the scene, like the move counter: the same frosted pill, with the
+ * panels' deep blue behind the text, so white text keeps a contrast of 4.5:1 or more even over a
+ * white sky (levels 5 and 7). The text shadow is extra; the tint alone reaches that contrast.
+ */
+.glass-readout {
+  background: linear-gradient(180deg, rgb(15 34 54 / 0.74), rgb(15 34 54 / 0.66));
+  border: 1px solid rgb(255 255 255 / 0.35);
+  box-shadow:
+    0 10px 30px rgb(0 0 0 / 0.25),
+    inset 0 1px 0 rgb(255 255 255 / 0.25);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.45);
+}
+
 /* Solid card for rules, win and lose: readable over any scene, with no see-through. */
 .panel {
   background: linear-gradient(180deg, rgb(32 58 92 / 0.96), rgb(15 34 54 / 0.97));
