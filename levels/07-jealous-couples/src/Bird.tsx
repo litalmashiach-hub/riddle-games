@@ -2,7 +2,11 @@ import { useFrame } from '@react-three/fiber';
 import { toon, type Mood } from '@riddle/props';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { brimRaycast } from './brim';
 import type { Couple, Role } from './rules';
+
+/** A tap on a hat's brim goes to the bird behind it where that bird's body lies under the finger (see brim.ts). */
+const brim = brimRaycast();
 
 /** Body color, accent (hat band / bow) and belly per couple. */
 export const COUPLE_COLORS: Record<Couple, { body: string; accent: string; belly: string }> = {
@@ -163,7 +167,7 @@ export function Bird({ couple, role, mood = 'idle', seed = 0, act }: { couple: C
             <>
               {/* top hat */}
               <group position={[0.02, 0.72, -0.01]} rotation-z={-0.12}>
-                <mesh material={hat} castShadow>
+                <mesh material={hat} castShadow raycast={brim}>
                   <cylinderGeometry args={[0.15, 0.15, 0.02, 14]} />
                 </mesh>
                 <mesh position-y={0.1} material={hat} castShadow>

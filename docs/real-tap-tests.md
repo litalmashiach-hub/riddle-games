@@ -113,13 +113,17 @@ was seen on main in a run of the whole level, at one size or another, and each e
   17 or 19).
 - Level 27, Timber Tangle: the tap on the ring is lost to another log (move 2) or to the picked log
   itself (move 9).
-- Level 7, Jealous Couples, only sometimes (3 runs in about 50): a tap on the sliver of Mrs Coral that
-  shows beside Mr Teal's top hat puts Mr Teal in the basket (move 1 or 10). Most runs win.
 
 Level 7's player taps each bird on its *visible middle* (`tapVisible` in `harness.ts`): the middle of
 the part of the bird that the screen shows, found by casting a ray through each point of the bird's box
 and keeping the points where the first drawn mesh met is the bird's own. The middle of Mrs Coral's box
 is drawn over by Mr Teal's top hat, so a tap there tested a spot where she does not show.
+
+Level 7, Jealous Couples, is no longer listed. It was listed as "only sometimes" (3 runs in about 50):
+a tap on the sliver of Mrs Coral that shows beside Mr Teal's top hat put Mr Teal in the basket. His hat
+sways with his head, and its brim swept over the spot between the aim and the touch. A tap on a hat's
+brim now goes to the bird whose body lies behind it (`levels/07-jealous-couples/src/brim.ts`), and the
+level wins by taps at every size. No level uses `sometimes` today.
 
 Level 12, Twelve Coins, is no longer listed: it wins by taps at every size since the tap fix of pull
 request #70.

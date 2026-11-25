@@ -2,7 +2,7 @@ import { createSession, guideStepFor, starsFor, type RiddleLevel } from '@riddle
 import { WORLDS, WorldStage, sfx, useSettings } from '@riddle/fx';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion, useIsPresent } from 'motion/react';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useStore } from 'zustand';
 import * as THREE from 'three';
@@ -14,6 +14,7 @@ import { SceneGuard, sceneWaitMs } from '../components/SceneGuard';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
 import { hintLine, hintOutlived, winLine } from '../hint';
+import { returnFocus } from '../focusReturn';
 
 /** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
 const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -282,7 +283,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         )}
 
         {s.ended && s.status.kind === 'lost' && (
-          <Modal key="lost" tone="red" label="Oh no!">
+          <Modal key="lost" tone="red" label="Oh no!" returnTo={['button[aria-label="Undo"]', RULES_BUTTON]}>
             <h2 className="font-display text-4xl font-bold short:text-3xl"><span aria-hidden className="block text-6xl short:mr-2 short:inline short:text-3xl">😱</span>Oh no!</h2>
             <p className="mt-3 text-lg text-white/90 short:mt-2 short:text-base">{s.status.reason}</p>
             <div className="mt-5 grid grid-cols-2 gap-2 short:mt-4">
@@ -296,18 +297,32 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
   );
 }
 
+/** The play screen's Rules button: where the focus goes from a closing card when nothing better is there. */
+const RULES_BUTTON = 'button[aria-label="Rules"]';
+
 /**
  * A card over the scene. It never grows past the screen: the body scrolls inside the card when it must,
  * and `aside` (the buttons) stays in view. On a phone held sideways a `wide` card puts `aside` in a second column.
  */
-function Modal({ children, aside, tone, wide, label }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean; label: string }) {
+function Modal({ children, aside, tone, wide, label, returnTo = [RULES_BUTTON] }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean; label: string; returnTo?: string[] }) {
   // VoiceOver starts reading at the card when it opens, not at whatever was touched before it.
   const panel = useRef<HTMLDivElement>(null);
+  const cover = useRef<HTMLDivElement>(null);
+  const opener = useRef<Element | null>(null);
   useEffect(() => {
+    opener.current = document.activeElement;
     panel.current?.focus({ preventScroll: true });
   }, []);
+  // And when it closes, VoiceOver reads on from the control that opened it, or from one of `returnTo` if that
+  // control is gone or can't be used. This runs as the card starts to leave, when the buttons under it are back.
+  const present = useIsPresent();
+  useEffect(() => {
+    if (!present) returnFocus({ from: cover.current, opener: opener.current, root: cover.current?.parentElement, fallbacks: returnTo });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [present]);
   return (
     <motion.div
+      ref={cover}
       className="absolute inset-0 z-20 flex items-center justify-center bg-slate-950/55 pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
