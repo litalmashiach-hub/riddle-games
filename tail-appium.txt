@@ -1,0 +1,400 @@
+2026-11-25 18:16:28:690 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:28:690 [90959773][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}]]; frames='
+2026-11-25 18:16:28:690 [90959773][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 18:16:28:691 [90959773][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 18:16:28:691 [90959773][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:14086', page '1', target 'page-8' (id: 326): 'Runtime.evaluate'
+2026-11-25 18:16:28:773 [90959773][RemoteDebugger] Received data response from send (id: 326): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":[]}}"'
+2026-11-25 18:16:28:773 [90959773][RemoteDebugger] Sending to Web Inspector took 82ms
+2026-11-25 18:16:28:773 [90959773][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":[]}
+2026-11-25 18:16:28:773 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: {"ok":true,"v":[]}
+2026-11-25 18:16:28:781 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 84 ms - 28
+2026-11-25 18:16:28:932 [90959773][RemoteDebugger] Web Inspector garbage collected
+2026-11-25 18:16:28:987 [90959773][HTTP] --> POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}]}
+2026-11-25 18:16:28:988 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}],"90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:28:988 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:28:988 [90959773][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}]]; frames='
+2026-11-25 18:16:28:989 [90959773][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 18:16:28:994 [90959773][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 18:16:29:002 [90959773][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:14086', page '1', target 'page-8' (id: 328): 'Runtime.evaluate'
+2026-11-25 18:16:29:056 [90959773][RemoteDebugger] Received data response from send (id: 328): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":[]}}"'
+2026-11-25 18:16:29:056 [90959773][RemoteDebugger] Sending to Web Inspector took 61ms
+2026-11-25 18:16:29:057 [90959773][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":[]}
+2026-11-25 18:16:29:057 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: {"ok":true,"v":[]}
+2026-11-25 18:16:29:058 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 71 ms - 28
+2026-11-25 18:16:29:289 [90959773][HTTP] --> POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}]}
+2026-11-25 18:16:29:290 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}],"90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:29:290 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:29:290 [90959773][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}]]; frames='
+2026-11-25 18:16:29:290 [90959773][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 18:16:29:292 [90959773][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 18:16:29:293 [90959773][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:14086', page '1', target 'page-8' (id: 330): 'Runtime.evaluate'
+2026-11-25 18:16:29:297 [90959773][RemoteDebugger] Received data response from send (id: 330): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":[]}}"'
+2026-11-25 18:16:29:297 [90959773][RemoteDebugger] Sending to Web Inspector took 5ms
+2026-11-25 18:16:29:298 [90959773][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":[]}
+2026-11-25 18:16:29:298 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: {"ok":true,"v":[]}
+2026-11-25 18:16:29:299 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 9 ms - 28
+2026-11-25 18:16:29:558 [90959773][HTTP] --> POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}]}
+2026-11-25 18:16:29:559 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}],"90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:29:559 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:29:560 [90959773][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}]]; frames='
+2026-11-25 18:16:29:560 [90959773][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 18:16:29:580 [90959773][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 18:16:29:582 [90959773][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:14086', page '1', target 'page-8' (id: 332): 'Runtime.evaluate'
+2026-11-25 18:16:29:586 [90959773][RemoteDebugger] Received data response from send (id: 332): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":[]}}"'
+2026-11-25 18:16:29:586 [90959773][RemoteDebugger] Sending to Web Inspector took 6ms
+2026-11-25 18:16:29:586 [90959773][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":[]}
+2026-11-25 18:16:29:586 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: {"ok":true,"v":[]}
+2026-11-25 18:16:29:589 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 29 ms - 28
+2026-11-25 18:16:29:818 [90959773][HTTP] --> POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}]}
+2026-11-25 18:16:29:819 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}],"90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:29:819 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:29:821 [90959773][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[{"steps":[{"kind":"role","role":"heading","name":{"s":"Solved!","re":false}}]}]]; frames='
+2026-11-25 18:16:29:821 [90959773][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 18:16:29:825 [90959773][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 18:16:29:825 [90959773][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:14086', page '1', target 'page-8' (id: 334): 'Runtime.evaluate'
+2026-11-25 18:16:29:994 [90959773][RemoteDebugger] Received data response from send (id: 334): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":[{\"visible\":true,\"text\":\"🎉Solved!\",\"inner\":\"🎉\\nSolved!\",\"name\":\"🎉Solved!\",\"box\":{\"x\":486.1109924316406,\"y\":346.4850158691406,\"widt…'
+2026-11-25 18:16:30:000 [90959773][RemoteDebugger] Sending to Web Inspector took 175ms
+2026-11-25 18:16:30:003 [90959773][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":[{"visible":true,"text":"🎉Solved!","inner":"🎉\nSolved!","name":"🎉Solved!","box":{…
+2026-11-25 18:16:30:003 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: {"ok":true,"v":[{"visible":true,"text":"🎉Solved!","inner":"🎉\nSolved!","name":"🎉Solved!","box":{"x":486.1109924316406,"y":346.4850158691406,"width":403.7780456542969,"height":101.45175170898438},"disabled":false}]}
+2026-11-25 18:16:30:008 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 186 ms - 233
+2026-11-25 18:16:31:718 [90959773][RemoteDebugger] Web Inspector garbage collected
+2026-11-25 18:16:32:644 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/screenshot 
+2026-11-25 18:16:32:647 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getScreenshot() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:32:648 [90959773][XCUITestDriver@1cc9] Executing command 'getScreenshot'
+2026-11-25 18:16:32:648 [90959773][XCUITestDriver@1cc9] Taking screenshot with WDA
+2026-11-25 18:16:32:649 [90959773][XCUITestDriver@1cc9] Matched '/screenshot' to command name 'getScreenshot'
+2026-11-25 18:16:32:649 [90959773][XCUITestDriver@1cc9] Proxying [GET /screenshot] to [GET http://127.0.0.1:8100/session/402154EF-D0C9-416C-A42F-4EEA646E5D49/screenshot] with no body
+2026-11-25 18:16:34:588 [90959773][XCUITestDriver@1cc9] Got response with status 200: {"value":"iVBORw0KGgoAAAANSUhEUgAACsAAAAgQCAYAAACRombLAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAACsCgAwAEAAAAAQAACBAAAAAAySJscgAAAAlwSFlzAAALEwAACxMBAJqcGAAAABxpRE9UAAAAAgAAAAAAAAQIAAAAKAAABAgAAAQIABgdf+KE1kEAAEAASURBVHgB7N33WyLbuu79fdY6e881YydzBhWRnATFnHNsQ+cw55orr332fv//63re+xlVA0YVVUVFQJsf7qsAAW3btlU+fvmPg+PXZL1bXO6wE7zMYYd4mXF3OO9tm3sXlMhXaTKZo/FElkbn0zQyt0jDs0kaii9gCRqMJWggNk8DM3P0ijc9Ry+nZ7VNxelFYzF6PsmbEXs2MUPapnG02Dguw34ZnxLj6wzMz9Lw4nxnlsLraVkClyVoxNUWcD0sbdxoJkljuRSN5+XSOK1tAkdtGZooaJvEUVuWJovapoo54k0X8zRTKmBFipVLFK+UaW5piRLVKq3undDp5VvsndgZjoZd4byLnV+9J8dd4+Uud4Hrud8HXNf9Lm8+kPt9xHVd7jWu53FXrz+R593iNh52ffuZPO8Ot/G4m7sv5Hn3uI2PvcZtvO8rbuNjD7gNdutrv+J2PvYGt/G93+juTYC9xW197c+43Z/p3u/e4bYh7QH3432/4zYh7D3uQ98bHL3vL7hNwH3A7UPZX3E/xr3FeV/7iNuFtr/hvox7h/O+9gm3C3V/x/217j0uC7TPuH2H9wGvz/v+gdtEvC+4f4d9xMv875+4bYf2Fa8n0v0L9+9tn3D90PYr7ivy/Ruvw/8+47ah7jfcX1f233i94e8L7jP0/Rn32…
+2026-11-25 18:16:34:630 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getScreenshot() result: "iVBORw0KGgoAAAANSUhEUgAACsAAAAgQCAYAAACRombLAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAACsCgAwAEAAAAAQAACBAAAAAAySJscgAAAAlwSFlzAAALEwAACxMBAJqcGAAAABxpRE9UAAAAAgAAAAAAAAQIAAAAKAAABAgAAAQIABgdf+KE1kEAAEAASURBVHgB7N33WyLbuu79fdY6e881YydzBhWRnATFnHNsQ+cw55orr332fv//63re+xlVA0YVVUVFQJsf7qsAAW3btlU+fvmPg+PXZL1bXO6wE7zMYYd4mXF3OO9tm3sXlMhXaTKZo/FElkbn0zQyt0jDs0kaii9gCRqMJWggNk8DM3P0ijc9Ry+nZ7VNxelFYzF6PsmbEXs2MUPapnG02Dguw34ZnxLj6wzMz9Lw4nxnlsLraVkClyVoxNUWcD0sbdxoJkljuRSN5+XSOK1tAkdtGZooaJvEUVuWJovapoo54k0X8zRTKmBFipVLFK+UaW5piRLVKq3undDp5VvsndgZjoZd4byLnV+9J8dd4+Uud4Hrud8HXNf9Lm8+kPt9xHVd7jWu53FXrz+R593iNh52ffuZPO8Ot/G4m7sv5Hn3uI2PvcZtvO8rbuNjD7gNdutrv+J2PvYGt/G93+juTYC9xW197c+43Z/p3u/e4bYh7QH3432/4zYh7D3uQ98bHL3vL7hNwH3A7UPZX3E/xr3FeV/7iNuFtr/hvox7h/O+9gm3C3V/x/217j0uC7TPuH2H9wGvz/v+gdtEvC+4f4d9xMv875+4bYf2Fa8n0v0L9+9tn3D90PYr7ivy/Ruvw/8+47ah7jfcX1f233i94e8L7jP0/Rn32Z+r98FXvJ…
+2026-11-25 18:16:34:732 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/screenshot 200 2119 ms - 3519288
+2026-11-25 18:16:34:882 [90959773][HTTP] --> POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (key=>{const s=window.__riddle.getState();const label=Array.from(document.querySelectorAll('[aria-label$=\"of 3 stars\"]')).map(e=>e.getAttribute(\"aria-label\"));return{kind:s.status.kind,moves:s.moves.length,hints:s.hintsUsed,labels:label,saved:JSON.parse(localStorage.getItem(key)??'{\"stars\":{}}').stars}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":["riddle-games:progress:v1"]}
+2026-11-25 18:16:34:883 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (key=>{const s=window.__riddle.getState();const label=Array.from(document.querySelectorAll('[aria-label$=\"of 3 stars\"]')).map(e=>e.getAttribute(\"aria-label\"));return{kind:s.status.kind,moves:s.moves.length,hints:s.hintsUsed,labels:label,saved:JSON.parse(localStorage.getItem(key)??'{\"stars\":{}}').stars}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",["riddle-games:progress:v1"],"90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:34:883 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:34:884 [90959773][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (key=>{const s=window.__riddle.getState();const label=Array.from(document.querySelectorAll('[aria-label$=\"of 3 stars\"]')).map(e=>e.getAttribute(\"aria-label\"));return{kind:s.status.kind,moves:s.moves.length,hints:s.hintsUsed,labels:label,saved:JSON.parse(localStorage.getItem(key)??'{\"stars\":{}}').stars}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",["riddle-games:progress:v1"]]; frames='
+2026-11-25 18:16:34:886 [90959773][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 18:16:34:905 [90959773][RemoteDebugger] Waited 18.030792ms until the page 1@PID:14086 is initialized
+2026-11-25 18:16:34:905 [90959773][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 18:16:34:906 [90959773][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:14086', page '1', target 'page-8' (id: 336): 'Runtime.evaluate'
+2026-11-25 18:16:34:929 [90959773][RemoteDebugger] Received data response from send (id: 336): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":{\"kind\":\"won\",\"moves\":6,\"hints\":0,\"labels\":[\"3 of 3 stars\"],\"saved\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3,\"two-jugs\":3}}}}"'
+2026-11-25 18:16:34:929 [90959773][RemoteDebugger] Sending to Web Inspector took 24ms
+2026-11-25 18:16:34:930 [90959773][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":{"kind":"won","moves":6,"hints":0,"labels":["3 of 3 stars"],"saved":{"wolf-two-sheep…
+2026-11-25 18:16:34:930 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: {"ok":true,"v":{"kind":"won","moves":6,"hints":0,"labels":["3 of 3 stars"],"saved":{"wolf-two-sheep":3,"wolf-goat-cabbage":3,"two-jugs":3}}}
+2026-11-25 18:16:34:933 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 49 ms - 150
+2026-11-25 18:16:34:935 [90959773][HTTP] --> POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (()=>{const a=window.__appFaults;const copy={pageErrors:[...a.pageErrors],consoleErrors:[...a.consoleErrors],outsideRequests:[...a.outsideRequests]};a.pageErrors.length=0;a.consoleErrors.length=0;a.outsideRequests.length=0;return copy})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[null]}
+2026-11-25 18:16:34:936 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (()=>{const a=window.__appFaults;const copy={pageErrors:[...a.pageErrors],consoleErrors:[...a.consoleErrors],outsideRequests:[...a.outsideRequests]};a.pageErrors.length=0;a.consoleErrors.length=0;a.outsideRequests.length=0;return copy})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null],"90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:34:936 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:34:936 [90959773][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (()=>{const a=window.__appFaults;const copy={pageErrors:[...a.pageErrors],consoleErrors:[...a.consoleErrors],outsideRequests:[...a.outsideRequests]};a.pageErrors.length=0;a.consoleErrors.length=0;a.outsideRequests.length=0;return copy})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null]]; frames='
+2026-11-25 18:16:34:936 [90959773][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 18:16:34:938 [90959773][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 18:16:34:938 [90959773][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:14086', page '1', target 'page-8' (id: 338): 'Runtime.evaluate'
+2026-11-25 18:16:34:997 [90959773][RemoteDebugger] Received data response from send (id: 338): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":{\"pageErrors\":[],\"consoleErrors\":[],\"outsideRequests\":[]}}}"'
+2026-11-25 18:16:34:998 [90959773][RemoteDebugger] Sending to Web Inspector took 60ms
+2026-11-25 18:16:34:998 [90959773][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":{"pageErrors":[],"consoleErrors":[],"outsideRequests":[]}}
+2026-11-25 18:16:34:999 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: {"ok":true,"v":{"pageErrors":[],"consoleErrors":[],"outsideRequests":[]}}
+2026-11-25 18:16:35:002 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 67 ms - 83
+2026-11-25 18:16:35:006 [90959773][HTTP] --> POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (() => { if (!window.__fc) { window.__fc = 1; const f = () => { window.__fc++; requestAnimationFrame(f); }; requestAnimationFrame(f); } return { c: window.__fc, t: performance.now() }; })(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[null]}
+2026-11-25 18:16:35:006 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (() => { if (!window.__fc) { window.__fc = 1; const f = () => { window.__fc++; requestAnimationFrame(f); }; requestAnimationFrame(f); } return { c: window.__fc, t: performance.now() }; })(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null],"90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:35:006 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:35:006 [90959773][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (() => { if (!window.__fc) { window.__fc = 1; const f = () => { window.__fc++; requestAnimationFrame(f); }; requestAnimationFrame(f); } return { c: window.__fc, t: performance.now() }; })(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null]]; frames='
+2026-11-25 18:16:35:006 [90959773][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 18:16:35:006 [90959773][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 18:16:35:007 [90959773][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:14086', page '1', target 'page-8' (id: 340): 'Runtime.evaluate'
+2026-11-25 18:16:35:020 [90959773][RemoteDebugger] Received data response from send (id: 340): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":{\"c\":4982,\"t\":237395}}}"'
+2026-11-25 18:16:35:020 [90959773][RemoteDebugger] Sending to Web Inspector took 14ms
+2026-11-25 18:16:35:020 [90959773][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":{"c":4982,"t":237395}}
+2026-11-25 18:16:35:020 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: {"ok":true,"v":{"c":4982,"t":237395}}
+2026-11-25 18:16:35:023 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 16 ms - 47
+2026-11-25 18:16:35:058 [90959773][HTTP] --> POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync {"script":"mobile: terminateApp","args":[{"bundleId":"com.example.riddlegames"}]}
+2026-11-25 18:16:35:058 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.execute() with args: ["mobile: terminateApp",[{"bundleId":"com.example.riddlegames"}],"90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:35:059 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:35:135 [90959773][XCUITestDriver@1cc9] Proxying [POST /wda/apps/terminate] to [POST http://127.0.0.1:8100/session/402154EF-D0C9-416C-A42F-4EEA646E5D49/wda/apps/terminate] with body: {"bundleId":"com.example.riddlegames"}
+2026-11-25 18:16:36:247 [90959773][XCUITestDriver@1cc9] Got response with status 200: {"value":true,"sessionId":"402154EF-D0C9-416C-A42F-4EEA646E5D49"}
+2026-11-25 18:16:36:248 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: true
+2026-11-25 18:16:36:250 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 1192 ms - 14
+2026-11-25 18:16:37:139 [90959773][RemoteDebugger] Application 'PID:14086' disconnected. Removing from app dictionary.
+2026-11-25 18:16:37:139 [90959773][RemoteDebugger] Current app is 'PID:14086'
+2026-11-25 18:16:37:139 [90959773][RemoteDebugger] No longer have app id. Attempting to find new one.
+2026-11-25 18:16:37:139 [90959773][RemoteDebugger] Main app disconnected. Disconnecting altogether.
+2026-11-25 18:16:38:274 [90959773][HTTP] --> POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync {"script":"mobile: activateApp","args":[{"bundleId":"com.example.riddlegames"}]}
+2026-11-25 18:16:38:275 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.execute() with args: ["mobile: activateApp",[{"bundleId":"com.example.riddlegames"}],"90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:38:275 [90959773][XCUITestDriver@1cc9] Executing command 'execute'
+2026-11-25 18:16:38:288 [90959773][XCUITestDriver@1cc9] Proxying [POST /wda/apps/activate] to [POST http://127.0.0.1:8100/session/402154EF-D0C9-416C-A42F-4EEA646E5D49/wda/apps/activate] with body: {"bundleId":"com.example.riddlegames"}
+2026-11-25 18:16:42:558 [90959773][XCUITestDriver@1cc9] Got response with status 200: {"value":null,"sessionId":"402154EF-D0C9-416C-A42F-4EEA646E5D49"}
+2026-11-25 18:16:42:560 [90959773][XCUITestDriver@1cc9] Responding to client with driver.execute() result: null
+2026-11-25 18:16:42:571 [90959773][HTTP] <-- POST /session/90959773-21b6-4054-8bf3-f21150d2fdf4/execute/sync 200 4288 ms - 14
+2026-11-25 18:16:47:599 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:16:47:603 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:47:604 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:16:47:604 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:16:47:604 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:16:47:604 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:16:47:611 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:16:47:611 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:16:47:612 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:16:47:613 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:16:47:614 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:16:47:616 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 17 ms - 24
+2026-11-25 18:16:49:623 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:16:49:623 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:49:623 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:16:49:624 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:16:49:624 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:16:49:624 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:16:49:624 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:16:49:624 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:16:49:624 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:16:49:624 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:16:49:624 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:16:49:624 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 1 ms - 24
+2026-11-25 18:16:51:646 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:16:51:647 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:51:647 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:16:51:648 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:16:51:648 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:16:51:648 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:16:51:648 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:16:51:649 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:16:51:649 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:16:51:649 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:16:51:649 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:16:51:651 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 6 ms - 24
+2026-11-25 18:16:53:662 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:16:53:662 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:53:662 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:16:53:662 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:16:53:662 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:16:53:662 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:16:53:662 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:16:53:662 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:16:53:662 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:16:53:662 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:16:53:663 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:16:53:663 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 2 ms - 24
+2026-11-25 18:16:55:687 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:16:55:689 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:55:689 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:16:55:689 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:16:55:689 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:16:55:690 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:16:55:691 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:16:55:692 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:16:55:694 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:16:55:695 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:16:55:697 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:16:55:702 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 15 ms - 24
+2026-11-25 18:16:57:710 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:16:57:711 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:57:711 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:16:57:711 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:16:57:711 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:16:57:711 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:16:57:711 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:16:57:711 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:16:57:711 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:16:57:711 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:16:57:711 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:16:57:712 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 1 ms - 24
+2026-11-25 18:16:59:752 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:16:59:768 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:16:59:768 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:16:59:769 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:16:59:769 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:16:59:769 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:16:59:769 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:16:59:770 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:16:59:770 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:16:59:770 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:16:59:771 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:16:59:777 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 26 ms - 24
+2026-11-25 18:17:01:784 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:01:785 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:01:785 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:01:785 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:01:785 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:01:785 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:01:785 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:01:785 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:01:785 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:01:785 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:01:785 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:01:786 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 2 ms - 24
+2026-11-25 18:17:03:799 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:03:800 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:03:801 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:03:801 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:03:801 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:03:801 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:03:801 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:03:801 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:03:801 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:03:801 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:03:801 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:03:803 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 4 ms - 24
+2026-11-25 18:17:05:808 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:05:808 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:05:808 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:05:808 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:05:808 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:05:808 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:05:808 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:05:808 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:05:808 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:05:808 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:05:808 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:05:809 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 1 ms - 24
+2026-11-25 18:17:07:814 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:07:814 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:07:814 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:07:814 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:07:814 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:07:814 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:07:814 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:07:814 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:07:814 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:07:814 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:07:814 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:07:815 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 1 ms - 24
+2026-11-25 18:17:09:835 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:09:836 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:09:836 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:09:837 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:09:837 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:09:837 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:09:837 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:09:837 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:09:837 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:09:837 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:09:838 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:09:839 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 5 ms - 24
+2026-11-25 18:17:11:845 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:11:845 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:11:845 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:11:845 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:11:845 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:11:845 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:11:845 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:11:846 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:11:846 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:11:846 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:11:846 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:11:847 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 2 ms - 24
+2026-11-25 18:17:13:857 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:13:858 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:13:858 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:13:858 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:13:858 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:13:858 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:13:858 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:13:858 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:13:858 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:13:858 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:13:858 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:13:860 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 2 ms - 24
+2026-11-25 18:17:15:873 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:15:874 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:15:874 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:15:874 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:15:874 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:15:874 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:15:874 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:15:874 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:15:874 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:15:874 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:15:874 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:15:875 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 1 ms - 24
+2026-11-25 18:17:17:890 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:17:892 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:17:892 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:17:892 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:17:892 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:17:892 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:17:892 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:17:893 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:17:893 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:17:893 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:17:893 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:17:895 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 5 ms - 24
+2026-11-25 18:17:19:900 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:19:901 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:19:901 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:19:901 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:19:901 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:19:901 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:19:901 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:19:901 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:19:901 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:19:901 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:19:901 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:19:901 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 1 ms - 24
+2026-11-25 18:17:21:905 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:21:905 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:21:905 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:21:905 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:21:905 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:21:905 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:21:906 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:21:906 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:21:906 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:21:906 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:21:906 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:21:907 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 2 ms - 24
+2026-11-25 18:17:23:960 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:23:961 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:23:961 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:23:962 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:23:962 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:23:962 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:23:962 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:23:962 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:23:962 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:23:962 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:23:963 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:23:964 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 4 ms - 24
+2026-11-25 18:17:25:972 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:25:973 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:25:973 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:25:973 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:25:973 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:25:973 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:25:973 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:25:973 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:25:974 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:25:974 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:25:974 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:25:975 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 4 ms - 24
+2026-11-25 18:17:27:981 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:27:981 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:27:981 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:27:981 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:27:981 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:27:981 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:27:981 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:27:981 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:27:982 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:27:982 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:27:982 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:27:982 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 1 ms - 24
+2026-11-25 18:17:29:987 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:29:987 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:29:987 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:29:987 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:29:987 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:29:987 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:29:987 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:29:987 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:29:987 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:29:987 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:29:987 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:29:988 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 1 ms - 24
+2026-11-25 18:17:31:992 [90959773][HTTP] --> GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 
+2026-11-25 18:17:31:993 [90959773][XCUITestDriver@1cc9] Calling AppiumDriver.getContexts() with args: ["90959773-21b6-4054-8bf3-f21150d2fdf4"]
+2026-11-25 18:17:31:993 [90959773][XCUITestDriver@1cc9] Executing command 'getContexts'
+2026-11-25 18:17:31:993 [90959773][XCUITestDriver@1cc9] Getting list of available contexts
+2026-11-25 18:17:31:993 [90959773][XCUITestDriver@1cc9] Retrieving contexts and views
+2026-11-25 18:17:31:993 [90959773][XCUITestDriver@1cc9] Selecting by url: false
+2026-11-25 18:17:31:993 [90959773][XCUITestDriver@1cc9] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 18:17:31:994 [90959773][RemoteDebugger] Selecting application
+2026-11-25 18:17:31:994 [90959773][RemoteDebugger] No applications currently connected.
+2026-11-25 18:17:31:994 [90959773][XCUITestDriver@1cc9] No web frames found after 20 retries
+2026-11-25 18:17:31:994 [90959773][XCUITestDriver@1cc9] Responding to client with driver.getContexts() result: ["NATIVE_APP"]
+2026-11-25 18:17:31:994 [90959773][HTTP] <-- GET /session/90959773-21b6-4054-8bf3-f21150d2fdf4/contexts 200 2 ms - 24

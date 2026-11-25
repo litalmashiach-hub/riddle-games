@@ -1,0 +1,39 @@
+[
+ {
+  "level": 3,
+  "id": "two-jugs",
+  "title": "Two Jugs",
+  "device": "fix76-ipad-03-05",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 6,
+  "moves": 6,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 122.251,
+   "rulesCard": 120.864,
+   "drawn": 122.251,
+   "play": 33.707,
+   "total": 238.683
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76-ipad-03-05-L03-loading-mark.png",
+   "fix76-ipad-03-05-L03-rules-card.png",
+   "fix76-ipad-03-05-L03-in-play.png",
+   "fix76-ipad-03-05-L03-win-card.png"
+  ],
+  "fps": 22
+ }
+]

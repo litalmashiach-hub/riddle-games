@@ -1,0 +1,11 @@
+    0.0s device fix76-ipad-03-05; levels 3-5 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  631.1s page in WEBVIEW_14086.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  631.3s web view found: WEBVIEW_14086.1, 1032 by 1376
+  649.7s turned LANDSCAPE: 1376 by 1032
+  660.3s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  668.0s page in WEBVIEW_14086.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  669.3s graphics quality set to SD by the player's setting
+  674.8s page in WEBVIEW_14086.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  678.9s L03 two-jugs: opened by its card on the level map
+  908.1s L03 two-jugs: won by taps; stars 3 (saved 3); open 122.251s, play 33.707s, total 238.683s; page errors 0, console errors 0; frames per second 22
