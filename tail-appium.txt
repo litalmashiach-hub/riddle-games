@@ -1,0 +1,400 @@
+2026-11-25 01:04:02:896 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:02:896 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:02:896 [787838ab][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null]]; frames='
+2026-11-25 01:04:02:896 [787838ab][XCUITestDriver@f0ed] Error received while executing atom: Missing parameter: appIdKey
+2026-11-25 01:04:02:897 [787838ab][XCUITestDriver@f0ed] Encountered internal error running command: Error: Missing parameter: appIdKey
+    at checkParams (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-remote-debugger/build/lib/utils/object.js:45:15)
+    at new ScriptPromiseExecutor (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-remote-debugger/build/lib/mixins/execute.js:231:21)
+    at RemoteDebugger.executeAtom (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-remote-debugger/build/lib/mixins/execute.js:37:17)
+    at XCUITestDriver.executeAtom (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/web.js:205:33)
+    at AtomsBackend.executeScript (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/web-execution/atoms-backend.js:304:42)
+    at XCUITestDriver.execute (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/execute.js:17:48)
+    at runCommandPromise (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:121:29)
+    at /Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/async-lock/lib/index.js:171:12
+    at AsyncLock._promiseTry (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/async-lock/lib/index.js:306:31)
+    at exec (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/async-lock/lib/index.js:170:9)
+    at AsyncLock.acquire (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/async-lock/lib/index.js:189:3)
+    at XCUITestDriver.executeCommand (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:160:45)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async XCUITestDriver.executeCommand (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/driver.js:835:16)
+    at async defaultBehavior (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:580:20)
+    at async AppiumDriver.executeWrappedCommand (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:683:22)
+    at async AppiumDriver.executeCommand (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/appium/build/lib/appium.js:591:21)
+    at async asyncHandler (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@appium/base-driver/build/lib/protocol/protocol.js:393:25)
+2026-11-25 01:04:02:897 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 500 2 ms - 3362
+2026-11-25 01:04:02:971 [787838ab][HTTP] --> GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/screenshot 
+2026-11-25 01:04:02:972 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.getScreenshot() with args: ["787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:02:972 [787838ab][XCUITestDriver@f0ed] Executing command 'getScreenshot'
+2026-11-25 01:04:02:972 [787838ab][XCUITestDriver@f0ed] Taking screenshot with WDA
+2026-11-25 01:04:02:975 [787838ab][XCUITestDriver@f0ed] Matched '/screenshot' to command name 'getScreenshot'
+2026-11-25 01:04:02:975 [787838ab][XCUITestDriver@f0ed] Proxying [GET /screenshot] to [GET http://127.0.0.1:8100/session/A298B6DB-3DD3-4370-A20C-0B7516F86455/screenshot] with no body
+2026-11-25 01:04:03:789 [787838ab][XCUITestDriver@f0ed] Got response with status 200: {"value":"iVBORw0KGgoAAAANSUhEUgAABSgAAAs0CAIAAAAE2BViAAAAAXNSR0IArs4c6QAAAHplWElmTU0AKgAAAAgAAwEOAAIAAAALAAAAMgESAAMAAAABAAEAAIdpAAQAAAABAAAAPgAAAABTY3JlZW5zaG90AAAAA5KGAAcAAAASAAAAaKACAAQAAAABAAAFKKADAAQAAAABAAALNAAAAABBU0NJSQAAAFNjcmVlbnNob3RfCISpAAACo2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNi4wLjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDxkYzpkZXNjcmlwdGlvbj4KICAgICAgICAgICAgPHJkZjpBbHQ+CiAgICAgICAgICAgICAgIDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+U2NyZWVuc2hvdDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpBbHQ+CiAgICAgICAgIDwvZGM6ZGVzY3JpcHRpb24+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgI…
+2026-11-25 01:04:03:840 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.getScreenshot() result: "iVBORw0KGgoAAAANSUhEUgAABSgAAAs0CAIAAAAE2BViAAAAAXNSR0IArs4c6QAAAHplWElmTU0AKgAAAAgAAwEOAAIAAAALAAAAMgESAAMAAAABAAEAAIdpAAQAAAABAAAAPgAAAABTY3JlZW5zaG90AAAAA5KGAAcAAAASAAAAaKACAAQAAAABAAAFKKADAAQAAAABAAALNAAAAABBU0NJSQAAAFNjcmVlbnNob3RfCISpAAACo2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNi4wLjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDxkYzpkZXNjcmlwdGlvbj4KICAgICAgICAgICAgPHJkZjpBbHQ+CiAgICAgICAgICAgICAgIDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+U2NyZWVuc2hvdDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpBbHQ+CiAgICAgICAgIDwvZGM6ZGVzY3JpcHRpb24+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgICAgIDxleG…
+2026-11-25 01:04:04:004 [787838ab][HTTP] <-- GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/screenshot 200 899 ms - 4372012
+2026-11-25 01:04:04:158 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"mobile: terminateApp","args":[{"bundleId":"com.example.riddlegames"}]}
+2026-11-25 01:04:04:158 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["mobile: terminateApp",[{"bundleId":"com.example.riddlegames"}],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:04:159 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:04:174 [787838ab][XCUITestDriver@f0ed] Proxying [POST /wda/apps/terminate] to [POST http://127.0.0.1:8100/session/A298B6DB-3DD3-4370-A20C-0B7516F86455/wda/apps/terminate] with body: {"bundleId":"com.example.riddlegames"}
+2026-11-25 01:04:04:182 [787838ab][XCUITestDriver@f0ed] Got response with status 200: {"value":false,"sessionId":"A298B6DB-3DD3-4370-A20C-0B7516F86455"}
+2026-11-25 01:04:04:183 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.execute() result: false
+2026-11-25 01:04:04:184 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 200 25 ms - 15
+2026-11-25 01:04:06:292 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"mobile: activateApp","args":[{"bundleId":"com.example.riddlegames"}]}
+2026-11-25 01:04:06:303 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["mobile: activateApp",[{"bundleId":"com.example.riddlegames"}],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:06:304 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:06:316 [787838ab][XCUITestDriver@f0ed] Proxying [POST /wda/apps/activate] to [POST http://127.0.0.1:8100/session/A298B6DB-3DD3-4370-A20C-0B7516F86455/wda/apps/activate] with body: {"bundleId":"com.example.riddlegames"}
+2026-11-25 01:04:16:621 [787838ab][XCUITestDriver@f0ed] Got response with status 200: {"value":null,"sessionId":"A298B6DB-3DD3-4370-A20C-0B7516F86455"}
+2026-11-25 01:04:16:626 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.execute() result: null
+2026-11-25 01:04:16:641 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 200 10345 ms - 14
+2026-11-25 01:04:16:955 [787838ab][RemoteDebugger] Notified that new application 'PID:26888' has connected
+2026-11-25 01:04:16:994 [787838ab][RemoteDebugger] Pages changed for PID:26888: undefined -> [{"id":1,"title":"","url":"about:blank","isKey":false}]
+2026-11-25 01:04:16:994 [787838ab][XCUITestDriver@f0ed] Remote debugger notified us of a new page listing: {"appIdKey":"26888","pageArray":[{"id":1,"title":"","url":"about:blank","isKey":false}]}
+2026-11-25 01:04:17:001 [787838ab][XCUITestDriver@f0ed] No key id found. Choosing first id from page array
+2026-11-25 01:04:17:001 [787838ab][XCUITestDriver@f0ed] Page change not referring to currently selected app, ignoring.
+2026-11-25 01:04:17:003 [787838ab][RemoteDebugger] Notified that an application has been updated
+2026-11-25 01:04:18:548 [787838ab][RemoteDebugger] Pages changed for PID:26888: [{"id":1,"title":"","url":"about:blank","isKey":false}] -> [{"id":1,"title":"","url":"capacitor://localhost","isKey":false}]
+2026-11-25 01:04:18:548 [787838ab][XCUITestDriver@f0ed] Remote debugger notified us of a new page listing: {"appIdKey":"26888","pageArray":[{"id":1,"title":"","url":"capacitor://localhost","isKey":false}]}
+2026-11-25 01:04:18:548 [787838ab][XCUITestDriver@f0ed] No key id found. Choosing first id from page array
+2026-11-25 01:04:18:549 [787838ab][XCUITestDriver@f0ed] Page change not referring to currently selected app, ignoring.
+2026-11-25 01:04:19:180 [787838ab][RemoteDebugger] Pages changed for PID:26888: [{"id":1,"title":"","url":"capacitor://localhost","isKey":false}] -> [{"id":1,"title":"Riddle Games","url":"capacitor://localhost","isKey":false}]
+2026-11-25 01:04:19:197 [787838ab][XCUITestDriver@f0ed] Remote debugger notified us of a new page listing: {"appIdKey":"26888","pageArray":[{"id":1,"title":"Riddle Games","url":"capacitor://localhost","isKey":false}]}
+2026-11-25 01:04:19:198 [787838ab][XCUITestDriver@f0ed] No key id found. Choosing first id from page array
+2026-11-25 01:04:19:198 [787838ab][XCUITestDriver@f0ed] Page change not referring to currently selected app, ignoring.
+2026-11-25 01:04:21:696 [787838ab][HTTP] --> GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/contexts 
+2026-11-25 01:04:21:707 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.getContexts() with args: ["787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:21:708 [787838ab][XCUITestDriver@f0ed] Executing command 'getContexts'
+2026-11-25 01:04:21:709 [787838ab][XCUITestDriver@f0ed] Getting list of available contexts
+2026-11-25 01:04:21:709 [787838ab][XCUITestDriver@f0ed] Retrieving contexts and views
+2026-11-25 01:04:21:709 [787838ab][XCUITestDriver@f0ed] Selecting by url: false
+2026-11-25 01:04:21:756 [787838ab][XCUITestDriver@f0ed] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 01:04:21:756 [787838ab][RemoteDebugger] Selecting application
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger] Current applications available:
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]     Application: "PID:26888"
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]         id: "PID:26888"
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]         isProxy: false
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]         name: "App"
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]         bundleId: "process-App"
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]         hostId: undefined
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]         isActive: true
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]         pageArray:
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]           - id: 1
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]             title: "Riddle Games"
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]             url: "capacitor://localhost"
+2026-11-25 01:04:21:759 [787838ab][RemoteDebugger]             isKey: false
+2026-11-25 01:04:21:760 [787838ab][RemoteDebugger] Returning all apps because the list of matching bundle identifiers includes a wildcard
+2026-11-25 01:04:21:760 [787838ab][RemoteDebugger] Trying out the possible app ids: PID:26888 (try #1 of 20)
+2026-11-25 01:04:21:760 [787838ab][RemoteDebugger] Attempting app 'PID:26888'
+2026-11-25 01:04:21:762 [787838ab][RemoteDebugger] Sending '_rpc_forwardGetListing:' message to app 'PID:26888' (id: 422): 'connectToApp'
+2026-11-25 01:04:21:777 [787838ab][RemoteDebugger] Received response from send (id: 422): '["PID:26888",{"1":{"WIRTitleKey":"Riddle Games","WIRTypeKey":"WIRTypeWebPage","WIRURLKey":"capacitor://localhost","WIRPageIdentifierKey":1,"WIRHostApplicationIdentifierKey":"PID:26888","WIROverrideNa…'
+2026-11-25 01:04:21:778 [787838ab][RemoteDebugger] Received page change notice for app 'PID:26888' but the listing has not changed. Ignoring.
+2026-11-25 01:04:21:779 [787838ab][RemoteDebugger] Sending to Web Inspector took 18ms
+2026-11-25 01:04:21:781 [787838ab][RemoteDebugger] Received altered app id, updating from 'undefined' to 'PID:26888'
+2026-11-25 01:04:21:781 [787838ab][RemoteDebugger] Current applications available:
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]     Application: "PID:26888"
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]         id: "PID:26888"
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]         isProxy: false
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]         name: "App"
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]         bundleId: "process-App"
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]         hostId: undefined
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]         isActive: true
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]         pageArray:
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]           - id: 1
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]             title: "Riddle Games"
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]             url: "capacitor://localhost"
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger]             isKey: false
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger] Finally selecting app PID:26888
+2026-11-25 01:04:21:782 [787838ab][RemoteDebugger] Selected app after 26ms
+2026-11-25 01:04:21:783 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.getContexts() result: ["NATIVE_APP","WEBVIEW_26888.1"]
+2026-11-25 01:04:21:787 [787838ab][HTTP] <-- GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/contexts 200 92 ms - 42
+2026-11-25 01:04:21:794 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/context {"name":"WEBVIEW_26888.1"}
+2026-11-25 01:04:21:795 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.setContext() with args: ["WEBVIEW_26888.1","787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:21:795 [787838ab][XCUITestDriver@f0ed] Executing command 'setContext'
+2026-11-25 01:04:21:795 [787838ab][XCUITestDriver@f0ed] Attempting to set context to 'WEBVIEW_26888.1' from '16635.1'
+2026-11-25 01:04:21:796 [787838ab][RemoteDebugger] Selecting page '1' on app 'PID:26888' and forwarding socket setup
+2026-11-25 01:04:21:799 [787838ab][RemoteDebugger] Sending '_rpc_forwardIndicateWebView:' message to app 'PID:26888', page '1' (id: 424): 'indicateWebView'
+2026-11-25 01:04:21:801 [787838ab][RemoteDebugger] Sending to Web Inspector took 2ms
+2026-11-25 01:04:21:801 [787838ab][RemoteDebugger] Sending '_rpc_forwardIndicateWebView:' message to app 'PID:26888', page '1' (id: 426): 'indicateWebView'
+2026-11-25 01:04:21:803 [787838ab][RemoteDebugger] Sending to Web Inspector took 2ms
+2026-11-25 01:04:21:804 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketSetup:' message to app 'PID:26888', page '1' (id: 428): 'setSenderKey'
+2026-11-25 01:04:21:805 [787838ab][RemoteDebugger] Sending to Web Inspector took 2ms
+2026-11-25 01:04:21:805 [787838ab][RemoteDebugger] Waiting up to 215994ms for page '1' of app 'PID:26888' to be selected
+2026-11-25 01:04:21:823 [787838ab][RemoteDebugger] Skipping 'Target.targetCreated' event with type 'frame' for app 'PID:26888': {"targetId":"frame-8589934593","type":"frame"}
+2026-11-25 01:04:21:823 [787838ab][RemoteDebugger] Target created for app 'PID:26888' and page '1': {"targetId":"page-8","type":"page"}
+2026-11-25 01:04:21:824 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 430): 'Target.setPauseOnStart'
+2026-11-25 01:04:21:826 [787838ab][RemoteDebugger] Sending to Web Inspector took 3ms
+2026-11-25 01:04:21:827 [787838ab][RemoteDebugger] Initializing page '1' for app 'PID:26888'
+2026-11-25 01:04:21:827 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 432): 'Inspector.enable'
+2026-11-25 01:04:21:879 [787838ab][RemoteDebugger] Received data response from send (id: 432): '{}'
+2026-11-25 01:04:21:879 [787838ab][RemoteDebugger] Sending to Web Inspector took 53ms
+2026-11-25 01:04:21:879 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 434): 'Page.enable'
+2026-11-25 01:04:21:881 [787838ab][RemoteDebugger] Received data response from send (id: 434): '{}'
+2026-11-25 01:04:21:881 [787838ab][RemoteDebugger] Sending to Web Inspector took 2ms
+2026-11-25 01:04:21:881 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 436): 'Runtime.enable'
+2026-11-25 01:04:21:902 [787838ab][RemoteDebugger] Received data response from send (id: 436): '{}'
+2026-11-25 01:04:21:902 [787838ab][RemoteDebugger] Sending to Web Inspector took 21ms
+2026-11-25 01:04:21:902 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 438): 'Network.enable'
+2026-11-25 01:04:21:911 [787838ab][RemoteDebugger] Received data response from send (id: 438): '{}'
+2026-11-25 01:04:21:911 [787838ab][RemoteDebugger] Sending to Web Inspector took 9ms
+2026-11-25 01:04:21:912 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 440): 'Heap.enable'
+2026-11-25 01:04:21:918 [787838ab][RemoteDebugger] Received data response from send (id: 440): '{}'
+2026-11-25 01:04:21:919 [787838ab][RemoteDebugger] Sending to Web Inspector took 7ms
+2026-11-25 01:04:21:919 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 442): 'Debugger.enable'
+2026-11-25 01:04:21:939 [787838ab][RemoteDebugger] Received data response from send (id: 442): '{}'
+2026-11-25 01:04:21:940 [787838ab][RemoteDebugger] Sending to Web Inspector took 21ms
+2026-11-25 01:04:21:940 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 444): 'Console.enable'
+2026-11-25 01:04:21:946 [787838ab][RemoteDebugger] Received data response from send (id: 444): '{}'
+2026-11-25 01:04:21:946 [787838ab][RemoteDebugger] Sending to Web Inspector took 7ms
+2026-11-25 01:04:21:946 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 446): 'Inspector.initialized'
+2026-11-25 01:04:21:948 [787838ab][RemoteDebugger] Received data response from send (id: 446): '{}'
+2026-11-25 01:04:21:948 [787838ab][RemoteDebugger] Sending to Web Inspector took 2ms
+2026-11-25 01:04:21:949 [787838ab][RemoteDebugger] Simple initialization of page '1' for app 'PID:26888' completed in 121.548791ms
+2026-11-25 01:04:21:949 [787838ab][RemoteDebugger] Waiting up to 5874.154041ms for page readiness
+2026-11-25 01:04:21:950 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 448): 'Runtime.evaluate'
+2026-11-25 01:04:21:970 [787838ab][RemoteDebugger] Received data response from send (id: 448): '"complete"'
+2026-11-25 01:04:21:971 [787838ab][RemoteDebugger] Sending to Web Inspector took 21ms
+2026-11-25 01:04:21:972 [787838ab][RemoteDebugger] Page '1' for app 'PID:26888' is ready after 22.205416ms
+2026-11-25 01:04:21:972 [787838ab][RemoteDebugger] Selected the page 1@PID:26888 after 173.030833ms
+2026-11-25 01:04:21:972 [787838ab][RemoteDebugger] Selected page after 176ms
+2026-11-25 01:04:21:973 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.setContext() result: null
+2026-11-25 01:04:21:980 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/context 200 180 ms - 14
+2026-11-25 01:04:21:985 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (() => ({ ok: !!document.body && location.protocol === 'capacitor:' && typeof window.__appq === 'function', href: location.href, hooks: typeof window.__appq, scene: typeof window.__taps }))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[null]}
+2026-11-25 01:04:21:986 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (() => ({ ok: !!document.body && location.protocol === 'capacitor:' && typeof window.__appq === 'function', href: location.href, hooks: typeof window.__appq, scene: typeof window.__taps }))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:21:986 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:21:987 [787838ab][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (() => ({ ok: !!document.body && location.protocol === 'capacitor:' && typeof window.__appq === 'function', href: location.href, hooks: typeof window.__appq, scene: typeof window.__taps }))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null]]; frames='
+2026-11-25 01:04:21:991 [787838ab][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 01:04:21:994 [787838ab][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 01:04:21:995 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 450): 'Runtime.evaluate'
+2026-11-25 01:04:22:000 [787838ab][RemoteDebugger] Received data response from send (id: 450): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":{\"ok\":true,\"href\":\"capacitor://localhost\",\"hooks\":\"function\",\"scene\":\"object\"}}}"'
+2026-11-25 01:04:22:000 [787838ab][RemoteDebugger] Sending to Web Inspector took 6ms
+2026-11-25 01:04:22:000 [787838ab][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":{"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}}
+2026-11-25 01:04:22:001 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.execute() result: {"ok":true,"v":{"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}}
+2026-11-25 01:04:22:007 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 200 18 ms - 104
+2026-11-25 01:04:22:024 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (() => ({ w: innerWidth, h: innerHeight }))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[null]}
+2026-11-25 01:04:22:024 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (() => ({ w: innerWidth, h: innerHeight }))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:22:024 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:22:025 [787838ab][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (() => ({ w: innerWidth, h: innerHeight }))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null]]; frames='
+2026-11-25 01:04:22:025 [787838ab][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 01:04:22:029 [787838ab][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 01:04:22:029 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 452): 'Runtime.evaluate'
+2026-11-25 01:04:22:031 [787838ab][RemoteDebugger] Pages changed for PID:26888: [{"id":1,"title":"Riddle Games","url":"capacitor://localhost","isKey":false}] -> [{"id":1,"title":"Riddle Games","url":"capacitor://localhost","isKey":true}]
+2026-11-25 01:04:22:031 [787838ab][XCUITestDriver@f0ed] Remote debugger notified us of a new page listing: {"appIdKey":"26888","pageArray":[{"id":1,"title":"Riddle Games","url":"capacitor://localhost","isKey":true}]}
+2026-11-25 01:04:22:032 [787838ab][XCUITestDriver@f0ed] New page listing is same as old, doing nothing
+2026-11-25 01:04:22:032 [787838ab][XCUITestDriver@f0ed] Redirected from 'capacitor://localhost/' to 'capacitor://localhost'
+2026-11-25 01:04:22:041 [787838ab][RemoteDebugger] Notified that an application has been updated
+2026-11-25 01:04:22:043 [787838ab][RemoteDebugger] Received data response from send (id: 452): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":{\"w\":956,\"h\":440}}}"'
+2026-11-25 01:04:22:043 [787838ab][RemoteDebugger] Sending to Web Inspector took 14ms
+2026-11-25 01:04:22:044 [787838ab][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":{"w":956,"h":440}}
+2026-11-25 01:04:22:044 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.execute() result: {"ok":true,"v":{"w":956,"h":440}}
+2026-11-25 01:04:22:046 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 200 21 ms - 43
+2026-11-25 01:04:22:081 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (()=>!!document.querySelector('[aria-label=\"About and settings\"]'))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[null]}
+2026-11-25 01:04:22:082 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (()=>!!document.querySelector('[aria-label=\"About and settings\"]'))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:22:082 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:22:082 [787838ab][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (()=>!!document.querySelector('[aria-label=\"About and settings\"]'))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null]]; frames='
+2026-11-25 01:04:22:082 [787838ab][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 01:04:22:085 [787838ab][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 01:04:22:085 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 454): 'Runtime.evaluate'
+2026-11-25 01:04:22:089 [787838ab][RemoteDebugger] Received data response from send (id: 454): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":true}}"'
+2026-11-25 01:04:22:090 [787838ab][RemoteDebugger] Sending to Web Inspector took 4ms
+2026-11-25 01:04:22:090 [787838ab][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":true}
+2026-11-25 01:04:22:090 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.execute() result: {"ok":true,"v":true}
+2026-11-25 01:04:22:090 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 200 9 ms - 30
+2026-11-25 01:04:22:128 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (()=>{const a=window.__appFaults;const copy={pageErrors:[...a.pageErrors],consoleErrors:[...a.consoleErrors],outsideRequests:[...a.outsideRequests]};a.pageErrors.length=0;a.consoleErrors.length=0;a.outsideRequests.length=0;return copy})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[null]}
+2026-11-25 01:04:22:130 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (()=>{const a=window.__appFaults;const copy={pageErrors:[...a.pageErrors],consoleErrors:[...a.consoleErrors],outsideRequests:[...a.outsideRequests]};a.pageErrors.length=0;a.consoleErrors.length=0;a.outsideRequests.length=0;return copy})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:22:130 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:22:142 [787838ab][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (()=>{const a=window.__appFaults;const copy={pageErrors:[...a.pageErrors],consoleErrors:[...a.consoleErrors],outsideRequests:[...a.outsideRequests]};a.pageErrors.length=0;a.consoleErrors.length=0;a.outsideRequests.length=0;return copy})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null]]; frames='
+2026-11-25 01:04:22:142 [787838ab][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 01:04:22:144 [787838ab][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 01:04:22:144 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 456): 'Runtime.evaluate'
+2026-11-25 01:04:22:155 [787838ab][RemoteDebugger] Received data response from send (id: 456): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":{\"pageErrors\":[],\"consoleErrors\":[],\"outsideRequests\":[]}}}"'
+2026-11-25 01:04:22:163 [787838ab][RemoteDebugger] Sending to Web Inspector took 18ms
+2026-11-25 01:04:22:163 [787838ab][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":{"pageErrors":[],"consoleErrors":[],"outsideRequests":[]}}
+2026-11-25 01:04:22:164 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.execute() result: {"ok":true,"v":{"pageErrors":[],"consoleErrors":[],"outsideRequests":[]}}
+2026-11-25 01:04:22:195 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 200 37 ms - 83
+2026-11-25 01:04:22:270 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (() => { if (!window.__fc) { window.__fc = 1; const f = () => { window.__fc++; requestAnimationFrame(f); }; requestAnimationFrame(f); } return { c: window.__fc, t: performance.now() }; })(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[null]}
+2026-11-25 01:04:22:270 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (() => { if (!window.__fc) { window.__fc = 1; const f = () => { window.__fc++; requestAnimationFrame(f); }; requestAnimationFrame(f); } return { c: window.__fc, t: performance.now() }; })(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:22:270 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:22:271 [787838ab][RemoteDebugger] Executing atom 'execute_script' with 'args=["var __name = function (f) { return f; }; try { var v = (() => { if (!window.__fc) { window.__fc = 1; const f = () => { window.__fc++; requestAnimationFrame(f); }; requestAnimationFrame(f); } return { c: window.__fc, t: performance.now() }; })(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[null]]; frames='
+2026-11-25 01:04:22:271 [787838ab][RemoteDebugger] Executing 'execute_script' atom in default context
+2026-11-25 01:04:22:274 [787838ab][RemoteDebugger] Sending javascript command: '(function(){"use strict";var AtomExport=(()=>{var…'
+2026-11-25 01:04:22:279 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message to app 'PID:26888', page '1', target 'page-8' (id: 458): 'Runtime.evaluate'
+2026-11-25 01:04:22:287 [787838ab][RemoteDebugger] Received data response from send (id: 458): '"{\"status\":0,\"value\":{\"ok\":true,\"v\":{\"c\":1,\"t\":4456}}}"'
+2026-11-25 01:04:22:288 [787838ab][RemoteDebugger] Sending to Web Inspector took 9ms
+2026-11-25 01:04:22:288 [787838ab][RemoteDebugger] Received result for atom 'execute_script' execution: {"ok":true,"v":{"c":1,"t":4456}}
+2026-11-25 01:04:22:288 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.execute() result: {"ok":true,"v":{"c":1,"t":4456}}
+2026-11-25 01:04:22:289 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 200 19 ms - 42
+2026-11-25 01:04:22:353 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"mobile: terminateApp","args":[{"bundleId":"com.example.riddlegames"}]}
+2026-11-25 01:04:22:353 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["mobile: terminateApp",[{"bundleId":"com.example.riddlegames"}],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:22:354 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:22:387 [787838ab][XCUITestDriver@f0ed] Proxying [POST /wda/apps/terminate] to [POST http://127.0.0.1:8100/session/A298B6DB-3DD3-4370-A20C-0B7516F86455/wda/apps/terminate] with body: {"bundleId":"com.example.riddlegames"}
+2026-11-25 01:04:23:350 [787838ab][RemoteDebugger] Application 'PID:26888' disconnected. Removing from app dictionary.
+2026-11-25 01:04:23:362 [787838ab][RemoteDebugger] Current app is 'PID:26888'
+2026-11-25 01:04:23:362 [787838ab][RemoteDebugger] No longer have app id. Attempting to find new one.
+2026-11-25 01:04:23:362 [787838ab][RemoteDebugger] Main app disconnected. Disconnecting altogether.
+2026-11-25 01:04:23:474 [787838ab][XCUITestDriver@f0ed] Got response with status 200: {"value":true,"sessionId":"A298B6DB-3DD3-4370-A20C-0B7516F86455"}
+2026-11-25 01:04:23:475 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.execute() result: true
+2026-11-25 01:04:23:477 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 200 1124 ms - 14
+2026-11-25 01:04:25:510 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"mobile: activateApp","args":[{"bundleId":"com.example.riddlegames"}]}
+2026-11-25 01:04:25:512 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["mobile: activateApp",[{"bundleId":"com.example.riddlegames"}],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:25:512 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:04:25:515 [787838ab][XCUITestDriver@f0ed] Proxying [POST /wda/apps/activate] to [POST http://127.0.0.1:8100/session/A298B6DB-3DD3-4370-A20C-0B7516F86455/wda/apps/activate] with body: {"bundleId":"com.example.riddlegames"}
+2026-11-25 01:04:29:369 [787838ab][XCUITestDriver@f0ed] Got response with status 200: {"value":null,"sessionId":"A298B6DB-3DD3-4370-A20C-0B7516F86455"}
+2026-11-25 01:04:29:584 [787838ab][XCUITestDriver@f0ed] Responding to client with driver.execute() result: null
+2026-11-25 01:04:29:757 [787838ab][HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync 200 4118 ms - 14
+2026-11-25 01:04:29:758 [787838ab][RemoteDebugger] Notified that new application 'PID:27614' has connected
+2026-11-25 01:04:29:759 [787838ab][RemoteDebugger] Pages changed for PID:27614: undefined -> [{"id":1,"title":"","url":"about:blank","isKey":false}]
+2026-11-25 01:04:29:759 [787838ab][XCUITestDriver@f0ed] Remote debugger notified us of a new page listing: {"appIdKey":"27614","pageArray":[{"id":1,"title":"","url":"about:blank","isKey":false}]}
+2026-11-25 01:04:29:760 [787838ab][XCUITestDriver@f0ed] No key id found. Choosing first id from page array
+2026-11-25 01:04:29:760 [787838ab][XCUITestDriver@f0ed] Page change not referring to currently selected app, ignoring.
+2026-11-25 01:04:29:760 [787838ab][RemoteDebugger] Notified that an application has been updated
+2026-11-25 01:04:29:775 [787838ab][RemoteDebugger] Pages changed for PID:27614: [{"id":1,"title":"","url":"about:blank","isKey":false}] -> [{"id":1,"title":"Riddle Games","url":"capacitor://localhost","isKey":false}]
+2026-11-25 01:04:29:775 [787838ab][XCUITestDriver@f0ed] Remote debugger notified us of a new page listing: {"appIdKey":"27614","pageArray":[{"id":1,"title":"Riddle Games","url":"capacitor://localhost","isKey":false}]}
+2026-11-25 01:04:29:775 [787838ab][XCUITestDriver@f0ed] No key id found. Choosing first id from page array
+2026-11-25 01:04:29:775 [787838ab][XCUITestDriver@f0ed] Page change not referring to currently selected app, ignoring.
+2026-11-25 01:04:33:789 [787838ab][XCUITestDriver@f0ed] Error received while executing atom: The atom execution has timed out after 120000ms
+2026-11-25 01:04:33:839 [787838ab][RemoteDebugger] Sending '_rpc_forwardSocketData:' message, page '1' (id: 460): 'Runtime.evaluate'
+2026-11-25 01:04:34:903 [787838ab][HTTP] --> GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/contexts 
+2026-11-25 01:04:34:905 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.getContexts() with args: ["787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:04:34:905 [787838ab][XCUITestDriver@f0ed] Executing command 'getContexts'
+2026-11-25 01:04:34:907 [787838ab][XCUITestDriver@f0ed] Getting list of available contexts
+2026-11-25 01:04:34:916 [787838ab][XCUITestDriver@f0ed] Retrieving contexts and views
+2026-11-25 01:04:34:916 [787838ab][XCUITestDriver@f0ed] Selecting by url: false
+2026-11-25 01:04:34:917 [787838ab][XCUITestDriver@f0ed] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 01:04:34:917 [787838ab][RemoteDebugger] Selecting application
+2026-11-25 01:04:34:919 [787838ab][RemoteDebugger] Current applications available:
+2026-11-25 01:04:34:919 [787838ab][RemoteDebugger]     Application: "PID:27614"
+2026-11-25 01:04:34:926 [787838ab][RemoteDebugger]         id: "PID:27614"
+2026-11-25 01:04:34:926 [787838ab][RemoteDebugger]         isProxy: false
+2026-11-25 01:04:34:926 [787838ab][RemoteDebugger]         name: "App"
+2026-11-25 01:04:34:927 [787838ab][RemoteDebugger]         bundleId: "process-App"
+2026-11-25 01:04:34:928 [787838ab][RemoteDebugger]         hostId: undefined
+2026-11-25 01:04:34:928 [787838ab][RemoteDebugger]         isActive: true
+2026-11-25 01:04:34:928 [787838ab][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 01:04:34:928 [787838ab][RemoteDebugger]         pageArray:
+2026-11-25 01:04:34:928 [787838ab][RemoteDebugger]           - id: 1
+2026-11-25 01:04:34:928 [787838ab][RemoteDebugger]             title: "Riddle Games"
+2026-11-25 01:04:34:928 [787838ab][RemoteDebugger]             url: "capacitor://localhost"
+2026-11-25 01:04:34:928 [787838ab][RemoteDebugger]             isKey: false
+2026-11-25 01:04:34:929 [787838ab][RemoteDebugger] Returning all apps because the list of matching bundle identifiers includes a wildcard
+2026-11-25 01:04:34:936 [787838ab][RemoteDebugger] Trying out the possible app ids: PID:27614 (try #1 of 20)
+2026-11-25 01:04:34:937 [787838ab][RemoteDebugger] Attempting app 'PID:27614'
+2026-11-25 01:04:34:946 [787838ab][RemoteDebugger] Sending '_rpc_forwardGetListing:' message to app 'PID:27614' (id: 462): 'connectToApp'
+2026-11-25 01:16:37:530 [787838ab][RemoteDebugger] Notified that new application 'PID:6541' has connected
+2026-11-25 01:16:37:659 [787838ab][RemoteDebugger] The application PID:27614 is not connectable yet: New application has connected
+2026-11-25 01:16:38:150 [787838ab][RemoteDebugger] Notified that new application 'PID:27733' has connected
+2026-11-25 01:16:38:156 [787838ab][RemoteDebugger] Received response from send (id: 462): '["PID:6541",{}]'
+2026-11-25 01:16:38:162 [787838ab][RemoteDebugger] Sending to Web Inspector took 723222ms
+2026-11-25 01:16:38:212 [787838ab][RemoteDebugger] Notified that an application has been updated
+2026-11-25 01:16:38:214 [787838ab][RemoteDebugger] Notified that an application has been updated
+2026-11-25 01:16:38:705 [787838ab][RemoteDebugger] Current applications available:
+2026-11-25 01:16:38:705 [787838ab][RemoteDebugger]     Application: "PID:27614"
+2026-11-25 01:16:38:705 [787838ab][RemoteDebugger]         id: "PID:27614"
+2026-11-25 01:16:38:705 [787838ab][RemoteDebugger]         isProxy: false
+2026-11-25 01:16:38:705 [787838ab][RemoteDebugger]         name: "App"
+2026-11-25 01:16:38:705 [787838ab][RemoteDebugger]         bundleId: "process-App"
+2026-11-25 01:16:38:705 [787838ab][RemoteDebugger]         hostId: undefined
+2026-11-25 01:16:38:710 [787838ab][RemoteDebugger]         isActive: true
+2026-11-25 01:16:38:711 [787838ab][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 01:16:38:711 [787838ab][RemoteDebugger]         pageArray:
+2026-11-25 01:16:38:712 [787838ab][RemoteDebugger]           - id: 1
+2026-11-25 01:16:38:712 [787838ab][RemoteDebugger]             title: "Riddle Games"
+2026-11-25 01:16:38:712 [787838ab][RemoteDebugger]             url: "capacitor://localhost"
+2026-11-25 01:16:38:712 [787838ab][RemoteDebugger]             isKey: false
+2026-11-25 01:16:38:712 [787838ab][RemoteDebugger]     Application: "PID:6541"
+2026-11-25 01:16:38:712 [787838ab][RemoteDebugger]         id: "PID:6541"
+2026-11-25 01:16:38:712 [787838ab][RemoteDebugger]         isProxy: false
+2026-11-25 01:16:38:712 [787838ab][RemoteDebugger]         name: "fitcored"
+2026-11-25 01:16:38:712 [787838ab][RemoteDebugger]         bundleId: "com.apple.fitcored"
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         hostId: undefined
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         isActive: false
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]     Application: "PID:27733"
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         id: "PID:27733"
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         isProxy: false
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         name: "com.apple.WebKit.WebContent"
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         bundleId: "process-com.apple.WebKit.WebContent"
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         hostId: undefined
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         isActive: true
+2026-11-25 01:16:38:713 [787838ab][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 01:16:38:917 [787838ab][RemoteDebugger] Returning all apps because the list of matching bundle identifiers includes a wildcard
+2026-11-25 01:16:39:441 [787838ab][RemoteDebugger] Trying out the possible app ids: PID:27614, PID:6541, PID:27733 (try #2 of 20)
+2026-11-25 01:16:39:441 [787838ab][RemoteDebugger] Attempting app 'PID:27614'
+2026-11-25 01:16:40:111 [787838ab][RemoteDebugger] Sending '_rpc_forwardGetListing:' message to app 'PID:27614' (id: 464): 'connectToApp'
+2026-11-25 01:20:51:936 [787838ab][RemoteDebugger] Received response from send (id: 464): '["PID:6541",{}]'
+2026-11-25 01:20:51:986 [787838ab][RemoteDebugger] Sending to Web Inspector took 252178ms
+2026-11-25 01:20:51:993 [787838ab][RemoteDebugger] The application PID:27614 is not connectable yet: Empty page dictionary received
+2026-11-25 01:20:51:995 [787838ab][RemoteDebugger] Skipping app 'PID:6541' because it is not active
+2026-11-25 01:20:51:997 [787838ab][RemoteDebugger] Attempting app 'PID:27733'
+2026-11-25 01:20:52:001 [787838ab][RemoteDebugger] Sending '_rpc_forwardGetListing:' message to app 'PID:27733' (id: 466): 'connectToApp'
+2026-11-25 01:21:10:150 [787838ab][RemoteDebugger] Received response from send (id: 466): '["PID:6541",{}]'
+2026-11-25 01:21:10:158 [787838ab][RemoteDebugger] Sending to Web Inspector took 18160ms
+2026-11-25 01:21:10:218 [787838ab][RemoteDebugger] The application PID:27733 is not connectable yet: Empty page dictionary received
+2026-11-25 01:21:10:726 [787838ab][RemoteDebugger] Current applications available:
+2026-11-25 01:21:10:726 [787838ab][RemoteDebugger]     Application: "PID:27614"
+2026-11-25 01:21:10:729 [787838ab][RemoteDebugger]         id: "PID:27614"
+2026-11-25 01:21:10:730 [787838ab][RemoteDebugger]         isProxy: false
+2026-11-25 01:21:10:730 [787838ab][RemoteDebugger]         name: "App"
+2026-11-25 01:21:10:730 [787838ab][RemoteDebugger]         bundleId: "process-App"
+2026-11-25 01:21:10:731 [787838ab][RemoteDebugger]         hostId: undefined
+2026-11-25 01:21:10:731 [787838ab][RemoteDebugger]         isActive: true
+2026-11-25 01:21:10:731 [787838ab][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 01:21:10:735 [787838ab][RemoteDebugger]         pageArray:
+2026-11-25 01:21:10:735 [787838ab][RemoteDebugger]           - id: 1
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]             title: "Riddle Games"
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]             url: "capacitor://localhost"
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]             isKey: false
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]     Application: "PID:6541"
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]         id: "PID:6541"
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]         isProxy: false
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]         name: "fitcored"
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]         bundleId: "com.apple.fitcored"
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]         hostId: undefined
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]         isActive: false
+2026-11-25 01:21:10:736 [787838ab][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 01:21:10:737 [787838ab][RemoteDebugger]     Application: "PID:27733"
+2026-11-25 01:21:10:737 [787838ab][RemoteDebugger]         id: "PID:27733"
+2026-11-25 01:21:10:737 [787838ab][RemoteDebugger]         isProxy: false
+2026-11-25 01:21:10:737 [787838ab][RemoteDebugger]         name: "com.apple.WebKit.WebContent"
+2026-11-25 01:21:10:737 [787838ab][RemoteDebugger]         bundleId: "process-com.apple.WebKit.WebContent"
+2026-11-25 01:21:10:737 [787838ab][RemoteDebugger]         hostId: undefined
+2026-11-25 01:21:10:737 [787838ab][RemoteDebugger]         isActive: true
+2026-11-25 01:21:10:737 [787838ab][RemoteDebugger]         isAutomationEnabled: "Unknown"
+2026-11-25 01:21:10:737 [787838ab][RemoteDebugger] Returning all apps because the list of matching bundle identifiers includes a wildcard
+2026-11-25 01:21:10:738 [787838ab][RemoteDebugger] Trying out the possible app ids: PID:27614, PID:6541, PID:27733 (try #3 of 20)
+2026-11-25 01:21:10:738 [787838ab][RemoteDebugger] Attempting app 'PID:27614'
+2026-11-25 01:21:10:739 [787838ab][RemoteDebugger] Sending '_rpc_forwardGetListing:' message to app 'PID:27614' (id: 468): 'connectToApp'
+2026-11-25 01:29:05:723 [787838ab][RemoteDebugger] Received response from send (id: 468): '["PID:6541",{}]'
+2026-11-25 01:29:05:735 [787838ab][RemoteDebugger] Sending to Web Inspector took 474993ms
+2026-11-25 01:29:05:737 [787838ab][RemoteDebugger] The application PID:27614 is not connectable yet: Empty page dictionary received
+2026-11-25 01:29:05:739 [787838ab][RemoteDebugger] Skipping app 'PID:6541' because it is not active
+2026-11-25 01:29:05:739 [787838ab][RemoteDebugger] Attempting app 'PID:27733'
+2026-11-25 01:29:05:742 [787838ab][RemoteDebugger] Sending '_rpc_forwardGetListing:' message to app 'PID:27733' (id: 470): 'connectToApp'
+2026-11-25 01:34:35:191 [787838ab][HTTP] <-- GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/contexts - - ms - -
+2026-11-25 01:34:35:513 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (([key,s])=>{const now=JSON.parse(localStorage.getItem(key)??'{\"stars\":{}}');const merged={...now,stars:{...s,...now.stars??{}}};localStorage.setItem(key,JSON.stringify(merged));history.replaceState(null,\"\",location.pathname);return true})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[["riddle-games:progress:v1",{"wolf-two-sheep":3,"wolf-goat-cabbage":3,"two-jugs":3,"tower-of-hanoi":3,"bridge-and-torch":3,"explorers-guardians":3,"jealous-couples":3,"three-jugs":3,"bridge-five":3,"four-pillar-tower":3,"family-crossing":3,"twelve-coins":3,"leapfrog-lagoon":3,"firefly-lanterns":3,"slippery-pond":3,"firefly-jars":3,"moonbeam-mirrors":3,"log-jam":3,"picture-tiles":3,"berry-bridges":3,"cricket-swap":3,"pancake-stack":3,"frog-parade":3,"frosty-maze":3,"firefly-rainbow":3,"moonbeam-maze":3,"timber-tangle"…
+2026-11-25 01:34:35:527 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (([key,s])=>{const now=JSON.parse(localStorage.getItem(key)??'{\"stars\":{}}');const merged={...now,stars:{...s,...now.stars??{}}};localStorage.setItem(key,JSON.stringify(merged));history.replaceState(null,\"\",location.pathname);return true})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[["riddle-games:progress:v1",{"wolf-two-sheep":3,"wolf-goat-cabbage":3,"two-jugs":3,"tower-of-hanoi":3,"bridge-and-torch":3,"explorers-guardians":3,"jealous-couples":3,"three-jugs":3,"bridge-five":3,"four-pillar-tower":3,"family-crossing":3,"twelve-coins":3,"leapfrog-lagoon":3,"firefly-lanterns":3,"slippery-pond":3,"firefly-jars":3,"moonbeam-mirrors":3,"log-jam":3,"picture-tiles":3,"berry-bridges":3,"cricket-swap":3,"pancake-stack":3,"frog-parade":3,"frosty-maze":3,"firefly-rainbow":3,"moonbeam-maze":3,"timber-tangle":3}]],"787838ab-…
+2026-11-25 01:34:35:531 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:44:35:526 [HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync - - ms - -
+2026-11-25 01:44:35:604 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"var __name = function (f) { return f; }; try { var v = (([key,s])=>{const now=JSON.parse(localStorage.getItem(key)??'{\"stars\":{}}');const merged={...now,stars:{...s,...now.stars??{}}};localStorage.setItem(key,JSON.stringify(merged));history.replaceState(null,\"\",location.pathname);return true})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }","args":[["riddle-games:progress:v1",{"wolf-two-sheep":3,"wolf-goat-cabbage":3,"two-jugs":3,"tower-of-hanoi":3,"bridge-and-torch":3,"explorers-guardians":3,"jealous-couples":3,"three-jugs":3,"bridge-five":3,"four-pillar-tower":3,"family-crossing":3,"twelve-coins":3,"leapfrog-lagoon":3,"firefly-lanterns":3,"slippery-pond":3,"firefly-jars":3,"moonbeam-mirrors":3,"log-jam":3,"picture-tiles":3,"berry-bridges":3,"cricket-swap":3,"pancake-stack":3,"frog-parade":3,"frosty-maze":3,"firefly-rainbow":3,"moonbeam-maze":3,"timber-tangle"…
+2026-11-25 01:44:35:606 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["var __name = function (f) { return f; }; try { var v = (([key,s])=>{const now=JSON.parse(localStorage.getItem(key)??'{\"stars\":{}}');const merged={...now,stars:{...s,...now.stars??{}}};localStorage.setItem(key,JSON.stringify(merged));history.replaceState(null,\"\",location.pathname);return true})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }",[["riddle-games:progress:v1",{"wolf-two-sheep":3,"wolf-goat-cabbage":3,"two-jugs":3,"tower-of-hanoi":3,"bridge-and-torch":3,"explorers-guardians":3,"jealous-couples":3,"three-jugs":3,"bridge-five":3,"four-pillar-tower":3,"family-crossing":3,"twelve-coins":3,"leapfrog-lagoon":3,"firefly-lanterns":3,"slippery-pond":3,"firefly-jars":3,"moonbeam-mirrors":3,"log-jam":3,"picture-tiles":3,"berry-bridges":3,"cricket-swap":3,"pancake-stack":3,"frog-parade":3,"frosty-maze":3,"firefly-rainbow":3,"moonbeam-maze":3,"timber-tangle":3}]],"787838ab-…
+2026-11-25 01:44:35:606 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 01:44:35:624 [787838ab][XCUITestDriver@f0ed] Scheduling the 'execute' command to the XCUITestDriver commands queue. 1 queue item is already waiting for execution.
+2026-11-25 01:54:35:711 [HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync - - ms - -
+2026-11-25 01:54:35:913 [787838ab][HTTP] --> GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/screenshot 
+2026-11-25 01:54:35:966 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.getScreenshot() with args: ["787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 01:54:35:973 [787838ab][XCUITestDriver@f0ed] Executing command 'getScreenshot'
+2026-11-25 01:54:36:092 [787838ab][XCUITestDriver@f0ed] Scheduling the 'getScreenshot' command to the XCUITestDriver commands queue. 2 queue items are already waiting for execution.
+2026-11-25 02:04:37:848 [HTTP] <-- GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/screenshot - - ms - -
+2026-11-25 02:04:43:292 [787838ab][HTTP] --> GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/screenshot 
+2026-11-25 02:04:43:582 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.getScreenshot() with args: ["787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 02:04:43:664 [787838ab][XCUITestDriver@f0ed] Executing command 'getScreenshot'
+2026-11-25 02:04:43:820 [787838ab][XCUITestDriver@f0ed] Scheduling the 'getScreenshot' command to the XCUITestDriver commands queue. 3 queue items are already waiting for execution.
+2026-11-25 02:14:43:404 [HTTP] <-- GET /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/screenshot - - ms - -
+2026-11-25 02:14:43:595 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"mobile: terminateApp","args":[{"bundleId":"com.example.riddlegames"}]}
+2026-11-25 02:14:43:607 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["mobile: terminateApp",[{"bundleId":"com.example.riddlegames"}],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 02:14:43:608 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 02:14:43:609 [787838ab][XCUITestDriver@f0ed] Scheduling the 'execute' command to the XCUITestDriver commands queue. 4 queue items are already waiting for execution.
+2026-11-25 02:24:43:633 [HTTP] <-- POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync - - ms - -
+2026-11-25 02:24:43:712 [787838ab][HTTP] --> POST /session/787838ab-7321-4ed7-b66c-684bc0cbfaab/execute/sync {"script":"mobile: terminateApp","args":[{"bundleId":"com.example.riddlegames"}]}
+2026-11-25 02:24:43:767 [787838ab][XCUITestDriver@f0ed] Calling AppiumDriver.execute() with args: ["mobile: terminateApp",[{"bundleId":"com.example.riddlegames"}],"787838ab-7321-4ed7-b66c-684bc0cbfaab"]
+2026-11-25 02:24:43:768 [787838ab][XCUITestDriver@f0ed] Executing command 'execute'
+2026-11-25 02:24:43:768 [787838ab][XCUITestDriver@f0ed] Scheduling the 'execute' command to the XCUITestDriver commands queue. 5 queue items are already waiting for execution.

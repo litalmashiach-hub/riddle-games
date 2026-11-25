@@ -1,0 +1,387 @@
+{
+ "level": 27,
+ "id": "timber-tangle",
+ "title": "Timber Tangle",
+ "device": "iphone-large-tail",
+ "size": "956x440",
+ "quality": "SD",
+ "openedBy": "its card on the level map",
+ "state": "not won: timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/s",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 8,
+ "moves": 30,
+ "touches": 18,
+ "stars": null,
+ "savedStars": null,
+ "fault": {
+  "kind": "no-move",
+  "step": 9,
+  "detail": "no move followed the touches for {\"piece\":3,\"to\":1}. Last touch: the ring on row 2, column 6 at (530, 166); the first listening object under it has its origin at [2.5, 0.2, 0.5]",
+  "known": true,
+  "knownReason": "Level 27, move 9: with the long log picked, a tap on the middle of the ring right behind its own far end is lost. The picked log's unseen grab box takes the touch and the log is put down. Dragging the log works."
+ },
+ "error": "timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy})(arguments[0]); return { ok: true, v: v === u); the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+ "seconds": {
+  "open": 43.033,
+  "rulesCard": 42.615,
+  "drawn": 43.033,
+  "play": null,
+  "total": 298.237
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-large-tail-L27-loading-mark.png",
+  "iphone-large-tail-L27-rules-card.png",
+  "iphone-large-tail-L27-fault-step-9.png",
+  "iphone-large-tail-L27-error.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "log 2",
+   "kind": "tap",
+   "at": {
+    "x": 448.7025708157207,
+    "y": 169.09857804878126
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "40e977ca-7457-4597-aeb3-c26939b6370b",
+    "world": [
+     0.5,
+     0.11712888708037134,
+     -1
+    ],
+    "distance": 12.908027583074807
+   }
+  },
+  {
+   "step": 1,
+   "what": "the ring on row 4, column 4",
+   "kind": "tap",
+   "at": {
+    "x": 447.28218641047414,
+    "y": 229.55597182524593
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b850b279-dc77-4ea3-9944-f486a3640d16",
+    "world": [
+     0.5,
+     0.23,
+     0.5
+    ],
+    "distance": 11.92825613314607
+   }
+  },
+  {
+   "step": 2,
+   "what": "log 4",
+   "kind": "tap",
+   "at": {
+    "x": 492.2427943047422,
+    "y": 255.72951491563524
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "212d46ba-7534-4bc4-b4c1-00fad819e76f",
+    "world": [
+     1.5,
+     0.11365531579688395,
+     1.5
+    ],
+    "distance": 11.26771572461294
+   }
+  },
+  {
+   "step": 2,
+   "what": "the ring on row 3, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 490.54184809131635,
+    "y": 196.18124332164487
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6c656c20-bbda-40c3-a50d-efeb06a209c7",
+    "world": [
+     1.5,
+     0.23,
+     -0.5
+    ],
+    "distance": 12.514179396654246
+   }
+  },
+  {
+   "step": 3,
+   "what": "log 7",
+   "kind": "tap",
+   "at": {
+    "x": 417.79362140950354,
+    "y": 297.2691606514887
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "84627d25-08e1-47e0-bdeb-3ff777d694a0",
+    "world": [
+     0,
+     0.08342533131344776,
+     2.5
+    ],
+    "distance": 10.919989708605907
+   }
+  },
+  {
+   "step": 3,
+   "what": "the ring on row 6, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 492.6167480531158,
+    "y": 307.34833453390246
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "48db120a-df55-4071-9355-ef0af766f2a6",
+    "world": [
+     1.5,
+     0.23,
+     2.5
+    ],
+    "distance": 10.865573789780747
+   }
+  },
+  {
+   "step": 4,
+   "what": "log 9",
+   "kind": "tap",
+   "at": {
+    "x": 317.44965709200943,
+    "y": 297.2691606514887
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "739c9456-f487-47b9-8275-1baeab37c4f6",
+    "world": [
+     -2,
+     0.09841893616246825,
+     2.5
+    ],
+    "distance": 11.287973626997944
+   }
+  },
+  {
+   "step": 4,
+   "what": "the ring on row 6, column 3",
+   "kind": "tap",
+   "at": {
+    "x": 395.171761032344,
+    "y": 307.34833453390246
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "0602a179-4446-444d-a0d7-49d98ed5e166",
+    "world": [
+     -0.5,
+     0.23,
+     2.5
+    ],
+    "distance": 10.983584734762903
+   }
+  },
+  {
+   "step": 5,
+   "what": "log 5",
+   "kind": "tap",
+   "at": {
+    "x": 311.29670401959703,
+    "y": 218.42649503108817
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "181384bc-188d-4956-8ab3-984881caff43",
+    "world": [
+     -2.5,
+     0.08352544544463963,
+     0.5
+    ],
+    "distance": 12.515613004271435
+   }
+  },
+  {
+   "step": 5,
+   "what": "the ring on row 6, column 1",
+   "kind": "tap",
+   "at": {
+    "x": 297.72677401157233,
+    "y": 307.34833453390246
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5c8ae036-0594-4a35-bc8a-b52f22452018",
+    "world": [
+     -2.5,
+     0.23,
+     2.5
+    ],
+    "distance": 11.427359469916096
+   }
+  },
+  {
+   "step": 6,
+   "what": "the duck raft",
+   "kind": "tap",
+   "at": {
+    "x": 383.6885316655196,
+    "y": 184.74340936288854
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7db7102b-ea20-42a9-b361-2a3dbfdbfc1c",
+    "world": [
+     -1,
+     0.10591579086977501,
+     -0.5
+    ],
+    "distance": 12.3869220989653
+   }
+  },
+  {
+   "step": 6,
+   "what": "the ring on row 3, column 1",
+   "kind": "tap",
+   "at": {
+    "x": 323.3172068737646,
+    "y": 196.18124332164487
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "764cd6dc-f48d-4f49-872f-b32583522ce0",
+    "world": [
+     -2.5,
+     0.23,
+     -0.5
+    ],
+    "distance": 13.004942777465663
+   }
+  },
+  {
+   "step": 7,
+   "what": "log 6",
+   "kind": "tap",
+   "at": {
+    "x": 410.0671744816856,
+    "y": 139.93170898339915
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5a55fb74-23b2-40ad-8f61-9424dc140867",
+    "world": [
+     -0.5,
+     0.10806307276490264,
+     -2
+    ],
+    "distance": 13.707130874377345
+   }
+  },
+  {
+   "step": 7,
+   "what": "the ring on row 4, column 3",
+   "kind": "tap",
+   "at": {
+    "x": 403.3995955682944,
+    "y": 229.55597182524593
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "56b66389-0065-46b2-84d3-121cccab03ef",
+    "world": [
+     -0.5,
+     0.23,
+     0.5
+    ],
+    "distance": 12.020540157300017
+   }
+  },
+  {
+   "step": 8,
+   "what": "log 8",
+   "kind": "tap",
+   "at": {
+    "x": 510.70806263985645,
+    "y": 154.17771675764183
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9ddaf080-a619-480e-b635-511f355b10f6",
+    "world": [
+     2,
+     0.10323940111830049,
+     -1.5
+    ],
+    "distance": 13.280082640384537
+   }
+  },
+  {
+   "step": 8,
+   "what": "the ring on row 2, column 3",
+   "kind": "tap",
+   "at": {
+    "x": 410.1404944491883,
+    "y": 165.82225812042788
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b8f08cbf-ea26-4a37-8b4c-f4abb1dcd5de",
+    "world": [
+     -0.5,
+     0.23,
+     -1.5
+    ],
+    "distance": 13.25573870839442
+   }
+  },
+  {
+   "step": 9,
+   "what": "log 3",
+   "kind": "tap",
+   "at": {
+    "x": 536.5714283174389,
+    "y": 218.42649503108817
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7550c1b5-050d-4081-91a0-c78d99bee08e",
+    "world": [
+     2.5,
+     0.09323393075487725,
+     0.5
+    ],
+    "distance": 12.020545661409235
+   }
+  },
+  {
+   "step": 9,
+   "what": "the ring on row 2, column 6",
+   "kind": "tap",
+   "at": {
+    "x": 529.8925630682678,
+    "y": 165.82225812042788
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7550c1b5-050d-4081-91a0-c78d99bee08e",
+    "world": [
+     2.5,
+     0.15823654416850683,
+     0.5
+    ],
+    "distance": 12.966686069739191
+   }
+  }
+ ],
+ "fps": 0
+}

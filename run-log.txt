@@ -1,0 +1,20 @@
+    0.0s device iphone-large-tail; levels 27-30,26 (5); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"F90353E4-F95D-488C-9F4E-B43F74E385F2","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  425.6s WEBVIEW_16635.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  427.9s WEBVIEW_16635.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  430.1s WEBVIEW_16635.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  432.2s WEBVIEW_16635.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  504.3s page in WEBVIEW_16635.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  505.2s web view found: WEBVIEW_16635.1, 956 by 440
+  514.5s calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+  520.0s page in WEBVIEW_16635.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  524.6s L27 timber-tangle: opened by its card on the level map
+  667.6s L27: tap fault at step 9 (no-move, known): no move followed the touches for {"piece":3,"to":1}. Last touch: the ring on row 2, column 6 at (530, 166); the first listening object under it has its origin at [2.5, 0.2, 0.5]
+  793.6s L27: ERROR timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!=="playing"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return s.status.kind!=="playing"||!s.busy})(arguments[0]); return { ok: true, v: v === u); the memory watchdog stopped the app while this level ran (the Mac was swapping hard)
+  812.6s page in WEBVIEW_26888.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  812.7s app relaunched after the error
+  812.9s L27 timber-tangle: not won: timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!=="playing"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/s; stars null (saved null); open 43.033s, play nulls, total 298.237s; page errors 0, console errors 0; frames per second 0
+ 2625.6s getContexts: Error: WebDriverError: The operation was aborted due to timeout when running "contexts" with method "GET"
+ 2625.7s fresh app failed: Error: no web view found in 180 s; contexts: 
+ 3826.4s L28: ERROR WebDriverError: Request failed with error code UND_ERR_SOCKET when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (([key,s])=>{const now=JSON.parse(localStorage.getItem(key)??'{"stars":{}}');const merged={...now,stars:{...s,...now.stars??{}}};localStorage.setItem(key,JSON.stringify(merged));history.replaceState(null,"",location.pathname);return true})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"
+ 5034.1s screenshot L28-error failed: Error: WebDriverError: Request failed with error code UND_ERR_SOCKET when running "screenshot" with method "GET"

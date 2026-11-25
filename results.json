@@ -1,0 +1,45 @@
+[
+ {
+  "level": 27,
+  "id": "timber-tangle",
+  "title": "Timber Tangle",
+  "device": "iphone-large-tail",
+  "size": "956x440",
+  "quality": "SD",
+  "openedBy": "its card on the level map",
+  "state": "not won: timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/s",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 8,
+  "moves": 30,
+  "touches": 18,
+  "stars": null,
+  "savedStars": null,
+  "fault": {
+   "kind": "no-move",
+   "step": 9,
+   "detail": "no move followed the touches for {\"piece\":3,\"to\":1}. Last touch: the ring on row 2, column 6 at (530, 166); the first listening object under it has its origin at [2.5, 0.2, 0.5]",
+   "known": true,
+   "knownReason": "Level 27, move 9: with the long log picked, a tap on the middle of the ring right behind its own far end is lost. The picked log's unseen grab box takes the touch and the log is put down. Dragging the log works."
+  },
+  "error": "timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy})(arguments[0]); return { ok: true, v: v === u); the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+  "seconds": {
+   "open": 43.033,
+   "rulesCard": 42.615,
+   "drawn": 43.033,
+   "play": null,
+   "total": 298.237
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone-large-tail-L27-loading-mark.png",
+   "iphone-large-tail-L27-rules-card.png",
+   "iphone-large-tail-L27-fault-step-9.png",
+   "iphone-large-tail-L27-error.png"
+  ],
+  "fps": 0
+ }
+]
