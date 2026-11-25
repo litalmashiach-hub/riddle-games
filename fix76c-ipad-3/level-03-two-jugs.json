@@ -1,0 +1,123 @@
+{
+ "level": 3,
+ "id": "two-jugs",
+ "title": "Two Jugs",
+ "device": "fix76c-ipad-3",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won, finished by the debug hook after a NEW tap fault at step 3 (no-response)",
+ "wonByTaps": false,
+ "won": true,
+ "finishedByHook": true,
+ "movesByTaps": 2,
+ "moves": 6,
+ "touches": 5,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": {
+  "kind": "no-response",
+  "step": 3,
+  "detail": "the tap did not pick up the 3 L jug (its buttons did not show): the 3 L jug at (585, 620); the first listening object under it has its origin at [4.2, 0.6, 0.7]",
+  "known": false
+ },
+ "error": null,
+ "seconds": {
+  "open": 29.752,
+  "rulesCard": 29.119,
+  "drawn": 29.752,
+  "play": 40.621,
+  "total": 100.053
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76c-ipad-3-L03-loading-mark.png",
+  "fix76c-ipad-3-L03-rules-card.png",
+  "fix76c-ipad-3-L03-fault-step-3.png",
+  "fix76c-ipad-3-L03-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 848.6150007359995,
+    "y": 584.9069853745066
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e3e5b5b8-3690-42ec-a932-1e2490a8da55",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.648921792253681
+   }
+  },
+  {
+   "step": 1,
+   "what": "the fill button",
+   "kind": "button",
+   "at": {
+    "x": 858.0274047851562,
+    "y": 266.6280822753906
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 848.6150007359995,
+    "y": 584.9069853745066
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e3e5b5b8-3690-42ec-a932-1e2490a8da55",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.648921792253681
+   }
+  },
+  {
+   "step": 2,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 858.0274047851562,
+    "y": 312.6280822753906
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "the 3 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 585.3748469001237,
+    "y": 620.4860209204764
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6b75ed4c-f756-4016-a723-3102ba560068",
+    "world": [
+     4.15,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.50243464128015
+   }
+  }
+ ],
+ "fps": 4.4
+}

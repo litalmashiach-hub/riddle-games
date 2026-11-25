@@ -1,0 +1,17 @@
+    0.0s device fix76c-ipad-3; levels 3 (1); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  447.7s WEBVIEW_14425.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  452.2s page in WEBVIEW_14425.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  456.2s web view found: WEBVIEW_14425.1, 1032 by 1376
+  486.2s turned LANDSCAPE: 1376 by 1032
+  496.6s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  509.1s page in WEBVIEW_14425.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  509.1s graphics quality set to SD by the player's setting
+  522.5s page in WEBVIEW_14425.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  534.1s frames capped at 6 a second by the test (page says 6)
+  548.7s page in WEBVIEW_14425.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  558.8s L03 two-jugs: opened by its card on the level map
+  614.1s L03: tap fault at step 3 (no-response, NEW): the tap did not pick up the 3 L jug (its buttons did not show): the 3 L jug at (585, 620); the first listening object under it has its origin at [4.2, 0.6, 0.7]
+  635.2s L03 two-jugs: won, finished by the debug hook after a NEW tap fault at step 3 (no-response); stars 3 (saved 3); open 29.752s, play 40.621s, total 100.053s; page errors 0, console errors 0; frames per second 4.4
+  635.2s script calls: 139, median 58 ms, 90th 1047 ms
+  635.5s done: 1 of 1 levels won, 0 by taps alone
