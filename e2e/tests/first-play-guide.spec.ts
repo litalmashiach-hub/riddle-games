@@ -170,6 +170,53 @@ test('level 1: Skip takes the guide away, and it stays away after a restart', as
   await expect(guide(page)).toHaveCount(0);
 });
 
+test('Reset progress brings the guide back: level 1 shows it again, as on a fresh start', async ({ page }) => {
+  // The guide is seen: shown on the first play, and sent away with Skip.
+  await openLevel(page, `?debug#/level/${one.id}`, one.id, one.title);
+  await expect(guide(page)).toBeVisible();
+  await page.getByRole('button', { name: 'Skip the guide' }).tap();
+  await expect(guide(page)).toHaveCount(0);
+  expect(await guidesSeen(page)).toEqual([one.id]);
+
+  // Reset progress is only offered once there are stars. Three are written beside the seen flag here, as a win
+  // would save them (level-1-by-taps.spec.ts wins the level by taps); the app then starts again and reads them.
+  await page.evaluate(
+    ({ key, id }) => localStorage.setItem(key, JSON.stringify({ ...JSON.parse(localStorage.getItem(key)!), stars: { [id]: 3 } })),
+    { key: PROGRESS_KEY, id: one.id },
+  );
+  await page.goto('about:blank');
+  await page.goto('?debug');
+  expect(await guidesSeen(page), 'still seen before the reset').toEqual([one.id]);
+
+  // Reset, by taps, from the map.
+  await page.getByRole('button', { name: 'About and settings' }).tap();
+  await page.getByRole('button', { name: 'Reset progress' }).tap();
+  await page.getByRole('alertdialog').getByRole('button', { name: 'Erase stars' }).tap();
+  await expect(page.getByTestId('progress-line')).toHaveText('Progress reset. Every star is gone.');
+  expect(
+    await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), PROGRESS_KEY),
+    'the saved entry after the reset: no stars and no seen flag',
+  ).toEqual({ stars: {} });
+
+  // Level 1, opened from the map without a restart: the guide is back, on its first step, over the wolf.
+  await page.getByRole('button', { name: 'Back to levels' }).tap();
+  await page.getByRole('button', { name: /^Level 1:/ }).tap();
+  await passRulesCard(page, one.title);
+  await waitForSession(page, one.id);
+  await page.waitForTimeout(3000);
+  await expect(guide(page), 'shown again after the reset').toBeVisible();
+  await expect(say(page)).toHaveText('Tap the wolf');
+  const r = await ring(page);
+  const wolf = await screenPoint(page, WOLF);
+  expect(Math.hypot(r.x - wolf.x, r.y - wolf.y), 'ring centre to the wolf, in pixels').toBeLessThan(r.r);
+  expect(await guidesSeen(page), 'and shown once is seen again').toEqual([one.id]);
+
+  // It works as on a fresh start: a tap in the ring puts the wolf in the boat, and the guide moves on.
+  await tapScene(page, r, 'the ring over the wolf');
+  await expect(row(page)).toContainText('with wolf');
+  await expect(say(page)).toHaveText('Tap the boat');
+});
+
 test('no other level shows a guide, on a fresh start', async ({ page, faults }) => {
   test.setTimeout(LEVELS.length * 40_000);
   for (const level of LEVELS.slice(1)) {
