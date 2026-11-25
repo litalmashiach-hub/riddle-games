@@ -1,0 +1,36 @@
+    0.0s device ipad-upright-sd; levels 1-30 (30); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  440.2s page in WEBVIEW_14321.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  440.8s web view found: WEBVIEW_14321.1, 1032 by 1376
+  449.7s turned PORTRAIT: 1032 by 1376
+  462.4s calibration: touched [{"x":310,"y":550},{"x":722,"y":1032}], the page saw [{"x":310,"y":550},{"x":722,"y":1032}]: same (error 0.0 pt)
+  468.9s page in WEBVIEW_14321.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  469.3s graphics quality set to SD by the player's setting
+  478.1s page in WEBVIEW_14321.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  481.0s L01 wolf-two-sheep: opened by its card on the level map
+  591.0s L01: tap fault at step 7 (no-response, NEW): the tap did not put wolf in the boat (the Row button reads "Row across ➜alone"): the wolf at (205, 618); the first listening object under it has its origin at [-4.1, 0.4, -0.3]
+  603.4s L01 wolf-two-sheep: won, finished by the debug hook after a NEW tap fault at step 7 (no-response); stars 3 (saved 3); open 23.946s, play 60.394s, total 133.93s; page errors 0, console errors 0; frames per second 12.2
+  604.5s L02 wolf-goat-cabbage: opened by "Next level" on the win card
+  785.7s L02: ERROR the level did not open within 180 s (rules card never, scene never; loading mark seen: false)
+  869.8s page in WEBVIEW_21456.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  870.8s app relaunched after the error
+  873.0s L02 wolf-goat-cabbage: not won: the level did not open within 180 s (rules card never, scene never; loading mark seen: false); stars null (saved null); open nulls, play nulls, total 267.429s; page errors 0, console errors 0; frames per second ?
+  882.3s page in WEBVIEW_21456.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  887.9s L03 two-jugs: opened by its card on the level map
+  902.6s L03: ERROR WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"
+  913.8s page in WEBVIEW_22005.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  913.9s app relaunched after the error
+  914.1s L03 two-jugs: not won: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); r; stars null (saved null); open 13.735s, play nulls, total 40.11s; page errors 0, console errors 0; frames per second 0
+  919.8s page in WEBVIEW_22005.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  924.9s L04 tower-of-hanoi: opened by its card on the level map
+  949.2s script link lost (unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try); finding the web view again
+ 1133.5s L04: ERROR no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)
+ 1152.1s page in WEBVIEW_32803.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1153.0s app relaunched after the error
+ 1154.0s L04 tower-of-hanoi: not won: no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard); stars null (saved null); open 12.282s, play nulls, total 238.933s; page errors 0, console errors 0; frames per second 0
+ 1168.3s page in WEBVIEW_32803.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1171.5s L05 bridge-and-torch: opened by its card on the level map
+ 1758.9s L05: ERROR the level did not open within 180 s (rules card 589.556, scene never; loading mark seen: true); the memory watchdog stopped the app while this level ran (the Mac was swapping hard)
+ 1848.7s page in WEBVIEW_34150.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1851.5s app relaunched after the error
+ 1853.9s L05 bridge-and-torch: not won: the level did not open within 180 s (rules card 589.556, scene never; loading mark seen: true); the memory watchdog stopped the app while this level ran (the Mac was swapping hard); stars null (saved null); open nulls, play nulls, total 696.925s; page errors 0, console errors 0; frames per second 0

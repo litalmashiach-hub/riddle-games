@@ -1,0 +1,34 @@
+{
+ "level": 2,
+ "id": "wolf-goat-cabbage",
+ "title": "Wolf, Goat and Cabbage",
+ "device": "ipad-upright-sd",
+ "size": "1032x1376",
+ "quality": null,
+ "openedBy": "\"Next level\" on the win card",
+ "state": "not won: the level did not open within 180 s (rules card never, scene never; loading mark seen: false)",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 0,
+ "moves": 7,
+ "touches": 0,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "the level did not open within 180 s (rules card never, scene never; loading mark seen: false)",
+ "seconds": {
+  "open": null,
+  "rulesCard": null,
+  "drawn": null,
+  "play": null,
+  "total": 267.429
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "ipad-upright-sd-L02-error.png"
+ ],
+ "log": []
+}

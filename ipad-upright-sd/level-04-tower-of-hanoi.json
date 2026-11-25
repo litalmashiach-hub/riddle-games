@@ -1,0 +1,95 @@
+{
+ "level": 4,
+ "id": "tower-of-hanoi",
+ "title": "Tower of Hanoi",
+ "device": "ipad-upright-sd",
+ "size": "1032x1376",
+ "quality": "SD",
+ "openedBy": "its card on the level map",
+ "state": "not won: no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 1,
+ "moves": 15,
+ "touches": 3,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+ "seconds": {
+  "open": 12.282,
+  "rulesCard": 11.579,
+  "drawn": 12.282,
+  "play": null,
+  "total": 238.933
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "ipad-upright-sd-L04-loading-mark.png",
+  "ipad-upright-sd-L04-rules-card.png",
+  "ipad-upright-sd-L04-error.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the left pillar",
+   "kind": "tap",
+   "at": {
+    "x": 311.7226334838136,
+    "y": 695.2199692228846
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1c44e569-f4e0-4983-9cdc-502a4c5c4e23",
+    "world": [
+     -2.7,
+     0,
+     0
+    ],
+    "distance": 13.714353820112859
+   }
+  },
+  {
+   "step": 1,
+   "what": "the middle pillar",
+   "kind": "tap",
+   "at": {
+    "x": 516,
+    "y": 695.2199692228846
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "582ad290-534e-49e0-a4a5-5223da534659",
+    "world": [
+     0,
+     0,
+     0
+    ],
+    "distance": 13.382885207256539
+   }
+  },
+  {
+   "step": 2,
+   "what": "the left pillar",
+   "kind": "tap",
+   "at": {
+    "x": 311.7226334838136,
+    "y": 695.2199692228846
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "1c44e569-f4e0-4983-9cdc-502a4c5c4e23",
+    "world": [
+     -2.7,
+     0,
+     0
+    ],
+    "distance": 13.714353820112859
+   }
+  }
+ ],
+ "fps": 0
+}

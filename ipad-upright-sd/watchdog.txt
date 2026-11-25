@@ -1,0 +1,62 @@
+01:55:13 WATCHDOG: the Mac wrote 58184 pages to swap in one round; stopping the app
+PID   COMMAND         MEM   CMPRS %CPU
+4865  SimRenderServer 2383M 31M   0.0 
+4867  SimMetalHost    534M  14M   0.0 
+4935  SpringBoard     98M   86M   0.0 
+3622  node            98M   88M   0.0 
+4868  SimMetalHost    94M   13M   0.0 
+1065  Runner.Worker   89M   86M   0.0 
+405   Spotlight       77M   75M   0.0 
+1061  Runner.Listener 73M   65M   0.0 
+159   WindowServer    70M   40M   0.0 
+4159  node            68M   51M   0.0 
+4838  Simulator       61M   60M   0.0 
+2023  diskimagesiod   48M   17M   0.0 
+An error was encountered processing the command (domain=NSPOSIXErrorDomain, code=3):
+Simulator device failed to terminate com.example.riddlegames.
+found nothing to terminate
+Underlying error (domain=NSPOSIXErrorDomain, code=3):
+	The request to terminate "com.example.riddlegames" failed. found nothing to terminate
+	found nothing to terminate
+02:06:09 WATCHDOG: the Mac wrote 76024 pages to swap in one round; stopping the app
+PID    COMMAND          MEM   CMPRS %CPU
+4865   SimRenderServer  2066M 34M   0.0 
+4867   SimMetalHost     374M  27M   0.0 
+14374  com.apple.WebKit 201M  158M  0.0 
+4935   SpringBoard      172M  173M  0.0 
+3622   node             141M  96M   0.0 
+5890   xcodebuild       108M  104M  0.0 
+4159   node             93M   35M   0.0 
+1065   Runner.Worker    89M   81M   0.0 
+159    WindowServer     80M   33M   0.0 
+1061   Runner.Listener  75M   70M   0.0 
+14376  com.apple.WebKit 75M   42M   0.0 
+405    Spotlight        73M   72M   0.0 
+02:07:57 WATCHDOG: the Mac wrote 93458 pages to swap in one round; stopping the app
+PID    COMMAND          MEM   CMPRS %CPU
+4865   SimRenderServer  1836M 30M   0.0 
+4867   SimMetalHost     374M  23M   0.0 
+3622   node             229M  46M   0.0 
+4935   SpringBoard      195M  140M  0.0 
+4159   node             154M  48M   0.0 
+22038  com.apple.WebKit 153M  28M   0.0 
+5890   xcodebuild       108M  96M   0.0 
+1065   Runner.Worker    92M   68M   0.0 
+159    WindowServer     82M   32M   0.0 
+1061   Runner.Listener  76M   58M   0.0 
+405    Spotlight        73M   65M   0.0 
+7478   SWBBuildService  72M   70M   0.0 
+02:20:40 WATCHDOG: the Mac wrote 996355 pages to swap in one round; stopping the app
+PID    COMMAND          MEM   CMPRS %CPU
+4865   SimRenderServer  2726M 34M   0.0 
+4867   SimMetalHost     379M  34M   0.0 
+4935   SpringBoard      196M  214M  0.0 
+32889  com.apple.WebKit 166M  105M  0.0 
+3622   node             143M  116M  0.0 
+5890   xcodebuild       108M  102M  0.0 
+1065   Runner.Worker    92M   71M   0.0 
+4159   node             90M   33M   0.0 
+159    WindowServer     82M   33M   0.0 
+1061   Runner.Listener  79M   52M   0.0 
+405    Spotlight        76M   75M   0.0 
+7478   SWBBuildService  72M   71M   0.0 
