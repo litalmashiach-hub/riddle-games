@@ -110,6 +110,17 @@ jobs:
       - name: Xcode on this runner
         run: xcodebuild -version
 
+      # Capacitor's Swift package downloads its two frameworks from GitHub's release files. That download has
+      # failed on a hosted Mac with "Could not connect to the server", so it gets its own step, tried three times.
+      - name: Fetch the Swift packages
+        run: |
+          for try in 1 2 3; do
+            if xcodebuild -project "$PROJECT" -scheme App -resolvePackageDependencies; then exit 0; fi
+            echo "::warning::Fetching the Swift packages failed (try $try of 3)."
+            sleep $(( try * 20 ))
+          done
+          exit 1
+
       # ── Check mode: stop just before signing ────────────────────────────────────────────────────────────────
       - name: Archive for the App Store, unsigned (check mode)
         if: env.CHECK_ONLY == 'true'
