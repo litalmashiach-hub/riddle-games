@@ -1,0 +1,25 @@
+    0.0s device fix76b-ipad-27; levels 27 (1); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  516.5s WEBVIEW_15235.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  518.7s WEBVIEW_15235.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  520.8s WEBVIEW_15235.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  523.1s WEBVIEW_15235.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  525.2s WEBVIEW_15235.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  527.4s WEBVIEW_15235.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  529.5s WEBVIEW_15235.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  720.6s page in WEBVIEW_15235.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  721.4s web view found: WEBVIEW_15235.1, 1032 by 1376
+  747.1s turned LANDSCAPE: 1376 by 1032
+  808.4s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  854.8s page in WEBVIEW_15235.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  856.9s graphics quality set to SD by the player's setting
+  870.3s page in WEBVIEW_15235.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  870.8s frames capped at 6 a second by the test (page says 6)
+  877.6s page in WEBVIEW_15235.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  885.0s L27 timber-tangle: opened by its card on the level map (scrolled into view by the run)
+ 1069.1s L27: ERROR the level did not open within 180 s (rules card never, scene never; loading mark seen: false)
+ 1171.2s page in WEBVIEW_18760.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1173.9s app relaunched after the error
+ 1175.1s L27 timber-tangle: not won: the level did not open within 180 s (rules card never, scene never; loading mark seen: false); stars null (saved null); open nulls, play nulls, total 303.098s; page errors 0, console errors 0; frames per second 0
+ 1175.4s script calls: 55, median 1010 ms, 90th 11457 ms
+ 1179.7s done: 0 of 1 levels won, 0 by taps alone

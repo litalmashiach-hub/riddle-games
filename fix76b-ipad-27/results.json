@@ -1,0 +1,36 @@
+[
+ {
+  "level": 27,
+  "id": "timber-tangle",
+  "title": "Timber Tangle",
+  "device": "fix76b-ipad-27",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "not won: the level did not open within 180 s (rules card never, scene never; loading mark seen: false)",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 0,
+  "moves": 30,
+  "touches": 0,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "the level did not open within 180 s (rules card never, scene never; loading mark seen: false)",
+  "seconds": {
+   "open": null,
+   "rulesCard": null,
+   "drawn": null,
+   "play": null,
+   "total": 303.098
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-27-L27-error.png"
+  ],
+  "fps": 0
+ }
+]
