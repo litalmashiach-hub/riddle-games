@@ -1,0 +1,3 @@
+device iPad Pro 13-inch (M5): 2A020491-3EBC-4783-8622-F8314CC00294
+    iPad Pro 13-inch (M5) (2A020491-3EBC-4783-8622-F8314CC00294) (Shutdown) 
+booted in 159 s

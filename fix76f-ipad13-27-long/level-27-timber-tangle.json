@@ -1,0 +1,425 @@
+{
+ "level": 27,
+ "id": "timber-tangle",
+ "title": "Timber Tangle",
+ "device": "fix76f-ipad13-27-long",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map (scrolled into view by the run)",
+ "state": "won, finished by the debug hook after a NEW tap fault at step 10 (no-move)",
+ "wonByTaps": false,
+ "won": true,
+ "finishedByHook": true,
+ "movesByTaps": 9,
+ "moves": 30,
+ "touches": 20,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": {
+  "kind": "no-move",
+  "step": 10,
+  "detail": "no move followed the touches for {\"piece\":4,\"to\":1}. Last touch: the ring on row 2, column 5 at (712, 406); the first listening object under it has its origin at [1.5, 0.2, 0.5]",
+  "known": false,
+  "knownReason": "Level 27: with a log picked, a tap on the middle of its ring is lost to a log's unseen grab box (another log at move 2, the picked log itself at move 9). Which move it stops at changes from run to run. Dragging the log works."
+ },
+ "error": null,
+ "seconds": {
+  "open": 66.499,
+  "rulesCard": 66.13,
+  "drawn": 66.499,
+  "play": 76.667,
+  "total": 204.237
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76f-ipad13-27-long-L27-loading-mark.png",
+  "fix76f-ipad13-27-long-L27-rules-card.png",
+  "fix76f-ipad13-27-long-L27-fault-step-10.png",
+  "fix76f-ipad13-27-long-L27-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "log 2",
+   "kind": "tap",
+   "at": {
+    "x": 629.7393991181749,
+    "y": 413.753613749635
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d943f8de-dd8f-4983-bceb-8cb21890121d",
+    "world": [
+     0.5,
+     0.11163310915352674,
+     -1
+    ],
+    "distance": 11.95624333580319
+   }
+  },
+  {
+   "step": 1,
+   "what": "the ring on row 4, column 4",
+   "kind": "tap",
+   "at": {
+    "x": 626.9284463168665,
+    "y": 535.5885721189131
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e5bdb05a-b56f-4318-9ecf-57b89c6897c1",
+    "world": [
+     0.5,
+     0.23,
+     0.5
+    ],
+    "distance": 11.015325218652292
+   }
+  },
+  {
+   "step": 2,
+   "what": "log 4",
+   "kind": "tap",
+   "at": {
+    "x": 716.4562932656643,
+    "y": 590.9385523999256
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "48000b30-4ccd-44e3-a9f8-3fc708a5e829",
+    "world": [
+     1.5,
+     0.11589293555414001,
+     1.5
+    ],
+    "distance": 10.362523255465284
+   }
+  },
+  {
+   "step": 2,
+   "what": "the ring on row 3, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 712.8942744986826,
+    "y": 467.631486776172
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3f89c456-8488-4ec6-b9fa-8d4ca20876b9",
+    "world": [
+     1.5,
+     0.23,
+     -0.5
+    ],
+    "distance": 11.574736643161108
+   }
+  },
+  {
+   "step": 3,
+   "what": "log 7",
+   "kind": "tap",
+   "at": {
+    "x": 567.4392051619425,
+    "y": 676.4914514980007
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "36c28782-1418-4fb7-95a5-b3184ec6d372",
+    "world": [
+     0,
+     0.1111844497465193,
+     2.5
+    ],
+    "distance": 10.032414737226603
+   }
+  },
+  {
+   "step": 3,
+   "what": "the ring on row 6, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 717.171622383071,
+    "y": 694.8555900814152
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b5884107-4482-4624-859a-5efa46e563f4",
+    "world": [
+     1.5,
+     0.23,
+     2.5
+    ],
+    "distance": 10.023143187892535
+   }
+  },
+  {
+   "step": 4,
+   "what": "log 9",
+   "kind": "tap",
+   "at": {
+    "x": 366.5045470985131,
+    "y": 676.4914514980007
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "284a305f-2e67-4516-88bc-cceb9292c66e",
+    "world": [
+     -2,
+     0.11664518532547116,
+     2.5
+    ],
+    "distance": 10.442032435396799
+   }
+  },
+  {
+   "step": 4,
+   "what": "the ring on row 6, column 3",
+   "kind": "tap",
+   "at": {
+    "x": 522.6941398292637,
+    "y": 694.8555900814152
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f415051b-f718-4f6e-8017-7b6a3bd34980",
+    "world": [
+     -0.5,
+     0.23,
+     2.5
+    ],
+    "distance": 10.150380952736963
+   }
+  },
+  {
+   "step": 5,
+   "what": "log 5",
+   "kind": "tap",
+   "at": {
+    "x": 355.60940921894894,
+    "y": 514.4393562330717
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "eb548f5b-f579-4071-a8c7-dd9e4744df32",
+    "world": [
+     -2.5,
+     0.08974648017100303,
+     0.5
+    ],
+    "distance": 11.615189315121293
+   }
+  },
+  {
+   "step": 5,
+   "what": "the ring on row 6, column 1",
+   "kind": "tap",
+   "at": {
+    "x": 328.2166572754563,
+    "y": 694.8555900814152
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3cdaacec-e6a7-46dd-a192-570cbc6c9644",
+    "world": [
+     -2.5,
+     0.23,
+     2.5
+    ],
+    "distance": 10.626894154915192
+   }
+  },
+  {
+   "step": 6,
+   "what": "the duck raft",
+   "kind": "tap",
+   "at": {
+    "x": 500.29439801399997,
+    "y": 445.6289135567403
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "051f4a75-38b5-4778-82d2-4d4f84785a77",
+    "world": [
+     -1,
+     0.10895438617954631,
+     -0.5
+    ],
+    "distance": 11.45647194208191
+   }
+  },
+  {
+   "step": 6,
+   "what": "the ring on row 3, column 1",
+   "kind": "tap",
+   "at": {
+    "x": 380.9706145162467,
+    "y": 467.631486776172
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "57cd47c0-4ab1-469c-8523-e505de3283d6",
+    "world": [
+     -2.5,
+     0.23,
+     -0.5
+    ],
+    "distance": 12.101322587771579
+   }
+  },
+  {
+   "step": 7,
+   "what": "log 6",
+   "kind": "tap",
+   "at": {
+    "x": 553.1219664929372,
+    "y": 354.47172600581655
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "343a7684-3f6b-434d-9feb-edb0cedbb501",
+    "world": [
+     -0.5,
+     0.1113845861375128,
+     -2
+    ],
+    "distance": 12.726678107868874
+   }
+  },
+  {
+   "step": 7,
+   "what": "the ring on row 4, column 3",
+   "kind": "tap",
+   "at": {
+    "x": 539.6833696266756,
+    "y": 535.5885721189131
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c3cd3d77-4de4-499e-8767-7a07804c964e",
+    "world": [
+     -0.5,
+     0.23,
+     0.5
+    ],
+    "distance": 11.114743955876635
+   }
+  },
+  {
+   "step": 8,
+   "what": "log 8",
+   "kind": "tap",
+   "at": {
+    "x": 752.9905587737059,
+    "y": 383.4035219571236
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9aea94b9-c66d-4d38-8c30-fb52882ead4e",
+    "world": [
+     2,
+     0.08970553083805811,
+     -1.5
+    ],
+    "distance": 12.32544873960692
+   }
+  },
+  {
+   "step": 8,
+   "what": "the ring on row 2, column 3",
+   "kind": "tap",
+   "at": {
+    "x": 553.5059323552191,
+    "y": 406.0077510560229
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "6eefab9a-9764-416f-a904-da002e406b45",
+    "world": [
+     -0.5,
+     0.23,
+     -1.5
+    ],
+    "distance": 12.303602915288822
+   }
+  },
+  {
+   "step": 9,
+   "what": "log 3",
+   "kind": "tap",
+   "at": {
+    "x": 804.7858832473963,
+    "y": 514.4393562330717
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "28d56ea9-87de-44f4-8035-839d1efba8ea",
+    "world": [
+     2.5,
+     0.11549812038927192,
+     0.5
+    ],
+    "distance": 11.066685085242312
+   }
+  },
+  {
+   "step": 9,
+   "what": "the ring on row 2, column 6",
+   "kind": "tap",
+   "at": {
+    "x": 790.8484046695384,
+    "y": 406.007751056023
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9bbfbe0f-4487-404d-a204-9c0c32cb4173",
+    "world": [
+     2.5,
+     0.23,
+     -1.5
+    ],
+    "distance": 12.25881613089511
+   }
+  },
+  {
+   "step": 10,
+   "what": "log 4",
+   "kind": "tap",
+   "at": {
+    "x": 714.9505884417068,
+    "y": 514.4393562330717
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "48000b30-4ccd-44e3-a9f8-3fc708a5e829",
+    "world": [
+     1.5,
+     0.09065557307854363,
+     0.5
+    ],
+    "distance": 10.946417322058416
+   }
+  },
+  {
+   "step": 10,
+   "what": "the ring on row 2, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 711.7342472314319,
+    "y": 406.0077510560229
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "48000b30-4ccd-44e3-a9f8-3fc708a5e829",
+    "world": [
+     1.5,
+     0.18154022695852315,
+     0.5
+    ],
+    "distance": 11.88793403877138
+   }
+  }
+ ],
+ "fps": 6.3
+}
