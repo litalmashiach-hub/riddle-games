@@ -1,0 +1,22 @@
+    0.0s device fix76b-ipad-12to14; levels 12-14 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  576.9s page in WEBVIEW_16029.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  577.9s web view found: WEBVIEW_16029.1, 1032 by 1376
+  602.9s turned LANDSCAPE: 1376 by 1032
+  667.4s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  674.6s page in WEBVIEW_16029.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  674.6s graphics quality set to SD by the player's setting
+  682.4s page in WEBVIEW_16029.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  682.4s frames capped at 6 a second by the test (page says 6)
+  689.3s page in WEBVIEW_16029.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  695.0s L12 twelve-coins: opened by its card on the level map (scrolled into view by the run)
+  778.2s L12 twelve-coins: won by taps; stars 3 (saved 3); open 24.801s, play 49.667s, total 95.678s; page errors 0, console errors 0; frames per second 5.1
+  809.6s page in WEBVIEW_19454.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  810.7s L13: fresh app
+  815.8s page in WEBVIEW_19454.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  839.5s L13 leapfrog-lagoon: opened by its card on the level map (scrolled into view by the run)
+  914.7s L13 leapfrog-lagoon: won by taps; stars 3 (saved 3); open 39.75s, play 29.257s, total 103.512s; page errors 0, console errors 0; frames per second 6.3
+  934.7s page in WEBVIEW_20974.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  935.1s L14: fresh app
+  939.4s page in WEBVIEW_20974.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  943.0s L14 firefly-lanterns: opened by its card on the level map (scrolled into view by the run)

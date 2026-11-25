@@ -1,0 +1,76 @@
+[
+ {
+  "level": 12,
+  "id": "twelve-coins",
+  "title": "The Twelve Coins",
+  "device": "fix76b-ipad-12to14",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 4,
+  "moves": 4,
+  "touches": 30,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 24.801,
+   "rulesCard": 23.646,
+   "drawn": 24.801,
+   "play": 49.667,
+   "total": 95.678
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-12to14-L12-loading-mark.png",
+   "fix76b-ipad-12to14-L12-rules-card.png",
+   "fix76b-ipad-12to14-L12-in-play.png",
+   "fix76b-ipad-12to14-L12-win-card.png"
+  ],
+  "fps": 5.1
+ },
+ {
+  "level": 13,
+  "id": "leapfrog-lagoon",
+  "title": "Leapfrog Lagoon",
+  "device": "fix76b-ipad-12to14",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 15,
+  "moves": 15,
+  "touches": 15,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 39.75,
+   "rulesCard": 39.429,
+   "drawn": 39.75,
+   "play": 29.257,
+   "total": 103.512
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-12to14-L13-loading-mark.png",
+   "fix76b-ipad-12to14-L13-rules-card.png",
+   "fix76b-ipad-12to14-L13-in-play.png",
+   "fix76b-ipad-12to14-L13-win-card.png"
+  ],
+  "fps": 6.3
+ }
+]

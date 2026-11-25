@@ -1,0 +1,569 @@
+{
+ "level": 12,
+ "id": "twelve-coins",
+ "title": "The Twelve Coins",
+ "device": "fix76b-ipad-12to14",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map (scrolled into view by the run)",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 4,
+ "moves": 4,
+ "touches": 30,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 24.801,
+  "rulesCard": 23.646,
+  "drawn": 24.801,
+  "play": 49.667,
+  "total": 95.678
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76b-ipad-12to14-L12-loading-mark.png",
+  "fix76b-ipad-12to14-L12-rules-card.png",
+  "fix76b-ipad-12to14-L12-in-play.png",
+  "fix76b-ipad-12to14-L12-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "coin 5 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 816.1700303797093,
+    "y": 573.8649730056982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a8f49675-4060-47f4-bb76-a2d459e1173e",
+    "world": [
+     1.2000000000000002,
+     0.95,
+     1.15
+    ],
+    "distance": 9.231453650654588
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 5 on the left pan",
+   "kind": "tap",
+   "at": {
+    "x": 507.4542507355749,
+    "y": 414.9544591863163
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a8f49675-4060-47f4-bb76-a2d459e1173e",
+    "world": [
+     -1.9,
+     1.635,
+     -0.7
+    ],
+    "distance": 10.463864544595248
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 6 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 901.3756240524681,
+    "y": 573.8649730056982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d80048a7-8f97-4bde-852f-838ce6cfbae5",
+    "world": [
+     2,
+     0.95,
+     1.15
+    ],
+    "distance": 9.36829415653372
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 6 on the left pan",
+   "kind": "tap",
+   "at": {
+    "x": 507.4542507355749,
+    "y": 414.9544591863163
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d80048a7-8f97-4bde-852f-838ce6cfbae5",
+    "world": [
+     -1.9,
+     1.635,
+     -0.7
+    ],
+    "distance": 10.463864544595248
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 7 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 459.8239937218102,
+    "y": 624.2301175870582
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "63a1a1ab-b72c-46d9-85e3-69e99b19aa73",
+    "world": [
+     -2,
+     0.95,
+     1.8699999999999999
+    ],
+    "distance": 8.824973662238518
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 7 on the left pan",
+   "kind": "tap",
+   "at": {
+    "x": 507.4542507355749,
+    "y": 414.9544591863163
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "63a1a1ab-b72c-46d9-85e3-69e99b19aa73",
+    "world": [
+     -1.9,
+     1.635,
+     -0.7
+    ],
+    "distance": 10.463864544595248
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 8 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 550.9290202989911,
+    "y": 624.2301175870582
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "beea42f9-b9e8-428a-86be-f830f8df166a",
+    "world": [
+     -1.2000000000000002,
+     0.95,
+     1.8699999999999999
+    ],
+    "distance": 8.679599626906604
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 8 on the left pan",
+   "kind": "tap",
+   "at": {
+    "x": 507.4542507355749,
+    "y": 414.9544591863163
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "beea42f9-b9e8-428a-86be-f830f8df166a",
+    "world": [
+     -1.9,
+     1.635,
+     -0.7
+    ],
+    "distance": 10.463864544595248
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 1 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 474.6243759475319,
+    "y": 573.8649730056982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "42a4affe-d403-414e-80b7-e8703d946138",
+    "world": [
+     -2,
+     0.95,
+     1.15
+    ],
+    "distance": 9.36829415653372
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 2 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 559.8299696202907,
+    "y": 573.8649730056982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a4a99d07-1e71-412c-9fd6-53f8a5d0593d",
+    "world": [
+     -1.2000000000000002,
+     0.95,
+     1.15
+    ],
+    "distance": 9.231453650654588
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 3 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 645.0355632930497,
+    "y": 573.8649730056982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e59cf1ac-b393-4043-8b1f-cbaa7e57861a",
+    "world": [
+     -0.4,
+     0.95,
+     1.15
+    ],
+    "distance": 9.162119957387917
+   }
+  },
+  {
+   "step": 1,
+   "what": "coin 4 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 730.9644367069503,
+    "y": 573.8649730056982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "daff3113-d5d7-4e0a-be14-db610b05992f",
+    "world": [
+     0.4,
+     0.95,
+     1.15
+    ],
+    "distance": 9.16211995738792
+   }
+  },
+  {
+   "step": 1,
+   "what": "the \"Weigh\" button",
+   "kind": "button",
+   "at": {
+    "x": 1254,
+    "y": 181.5
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "coin 9 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 642.0340468761719,
+    "y": 624.2301175870582
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "76b4044c-8f16-45d3-b90e-4dc6e9e2961b",
+    "world": [
+     -0.4,
+     0.95,
+     1.8699999999999999
+    ],
+    "distance": 8.605824421917891
+   }
+  },
+  {
+   "step": 2,
+   "what": "coin 9 on the left pan",
+   "kind": "tap",
+   "at": {
+    "x": 507.45634010254287,
+    "y": 414.97205653905087
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "76b4044c-8f16-45d3-b90e-4dc6e9e2961b",
+    "world": [
+     -1.8999999883643857,
+     1.634789725576151,
+     -0.7
+    ],
+    "distance": 10.463965844197526
+   }
+  },
+  {
+   "step": 2,
+   "what": "coin 10 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 733.9659531238281,
+    "y": 624.2301175870582
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "68885978-330e-4ff4-8749-42bf4f69c230",
+    "world": [
+     0.4,
+     0.95,
+     1.8699999999999999
+    ],
+    "distance": 8.60582442191789
+   }
+  },
+  {
+   "step": 2,
+   "what": "coin 10 on the left pan",
+   "kind": "tap",
+   "at": {
+    "x": 507.45425286093564,
+    "y": 414.9544770962639
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "68885978-330e-4ff4-8749-42bf4f69c230",
+    "world": [
+     -1.899999999999988,
+     1.6349997859927796,
+     -0.7
+    ],
+    "distance": 10.46386464769366
+   }
+  },
+  {
+   "step": 2,
+   "what": "coin 11 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 825.070979701009,
+    "y": 624.2301175870582
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b423ce21-f3dc-4b2f-9a96-896d8a256ec6",
+    "world": [
+     1.2000000000000002,
+     0.95,
+     1.8699999999999999
+    ],
+    "distance": 8.679599626906604
+   }
+  },
+  {
+   "step": 2,
+   "what": "coin 11 on the left pan",
+   "kind": "tap",
+   "at": {
+    "x": 507.45425074277614,
+    "y": 414.9544592470003
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "b423ce21-f3dc-4b2f-9a96-896d8a256ec6",
+    "world": [
+     -1.9,
+     1.6349999992748818,
+     -0.7
+    ],
+    "distance": 10.463864544944572
+   }
+  },
+  {
+   "step": 2,
+   "what": "coin 1 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 474.6243759475319,
+    "y": 573.8649730056982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "42a4affe-d403-414e-80b7-e8703d946138",
+    "world": [
+     -2,
+     0.9500000000000001,
+     1.15
+    ],
+    "distance": 9.36829415653372
+   }
+  },
+  {
+   "step": 2,
+   "what": "coin 2 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 559.8299696202907,
+    "y": 573.8649730056982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a4a99d07-1e71-412c-9fd6-53f8a5d0593d",
+    "world": [
+     -1.2000000000000002,
+     0.9500000000000001,
+     1.15
+    ],
+    "distance": 9.231453650654588
+   }
+  },
+  {
+   "step": 2,
+   "what": "coin 3 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 645.0355632930497,
+    "y": 573.8649730056982
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e59cf1ac-b393-4043-8b1f-cbaa7e57861a",
+    "world": [
+     -0.40000000000000013,
+     0.9500000000000001,
+     1.1499999999999997
+    ],
+    "distance": 9.162119957387919
+   }
+  },
+  {
+   "step": 2,
+   "what": "the \"Weigh\" button",
+   "kind": "button",
+   "at": {
+    "x": 1254,
+    "y": 181.5
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "coin 10 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 733.9659531238281,
+    "y": 624.2301175870582
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "68885978-330e-4ff4-8749-42bf4f69c230",
+    "world": [
+     0.3999999999999999,
+     0.9500000000000001,
+     1.8699999999999999
+    ],
+    "distance": 8.60582442191789
+   }
+  },
+  {
+   "step": 3,
+   "what": "coin 10 on the left pan",
+   "kind": "tap",
+   "at": {
+    "x": 507.4755155381722,
+    "y": 415.13269973339345
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "68885978-330e-4ff4-8749-42bf4f69c230",
+    "world": [
+     -1.899998806014064,
+     1.6328699424586166,
+     -0.7
+    ],
+    "distance": 10.464890645765465
+   }
+  },
+  {
+   "step": 3,
+   "what": "coin 9 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 642.0340468761719,
+    "y": 624.2301175870582
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "76b4044c-8f16-45d3-b90e-4dc6e9e2961b",
+    "world": [
+     -0.40000000000000013,
+     0.9500000000000001,
+     1.87
+    ],
+    "distance": 8.605824421917891
+   }
+  },
+  {
+   "step": 3,
+   "what": "the \"Weigh\" button",
+   "kind": "button",
+   "at": {
+    "x": 1254,
+    "y": 181.5
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "the \"Name the fake\" button",
+   "kind": "button",
+   "at": {
+    "x": 1254,
+    "y": 155.5
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "coin 9 on the table",
+   "kind": "tap",
+   "at": {
+    "x": 642.0340468761719,
+    "y": 624.2301175870582
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "76b4044c-8f16-45d3-b90e-4dc6e9e2961b",
+    "world": [
+     -0.3999999999999999,
+     0.9500000000000001,
+     1.8699999999999999
+    ],
+    "distance": 8.605824421917891
+   }
+  },
+  {
+   "step": 4,
+   "what": "the \"Lighter\" button",
+   "kind": "button",
+   "at": {
+    "x": 1254,
+    "y": 181.5
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 5.1
+}
