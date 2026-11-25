@@ -1,0 +1,3 @@
+device iPhone 17 Pro Max: F90353E4-F95D-488C-9F4E-B43F74E385F2
+    iPhone 17 Pro Max (F90353E4-F95D-488C-9F4E-B43F74E385F2) (Shutdown) 
+booted in 167 s

@@ -1,0 +1,153 @@
+{
+ "level": 17,
+ "id": "moonbeam-mirrors",
+ "title": "Moonbeam Mirrors",
+ "device": "fix76b-iphone-large-17",
+ "size": "956x440",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 6,
+ "moves": 6,
+ "touches": 6,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 32.803,
+  "rulesCard": 32.121,
+  "drawn": 32.803,
+  "play": 30.827,
+  "total": 132.016
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76b-iphone-large-17-L17-loading-mark.png",
+  "fix76b-iphone-large-17-L17-rules-card.png",
+  "fix76b-iphone-large-17-L17-in-play.png",
+  "fix76b-iphone-large-17-L17-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the crystal on row 1, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 578.6607135190372,
+    "y": 113.65389546883999
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "268aefcd-f008-4857-8197-045e5db69890",
+    "world": [
+     2.6,
+     -0.0006416193406659023,
+     -2.6
+    ],
+    "distance": 13.846543936507208
+   }
+  },
+  {
+   "step": 2,
+   "what": "the crystal on row 4, column 3",
+   "kind": "tap",
+   "at": {
+    "x": 477.36445054643434,
+    "y": 235.7069256214346
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8f186c7c-3c0d-421b-9b0e-5ce74d8a7aea",
+    "world": [
+     0,
+     0.0156049323897002,
+     1.3
+    ],
+    "distance": 10.946977327723301
+   }
+  },
+  {
+   "step": 3,
+   "what": "the crystal on row 4, column 5",
+   "kind": "tap",
+   "at": {
+    "x": 599.531106850206,
+    "y": 238.64761109832244
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "e32c68f8-91d1-4fb7-9786-1fb987db954d",
+    "world": [
+     2.6,
+     -0.014784662776287066,
+     1.3
+    ],
+    "distance": 11.426687529503484
+   }
+  },
+  {
+   "step": 4,
+   "what": "the crystal on row 5, column 1",
+   "kind": "tap",
+   "at": {
+    "x": 344.931325354755,
+    "y": 292.0134962638502
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "de501443-851a-4149-b25b-6b77a64663ec",
+    "world": [
+     -2.6,
+     -0.0033943161097067893,
+     2.6
+    ],
+    "distance": 10.671705235819521
+   }
+  },
+  {
+   "step": 5,
+   "what": "the crystal on row 5, column 2",
+   "kind": "tap",
+   "at": {
+    "x": 411.62066547519834,
+    "y": 289.6493980661023
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5a97b938-55b0-4e5d-a953-d4bbe38f8b36",
+    "world": [
+     -1.3,
+     -0.015375313081644706,
+     2.6
+    ],
+    "distance": 10.2206000744221
+   }
+  },
+  {
+   "step": 6,
+   "what": "the crystal on row 3, column 2",
+   "kind": "tap",
+   "at": {
+    "x": 421.538541802032,
+    "y": 190.78056795052777
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "380c302d-9ba7-49ba-93f5-3eaa91d32a3b",
+    "world": [
+     -1.3,
+     -0.015691942786392576,
+     0
+    ],
+    "distance": 11.966852212676555
+   }
+  }
+ ],
+ "fps": 5.5
+}

@@ -1,0 +1,39 @@
+[
+ {
+  "level": 17,
+  "id": "moonbeam-mirrors",
+  "title": "Moonbeam Mirrors",
+  "device": "fix76b-iphone-large-17",
+  "size": "956x440",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 6,
+  "moves": 6,
+  "touches": 6,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 32.803,
+   "rulesCard": 32.121,
+   "drawn": 32.803,
+   "play": 30.827,
+   "total": 132.016
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-iphone-large-17-L17-loading-mark.png",
+   "fix76b-iphone-large-17-L17-rules-card.png",
+   "fix76b-iphone-large-17-L17-in-play.png",
+   "fix76b-iphone-large-17-L17-win-card.png"
+  ],
+  "fps": 5.5
+ }
+]
