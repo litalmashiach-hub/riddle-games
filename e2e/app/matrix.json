@@ -1,58 +1,10 @@
 [
  {
-  "label": "fix76c-ipad-9to11",
-  "sim": "iPad Pro 13-inch (M5)",
-  "orientation": "LANDSCAPE",
-  "levels": "9-11",
-  "extras": "0",
-  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
- },
- {
-  "label": "fix76c-ipad-15to16",
-  "sim": "iPad Pro 13-inch (M5)",
-  "orientation": "LANDSCAPE",
-  "levels": "15-16",
-  "extras": "0",
-  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
- },
- {
-  "label": "fix76c-ipad-26",
-  "sim": "iPad Pro 13-inch (M5)",
-  "orientation": "LANDSCAPE",
-  "levels": "26",
-  "extras": "0",
-  "flags": "quality=low relaunch-each level-minutes=15 fps=6 sit-seconds=40"
- },
- {
-  "label": "fix76c-ipad-3",
-  "sim": "iPad Pro 13-inch (M5)",
-  "orientation": "LANDSCAPE",
-  "levels": "3",
-  "extras": "0",
-  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
- },
- {
-  "label": "fix76c-ipad-14",
-  "sim": "iPad Pro 13-inch (M5)",
-  "orientation": "LANDSCAPE",
-  "levels": "14",
-  "extras": "0",
-  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
- },
- {
-  "label": "fix76c-ipad-27",
+  "label": "fix76d-ipad-27-fps3",
   "sim": "iPad Pro 13-inch (M5)",
   "orientation": "LANDSCAPE",
   "levels": "27",
   "extras": "0",
-  "flags": "quality=low relaunch-each level-minutes=15 fps=6 sit-seconds=40"
- },
- {
-  "label": "fix76c-ipad-28to30",
-  "sim": "iPad Pro 13-inch (M5)",
-  "orientation": "LANDSCAPE",
-  "levels": "28-30",
-  "extras": "0",
-  "flags": "quality=low relaunch-each level-minutes=15 fps=6"
+  "flags": "quality=low relaunch-each level-minutes=15 fps=3 sit-seconds=40"
  }
 ]
