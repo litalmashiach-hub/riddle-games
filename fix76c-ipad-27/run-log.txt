@@ -1,0 +1,17 @@
+    0.0s device fix76c-ipad-27; levels 27 (1); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  676.0s page in WEBVIEW_14086.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  680.2s web view found: WEBVIEW_14086.1, 1032 by 1376
+  728.9s turned LANDSCAPE: 1376 by 1032
+  762.3s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  778.7s page in WEBVIEW_14086.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  779.7s graphics quality set to SD by the player's setting
+  791.2s page in WEBVIEW_14086.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  792.8s frames capped at 6 a second by the test (page says 6)
+  803.9s page in WEBVIEW_14086.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1095.1s L27: ERROR WebDriverError: The previously found element "Application 'com.example.riddlegames'" is not present in the current view anymore. Make sure the application UI has the expected state. Original error: XCTPerformOnMainRunLoop work timed out after 60.0s when running "execute/sync" with method "POST" and args "mobile: tap"
+ 1132.4s page in WEBVIEW_19180.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1134.4s app relaunched after the error
+ 1134.4s L27 timber-tangle: not won: WebDriverError: The previously found element "Application 'com.example.riddlegames'" is not present in the current view anymore. Make sure the application UI has the expected state. Original error: XC; stars null (saved null); open nulls, play nulls, total 341.373s; page errors 0, console errors 0; frames per second ?
+ 1134.5s script calls: 27, median 1185 ms, 90th 4982 ms
+ 1135.5s done: 0 of 1 levels won, 0 by taps alone

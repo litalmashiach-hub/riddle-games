@@ -1,0 +1,34 @@
+{
+ "level": 27,
+ "id": "timber-tangle",
+ "title": "Timber Tangle",
+ "device": "fix76c-ipad-27",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "",
+ "state": "not won: WebDriverError: The previously found element \"Application 'com.example.riddlegames'\" is not present in the current view anymore. Make sure the application UI has the expected state. Original error: XC",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 0,
+ "moves": 30,
+ "touches": 0,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "WebDriverError: The previously found element \"Application 'com.example.riddlegames'\" is not present in the current view anymore. Make sure the application UI has the expected state. Original error: XCTPerformOnMainRunLoop work timed out after 60.0s when running \"execute/sync\" with method \"POST\" and args \"mobile: tap\"",
+ "seconds": {
+  "open": null,
+  "rulesCard": null,
+  "drawn": null,
+  "play": null,
+  "total": 341.373
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76c-ipad-27-L27-error.png"
+ ],
+ "log": []
+}
