@@ -113,7 +113,7 @@ was seen on main in a run of the whole level, at one size or another, and each e
   17 or 19).
 - Level 27, Timber Tangle: the tap on the ring is lost to another log (move 2) or to the picked log
   itself (move 9).
-- Level 7, Jealous Couples, only sometimes (3 runs in about 48): a tap on the sliver of Mrs Coral that
+- Level 7, Jealous Couples, only sometimes (3 runs in about 50): a tap on the sliver of Mrs Coral that
   shows beside Mr Teal's top hat puts Mr Teal in the basket (move 1 or 10). Most runs win.
 
 Level 7's player taps each bird on its *visible middle* (`tapVisible` in `harness.ts`): the middle of

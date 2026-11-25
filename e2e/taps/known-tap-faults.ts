@@ -39,7 +39,7 @@ export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {
       kind: 'wrong-pick',
       sometimes: true,
       reason:
-        "Level 7, now and then (3 runs in about 48): a tap on the part of Mrs Coral that shows beside Mr Teal's top hat puts Mr Teal in the basket (move 1 at 667 and 956 wide, move 10 at 956). Only a sliver of her shows there, and his unseen tap sphere lies right behind it.",
+        "Level 7, now and then (3 runs in about 50): a tap on the part of Mrs Coral that shows beside Mr Teal's top hat puts Mr Teal in the basket (move 1 at 667 and 956 wide, move 10 at 956). Only a sliver of her shows there, and his unseen tap sphere lies right behind it.",
     },
   ],
   'log-jam': [
