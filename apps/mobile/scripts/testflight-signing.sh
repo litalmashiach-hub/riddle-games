@@ -19,6 +19,7 @@
 set -euo pipefail
 
 die() { echo "::error title=Signing::$*"; echo "Stopped: $*" >&2; exit 1; }
+here="$(cd "$(dirname "$0")" && pwd)"
 tmp="${RUNNER_TEMP:-${TMPDIR:-/tmp}}"
 keychain="${KEYCHAIN:-$tmp/testflight.keychain-db}"
 profiles_dirs=("$HOME/Library/MobileDevice/Provisioning Profiles" "$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles")
@@ -79,35 +80,9 @@ case "${1:-}" in
       || die "Secret APPSTORE_PROVISIONING_PROFILE is not base64 text. Paste the whole of APPSTORE_PROVISIONING_PROFILE.txt again."
     security cms -D -i "$raw" >"$plist" 2>/dev/null \
       || die "Secret APPSTORE_PROVISIONING_PROFILE is not a provisioning profile. Paste the whole of APPSTORE_PROVISIONING_PROFILE.txt again."
-    # Reads the profile with Python's plist reader: prints UUID, name, and a reason to refuse it, if any.
-    checked="$(TEAM_ID="$TEAM_ID" BUNDLE_ID="$BUNDLE_ID" SIGN_SHA1="$SIGN_SHA1" python3 -I - "$plist" <<'PY'
-import datetime, hashlib, os, plistlib, sys
-with open(sys.argv[1], "rb") as f:
-    p = plistlib.load(f)
-name = p.get("Name", "?")
-ent = p.get("Entitlements", {})
-team, bundle, sha1 = os.environ["TEAM_ID"], os.environ["BUNDLE_ID"], os.environ["SIGN_SHA1"]
-why = ""
-if not p.get("UUID"):
-    why = "The provisioning profile has no UUID; download it again from Apple's page."
-elif "ProvisionedDevices" in p or p.get("ProvisionsAllDevices") or ent.get("get-task-allow"):
-    why = f'The profile "{name}" is a development, ad hoc or enterprise profile. Make one under Distribution, App Store Connect.'
-elif team not in p.get("TeamIdentifier", []):
-    why = f'The profile "{name}" is for another team than APPLE_TEAM_ID.'
-elif ent.get("application-identifier") != f"{team}.{bundle}":
-    other = str(ent.get("application-identifier", "")).split(".", 1)[-1]
-    why = f'The profile "{name}" is for the app identifier {other}, not {bundle}. Make the profile for {bundle}.'
-elif p.get("ExpirationDate") and p["ExpirationDate"].replace(tzinfo=None) <= datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None) + datetime.timedelta(hours=1):
-    why = f'The profile "{name}" has expired. Make it again on Apple\'s page.'
-elif sha1 not in [hashlib.sha1(c).hexdigest().upper() for c in p.get("DeveloperCertificates", [])]:
-    why = (f'The profile "{name}" was made for another certificate. Edit it on Apple\'s page, tick the Apple '
-           "Distribution certificate you made, save, download it, and run make-signing-files.sh finish again.")
-print(p.get("UUID", ""))
-print(name)
-print(p.get("ExpirationDate", ""))
-print(why)
-PY
-)" || die "Could not read the provisioning profile."
+    # Python's plist reader checks it: prints UUID, name, expiry, and a reason to refuse it, if any.
+    checked="$(TEAM_ID="$TEAM_ID" BUNDLE_ID="$BUNDLE_ID" SIGN_SHA1="$SIGN_SHA1" python3 -I "$here/testflight-profile-check.py" "$plist")" \
+      || die "Could not read the provisioning profile."
     uuid="$(sed -n 1p <<<"$checked")"; name="$(sed -n 2p <<<"$checked")"
     expires="$(sed -n 3p <<<"$checked")"; why="$(sed -n 4p <<<"$checked")"
     [ -z "$why" ] || die "$why"

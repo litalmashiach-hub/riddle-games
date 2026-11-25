@@ -34,6 +34,7 @@ on:
       - apps/mobile/scripts/testflight-preflight.sh
       - apps/mobile/scripts/testflight-signing.sh
       - apps/mobile/scripts/make-signing-files.sh
+      - apps/mobile/scripts/testflight-profile-check.py
 
 permissions:
   contents: read
