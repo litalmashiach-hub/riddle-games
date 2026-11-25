@@ -13,8 +13,9 @@ import type { TapFaultKind } from './harness';
 export interface KnownTapFault {
   sizes: string[];
   /**
-   * The move's number, from 1. More than one where the aim point lies on the very edge of what takes
-   * the touch, so that the same touch is lost in one run at an earlier step and in another at a later one.
+   * The move's number, from 1. More than one where the same kind of touch is lost in some runs and not
+   * in others: a run that gets past the first such step stops at a later one. Every step listed was seen
+   * in a run of the whole level.
    */
   steps: number[];
   kind: TapFaultKind;
@@ -25,55 +26,31 @@ export interface KnownTapFault {
 const ALL = ['iphone-landscape', 'iphone-small-landscape', 'iphone-large-landscape'];
 
 export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {
-  'jealous-couples': [
-    {
-      sizes: ALL,
-      steps: [1],
-      kind: 'wrong-pick',
-      reason:
-        "Level 7, move 1 (Mrs Coral and Mr Coral fly): a tap on the middle of Mrs Coral picks Mr Teal, who stands in front of her with his top hat over her. Aiming at her head instead gets as far as move 10, where only a sliver of her shows beside his hat.",
-    },
-  ],
   'family-crossing': [
     {
-      sizes: ['iphone-landscape'],
-      steps: [1, 3],
-      kind: 'wrong-pick',
-      reason:
-        "Level 11, the guard's first or second crossing: a tap on the middle of the guard puts Dad on the raft. Dad stands in front, and his unseen tap cylinder (radius 0.38) is wider than his body and ends at the guard's middle, so the same tap is lost at move 1 in one run and at move 3 in another.",
-    },
-    {
-      sizes: ['iphone-small-landscape', 'iphone-large-landscape'],
-      steps: [1],
-      kind: 'wrong-pick',
-      reason: "Level 11, move 1 (the guard and the thief cross): a tap on the middle of the guard puts Dad on the raft. Dad's unseen tap cylinder is wider than his body and covers the guard's middle.",
-    },
-  ],
-  'twelve-coins': [
-    {
       sizes: ALL,
-      steps: [1],
+      steps: [1, 3, 14],
       kind: 'wrong-pick',
       reason:
-        "Level 12, first weighing: a tap on the middle of coin 3, in the far row, sends coin 9 to the pan. Each coin's unseen grab cylinder (radius 0.4, the coin drawn 0.24) covers the lower half of the coin behind it; coin 4 loses to coin 10 the same way.",
+        "Level 11: a tap on the middle of the guard puts Dad on the raft (move 1, or move 3 if move 1 got through), and late in the level a tap on the thief puts Mom on it (move 14). The one in front takes the touch with its unseen tap cylinder, which is wider than its body, and the same tap is lost in some runs and not in others.",
     },
   ],
   'log-jam': [
     {
       sizes: ALL,
-      steps: [3],
+      steps: [3, 17, 19],
       kind: 'no-move',
       reason:
-        "Level 18, move 3: with the log picked, a tap on the middle of its glowing ring is lost. The upright log on the next cell toward the camera takes the touch with its unseen grab box and is picked instead. Dragging the log works.",
+        "Level 18: with the log picked, a tap on the middle of its glowing ring is lost to the upright log on the next cell toward the camera, which takes the touch with its unseen grab box (move 3, and in a run that gets past it, move 17 or 19, both on a ring that lies right behind a log). Dragging the log works.",
     },
   ],
   'timber-tangle': [
     {
       sizes: ALL,
-      steps: [9],
+      steps: [2, 9],
       kind: 'no-move',
       reason:
-        "Level 27, move 9: with the long log picked, a tap on the middle of the ring right behind its own far end is lost. The picked log's unseen grab box takes the touch and the log is put down. Dragging the log works.",
+        "Level 27: with a log picked, a tap on the middle of its ring is lost to a log's unseen grab box (another log at move 2, the picked log itself at move 9). Which move it stops at changes from run to run. Dragging the log works.",
     },
   ],
 };
