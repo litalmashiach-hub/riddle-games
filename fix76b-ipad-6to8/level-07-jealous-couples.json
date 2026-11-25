@@ -1,0 +1,502 @@
+{
+ "level": 7,
+ "id": "jealous-couples",
+ "title": "Three Jealous Couples",
+ "device": "fix76b-ipad-6to8",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map (scrolled into view by the run)",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 11,
+ "moves": 11,
+ "touches": 29,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 50.715,
+  "rulesCard": 48.076,
+  "drawn": 50.715,
+  "play": 78.931,
+  "total": 160.08
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76b-ipad-6to8-L07-loading-mark.png",
+  "fix76b-ipad-6to8-L07-rules-card.png",
+  "fix76b-ipad-6to8-L07-in-play.png",
+  "fix76b-ipad-6to8-L07-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "Mr Coral",
+   "kind": "tap",
+   "at": {
+    "x": 429.16520477122424,
+    "y": 485.85241001703514
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "819189a8-2e2c-4596-9e8a-4daeeecdd91d",
+    "world": [
+     -3.15,
+     0,
+     -1.28
+    ],
+    "distance": 12.210554188217897
+   }
+  },
+  {
+   "step": 1,
+   "what": "Mrs Coral",
+   "kind": "tap",
+   "at": {
+    "x": 342.423653211048,
+    "y": 491.5206205044628
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "0fb80b1d-7b04-4d48-b6dc-121784a88f8e",
+    "world": [
+     -3.95,
+     4.898587196589413e-17,
+     -1.1199999999999999
+    ],
+    "distance": 12.380508076118815
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 688.015625,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "Mr Coral",
+   "kind": "tap",
+   "at": {
+    "x": 948.3614213394394,
+    "y": 487.085865474016
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "819189a8-2e2c-4596-9e8a-4daeeecdd91d",
+    "world": [
+     3.15,
+     1.1021821192326179e-16,
+     -1.28
+    ],
+    "distance": 12.21856659515801
+   }
+  },
+  {
+   "step": 2,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 687.96875,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "Mrs Teal",
+   "kind": "tap",
+   "at": {
+    "x": 295.9497568553385,
+    "y": 520.5403527096344
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "49349c87-12ff-41d1-b123-2ba9635f6d61",
+    "world": [
+     -4.3,
+     8.572527594031472e-17,
+     0.08
+    ],
+    "distance": 11.44624331519725
+   }
+  },
+  {
+   "step": 3,
+   "what": "Mrs Plum",
+   "kind": "tap",
+   "at": {
+    "x": 283.8094301448826,
+    "y": 580.4425298793004
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2b683ba0-bf08-4fd2-bb91-ffc9a85e3156",
+    "world": [
+     -3.95,
+     4.898587196589413e-17,
+     1.28
+    ],
+    "distance": 10.250466262822822
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 688.046875,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "Mrs Coral",
+   "kind": "tap",
+   "at": {
+    "x": 1018.4348500581492,
+    "y": 490.60641631592745
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "0fb80b1d-7b04-4d48-b6dc-121784a88f8e",
+    "world": [
+     3.95,
+     8.572527594031472e-17,
+     -1.1199999999999999
+    ],
+    "distance": 12.327915329231075
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 688.0625,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "Mr Teal",
+   "kind": "tap",
+   "at": {
+    "x": 358.07122082748975,
+    "y": 484.1896313025477
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "af5ed8b3-052c-42b0-9577-5c4335030b92",
+    "world": [
+     -3.5,
+     8.572527594031472e-17,
+     -0.08
+    ],
+    "distance": 11.233327533644953
+   }
+  },
+  {
+   "step": 5,
+   "what": "Mr Plum",
+   "kind": "tap",
+   "at": {
+    "x": 370.310172538071,
+    "y": 573.6056118387999
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ed188076-8dc0-4c18-90da-041827a972e7",
+    "world": [
+     -3.15,
+     4.898587196589413e-17,
+     1.1199999999999999
+    ],
+    "distance": 10.086670633982134
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 688.1171875,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "Mr Teal",
+   "kind": "tap",
+   "at": {
+    "x": 1008.2389951430509,
+    "y": 476.11405730289096
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "af5ed8b3-052c-42b0-9577-5c4335030b92",
+    "world": [
+     3.5,
+     1.1021821192326179e-16,
+     -0.08
+    ],
+    "distance": 11.319003534713307
+   }
+  },
+  {
+   "step": 6,
+   "what": "Mrs Teal",
+   "kind": "tap",
+   "at": {
+    "x": 1082.506302626464,
+    "y": 521.6304344069094
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "49349c87-12ff-41d1-b123-2ba9635f6d61",
+    "world": [
+     4.3,
+     4.898587196589413e-17,
+     0.08
+    ],
+    "distance": 11.436910650478296
+   }
+  },
+  {
+   "step": 6,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 687.9140625,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 7,
+   "what": "Mr Coral",
+   "kind": "tap",
+   "at": {
+    "x": 428.9877680145427,
+    "y": 484.8159673935196
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "819189a8-2e2c-4596-9e8a-4daeeecdd91d",
+    "world": [
+     -3.15,
+     8.572527594031472e-17,
+     -1.28
+    ],
+    "distance": 12.205314919306694
+   }
+  },
+  {
+   "step": 7,
+   "what": "Mr Teal",
+   "kind": "tap",
+   "at": {
+    "x": 370.1824872943336,
+    "y": 525.9813883465896
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "af5ed8b3-052c-42b0-9577-5c4335030b92",
+    "world": [
+     -3.5,
+     4.898587196589413e-17,
+     -0.08
+    ],
+    "distance": 11.184894196181851
+   }
+  },
+  {
+   "step": 7,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 687.9453125,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 8,
+   "what": "Mrs Plum",
+   "kind": "tap",
+   "at": {
+    "x": 1092.5678819856273,
+    "y": 583.2514859322199
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2b683ba0-bf08-4fd2-bb91-ffc9a85e3156",
+    "world": [
+     3.95,
+     8.572527594031472e-17,
+     1.28
+    ],
+    "distance": 10.281142679122805
+   }
+  },
+  {
+   "step": 8,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 687.984375,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 9,
+   "what": "Mrs Coral",
+   "kind": "tap",
+   "at": {
+    "x": 359.61152886910224,
+    "y": 492.23996484955126
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "0fb80b1d-7b04-4d48-b6dc-121784a88f8e",
+    "world": [
+     -3.95,
+     8.572527594031472e-17,
+     -1.1199999999999999
+    ],
+    "distance": 12.294361575435218
+   }
+  },
+  {
+   "step": 9,
+   "what": "Mrs Teal",
+   "kind": "tap",
+   "at": {
+    "x": 297.12184895925327,
+    "y": 518.7829346552669
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "49349c87-12ff-41d1-b123-2ba9635f6d61",
+    "world": [
+     -4.3,
+     4.898587196589413e-17,
+     0.08
+    ],
+    "distance": 11.45219506389589
+   }
+  },
+  {
+   "step": 9,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 687.875,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 10,
+   "what": "Mrs Coral",
+   "kind": "tap",
+   "at": {
+    "x": 1032.937502426232,
+    "y": 488.44799306404207
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "0fb80b1d-7b04-4d48-b6dc-121784a88f8e",
+    "world": [
+     3.95,
+     1.1021821192326179e-16,
+     -1.1199999999999999
+    ],
+    "distance": 12.384531811833144
+   }
+  },
+  {
+   "step": 10,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 688.0625,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 11,
+   "what": "Mrs Coral",
+   "kind": "tap",
+   "at": {
+    "x": 358.9839081536308,
+    "y": 492.1092327894409
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "0fb80b1d-7b04-4d48-b6dc-121784a88f8e",
+    "world": [
+     -3.95,
+     1.1021821192326179e-16,
+     -1.1199999999999999
+    ],
+    "distance": 12.3392002011893
+   }
+  },
+  {
+   "step": 11,
+   "what": "Mrs Plum",
+   "kind": "tap",
+   "at": {
+    "x": 283.8166333242466,
+    "y": 580.4574451742158
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2b683ba0-bf08-4fd2-bb91-ffc9a85e3156",
+    "world": [
+     -3.95,
+     4.898587196589413e-17,
+     1.28
+    ],
+    "distance": 10.274358636759928
+   }
+  },
+  {
+   "step": 11,
+   "what": "the Fly button",
+   "kind": "button",
+   "at": {
+    "x": 688.03125,
+    "y": 835.8400268554688
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 6
+}

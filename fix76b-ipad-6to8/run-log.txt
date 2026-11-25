@@ -1,0 +1,25 @@
+    0.0s device fix76b-ipad-6to8; levels 6-8 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  566.2s page in WEBVIEW_18708.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  567.8s web view found: WEBVIEW_18708.1, 1032 by 1376
+  589.1s turned LANDSCAPE: 1376 by 1032
+  612.9s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  678.9s page in WEBVIEW_18708.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  680.4s graphics quality set to SD by the player's setting
+  706.8s page in WEBVIEW_18708.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  711.9s frames capped at 6 a second by the test (page says 6)
+  749.8s page in WEBVIEW_18708.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  758.7s L06 explorers-guardians: opened by its card on the level map
+  857.9s L06 explorers-guardians: won by taps; stars 3 (saved 3); open 18.705s, play 71.801s, total 145.75s; page errors 0, console errors 0; frames per second 5.3
+  926.3s page in WEBVIEW_23624.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  928.1s L07: fresh app
+  941.3s page in WEBVIEW_23624.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  988.1s L07 jealous-couples: opened by its card on the level map (scrolled into view by the run)
+ 1088.3s L07 jealous-couples: won by taps; stars 3 (saved 3); open 50.715s, play 78.931s, total 160.08s; page errors 0, console errors 0; frames per second 6
+ 1138.9s page in WEBVIEW_27779.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1167.7s L08: fresh app
+ 1194.0s page in WEBVIEW_27779.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1237.5s L08 three-jugs: opened by its card on the level map (scrolled into view by the run)
+ 1289.4s L08 three-jugs: won by taps; stars 3 (saved 3); open 20.306s, play 28.635s, total 120.771s; page errors 0, console errors 0; frames per second 6.7
+ 1289.4s script calls: 969, median 19 ms, 90th 138 ms
+ 1289.7s done: 3 of 3 levels won, 3 by taps alone

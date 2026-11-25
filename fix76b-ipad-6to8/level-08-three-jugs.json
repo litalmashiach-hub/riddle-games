@@ -1,0 +1,305 @@
+{
+ "level": 8,
+ "id": "three-jugs",
+ "title": "Three Jugs",
+ "device": "fix76b-ipad-6to8",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map (scrolled into view by the run)",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 7,
+ "touches": 14,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 20.306,
+  "rulesCard": 17.983,
+  "drawn": 20.306,
+  "play": 28.635,
+  "total": 120.771
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76b-ipad-6to8-L08-loading-mark.png",
+  "fix76b-ipad-6to8-L08-rules-card.png",
+  "fix76b-ipad-6to8-L08-in-play.png",
+  "fix76b-ipad-6to8-L08-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the 8 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 352.1260930420535,
+    "y": 479.2471809585662
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "31c01c3f-97d7-4079-bf2e-3a54609188a3",
+    "world": [
+     -1.95,
+     0.3599999999999999,
+     0
+    ],
+    "distance": 6.63373472047374
+   }
+  },
+  {
+   "step": 1,
+   "what": "the 5 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 688,
+    "y": 525.9296273839237
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8e473fcc-c72f-4762-bef7-77da98e8e65c",
+    "world": [
+     0,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.411888677284017
+   }
+  },
+  {
+   "step": 2,
+   "what": "the 5 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 688,
+    "y": 525.9296273839237
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8e473fcc-c72f-4762-bef7-77da98e8e65c",
+    "world": [
+     0,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.411888677284017
+   }
+  },
+  {
+   "step": 2,
+   "what": "the 3 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 1012.9225014279289,
+    "y": 555.6668187756775
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "495eea9c-bc52-4785-a0d2-49d50c9390f2",
+    "world": [
+     1.95,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.784347084712967
+   }
+  },
+  {
+   "step": 3,
+   "what": "the 3 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 1012.9225014279289,
+    "y": 555.6668187756775
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "495eea9c-bc52-4785-a0d2-49d50c9390f2",
+    "world": [
+     1.95,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.784347084712967
+   }
+  },
+  {
+   "step": 3,
+   "what": "the 8 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 352.1260930420535,
+    "y": 479.2471809585662
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "31c01c3f-97d7-4079-bf2e-3a54609188a3",
+    "world": [
+     -1.95,
+     0.3599999999999999,
+     0
+    ],
+    "distance": 6.63373472047374
+   }
+  },
+  {
+   "step": 4,
+   "what": "the 5 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 688,
+    "y": 525.9296273839237
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8e473fcc-c72f-4762-bef7-77da98e8e65c",
+    "world": [
+     0,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.411888677284017
+   }
+  },
+  {
+   "step": 4,
+   "what": "the 3 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 1012.9225014279289,
+    "y": 555.6668187756775
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "495eea9c-bc52-4785-a0d2-49d50c9390f2",
+    "world": [
+     1.95,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.784347084712967
+   }
+  },
+  {
+   "step": 5,
+   "what": "the 8 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 352.1260930420535,
+    "y": 479.2471809585662
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "31c01c3f-97d7-4079-bf2e-3a54609188a3",
+    "world": [
+     -1.95,
+     0.3599999999999999,
+     0
+    ],
+    "distance": 6.63373472047374
+   }
+  },
+  {
+   "step": 5,
+   "what": "the 5 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 688,
+    "y": 525.9296273839237
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8e473fcc-c72f-4762-bef7-77da98e8e65c",
+    "world": [
+     0,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.411888677284017
+   }
+  },
+  {
+   "step": 6,
+   "what": "the 5 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 688,
+    "y": 525.9296273839237
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8e473fcc-c72f-4762-bef7-77da98e8e65c",
+    "world": [
+     0,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.411888677284017
+   }
+  },
+  {
+   "step": 6,
+   "what": "the 3 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 1012.9225014279289,
+    "y": 555.6668187756775
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "495eea9c-bc52-4785-a0d2-49d50c9390f2",
+    "world": [
+     1.95,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.784347084712967
+   }
+  },
+  {
+   "step": 7,
+   "what": "the 3 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 1012.9225014279289,
+    "y": 555.6668187756775
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "495eea9c-bc52-4785-a0d2-49d50c9390f2",
+    "world": [
+     1.95,
+     0.3600000000000001,
+     0
+    ],
+    "distance": 6.784347084712967
+   }
+  },
+  {
+   "step": 7,
+   "what": "the 8 L flask",
+   "kind": "tap",
+   "at": {
+    "x": 352.1260930420535,
+    "y": 479.2471809585662
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "31c01c3f-97d7-4079-bf2e-3a54609188a3",
+    "world": [
+     -1.95,
+     0.3599999999999999,
+     0
+    ],
+    "distance": 6.63373472047374
+   }
+  }
+ ],
+ "fps": 6.7
+}

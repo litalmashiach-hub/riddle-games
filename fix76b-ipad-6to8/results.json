@@ -1,0 +1,113 @@
+[
+ {
+  "level": 6,
+  "id": "explorers-guardians",
+  "title": "Explorers and Guardians",
+  "device": "fix76b-ipad-6to8",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 11,
+  "moves": 11,
+  "touches": 29,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 18.705,
+   "rulesCard": 18.194,
+   "drawn": 18.705,
+   "play": 71.801,
+   "total": 145.75
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-6to8-L06-loading-mark.png",
+   "fix76b-ipad-6to8-L06-rules-card.png",
+   "fix76b-ipad-6to8-L06-in-play.png",
+   "fix76b-ipad-6to8-L06-win-card.png"
+  ],
+  "fps": 5.3
+ },
+ {
+  "level": 7,
+  "id": "jealous-couples",
+  "title": "Three Jealous Couples",
+  "device": "fix76b-ipad-6to8",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 11,
+  "moves": 11,
+  "touches": 29,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 50.715,
+   "rulesCard": 48.076,
+   "drawn": 50.715,
+   "play": 78.931,
+   "total": 160.08
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-6to8-L07-loading-mark.png",
+   "fix76b-ipad-6to8-L07-rules-card.png",
+   "fix76b-ipad-6to8-L07-in-play.png",
+   "fix76b-ipad-6to8-L07-win-card.png"
+  ],
+  "fps": 6
+ },
+ {
+  "level": 8,
+  "id": "three-jugs",
+  "title": "Three Jugs",
+  "device": "fix76b-ipad-6to8",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 14,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 20.306,
+   "rulesCard": 17.983,
+   "drawn": 20.306,
+   "play": 28.635,
+   "total": 120.771
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-6to8-L08-loading-mark.png",
+   "fix76b-ipad-6to8-L08-rules-card.png",
+   "fix76b-ipad-6to8-L08-in-play.png",
+   "fix76b-ipad-6to8-L08-win-card.png"
+  ],
+  "fps": 6.7
+ }
+]
