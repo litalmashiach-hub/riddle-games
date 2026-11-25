@@ -8,7 +8,10 @@ const TONES: Record<Tone, string> = {
   red: 'bg-gradient-to-b from-rose-300 to-rose-500 text-rose-950',
   glass: 'glass text-white',
   // Tinted glass for buttons that sit over the scene, so their white icons stay readable over a white sky.
-  readout: 'glass-readout text-white',
+  // The play screen's round buttons and the About screen's back button wear it, and they are drawn smaller
+  // than a fingertip: `touch-44` (index.css) gives each an unseen pad, so it takes touches over 44 by 44
+  // points. A button that does not centre its content opts out with `before:hidden`, as the About tabs do.
+  readout: 'glass-readout touch-44 text-white',
 };
 
 export function Button({

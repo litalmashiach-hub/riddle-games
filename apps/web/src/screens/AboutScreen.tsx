@@ -72,7 +72,8 @@ export function AboutScreen({ progress, onBack, onReset }: { progress: Progress;
                 aria-controls={`${tabs}-page`}
                 tone={page === p.id ? 'gold' : 'readout'}
                 onClick={() => setPage(p.id)}
-                className="!px-2 !py-2.5 text-sm sm:!justify-start sm:!px-4 sm:text-base short:!py-2"
+                // `before:hidden`: no touch pad here (see `.touch-44` in index.css). On a wide screen a tab's text is not centred, and the pad would not be either.
+                className="!px-2 !py-2.5 text-sm before:hidden sm:!justify-start sm:!px-4 sm:text-base short:!py-2"
               >
                 {p.label}
               </Button>

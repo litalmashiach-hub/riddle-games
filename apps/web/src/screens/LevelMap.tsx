@@ -70,10 +70,10 @@ function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay
             <Stars count={1} size={16} single />
             <span className="font-display font-semibold tabular-nums">{totalStars} / {LEVELS.length * 3}</span>
           </div>
-          <button className="glass btn-3d rounded-full p-2.5" onClick={() => { sfx.click(); onAbout(); }} aria-label="About and settings">
+          <button className="glass btn-3d touch-44 inline-flex items-center justify-center rounded-full p-2.5" onClick={() => { sfx.click(); onAbout(); }} aria-label="About and settings">
             <GearIcon />
           </button>
-          <button className="glass btn-3d rounded-full p-2.5" onClick={toggleSound} aria-label="Sound" aria-pressed={sound}>
+          <button className="glass btn-3d touch-44 inline-flex items-center justify-center rounded-full p-2.5" onClick={toggleSound} aria-label="Sound" aria-pressed={sound}>
             <SoundIcon on={sound} />
           </button>
         </div>
@@ -112,10 +112,10 @@ function TallMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (i
       <Backdrop />
       <div className="relative mx-auto max-w-5xl pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pb-[max(6rem,env(safe-area-inset-bottom))] pt-[max(4.25rem,calc(env(safe-area-inset-top)+3.25rem))] sm:pt-16">
         <div className="absolute right-[max(1rem,env(safe-area-inset-right))] top-[max(1rem,env(safe-area-inset-top))] flex gap-2">
-          <button className="glass btn-3d rounded-full p-2.5" onClick={() => { sfx.click(); onAbout(); }} aria-label="About and settings">
+          <button className="glass btn-3d touch-44 inline-flex items-center justify-center rounded-full p-2.5" onClick={() => { sfx.click(); onAbout(); }} aria-label="About and settings">
             <GearIcon />
           </button>
-          <button className="glass btn-3d rounded-full p-2.5" onClick={toggleSound} aria-label="Sound" aria-pressed={sound}>
+          <button className="glass btn-3d touch-44 inline-flex items-center justify-center rounded-full p-2.5" onClick={toggleSound} aria-label="Sound" aria-pressed={sound}>
             <SoundIcon on={sound} />
           </button>
         </div>
