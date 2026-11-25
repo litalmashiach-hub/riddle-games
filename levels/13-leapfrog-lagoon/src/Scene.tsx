@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { useFrame } from '@react-three/fiber';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, tapPadRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
 import * as THREE from 'three';
@@ -9,6 +9,9 @@ import { Frog, type FrogMood, type FrogTeam } from './Frog';
 import { Lagoon, PAD_TOP, padX } from './Lagoon';
 import { noseToNose, target, type Move, type State } from './rules';
 import { frogSfx } from './sounds';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const frogPad = tapPadRaycast();
 
 const HOP_MS = 520;
 const LEAP_MS = 760;
@@ -323,7 +326,7 @@ function FrogActor({ team, rank, seed, state, previous, lastMove, forward, animK
             <Clickable onClick={() => onTap(pad)} disabled={disabled}>
               <Frog team={team} mood={mood} seed={seed} />
               {/* bigger invisible tap target */}
-              <mesh position-y={0.35} visible={false}>
+              <mesh position-y={0.35} visible={false} raycast={frogPad}>
                 <sphereGeometry args={[0.62, 8, 8]} />
               </mesh>
             </Clickable>
