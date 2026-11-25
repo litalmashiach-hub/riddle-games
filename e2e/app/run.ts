@@ -204,6 +204,12 @@ async function main() {
     await run.reload();
     log(`graphics quality set to ${args.quality === 'low' ? 'SD' : 'HD'} by the player's setting`);
   }
+  if (Number(args.fps) > 0) {
+    // TEST ONLY: at most N frames a second (see page-hooks.ts), so the simulator's drawing process on a Mac with no graphics chip can keep up.
+    await backend.exec(`(n) => { localStorage.setItem('app-test:fps', String(n)); return true; }`, Number(args.fps));
+    await run.reload();
+    log(`frames capped at ${args.fps} a second by the test (page says ${await backend.exec('() => window.__appFpsCap || 0')})`);
+  }
   const size = backend.size();
   const results: LevelResult[] = [];
   writeFileSync(join(out, 'device.json'), JSON.stringify({ device, size, calibration: run.calibration, args }, null, 1));

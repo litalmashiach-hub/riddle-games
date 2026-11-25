@@ -6,6 +6,40 @@
  */
 export const PAGE_HOOKS = () => {
   const w = window as any;
+  // TEST ONLY, off unless the run asks for it (--fps N sets this key): hands the page at most N frames a
+  // second. A hosted Mac has no graphics chip; the simulator's drawing process then takes in frames
+  // faster than it can draw them and holds gigabytes of waiting work. The game's code is not changed.
+  try {
+    const fps = Number(localStorage.getItem('app-test:fps') || 0);
+    if (fps > 0) {
+      const raf = w.requestAnimationFrame.bind(w);
+      const caf = w.cancelAnimationFrame.bind(w);
+      const gap = 1000 / fps;
+      let nextAt = 0;
+      const pending = new Map<number, number>();
+      let ids = 0;
+      w.requestAnimationFrame = (cb: FrameRequestCallback) => {
+        const id = ++ids;
+        const now = performance.now();
+        nextAt = Math.max(now, nextAt);
+        const wait = nextAt - now;
+        const t = setTimeout(() => {
+          pending.set(id, -raf((ts: number) => { pending.delete(id); cb(ts); }));
+        }, wait);
+        pending.set(id, t as unknown as number);
+        // Every callback asked for before the next slot runs in that slot; the slot after it is one gap later.
+        setTimeout(() => { if (performance.now() >= nextAt) nextAt = performance.now() + gap; }, wait + 1);
+        return id;
+      };
+      w.cancelAnimationFrame = (id: number) => {
+        const h = pending.get(id);
+        if (h === undefined) return;
+        pending.delete(id);
+        if (h < 0) caf(-h); else clearTimeout(h);
+      };
+      w.__appFpsCap = fps;
+    }
+  } catch { /* no storage */ }
   const faults = { pageErrors: [] as string[], consoleErrors: [] as string[], consoleWarnings: [] as string[], outsideRequests: [] as string[] };
   w.__appFaults = faults;
   const cut = (s: unknown) => String(s).slice(0, 600);
