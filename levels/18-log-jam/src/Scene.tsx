@@ -106,7 +106,17 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const camera = useThree((s) => s.camera);
   const gl = useThree((s) => s.gl);
   const pieceRefs = useMemo(() => PIECES.map(() => ({ current: null as THREE.Group | null })), []);
-  const drag = useRef<{ i: number; start: THREE.Vector3; base: number; min: number; max: number; off: number; moved: boolean } | null>(null);
+  const drag = useRef<{
+    i: number;
+    start: THREE.Vector3;
+    base: number;
+    min: number;
+    max: number;
+    off: number;
+    moved: boolean;
+    /** The touch began on this log's unseen box over a glowing ring: a tap there is the ring's, a drag the log's. */
+    ring: boolean;
+  } | null>(null);
   const stateRef = useRef(state);
   stateRef.current = state;
 
@@ -120,7 +130,16 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   };
 
   const onPieceDown = (i: number, e: ThreeEvent<PointerEvent>) => {
-    e.stopPropagation();
+    // A glowing ring beats a log's invisible padding and its glow (both marked `pad`). Seen from the camera,
+    // those of a log (often the picked one) reach over the ring next to it, and would take the tap meant
+    // for the ring. Only where the log itself is drawn in front of the ring is the touch the log's.
+    // Where bark is drawn over a ring's unseen box, the touch is the log's (see barkWins). Where the ring wins,
+    // the ring still gets the touch (no stopPropagation), but the log keeps the drag: a finger that slides
+    // from there slides the log, as it always did, and the camera stays put.
+    const ringTakes = !!ringUnder(e) && !barkWins(e, e.eventObject);
+    if (!ringTakes) e.stopPropagation();
+    // Another log's box nearer the eye, also over that ring, already holds this touch's drag.
+    else if (drag.current) return;
     if (locked) {
       if (!over) sfx.denied();
       return;
@@ -130,7 +149,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     const s = stateRef.current;
     const r = reach(s.pos, i);
     const base = s.pos[i];
-    drag.current = { i, start, base, min: Math.min(base, ...r), max: Math.max(base, ...r), off: 0, moved: false };
+    drag.current = { i, start, base, min: Math.min(base, ...r), max: Math.max(base, ...r), off: 0, moved: false, ring: ringTakes };
     if (controls) controls.enabled = false;
 
     const move = (ev: PointerEvent) => {
@@ -139,7 +158,10 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       const p = groundHit(ev.clientX, ev.clientY);
       if (!p) return;
       const delta = PIECES[d.i].axis === 'h' ? p.x - d.start.x : p.z - d.start.z;
-      if (Math.abs(delta) > 0.18) d.moved = true;
+      if (Math.abs(delta) > 0.18) {
+        d.moved = true;
+        if (d.ring) touch.slid = true;
+      }
       if (!d.moved) return;
       // A little rubber band past the ends, so a blocked log still feels alive.
       let at = d.base + delta;
@@ -158,6 +180,8 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       drag.current = null;
       if (!d) return;
       if (!d.moved) {
+        // A tap over a glowing ring is the ring's: its click slides the log there.
+        if (d.ring) return;
         // A tap: pick this log (or drop it).
         if (selected === d.i) {
           sfx.deselect();
@@ -366,6 +390,7 @@ function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selecte
     <group ref={groupRef}>
       <group
         ref={inner}
+        userData={PIECE}
         onPointerDown={onDown}
         onPointerOver={(e) => {
           e.stopPropagation();
@@ -376,7 +401,7 @@ function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selecte
       >
         {index === 0 ? <RaftModel glow={glow} /> : <LogModel piece={pc} seed={index} glow={glow} />}
         {/* A generous invisible hit box, so logs are easy to grab on phones. */}
-        <mesh visible={false}>
+        <mesh visible={false} userData={{ pad: true }}>
           <boxGeometry args={[pc.len - 0.05, 0.9, 0.95]} />
         </mesh>
         {children}
@@ -404,9 +429,53 @@ function FrogRider({ index, moveCount, lastMove, forward }: { index: number; mov
   return <Frog excited={at} />;
 }
 
+/** Marks a log's (or the raft's) group, whose meshes but the `pad` ones are drawn wood. */
+const PIECE = { piece: true };
+
+/** How far a ring reaches as drawn, from its middle, at its largest pulse with the finger over it (0.34 x 1.19). */
+const RING_DRAWN_R = 0.41;
+
+/** Set when a touch that a ring took turned into a log's drag (see onPieceDown); cleared by every new touch. */
+const touch = { slid: false };
+if (typeof window !== 'undefined') window.addEventListener('pointerdown', () => (touch.slid = false), true);
+
+/** The glowing ring whose unseen hit box is under the touch, if any. */
+const ringUnder = (e: ThreeEvent<PointerEvent>) => e.intersections.find((h) => h.object.userData.ring);
+
+/**
+ * Does a log's bark (not its unseen grab box or its glow) win this touch from the ring under it? `owner`: only that
+ * log's bark counts; else any log's. A ring's hit box is tall and wide, so that it is easy to hit; seen from the
+ * slanted camera it reaches over the bark of a log right beside it. The eye sees the bark there, so the touch is
+ * the log's, where the bark is drawn in front of the ring (nearer than the ring's flat plane on the water) or where
+ * the touch meets that plane outside the ring as drawn.
+ */
+function barkWins(e: ThreeEvent<PointerEvent>, owner?: THREE.Object3D): boolean {
+  const ring = ringUnder(e);
+  if (!ring?.object.parent) return false;
+  const c = ring.object.parent.getWorldPosition(new THREE.Vector3());
+  const { origin, direction } = e.ray;
+  const t = direction.y < 0 ? (c.y - origin.y) / direction.y : Infinity;
+  const off = Number.isFinite(t) ? Math.hypot(origin.x + direction.x * t - c.x, origin.z + direction.z * t - c.z) : Infinity;
+  return e.intersections.some(
+    (h) =>
+      (owner ? h.eventObject === owner : h.eventObject.userData.piece) &&
+      !h.object.userData.pad &&
+      (h.distance <= t || off > RING_DRAWN_R),
+  );
+}
+
 /** A glowing lily ring on a cell the picked log can slide to. Tap it to slide there. */
 function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }) {
   const ring = useRef<THREE.Mesh>(null);
+  // Set when this ring took a touch's pointer-down. A click counts only then: the scene's event system sends a
+  // click to everything that lay under the touch when it began, also when a log in front took that touch.
+  const took = useRef(false);
+  useEffect(() => {
+    // Every new touch starts untaken; the ring's own pointer-down, which comes after this, may take it.
+    const reset = () => (took.current = false);
+    window.addEventListener('pointerdown', reset, true);
+    return () => window.removeEventListener('pointerdown', reset, true);
+  }, []);
   const [hover, setHover] = useState(false);
   useCursor(hover);
   useFrame(({ clock }) => {
@@ -427,12 +496,23 @@ function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }
       <mesh
         position-y={0.2}
         visible={false}
+        userData={{ ring: true }}
         onPointerOver={(e) => {
           e.stopPropagation();
           setHover(true);
         }}
         onPointerOut={() => setHover(false)}
+        // Swallow the touch: a log behind the ring must not see it, or it would take the tap as its own
+        // and drop the picked log before the ring's click arrives. But bark the eye sees over the ring's unseen
+        // box keeps the touch (see barkWins), and so does a log drawn in front of the ring (see onPieceDown).
+        onPointerDown={(e) => {
+          took.current = !barkWins(e);
+          if (took.current) e.stopPropagation();
+        }}
         onClick={(e) => {
+          if (!took.current) return;
+          took.current = false;
+          if (touch.slid) return; // the finger slid the log instead (a mouse sends a click after a drag)
           e.stopPropagation();
           onClick();
         }}
