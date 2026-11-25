@@ -1,0 +1,16 @@
+    0.0s device fix76b-ipad-17; levels 17 (1); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  531.7s WEBVIEW_16379.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  534.0s page in WEBVIEW_16379.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  534.7s web view found: WEBVIEW_16379.1, 1032 by 1376
+  576.4s turned LANDSCAPE: 1376 by 1032
+  637.2s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  649.5s page in WEBVIEW_16379.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  650.6s graphics quality set to SD by the player's setting
+  666.0s page in WEBVIEW_16379.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  670.0s frames capped at 6 a second by the test (page says 6)
+  721.2s page in WEBVIEW_16379.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  732.5s L17 moonbeam-mirrors: opened by its card on the level map (scrolled into view by the run)
+  853.1s L17 moonbeam-mirrors: won by taps; stars 3 (saved 3); open 22.536s, play 33.757s, total 181.993s; page errors 0, console errors 0; frames per second 5.9
+  853.1s script calls: 98, median 169 ms, 90th 4296 ms
+  853.9s done: 1 of 1 levels won, 1 by taps alone
