@@ -1,5 +1,6 @@
 import { Component, useCallback, useEffect, useRef, useState, type ErrorInfo, type ReactNode } from 'react';
 import { hasTestFlag } from '../appShell';
+import { returnFocus } from '../focusReturn';
 import { Button } from './Button';
 import { HomeIcon, RestartIcon } from './Icons';
 
@@ -104,14 +105,38 @@ class SceneBoundary extends Component<{ children: ReactNode; onError(error: unkn
   }
 }
 
-/** The card itself. It lies over everything else on the play screen, the rules card too. */
+/**
+ * The card itself. It lies over everything else on the play screen, the rules card too. So while it is up,
+ * everything under it is out of reach for VoiceOver and the keyboard as well as for a finger: the card takes
+ * the focus, and what lies beside it in the page is made inert. Otherwise the focus stays in the covered rules
+ * card, which says of itself that it is the only thing on the screen, and VoiceOver never gets to "Try again".
+ * When the card goes, the focus goes back to where it was, or to the rules card or a button of the play screen.
+ */
 function SceneMessage({ onRetry, onExit }: { onRetry(): void; onExit(): void }) {
+  const card = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = card.current;
+    const root = el?.parentElement;
+    if (!el || !root) return;
+    const opener = document.activeElement;
+    // The loading sign and the hint's line are words alone, with nothing to press: they stay as they are.
+    const under = [...root.children].filter((c) => c !== el && !c.hasAttribute('inert') && c.getAttribute('role') !== 'status');
+    for (const c of under) c.setAttribute('inert', '');
+    el.focus({ preventScroll: true });
+    return () => {
+      for (const c of under) c.removeAttribute('inert');
+      returnFocus({ from: null, opener, root, fallbacks: ['[role="dialog"]', 'button[aria-label="Rules"]', 'button[aria-label="Back to levels"]'] });
+    };
+  }, []);
   return (
     <div
+      ref={card}
       role="alertdialog"
+      aria-modal="true"
+      tabIndex={-1}
       aria-labelledby="scene-message-title"
       aria-describedby="scene-message-text"
-      className="absolute inset-0 z-30 flex items-center justify-center bg-slate-950/90 backdrop-blur-md pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))]"
+      className="absolute inset-0 z-30 flex items-center justify-center outline-none bg-slate-950/90 backdrop-blur-md pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))]"
     >
       <div className="panel flex max-h-full w-full max-w-md flex-col overflow-y-auto overscroll-contain rounded-[2rem] p-5 text-center sm:p-6 short:p-4">
         <h2 id="scene-message-title" className="font-display text-3xl font-bold short:text-2xl">
