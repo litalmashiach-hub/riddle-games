@@ -53,6 +53,15 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
   const lastReset = useRef(resetCount);
   const litFlowers = useRef<boolean[]>(LAYOUT.flowers.map(() => false));
   const litMirrors = useRef<boolean[]>(LAYOUT.mirrors.map(() => false));
+  // An undo snaps the beam back, and the flowers on it light again at once and without a chime: the level is as it
+  // was, also after a loss, when the toad's sneeze or the setting moon put them out.
+  // Worked out during render, so the first frame drawn after the undo already knows.
+  const quietRelight = useRef(false);
+  const counted = useRef({ moves: moveCount, resets: resetCount });
+  if (counted.current.moves !== moveCount || counted.current.resets !== resetCount) {
+    if (moveCount < counted.current.moves && resetCount === counted.current.resets) quietRelight.current = true;
+    counted.current = { moves: moveCount, resets: resetCount };
+  }
 
   // The opening beam waits for the rules card to go, so its chimes follow the player's first tap and are heard.
   useSoundUnlock();
@@ -154,11 +163,14 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
     }
     power.current = THREE.MathUtils.damp(power.current, dark ? 0 : 1, blown ? 14 : moonPhase ? 2 : 6, dt);
     const rv = reveal.current;
+    const quiet = quietRelight.current;
     path.flowerAt.forEach((d, i) => {
       const on = rv >= d - 0.01;
-      if (on && !litFlowers.current[i] && !over) moonSfx.bloom(i);
+      if (on && !litFlowers.current[i] && !over && !quiet) moonSfx.bloom(i);
       litFlowers.current[i] = on && !dark;
     });
+    // The quiet relight ends on the first frame that shows the whole beam, undimmed.
+    if (quiet && !dark && rv >= path.total) quietRelight.current = false;
     path.mirrorAt.forEach((d, i) => {
       const on = rv >= d - 0.01;
       if (on && !litMirrors.current[i] && (grow.current || rv < path.total)) moonSfx.ping();

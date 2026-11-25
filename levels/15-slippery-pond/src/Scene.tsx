@@ -61,9 +61,18 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const [burst, setBurst] = useState(0);
   const [ate, setAte] = useState(false);
 
+  // The fail scene's late beats (the shiver, the spat-out water). An undo or restart cancels the ones still to come.
+  const later = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const cancelLater = () => {
+    later.current.forEach(clearTimeout);
+    later.current = [];
+  };
+  useEffect(() => cancelLater, []);
+
   // Undo or restart: clear the gags.
   useEffect(() => {
     if (!forward) {
+      cancelLater();
       setBeat(null);
       setDizzy(0);
       setAte(false);
@@ -119,8 +128,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       popup(at: Vec3) {
         pond.bloop();
         setBeat('brrr');
-        setTimeout(() => pond.brrr(), 350);
-        setTimeout(() => particles.current?.spit(at[0], 0.25, at[2] + 0.2), 700);
+        later.current.push(
+          setTimeout(() => pond.brrr(), 350),
+          setTimeout(() => particles.current?.spit(at[0], 0.25, at[2] + 0.2), 700),
+        );
       },
       spray(x: number, z: number, d: Dir) {
         const [dx, dy] = STEP[d];
