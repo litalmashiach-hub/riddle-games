@@ -1,7 +1,7 @@
 import { solve } from '@riddle/engine';
 import { describe, expect, it } from 'vitest';
 import level from './index';
-import { BEST, CAPACITY, COLORS, PATIENCE, START, canMove, rules, type State } from './rules';
+import { BEST, CAPACITY, COLORS, PATIENCE, SHAPES, START, canMove, rules, type Color, type State } from './rules';
 
 describe('Firefly Jars', () => {
   it('has every colour exactly CAPACITY times', () => {
@@ -39,6 +39,15 @@ describe('Firefly Jars', () => {
     expect(rules.status({ ...sorted, moves: PATIENCE }).kind).toBe('won');
     expect(rules.status({ jars: START, moves: PATIENCE }).kind).toBe('lost');
     expect(rules.status({ jars: START, moves: PATIENCE - 1 }).kind).toBe('playing');
+  });
+
+  it('gives every colour a shape of its own, and names both in a hint', () => {
+    const all: Color[] = [...COLORS, 'violet'];
+    expect(new Set(all.map((c) => SHAPES[c])).size).toBe(all.length);
+    // Jar 1's top firefly is blue: a hint must not name it by colour alone.
+    expect(rules.describeMove({ from: 0, to: 4 }, rules.initialState)).toBe('Move a blue bubble into an empty jar');
+    const s: State = { jars: [['gold'], ['gold'], [], []], moves: 0 };
+    expect(rules.describeMove({ from: 0, to: 1 }, s)).toBe('Move a gold star onto its own kind');
   });
 
   it('leaves room to make mistakes', () => {

@@ -13,9 +13,9 @@ const level: RiddleLevel<State, Move> = {
   number: 29,
   title: 'Cricket Crossing',
   world: 'lagoon',
-  tagline: 'Three amber crickets, three blue ones and twelve toadstools to cross.',
+  tagline: 'Three striped crickets, three spotted ones and twelve toadstools to cross.',
   instructions: [
-    'Make the crickets swap ends: blue crickets onto the blue toadstools at the back, amber crickets onto the amber ones at the front.',
+    'Make the crickets swap ends: the spotted blue crickets onto the spotted blue toadstools at the back, the striped amber crickets onto the striped amber ones at the front.',
     'A cricket leaps in an L: two toadstools straight, then one to the side. It may fly over anything on the way.',
     'It can only land on an empty toadstool. There are three crickets a side now, so they get in each other\'s way.',
   ],

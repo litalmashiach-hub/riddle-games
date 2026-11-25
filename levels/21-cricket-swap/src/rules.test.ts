@@ -45,6 +45,6 @@ describe('Cricket Swap', () => {
   });
 
   it('gives a hint a player can follow', () => {
-    expect(rules.describeMove({ from: 0, to: 5 }, rules.initialState)).toBe('Leap the amber cricket from the back left toadstool to the middle right one');
+    expect(rules.describeMove({ from: 0, to: 5 }, rules.initialState)).toBe('Leap the striped amber cricket from the back left toadstool to the middle right one');
   });
 });
