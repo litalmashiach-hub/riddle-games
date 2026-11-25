@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { KNOWN_FAULTS } from '../../known-faults';
 import { LEVELS } from '../../levels';
 import { expect, expectClean, passRulesCard, savedStars, seedProgress, test, waitForSession } from '../../tests/fixtures';
-import { READ_SCENE, TapFault, Taps, waitCameraStill, waitIdle } from '../harness';
+import { ALLOW_FAKE_POINTER, FAKE_POINTER, READ_SCENE, TapFault, Taps, waitCameraStill, waitIdle } from '../harness';
 import { KNOWN_TAP_FAULTS } from '../known-tap-faults';
 import { BROKEN_PLAYERS, PLAYERS } from '../players';
 
@@ -11,7 +11,11 @@ import { BROKEN_PLAYERS, PLAYERS } from '../players';
  * Every level, won by touches on its 3D scene and on the scene's own buttons, the way a finger would.
  * The shortest solution comes from the game's solver. The debug hook is only read: no move is made
  * through it, and nothing is undone, redone or restarted through it.
+ *
+ * With E2E_PRESS_HOLD_MS set (say 900), every tap on the scene is instead a press held that long and lifted
+ * with no click after it, as iOS does after a long press. Page buttons are still tapped.
  */
+const PRESS_HOLD_MS = process.env.E2E_PRESS_HOLD_MS ? Number(process.env.E2E_PRESS_HOLD_MS) : null;
 for (const level of LEVELS) {
   const nn = String(level.number).padStart(2, '0');
   test(`level ${nn} ${level.id}: won by taps alone`, async ({ page, faults }, testInfo) => {
@@ -25,6 +29,7 @@ for (const level of LEVELS) {
 
     const size = page.viewportSize()!;
     const taps = new Taps(page, level, size);
+    taps.pressHoldMs = PRESS_HOLD_MS;
     const started = Date.now();
     const result = {
       level: level.number,
@@ -47,6 +52,7 @@ for (const level of LEVELS) {
     };
 
     await page.addInitScript(READ_SCENE);
+    if (PRESS_HOLD_MS !== null) await page.addInitScript(ALLOW_FAKE_POINTER, FAKE_POINTER);
     await seedProgress(page, Object.fromEntries(LEVELS.filter((l) => l.number < level.number).map((l) => [l.id, 3])));
     await page.goto(`?debug&quality=low#/level/${level.id}`);
     await waitForSession(page, level.id);
