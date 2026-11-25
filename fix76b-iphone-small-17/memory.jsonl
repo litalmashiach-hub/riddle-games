@@ -1,0 +1,36 @@
+{"s":13,"where":"start"}
+{"s":77,"where":"start","metalHost":152,"draw":46,"drawCompressed":5}
+{"s":90,"where":"start","metalHost":149,"draw":46,"drawCompressed":8}
+{"s":93,"where":"start","metalHost":149,"draw":46,"drawCompressed":8}
+{"s":124,"where":"start","metalHost":149,"draw":46,"drawCompressed":8}
+{"s":132,"where":"start","metalHost":164,"draw":49,"drawCompressed":8}
+{"s":143,"where":"start","metalHost":151,"draw":46,"drawCompressed":9}
+{"s":153,"where":"start","metalHost":150,"draw":46,"drawCompressed":8}
+{"s":164,"where":"start","metalHost":151,"draw":46,"drawCompressed":8}
+{"s":176,"where":"start","metalHost":151,"draw":46,"drawCompressed":8}
+{"s":183,"where":"start","metalHost":151,"draw":46,"drawCompressed":8}
+{"s":193,"where":"start","metalHost":151,"draw":46,"drawCompressed":8}
+{"s":203,"where":"start","metalHost":151,"draw":46,"drawCompressed":11}
+{"s":212,"where":"start","metalHost":151,"draw":46,"drawCompressed":8}
+{"s":222,"where":"start","metalHost":151,"draw":46,"drawCompressed":8}
+{"s":237,"where":"start","metalHost":151,"draw":46,"drawCompressed":8}
+{"s":242,"where":"start","metalHost":151,"draw":46,"drawCompressed":8}
+{"s":253,"where":"start","metalHost":151,"draw":46,"drawCompressed":8}
+{"s":262,"where":"start","metalHost":150,"draw":47,"drawCompressed":6}
+{"s":272,"where":"start","metalHost":150,"draw":47,"drawCompressed":6}
+{"s":283,"where":"start","metalHost":150,"draw":47,"drawCompressed":6}
+{"s":300,"where":"start","metalHost":159,"draw":47,"drawCompressed":8}
+{"s":304,"where":"start","metalHost":151,"draw":46,"drawCompressed":6}
+{"s":319,"where":"start","metalHost":153,"draw":46,"drawCompressed":7}
+{"s":344,"where":"start","metalHost":156,"draw":48,"drawCompressed":6}
+{"s":365,"where":"start","metalHost":155,"draw":45,"drawCompressed":8}
+{"s":375,"where":"start","gpu":11,"web":37,"app":43,"metalHost":156,"draw":82,"drawCompressed":7}
+{"s":405,"where":"L17 opening","gpu":21,"web":121,"app":47,"metalHost":191,"draw":141,"drawCompressed":5}
+{"s":419,"where":"L17 opening","gpu":47,"web":148,"app":47,"metalHost":195,"draw":110,"drawCompressed":4}
+{"s":432,"where":"L17 playing","gpu":58,"web":155,"app":48,"metalHost":215,"draw":110,"drawCompressed":5}
+{"s":436,"where":"L17 playing","gpu":58,"web":156,"app":48,"metalHost":204,"draw":111,"drawCompressed":5}
+{"s":455,"where":"L17 won, win card showing","gpu":60,"web":164,"app":48,"metalHost":195,"draw":115,"drawCompressed":6}
+{"s":469,"where":"L17 won, win card showing","gpu":61,"web":177,"app":48,"metalHost":197,"draw":106,"drawCompressed":6}
+{"s":480,"where":"L17 won, win card showing","gpu":61,"web":178,"app":48,"metalHost":195,"draw":106,"drawCompressed":6}
+{"s":492,"where":"L17 won, win card showing","gpu":61,"web":180,"app":48,"metalHost":192,"draw":105,"drawCompressed":6}
+{"s":507,"where":"after L17","gpu":60,"web":149,"app":48,"metalHost":195,"draw":107,"drawCompressed":7}
