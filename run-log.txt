@@ -1,0 +1,10 @@
+    0.0s device fix76b-ipad-15to16; levels 15-16 (2); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  648.0s app state: 4
+  669.2s contexts in full: [{"id":"NATIVE_APP"}]
+  687.9s run stopped: Error: no web view found in 180 s; contexts: NATIVE_APP
+    at AppiumBackend.toWebview (/Users/runner/work/riddle-games/riddle-games/e2e/app/backends.ts:78:35)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async AppiumBackend.start (/Users/runner/work/riddle-games/riddle-games/e2e/app/backends.ts:44:7)
+    at async backendFor (/Users/runner/work/riddle-games/riddle-games/e2e/app/run.ts:167:3)
+    at async main (/Users/runner/work/riddle-games/riddle-games/e2e/app/run.ts:198:15)

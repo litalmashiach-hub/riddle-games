@@ -1,0 +1,400 @@
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:649 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:649 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:649 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:649 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:649 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:649 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:649 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:649 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:649 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19951ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:51:650 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:51:650 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:51:651 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:51:651 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:900 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:900 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:900 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:900 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:900 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:901 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:901 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:902 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:902 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:903 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:903 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:903 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:903 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:903 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:903 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:903 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:904 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:904 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:904 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:904 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] No webviews found in 19952ms
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:904 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:904 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] No webviews found in 19988ms
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:904 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:904 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] No webviews found in 19998ms
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:904 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:913 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:913 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] No webviews found in 19999ms
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:913 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:913 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] No webviews found in 20000ms
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:913 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:913 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] No webviews found in 20000ms
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:54:913 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:54:913 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] No webviews found in 20000ms
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Getting list of available contexts
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Retrieving contexts and views
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] Selecting by url: false
+2026-11-25 20:36:54:913 [11d9de21][XCUITestDriver@b985] About to select a web application with 20 retries and 500ms interval between each retry. Consider customizing the value of 'webviewConnectRetries' capability to change the amount of retries.
+2026-11-25 20:36:55:148 [11d9de21][RemoteDebugger] Selecting application
+2026-11-25 20:36:55:148 [11d9de21][RemoteDebugger] No applications currently connected.
+2026-11-25 20:36:55:148 [11d9de21][XCUITestDriver@b985] No web frames found after 20 retries
+2026-11-25 20:36:55:148 [11d9de21][XCUITestDriver@b985] No webviews found in 20004ms
+2026-11-25 20:36:55:149 [11d9de21][XCUITestDriver@b985] Responding to client with driver.execute() result: [{"id":"NATIVE_APP"}]
+2026-11-25 20:36:55:162 [11d9de21][HTTP] <-- POST /session/11d9de21-1192-4123-bafe-2cf1965e78da/execute/sync 200 20595 ms - 31
+2026-11-25 20:36:55:162 [11d9de21][RemoteDebugger] Received connected automation availability state: "WIRAutomationAvailabilityAvailable"
+2026-11-25 20:36:55:244 [11d9de21][RemoteDebugger] Received connected applications list: PID:15492, PID:15504
+2026-11-25 20:36:55:244 [11d9de21][RemoteDebugger] Received connected driver list: {}
+2026-11-25 20:36:55:246 [11d9de21][RemoteDebugger] Pages changed for PID:15492: undefined -> [{"id":1,"title":"Riddle Games","url":"capacitor://localhost","isKey":false}]
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] Remote debugger notified us of a new page listing: {"appIdKey":"15492","pageArray":[{"id":1,"title":"Riddle Games","url":"capacitor://localhost","isKey":false}]}
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] No key id found. Choosing first id from page array
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] We do not appear to have window set yet, ignoring
+2026-11-25 20:36:55:248 [11d9de21][RemoteDebugger] Notified that an application has been updated
+2026-11-25 20:36:55:248 [11d9de21][HTTP] --> GET /session/11d9de21-1192-4123-bafe-2cf1965e78da/screenshot 
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] Calling AppiumDriver.getScreenshot() with args: ["11d9de21-1192-4123-bafe-2cf1965e78da"]
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] Executing command 'getScreenshot'
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] Taking screenshot with WDA
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] Matched '/screenshot' to command name 'getScreenshot'
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] Proxying [GET /screenshot] to [GET http://127.0.0.1:8100/session/5D8FAAE6-A253-405D-9AAE-520CFD4CBABD/screenshot] with no body
+2026-11-25 20:36:55:248 [11d9de21][RemoteDebugger] Notified that an application has been updated
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] Got response with status 200: {"value":"iVBORw0KGgoAAAANSUhEUgAACBAAAArACAIAAACcHMoSAAAAAXNSR0IArs4c6QAAAHplWElmTU0AKgAAAAgAAwEOAAIAAAALAAAAMgESAAMAAAABAAEAAIdpAAQAAAABAAAAPgAAAABTY3JlZW5zaG90AAAAA5KGAAcAAAASAAAAaKACAAQAAAABAAAIEKADAAQAAAABAAAKwAAAAABBU0NJSQAAAFNjcmVlbnNob3QUc7FtAAACo2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNi4wLjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDxkYzpkZXNjcmlwdGlvbj4KICAgICAgICAgICAgPHJkZjpBbHQ+CiAgICAgICAgICAgICAgIDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+U2NyZWVuc2hvdDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpBbHQ+CiAgICAgICAgIDwvZGM6ZGVzY3JpcHRpb24+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgI…
+2026-11-25 20:36:55:248 [11d9de21][XCUITestDriver@b985] Responding to client with driver.getScreenshot() result: "iVBORw0KGgoAAAANSUhEUgAACBAAAArACAIAAACcHMoSAAAAAXNSR0IArs4c6QAAAHplWElmTU0AKgAAAAgAAwEOAAIAAAALAAAAMgESAAMAAAABAAEAAIdpAAQAAAABAAAAPgAAAABTY3JlZW5zaG90AAAAA5KGAAcAAAASAAAAaKACAAQAAAABAAAIEKADAAQAAAABAAAKwAAAAABBU0NJSQAAAFNjcmVlbnNob3QUc7FtAAACo2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNi4wLjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDxkYzpkZXNjcmlwdGlvbj4KICAgICAgICAgICAgPHJkZjpBbHQ+CiAgICAgICAgICAgICAgIDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+U2NyZWVuc2hvdDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpBbHQ+CiAgICAgICAgIDwvZGM6ZGVzY3JpcHRpb24+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgICAgIDxleG…
+2026-11-25 20:36:55:351 [11d9de21][HTTP] <-- GET /session/11d9de21-1192-4123-bafe-2cf1965e78da/screenshot 200 16062 ms - 5014308
+2026-11-25 20:41:20:273 [11d9de21][RemoteDebugger] Notified that new application 'PID:6740' has connected
+2026-11-25 20:41:22:733 [11d9de21][RemoteDebugger] Notified that an application has been updated
+2026-11-25 21:35:43:534 [11d9de21][XCUITestDriver@b985] Shutting down because we waited 3600 seconds for a command
+2026-11-25 21:35:44:917 [11d9de21][AppiumDriver@418d] Ending session, cause was 'New Command Timeout of 3600 seconds expired. Try customizing the timeout using the 'newCommandTimeout' desired capability'
+2026-11-25 21:35:44:919 [11d9de21][AppiumDriver@418d] Removing session '11d9de21-1192-4123-bafe-2cf1965e78da' from our master session list
+2026-11-25 21:35:45:226 [11d9de21][BaseDriver] Unsubscribing b985d6b0-73cc-480c-8dea-d73c06692ec3 from topic 'xcuitest:sessionUdidClaimed'
+2026-11-25 21:35:45:948 [11d9de21][XCUITestDriver@b985] Not clearing log files. Use `clearSystemFiles` capability to turn on.
+2026-11-25 21:35:45:958 [11d9de21][XCUITestDriver@b985] Releasing connections for 2A020491-3EBC-4783-8622-F8314CC00294 device on any port number
+2026-11-25 21:35:45:963 [11d9de21][XCUITestDriver@b985] Found cached connections to release: ["2A020491-3EBC-4783-8622-F8314CC00294:8100","2A020491-3EBC-4783-8622-F8314CC00294:9100"]
+2026-11-25 21:35:45:979 [11d9de21][XCUITestDriver@b985] Cached connections count: 0
+2026-11-25 21:35:45:979 [11d9de21][XCUITestDriver@b985] Found a remote debugger session. Removing...
+2026-11-25 21:35:47:615 [11d9de21][RemoteDebugger] Disconnecting from remote debugger
+2026-11-25 21:35:48:072 [11d9de21][RemoteDebugger] Cleaning up listeners
