@@ -102,16 +102,8 @@ other moment, and every other error still fail the test. The level also has to p
 win. Its test ends as an expected failure (a cross in the list, counted as passed), and turns red
 ("Expected to fail, but passed") once the fault is fixed, which is the reminder to remove the entry.
 
-Listed today:
-
-- Level 9, Bridge of Five: a page error when play starts after the rules card.
-- Level 19, Picture Tiles: a page error when the player leaves the level.
-- Level 28, Family Portrait: the same, since it plays in level 19's scene.
-
-All are the same error, a failed removal of a page element, from the scenes' `<Html>` labels.
-None stops the level from being won. Pull request 50 fixes it for levels 9 and 19: once that is on
-main, their tests turn red as described above, and their entries are to be removed from
-`e2e/known-faults.ts`. Level 28's entry goes with level 19's if its test turns red too.
+Listed today: none. Levels 9, 19 and 28 were listed until pull request 50 fixed their page error (a
+failed removal of a page element, from the scenes' `<Html>` labels); their entries went with that fix.
 
 ## Browser version
 
