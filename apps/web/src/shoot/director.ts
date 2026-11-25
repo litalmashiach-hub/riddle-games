@@ -134,6 +134,9 @@ export async function runShots(only?: string[], defaultHold = 600_000) {
       if (shot.hint && !document.body.innerText.includes('💡')) key('h');
     }
   }
+  // Leave the level before the test winds down: a heavy scene left running starves the hosted Mac.
+  location.hash = '#/';
+  await sleep(1500);
   signal('shoot-done');
 }
 

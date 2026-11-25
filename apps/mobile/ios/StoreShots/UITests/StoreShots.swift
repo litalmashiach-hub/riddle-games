@@ -58,5 +58,6 @@ final class StoreShots: XCTestCase {
     let done = app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", "shoot-done")).firstMatch
     log("done marker: \(done.waitForExistence(timeout: 300))", dir)
     try? "done".write(toFile: dir + "/current", atomically: true, encoding: .utf8)
+    app.terminate()
   }
 }

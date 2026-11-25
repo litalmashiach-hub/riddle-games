@@ -17,7 +17,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  VITE_SHOOT_HOLD: '150000'
   SHOOT_NO_HOST: '1'
   PROJECT: apps/mobile/ios/App/App.xcodeproj
   DERIVED: build/ios
@@ -31,13 +30,13 @@ jobs:
     # beam level (05) never follows four other levels in the same web view.
     env:
       VITE_SHOOT_ONLY: ${{ matrix.only }}
+      VITE_SHOOT_HOLD: ${{ matrix.hold }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - { label: iphone-69-b2, sim: "iPhone 17 Pro Max", only: "05-moonbeam" }
-          - { label: ipad-13-d, sim: "iPad Pro 13-inch (M5)", only: "07-hint" }
-          - { label: ipad-13-e, sim: "iPad Pro 13-inch (M5)", only: "08-map" }
+          - { label: iphone-69-b3, sim: "iPhone 17 Pro Max", only: "05-moonbeam", hold: "45000" }
+          - { label: ipad-13-e, sim: "iPad Pro 13-inch (M5)", only: "08-map", hold: "150000" }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
