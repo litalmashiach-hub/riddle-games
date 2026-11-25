@@ -10,6 +10,7 @@ import { sceneTaps, watchMoves } from '../haptics';
 import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
 import { GuideOverlay, GuideTracker } from '../components/FirstPlayGuide';
+import { ReleaseOnLeave } from '../components/ReleaseOnLeave';
 import { SceneGuard, sceneWaitMs } from '../components/SceneGuard';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
@@ -139,6 +140,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
           gl.domElement.setAttribute('aria-label', `Level ${level.number}: ${level.title}, the riddle's scene`);
         }}
       >
+        {/* Outermost, so that it lets go of the level's materials and geometries before the scene is taken down. */}
+        <ReleaseOnLeave>
         <Suspense fallback={null}>
           <WorldStage world={level.world}>
             <Scene
@@ -159,6 +162,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
           {guideStep && <GuideTracker step={guideStep} ring={guideRing} />}
           <FirstFrames onReady={() => setSceneReady(true)} onStuck={() => setSceneStuck(true)} />
         </Suspense>
+        </ReleaseOnLeave>
       </Canvas>
       </SceneGuard>
 
