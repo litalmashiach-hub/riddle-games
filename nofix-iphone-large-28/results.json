@@ -1,0 +1,39 @@
+[
+ {
+  "level": 28,
+  "id": "family-portrait",
+  "title": "Family Portrait",
+  "device": "nofix-iphone-large-28",
+  "size": "956x440",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 24,
+  "moves": 24,
+  "touches": 24,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 15.415,
+   "rulesCard": 15.082,
+   "drawn": 15.415,
+   "play": 30.334,
+   "total": 110.262
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "nofix-iphone-large-28-L28-loading-mark.png",
+   "nofix-iphone-large-28-L28-rules-card.png",
+   "nofix-iphone-large-28-L28-in-play.png",
+   "nofix-iphone-large-28-L28-win-card.png"
+  ],
+  "fps": 6
+ }
+]
