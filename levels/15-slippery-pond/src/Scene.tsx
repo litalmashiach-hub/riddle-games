@@ -1,6 +1,7 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, sfx, type Vec3 } from '@riddle/fx';
+import { Burst, ComicWord, DizzyStars, FocusCam, Shake, sfx, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
+import { useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -26,6 +27,14 @@ import { DIRS, STEP, type Dir, type Move, type State, type Stopper } from './rul
 export { MOVE_MS } from './layout';
 
 type Beat = 'teeter' | 'splash' | 'brrr' | null;
+
+/**
+ * How far (CSS pixels) a finger may wander between press and lift and still count as a press on an arrow.
+ * Further than this, it was turning the camera. iOS's own tap allows about as much.
+ */
+const PRESS_SLOP = 12;
+/** After an arrow press, the click that the browser sends for the same touch is not a second tap on the ice. */
+const PRESS_ECHO_MS = 600;
 
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
   const puzzle = usePond();
@@ -124,10 +133,13 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // Input ------------------------------------------------------------------
   const legal = useMemo(() => new Set(rules.legalMoves(state).map((m) => m.dir)), [state]);
   const canPlay = !busy && !over;
+  const [nope, setNope] = useState(0);
   const go = (d: Dir) => {
     if (!canPlay) return;
     if (!legal.has(d)) {
+      // Blocked that way (a rock or the rim right beside it): say so, with a sound and a shake of the head.
       sfx.denied();
+      setNope((n) => n + 1);
       return;
     }
     pond.hup();
@@ -148,9 +160,30 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // Arrow presses count when the finger lifts, not on the browser's click. iOS sends no click for a press
+  // held a little long (or one that a busy device stretches out), and a click also needs the very object
+  // that was pressed to be under the finger still. The press is kept here by direction, so an arrow that is
+  // drawn again between press and lift still takes it.
+  const press = useRef<{ dir: Dir; id: number; x: number; y: number } | null>(null);
+  const pressedAt = useRef(-Infinity);
+  const arrowDown = (d: Dir, e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation();
+    press.current = { dir: d, id: e.pointerId, x: e.nativeEvent.clientX, y: e.nativeEvent.clientY };
+  };
+  const arrowUp = (d: Dir, e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation();
+    const p = press.current;
+    press.current = null;
+    if (!p || p.dir !== d || p.id !== e.pointerId) return;
+    if (Math.hypot(e.nativeEvent.clientX - p.x, e.nativeEvent.clientY - p.y) > PRESS_SLOP) return;
+    pressedAt.current = performance.now();
+    go(d);
+  };
+
   // Tap anywhere on the ice in line with the otter to slide that way.
   const onPick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
+    if (performance.now() - pressedAt.current < PRESS_ECHO_MS) return;
     if (!canPlay || e.delta > 8) return;
     const c = posCell(e.point.x, e.point.z);
     if (c.x === state.x && c.y === state.y) return;
@@ -175,12 +208,20 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         animKey={`${moveCount}|${resetCount}`}
         won={won}
         dizzy={dizzy > 0}
+        nope={nope}
         events={events}
       />
 
       {canPlay &&
         DIRS.filter((d) => legal.has(d)).map((d) => (
-          <ArrowPad key={`${d}|${moveCount}|${resetCount}`} dir={d} at={here} hinted={hint?.dir === d} onClick={() => go(d)} />
+          <ArrowPad
+            key={`${d}|${moveCount}|${resetCount}`}
+            dir={d}
+            at={here}
+            hinted={hint?.dir === d}
+            onDown={(e) => arrowDown(d, e)}
+            onUp={(e) => arrowUp(d, e)}
+          />
         ))}
       {canPlay && hint && (
         <HintRing position={[here[0] + STEP[hint.dir][0] * 0.78, 0.04, here[2] + STEP[hint.dir][1] * 0.78]} radius={0.42} />
@@ -225,6 +266,8 @@ interface Run {
   yawFrom: number;
 }
 
+const NOPE_MS = 450;
+
 const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 const clamp01 = (t: number) => Math.min(1, Math.max(0, t));
 
@@ -236,6 +279,7 @@ function OtterActor({
   animKey,
   won,
   dizzy,
+  nope,
   events,
 }: {
   state: State;
@@ -245,6 +289,8 @@ function OtterActor({
   animKey: string;
   won: boolean;
   dizzy: boolean;
+  /** Counts up each time a press asks for a slide the otter can't make. */
+  nope: number;
   events: Events;
 }) {
   const { slide } = usePond();
@@ -254,6 +300,9 @@ function OtterActor({
   const run = useRef<Run | null>(null);
   const first = useRef(true);
   const lastSpray = useRef(0);
+  const shakeG = useRef<THREE.Group>(null);
+  const nopeAt = useRef({ n: nope, t: -Infinity });
+  if (nopeAt.current.n !== nope) nopeAt.current = { n: nope, t: performance.now() };
 
   useEffect(() => {
     const m = mover.current;
@@ -273,6 +322,14 @@ function OtterActor({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animKey]);
+
+  // A quick shake of the head when a slide is asked for that can't be made.
+  useFrame(() => {
+    const sg = shakeG.current;
+    if (!sg) return;
+    const k = (performance.now() - nopeAt.current.t) / NOPE_MS;
+    sg.rotation.y = k >= 0 && k < 1 ? Math.sin(k * Math.PI * 4) * 0.35 * (1 - k) : 0;
+  });
 
   useFrame(() => {
     const m = mover.current;
@@ -423,8 +480,10 @@ function OtterActor({
   return (
     <group ref={mover}>
       <group ref={yawG}>
-        <group scale={1.3}>
-          <Otter rig={rig} />
+        <group ref={shakeG}>
+          <group scale={1.3}>
+            <Otter rig={rig} />
+          </group>
         </group>
       </group>
       <DizzyStars position={[0, 1.2, 0]} visible={dizzy} radius={0.26} />
@@ -453,9 +512,29 @@ const arrowShape = (() => {
 })();
 const arrowGeo = new THREE.ExtrudeGeometry(arrowShape, { depth: 0.05, bevelEnabled: true, bevelSize: 0.02, bevelThickness: 0.02, bevelSegments: 1 });
 
-/** A glowing arrow on the ice next to the otter. Tap it to slide that way. */
-function ArrowPad({ dir, at, hinted, onClick }: { dir: Dir; at: Vec3; hinted: boolean; onClick(): void }) {
+/**
+ * A glowing arrow on the ice next to the otter. Press it to slide that way.
+ *
+ * What takes the touch is a still, full-size pad over the arrow's side of the otter. Only the arrow drawn
+ * on it pops in and bobs, so a press lands the same from the first frame the arrow shows, however slowly
+ * the device draws. The pad passes press and lift to the scene, which counts the press on the lift.
+ */
+function ArrowPad({
+  dir,
+  at,
+  hinted,
+  onDown,
+  onUp,
+}: {
+  dir: Dir;
+  at: Vec3;
+  hinted: boolean;
+  onDown(e: ThreeEvent<PointerEvent>): void;
+  onUp(e: ThreeEvent<PointerEvent>): void;
+}) {
   const ref = useRef<THREE.Group>(null);
+  const [hover, setHover] = useState(false);
+  useCursor(hover);
   const [dx, dy] = STEP[dir];
   const color = hinted ? '#ffd166' : '#bef264';
   const mat = useMemo(() => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 1.6, roughness: 0.4 }), [color]);
@@ -463,22 +542,39 @@ function ArrowPad({ dir, at, hinted, onClick }: { dir: Dir; at: Vec3; hinted: bo
     const g = ref.current;
     if (!g) return;
     const t = clock.elapsedTime * 4;
-    const push = 0.72 + (Math.sin(t) * 0.5 + 0.5) * 0.08;
-    g.position.set(at[0] + dx * push, 0.06, at[2] + dy * push);
+    // Bob along the slide direction, 0.72 to 0.80 from the otter, around the pad's middle.
+    const push = (Math.sin(t) * 0.5 + 0.5) * 0.08 - 0.04;
+    g.position.set(dx * push, 0, dy * push);
     // Pop in.
     g.scale.setScalar(Math.min(1, g.scale.x + 0.08));
   });
   return (
-    <group ref={ref} position={[at[0] + dx * 0.72, 0.06, at[2] + dy * 0.72]} scale={0.01}>
-      <Clickable onClick={onClick}>
+    <group
+      position={[at[0] + dx * PAD_AT, 0.06, at[2] + dy * PAD_AT]}
+      onPointerDown={onDown}
+      onPointerUp={onUp}
+      // The click that follows a press is the pad's own: it must not reach the ice under it.
+      onClick={(e: ThreeEvent<MouseEvent>) => e.stopPropagation()}
+      onPointerOver={(e: ThreeEvent<PointerEvent>) => {
+        e.stopPropagation();
+        setHover(true);
+      }}
+      onPointerOut={() => setHover(false)}
+    >
+      <group ref={ref} scale={0.01}>
         {/* Shape points along +y; lay it flat and turn it to face the slide direction. */}
         <group rotation={[0, dirYaw(dir), 0]}>
-          <mesh geometry={arrowGeo} material={mat} rotation-x={Math.PI / 2} scale={hinted ? 1.25 : 1} castShadow />
-          <mesh visible={false}>
-            <boxGeometry args={[0.6, 0.4, 0.6]} />
-          </mesh>
+          <mesh geometry={arrowGeo} material={mat} rotation-x={Math.PI / 2} scale={(hinted ? 1.25 : 1) * (hover ? 1.06 : 1)} castShadow />
         </group>
-      </Clickable>
+      </group>
+      <mesh visible={false} rotation={[0, dirYaw(dir), 0]}>
+        <boxGeometry args={[PAD_WIDE, 0.4, PAD_LONG]} />
+      </mesh>
     </group>
   );
 }
+
+/** Where the arrow's pad sits, out from the otter's middle, and its size: it covers the arrow as it bobs, with room to spare. */
+const PAD_AT = 0.76;
+const PAD_WIDE = 0.7;
+const PAD_LONG = 0.72;
