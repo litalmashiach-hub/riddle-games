@@ -28,7 +28,7 @@ pnpm test:e2e:taps:built --project=iphone-landscape -g "level 18"
 | `iphone-small-landscape` | 667 by 375 | a small iPhone |
 | `iphone-large-landscape` | 956 by 440 | the largest iPhone |
 
-One size takes about 35 to 45 minutes on four cores without a graphics card. The browser version is
+One size takes about 30 to 41 minutes on four cores without a graphics card (measured on main after #57: 852 wide 34 to 35 min, 667 wide 30 to 33, 956 wide 41), so run one size per command where a command has a time limit. The browser version is
 the one the play-through tests use (see that guide).
 
 ## What a test does
@@ -58,7 +58,8 @@ to another host.
   level's own layout code) and taps the middle of the screen box of what that object draws. Where the
   object that listens draws nothing (an unseen pad on an islet, a ring on the water), the tap goes to
   the middle of the drawn thing it stands for; each such case is said in a comment in its player.
-- One player aims another way, and says why: level 2 taps each passenger on its *clear middle*
+- Two players aim another way, and say why. Level 7 taps each bird on its visible middle (see below).
+  Level 2 taps each passenger on its *clear middle*
   (`tapClear` in `harness.ts`), the middle of the part of it that lies outside the other figures'
   drawn boxes. On the left bank the goat stands close in front of the cabbage; its head turns all the
   time and its unseen tap sphere ends right at the middle of the cabbage's box, so a tap on that middle
@@ -97,15 +98,31 @@ the kind and one or two sentences on what happens. The test then ends as an expe
 in the list, counted as passed). A fault at another step or of another kind still fails. Once the
 level is mended, the test turns red ("Expected to fail, but passed"): remove the entry.
 
+A fault that comes only now and then, so that the level is won in most runs, is listed with
+`sometimes: true`. Then a win passes (with a note in the report that the listed fault did not come),
+and a fault at a listed step of the listed kind is an expected failure.
+
 A listed level stops at its first fault, so the steps after it are not proven by this run.
 
-Listed today (the full account of the first run is in the project's report "real-taps"):
+Listed today (the full account of the first run is in the project's report "real-taps", and of this
+update in "real-taps/fault-list-update"). In each of these the same touch is lost in some runs and not
+in others, so a run that gets past the first listed step may stop at a later one; every step listed
+was seen on main in a run of the whole level, at one size or another, and each entry holds for all three sizes:
 
-- Level 7, Jealous Couples: move 1, a tap on Mrs Coral picks Mr Teal, who stands in front of her.
-  All sizes.
-- Level 12, Twelve Coins: first weighing, a tap on coin 3 sends coin 9. All sizes.
-- Level 18, Log Jam: move 3, the tap on the ring is lost to a log in front of it. All sizes.
-- Level 27, Timber Tangle: move 9, the tap on the ring is lost to the picked log itself. All sizes.
+- Level 18, Log Jam: the tap on the picked log's ring is lost to a log in front of it (move 3,
+  17 or 19).
+- Level 27, Timber Tangle: the tap on the ring is lost to another log (move 2) or to the picked log
+  itself (move 9).
+- Level 7, Jealous Couples, only sometimes (3 runs in about 50): a tap on the sliver of Mrs Coral that
+  shows beside Mr Teal's top hat puts Mr Teal in the basket (move 1 or 10). Most runs win.
+
+Level 7's player taps each bird on its *visible middle* (`tapVisible` in `harness.ts`): the middle of
+the part of the bird that the screen shows, found by casting a ray through each point of the bird's box
+and keeping the points where the first drawn mesh met is the bird's own. The middle of Mrs Coral's box
+is drawn over by Mr Teal's top hat, so a tap there tested a spot where she does not show.
+
+Level 12, Twelve Coins, is no longer listed: it wins by taps at every size since the tap fix of pull
+request #70.
 
 Level 2, Wolf, Goat and Cabbage, is no longer listed: its player taps the cabbage where it is clear of
 the goat, and wins at every size. The fault in the game stays: the goat's unseen tap sphere reaches to

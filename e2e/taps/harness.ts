@@ -249,6 +249,87 @@ export const READ_SCENE = () => {
       const p = at(best[0], best[1]);
       return { x: p.x, y: p.y, depth: Math.sqrt(bestD) * step };
     },
+    /**
+     * The visible middle of a listening object: of the screen points, on a grid `step` apart inside the
+     * box of what it draws, where the first shown mesh of the whole scene that a ray meets is one of its
+     * own, the one farthest from any point that is not such a point. That is where a person taps a thing
+     * that is partly hidden behind another one: on the part of it that they can see. Every mesh is met
+     * by three.js's own mesh test, not by a level's own picking rule, and unseen meshes (a wider grab
+     * area) do not count, so the point is worked out from what the screen shows, never from where a tap
+     * lands. Null if no part of it shows.
+     */
+    visibleMiddle: (uuid: string, step: number) => {
+      const st = three();
+      if (!st) return null;
+      let root: any = null;
+      const meshes: any[] = [];
+      st.scene.traverse((o: any) => {
+        if (o.uuid === uuid) root = o;
+        if (!o.isMesh || !shown(o)) return;
+        const m = Array.isArray(o.material) ? o.material[0] : o.material;
+        if (m && (m.visible === false || (m.transparent && m.opacity < 0.05))) return;
+        meshes.push(o);
+      });
+      if (!root) return null;
+      const b = boxOf(st, root, false);
+      if (!b) return null;
+      const mine = new Set<any>();
+      root.traverse((o: any) => mine.add(o));
+      const rect = st.gl.domElement.getBoundingClientRect();
+      const rc = st.raycaster;
+      const o0 = rc.ray.origin.clone();
+      const d0 = rc.ray.direction.clone();
+      const nx = Math.floor((b.x1 - b.x0) / step) + 3;
+      const ny = Math.floor((b.y1 - b.y0) / step) + 3;
+      const at = (i: number, j: number) => ({ x: b.x0 + (i - 1) * step, y: b.y0 + (j - 1) * step });
+      const seen: boolean[] = new Array(nx * ny).fill(false);
+      for (let j = 1; j < ny - 1; j++)
+        for (let i = 1; i < nx - 1; i++) {
+          const p = at(i, j);
+          rc.setFromCamera({ x: ((p.x - rect.left) / rect.width) * 2 - 1, y: -((p.y - rect.top) / rect.height) * 2 + 1 }, st.camera);
+          let best = Infinity;
+          let bestObj: any = null;
+          for (const m of meshes) {
+            const hits: any[] = [];
+            // three.js's own test for a mesh, past any picking rule that a level puts on it.
+            Object.getPrototypeOf(m).raycast.call(m, rc, hits);
+            for (const h of hits)
+              if (h.distance < best) {
+                best = h.distance;
+                bestObj = m;
+              }
+          }
+          seen[j * nx + i] = !!bestObj && mine.has(bestObj);
+        }
+      rc.ray.origin.copy(o0);
+      rc.ray.direction.copy(d0);
+      const out: [number, number][] = [];
+      const inn: [number, number][] = [];
+      seen.forEach((v, k) => (v ? inn : out).push([k % nx, Math.floor(k / nx)]));
+      if (!inn.length) return null;
+      let cx = 0, cy = 0;
+      for (const [i, j] of inn) {
+        cx += i;
+        cy += j;
+      }
+      cx /= inn.length;
+      cy /= inn.length;
+      let bestCell = inn[0];
+      let bestD = -1;
+      let bestC = Infinity;
+      for (const [i, j] of inn) {
+        let d = Infinity;
+        for (const [oi, oj] of out) d = Math.min(d, (oi - i) ** 2 + (oj - j) ** 2);
+        const c = (i - cx) ** 2 + (j - cy) ** 2;
+        if (d > bestD || (d === bestD && c < bestC)) {
+          bestCell = [i, j];
+          bestD = d;
+          bestC = c;
+        }
+      }
+      const p = at(bestCell[0], bestCell[1]);
+      return { x: p.x, y: p.y, depth: Math.sqrt(bestD) * step, shown: inn.length * step * step };
+    },
     /** The listening object that a ray from the screen point reaches first: what the game's own picking would report first. */
     firstHit: (x: number, y: number) => {
       const st = three();
@@ -284,6 +365,7 @@ declare global {
       targets(): Target[];
       firstHit(x: number, y: number): TapRecord['firstHit'];
       clearMiddle(uuid: string, step: number): (Point & { depth: number }) | null;
+      visibleMiddle(uuid: string, step: number): (Point & { depth: number; shown: number }) | null;
     };
   }
 }
@@ -399,6 +481,22 @@ export class Taps {
   /** One tap on the clear middle of a listening object. */
   async tapClear(t: Target, what: string): Promise<TapRecord> {
     return this.tapAt(await this.clearMiddleOf(t), what);
+  }
+
+  /**
+   * Where a person taps a thing that is partly hidden behind another one: the middle of the part of it
+   * that the screen shows (see `visibleMiddle` in READ_SCENE). If no part of it shows, that is a fault:
+   * `covered`, since a finger cannot aim at what it cannot see.
+   */
+  async visibleMiddleOf(t: Target, what: string, step = 2): Promise<Point> {
+    const p = await this.page.evaluate(([u, s]) => window.__taps.visibleMiddle(u, s), [t.uuid, step] as const);
+    if (!p) throw new TapFault('covered', this.step, `no part of ${what} shows on the screen: other things are drawn over all of it`);
+    return { x: p.x, y: p.y };
+  }
+
+  /** One tap on the visible middle of a listening object. */
+  async tapVisible(t: Target, what: string): Promise<TapRecord> {
+    return this.tapAt(await this.visibleMiddleOf(t, what), what);
   }
 
   private async look(at: Point, what: string) {

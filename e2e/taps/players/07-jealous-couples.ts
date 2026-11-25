@@ -30,8 +30,10 @@ const seat = (s: Side, i: number): Vec3 => [sign(s) * DOCK_X + (i === 0 ? -0.21 
 /**
  * Level 7: tap each bird that is to fly (it hops into the basket and the Fly button names it), then
  * the scene's own Fly button. A bird is found as the listening figure that stands on its place on the
- * island and tapped in the middle of what it draws. The birds stand in a tight bunch, so the middle of a
- * bird in the back row can lie under the bird in front of it: that is the fault this level is listed for.
+ * island. The birds stand in a tight bunch, and the middle of a bird in the back row can lie under the
+ * bird in front of it (Mr Teal's top hat is drawn over the middle of Mrs Coral), so a tap there would test
+ * a spot where the bird does not show. Each bird is tapped on its visible middle instead (`tapVisible` in
+ * harness.ts): the middle of the part of it that the screen shows, worked out from what is drawn.
  */
 const jealousCouples: TapPlayer<State, Move> = {
   async move(taps, move, state) {
@@ -40,7 +42,7 @@ const jealousCouples: TapPlayer<State, Move> = {
       const fig = await until(() => taps.targetNear(slot(b, state.balloon), { handler: 'onClick', within: 0.1 }));
       if (!fig) return taps.fault('no-response', `no figure that listens came to stand at the place of ${nameOf(b)}`);
       const before = await fly.textContent();
-      await taps.tapTarget(fig, nameOf(b));
+      await taps.tapVisible(fig, nameOf(b));
       const want = move.riders.slice(0, i + 1).map(nameOf).join(' + ');
       const named = await until(async () => ((await fly.textContent().catch(() => null)) ?? '').endsWith(want));
       if (!named) {

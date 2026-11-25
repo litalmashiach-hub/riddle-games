@@ -122,7 +122,13 @@ for (const level of LEVELS) {
       if (fault && (!known.steps.includes(fault.step) || fault.kind !== known.kind)) {
         throw new Error(`A tap fault is listed for this level at step ${known.steps.join(' or ')} (${known.kind}), and another one came: ${fault.message}`);
       }
-      test.fail(true, known.reason);
+      // A fault listed as happening only sometimes may also not come: then the level is won like any other,
+      // and the run says so. When it comes, at a listed step and of the listed kind, it is an expected failure.
+      if (known.sometimes && !fault) {
+        testInfo.annotations.push({ type: 'listed tap fault did not come this time', description: known.reason });
+      } else {
+        test.fail(true, known.reason);
+      }
     }
     if (fault) throw fault;
   });

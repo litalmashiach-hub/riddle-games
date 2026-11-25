@@ -13,11 +13,18 @@ import type { TapFaultKind } from './harness';
 export interface KnownTapFault {
   sizes: string[];
   /**
-   * The move's number, from 1. More than one where the aim point lies on the very edge of what takes
-   * the touch, so that the same touch is lost in one run at an earlier step and in another at a later one.
+   * The move's number, from 1. More than one where the same kind of touch is lost in some runs and not
+   * in others: a run that gets past the first such step stops at a later one. Every step listed was seen
+   * in a run of the whole level.
    */
   steps: number[];
   kind: TapFaultKind;
+  /**
+   * True where the fault comes only in some runs (a few in thirty), and the level is won in the others.
+   * Then a win passes as usual, and only a fault at a listed step, of the listed kind, is expected.
+   * Without it, a win fails the test ("expected to fail, but passed").
+   */
+  sometimes?: boolean;
   /** What happens, in one or two sentences. */
   reason: string;
 }
@@ -28,37 +35,29 @@ export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {
   'jealous-couples': [
     {
       sizes: ALL,
-      steps: [1],
+      steps: [1, 10],
       kind: 'wrong-pick',
+      sometimes: true,
       reason:
-        "Level 7, move 1 (Mrs Coral and Mr Coral fly): a tap on the middle of Mrs Coral picks Mr Teal, who stands in front of her with his top hat over her. Aiming at her head instead gets as far as move 10, where only a sliver of her shows beside his hat.",
-    },
-  ],
-  'twelve-coins': [
-    {
-      sizes: ALL,
-      steps: [1],
-      kind: 'wrong-pick',
-      reason:
-        "Level 12, first weighing: a tap on the middle of coin 3, in the far row, sends coin 9 to the pan. Each coin's unseen grab cylinder (radius 0.4, the coin drawn 0.24) covers the lower half of the coin behind it; coin 4 loses to coin 10 the same way.",
+        "Level 7, now and then (3 runs in about 50): a tap on the part of Mrs Coral that shows beside Mr Teal's top hat puts Mr Teal in the basket (move 1 at 667 and 956 wide, move 10 at 956). Only a sliver of her shows there, and his unseen tap sphere lies right behind it.",
     },
   ],
   'log-jam': [
     {
       sizes: ALL,
-      steps: [3],
+      steps: [3, 17, 19],
       kind: 'no-move',
       reason:
-        "Level 18, move 3: with the log picked, a tap on the middle of its glowing ring is lost. The upright log on the next cell toward the camera takes the touch with its unseen grab box and is picked instead. Dragging the log works.",
+        "Level 18: with the log picked, a tap on the middle of its glowing ring is lost to the upright log on the next cell toward the camera, which takes the touch with its unseen grab box (move 3, and in a run that gets past it, move 17 or 19, both on a ring that lies right behind a log). Dragging the log works.",
     },
   ],
   'timber-tangle': [
     {
       sizes: ALL,
-      steps: [9],
+      steps: [2, 9],
       kind: 'no-move',
       reason:
-        "Level 27, move 9: with the long log picked, a tap on the middle of the ring right behind its own far end is lost. The picked log's unseen grab box takes the touch and the log is put down. Dragging the log works.",
+        "Level 27: with a log picked, a tap on the middle of its ring is lost to a log's unseen grab box (another log at move 2, the picked log itself at move 9). Which move it stops at changes from run to run. Dragging the log works.",
     },
   ],
 };
