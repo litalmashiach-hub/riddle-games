@@ -1,0 +1,6 @@
+[
+  { "label": "fix76-iphone-small-26", "sim": "iPhone SE (3rd generation)", "orientation": "-", "levels": "26", "extras": "0", "flags": "relaunch-each level-minutes=20 sit-seconds=40" },
+  { "label": "fix76-iphone-large-28-30", "sim": "iPhone 17 Pro Max", "orientation": "-", "levels": "28-30", "extras": "0", "flags": "relaunch-each level-minutes=20" },
+  { "label": "fix76-ipad-03-05", "sim": "iPad Pro 13-inch (M5)", "orientation": "LANDSCAPE", "levels": "3-5", "extras": "0", "flags": "quality=low relaunch-each level-minutes=20" },
+  { "label": "fix76-ipad-mini-03-05", "sim": "iPad mini (A17 Pro)", "orientation": "LANDSCAPE", "levels": "3-5", "extras": "0", "flags": "quality=low relaunch-each level-minutes=20" }
+]

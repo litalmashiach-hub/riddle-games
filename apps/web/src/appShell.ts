@@ -9,5 +9,8 @@ export const APP_SHELL = import.meta.env.MODE === 'app';
  * a shipped app must not carry an unlock-everything switch or expose its internals to scripts.
  */
 export function hasTestFlag(name: 'all' | 'debug') {
+  // TEST ONLY (branch test/app-play-every-level, never for main): an app build made with
+  // VITE_APP_TEST_HOOKS=1 exposes the debug hook, so a run in the simulator can read the session.
+  if (APP_SHELL && import.meta.env.VITE_APP_TEST_HOOKS === '1') return name === 'debug';
   return !APP_SHELL && new URLSearchParams(location.search).has(name);
 }
