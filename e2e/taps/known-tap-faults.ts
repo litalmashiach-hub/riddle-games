@@ -19,6 +19,12 @@ export interface KnownTapFault {
    */
   steps: number[];
   kind: TapFaultKind;
+  /**
+   * True where the fault comes only in some runs (a few in thirty), and the level is won in the others.
+   * Then a win passes as usual, and only a fault at a listed step, of the listed kind, is expected.
+   * Without it, a win fails the test ("expected to fail, but passed").
+   */
+  sometimes?: boolean;
   /** What happens, in one or two sentences. */
   reason: string;
 }
@@ -26,6 +32,16 @@ export interface KnownTapFault {
 const ALL = ['iphone-landscape', 'iphone-small-landscape', 'iphone-large-landscape'];
 
 export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {
+  'jealous-couples': [
+    {
+      sizes: ALL,
+      steps: [1, 10],
+      kind: 'wrong-pick',
+      sometimes: true,
+      reason:
+        "Level 7, now and then (3 runs in about 48): a tap on the part of Mrs Coral that shows beside Mr Teal's top hat puts Mr Teal in the basket (move 1 at 667 and 956 wide, move 10 at 956). Only a sliver of her shows there, and his unseen tap sphere lies right behind it.",
+    },
+  ],
   'log-jam': [
     {
       sizes: ALL,
