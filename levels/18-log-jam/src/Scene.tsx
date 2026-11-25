@@ -24,6 +24,10 @@ const PHASES: [Phase, number][] = [
   ['splash', 1300],
   ['after', 60000],
 ];
+/** Dottie's hops along the logs share this much of the 'hop' beat, each after a short crouch. */
+const HOPS_MS = 1400;
+const hopMs = (hops: number) => HOPS_MS / Math.max(1, hops);
+const HOP_CROUCH = 0.15;
 
 /** The grid cell a piece's leading end moves into when it slides to `to`. */
 function leadCell(pc: Piece, from: number, to: number): [number, number] {
@@ -63,7 +67,11 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const lost = status.kind === 'lost';
   const over = won || lost;
   const locked = busy || over;
-  const phase = usePhases(lost && !busy, PHASES);
+  // The fail scene lives only while the loss stands. An undo or a restart ends it in the very draw that takes
+  // the loss back, not one draw later when the timed phase has caught up, and with it the sounds still to come.
+  const failing = lost && !busy;
+  const timedPhase = usePhases(failing, PHASES);
+  const phase = failing ? timedPhase : null;
 
   useEffect(() => {
     if (!won) return;
@@ -85,6 +93,12 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       pond.quack(0, 0.8);
       pond.quack(0.18, 0.75);
       pond.quack(0.36, 0.7);
+    } else if (phase === 'hop') {
+      // One boing as each of Dottie's hops starts (FailDuck keeps the same times). They wait on timers, so that an
+      // undo, a restart or leaving the level takes back the ones still to come, like every later beat.
+      const d = hopMs(failPlan.hops.length);
+      const timers = failPlan.hops.map((_, i) => setTimeout(sfx.boing, d * (i + HOP_CROUCH)));
+      return () => timers.forEach(clearTimeout);
     } else if (phase === 'slip') sfx.squeak();
     else if (phase === 'splash') {
       const t = setTimeout(() => {
@@ -563,9 +577,10 @@ function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Ve
   const segs = useMemo<PathSegment[]>(() => {
     if (phase === 'huff') return [{ to: plan.start, durationMs: 10 }];
     if (phase === 'hop') {
-      const d = 1400 / Math.max(1, plan.hops.length);
+      // The boing of each hop is the scene's to play (see its fail beats), so that an undo can take it back.
+      const d = hopMs(plan.hops.length);
       return plan.hops.length
-        ? plan.hops.map((h) => ({ to: h, durationMs: d * 0.85, delayMs: d * 0.15, height: 0.55, onStart: sfx.boing }))
+        ? plan.hops.map((h) => ({ to: h, durationMs: d * (1 - HOP_CROUCH), delayMs: d * HOP_CROUCH, height: 0.55 }))
         : [{ to: plan.start, durationMs: 10 }];
     }
     if (phase === 'slip') return [{ to: [plan.perch[0] + 0.12, plan.perch[1] + 0.1, plan.perch[2]], durationMs: 600, height: 0.15 }];
