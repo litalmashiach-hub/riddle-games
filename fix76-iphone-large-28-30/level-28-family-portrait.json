@@ -1,0 +1,286 @@
+{
+ "level": 28,
+ "id": "family-portrait",
+ "title": "Family Portrait",
+ "device": "fix76-iphone-large-28-30",
+ "size": "956x440",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();ret",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 13,
+ "moves": 24,
+ "touches": 13,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return{state:s.history[s.history.length-1],moves:s.moves,kind:s.status.kind,busy:s.busy,ended:s.ended,hintsUsed:s.hintsUsed}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+ "seconds": {
+  "open": 94.191,
+  "rulesCard": 92.268,
+  "drawn": 94.191,
+  "play": null,
+  "total": 264.928
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76-iphone-large-28-30-L28-loading-mark.png",
+  "fix76-iphone-large-28-30-L28-rules-card.png",
+  "fix76-iphone-large-28-30-L28-in-play.png",
+  "fix76-iphone-large-28-30-L28-error.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "stone 1 on cell 1",
+   "kind": "tap",
+   "at": {
+    "x": 478,
+    "y": 201.0580593836733
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "36846c5b-d847-444c-9dc8-40cce2d4162e",
+    "world": [
+     0,
+     0.6,
+     -1.06
+    ],
+    "distance": 12.12199063478766
+   }
+  },
+  {
+   "step": 2,
+   "what": "stone 4 on cell 4",
+   "kind": "tap",
+   "at": {
+    "x": 478,
+    "y": 230.23265138362171
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3e90147b-3f19-4fe4-acaf-87484a39d402",
+    "world": [
+     0,
+     0.6,
+     0
+    ],
+    "distance": 11.300577208540032
+   }
+  },
+  {
+   "step": 3,
+   "what": "stone 2 on cell 3",
+   "kind": "tap",
+   "at": {
+    "x": 428.083586052808,
+    "y": 230.23265138362171
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3a93fec4-d772-420e-a615-61ee3be22b55",
+    "world": [
+     -1.06,
+     0.6,
+     0
+    ],
+    "distance": 11.350355960988185
+   }
+  },
+  {
+   "step": 4,
+   "what": "stone 6 on cell 6",
+   "kind": "tap",
+   "at": {
+    "x": 424.117196358564,
+    "y": 263.95201677417526
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3af26c9c-c78c-4a42-bdf7-9305633cd166",
+    "world": [
+     -1.06,
+     0.6,
+     1.06
+    ],
+    "distance": 10.572041571570637
+   }
+  },
+  {
+   "step": 5,
+   "what": "stone 7 on cell 7",
+   "kind": "tap",
+   "at": {
+    "x": 478,
+    "y": 263.95201677417526
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2a61dd9c-2595-4a9b-ac04-ee96e7125695",
+    "world": [
+     0,
+     0.6,
+     1.06
+    ],
+    "distance": 10.518418145001755
+   }
+  },
+  {
+   "step": 6,
+   "what": "stone 3 on cell 8",
+   "kind": "tap",
+   "at": {
+    "x": 531.882803641436,
+    "y": 263.95201677417526
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "7af0eae5-8090-44f0-a941-6ed066e67a20",
+    "world": [
+     1.06,
+     0.6,
+     1.06
+    ],
+    "distance": 10.572041571570635
+   }
+  },
+  {
+   "step": 7,
+   "what": "stone 8 on cell 5",
+   "kind": "tap",
+   "at": {
+    "x": 527.916413947192,
+    "y": 230.23265138362171
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "211e5233-b32d-429b-997c-2b579b21c891",
+    "world": [
+     1.06,
+     0.6,
+     0
+    ],
+    "distance": 11.350355960988187
+   }
+  },
+  {
+   "step": 8,
+   "what": "stone 2 on cell 4",
+   "kind": "tap",
+   "at": {
+    "x": 478,
+    "y": 230.23265138362171
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3a93fec4-d772-420e-a615-61ee3be22b55",
+    "world": [
+     0,
+     0.6,
+     0
+    ],
+    "distance": 11.300577208540032
+   }
+  },
+  {
+   "step": 9,
+   "what": "stone 6 on cell 3",
+   "kind": "tap",
+   "at": {
+    "x": 428.083586052808,
+    "y": 230.23265138362171
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3af26c9c-c78c-4a42-bdf7-9305633cd166",
+    "world": [
+     -1.06,
+     0.6,
+     0
+    ],
+    "distance": 11.350355960988185
+   }
+  },
+  {
+   "step": 10,
+   "what": "stone 5 on cell 0",
+   "kind": "tap",
+   "at": {
+    "x": 431.50552593045654,
+    "y": 201.0580593836733
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c9b63cf1-f0c9-493d-a0c0-0ee662369ca1",
+    "world": [
+     -1.06,
+     0.6,
+     -1.06
+    ],
+    "distance": 12.168289386966483
+   }
+  },
+  {
+   "step": 11,
+   "what": "stone 4 on cell 1",
+   "kind": "tap",
+   "at": {
+    "x": 478,
+    "y": 201.0580593836733
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3e90147b-3f19-4fe4-acaf-87484a39d402",
+    "world": [
+     0,
+     0.6,
+     -1.06
+    ],
+    "distance": 12.12199063478766
+   }
+  },
+  {
+   "step": 12,
+   "what": "stone 1 on cell 2",
+   "kind": "tap",
+   "at": {
+    "x": 524.4944740695435,
+    "y": 201.0580593836733
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "36846c5b-d847-444c-9dc8-40cce2d4162e",
+    "world": [
+     1.06,
+     0.6,
+     -1.06
+    ],
+    "distance": 12.168289386966483
+   }
+  },
+  {
+   "step": 13,
+   "what": "stone 2 on cell 5",
+   "kind": "tap",
+   "at": {
+    "x": 527.916413947192,
+    "y": 230.23265138362171
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3a93fec4-d772-420e-a615-61ee3be22b55",
+    "world": [
+     1.06,
+     0.6,
+     0
+    ],
+    "distance": 11.350355960988187
+   }
+  }
+ ],
+ "fps": 0
+}

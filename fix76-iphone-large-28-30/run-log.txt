@@ -1,0 +1,26 @@
+    0.0s device fix76-iphone-large-28-30; levels 28-30 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"F90353E4-F95D-488C-9F4E-B43F74E385F2","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  725.6s page in WEBVIEW_22790.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  725.8s web view found: WEBVIEW_22790.1, 956 by 440
+  731.6s calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+  735.7s page in WEBVIEW_22790.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  755.2s L28 family-portrait: opened by its card on the level map
+  982.2s L28: ERROR WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return{state:s.history[s.history.length-1],moves:s.moves,kind:s.status.kind,busy:s.busy,ended:s.ended,hintsUsed:s.hintsUsed}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)
+  996.1s page in WEBVIEW_27952.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  996.5s app relaunched after the error
+  996.5s L28 family-portrait: not won: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();ret; stars null (saved null); open 94.191s, play nulls, total 264.928s; page errors 0, console errors 0; frames per second 0
+ 1009.0s page in WEBVIEW_28414.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1009.1s L29: fresh app
+ 1013.5s page in WEBVIEW_28414.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1016.1s L29 cricket-crossing: opened by its card on the level map
+ 1028.4s L29: ERROR WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"
+ 1044.1s page in WEBVIEW_28970.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1044.2s app relaunched after the error
+ 1044.3s L29 cricket-crossing: not won: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); r; stars null (saved null); open 10.021s, play nulls, total 35.177s; page errors 0, console errors 0; frames per second 0
+ 1063.4s page in WEBVIEW_29367.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1064.0s L30: fresh app
+ 1068.9s page in WEBVIEW_29367.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1071.9s L30 moonlit-tower: opened by its card on the level map
+ 1240.6s L30 moonlit-tower: won by taps; stars 3 (saved 3); open 7.86s, play 150.659s, total 176.469s; page errors 0, console errors 0; frames per second 29.1
+ 1240.6s script calls: 493, median 62 ms, 90th 400 ms
+ 1241.1s done: 1 of 3 levels won, 1 by taps alone

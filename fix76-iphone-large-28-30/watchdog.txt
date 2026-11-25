@@ -1,0 +1,28 @@
+18:16:03 WATCHDOG: the Mac wrote 63256 pages to swap in one round; stopping the app
+PID    COMMAND          MEM   CMPRS %CPU
+5840   SimRenderServer  1980M 25M   0.0 
+5864   SimMetalHost     264M  16M   0.0 
+22829  com.apple.WebKit 179M  71M   0.0 
+5937   SpringBoard      168M  131M  0.0 
+5132   node             135M  77M   0.0 
+18682  xcodebuild       106M  97M   0.0 
+5403   node             97M   58M   0.0 
+989    Runner.Worker    89M   82M   0.0 
+336    mds_stores       87M   76M   0.0 
+985    Runner.Listener  75M   58M   0.0 
+460    Spotlight        73M   65M   0.0 
+171    WindowServer     69M   31M   0.0 
+18:18:20 WATCHDOG: the Mac wrote 60992 pages to swap in one round; stopping the app
+PID    COMMAND          MEM  CMPRS %CPU
+5864   SimMetalHost     209M 15M   0.0 
+5840   SimRenderServer  208M 24M   0.0 
+5937   SpringBoard      169M 110M  0.0 
+5132   node             123M 24M   0.0 
+5403   node             111M 36M   0.0 
+18682  xcodebuild       106M 98M   0.0 
+989    Runner.Worker    92M  72M   0.0 
+336    mds_stores       91M  75M   0.0 
+985    Runner.Listener  76M  54M   0.0 
+460    Spotlight        73M  66M   0.0 
+22445  WebDriverAgentRu 64M  53M   0.0 
+5866   SimMetalHost     63M  42M   0.0 

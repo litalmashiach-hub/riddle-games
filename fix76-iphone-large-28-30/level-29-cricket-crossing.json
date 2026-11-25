@@ -1,0 +1,37 @@
+{
+ "level": 29,
+ "id": "cricket-crossing",
+ "title": "Cricket Crossing",
+ "device": "fix76-iphone-large-28-30",
+ "size": "956x440",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); r",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 0,
+ "moves": 16,
+ "touches": 0,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"",
+ "seconds": {
+  "open": 10.021,
+  "rulesCard": 3.556,
+  "drawn": 10.021,
+  "play": null,
+  "total": 35.177
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76-iphone-large-28-30-L29-loading-mark.png",
+  "fix76-iphone-large-28-30-L29-rules-card.png",
+  "fix76-iphone-large-28-30-L29-error.png"
+ ],
+ "log": [],
+ "fps": 0
+}

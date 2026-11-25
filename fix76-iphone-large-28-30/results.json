@@ -1,0 +1,112 @@
+[
+ {
+  "level": 28,
+  "id": "family-portrait",
+  "title": "Family Portrait",
+  "device": "fix76-iphone-large-28-30",
+  "size": "956x440",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();ret",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 13,
+  "moves": 24,
+  "touches": 13,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return{state:s.history[s.history.length-1],moves:s.moves,kind:s.status.kind,busy:s.busy,ended:s.ended,hintsUsed:s.hintsUsed}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+  "seconds": {
+   "open": 94.191,
+   "rulesCard": 92.268,
+   "drawn": 94.191,
+   "play": null,
+   "total": 264.928
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76-iphone-large-28-30-L28-loading-mark.png",
+   "fix76-iphone-large-28-30-L28-rules-card.png",
+   "fix76-iphone-large-28-30-L28-in-play.png",
+   "fix76-iphone-large-28-30-L28-error.png"
+  ],
+  "fps": 0
+ },
+ {
+  "level": 29,
+  "id": "cricket-crossing",
+  "title": "Cricket Crossing",
+  "device": "fix76-iphone-large-28-30",
+  "size": "956x440",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); r",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 0,
+  "moves": 16,
+  "touches": 0,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"",
+  "seconds": {
+   "open": 10.021,
+   "rulesCard": 3.556,
+   "drawn": 10.021,
+   "play": null,
+   "total": 35.177
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76-iphone-large-28-30-L29-loading-mark.png",
+   "fix76-iphone-large-28-30-L29-rules-card.png",
+   "fix76-iphone-large-28-30-L29-error.png"
+  ],
+  "fps": 0
+ },
+ {
+  "level": 30,
+  "id": "moonlit-tower",
+  "title": "Moonlit Tower",
+  "device": "fix76-iphone-large-28-30",
+  "size": "956x440",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 31,
+  "moves": 31,
+  "touches": 62,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 7.86,
+   "rulesCard": 7.535,
+   "drawn": 7.86,
+   "play": 150.659,
+   "total": 176.469
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76-iphone-large-28-30-L30-loading-mark.png",
+   "fix76-iphone-large-28-30-L30-rules-card.png",
+   "fix76-iphone-large-28-30-L30-in-play.png",
+   "fix76-iphone-large-28-30-L30-win-card.png"
+  ],
+  "fps": 29.1
+ }
+]
