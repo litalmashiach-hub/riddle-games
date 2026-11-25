@@ -6,6 +6,7 @@ import { hasTestFlag } from '../appShell';
 import { Stars } from '../components/Stars';
 import { LockIcon, PlayIcon, SoundIcon } from '../components/Icons';
 import { LEVELS, WORLD_ORDER, type LevelEntry } from '../levels';
+import { GearIcon } from './AboutScreen';
 
 /** A built level is open when every built level before it is solved. `?all` opens everything (website only). */
 function isUnlocked(entry: LevelEntry, progress: Progress) {
@@ -29,7 +30,7 @@ function useShortScreen() {
 
 const MAP_BACKGROUND = 'radial-gradient(1200px 700px at 20% -10%, #3b82c4 0%, #1b3b5f 45%, #0f2236 100%)';
 
-export function LevelMap(props: { progress: Progress; onPlay: (id: string) => void }) {
+export function LevelMap(props: { progress: Progress; onPlay: (id: string) => void; onAbout: () => void }) {
   return useShortScreen() ? <SidewaysMap {...props} /> : <TallMap {...props} />;
 }
 
@@ -37,7 +38,7 @@ export function LevelMap(props: { progress: Progress; onPlay: (id: string) => vo
  * Phone held sideways: a level select that fills the screen. A slim header, then one row of level
  * cards that swipes sideways, grouped by world, opening on the level the player is up to.
  */
-function SidewaysMap({ progress, onPlay }: { progress: Progress; onPlay: (id: string) => void }) {
+function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (id: string) => void; onAbout: () => void }) {
   const totalStars = Object.values(progress.stars).reduce((a, b) => a + b, 0);
   const { sound, toggleSound } = useSettings();
   const current = LEVELS.find((l) => l.level && isUnlocked(l, progress) && !(progress.stars[l.id] ?? 0)) ?? LEVELS[0];
@@ -60,6 +61,9 @@ function SidewaysMap({ progress, onPlay }: { progress: Progress; onPlay: (id: st
             <Stars count={1} size={16} single />
             <span className="font-display font-semibold tabular-nums">{totalStars} / {LEVELS.length * 3}</span>
           </div>
+          <button className="glass btn-3d rounded-full p-2.5" onClick={() => { sfx.click(); onAbout(); }} aria-label="About and settings">
+            <GearIcon />
+          </button>
           <button className="glass btn-3d rounded-full p-2.5" onClick={toggleSound} aria-label={sound ? 'Mute' : 'Unmute'}>
             <SoundIcon on={sound} />
           </button>
@@ -89,14 +93,17 @@ function SidewaysMap({ progress, onPlay }: { progress: Progress; onPlay: (id: st
   );
 }
 
-function TallMap({ progress, onPlay }: { progress: Progress; onPlay: (id: string) => void }) {
+function TallMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (id: string) => void; onAbout: () => void }) {
   const totalStars = Object.values(progress.stars).reduce((a, b) => a + b, 0);
   const { sound, toggleSound } = useSettings();
   return (
     <div className="relative h-full overflow-y-auto overflow-x-hidden" style={{ background: MAP_BACKGROUND }}>
       <Backdrop />
       <div className="relative mx-auto max-w-5xl pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pb-[max(6rem,env(safe-area-inset-bottom))] pt-[max(4.25rem,calc(env(safe-area-inset-top)+3.25rem))] sm:pt-16">
-        <div className="absolute right-[max(1rem,env(safe-area-inset-right))] top-[max(1rem,env(safe-area-inset-top))]">
+        <div className="absolute right-[max(1rem,env(safe-area-inset-right))] top-[max(1rem,env(safe-area-inset-top))] flex gap-2">
+          <button className="glass btn-3d rounded-full p-2.5" onClick={() => { sfx.click(); onAbout(); }} aria-label="About and settings">
+            <GearIcon />
+          </button>
           <button className="glass btn-3d rounded-full p-2.5" onClick={toggleSound} aria-label={sound ? 'Mute' : 'Unmute'}>
             <SoundIcon on={sound} />
           </button>

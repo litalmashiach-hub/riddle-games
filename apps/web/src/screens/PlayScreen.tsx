@@ -166,20 +166,21 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         {guideStep && <GuideOverlay key="guide" step={guideStep} ring={guideRing} onSkip={() => setGuideOn(false)} />}
       </AnimatePresence>
 
-      {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels. */}
+      {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels.
+          The counter and the level name use the tinted readout glass, so they stay readable over a white sky. */}
       <div className={`safe-top pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3 transition-opacity duration-300 sm:p-4 short:justify-start short:pt-2 ${cardOpen ? 'invisible opacity-0' : ''}`}>
         <div className="pointer-events-auto flex items-center gap-2">
           <Button onClick={onExit} aria-label="Back to levels" className="!px-3">
             <HomeIcon />
           </Button>
-          <div className="glass hidden rounded-2xl px-4 py-1.5 sm:block short:hidden">
-            <div className="text-[11px] font-bold uppercase tracking-widest text-white/75">Level {level.number} · {look.name}</div>
+          <div className="glass-readout hidden rounded-2xl px-4 py-1.5 sm:block short:hidden">
+            <div className="text-[11px] font-bold uppercase tracking-widest text-white/90">Level {level.number} · {look.name}</div>
             <div className="font-display text-lg font-semibold leading-tight">{level.title}</div>
           </div>
         </div>
-        <div className="glass pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
+        <div className="glass-readout pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
           <div className="font-display text-2xl font-bold leading-none tabular-nums short:leading-[inherit]">{moveCount}</div>
-          <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/75 short:leading-[inherit]"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
+          <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/90 short:leading-[inherit]"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
         </div>
         <div className="pointer-events-auto flex items-center gap-2 short:ml-auto">
           <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" aria-label="Graphics quality">

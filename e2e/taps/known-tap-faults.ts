@@ -26,15 +26,6 @@ export interface KnownTapFault {
 const ALL = ['iphone-landscape', 'iphone-small-landscape', 'iphone-large-landscape'];
 
 export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {
-  'family-crossing': [
-    {
-      sizes: ALL,
-      steps: [1, 3, 14],
-      kind: 'wrong-pick',
-      reason:
-        "Level 11: a tap on the middle of the guard puts Dad on the raft (move 1, or move 3 if move 1 got through), and late in the level a tap on the thief puts Mom on it (move 14). The one in front takes the touch with its unseen tap cylinder, which is wider than its body, and the same tap is lost in some runs and not in others.",
-    },
-  ],
   'log-jam': [
     {
       sizes: ALL,

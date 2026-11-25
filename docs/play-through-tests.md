@@ -6,7 +6,7 @@ build in a phone-sized browser with a touch screen and play it.
 ```bash
 pnpm install
 pnpm test:e2e          # pnpm build and pnpm build:app, then the tests
-pnpm test:e2e:built    # the tests alone, against the apps/web/dist that is already there
+pnpm test:e2e:built    # the tests alone, against the apps/web/dist and dist-app that are already there
 ```
 
 Run one part:
@@ -29,7 +29,11 @@ Three screen sizes, all with touch and the phone held sideways:
 | --- | --- | --- |
 | `iphone-landscape` | 852 by 393 | a current iPhone |
 | `iphone-small-landscape` | 667 by 375 | a small iPhone |
+| `app-iphone-landscape`, `app-iphone-small-landscape` | the same two | the app build (`apps/web/dist-app`), for `about.spec.ts` only |
 | `iphone-largest-landscape` | 956 by 440 | the largest iPhone; only `layout.spec.ts` runs here |
+
+All other files run against the website build. The app build differs from it on the About screen alone
+(see `docs/about-screen.md`), so that screen's tests run against both.
 
 | File | What it does |
 | --- | --- |
@@ -102,16 +106,8 @@ other moment, and every other error still fail the test. The level also has to p
 win. Its test ends as an expected failure (a cross in the list, counted as passed), and turns red
 ("Expected to fail, but passed") once the fault is fixed, which is the reminder to remove the entry.
 
-Listed today:
-
-- Level 9, Bridge of Five: a page error when play starts after the rules card.
-- Level 19, Picture Tiles: a page error when the player leaves the level.
-- Level 28, Family Portrait: the same, since it plays in level 19's scene.
-
-All are the same error, a failed removal of a page element, from the scenes' `<Html>` labels.
-None stops the level from being won. Pull request 50 fixes it for levels 9 and 19: once that is on
-main, their tests turn red as described above, and their entries are to be removed from
-`e2e/known-faults.ts`. Level 28's entry goes with level 19's if its test turns red too.
+Listed today: none. Levels 9, 19 and 28 were listed until pull request 50 fixed their page error (a
+failed removal of a page element, from the scenes' `<Html>` labels); their entries went with that fix.
 
 ## Browser version
 

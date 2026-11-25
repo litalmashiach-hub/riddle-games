@@ -105,8 +105,6 @@ update in "real-taps/fault-list-update"). In each of these the same touch is los
 in others, so a run that gets past the first listed step may stop at a later one; every step listed
 was seen on main in a run of the whole level, at one size or another, and each entry holds for all three sizes:
 
-- Level 11, Family Crossing: a tap on the guard picks Dad (move 1, or move 3), and late in the level
-  a tap on the thief picks Mom (move 14).
 - Level 18, Log Jam: the tap on the picked log's ring is lost to a log in front of it (move 3,
   17 or 19).
 - Level 27, Timber Tangle: the tap on the ring is lost to another log (move 2) or to the picked log
@@ -123,6 +121,9 @@ Level 2, Wolf, Goat and Cabbage, is no longer listed: its player taps the cabbag
 the goat, and wins at every size. The fault in the game stays: the goat's unseen tap sphere reaches to
 the middle of the cabbage on the left bank, so a tap there may pick the goat. That is for a fix in the
 level, not in this run.
+
+Level 11, Family Crossing, is no longer listed: pull request 55 makes a tap pick the character the
+player sees, and the level is won by taps at every size.
 
 ## Adding a level
 
