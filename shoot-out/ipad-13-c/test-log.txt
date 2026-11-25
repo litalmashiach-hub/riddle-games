@@ -1,0 +1,9 @@
+1795617589.6428308 launched
+1795617606.400474 start marker: true
+1795617639.541696 scene 06-pancakes: true
+1795617643.338476 xc picture 06-pancakes 0 1376x1032 scale 2.0
+1795617684.050816 xc picture 06-pancakes 1 1376x1032 scale 2.0
+1795617686.824544 xc picture 06-pancakes 2 1376x1032 scale 2.0
+1795617689.567669 xc picture 06-pancakes 3 1376x1032 scale 2.0
+1795617692.301398 xc picture 06-pancakes 4 1376x1032 scale 2.0
+1795617695.133071 xc picture 06-pancakes 5 1376x1032 scale 2.0
