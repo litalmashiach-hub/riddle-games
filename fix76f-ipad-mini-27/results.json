@@ -1,0 +1,45 @@
+[
+ {
+  "level": 27,
+  "id": "timber-tangle",
+  "title": "Timber Tangle",
+  "device": "fix76f-ipad-mini-27",
+  "size": "1133x744",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won, finished by the debug hook after a known tap fault at step 9 (no-move)",
+  "wonByTaps": false,
+  "won": true,
+  "finishedByHook": true,
+  "movesByTaps": 8,
+  "moves": 30,
+  "touches": 18,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": {
+   "kind": "no-move",
+   "step": 9,
+   "detail": "no move followed the touches for {\"piece\":3,\"to\":1}. Last touch: the ring on row 2, column 6 at (651, 283); the first listening object under it has its origin at [2.5, 0.2, 0.5]",
+   "known": true,
+   "knownReason": "Level 27: with a log picked, a tap on the middle of its ring is lost to a log's unseen grab box (another log at move 2, the picked log itself at move 9). Which move it stops at changes from run to run. Dragging the log works."
+  },
+  "error": null,
+  "seconds": {
+   "open": 21.741,
+   "rulesCard": 21.306,
+   "drawn": 21.741,
+   "play": 73.976,
+   "total": 164.791
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76f-ipad-mini-27-L27-loading-mark.png",
+   "fix76f-ipad-mini-27-L27-rules-card.png",
+   "fix76f-ipad-mini-27-L27-fault-step-9.png",
+   "fix76f-ipad-mini-27-L27-win-card.png"
+  ],
+  "fps": 6
+ }
+]
