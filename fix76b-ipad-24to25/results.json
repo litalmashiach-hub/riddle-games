@@ -1,0 +1,75 @@
+[
+ {
+  "level": 24,
+  "id": "frosty-maze",
+  "title": "Frosty Maze",
+  "device": "fix76b-ipad-24to25",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 15,
+  "moves": 15,
+  "touches": 15,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 69.673,
+   "rulesCard": 60.08,
+   "drawn": 69.673,
+   "play": 48.456,
+   "total": 140.858
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-24to25-L24-loading-mark.png",
+   "fix76b-ipad-24to25-L24-rules-card.png",
+   "fix76b-ipad-24to25-L24-in-play.png",
+   "fix76b-ipad-24to25-L24-win-card.png"
+  ],
+  "fps": 5.7
+ },
+ {
+  "level": 25,
+  "id": "firefly-rainbow",
+  "title": "Firefly Rainbow",
+  "device": "fix76b-ipad-24to25",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 20,
+  "moves": 20,
+  "touches": 40,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 17.493,
+   "rulesCard": 17.493,
+   "drawn": 17.493,
+   "play": 65.26,
+   "total": 114.303
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-24to25-L25-rules-card.png",
+   "fix76b-ipad-24to25-L25-in-play.png",
+   "fix76b-ipad-24to25-L25-win-card.png"
+  ],
+  "fps": 6.5
+ }
+]

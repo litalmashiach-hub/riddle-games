@@ -1,0 +1,324 @@
+{
+ "level": 24,
+ "id": "frosty-maze",
+ "title": "Frosty Maze",
+ "device": "fix76b-ipad-24to25",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map (scrolled into view by the run)",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 15,
+ "moves": 15,
+ "touches": 15,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 69.673,
+  "rulesCard": 60.08,
+  "drawn": 69.673,
+  "play": 48.456,
+  "total": 140.858
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76b-ipad-24to25-L24-loading-mark.png",
+  "fix76b-ipad-24to25-L24-rules-card.png",
+  "fix76b-ipad-24to25-L24-in-play.png",
+  "fix76b-ipad-24to25-L24-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 688,
+    "y": 714.1089824990432
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "c5fc16cd-4dfc-4d28-aea3-23bd459fd377",
+    "world": [
+     0,
+     0.06,
+     2.3900000000000006
+    ],
+    "distance": 9.244144970364324
+   }
+  },
+  {
+   "step": 2,
+   "what": "the left arrow",
+   "kind": "tap",
+   "at": {
+    "x": 579.8733506213271,
+    "y": 686.1991688750084
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "70ddf196-8bcf-46fa-99e1-e9a935ffee65",
+    "world": [
+     -0.76,
+     0.06,
+     2.1
+    ],
+    "distance": 9.372320978292029
+   }
+  },
+  {
+   "step": 3,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 292.91659007377893,
+    "y": 592.0558818983409
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "33ef8481-270c-4a5f-9409-6088094dd6f7",
+    "world": [
+     -3.1500000000000004,
+     0.06,
+     1.34
+    ],
+    "distance": 10.183310336092173
+   }
+  },
+  {
+   "step": 4,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 399.3182985937867,
+    "y": 567.6372297993307
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f34a7ed8-8fec-4c3c-87b0-43f1e864c68c",
+    "world": [
+     -2.3900000000000006,
+     0.06,
+     1.05
+    ],
+    "distance": 10.07925286788222
+   }
+  },
+  {
+   "step": 5,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 563.2604074526699,
+    "y": 484.7492779412104
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "23608854-f40d-486e-adbf-c3a7f0e51432",
+    "world": [
+     -1.05,
+     0.06,
+     0.29000000000000004
+    ],
+    "distance": 10.298311651361104
+   }
+  },
+  {
+   "step": 6,
+   "what": "the left arrow",
+   "kind": "tap",
+   "at": {
+    "x": 468.740660571823,
+    "y": 461.8613519741465
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "38b58f02-6319-4e70-a1f2-1cef81d731af",
+    "world": [
+     -1.81,
+     0.06,
+     0
+    ],
+    "distance": 10.539247618876683
+   }
+  },
+  {
+   "step": 7,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 451.1070381411756,
+    "y": 391.91500351576815
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f97de62c-0067-4d98-a881-e85f9e2bf348",
+    "world": [
+     -2.1,
+     0.06,
+     -0.76
+    ],
+    "distance": 11.021840514004465
+   }
+  },
+  {
+   "step": 8,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 552.2243732031314,
+    "y": 203.4461662531031
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "77ee8d4b-1d7d-411b-a233-b10c0648e941",
+    "world": [
+     -1.34,
+     0.06,
+     -3.1500000000000004
+    ],
+    "distance": 12.490265673388429
+   }
+  },
+  {
+   "step": 9,
+   "what": "the down arrow",
+   "kind": "tap",
+   "at": {
+    "x": 578.3318482109114,
+    "y": 258.18673714077136
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "58be4633-c7f5-4efc-9019-def5fd82e5db",
+    "world": [
+     -1.05,
+     0.06,
+     -2.3900000000000006
+    ],
+    "distance": 11.939465657526535
+   }
+  },
+  {
+   "step": 10,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 657.0151129757528,
+    "y": 281.1995636914962
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "aa8e5151-8324-4f25-8cee-6e2f1cab9947",
+    "world": [
+     -0.29000000000000004,
+     0.06,
+     -2.1
+    ],
+    "distance": 11.69427491611645
+   }
+  },
+  {
+   "step": 11,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 769.5165850121681,
+    "y": 281.1995636914962
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3b218b43-6947-487c-8eba-339b503d372f",
+    "world": [
+     0.76,
+     0.06,
+     -2.1
+    ],
+    "distance": 11.714929233990265
+   }
+  },
+  {
+   "step": 12,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 902.1270264252585,
+    "y": 220.46814984889613
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9f4a8dfa-0c01-4ee7-a0b3-a0b977daee49",
+    "world": [
+     2.1,
+     0.06,
+     -2.8600000000000003
+    ],
+    "distance": 12.42164349940951
+   }
+  },
+  {
+   "step": 13,
+   "what": "the left arrow",
+   "kind": "tap",
+   "at": {
+    "x": 817.1499328938265,
+    "y": 203.4461662531031
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "26bb1dbc-e531-45b1-a78f-7682995a69dd",
+    "world": [
+     1.34,
+     0.06,
+     -3.1500000000000004
+    ],
+    "distance": 12.483691809082282
+   }
+  },
+  {
+   "step": 14,
+   "what": "the down arrow",
+   "kind": "tap",
+   "at": {
+    "x": 797.9916303341038,
+    "y": 263.05079460238824
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "8276fdb0-a71c-4568-91b8-da60d05f4464",
+    "world": [
+     1.05,
+     0.06,
+     -2.3900000000000006
+    ],
+    "distance": 11.895607545216013
+   }
+  },
+  {
+   "step": 15,
+   "what": "the down arrow",
+   "kind": "tap",
+   "at": {
+    "x": 809.6709028703372,
+    "y": 438.6293768097037
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "79412cb5-fc31-464e-a836-dcdcaf104d8e",
+    "world": [
+     1.05,
+     0.06,
+     -0.29000000000000004
+    ],
+    "distance": 10.571767034106397
+   }
+  }
+ ],
+ "fps": 5.7
+}

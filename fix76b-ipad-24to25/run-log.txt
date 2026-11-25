@@ -1,0 +1,22 @@
+    0.0s device fix76b-ipad-24to25; levels 24-25 (2); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  403.0s WEBVIEW_15336.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  405.1s WEBVIEW_15336.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  430.3s page in WEBVIEW_15336.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  438.8s web view found: WEBVIEW_15336.1, 1032 by 1376
+  466.2s turned LANDSCAPE: 1376 by 1032
+  482.5s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  489.7s page in WEBVIEW_15336.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  490.3s graphics quality set to SD by the player's setting
+  496.0s page in WEBVIEW_15336.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  497.8s frames capped at 6 a second by the test (page says 6)
+  504.5s page in WEBVIEW_15336.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  508.5s L24 frosty-maze: opened by its card on the level map (scrolled into view by the run)
+  638.9s L24 frosty-maze: won by taps; stars 3 (saved 3); open 69.673s, play 48.456s, total 140.858s; page errors 0, console errors 0; frames per second 5.7
+  659.8s page in WEBVIEW_19619.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  660.1s L25: fresh app
+  670.8s page in WEBVIEW_19619.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  693.7s L25 firefly-rainbow: opened by its card on the level map (scrolled into view by the run)
+  774.5s L25 firefly-rainbow: won by taps; stars 3 (saved 3); open 17.493s, play 65.26s, total 114.303s; page errors 0, console errors 0; frames per second 6.5
+  774.5s script calls: 602, median 19 ms, 90th 94 ms
+  774.9s done: 2 of 2 levels won, 2 by taps alone
