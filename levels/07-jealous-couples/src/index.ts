@@ -10,8 +10,8 @@ const level: RiddleLevel<State, Move> = {
   world: 'sky',
   tagline: 'A balloon for two and a lot of jealousy.',
   instructions: [
-    'Fly all three bird couples to the far island.',
-    `A couple shares a colour and a pattern: ${COUPLE_NAMES.map((n, i) => `the ${n}s are ${COUPLE_PATTERNS[i]}`).join(', ')}.`,
+    // Each couple is named with its pattern, so that who belongs with whom is told without colour.
+    `Fly all three bird couples to the far island: ${COUPLE_NAMES.map((n, i) => `the ${COUPLE_PATTERNS[i]} ${n}s`).join(', ').replace(/, ([^,]*)$/, ' and $1')}.`,
     'The balloon carries one or two birds, and someone must be aboard to fly it.',
     'The gents are jealous: a lady may never be with another gent unless her own gent is there too.',
     'That counts on both islands and inside the balloon basket. Ladies alone together are fine.',

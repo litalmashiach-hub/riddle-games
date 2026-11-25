@@ -18,6 +18,9 @@ export const sign = (s: Side) => (s === 'L' ? -1 : 1);
 
 /** The rows of couples stand this far apart, front to back. */
 const ROW_GAP = 1.5;
+/** How far from the middle of the gap each row's gent and lady stand: the Corals' row (the back), the Teals', the Plums' (the front). */
+const GENT_OUT = [3.0, 3.2, 3.4];
+const LADY_OUT = [4.2, 4.45, 4.6];
 
 /**
  * Each couple stands together in a row, the gent nearer the dock: the Corals at the back, the Plums
@@ -31,9 +34,8 @@ const ROW_GAP = 1.5;
  * a sliver beside Mr Teal's hat.
  */
 export const slot = (b: Bird, s: Side): Vec3 => {
-  const row = coupleOf(b) - 1;
-  const inward = roleOf(b) === 'gent' ? 3.2 + 0.2 * row : 4.35 + 0.15 * row;
-  return [sign(s) * inward, 0, row * ROW_GAP];
+  const c = coupleOf(b);
+  return [sign(s) * (roleOf(b) === 'gent' ? GENT_OUT : LADY_OUT)[c], 0, (c - 1) * ROW_GAP];
 };
 
 /** Two spots in the basket, side by side so both riders face the camera. */
