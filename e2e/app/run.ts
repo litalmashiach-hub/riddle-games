@@ -28,7 +28,11 @@ const out = resolve(args.out ?? `out/${device}`);
 const shots = join(out, 'shots');
 mkdirSync(shots, { recursive: true });
 (globalThis as any).__outDir = out;
-const [lo, hi] = (args.levels ?? '1-30').split('-').map(Number);
+// "1-30", or a list in play order such as "27-30,26".
+const LEVEL_ORDER = (args.levels ?? '1-30').split(',').flatMap((part: string) => {
+  const [a, b] = part.split('-').map(Number);
+  return Array.from({ length: (b ?? a) - a + 1 }, (_, i) => a + i);
+});
 const LEVEL_BUDGET_MS = Number(args['level-minutes'] ?? 25) * 60_000;
 const bundleId = args['bundle-id'] ?? 'com.example.riddlegames';
 
@@ -140,8 +144,8 @@ async function backendFor(): Promise<{ backend: Backend; reload(): Promise<void>
 }
 
 async function main() {
-  const levels = LEVELS.filter((l) => l.number >= lo && l.number <= hi);
-  log(`device ${device}; levels ${lo}-${hi} (${levels.length}); players missing: ${LEVELS.filter((l) => !PLAYERS[l.id]).map((l) => l.id).join(', ') || 'none'}; broken players: ${BROKEN_PLAYERS.length}`);
+  const levels = LEVEL_ORDER.map((n: number) => LEVELS.find((l) => l.number === n)).filter((l): l is LevelCase => !!l);
+  log(`device ${device}; levels ${args.levels ?? '1-30'} (${levels.length}); players missing: ${LEVELS.filter((l) => !PLAYERS[l.id]).map((l) => l.id).join(', ') || 'none'}; broken players: ${BROKEN_PLAYERS.length}`);
   const run = await backendFor();
   const { backend } = run;
   const page = new FakePage(backend);
@@ -193,7 +197,7 @@ async function main() {
 
   const FRAMES = '() => { if (!window.__fc) { window.__fc = 1; const f = () => { window.__fc++; requestAnimationFrame(f); }; requestAnimationFrame(f); } return { c: window.__fc, t: performance.now() }; }';
   for (const level of levels) {
-    if (args['relaunch-each'] && level.number !== lo) {
+    if (args['relaunch-each'] && level !== levels[0]) {
       // A fresh app for each level, so one level's slowness can't carry into the next.
       try {
         await run.relaunch();

@@ -1,6 +1,3 @@
 [
-  { "label": "iphone-large-rest", "sim": "iPhone 17 Pro Max", "orientation": "-", "levels": "26-30", "extras": "1", "flags": "relaunch-each" },
-  { "label": "iphone-small-again", "sim": "iPhone SE (3rd generation)", "orientation": "-", "levels": "1-30", "extras": "1", "flags": "" },
-  { "label": "ipad-sideways-sd", "sim": "iPad Pro 13-inch (M5)", "orientation": "LANDSCAPE", "levels": "1-30", "extras": "1", "flags": "quality=low" },
-  { "label": "ipad-upright-sd", "sim": "iPad Pro 13-inch (M5)", "orientation": "PORTRAIT", "levels": "1-30", "extras": "1", "flags": "quality=low" }
+  { "label": "iphone-large-tail", "sim": "iPhone 17 Pro Max", "orientation": "-", "levels": "27-30,26", "extras": "1", "flags": "relaunch-each" }
 ]

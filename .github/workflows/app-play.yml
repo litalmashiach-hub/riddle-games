@@ -7,7 +7,7 @@ name: App play (test only)
 
 on:
   push:
-    branches: [test/app-play-every-level, test/app-play-small-again, test/app-play-sd-again]
+    branches: [test/app-play-every-level, test/app-play-small-again, test/app-play-sd-again, test/app-play-large-tail]
 
 permissions:
   contents: read
@@ -97,6 +97,8 @@ jobs:
           e2e/app/node_modules/.bin/appium driver install xcuitest@12.22.8
       - name: Play in the simulator
         timeout-minutes: 320
+        env:
+          CHECKPOINT_URL: https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git
         run: e2e/app/ios-play.sh "${{ matrix.label }}" "${{ matrix.sim }}" "${{ matrix.orientation }}" "${{ matrix.levels }}" "${{ matrix.extras }}" "${{ matrix.flags }}"
       - name: What Appium said about the web view
         if: always()

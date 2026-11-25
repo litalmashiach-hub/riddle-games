@@ -36,6 +36,8 @@ xcrun simctl spawn "$UDID" log stream --style compact --predicate 'process == "A
 LOGPID=$!
 "$ROOT/e2e/app/watch-usage.sh" "$OUT" "$UDID" "$BUNDLE" &
 USEPID=$!
+"$ROOT/e2e/app/checkpoint.sh" "$OUT" "$LABEL" &
+CKPID=$!
 
 export APPIUM_HOME="$ROOT/e2e/app/.appium"
 "$ROOT/e2e/app/node_modules/.bin/appium" --address 127.0.0.1 --port 4723 --log-timestamp --log-no-colors --log "$OUT/appium.txt" --log-level info:debug > /dev/null 2>&1 &
@@ -57,7 +59,7 @@ ARGS=(--backend appium --device "$LABEL" --levels "$LEVELS" --out "$OUT" --caps 
 for F in $FLAGS; do case "$F" in *=*) ARGS+=("--${F%%=*}" "${F#*=}");; *) ARGS+=("--$F");; esac; done
 "$ROOT/e2e/app/node_modules/.bin/tsx" "$ROOT/e2e/app/run.ts" "${ARGS[@]}"
 STATUS=$?
-kill $APPIUMPID $LOGPID $USEPID 2> /dev/null
+kill $APPIUMPID $LOGPID $USEPID $CKPID 2> /dev/null
 # Crash reports of the app or WebKit, if any.
 mkdir -p "$OUT/crashes"
 find ~/Library/Logs/DiagnosticReports -newer "$OUT/device.txt" \( -name 'App*' -o -name '*WebKit*' -o -name '*WebContent*' \) -exec cp {} "$OUT/crashes/" \; 2> /dev/null
