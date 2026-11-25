@@ -3,7 +3,7 @@ import { defineConfig } from '@playwright/test';
 const PORT = Number(process.env.E2E_PORT ?? 4173);
 /** The app build is served beside the website build, for the About screen's tests. */
 const APP_PORT = Number(process.env.E2E_APP_PORT ?? PORT + 1);
-const ABOUT_ONLY = /(about|voiceover)\.spec\.ts$/;
+const ABOUT_ONLY = /(about|voiceover|contrast)\.spec\.ts$/;
 
 /**
  * Play-through tests: they run the production build (apps/web/dist) in Chromium with touch,

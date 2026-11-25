@@ -51,7 +51,7 @@ export function AboutScreen({ progress, onBack, onReset }: { progress: Progress;
   return (
     <div className="relative flex h-full flex-col overflow-hidden" style={{ background: BACKGROUND }}>
       <header className="relative flex shrink-0 items-center gap-3 pb-2 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))] short:pb-1.5 short:pt-[max(0.5rem,env(safe-area-inset-top))]">
-        <Button onClick={onBack} aria-label="Back to levels" className="!rounded-full !px-3.5 !py-2">
+        <Button tone="readout" onClick={onBack} aria-label="Back to levels" className="!rounded-full !px-3.5 !py-2">
           <BackIcon />
           <span>Levels</span>
         </Button>
@@ -70,7 +70,7 @@ export function AboutScreen({ progress, onBack, onReset }: { progress: Progress;
                 id={`${tabs}-tab-${p.id}`}
                 aria-selected={page === p.id}
                 aria-controls={`${tabs}-page`}
-                tone={page === p.id ? 'gold' : 'glass'}
+                tone={page === p.id ? 'gold' : 'readout'}
                 onClick={() => setPage(p.id)}
                 className="!px-2 !py-2.5 text-sm sm:!justify-start sm:!px-4 sm:text-base short:!py-2"
               >

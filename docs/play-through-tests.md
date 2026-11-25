@@ -29,7 +29,7 @@ Three screen sizes, all with touch and the phone held sideways:
 | --- | --- | --- |
 | `iphone-landscape` | 852 by 393 | a current iPhone |
 | `iphone-small-landscape` | 667 by 375 | a small iPhone |
-| `app-iphone-landscape`, `app-iphone-small-landscape` | the same two | the app build (`apps/web/dist-app`), for `about.spec.ts` only |
+| `app-iphone-landscape`, `app-iphone-small-landscape` | the same two | the app build (`apps/web/dist-app`), for `about.spec.ts`, `voiceover.spec.ts` and `contrast.spec.ts` only |
 | `iphone-largest-landscape` | 956 by 440 | the largest iPhone; only `layout.spec.ts` runs here |
 
 All other files run against the website build. The app build differs from it on the About screen alone
@@ -44,6 +44,7 @@ All other files run against the website build. The app build differs from it on 
 | `e2e/tests/scene-loading.spec.ts` | A level is never a blank screen. The app's loading mark shows until the game has started. A level's loading sign stays until its scene is drawn (the test holds the shaders back). A scene that is still not drawn after the game's 30 second wait gets the card over the sign, never a bare screen, and the card goes by itself if the scene is drawn late. A device that gives no 3D context, or a dead one, gets a card with "Try again" and "All levels", and both work. A context lost while playing brings the same card if it stays lost, and nothing, not even for an instant, if it comes back within a second. |
 | `e2e/tests/layout.spec.ts` | Levels 1 to 3 at all three sizes: the rules card's button is whole without scrolling, and no button, counter or hint text overlaps another or leaves the screen, also with level 3's jug menu open, which must keep clear of both jugs' labels too. |
 | `e2e/tests/hint.spec.ts` | Hint where no win is left: in level 20, after a start that cannot win, a tap on Hint shows the line that says so, whole on the screen and clear of every button, at the project's size and at 956 by 440 (the largest iPhone); no hint is counted. Also: a restart forgets the hints, so the run after it earns three stars. |
+| `e2e/tests/contrast.spec.ts` | Text contrast, from pictures of the page (see `docs/text-contrast.md`): every text, number and line icon of the level map (a new player's, with locked cards, and with every level open), of every About page and the reset question, and of the rules, hint, "Oh no!" and "Solved!" cards reads at 4.5 to 1, or 3 to 1 for large text and icons. It sets its own four sizes (three iPhones sideways and an iPad), so it runs in `iphone-landscape` and `app-iphone-landscape` only. |
 | `e2e/tests/undo-during-loss.spec.ts` | Every level that can be lost (24 of them): the losing move, then a tap on the bottom bar's Undo through the touch screen as the loss scene begins. The tap must land on Undo and undo before the "Oh no!" card comes; afterwards the level must be exactly as before the losing move (position, move count, the camera on the whole scene), with Redo ready, no card even after the card's time, and no saved stars. The way to each loss is found from the level's own rules. Drawn in software a frame can take a second, so this test alone makes the card wait 20 s longer than in the game; the loss scene itself plays as it does in the game. |
 
 Every test fails if the page throws an error, logs a console error, has a request fail, or asks
