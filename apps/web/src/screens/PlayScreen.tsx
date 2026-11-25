@@ -1,4 +1,4 @@
-import { createSession, starsFor, type RiddleLevel } from '@riddle/engine';
+import { createSession, guideStepFor, starsFor, type RiddleLevel } from '@riddle/engine';
 import { WORLDS, WorldStage, sfx, useSettings } from '@riddle/fx';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -6,11 +6,14 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useStore } from 'zustand';
 import * as THREE from 'three';
+import { sceneTaps, watchMoves } from '../haptics';
 import { hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
+import { GuideOverlay, GuideTracker } from '../components/FirstPlayGuide';
+import { SceneGuard, sceneWaitMs } from '../components/SceneGuard';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
-import { hintLine } from '../hint';
+import { hintLine, hintOutlived, winLine } from '../hint';
 
 /** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
 const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -20,14 +23,20 @@ interface Props {
   onExit(): void;
   onNext?: () => void;
   onSolved(stars: number): void;
+  /** True once this level's first-play guide has been shown on this device. */
+  guideSeen?: boolean;
+  /** Called the moment the first-play guide shows, so it is never shown again. */
+  onGuideSeen?: () => void;
 }
 
-export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
+export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false, onGuideSeen }: Props) {
   const session = useMemo(() => createSession(level), [level]);
   // `?debug` exposes the session for automated play-tests: window.__riddle.getState().play(move)
   useEffect(() => {
     if (hasTestFlag('debug')) (window as any).__riddle = session;
   }, [session]);
+  // The app's touch response for each move (nothing on the website).
+  useEffect(() => watchMoves(session), [session]);
   const s = useStore(session);
   const state = s.history[s.history.length - 1];
   const previous = s.history.length > 1 ? s.history[s.history.length - 2] : null;
@@ -36,10 +45,21 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   const [showRules, setShowRules] = useState(true);
   // False until the scene has drawn its first frames; a curtain in the world's colours covers the wait.
   const [sceneReady, setSceneReady] = useState(false);
+  // True when the scene's first drawing has taken longer than its wait: the guard then says so, over the curtain.
+  const [sceneStuck, setSceneStuck] = useState(false);
   const [hintText, setHintText] = useState<string | null>(null);
   const { quality, sound, toggleSound, setQuality } = useSettings();
   const look = WORLDS[level.world];
   const stars = s.status.kind === 'won' ? starsFor(moveCount, level.bestMoves, s.hintsUsed) : 0;
+
+  // First-play guide: only on a level that has one, only if it was never shown here, and only until the first
+  // move, a skip, or leaving the level. Decided once, on opening, so marking it seen does not take it away.
+  const [guideOn, setGuideOn] = useState(() => !!level.guide && !guideSeen);
+  const [picked, setPicked] = useState<string | null>(null);
+  const guideRing = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (moveCount > 0) setGuideOn(false);
+  }, [moveCount]);
 
   // End-of-level sounds and saving.
   useEffect(() => {
@@ -71,6 +91,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
     const t = setTimeout(() => setHintText(null), 5000);
     return () => clearTimeout(t);
   }, [hintText]);
+  // The hint leaves with the position it spoke of, and when a win or loss card comes.
+  useEffect(() => session.subscribe((now, before) => { if (hintOutlived(before, now)) setHintText(null); }), [session]);
 
   // Keyboard: Z / Ctrl+Z undo, Y redo, R restart, H hint.
   useEffect(() => {
@@ -89,17 +111,27 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
   // The HUD steps aside while a card (rules, win or lose) is up: the card has every button the player needs.
   const cardOpen = showRules || (s.ended && s.status.kind !== 'playing');
 
+  const guideStep = guideOn && level.guide && !cardOpen && sceneReady && !rotateTip && !s.busy && moveCount === 0 ? level.guide.steps[guideStepFor(level.guide, picked)] : null;
+  const guideShown = guideStep != null;
+  useEffect(() => {
+    if (guideShown) onGuideSeen?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guideShown]);
+
   const Scene = level.Scene;
   const cam: NonNullable<RiddleLevel['camera']> = level.camera ?? { position: [0, 8, 12], target: [0, 0, 0], fov: 42 };
 
   return (
     <div className="relative h-full w-full select-none overflow-hidden" style={{ background: look.fog }}>
+      {/* Never a blank level: a scene that can't be drawn, or loses its 3D context, says so and offers two ways out. */}
+      <SceneGuard onExit={onExit} onRetry={() => { setSceneReady(false); setSceneStuck(false); }} stuck={sceneStuck && !sceneReady}>
       <Canvas
         shadows
         flat
         dpr={quality === 'high' ? [1, TOUCH ? 1.5 : 2] : [1, 1.25]}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
         camera={{ position: cam.position, fov: cam.fov ?? 42, near: 0.1, far: 500 }}
+        {...sceneTaps}
       >
         <Suspense fallback={null}>
           <WorldStage world={level.world}>
@@ -109,20 +141,29 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
               lastMove={lastMove}
               status={s.status}
               play={s.play}
-              busy={s.busy || showRules}
+              // Nothing in the scene takes a tap before it can be seen: not behind the rules card, not behind the loading curtain.
+              busy={s.busy || showRules || !sceneReady}
               hint={s.hint}
               resetCount={s.resetCount}
               moveCount={moveCount}
+              onPick={setPicked}
             />
           </WorldStage>
           <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} />
-          <FirstFrames onReady={() => setSceneReady(true)} />
+          {guideStep && <GuideTracker step={guideStep} ring={guideRing} />}
+          <FirstFrames onReady={() => setSceneReady(true)} onStuck={() => setSceneStuck(true)} />
         </Suspense>
       </Canvas>
+      </SceneGuard>
 
       {/* Curtain while the scene builds */}
       <AnimatePresence>
         {!sceneReady && <LoadingCurtain key="curtain" gradient={look.uiGradient} number={level.number} quiet={showRules} />}
+      </AnimatePresence>
+
+      {/* First-play guide: rings the first thing to tap. It takes no taps itself, bar its Skip button. */}
+      <AnimatePresence>
+        {guideStep && <GuideOverlay key="guide" step={guideStep} ring={guideRing} onSkip={() => setGuideOn(false)} />}
       </AnimatePresence>
 
       {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels. */}
@@ -169,8 +210,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
       {/* Hint toast */}
       <AnimatePresence>
         {hintText && (
-          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-24 z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
-            <div className="rounded-2xl bg-amber-300 px-5 py-3 font-display text-lg font-semibold text-amber-950 shadow-xl short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
+          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
+            <div className="rounded-2xl bg-amber-300 px-5 py-2 font-display text-lg font-semibold text-amber-950 shadow-xl max-sm:text-base max-sm:leading-snug short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -219,7 +260,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved }: Props) {
             <h2 className="font-display text-4xl font-bold short:text-3xl"><span className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
             <div className="mt-3 flex justify-center short:mt-2"><Stars count={stars} size={48} animate /></div>
             <p className="mt-3 text-white/85 short:mt-2">
-              {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {stars === 3 ? 'Perfect, that is the shortest solution!' : `The best is ${level.bestMoves}. Can you do it?`}
+              {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {winLine(moveCount, level.bestMoves, s.hintsUsed)}
             </p>
             <div className="mt-5 grid gap-2 short:mt-3">
               {onNext && <Button tone="gold" className="!py-3 text-lg short:!py-2.5" onClick={onNext}>Next level</Button>}
@@ -277,9 +318,10 @@ function Modal({ children, aside, tone, wide }: { children: React.ReactNode; asi
 /**
  * Tells the shell once the scene can really be seen. The renderer compiles its shaders in the background and
  * skips what is not ready yet, so the first frames are empty: wait for the compile, then for two drawn frames.
- * A timeout lifts the curtain anyway, so a slow or odd device is never left behind it.
+ * The curtain is never lifted from a scene that is not drawn. After a long wait `onStuck` is called instead,
+ * and the shell's card offers a new try or the map; a scene that is drawn later after all is still reported.
  */
-function FirstFrames({ onReady }: { onReady(): void }) {
+function FirstFrames({ onReady, onStuck }: { onReady(): void; onStuck(): void }) {
   const gl = useThree((st) => st.gl);
   const scene = useThree((st) => st.scene);
   const camera = useThree((st) => st.camera);
@@ -287,18 +329,15 @@ function FirstFrames({ onReady }: { onReady(): void }) {
   const done = useRef(false);
   const finish = useRef(onReady);
   finish.current = onReady;
+  const stuck = useRef(onStuck);
+  stuck.current = onStuck;
   useEffect(() => {
-    const ready = () => {
-      if (done.current) return;
-      done.current = true;
-      finish.current();
-    };
     const arm = () => {
       if (frames.current < 0) frames.current = 0;
     };
     // One frame first, so everything the scene mounts in its effects is in the graph.
     const raf = requestAnimationFrame(() => gl.compileAsync(scene, camera).then(arm, arm));
-    const giveUp = setTimeout(ready, 10000);
+    const giveUp = setTimeout(() => done.current || stuck.current(), sceneWaitMs());
     return () => {
       cancelAnimationFrame(raf);
       clearTimeout(giveUp);
