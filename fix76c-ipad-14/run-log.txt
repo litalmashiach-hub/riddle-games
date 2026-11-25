@@ -1,0 +1,17 @@
+    0.0s device fix76c-ipad-14; levels 14 (1); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  400.3s WEBVIEW_12010.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  402.4s WEBVIEW_12010.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  411.3s page in WEBVIEW_12010.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  411.9s web view found: WEBVIEW_12010.1, 1032 by 1376
+  432.1s turned LANDSCAPE: 1376 by 1032
+  461.7s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  483.3s page in WEBVIEW_12010.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  484.3s graphics quality set to SD by the player's setting
+  489.6s page in WEBVIEW_12010.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  490.4s frames capped at 6 a second by the test (page says 6)
+  497.8s page in WEBVIEW_12010.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  508.5s L14 firefly-lanterns: opened by its card on the level map (scrolled into view by the run)
+  558.4s L14 firefly-lanterns: won by taps; stars 3 (saved 3); open 22.203s, play 15.461s, total 67.769s; page errors 0, console errors 0; frames per second 5.2
+  558.4s script calls: 108, median 26 ms, 90th 1022 ms
+  558.5s done: 1 of 1 levels won, 1 by taps alone

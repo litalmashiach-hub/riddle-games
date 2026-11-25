@@ -1,0 +1,153 @@
+{
+ "level": 14,
+ "id": "firefly-lanterns",
+ "title": "Firefly Lanterns",
+ "device": "fix76c-ipad-14",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map (scrolled into view by the run)",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 6,
+ "moves": 6,
+ "touches": 6,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 22.203,
+  "rulesCard": 21.773,
+  "drawn": 22.203,
+  "play": 15.461,
+  "total": 67.769
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76c-ipad-14-L14-loading-mark.png",
+  "fix76c-ipad-14-L14-rules-card.png",
+  "fix76c-ipad-14-L14-in-play.png",
+  "fix76c-ipad-14-L14-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the lily pad of cell 0",
+   "kind": "tap",
+   "at": {
+    "x": 550.9717507508426,
+    "y": 350.25594404316877
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "751cd86a-2cf2-4ff3-a1a4-bab1246447c8",
+    "world": [
+     -1.75,
+     0,
+     -1.75
+    ],
+    "distance": 12.20496097833758
+   }
+  },
+  {
+   "step": 2,
+   "what": "the lily pad of cell 1",
+   "kind": "tap",
+   "at": {
+    "x": 685.8301781461003,
+    "y": 353.5453401763756
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "90d6b2d2-5893-4b17-bce8-690c51404b72",
+    "world": [
+     0,
+     0,
+     -1.75
+    ],
+    "distance": 12.189042286305838
+   }
+  },
+  {
+   "step": 3,
+   "what": "the lily pad of cell 4",
+   "kind": "tap",
+   "at": {
+    "x": 689.8669783161124,
+    "y": 462.6445188606251
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a1c9c410-d183-4a30-824c-290d551828e8",
+    "world": [
+     0,
+     0,
+     0
+    ],
+    "distance": 11.133142574626865
+   }
+  },
+  {
+   "step": 4,
+   "what": "the lily pad of cell 5",
+   "kind": "tap",
+   "at": {
+    "x": 837.0920996659086,
+    "y": 461.66059563072395
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a37e36f2-0bf8-47ad-995d-210cbcb0fa51",
+    "world": [
+     1.75,
+     0,
+     0
+    ],
+    "distance": 11.1178783512111
+   }
+  },
+  {
+   "step": 5,
+   "what": "the lily pad of cell 6",
+   "kind": "tap",
+   "at": {
+    "x": 522.191139055408,
+    "y": 588.8986592899578
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a0119291-8de3-40de-b4a8-d57b09dd8cd2",
+    "world": [
+     -1.75,
+     0,
+     1.75
+    ],
+    "distance": 10.01437684745476
+   }
+  },
+  {
+   "step": 6,
+   "what": "the lily pad of cell 8",
+   "kind": "tap",
+   "at": {
+    "x": 850.0805907640029,
+    "y": 592.3130793505923
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "dfaf166e-5e27-40da-8d2d-865cbf017c30",
+    "world": [
+     1.75,
+     0,
+     1.75
+    ],
+    "distance": 10.184579582490732
+   }
+  }
+ ],
+ "fps": 5.2
+}

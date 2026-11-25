@@ -1,0 +1,39 @@
+[
+ {
+  "level": 14,
+  "id": "firefly-lanterns",
+  "title": "Firefly Lanterns",
+  "device": "fix76c-ipad-14",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 6,
+  "moves": 6,
+  "touches": 6,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 22.203,
+   "rulesCard": 21.773,
+   "drawn": 22.203,
+   "play": 15.461,
+   "total": 67.769
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-14-L14-loading-mark.png",
+   "fix76c-ipad-14-L14-rules-card.png",
+   "fix76c-ipad-14-L14-in-play.png",
+   "fix76c-ipad-14-L14-win-card.png"
+  ],
+  "fps": 5.2
+ }
+]
