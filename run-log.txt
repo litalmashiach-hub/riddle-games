@@ -1,0 +1,22 @@
+    0.0s device fix76-ipad-mini-03-05; levels 3-5 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"BB3AAE9A-1B8F-4B6F-B536-0744287562C8","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  450.3s page in WEBVIEW_13260.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  451.6s web view found: WEBVIEW_13260.1, 744 by 1133
+  507.3s turned LANDSCAPE: 1133 by 744
+  584.3s calibration: touched [{"x":340,"y":298},{"x":793,"y":558}], the page saw [{"x":340,"y":298},{"x":793,"y":558}]: same (error 0.0 pt)
+  590.1s page in WEBVIEW_13260.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  590.3s graphics quality set to SD by the player's setting
+  601.8s page in WEBVIEW_13260.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  606.0s L03 two-jugs: opened by its card on the level map
+  864.5s L03 two-jugs: won by taps; stars 3 (saved 3); open 27.555s, play 211.459s, total 273.75s; page errors 0, console errors 0; frames per second 24.9
+  890.9s page in WEBVIEW_17169.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  891.1s L04: fresh app
+  897.8s page in WEBVIEW_17169.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  989.7s L04 tower-of-hanoi: opened by its card on the level map (scrolled into view by the run)
+ 1216.0s L04: ERROR WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (([prev,want])=>{const s=window.__riddle.getState();const ru=s.level.rules;return{count:s.moves.length,played:s.moves[s.moves.length-1],same:ru.key(s.history[s.history.length-1])===ru.key(ru.apply(prev,want))}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)
+ 3035.7s getContexts: Error: WebDriverError: The operation was aborted due to timeout when running "contexts" with method "GET"
+ 3035.8s relaunch failed: Error: no web view found in 180 s; contexts: 
+ 4240.3s script link lost (Error: WebDriverError: Request failed with error code UND_ERR_SOCKET when running "execute/sync" with method "POST" and args "var __name = function (f) { return); finding the web view again
+ 5440.9s getContexts: Error: WebDriverError: Request failed with error code UND_ERR_SOCKET when running "contexts" with method "GET"
+ 5441.0s could not read the page's faults: Error: no web view found in 180 s; contexts: 
+ 5441.0s L04 tower-of-hanoi: not won: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (([prev,want])=>{const s=window.__riddle.get; stars null (saved null); open 108.765s, play nulls, total 2144.607s; page errors 0, console errors 0; frames per second ?

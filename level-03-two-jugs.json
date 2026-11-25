@@ -1,0 +1,219 @@
+{
+ "level": 3,
+ "id": "two-jugs",
+ "title": "Two Jugs",
+ "device": "fix76-ipad-mini-03-05",
+ "size": "1133x744",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 6,
+ "moves": 6,
+ "touches": 12,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 27.555,
+  "rulesCard": 26.913,
+  "drawn": 27.555,
+  "play": 211.459,
+  "total": 273.75
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76-ipad-mini-03-05-L03-loading-mark.png",
+  "fix76-ipad-mini-03-05-L03-rules-card.png",
+  "fix76-ipad-mini-03-05-L03-in-play.png",
+  "fix76-ipad-mini-03-05-L03-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 698.8259093557137,
+    "y": 426.0426196504187
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2bace065-491c-47a1-8ec2-89687f60f593",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.645648686388894
+   }
+  },
+  {
+   "step": 1,
+   "what": "the fill button",
+   "kind": "button",
+   "at": {
+    "x": 706.126220703125,
+    "y": 142.5250244140625
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 698.8259093557137,
+    "y": 426.0426196504187
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2bace065-491c-47a1-8ec2-89687f60f593",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.645648686388894
+   }
+  },
+  {
+   "step": 2,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 706.126220703125,
+    "y": 188.5250244140625
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "the 3 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 481.9221871369675,
+    "y": 454.7440629917316
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "fa3b6d64-1274-4940-b3b5-dbdb2d5e6ee7",
+    "world": [
+     4.15,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.494986052903387
+   }
+  },
+  {
+   "step": 3,
+   "what": "the empty button",
+   "kind": "button",
+   "at": {
+    "x": 472.64605712890625,
+    "y": 274.1883239746094
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 698.8259093557137,
+    "y": 426.0426196504187
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2bace065-491c-47a1-8ec2-89687f60f593",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.645648686388894
+   }
+  },
+  {
+   "step": 4,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 706.126220703125,
+    "y": 188.5250244140625
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 698.8259093557137,
+    "y": 426.0426196504187
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2bace065-491c-47a1-8ec2-89687f60f593",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.645648686388894
+   }
+  },
+  {
+   "step": 5,
+   "what": "the fill button",
+   "kind": "button",
+   "at": {
+    "x": 706.126220703125,
+    "y": 142.5250244140625
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 698.8259093557137,
+    "y": 426.0426196504187
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2bace065-491c-47a1-8ec2-89687f60f593",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.645648686388894
+   }
+  },
+  {
+   "step": 6,
+   "what": "the pour button",
+   "kind": "button",
+   "at": {
+    "x": 706.1262512207031,
+    "y": 188.5250244140625
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 24.9
+}

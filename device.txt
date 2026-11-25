@@ -1,0 +1,3 @@
+device iPad mini (A17 Pro): BB3AAE9A-1B8F-4B6F-B536-0744287562C8
+    iPad mini (A17 Pro) (BB3AAE9A-1B8F-4B6F-B536-0744287562C8) (Shutdown) 
+booted in 112 s

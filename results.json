@@ -1,0 +1,74 @@
+[
+ {
+  "level": 3,
+  "id": "two-jugs",
+  "title": "Two Jugs",
+  "device": "fix76-ipad-mini-03-05",
+  "size": "1133x744",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 6,
+  "moves": 6,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 27.555,
+   "rulesCard": 26.913,
+   "drawn": 27.555,
+   "play": 211.459,
+   "total": 273.75
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76-ipad-mini-03-05-L03-loading-mark.png",
+   "fix76-ipad-mini-03-05-L03-rules-card.png",
+   "fix76-ipad-mini-03-05-L03-in-play.png",
+   "fix76-ipad-mini-03-05-L03-win-card.png"
+  ],
+  "fps": 24.9
+ },
+ {
+  "level": 4,
+  "id": "tower-of-hanoi",
+  "title": "Tower of Hanoi",
+  "device": "fix76-ipad-mini-03-05",
+  "size": "1133x744",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (([prev,want])=>{const s=window.__riddle.get",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 15,
+  "touches": 16,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (([prev,want])=>{const s=window.__riddle.getState();const ru=s.level.rules;return{count:s.moves.length,played:s.moves[s.moves.length-1],same:ru.key(s.history[s.history.length-1])===ru.key(ru.apply(prev,want))}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+  "seconds": {
+   "open": 108.765,
+   "rulesCard": 104.065,
+   "drawn": 108.765,
+   "play": null,
+   "total": 2144.607
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76-ipad-mini-03-05-L04-loading-mark.png",
+   "fix76-ipad-mini-03-05-L04-rules-card.png",
+   "fix76-ipad-mini-03-05-L04-error.png"
+  ]
+ }
+]
