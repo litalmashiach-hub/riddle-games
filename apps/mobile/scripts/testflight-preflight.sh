@@ -8,6 +8,9 @@
 #   ASC_KEY_ID            secret APP_STORE_CONNECT_KEY_ID
 #   ASC_ISSUER_ID         secret APP_STORE_CONNECT_ISSUER_ID
 #   ASC_KEY_P8            secret APP_STORE_CONNECT_KEY (the whole text of the .p8 file)
+#   CERT_P12_B64          secret APPLE_DISTRIBUTION_CERTIFICATE (the .p12, as base64 text from make-signing-files.sh)
+#   CERT_PASSWORD         secret APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD
+#   PROFILE_B64           secret APPSTORE_PROVISIONING_PROFILE (the App Store .mobileprovision, as base64 text)
 #   IDENTITY_FILE         path to AppIdentity.xcconfig (default: next to this script's ios folder)
 #
 # On success it prints BUNDLE_ID=<the identifier to build with>, for the workflow to keep.
@@ -51,6 +54,30 @@ if [ -z "${ASC_KEY_P8:-}" ]; then
   missing+=("Secret APP_STORE_CONNECT_KEY: the whole text of the AuthKey_....p8 file you downloaded, from the BEGIN line to the END line.")
 elif ! grep -q -- "-----BEGIN PRIVATE KEY-----" <<<"$ASC_KEY_P8" || ! grep -q -- "-----END PRIVATE KEY-----" <<<"$ASC_KEY_P8"; then
   missing+=("Secret APP_STORE_CONNECT_KEY is set but is not the whole .p8 file. Paste all of it, the BEGIN and END lines included.")
+fi
+
+# Base64 text as make-signing-files.sh writes it; GitHub's box may add line breaks, which are fine.
+decodes() { tr -d ' \t\r\n' <<<"$1" | base64 --decode 2>/dev/null; }
+# Both files are binary DER: they start with a SEQUENCE byte (0x30).
+starts_der() { [ "$(decodes "$1" | head -c 1 | od -An -tx1 | tr -d ' \n')" = "30" ]; }
+remake="Make it again with apps/mobile/scripts/make-signing-files.sh (launch steps, step 7) and paste the whole file."
+
+if [ -z "${CERT_P12_B64:-}" ]; then
+  missing+=("Secret APPLE_DISTRIBUTION_CERTIFICATE: your Apple Distribution certificate with its key, the whole of the file APPLE_DISTRIBUTION_CERTIFICATE.txt that make-signing-files.sh writes (launch steps, step 7).")
+elif ! starts_der "$CERT_P12_B64"; then
+  missing+=("Secret APPLE_DISTRIBUTION_CERTIFICATE is set but is not a certificate file in base64 text. $remake")
+fi
+
+if [ -z "${CERT_PASSWORD:-}" ]; then
+  missing+=("Secret APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: the whole of the file APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD.txt, from the same run of make-signing-files.sh.")
+fi
+
+if [ -z "${PROFILE_B64:-}" ]; then
+  missing+=("Secret APPSTORE_PROVISIONING_PROFILE: the app's App Store provisioning profile, the whole of the file APPSTORE_PROVISIONING_PROFILE.txt that make-signing-files.sh writes (launch steps, step 7).")
+elif ! starts_der "$PROFILE_B64"; then
+  missing+=("Secret APPSTORE_PROVISIONING_PROFILE is set but is not a provisioning profile in base64 text. $remake")
+elif decodes "$PROFILE_B64" | LC_ALL=C grep -aq "<key>ProvisionedDevices</key>"; then
+  missing+=("Secret APPSTORE_PROVISIONING_PROFILE is a development or ad hoc profile. Make the profile under Distribution, App Store Connect, run make-signing-files.sh finish again, and paste the new APPSTORE_PROVISIONING_PROFILE.txt.")
 fi
 
 if [ "${#missing[@]}" -gt 0 ]; then

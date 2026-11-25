@@ -1,17 +1,25 @@
 name: TestFlight upload
 
-# Builds the store version of the iPhone/iPad app on a hosted Mac, signs it with the owner's Apple team through an
-# App Store Connect API key, and uploads it to TestFlight. Run by hand: Actions, "TestFlight upload", Run workflow.
-# See docs/ios-app.md ("Upload to TestFlight") and docs/launch-steps.md for the whole way to the App Store.
+# Builds the store version of the iPhone/iPad app on a hosted Mac, signs it with the owner's Apple Distribution
+# certificate and App Store provisioning profile, and uploads it to TestFlight with an App Store Connect API key.
+# Run by hand: Actions, "TestFlight upload", Run workflow. See docs/ios-app.md ("Upload to TestFlight") and
+# docs/launch-steps.md for the whole way to the App Store.
+#
+# Signing is manual, from files the owner made once (apps/mobile/scripts/make-signing-files.sh), imported into a
+# keychain that lives only for the run: GitHub's documented way to sign on its Macs. A run creates nothing in the
+# owner's Apple account, so it signs the same way on every new Mac. The API key is used only to upload.
 #
 # Nothing here holds a key, a certificate or a team. The owner adds them in the repository's settings:
 #   variables  APP_BUNDLE_ID, APPLE_TEAM_ID (or APPLE_TEAM_ID as a secret), optional BUILD_NUMBER_OFFSET
-#   secrets    APP_STORE_CONNECT_KEY_ID, APP_STORE_CONNECT_ISSUER_ID, APP_STORE_CONNECT_KEY (the .p8 file's text)
+#   secrets    APP_STORE_CONNECT_KEY_ID, APP_STORE_CONNECT_ISSUER_ID, APP_STORE_CONNECT_KEY (the .p8 file's text),
+#              APPLE_DISTRIBUTION_CERTIFICATE, APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD, APPSTORE_PROVISIONING_PROFILE
 # With any of them missing, a run by hand stops at its first step and names what to add.
 #
-# On a pull request that changes this workflow or its check script it runs in check mode: it reports what is
-# missing without failing, builds and tests everything with RELEASE=1, and archives the app unsigned, stopping
-# just before signing. A pull request never signs or uploads, and gets no secrets.
+# On a pull request that changes this workflow or its scripts it runs in check mode: it reports what is missing
+# without failing, builds and tests everything with RELEASE=1, archives the app unsigned, and rehearses the
+# certificate import and the app's signing settings with a throwaway certificate, stopping just before signing.
+# A pull request never signs or uploads, and no step of it is given a secret. By hand with "Check mode" ticked and
+# everything set, it checks the owner's real certificate and profile the same way, and still signs nothing.
 
 on:
   workflow_dispatch:
@@ -24,6 +32,8 @@ on:
     paths:
       - .github/workflows/testflight.yml
       - apps/mobile/scripts/testflight-preflight.sh
+      - apps/mobile/scripts/testflight-signing.sh
+      - apps/mobile/scripts/make-signing-files.sh
 
 permissions:
   contents: read
@@ -34,6 +44,8 @@ concurrency:
 
 env:
   PROJECT: apps/mobile/ios/App/App.xcodeproj
+  PBXPROJ: apps/mobile/ios/App/App.xcodeproj/project.pbxproj
+  SIGNING: apps/mobile/scripts/testflight-signing.sh
   IDENTITY: apps/mobile/ios/AppIdentity.xcconfig
   ARCHIVE: build/testflight/App.xcarchive
   EXPORT: build/testflight/export
@@ -41,6 +53,8 @@ env:
   # the contact, publisher or policy date is still empty, where without it it only warns.
   RELEASE: "1"
   CHECK_ONLY: ${{ github.event_name == 'pull_request' || inputs.check_only == true }}
+# Secrets reach a step only on a run by hand: each is written "github.event_name == 'workflow_dispatch' && secrets.X".
+# GitHub would otherwise give them to a pull request from a branch of this repository too.
 
 jobs:
   testflight:
@@ -48,16 +62,20 @@ jobs:
     runs-on: macos-26
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      # Actions are pinned to the commit of the tag named beside each, since this job later holds the owner's keys.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Check that everything the upload needs is set
         id: preflight
         env:
           APP_BUNDLE_ID_VAR: ${{ vars.APP_BUNDLE_ID }}
-          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID || secrets.APPLE_TEAM_ID }}
-          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          ASC_KEY_P8: ${{ secrets.APP_STORE_CONNECT_KEY }}
+          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID || (github.event_name == 'workflow_dispatch' && secrets.APPLE_TEAM_ID) || '' }}
+          ASC_KEY_ID: ${{ github.event_name == 'workflow_dispatch' && secrets.APP_STORE_CONNECT_KEY_ID || '' }}
+          ASC_ISSUER_ID: ${{ github.event_name == 'workflow_dispatch' && secrets.APP_STORE_CONNECT_ISSUER_ID || '' }}
+          ASC_KEY_P8: ${{ github.event_name == 'workflow_dispatch' && secrets.APP_STORE_CONNECT_KEY || '' }}
+          CERT_P12_B64: ${{ github.event_name == 'workflow_dispatch' && secrets.APPLE_DISTRIBUTION_CERTIFICATE || '' }}
+          CERT_PASSWORD: ${{ github.event_name == 'workflow_dispatch' && secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD || '' }}
+          PROFILE_B64: ${{ github.event_name == 'workflow_dispatch' && secrets.APPSTORE_PROVISIONING_PROFILE || '' }}
         run: |
           set -o pipefail
           if apps/mobile/scripts/testflight-preflight.sh | tee "$RUNNER_TEMP/preflight.txt"; then
@@ -70,8 +88,8 @@ jobs:
             exit 1
           fi
 
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
           cache: pnpm
@@ -121,7 +139,7 @@ jobs:
           done
           exit 1
 
-      # ── Check mode: stop just before signing ────────────────────────────────────────────────────────────────
+      # ── Check mode: build the store archive unsigned ────────────────────────────────────────────────────────
       - name: Archive for the App Store, unsigned (check mode)
         if: env.CHECK_ONLY == 'true'
         run: |
@@ -142,56 +160,98 @@ jobs:
           test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$PLIST")" = "$BUILD_NUMBER"
           test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$PLIST")" = "$BUNDLE_ID"
           test -f "$ARCHIVE/Products/Applications/App.app/PrivacyInfo.xcprivacy"
+
+      # ── Signing: the owner's certificate and profile, in a keychain for this run only ──────────────────────
+      - name: Make a keychain for this run
+        run: |
+          out="$("$SIGNING" keychain)"
+          echo "::add-mask::$(sed -n 's/^KEYCHAIN_PASSWORD=//p' <<<"$out")"
+          echo "$out" >> "$GITHUB_ENV"
+
+      - name: Import your certificate and profile, and set manual signing
+        if: steps.preflight.outputs.ready == 'true'
+        env:
+          TEAM_ID: ${{ vars.APPLE_TEAM_ID || (github.event_name == 'workflow_dispatch' && secrets.APPLE_TEAM_ID) || '' }}
+          CERT_P12_B64: ${{ github.event_name == 'workflow_dispatch' && secrets.APPLE_DISTRIBUTION_CERTIFICATE || '' }}
+          CERT_PASSWORD: ${{ github.event_name == 'workflow_dispatch' && secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD || '' }}
+          PROFILE_B64: ${{ github.event_name == 'workflow_dispatch' && secrets.APPSTORE_PROVISIONING_PROFILE || '' }}
+        run: |
+          val() { sed -n "s/^$1=//p" "$2"; }
+          "$SIGNING" import-certificate > "$RUNNER_TEMP/sign.env"
+          export SIGN_SHA1="$(val SIGN_SHA1 "$RUNNER_TEMP/sign.env")" SIGN_IDENTITY="$(val SIGN_IDENTITY "$RUNNER_TEMP/sign.env")"
+          "$SIGNING" install-profile > "$RUNNER_TEMP/profile.env"
+          export PROFILE_UUID="$(val PROFILE_UUID "$RUNNER_TEMP/profile.env")"
+          cat "$RUNNER_TEMP/sign.env" "$RUNNER_TEMP/profile.env" >> "$GITHUB_ENV"
+          "$SIGNING" set-project
+          echo "TEAM_ID=$TEAM_ID" >> "$GITHUB_ENV"
+
+      # Without the owner's files, check mode walks the same path with a throwaway certificate made here the way the
+      # owner makes theirs (make-signing-files.sh), and a stand-in profile name. Only Apple can issue a real profile.
+      - name: Rehearse the import with a throwaway certificate (check mode, nothing set)
+        if: env.CHECK_ONLY == 'true' && steps.preflight.outputs.ready != 'true'
+        env:
+          SIGNING_DIR: ${{ runner.temp }}/rehearsal
+          REHEARSAL: "1"
+        run: |
+          apps/mobile/scripts/make-signing-files.sh request
+          printf '%s\n' "basicConstraints=CA:FALSE" "keyUsage=critical,digitalSignature" "extendedKeyUsage=critical,codeSigning" > "$RUNNER_TEMP/ext.cnf"
+          openssl x509 -req -in "$SIGNING_DIR/distribution.csr" -signkey "$SIGNING_DIR/distribution.key" -days 1 \
+            -extfile "$RUNNER_TEMP/ext.cnf" -outform DER -out "$SIGNING_DIR/rehearsal.cer"
+          apps/mobile/scripts/make-signing-files.sh finish "$SIGNING_DIR/rehearsal.cer"
+          echo "::add-mask::$(cat "$SIGNING_DIR/APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD.txt")"
+          export CERT_P12_B64="$(cat "$SIGNING_DIR/APPLE_DISTRIBUTION_CERTIFICATE.txt")"
+          export CERT_PASSWORD="$(cat "$SIGNING_DIR/APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD.txt")"
+          "$SIGNING" import-certificate > "$RUNNER_TEMP/sign.env"
+          cat "$RUNNER_TEMP/sign.env"
+          rm -rf "$SIGNING_DIR"
+          export SIGN_IDENTITY="Apple Distribution" TEAM_ID=ABCDE12345 PROFILE_UUID=00000000-0000-0000-0000-000000000000
+          "$SIGNING" set-project
+          { echo "SIGN_IDENTITY=$SIGN_IDENTITY"; echo "TEAM_ID=$TEAM_ID"; echo "PROFILE_UUID=$PROFILE_UUID"; } >> "$GITHUB_ENV"
+
+      - name: Check the app target's signing settings
+        run: |
+          xcodebuild -project "$PROJECT" -target App -configuration Release -showBuildSettings 2>/dev/null \
+            | grep -E '^ *(CODE_SIGN_STYLE|CODE_SIGN_IDENTITY|DEVELOPMENT_TEAM|PROVISIONING_PROFILE_SPECIFIER|PRODUCT_BUNDLE_IDENTIFIER) = ' \
+            | tee "$RUNNER_TEMP/settings.txt"
+          grep -q '^ *CODE_SIGN_STYLE = Manual$' "$RUNNER_TEMP/settings.txt"
+          grep -q "^ *CODE_SIGN_IDENTITY = $SIGN_IDENTITY\$" "$RUNNER_TEMP/settings.txt"
+          grep -q "^ *DEVELOPMENT_TEAM = $TEAM_ID\$" "$RUNNER_TEMP/settings.txt"
+          grep -q "^ *PROVISIONING_PROFILE_SPECIFIER = $PROFILE_UUID\$" "$RUNNER_TEMP/settings.txt"
+          # The upload tool and the options it is called with below exist in this Xcode.
+          xcrun altool --help 2>&1 | grep -E -- '--upload-app|--apiKey|--apiIssuer' | sed 's/^ */altool: /' | head -n 3
+          test "$(xcrun altool --help 2>&1 | grep -cE -- '--upload-app|--apiKey|--apiIssuer')" -ge 3
+
+      - name: Stop before signing (check mode)
+        if: env.CHECK_ONLY == 'true'
+        run: |
           {
             echo "### Check mode: stopped before signing"
             echo "Built, tested with RELEASE=1 and archived for the App Store, unsigned: version $APP_VERSION, build $BUILD_NUMBER, bundle identifier $BUNDLE_ID."
-            echo "A run by hand with the secrets set goes on from here: it signs with your Apple team and uploads to TestFlight."
+            if [ "${{ steps.preflight.outputs.ready }}" = "true" ]; then
+              echo "Your certificate imported, and your App Store profile \"$PROFILE_NAME\" matches the team, the app identifier and the certificate."
+            else
+              echo "The certificate import and the manual signing settings were rehearsed with a throwaway certificate."
+            fi
+            echo "A run by hand with check mode off goes on from here: it signs with your certificate and profile and uploads to TestFlight."
           } >> "$GITHUB_STEP_SUMMARY"
           echo "Stopped before signing. Nothing was signed or sent to Apple."
 
       # ── Signing and upload: only by hand, with everything set ───────────────────────────────────────────────
-      - name: Put the API key and a temporary keychain on the runner
+      - name: Archive for the App Store, signed with your certificate and profile
         if: env.CHECK_ONLY != 'true'
-        env:
-          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-          ASC_KEY_P8: ${{ secrets.APP_STORE_CONNECT_KEY }}
-        run: |
-          KEY_DIR="$RUNNER_TEMP/private_keys"
-          mkdir -p "$KEY_DIR"
-          printf '%s\n' "$ASC_KEY_P8" > "$KEY_DIR/AuthKey_$ASC_KEY_ID.p8"
-          chmod 600 "$KEY_DIR/AuthKey_$ASC_KEY_ID.p8"
-          echo "KEY_PATH=$KEY_DIR/AuthKey_$ASC_KEY_ID.p8" >> "$GITHUB_ENV"
-          # Xcode keeps the signing certificate it gets for this run in a keychain that exists only for this run.
-          KEYCHAIN="$RUNNER_TEMP/testflight.keychain-db"
-          KEYCHAIN_PASSWORD="$(openssl rand -hex 24)"
-          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
-          security set-keychain-settings -lut 3600 "$KEYCHAIN"
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
-          security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
-          security default-keychain -d user -s "$KEYCHAIN"
-          echo "KEYCHAIN=$KEYCHAIN" >> "$GITHUB_ENV"
-
-      - name: Archive for the App Store, signed by your team
-        if: env.CHECK_ONLY != 'true'
-        env:
-          TEAM_ID: ${{ vars.APPLE_TEAM_ID || secrets.APPLE_TEAM_ID }}
-          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
         run: |
           set -o pipefail
           xcodebuild -project "$PROJECT" -scheme App -configuration Release \
             -destination 'generic/platform=iOS' -archivePath "$ARCHIVE" \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$KEY_PATH" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
-            DEVELOPMENT_TEAM="$TEAM_ID" CODE_SIGN_STYLE=Automatic \
             archive | tail -n 60
+          APP="$ARCHIVE/Products/Applications/App.app"
+          codesign --verify --strict "$APP"
+          codesign -dvv "$APP" 2>&1 | grep -E '^(Identifier|TeamIdentifier)='
+          codesign -dvv "$APP" 2>&1 | grep -q "^Authority=$SIGN_IDENTITY"
+          test -f "$APP/embedded.mobileprovision"
 
-      - name: Export for the App Store and upload to TestFlight
+      - name: Export the App Store package
         if: env.CHECK_ONLY != 'true'
-        env:
-          TEAM_ID: ${{ vars.APPLE_TEAM_ID || secrets.APPLE_TEAM_ID }}
-          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
         run: |
           set -o pipefail
           cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
@@ -200,9 +260,12 @@ jobs:
           <plist version="1.0">
           <dict>
             <key>method</key><string>app-store-connect</string>
-            <key>destination</key><string>upload</string>
+            <key>destination</key><string>export</string>
             <key>teamID</key><string>$TEAM_ID</string>
-            <key>signingStyle</key><string>automatic</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>signingCertificate</key><string>$SIGN_IDENTITY</string>
+            <key>provisioningProfiles</key>
+            <dict><key>$BUNDLE_ID</key><string>$PROFILE_UUID</string></dict>
             <key>uploadSymbols</key><true/>
             <key>manageAppVersionAndBuildNumber</key><false/>
           </dict>
@@ -210,25 +273,38 @@ jobs:
           PLIST
           plutil -lint "$RUNNER_TEMP/ExportOptions.plist"
           xcodebuild -exportArchive -archivePath "$ARCHIVE" -exportPath "$EXPORT" \
-            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$KEY_PATH" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
-            | tail -n 60
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" | tail -n 40
+          IPA="$(ls "$EXPORT"/*.ipa | head -n 1)"
+          test -f "$IPA"
+          echo "IPA=$IPA" >> "$GITHUB_ENV"
+
+      - name: Upload to TestFlight
+        if: env.CHECK_ONLY != 'true'
+        env:
+          ASC_KEY_ID: ${{ github.event_name == 'workflow_dispatch' && secrets.APP_STORE_CONNECT_KEY_ID || '' }}
+          ASC_ISSUER_ID: ${{ github.event_name == 'workflow_dispatch' && secrets.APP_STORE_CONNECT_ISSUER_ID || '' }}
+          ASC_KEY_P8: ${{ github.event_name == 'workflow_dispatch' && secrets.APP_STORE_CONNECT_KEY || '' }}
+        run: |
+          # altool looks for AuthKey_<Key ID>.p8 in this folder; it is removed in the next step, whatever happens.
+          KEY_DIR="$HOME/.appstoreconnect/private_keys"
+          mkdir -p "$KEY_DIR"
+          (umask 077; printf '%s\n' "$ASC_KEY_P8" > "$KEY_DIR/AuthKey_$ASC_KEY_ID.p8")
+          xcrun altool --upload-app --type ios --file "$IPA" --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID" --output-format normal
           {
             echo "### Uploaded to App Store Connect"
             echo "Version $APP_VERSION, build $BUILD_NUMBER, bundle identifier $BUNDLE_ID."
             echo "Apple processes it for a few minutes to an hour; it then shows in App Store Connect under the app, TestFlight."
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Remove the API key and the keychain
-        if: always() && env.CHECK_ONLY != 'true'
+      - name: Remove the keys, the keychain and the profile
+        if: always()
         run: |
-          rm -rf "$RUNNER_TEMP/private_keys"
-          if [ -n "${KEYCHAIN:-}" ]; then security delete-keychain "$KEYCHAIN" || true; fi
+          rm -rf "$HOME/.appstoreconnect/private_keys"
+          "$SIGNING" cleanup
 
-      - name: Keep Xcode's export logs if the upload failed
+      - name: Keep Xcode's export logs if signing or the upload failed
         if: failure() && env.CHECK_ONLY != 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: testflight-export-logs
           path: |
