@@ -1,0 +1,26 @@
+    0.0s device fix76b-ipad-21to23; levels 21-23 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  508.5s WEBVIEW_18248.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  558.3s page in WEBVIEW_18248.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  561.2s web view found: WEBVIEW_18248.1, 1032 by 1376
+  614.9s turned LANDSCAPE: 1376 by 1032
+  670.1s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  679.2s page in WEBVIEW_18248.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  679.4s graphics quality set to SD by the player's setting
+  690.4s page in WEBVIEW_18248.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  693.1s frames capped at 6 a second by the test (page says 6)
+  700.2s page in WEBVIEW_18248.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  713.0s L21 cricket-swap: opened by its card on the level map (scrolled into view by the run)
+  771.7s L21 cricket-swap: won by taps; stars 3 (saved 3); open 31.234s, play 28.685s, total 77.626s; page errors 0, console errors 0; frames per second 5.9
+  800.0s page in WEBVIEW_21583.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  801.4s L22: fresh app
+  814.3s page in WEBVIEW_21583.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  844.7s L22 pancake-stack: opened by its card on the level map (scrolled into view by the run)
+  870.1s L22 pancake-stack: won by taps; stars 3 (saved 3); open 28.484s, play 13.266s, total 68.634s; page errors 0, console errors 0; frames per second 6.9
+  888.3s page in WEBVIEW_22732.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  891.3s L23: fresh app
+  902.7s page in WEBVIEW_22732.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  911.2s L23 frog-parade: opened by its card on the level map (scrolled into view by the run)
+  963.9s L23 frog-parade: won by taps; stars 3 (saved 3); open 14.019s, play 34.759s, total 72.574s; page errors 0, console errors 0; frames per second 7.3
+  963.9s script calls: 563, median 16 ms, 90th 132 ms
+  964.0s done: 3 of 3 levels won, 3 by taps alone

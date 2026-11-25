@@ -1,0 +1,112 @@
+[
+ {
+  "level": 21,
+  "id": "cricket-swap",
+  "title": "Cricket Swap",
+  "device": "fix76b-ipad-21to23",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 16,
+  "moves": 16,
+  "touches": 24,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 31.234,
+   "rulesCard": 16.024,
+   "drawn": 31.234,
+   "play": 28.685,
+   "total": 77.626
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-21to23-L21-loading-mark.png",
+   "fix76b-ipad-21to23-L21-rules-card.png",
+   "fix76b-ipad-21to23-L21-in-play.png",
+   "fix76b-ipad-21to23-L21-win-card.png"
+  ],
+  "fps": 5.9
+ },
+ {
+  "level": 22,
+  "id": "pancake-stack",
+  "title": "Pancake Stack",
+  "device": "fix76b-ipad-21to23",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 7,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 28.484,
+   "rulesCard": 28.484,
+   "drawn": 28.484,
+   "play": 13.266,
+   "total": 68.634
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-21to23-L22-rules-card.png",
+   "fix76b-ipad-21to23-L22-in-play.png",
+   "fix76b-ipad-21to23-L22-win-card.png"
+  ],
+  "fps": 6.9
+ },
+ {
+  "level": 23,
+  "id": "frog-parade",
+  "title": "Frog Parade",
+  "device": "fix76b-ipad-21to23",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 24,
+  "moves": 24,
+  "touches": 24,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 14.019,
+   "rulesCard": 9.804,
+   "drawn": 14.019,
+   "play": 34.759,
+   "total": 72.574
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-21to23-L23-loading-mark.png",
+   "fix76b-ipad-21to23-L23-rules-card.png",
+   "fix76b-ipad-21to23-L23-in-play.png",
+   "fix76b-ipad-21to23-L23-win-card.png"
+  ],
+  "fps": 7.3
+ }
+]
