@@ -1,0 +1,38 @@
+[
+ {
+  "level": 26,
+  "id": "moonbeam-maze",
+  "title": "Moonbeam Maze",
+  "device": "fix76c-ipad-26",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 9,
+  "moves": 9,
+  "touches": 9,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 92.501,
+   "rulesCard": 92.5,
+   "drawn": 92.501,
+   "play": 35.23,
+   "total": 242.058
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-26-L26-rules-card.png",
+   "fix76c-ipad-26-L26-in-play.png",
+   "fix76c-ipad-26-L26-win-card.png"
+  ],
+  "fps": 5.8
+ }
+]
