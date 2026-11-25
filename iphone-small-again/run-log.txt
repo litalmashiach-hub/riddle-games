@@ -1,0 +1,29 @@
+    0.0s device iphone-small-again; levels 1-30 (30); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"AA74239D-2D16-4FAD-8B69-E95ED07CAE75","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  710.8s WEBVIEW_31702.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  748.2s page in WEBVIEW_31702.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  752.8s web view found: WEBVIEW_31702.1, 667 by 375
+  764.7s calibration: touched [{"x":200,"y":150},{"x":467,"y":281}], the page saw [{"x":200,"y":150},{"x":467,"y":281}]: same (error 0.0 pt)
+  781.0s page in WEBVIEW_31702.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  787.1s L01 wolf-two-sheep: opened by its card on the level map
+ 1140.4s L01 wolf-two-sheep: won by taps; stars 3 (saved 3); open 26.268s, play 297.979s, total 375.284s; page errors 0, console errors 0; frames per second 19.6
+ 1150.0s L02 wolf-goat-cabbage: opened by "Next level" on the win card
+ 1201.2s L02: tap fault at step 5 (wrong-pick, known): the tap on the cabbage made the Row button read "Row across ➜with goat": the cabbage at (122, 178); the first listening object under it has its origin at [-3.8, 0.4, 1.4]
+ 1221.7s L02 wolf-goat-cabbage: won, finished by the debug hook after a known tap fault at step 5 (wrong-pick); stars 3 (saved 3); open 11.254s, play 51.668s, total 81.189s; page errors 0, console errors 0; frames per second 19.3
+ 1223.5s L03 two-jugs: opened by "Next level" on the win card
+ 1384.6s L03: tap fault at step 1 (no-response, NEW): the fill button did not show
+ 1388.6s L03: ERROR WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (plan=>{const s=window.__riddle.getState();const made=s.moves.map(m=>JSON.stringify(m));const ok=made.every((m,i)=>m===JSON.stringify(plan[i]));return ok?made.length:-1})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"
+ 1437.8s page in WEBVIEW_36054.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1438.3s app relaunched after the error
+ 1438.7s L03 two-jugs: not won: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (plan=>{const s=window.__riddle.getState();c; stars null (saved null); open 30.731s, play nulls, total 216.469s; page errors 0, console errors 0; frames per second ?
+ 1446.6s page in WEBVIEW_36054.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1453.6s L04 tower-of-hanoi: opened by its card on the level map
+ 1665.0s L04: ERROR timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!=="playing"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return s.status.kind!=="playing"||!s.busy})(arguments[0]); return { ok: true, v: v === u); the memory watchdog stopped the app while this level ran (the Mac was swapping hard)
+ 3485.6s getContexts: Error: WebDriverError: The operation was aborted due to timeout when running "contexts" with method "GET"
+ 3485.6s relaunch failed: Error: no web view found in 180 s; contexts: 
+ 4686.9s script link lost (Error: WebDriverError: Request failed with error code UND_ERR_SOCKET when running "execute/sync" with method "POST" and args "var __name = function (f) { return); finding the web view again
+ 5887.2s getContexts: Error: WebDriverError: Request failed with error code UND_ERR_SOCKET when running "contexts" with method "GET"
+ 5887.2s could not read the page's faults: Error: no web view found in 180 s; contexts: 
+ 5887.2s L04 tower-of-hanoi: not won: timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!=="playing"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/s; stars null (saved null); open 23.335s, play nulls, total 2046.817s; page errors 0, console errors 0; frames per second ?
+ 7087.5s L05: ERROR WebDriverError: Request failed with error code UND_ERR_SOCKET when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (([key,s])=>{const now=JSON.parse(localStorage.getItem(key)??'{"stars":{}}');const merged={...now,stars:{...s,...now.stars??{}}};localStorage.setItem(key,JSON.stringify(merged));history.replaceState(null,"",location.pathname);return true})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"
+ 8295.9s screenshot L05-error failed: Error: WebDriverError: Request failed with error code UND_ERR_SOCKET when running "screenshot" with method "GET"

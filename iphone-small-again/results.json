@@ -1,0 +1,157 @@
+[
+ {
+  "level": 1,
+  "id": "wolf-two-sheep",
+  "title": "Wolf and Two Sheep",
+  "device": "iphone-small-again",
+  "size": "667x375",
+  "quality": "SD",
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 26.268,
+   "rulesCard": 25.278,
+   "drawn": 26.268,
+   "play": 297.979,
+   "total": 375.284
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone-small-again-L01-loading-mark.png",
+   "iphone-small-again-L01-rules-card.png",
+   "iphone-small-again-L01-in-play.png",
+   "iphone-small-again-L01-win-card.png"
+  ],
+  "fps": 19.6
+ },
+ {
+  "level": 2,
+  "id": "wolf-goat-cabbage",
+  "title": "Wolf, Goat and Cabbage",
+  "device": "iphone-small-again",
+  "size": "667x375",
+  "quality": "SD",
+  "openedBy": "\"Next level\" on the win card",
+  "state": "won, finished by the debug hook after a known tap fault at step 5 (wrong-pick)",
+  "wonByTaps": false,
+  "won": true,
+  "finishedByHook": true,
+  "movesByTaps": 4,
+  "moves": 7,
+  "touches": 8,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": {
+   "kind": "wrong-pick",
+   "step": 5,
+   "detail": "the tap on the cabbage made the Row button read \"Row across ➜with goat\": the cabbage at (122, 178); the first listening object under it has its origin at [-3.8, 0.4, 1.4]",
+   "known": true,
+   "knownReason": "Level 2, move 5 (row the cabbage across): on the left bank a tap on the middle of the cabbage puts the goat in the boat. The goat stands in front, and its unseen tap sphere (radius 0.6) reaches over the cabbage's middle."
+  },
+  "error": null,
+  "seconds": {
+   "open": 11.254,
+   "rulesCard": 11.254,
+   "drawn": 11.254,
+   "play": 51.668,
+   "total": 81.189
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone-small-again-L02-rules-card.png",
+   "iphone-small-again-L02-in-play.png",
+   "iphone-small-again-L02-fault-step-5.png",
+   "iphone-small-again-L02-win-card.png"
+  ],
+  "fps": 19.3
+ },
+ {
+  "level": 3,
+  "id": "two-jugs",
+  "title": "Two Jugs",
+  "device": "iphone-small-again",
+  "size": "667x375",
+  "quality": "SD",
+  "openedBy": "\"Next level\" on the win card",
+  "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (plan=>{const s=window.__riddle.getState();c",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 0,
+  "moves": 6,
+  "touches": 1,
+  "stars": null,
+  "savedStars": null,
+  "fault": {
+   "kind": "no-response",
+   "step": 1,
+   "detail": "the fill button did not show",
+   "known": false
+  },
+  "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (plan=>{const s=window.__riddle.getState();const made=s.moves.map(m=>JSON.stringify(m));const ok=made.every((m,i)=>m===JSON.stringify(plan[i]));return ok?made.length:-1})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"",
+  "seconds": {
+   "open": 30.731,
+   "rulesCard": 5.619,
+   "drawn": 30.731,
+   "play": null,
+   "total": 216.469
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone-small-again-L03-loading-mark.png",
+   "iphone-small-again-L03-rules-card.png",
+   "iphone-small-again-L03-fault-step-1.png",
+   "iphone-small-again-L03-error.png"
+  ]
+ },
+ {
+  "level": 4,
+  "id": "tower-of-hanoi",
+  "title": "Tower of Hanoi",
+  "device": "iphone-small-again",
+  "size": "667x375",
+  "quality": "SD",
+  "openedBy": "its card on the level map",
+  "state": "not won: timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/s",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 15,
+  "touches": 14,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy})(arguments[0]); return { ok: true, v: v === u); the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+  "seconds": {
+   "open": 23.335,
+   "rulesCard": 23.335,
+   "drawn": 23.335,
+   "play": null,
+   "total": 2046.817
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone-small-again-L04-rules-card.png",
+   "iphone-small-again-L04-error.png"
+  ]
+ }
+]

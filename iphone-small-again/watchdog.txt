@@ -1,0 +1,48 @@
+00:08:58 WATCHDOG: the Mac wrote 59468 pages to swap in one round; stopping the app
+PID    COMMAND          MEM   CMPRS %CPU
+21842  SimRenderServer  4558M 8944K 0.0 
+367    mds_stores       171M  169M  0.0 
+31714  com.apple.WebKit 170M  72M   0.0 
+21862  SimMetalHost     158M  17M   0.0 
+21983  SpringBoard      152M  123M  0.0 
+19401  node             117M  70M   0.0 
+26535  xcodebuild       107M  97M   0.0 
+2881   Runner.Worker    92M   84M   0.0 
+20485  node             80M   42M   0.0 
+2846   Runner.Listener  79M   75M   0.0 
+25054  BackgroundShortc 74M   73M   0.0 
+463    Spotlight        74M   73M   0.0 
+00:14:53 WATCHDOG: the Mac wrote 149980 pages to swap in one round; stopping the app
+PID    COMMAND          MEM   CMPRS %CPU
+21842  SimRenderServer  4494M 7728K 0.0 
+367    mds_stores       171M  168M  0.0 
+21983  SpringBoard      152M  99M   0.0 
+19401  node             133M  39M   0.0 
+36078  com.apple.WebKit 131M  17M   0.0 
+21862  SimMetalHost     127M  18M   0.0 
+26535  xcodebuild       107M  98M   0.0 
+2881   Runner.Worker    95M   61M   0.0 
+20485  node             87M   31M   0.0 
+2846   Runner.Listener  79M   52M   0.0 
+25054  BackgroundShortc 74M   73M   0.0 
+463    Spotlight        74M   72M   0.0 
+00:16:53 WATCHDOG: the Mac wrote 77812 pages to swap in one round; stopping the app
+PID    COMMAND          MEM   CMPRS %CPU
+21842  SimRenderServer  2514M 7968K 0.0 
+367    mds_stores       171M  162M  0.0 
+21983  SpringBoard      153M  105M  0.0 
+21862  SimMetalHost     125M  18M   0.0 
+19401  node             123M  67M   0.0 
+26535  xcodebuild       108M  97M   0.0 
+2881   Runner.Worker    92M   76M   0.0 
+20485  node             81M   46M   0.0 
+2846   Runner.Listener  77M   72M   0.0 
+25054  BackgroundShortc 74M   73M   0.0 
+463    Spotlight        74M   69M   0.0 
+26844  SWBBuildService  69M   67M   0.0 
+An error was encountered processing the command (domain=NSPOSIXErrorDomain, code=3):
+Simulator device failed to terminate com.example.riddlegames.
+found nothing to terminate
+Underlying error (domain=NSPOSIXErrorDomain, code=3):
+	The request to terminate "com.example.riddlegames" failed. found nothing to terminate
+	found nothing to terminate

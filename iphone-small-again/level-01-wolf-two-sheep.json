@@ -1,0 +1,211 @@
+{
+ "level": 1,
+ "id": "wolf-two-sheep",
+ "title": "Wolf and Two Sheep",
+ "device": "iphone-small-again",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 7,
+ "touches": 12,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 26.268,
+  "rulesCard": 25.278,
+  "drawn": 26.268,
+  "play": 297.979,
+  "total": 375.284
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-again-L01-loading-mark.png",
+  "iphone-small-again-L01-rules-card.png",
+  "iphone-small-again-L01-in-play.png",
+  "iphone-small-again-L01-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 157.99652996528374,
+    "y": 150.16330997431024
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5687eaeb-bf22-41d0-9a05-0c128394f29f",
+    "world": [
+     -4.1,
+     0.35,
+     -0.3
+    ],
+    "distance": 10.97942498955011
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.578125,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "the sheep",
+   "kind": "tap",
+   "at": {
+    "x": 143.75586682287485,
+    "y": 195.45433151606466
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2dd811c7-18d3-4378-955b-29c8e048f3d2",
+    "world": [
+     -3.9,
+     0.3500000000000001,
+     1.4
+    ],
+    "distance": 9.522228166429148
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.59375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 509.440139752757,
+    "y": 151.76662879431882
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5687eaeb-bf22-41d0-9a05-0c128394f29f",
+    "world": [
+     4.1,
+     0.3500000000000001,
+     -0.3
+    ],
+    "distance": 10.835569784924392
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.609375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "the sheep",
+   "kind": "tap",
+   "at": {
+    "x": 102.52011276392227,
+    "y": 180.69631007814652
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "19331152-c77d-459f-87a9-5201d4bdb285",
+    "world": [
+     -5,
+     0.3447741717310768,
+     0.8
+    ],
+    "distance": 10.456084059682158
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.59375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 7,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 157.72986274761018,
+    "y": 151.56740326468406
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "5687eaeb-bf22-41d0-9a05-0c128394f29f",
+    "world": [
+     -4.1,
+     0.3500000000000001,
+     -0.3
+    ],
+    "distance": 10.827536983144293
+   }
+  },
+  {
+   "step": 7,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.578125,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 19.6
+}

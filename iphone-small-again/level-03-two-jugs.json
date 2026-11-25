@@ -1,0 +1,62 @@
+{
+ "level": 3,
+ "id": "two-jugs",
+ "title": "Two Jugs",
+ "device": "iphone-small-again",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "\"Next level\" on the win card",
+ "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (plan=>{const s=window.__riddle.getState();c",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 0,
+ "moves": 6,
+ "touches": 1,
+ "stars": null,
+ "savedStars": null,
+ "fault": {
+  "kind": "no-response",
+  "step": 1,
+  "detail": "the fill button did not show",
+  "known": false
+ },
+ "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (plan=>{const s=window.__riddle.getState();const made=s.moves.map(m=>JSON.stringify(m));const ok=made.every((m,i)=>m===JSON.stringify(plan[i]));return ok?made.length:-1})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"",
+ "seconds": {
+  "open": 30.731,
+  "rulesCard": 5.619,
+  "drawn": 30.731,
+  "play": null,
+  "total": 216.469
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-again-L03-loading-mark.png",
+  "iphone-small-again-L03-rules-card.png",
+  "iphone-small-again-L03-fault-step-1.png",
+  "iphone-small-again-L03-error.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the 5 L jug",
+   "kind": "tap",
+   "at": {
+    "x": 401.2007570885688,
+    "y": 214.09397852974058
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f061ee76-29ce-4d68-9b82-66092500bd9a",
+    "world": [
+     5.45,
+     0.6000000000000001,
+     0.7
+    ],
+    "distance": 4.866375852309867
+   }
+  }
+ ]
+}

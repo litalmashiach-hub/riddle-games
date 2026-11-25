@@ -1,0 +1,302 @@
+{
+ "level": 4,
+ "id": "tower-of-hanoi",
+ "title": "Tower of Hanoi",
+ "device": "iphone-small-again",
+ "size": "667x375",
+ "quality": "SD",
+ "openedBy": "its card on the level map",
+ "state": "not won: timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/s",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 15,
+ "touches": 14,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "timed out waiting for ()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy} (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>{const s=window.__riddle.getState();return s.status.kind!==\"playing\"||!s.busy})(arguments[0]); return { ok: true, v: v === u); the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+ "seconds": {
+  "open": 23.335,
+  "rulesCard": 23.335,
+  "drawn": 23.335,
+  "play": null,
+  "total": 2046.817
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-small-again-L04-rules-card.png",
+  "iphone-small-again-L04-error.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the left pillar",
+   "kind": "tap",
+   "at": {
+    "x": 212.6320042008648,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "374df50e-c2bf-482b-926c-38e98ade80df",
+    "world": [
+     -2.7,
+     0,
+     0
+    ],
+    "distance": 10.307716480310567
+   }
+  },
+  {
+   "step": 1,
+   "what": "the middle pillar",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d1b78e63-3757-40ee-be29-0ec1cfef1db0",
+    "world": [
+     0,
+     0,
+     0
+    ],
+    "distance": 9.906711515040316
+   }
+  },
+  {
+   "step": 2,
+   "what": "the left pillar",
+   "kind": "tap",
+   "at": {
+    "x": 212.6320042008648,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "374df50e-c2bf-482b-926c-38e98ade80df",
+    "world": [
+     -2.7,
+     0,
+     0
+    ],
+    "distance": 10.307716480310567
+   }
+  },
+  {
+   "step": 2,
+   "what": "the right pillar",
+   "kind": "tap",
+   "at": {
+    "x": 454.3679957991352,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "97de68c7-348d-40a4-a5bd-faab23832090",
+    "world": [
+     2.7,
+     0,
+     0
+    ],
+    "distance": 10.307716480310567
+   }
+  },
+  {
+   "step": 3,
+   "what": "the middle pillar",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d1b78e63-3757-40ee-be29-0ec1cfef1db0",
+    "world": [
+     0,
+     0,
+     0
+    ],
+    "distance": 9.906711515040316
+   }
+  },
+  {
+   "step": 3,
+   "what": "the right pillar",
+   "kind": "tap",
+   "at": {
+    "x": 454.3679957991352,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "97de68c7-348d-40a4-a5bd-faab23832090",
+    "world": [
+     2.7,
+     0,
+     0
+    ],
+    "distance": 10.307716480310567
+   }
+  },
+  {
+   "step": 4,
+   "what": "the left pillar",
+   "kind": "tap",
+   "at": {
+    "x": 212.6320042008648,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "374df50e-c2bf-482b-926c-38e98ade80df",
+    "world": [
+     -2.7,
+     0,
+     0
+    ],
+    "distance": 10.307716480310567
+   }
+  },
+  {
+   "step": 4,
+   "what": "the middle pillar",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d1b78e63-3757-40ee-be29-0ec1cfef1db0",
+    "world": [
+     0,
+     0,
+     0
+    ],
+    "distance": 9.906711515040316
+   }
+  },
+  {
+   "step": 5,
+   "what": "the right pillar",
+   "kind": "tap",
+   "at": {
+    "x": 454.3679957991352,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "97de68c7-348d-40a4-a5bd-faab23832090",
+    "world": [
+     2.7,
+     0,
+     0
+    ],
+    "distance": 10.307716480310567
+   }
+  },
+  {
+   "step": 5,
+   "what": "the left pillar",
+   "kind": "tap",
+   "at": {
+    "x": 212.6320042008648,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "374df50e-c2bf-482b-926c-38e98ade80df",
+    "world": [
+     -2.7,
+     0,
+     0
+    ],
+    "distance": 10.307716480310567
+   }
+  },
+  {
+   "step": 6,
+   "what": "the right pillar",
+   "kind": "tap",
+   "at": {
+    "x": 454.3679957991352,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "97de68c7-348d-40a4-a5bd-faab23832090",
+    "world": [
+     2.7,
+     0,
+     0
+    ],
+    "distance": 10.307716480310567
+   }
+  },
+  {
+   "step": 6,
+   "what": "the middle pillar",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d1b78e63-3757-40ee-be29-0ec1cfef1db0",
+    "world": [
+     0,
+     0,
+     0
+    ],
+    "distance": 9.906711515040316
+   }
+  },
+  {
+   "step": 7,
+   "what": "the left pillar",
+   "kind": "tap",
+   "at": {
+    "x": 212.6320042008648,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "374df50e-c2bf-482b-926c-38e98ade80df",
+    "world": [
+     -2.7,
+     0,
+     0
+    ],
+    "distance": 10.307716480310567
+   }
+  },
+  {
+   "step": 7,
+   "what": "the middle pillar",
+   "kind": "tap",
+   "at": {
+    "x": 333.5,
+    "y": 185.74979548237198
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d1b78e63-3757-40ee-be29-0ec1cfef1db0",
+    "world": [
+     0,
+     0,
+     0
+    ],
+    "distance": 9.906711515040316
+   }
+  }
+ ]
+}
