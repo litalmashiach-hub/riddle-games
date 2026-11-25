@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { GLOW, HOVER_Y, hoverPos, slotPos } from './layout';
 import { useJars } from './context';
 import { CAPACITY, isDone, type Color, type Jar } from './rules';
+import { TOP, bodyGeometry } from './shapes';
 
 /** Where the angry swarm is, `k` seconds after the fireflies lose patience. */
 export function swarmCenter(k: number, out = new THREE.Vector3()) {
@@ -183,8 +184,20 @@ export function Fireflies({
   }, [shake]);
 
   // Instanced parts: a handful of draw calls for all sixteen fireflies.
-  const bulb = useRef<THREE.InstancedMesh>(null);
-  const head = useRef<THREE.InstancedMesh>(null);
+  // The glowing bodies: one mesh for each colour, since each colour has a shape of its own (see shapes.ts),
+  // and inside each a dark copy a little wider, so the shape keeps a dark edge against the glow of the jar.
+  const kinds = useMemo(() => [...new Set(COLORS_BY_ID)], [COLORS_BY_ID]);
+  /** Which place each firefly has in its colour's mesh. */
+  const place = useMemo(() => {
+    const seen = new Map<Color, number>();
+    return COLORS_BY_ID.map((c) => {
+      const n = seen.get(c) ?? 0;
+      seen.set(c, n + 1);
+      return n;
+    });
+  }, [COLORS_BY_ID]);
+  const bodies = useRef<Partial<Record<Color, THREE.InstancedMesh | null>>>({});
+  const edges = useRef<Partial<Record<Color, THREE.InstancedMesh | null>>>({});
   const eyes = useRef<THREE.InstancedMesh>(null);
   const pupils = useRef<THREE.InstancedMesh>(null);
   const brows = useRef<THREE.InstancedMesh>(null);
@@ -222,10 +235,10 @@ export function Fireflies({
 
   useLayoutEffect(() => {
     bugs.forEach((_, i) => {
-      bulb.current?.setColorAt(i, glow[i]);
-      head.current?.setColorAt(i, headCalm);
+      bodies.current[COLORS_BY_ID[i]]?.setColorAt(place[i], glow[i]);
+      edges.current[COLORS_BY_ID[i]]?.setColorAt(place[i], headCalm);
     });
-  }, [bugs, glow, headCalm]);
+  }, [bugs, glow, headCalm, COLORS_BY_ID, place]);
 
   const part = (mesh: THREE.InstancedMesh | null, index: number, x: number, y: number, z: number, rx = 0, ry = 0, rz = 0, sx = 1, sy = 1, sz = 1) => {
     if (!mesh) return;
@@ -235,6 +248,8 @@ export function Fireflies({
     tmp.out.multiplyMatrices(tmp.m, tmp.part);
     mesh.setMatrixAt(index, tmp.out);
   };
+
+  const meshes = () => [...kinds.flatMap((c) => [bodies.current[c], edges.current[c]]), eyes.current, pupils.current, brows.current, mouths.current, wings.current, antennae.current];
 
   useFrame(({ clock }) => {
     const now = performance.now() / 1000;
@@ -326,34 +341,39 @@ export function Fireflies({
       tmp.q.setFromEuler(tmp.e);
       tmp.m.compose(tmp.p.set(b.pos.x + dx + jitter, b.pos.y + bob + hop + (hovering ? Math.sin(t * 5) * 0.05 : 0), b.pos.z + dz), tmp.q, tmp.s.set(s, s, s));
 
-      // Body parts (local space, facing +z).
-      part(bulb.current, i, 0, -0.07, -0.05, -0.35, 0, 0, 1.1, 1.15, 1.35);
-      part(head.current, i, 0, 0.09, 0.03);
-      part(eyes.current, i * 2, -0.052, 0.115, 0.125);
-      part(eyes.current, i * 2 + 1, 0.052, 0.115, 0.125);
+      // Body parts (local space, facing +z). The face sits on the glowing shape itself.
+      const kind = COLORS_BY_ID[i];
+      const body = bodies.current[kind] ?? null;
+      const edge = edges.current[kind] ?? null;
+      part(body, place[i], 0, 0, 0);
+      // Wider but thinner than the body, so only its rim shows, from the front and from behind alike.
+      part(edge, place[i], 0, 0, 0, 0, 0, 0, 1.16, 1.16, 0.6);
+      part(eyes.current, i * 2, -0.052, 0.025, 0.07);
+      part(eyes.current, i * 2 + 1, 0.052, 0.025, 0.07);
       const look = Math.sin(t * 0.7 + b.seed) * 0.012;
-      part(pupils.current, i * 2, -0.05 + look, 0.11 - g * 0.012, 0.163);
-      part(pupils.current, i * 2 + 1, 0.054 + look, 0.11 - g * 0.012, 0.163);
+      part(pupils.current, i * 2, -0.05 + look, 0.02 - g * 0.012, 0.108);
+      part(pupils.current, i * 2 + 1, 0.054 + look, 0.02 - g * 0.012, 0.108);
       const browOn = lost ? 1 : smooth(0.35, 0.6, g);
       const ang = lost ? 0.6 : 0.2 + g * 0.45;
-      part(brows.current, i * 2, -0.05, 0.168 - g * 0.01, 0.145, 0, 0, -ang, browOn, browOn, browOn);
-      part(brows.current, i * 2 + 1, 0.05, 0.168 - g * 0.01, 0.145, 0, 0, ang, browOn, browOn, browOn);
+      part(brows.current, i * 2, -0.05, 0.078 - g * 0.01, 0.1, 0, 0, -ang, browOn, browOn, browOn);
+      part(brows.current, i * 2 + 1, 0.05, 0.078 - g * 0.01, 0.1, 0, 0, ang, browOn, browOn, browOn);
       // Smile when calm, frown when grumpy (the arc flips over).
       const frown = lost || g > 0.65;
-      part(mouths.current, i, 0, frown ? 0.035 : 0.06, 0.15, 0.15, 0, frown ? 0 : Math.PI, 1, won ? 1.4 : 1, 1);
+      part(mouths.current, i, 0, frown ? -0.06 : -0.035, 0.065, 0, 0, frown ? 0 : Math.PI, 1, won ? 1.4 : 1, 1);
       const flap = Math.sin(t * flapSpeed + b.seed * 5) * 0.55;
-      part(wings.current, i * 2, -0.07, 0.17, -0.07, 0.3, 0.5, 0.55 + flap, 1, 1, 1);
-      part(wings.current, i * 2 + 1, 0.07, 0.17, -0.07, 0.3, -0.5, -0.55 - flap, 1, 1, 1);
-      part(antennae.current, i * 2, -0.035, 0.22, 0.06, 0.4, 0, 0.35);
-      part(antennae.current, i * 2 + 1, 0.035, 0.22, 0.06, 0.4, 0, -0.35);
+      part(wings.current, i * 2, -0.1, 0.1, -0.09, 0.3, 0.5, 0.55 + flap, 1, 1, 1);
+      part(wings.current, i * 2 + 1, 0.1, 0.1, -0.09, 0.3, -0.5, -0.55 - flap, 1, 1, 1);
+      part(antennae.current, i * 2, -0.03, TOP[kind] + 0.02, 0, 0.3, 0, 0.35);
+      part(antennae.current, i * 2 + 1, 0.03, TOP[kind] + 0.02, 0, 0.3, 0, -0.35);
 
       // Glow: a gentle pulse, brighter when lifted or partying, flickery when grumpy.
       const flick = g > 0.5 && !won ? 1 - (g - 0.5) * 0.7 * (0.5 + 0.5 * Math.sin(t * 23 + i * 3)) : 1;
       const level = (1.25 + Math.sin(t * 2.5 + b.seed * 3) * 0.2 + (hovering ? 0.5 : 0) + (won ? 0.5 + Math.sin(t * 8 + i) * 0.3 : 0) + (lost ? 0.4 : 0)) * flick;
       tmp.c.copy(glow[i]).multiplyScalar(level);
-      bulb.current?.setColorAt(i, tmp.c);
-      tmp.c.copy(headCalm).lerp(glow[i], 0.4).lerp(headMad, lost ? 0.8 : Math.max(0, g - 0.4) / 0.75);
-      head.current?.setColorAt(i, tmp.c);
+      body?.setColorAt(place[i], tmp.c);
+      // The dark edge reddens as the firefly loses patience.
+      tmp.c.copy(headCalm).lerp(headMad, lost ? 0.8 : Math.max(0, g - 0.4) / 0.75);
+      edge?.setColorAt(place[i], tmp.c);
 
       // Sparkle trail.
       if ((b.flying || lost) && Math.random() < (low ? 0.4 : 0.9)) {
@@ -370,8 +390,7 @@ export function Fireflies({
       }
     }
 
-    for (const mesh of [bulb, head, eyes, pupils, brows, mouths, wings, antennae]) {
-      const m = mesh.current;
+    for (const m of meshes()) {
       if (!m) continue;
       m.instanceMatrix.needsUpdate = true;
       if (m.instanceColor) m.instanceColor.needsUpdate = true;
@@ -394,20 +413,25 @@ export function Fireflies({
 
   return (
     <group>
-      <instancedMesh ref={bulb} args={[undefined, undefined, N]} frustumCulled={false}>
-        <icosahedronGeometry args={[0.13, 2]} />
-        <meshBasicMaterial toneMapped={false} />
-      </instancedMesh>
-      <instancedMesh ref={head} args={[undefined, undefined, N]} castShadow frustumCulled={false}>
-        <icosahedronGeometry args={[0.12, 1]} />
-        <meshStandardMaterial roughness={0.6} flatShading />
-      </instancedMesh>
+      {kinds.map((c) => {
+        const count = COLORS_BY_ID.filter((x) => x === c).length;
+        return (
+          <group key={c}>
+            <instancedMesh ref={(m) => void (bodies.current[c] = m)} args={[bodyGeometry(c), undefined, count]} frustumCulled={false}>
+              <meshBasicMaterial toneMapped={false} />
+            </instancedMesh>
+            <instancedMesh ref={(m) => void (edges.current[c] = m)} args={[bodyGeometry(c), undefined, count]} frustumCulled={false}>
+              <meshBasicMaterial />
+            </instancedMesh>
+          </group>
+        );
+      })}
       <instancedMesh ref={eyes} args={[undefined, undefined, N * 2]} frustumCulled={false}>
-        <sphereGeometry args={[0.048, 12, 10]} />
+        <sphereGeometry args={[0.044, 12, 10]} />
         <meshStandardMaterial color="#ffffff" roughness={0.3} />
       </instancedMesh>
       <instancedMesh ref={pupils} args={[undefined, undefined, N * 2]} frustumCulled={false}>
-        <sphereGeometry args={[0.026, 10, 8]} />
+        <sphereGeometry args={[0.027, 10, 8]} />
         <meshStandardMaterial color="#14101f" roughness={0.2} />
       </instancedMesh>
       <instancedMesh ref={brows} args={[undefined, undefined, N * 2]} frustumCulled={false}>

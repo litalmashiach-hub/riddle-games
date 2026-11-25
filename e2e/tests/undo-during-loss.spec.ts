@@ -1,8 +1,4 @@
-import { join } from 'node:path';
-import { dirname } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
-import type { RiddleRules } from '../../packages/engine/src/types';
-import { LEVELS } from '../levels';
+import { lossCases } from '../loss-paths';
 import { expect, expectCounter, passRulesCard, playMove, savedStars, test, waitForSession } from './fixtures';
 
 /**
@@ -11,55 +7,12 @@ import { expect, expectCounter, passRulesCard, playMove, savedStars, test, waitF
  * losing move: the same position and move count, the camera back on the whole scene, Redo ready to
  * bring the move back, no card, no saved stars, and nothing of the loss left to come afterwards.
  *
- * Every level that can be lost is tested. Its way to a loss is found from its own rules: the shortest
- * one where that is quick to find, else a fixed walk that never wins (levels lost by running out of moves).
+ * Every level that can be lost is tested. Its way to a loss is found from its own rules (e2e/loss-paths.ts):
+ * the shortest one where that is quick to find, else a fixed walk that never wins (levels lost by running
+ * out of moves). What is heard after such an undo has its own test, undo-loss-sounds.spec.ts.
  */
 
-const LEVELS_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'levels');
-
-/** The moves to a loss: every move but the last keeps the level going. Null if the level cannot be lost. */
-function lossPath<S, M>(rules: RiddleRules<S, M>): M[] | null {
-  // Shortest way, as long as the search stays small.
-  const seen = new Set([rules.key(rules.initialState)]);
-  let layer: { state: S; path: M[] }[] = [{ state: rules.initialState, path: [] }];
-  while (layer.length && seen.size < 20_000) {
-    const next: typeof layer = [];
-    for (const { state, path } of layer) {
-      for (const m of rules.legalMoves(state)) {
-        const after = rules.apply(state, m);
-        const kind = rules.status(after).kind;
-        if (kind === 'lost') return [...path, m];
-        if (kind !== 'playing' || seen.has(rules.key(after))) continue;
-        seen.add(rules.key(after));
-        next.push({ state: after, path: [...path, m] });
-      }
-    }
-    layer = next;
-  }
-  // A long way: a fixed walk that never wins, taking a losing move as soon as there is one.
-  let state = rules.initialState;
-  const path: M[] = [];
-  let seed = 7;
-  const pick = (n: number) => ((seed = (seed * 1103515245 + 12345) % 2 ** 31), seed % n);
-  for (let i = 0; i < 400; i++) {
-    const moves = rules.legalMoves(state).map((m) => ({ m, after: rules.apply(state, m) }));
-    const losing = moves.find((x) => rules.status(x.after).kind === 'lost');
-    if (losing) return [...path, losing.m];
-    const going = moves.filter((x) => rules.status(x.after).kind === 'playing');
-    if (!going.length) return null;
-    const { m, after } = going[pick(going.length)];
-    path.push(m);
-    state = after;
-  }
-  return null;
-}
-
-const CASES: { level: (typeof LEVELS)[number]; path: unknown[] }[] = [];
-for (const level of LEVELS) {
-  const { rules } = (await import(pathToFileURL(join(LEVELS_DIR, level.dir, 'src', 'rules.ts')).href)) as { rules: RiddleRules<unknown, unknown> };
-  const path = lossPath(rules);
-  if (path) CASES.push({ level, path });
-}
+const CASES = await lossCases();
 
 test('the levels that can be lost are found', () => {
   // Most levels can be lost: by a wrong crossing, or by running out of moves. If this drops, the search broke.

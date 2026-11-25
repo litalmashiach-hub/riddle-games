@@ -15,8 +15,10 @@ import { PLAYERS } from '../players';
  *
  * 1. Levels whose scene taps all go through Clickable are won by presses lifted with no click after them.
  * 2. On level 2, one tap on the goat puts it in the boat, once, whether it comes as a touch, a press with
- *    no click or a mouse click; and a drag that begins on the goat (turning the camera, or ending off it)
- *    puts nothing in the boat.
+ *    no click or a mouse click; and a drag that begins on the goat (out and back, or ending off it) puts
+ *    nothing in the boat, nor do two fingers held still.
+ * 3. A key on a button of the page right after a scene press with no click gets through: only the scene's
+ *    own click is held off.
  */
 
 async function open(page: Page, level: LevelCase) {
@@ -122,26 +124,108 @@ test.describe('level 2: one tap on the goat, once; a drag, never', () => {
     expectClean(faults);
   });
 
-  test('a drag that begins on the goat and turns the camera, and comes back to it', async ({ page, faults }) => {
-    const { at } = await goat(page);
-    const before = await camera(page);
-    const away: Point = { x: at.x + 90, y: at.y };
-    // A real touch, out and back in small steps, lifted where it went down: it turned the camera, so it is no tap.
-    const way = [1, 2, 3, 4, 5, 6, 4, 2, 0].map((k) => ({ x: at.x + (away.x - at.x) * (k / 6), y: at.y }));
+  /** Real touches by finger number, so that one finger can lift while another stays. */
+  async function fingers(page: Page) {
     const cdp = await page.context().newCDPSession(page);
-    const touch = (type: 'touchStart' | 'touchMove' | 'touchEnd', p?: Point) =>
-      cdp.send('Input.dispatchTouchEvent', { type, touchPoints: p ? [{ x: Math.round(p.x), y: Math.round(p.y), id: 1 }] : [] });
-    await touch('touchStart', at);
-    await page.waitForTimeout(80);
-    for (const p of way) {
-      await touch('touchMove', p);
-      await page.waitForTimeout(40);
-    }
-    await touch('touchEnd');
-    await cdp.detach();
-    // No wait for the camera to settle: after a wide turn it drifts back for longer than a test should wait.
-    expect(await camera(page), 'the drag turned the camera').not.toBe(before);
-    await staysWith(page, /alone/);
+    const send = (type: 'touchStart' | 'touchMove' | 'touchEnd', down: [id: number, at: Point][] = []) =>
+      cdp.send('Input.dispatchTouchEvent', { type, touchPoints: down.map(([id, p]) => ({ x: Math.round(p.x), y: Math.round(p.y), id })) });
+    return { send, done: () => cdp.detach() };
+  }
+
+  // A finger that goes out and comes back to where it went down turned the camera on the way: no tap. The
+  // way out is short, so the goat is under the finger again at the lift (after a wide turn it would have
+  // swung away, and the lift would miss it whatever the tap code did). Only the memory of how far the finger
+  // wandered makes this a drag: with that memory taken out of pressOnLift.ts, each of these fails.
+  for (const out of [16, 24, 40]) {
+    test(`a drag that begins on the goat, goes ${out} px out and comes back to it`, async ({ page, faults }) => {
+      const { at } = await goat(page);
+      const hit = (p: Point) => page.evaluate(({ x, y }) => window.__taps.firstHit(x, y)?.uuid ?? null, p);
+      const pressed = await hit(at);
+      expect(pressed, 'the finger goes down on the goat').toBeTruthy();
+      const before = await camera(page);
+      let turned = false;
+      const finger = await fingers(page);
+      await finger.send('touchStart', [[1, at]]);
+      await page.waitForTimeout(80);
+      for (const k of [0.25, 0.5, 0.75, 1, 0.75, 0.5, 0.25, 0]) {
+        await finger.send('touchMove', [[1, { x: at.x + out * k, y: at.y }]]);
+        await page.waitForTimeout(40);
+        if (k === 1) turned = (await camera(page)) !== before;
+      }
+      expect(turned, 'the drag turned the camera on the way').toBe(true);
+      // The finger rests where it went down until the camera has swung back with it: what it then lifts on
+      // is the goat it pressed.
+      await expect.poll(() => hit(at), { message: 'the goat is under the finger when it lifts', timeout: 10_000 }).toBe(pressed);
+      await finger.send('touchEnd');
+      await finger.done();
+      await staysWith(page, /alone/);
+      expectClean(faults);
+    });
+  }
+
+  // Two fingers are a camera gesture, however still they are held.
+  for (const [name, second, firstUp] of [
+    ['the goat finger lifts first', 'sky', 'goat'],
+    ['the other finger lifts first', 'sky', 'other'],
+    ['both on the goat', 'goat', 'goat'],
+  ] as const) {
+    test(`two fingers held still, ${name}: nothing`, async ({ page, faults }) => {
+      const { at } = await goat(page);
+      const other: Point = second === 'sky' ? { x: at.x, y: 15 } : { x: at.x + 3, y: at.y + 3 };
+      const finger = await fingers(page);
+      await finger.send('touchStart', [[1, at]]);
+      await page.waitForTimeout(60);
+      await finger.send('touchStart', [[1, at], [2, other]]);
+      await page.waitForTimeout(120);
+      // One finger lifts (the touch list without it), then the other.
+      await finger.send('touchMove', firstUp === 'goat' ? [[2, other]] : [[1, at]]);
+      await page.waitForTimeout(120);
+      await finger.send('touchEnd');
+      await finger.done();
+      await staysWith(page, /alone/);
+      expectClean(faults);
+    });
+  }
+
+  test('a single finger after two still taps as before', async ({ page, faults }) => {
+    const { at } = await goat(page);
+    const sky: Point = { x: at.x, y: 15 };
+    const finger = await fingers(page);
+    await finger.send('touchStart', [[1, at]]);
+    await finger.send('touchStart', [[1, at], [2, sky]]);
+    await page.waitForTimeout(120);
+    await finger.send('touchEnd');
+    await finger.done();
+    await expect(row(page)).toContainText('alone');
+    await page.touchscreen.tap(at.x, at.y);
+    await staysWith(page, /with goat/);
+    expectClean(faults);
+  });
+
+  // The click that is held off is the scene's own. A click with no press of its own, on a button of the page
+  // (Enter or Space on it, a screen reader's activation), is the player's next act and must get through, also
+  // in the moment after a scene press that brought no click.
+  test('Enter on the Row button right after a drag that began on the goat rows the boat', async ({ page, faults }) => {
+    const { at } = await goat(page);
+    await row(page).focus();
+    // Out and back, and lifted on the goat: a drag, which the goat takes as its own, with no click after it.
+    await pressWithoutClick(page, at, 60, [{ x: at.x + 10, y: at.y }, { x: at.x + 20, y: at.y }, { x: at.x + 10, y: at.y }, at]);
+    await page.keyboard.press('Enter');
+    await page.waitForFunction(() => window.__riddle!.getState().moves.length === 1, undefined, { timeout: 5_000 });
+    expect(await page.evaluate(() => window.__riddle!.getState().moves.length), 'one crossing, alone').toBe(1);
+    expectClean(faults);
+  });
+
+  test('Space on the Rules button right after a long press on the goat opens the rules', async ({ page, faults }) => {
+    const { at } = await goat(page);
+    const rules = page.getByRole('button', { name: 'Rules', exact: true });
+    await rules.focus();
+    await pressWithoutClick(page, at, 900);
+    await page.keyboard.press('Space');
+    await expect(page.getByRole('dialog')).toBeVisible({ timeout: 3_000 });
+    // The press itself still counted, once.
+    await page.getByRole('button', { name: "Let's go!" }).tap();
+    await staysWith(page, /with goat/);
     expectClean(faults);
   });
 

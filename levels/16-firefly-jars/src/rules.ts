@@ -5,6 +5,10 @@ import type { RiddleRules } from '@riddle/engine';
 export type Color = 'gold' | 'pink' | 'mint' | 'sky' | 'violet';
 export const COLORS: Color[] = ['gold', 'pink', 'mint', 'sky'];
 export const COLOR_NAMES: Record<Color, string> = { gold: 'gold', pink: 'pink', mint: 'green', sky: 'blue', violet: 'purple' };
+/** Each colour glows in a shape of its own, so nobody has to tell the kinds apart by colour alone. */
+export const SHAPES: Record<Color, string> = { gold: 'star', pink: 'heart', mint: 'diamond', sky: 'bubble', violet: 'triangle' };
+/** A kind of firefly in words: its colour and its shape, as in "gold star". */
+export const kindName = (c: Color) => `${COLOR_NAMES[c]} ${SHAPES[c]}`;
 
 /** How many fireflies fit in one jar. */
 export const CAPACITY = 4;
@@ -90,9 +94,9 @@ export function makeRules(start: Jar[], patience: number): RiddleRules<State, Mo
 
     describeMove(m, s) {
       const c = top(s.jars[m.from]);
-      const name = c ? COLOR_NAMES[c] : '';
+      const name = c ? kindName(c) : '';
       const to = s.jars[m.to];
-      return to.length === 0 ? `Move a ${name} firefly into an empty jar` : `Move a ${name} firefly onto the ${name} ones`;
+      return to.length === 0 ? `Move a ${name} into an empty jar` : `Move a ${name} onto its own kind`;
     },
   };
 }

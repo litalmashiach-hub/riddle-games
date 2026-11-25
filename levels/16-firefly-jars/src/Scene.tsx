@@ -9,7 +9,7 @@ import { Lagoon } from './Lagoon';
 import { useJars } from './context';
 import { EMOJI, GLOW, HOVER_Y, JAR_R, MOVE_MS } from './layout';
 import { Overlay, Pill } from './Overlay';
-import { CAPACITY, canMove, type Color, type Move, type State } from './rules';
+import { CAPACITY, SHAPES, canMove, type Color, type Move, type State } from './rules';
 import { flySound, grumbleSound, jarDoneSound, landSound, liftSound, swarmSound } from './audio';
 
 export { MOVE_MS };
@@ -106,7 +106,7 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
     if (!canMove(state, m)) {
       const full = state.jars[j].length >= CAPACITY;
       grumbleSound();
-      return refuse(j, full ? 'Jar is full!' : 'Same colours only!');
+      return refuse(j, full ? 'Jar is full!' : 'Same kind only!');
     }
     flySound();
     play(m);
@@ -205,7 +205,7 @@ function JarDonePop({ at, color }: { at: Vec3; color: Color }) {
   const [x, y, z] = at;
   return (
     <Overlay position={[x, y + 2.75, z]}>
-      <Pill tone="gold">{EMOJI[color]} Full jar!</Pill>
+      <Pill tone="gold">{EMOJI[color]} Full jar of {SHAPES[color]}s!</Pill>
     </Overlay>
   );
 }

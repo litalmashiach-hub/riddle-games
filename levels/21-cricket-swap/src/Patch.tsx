@@ -6,7 +6,12 @@ import * as THREE from 'three';
 import { CAP_TOP, GROUND, capPos } from './layout';
 import { useBoard } from './context';
 
-/** Cap colours: a cricket is home when it sits on a toadstool of its own colour. */
+/**
+ * Cap colours: a cricket is home when it sits on a toadstool of its own colour.
+ * Each goal cap also carries its team's mark round the rim, where a sitting cricket leaves it in view:
+ * dark stripes for the striped amber crickets, pale spots for the spotted blue ones (see Cricket.tsx).
+ */
+const MARKS = 7;
 const AMBER_CAP = '#ffc85e';
 const BLUE_CAP = '#4fb8ff';
 const PLAIN_CAP = '#f1e7d6';
@@ -19,6 +24,10 @@ export function Patch({ party }: { party: boolean }) {
   const CELLS = board.cols * board.rows;
   const stems = useRef<THREE.InstancedMesh>(null);
   const caps = useRef<THREE.InstancedMesh>(null);
+  const stripes = useRef<THREE.InstancedMesh>(null);
+  const spots = useRef<THREE.InstancedMesh>(null);
+  const stripeCells = useMemo(() => board.goal.split('').flatMap((ch, cell) => (ch === 'A' ? [cell] : [])), [board]);
+  const spotCells = useMemo(() => board.goal.split('').flatMap((ch, cell) => (ch === 'B' ? [cell] : [])), [board]);
   const o = useMemo(() => new THREE.Object3D(), []);
   useLayoutEffect(() => {
     const c = new THREE.Color();
@@ -34,10 +43,27 @@ export function Patch({ party }: { party: boolean }) {
       caps.current!.setMatrixAt(i, o.matrix);
       caps.current!.setColorAt(i, c.set(capColour(board.goal, i)));
     }
+    // The marks: a ring of them on each goal cap's flat top, out near the rim.
+    const ring = (mesh: THREE.InstancedMesh | null, cells: number[], r: number) => {
+      if (!mesh) return;
+      cells.forEach((cell, n) => {
+        const [x, , z] = capPos(cell, board);
+        for (let k = 0; k < MARKS; k++) {
+          const a = cell * 0.9 + (k / MARKS) * Math.PI * 2;
+          o.position.set(x + Math.sin(a) * r, CAP_TOP + 0.004, z + Math.cos(a) * r);
+          o.rotation.set(0, a, 0);
+          o.updateMatrix();
+          mesh.setMatrixAt(n * MARKS + k, o.matrix);
+        }
+      });
+      mesh.instanceMatrix.needsUpdate = true;
+    };
+    ring(stripes.current, stripeCells, 0.36);
+    ring(spots.current, spotCells, 0.385);
     stems.current!.instanceMatrix.needsUpdate = true;
     caps.current!.instanceMatrix.needsUpdate = true;
     if (caps.current!.instanceColor) caps.current!.instanceColor.needsUpdate = true;
-  }, [o, board, CELLS]);
+  }, [o, board, CELLS, stripeCells, spotCells]);
   useFrame(({ clock }) => {
     const k = party ? 4.5 + Math.sin(clock.elapsedTime * 12) * 1.5 : 2.6 + Math.sin(clock.elapsedTime * 2.5) * 0.5;
     jarGlow.emissiveIntensity = k;
@@ -57,6 +83,12 @@ export function Patch({ party }: { party: boolean }) {
       </instancedMesh>
       <instancedMesh ref={caps} args={[undefined, undefined, CELLS]} material={toon('#ffffff', { rough: 0.6 })} castShadow receiveShadow>
         <cylinderGeometry args={[0.5, 0.66, 0.18, 10]} />
+      </instancedMesh>
+      <instancedMesh ref={stripes} args={[undefined, undefined, stripeCells.length * MARKS]} material={toon('#5a2c08', { rough: 0.7 })}>
+        <boxGeometry args={[0.07, 0.012, 0.26]} />
+      </instancedMesh>
+      <instancedMesh ref={spots} args={[undefined, undefined, spotCells.length * MARKS]} material={toon('#f6fbff', { rough: 0.7 })}>
+        <cylinderGeometry args={[0.085, 0.085, 0.012, 9]} />
       </instancedMesh>
       {/* a firefly jar on each toadstool nobody can land on (level 21: the middle one) */}
       {board.jars.map((cell) => (

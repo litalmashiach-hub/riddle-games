@@ -10,9 +10,10 @@ const taken = new WeakSet<Event>();
  * Wraps a 3D object so it shows a hand cursor and a hover lift, and reports taps.
  *
  * A tap counts when the finger lifts, if it went down on this object and moved no more than a few pixels
- * (see pressOnLift.ts): iOS sends no click for a press held a little long. The click that follows is then
- * held off, so it acts once. A click with no lift seen here (another object held the pointer) still counts,
- * as before.
+ * (see pressOnLift.ts): iOS sends no click for a press held a little long. The click that follows on the
+ * scene is then held off, so it acts once; a click elsewhere on the page is never held off. Two fingers on
+ * the screen are a camera gesture and no tap, however still. A click with no lift seen here (another object
+ * held the pointer) still counts, as before.
  */
 export function Clickable({
   onClick,
