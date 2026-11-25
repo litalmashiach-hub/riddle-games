@@ -1,13 +1,16 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, DizzyStars, Shake, sfx, usePhases } from '@riddle/fx';
+import { Burst, Clickable, DizzyStars, Shake, sfx, tapPadRaycast, usePhases } from '@riddle/fx';
 import { HintRing } from '@riddle/props';
 import { useEffect, useRef, useState } from 'react';
 import { Backdrop } from './Backdrop';
 import { Chef, type ChefMood } from './Chef';
 import { Kitchen } from './Kitchen';
-import { CHEF, CHEF_HAT, SLOT, radiusOf, slotY } from './layout';
+import { CHEF, CHEF_HAT, SLOT, THICK, radiusOf, slotY } from './layout';
 import { FLIP_MS, Stack, type StackGag } from './Stack';
 import { PANCAKES, type Move, type State } from './rules';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): it lies behind every pancake's own shape. */
+const slicePad = tapPadRaycast();
 
 export const MOVE_MS = FLIP_MS + 120;
 /** Beats of the toppling gag. */
@@ -84,17 +87,26 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       <Stack stack={state.stack} before={forward ? previous!.stack : null} flip={forward ? { id: `${moveCount}|${resetCount}`, count: lastMove!.count } : null} hintCount={hintCount} gag={gag} party={won} />
 
       {/*
-        One tap slice per pancake, as wide as the pancake itself, so a tap picks exactly the pancake you see.
+        One tap target per pancake: its own shape, so a tap picks exactly the pancake you see, and a slightly wider slice of padding.
         A small pancake squeezed between two bigger ones would be a thin sliver to hit, so its slice fills the whole gap.
       */}
       {state.stack.map((size, pos) => {
         const above = pos > 0 ? radiusOf(state.stack[pos - 1]) : 0;
         const below = pos < PANCAKES - 1 ? radiusOf(state.stack[pos + 1]) : Infinity;
-        const r = Math.max(radiusOf(size), Math.min(above, below)) + 0.06;
+        const own = radiusOf(size);
+        const r = Math.max(own, Math.min(above, below)) + 0.06;
         return (
           <group key={pos} position={[0, slotY(pos), 0]}>
             <Clickable onClick={() => tap(pos)} disabled={locked} hoverScale={1}>
-              <mesh visible={false}>
+              {/* The pancake's own shape, unseen (the drawn one lives in Stack and turns over there): under the finger, the pancake you see is the one that is picked. */}
+              <mesh visible={false} rotation-y={(size - 1) * 0.5}>
+                <cylinderGeometry args={[own * 0.95, own * 0.95, THICK, 18]} />
+              </mesh>
+              <mesh visible={false} rotation-y={(size - 1) * 0.5}>
+                <cylinderGeometry args={[own, own, THICK * 0.55, 18]} />
+              </mesh>
+              {/* The wider slice is padding: it decides only where no pancake is under the finger. */}
+              <mesh visible={false} raycast={slicePad}>
                 <cylinderGeometry args={[r, r, SLOT, 14]} />
               </mesh>
             </Clickable>

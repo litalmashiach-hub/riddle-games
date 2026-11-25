@@ -12,7 +12,10 @@
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json && tsc -p e2e/tsconfig.json",
     "test:e2e": "pnpm build && pnpm build:app && playwright test --config e2e/playwright.config.ts",
-    "test:e2e:built": "playwright test --config e2e/playwright.config.ts"
+    "test:e2e:built": "playwright test --config e2e/playwright.config.ts",
+    "test:e2e:taps": "pnpm build && playwright test --config e2e/taps/playwright.config.ts --project=iphone-landscape",
+    "test:e2e:taps:all": "pnpm build && playwright test --config e2e/taps/playwright.config.ts",
+    "test:e2e:taps:built": "playwright test --config e2e/taps/playwright.config.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
