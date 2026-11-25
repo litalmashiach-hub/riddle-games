@@ -1,0 +1,527 @@
+== 01:56:21 swapouts 0 (+0) load { 340.85 147.50 64.39 }
+Pages free:                                     5155.
+Pages stored in compressor:                   350047.
+Pages occupied by compressor:                 123606.
+PID   COMMAND         MEM   CMPRS
+2274  SimRenderServer 1362M 40M  
+2286  SimMetalHost    754M  9984K
+2301  SpringBoard     108M  80M  
+1027  Runner.Worker   96M   88M  
+453   Spotlight       78M   78M  
+1000  Runner.Listener 73M   65M  
+161   WindowServer    62M   44M  
+2221  diskimagesiod   48M   13M  
+== 01:57:05 swapouts 57076 (+57076) load { 526.99 218.67 94.22 }
+Pages free:                                    23637.
+Pages stored in compressor:                   437046.
+Pages occupied by compressor:                  98788.
+PID   COMMAND         MEM   CMPRS
+2274  SimRenderServer 2950M 34M  
+2286  SimMetalHost    264M  12M  
+2301  SpringBoard     108M  80M  
+1027  Runner.Worker   89M   80M  
+453   Spotlight       77M   77M  
+1000  Runner.Listener 68M   64M  
+161   WindowServer    54M   30M  
+2221  diskimagesiod   48M   10M  
+01:57:09 WATCHDOG: the Mac wrote 57076 pages to swap in one round; stopping the app
+== 01:58:05 swapouts 57076 (+0) load { 355.91 229.76 107.65 }
+Pages free:                                     3693.
+Pages stored in compressor:                   119188.
+Pages occupied by compressor:                  18501.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    256M 8144K
+5724  SimRenderServer 239M 33M  
+4226  node            106M 23M  
+5787  SpringBoard     97M  34M  
+1027  Runner.Worker   89M  69M  
+5211  node            88M  29M  
+453   Spotlight       74M  35M  
+161   WindowServer    70M  26M  
+== 01:59:05 swapouts 57076 (+0) load { 284.41 233.58 116.85 }
+Pages free:                                     3920.
+Pages stored in compressor:                   271995.
+Pages occupied by compressor:                  74555.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    256M 14M  
+5724  SimRenderServer 239M 38M  
+4226  node            107M 59M  
+5787  SpringBoard     97M  62M  
+1027  Runner.Worker   89M  78M  
+5211  node            84M  40M  
+453   Spotlight       74M  57M  
+1000  Runner.Listener 71M  41M  
+== 01:59:33 swapouts 57076 (+0) load { 192.42 215.65 114.37 }
+Pages free:                                     4204.
+Pages stored in compressor:                   304901.
+Pages occupied by compressor:                  87573.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    256M 14M  
+5724  SimRenderServer 228M 36M  
+6735  SWBBuildService 157M 22M  
+4226  node            108M 58M  
+5787  SpringBoard     97M  65M  
+1027  Runner.Worker   89M  82M  
+5211  node            84M  68M  
+6692  xcodebuild      74M  27M  
+== 02:00:05 swapouts 57076 (+0) load { 226.23 221.54 120.01 }
+Pages free:                                     3751.
+Pages stored in compressor:                   347579.
+Pages occupied by compressor:                 105845.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    258M 10M  
+5724  SimRenderServer 232M 34M  
+6735  SWBBuildService 158M 117M 
+4226  node            109M 70M  
+5787  SpringBoard     97M  56M  
+1027  Runner.Worker   89M  80M  
+5211  node            85M  68M  
+6692  xcodebuild      74M  65M  
+== 02:00:36 swapouts 57076 (+0) load { 263.74 230.77 126.85 }
+Pages free:                                    13485.
+Pages stored in compressor:                   374666.
+Pages occupied by compressor:                 116059.
+PID   COMMAND         MEM  CMPRS
+8582  clang           277M 25M  
+5727  SimMetalHost    258M 15M  
+5724  SimRenderServer 232M 36M  
+6735  SWBBuildService 160M 101M 
+4226  node            109M 67M  
+5787  SpringBoard     97M  68M  
+9400  clang           94M  0B   
+9403  clang           93M  0B   
+== 02:00:57 swapouts 57076 (+0) load { 297.88 241.49 133.73 }
+Pages free:                                     3905.
+Pages stored in compressor:                   376358.
+Pages occupied by compressor:                 116567.
+PID    COMMAND         MEM  CMPRS
+5727   SimMetalHost    258M 15M  
+5724   SimRenderServer 232M 36M  
+6735   SWBBuildService 151M 85M  
+10174  clang           148M 0B   
+9674   clang           132M 0B   
+10193  clang           119M 0B   
+4226   node            110M 66M  
+5787   SpringBoard     97M  68M  
+== 02:01:17 swapouts 57076 (+0) load { 317.11 249.55 139.12 }
+Pages free:                                    12829.
+Pages stored in compressor:                   374962.
+Pages occupied by compressor:                 116488.
+PID    COMMAND         MEM  CMPRS
+5727   SimMetalHost    258M 15M  
+5724   SimRenderServer 232M 36M  
+10272  clang           196M 0B   
+6735   SWBBuildService 151M 86M  
+4226   node            110M 63M  
+5787   SpringBoard     97M  67M  
+10741  clang           90M  0B   
+1027   Runner.Worker   89M  75M  
+== 02:01:38 swapouts 57076 (+0) load { 286.65 247.40 140.94 }
+Pages free:                                    10351.
+Pages stored in compressor:                   362265.
+Pages occupied by compressor:                 112649.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    258M 15M  
+5724  SimRenderServer 232M 36M  
+6735  SWBBuildService 155M 38M  
+4226  node            110M 61M  
+5787  SpringBoard     97M  67M  
+1027  Runner.Worker   89M  75M  
+5211  node            85M  67M  
+6692  xcodebuild      78M  53M  
+== 02:01:58 swapouts 57076 (+0) load { 241.01 239.02 140.37 }
+Pages free:                                     3903.
+Pages stored in compressor:                   376174.
+Pages occupied by compressor:                 119505.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    258M 17M  
+5724  SimRenderServer 232M 36M  
+6735  SWBBuildService 155M 90M  
+6692  xcodebuild      118M 80M  
+4226  node            111M 73M  
+5787  SpringBoard     96M  64M  
+1027  Runner.Worker   89M  83M  
+5211  node            85M  68M  
+== 02:02:29 swapouts 57076 (+0) load { 217.91 232.81 141.50 }
+Pages free:                                     3879.
+Pages stored in compressor:                   397198.
+Pages occupied by compressor:                 130955.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    267M 15M  
+5724  SimRenderServer 236M 33M  
+6735  SWBBuildService 155M 152M 
+6692  xcodebuild      118M 93M  
+4226  node            111M 74M  
+5787  SpringBoard     103M 57M  
+1027  Runner.Worker   89M  75M  
+5211  node            86M  69M  
+== 02:03:07 swapouts 57076 (+0) load { 354.98 265.69 157.71 }
+Pages free:                                     4014.
+Pages stored in compressor:                   420876.
+Pages occupied by compressor:                 138815.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    261M 14M  
+5724  SimRenderServer 221M 36M  
+6735  SWBBuildService 155M 153M 
+5787  SpringBoard     152M 49M  
+6692  xcodebuild      119M 101M 
+4226  node            112M 75M  
+1027  Runner.Worker   90M  75M  
+5211  node            86M  68M  
+== 02:03:31 swapouts 57076 (+0) load { 401.46 281.61 165.90 }
+Pages free:                                     3779.
+Pages stored in compressor:                   439375.
+Pages occupied by compressor:                 141251.
+PID   COMMAND         MEM  CMPRS
+5724  SimRenderServer 271M 35M  
+5727  SimMetalHost    261M 15M  
+5787  SpringBoard     174M 113M 
+6735  SWBBuildService 155M 151M 
+6692  xcodebuild      119M 107M 
+4226  node            113M 31M  
+5211  node            98M  42M  
+1027  Runner.Worker   90M  80M  
+== 02:04:03 swapouts 57076 (+0) load { 580.08 346.56 196.41 }
+Pages free:                                     4183.
+Pages stored in compressor:                   437800.
+Pages occupied by compressor:                 142545.
+PID    COMMAND          MEM  CMPRS
+5724   SimRenderServer  594M 32M  
+5727   SimMetalHost     265M 14M  
+5787   SpringBoard      175M 100M 
+14055  com.apple.WebKit 118M 43M  
+6692   xcodebuild       111M 97M  
+4226   node             108M 57M  
+1027   Runner.Worker    91M  74M  
+5729   SimMetalHost     79M  29M  
+== 02:07:03 swapouts 57076 (+0) load { 864.46 572.44 316.47 }
+Pages free:                                     4054.
+Pages stored in compressor:                   453229.
+Pages occupied by compressor:                 150617.
+PID    COMMAND          MEM   CMPRS
+5724   SimRenderServer  1268M 38M  
+5727   SimMetalHost     274M  15M  
+5787   SpringBoard      175M  151M 
+14055  com.apple.WebKit 169M  59M  
+6692   xcodebuild       111M  101M 
+4226   node             109M  58M  
+1027   Runner.Worker    91M   74M  
+5211   node             78M   42M  
+== 02:07:41 swapouts 57076 (+0) load { 724.20 573.47 327.39 }
+Pages free:                                    18041.
+Pages stored in compressor:                   445669.
+Pages occupied by compressor:                 151165.
+PID    COMMAND          MEM  CMPRS
+5724   SimRenderServer  817M 37M  
+5727   SimMetalHost     364M 14M  
+5787   SpringBoard      176M 149M 
+14055  com.apple.WebKit 172M 118M 
+4226   node             109M 74M  
+6692   xcodebuild       108M 103M 
+1027   Runner.Worker    91M  77M  
+5211   node             78M  57M  
+== 02:08:47 swapouts 223172 (+166096) load { 491.59 537.36 333.35 }
+Pages free:                                     3819.
+Pages stored in compressor:                   651963.
+Pages occupied by compressor:                  81566.
+PID    COMMAND          MEM   CMPRS
+5724   SimRenderServer  5273M 33M  
+5727   SimMetalHost     364M  18M  
+5787   SpringBoard      176M  172M 
+14055  com.apple.WebKit 165M  131M 
+6692   xcodebuild       108M  107M 
+4226   node             105M  83M  
+1027   Runner.Worker    89M   82M  
+161    WindowServer     76M   32M  
+02:08:57 WATCHDOG: the Mac wrote 166096 pages to swap in one round; stopping the app
+== 02:10:30 swapouts 391574 (+168402) load { 216.92 421.40 310.38 }
+Pages free:                                    71819.
+Pages stored in compressor:                   419909.
+Pages occupied by compressor:                  18908.
+PID   COMMAND         MEM  CMPRS
+5724  SimRenderServer 517M 32M  
+5727  SimMetalHost    277M 12M  
+4226  node            202M 23M  
+5787  SpringBoard     177M 118M 
+5211  node            128M 25M  
+6692  xcodebuild      108M 99M  
+1027  Runner.Worker   92M  66M  
+1000  Runner.Listener 77M  45M  
+02:10:39 WATCHDOG: the Mac wrote 168402 pages to swap in one round; stopping the app
+== 02:11:04 swapouts 391574 (+0) load { 335.40 428.28 317.35 }
+Pages free:                                    26594.
+Pages stored in compressor:                   416435.
+Pages occupied by compressor:                  19571.
+PID    COMMAND          MEM  CMPRS
+5724   SimRenderServer  835M 31M  
+5727   SimMetalHost     269M 11M  
+5787   SpringBoard      198M 117M 
+4226   node             180M 22M  
+6692   xcodebuild       108M 99M  
+17026  com.apple.WebKit 95M  0B   
+1027   Runner.Worker    92M  65M  
+5211   node             91M  25M  
+== 02:11:38 swapouts 391574 (+0) load { 394.18 433.52 323.78 }
+Pages free:                                     3935.
+Pages stored in compressor:                   478033.
+Pages occupied by compressor:                  47180.
+PID    COMMAND          MEM   CMPRS
+5724   SimRenderServer  3195M 32M  
+5727   SimMetalHost     370M  21M  
+5787   SpringBoard      199M  196M 
+4226   node             193M  114M 
+17026  com.apple.WebKit 169M  77M  
+6692   xcodebuild       108M  98M  
+5211   node             97M   41M  
+1027   Runner.Worker    92M   89M  
+== 02:12:06 swapouts 441706 (+50132) load { 393.56 431.32 326.22 }
+Pages free:                                     4096.
+Pages stored in compressor:                   539612.
+Pages occupied by compressor:                  35345.
+PID    COMMAND          MEM   CMPRS
+5724   SimRenderServer  4954M 33M  
+5727   SimMetalHost     371M  21M  
+5787   SpringBoard      198M  212M 
+17026  com.apple.WebKit 172M  91M  
+6692   xcodebuild       108M  102M 
+4226   node             101M  56M  
+1027   Runner.Worker    89M   79M  
+161    WindowServer     75M   33M  
+02:12:24 WATCHDOG: the Mac wrote 50132 pages to swap in one round; stopping the app
+== 02:14:47 swapouts 579004 (+137298) load { 228.07 318.30 296.48 }
+Pages free:                                    63235.
+Pages stored in compressor:                   385065.
+Pages occupied by compressor:                  23559.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    272M 15M  
+5724  SimRenderServer 219M 31M  
+5787  SpringBoard     178M 125M 
+4226  node            141M 37M  
+6692  xcodebuild      108M 99M  
+5211  node            94M  27M  
+1027  Runner.Worker   89M  78M  
+1000  Runner.Listener 76M  44M  
+02:14:49 WATCHDOG: the Mac wrote 137298 pages to swap in one round; stopping the app
+== 02:15:12 swapouts 579004 (+0) load { 265.78 321.04 297.97 }
+Pages free:                                     4109.
+Pages stored in compressor:                   369811.
+Pages occupied by compressor:                  25864.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    272M 15M  
+5724  SimRenderServer 219M 31M  
+5787  SpringBoard     178M 124M 
+4226  node            135M 34M  
+6692  xcodebuild      108M 97M  
+5211  node            94M  26M  
+1027  Runner.Worker   89M  78M  
+1000  Runner.Listener 76M  44M  
+== 02:15:33 swapouts 579004 (+0) load { 284.06 321.25 298.73 }
+Pages free:                                     6435.
+Pages stored in compressor:                   359690.
+Pages occupied by compressor:                  27603.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    272M 15M  
+5724  SimRenderServer 219M 31M  
+5787  SpringBoard     178M 124M 
+4226  node            135M 33M  
+6692  xcodebuild      108M 97M  
+5211  node            94M  26M  
+1027  Runner.Worker   89M  77M  
+1000  Runner.Listener 76M  44M  
+== 02:15:54 swapouts 579004 (+0) load { 256.72 312.63 296.17 }
+Pages free:                                     3914.
+Pages stored in compressor:                   363370.
+Pages occupied by compressor:                  30755.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    272M 15M  
+5724  SimRenderServer 219M 31M  
+5787  SpringBoard     178M 124M 
+4226  node            135M 33M  
+6692  xcodebuild      108M 97M  
+5211  node            94M  26M  
+1027  Runner.Worker   89M  77M  
+1000  Runner.Listener 76M  44M  
+== 02:16:14 swapouts 579004 (+0) load { 210.56 298.64 291.54 }
+Pages free:                                     3894.
+Pages stored in compressor:                   371735.
+Pages occupied by compressor:                  37420.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    275M 15M  
+5724  SimRenderServer 219M 31M  
+5787  SpringBoard     178M 124M 
+4226  node            135M 33M  
+6692  xcodebuild      108M 97M  
+5211  node            94M  26M  
+1027  Runner.Worker   89M  77M  
+1000  Runner.Listener 76M  43M  
+== 02:16:35 swapouts 579004 (+0) load { 225.13 295.81 290.66 }
+Pages free:                                     4046.
+Pages stored in compressor:                   383995.
+Pages occupied by compressor:                  46550.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    273M 17M  
+5724  SimRenderServer 243M 31M  
+5787  SpringBoard     179M 124M 
+4226  node            135M 46M  
+6692  xcodebuild      108M 97M  
+5211  node            94M  41M  
+1027  Runner.Worker   89M  77M  
+1000  Runner.Listener 76M  44M  
+== 02:16:56 swapouts 579004 (+0) load { 213.24 288.15 288.01 }
+Pages free:                                     5401.
+Pages stored in compressor:                   397365.
+Pages occupied by compressor:                  54021.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    273M 20M  
+5724  SimRenderServer 243M 31M  
+5787  SpringBoard     179M 125M 
+4226  node            136M 52M  
+6692  xcodebuild      108M 97M  
+5211  node            94M  53M  
+1027  Runner.Worker   89M  77M  
+485   mds_stores      83M  6576K
+== 02:17:16 swapouts 579004 (+0) load { 212.58 282.80 286.08 }
+Pages free:                                     4239.
+Pages stored in compressor:                   394379.
+Pages occupied by compressor:                  54247.
+PID    COMMAND         MEM  CMPRS
+5727   SimMetalHost    273M 20M  
+5724   SimRenderServer 243M 32M  
+5787   SpringBoard     178M 125M 
+4226   node            136M 52M  
+6692   xcodebuild      108M 97M  
+5211   node            94M  50M  
+1027   Runner.Worker   89M  77M  
+23897  MobileCal       82M  33M  
+== 02:17:37 swapouts 579004 (+0) load { 195.55 274.38 282.98 }
+Pages free:                                     4084.
+Pages stored in compressor:                   399006.
+Pages occupied by compressor:                  58875.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    273M 21M  
+5724  SimRenderServer 243M 31M  
+5787  SpringBoard     178M 142M 
+4226  node            136M 55M  
+6692  xcodebuild      108M 98M  
+5211  node            94M  54M  
+1027  Runner.Worker   89M  75M  
+453   Spotlight       85M  33M  
+== 02:17:57 swapouts 579004 (+0) load { 233.45 276.75 283.57 }
+Pages free:                                    19941.
+Pages stored in compressor:                   415639.
+Pages occupied by compressor:                  65792.
+PID   COMMAND         MEM  CMPRS
+5724  SimRenderServer 448M 30M  
+5727  SimMetalHost    282M 18M  
+4226  node            205M 68M  
+5787  SpringBoard     178M 124M 
+5211  node            119M 49M  
+6692  xcodebuild      108M 99M  
+1027  Runner.Worker   89M  73M  
+453   Spotlight       85M  47M  
+== 02:18:21 swapouts 579004 (+0) load { 272.88 282.81 285.58 }
+Pages free:                                     5960.
+Pages stored in compressor:                   444207.
+Pages occupied by compressor:                  75946.
+PID    COMMAND          MEM  CMPRS
+5724   SimRenderServer  858M 30M  
+5727   SimMetalHost     291M 21M  
+4226   node             207M 73M  
+5787   SpringBoard      199M 170M 
+28434  com.apple.WebKit 136M 16M  
+5211   node             119M 51M  
+6692   xcodebuild       108M 99M  
+485    mds_stores       97M  54M  
+== 02:19:00 swapouts 579004 (+0) load { 336.65 297.87 290.96 }
+Pages free:                                     4210.
+Pages stored in compressor:                   502198.
+Pages occupied by compressor:                  92698.
+PID    COMMAND          MEM   CMPRS
+5724   SimRenderServer  2915M 32M  
+5727   SimMetalHost     380M  26M  
+5787   SpringBoard      199M  188M 
+4226   node             182M  124M 
+28434  com.apple.WebKit 161M  79M  
+6692   xcodebuild       108M  99M  
+485    mds_stores       105M  100M 
+5211   node             99M   51M  
+== 02:19:27 swapouts 634404 (+55400) load { 361.40 306.78 294.37 }
+Pages free:                                     4195.
+Pages stored in compressor:                   508616.
+Pages occupied by compressor:                  38339.
+PID    COMMAND          MEM   CMPRS
+5724   SimRenderServer  2100M 33M  
+5727   SimMetalHost     373M  27M  
+5787   SpringBoard      199M  215M 
+28434  com.apple.WebKit 164M  106M 
+4226   node             149M  101M 
+485    mds_stores       121M  123M 
+6692   xcodebuild       108M  103M 
+1027   Runner.Worker    89M   86M  
+02:19:29 WATCHDOG: the Mac wrote 55400 pages to swap in one round; stopping the app
+== 02:20:16 swapouts 634404 (+0) load { 232.14 279.51 284.95 }
+Pages free:                                    81482.
+Pages stored in compressor:                   414821.
+Pages occupied by compressor:                  27779.
+PID   COMMAND         MEM  CMPRS
+5727  SimMetalHost    274M 22M  
+5724  SimRenderServer 264M 32M  
+4226  node            180M 77M  
+5787  SpringBoard     178M 125M 
+485   mds_stores      127M 72M  
+6692  xcodebuild      108M 98M  
+5211  node            98M  25M  
+1027  Runner.Worker   89M  67M  
+== 02:20:39 swapouts 634404 (+0) load { 218.60 272.57 282.29 }
+Pages free:                                     4608.
+Pages stored in compressor:                   394110.
+Pages occupied by compressor:                  24847.
+PID   COMMAND         MEM  CMPRS
+5724  SimRenderServer 594M 31M  
+5727  SimMetalHost    276M 19M  
+4226  node            247M 22M  
+5787  SpringBoard     200M 124M 
+5211  node            149M 25M  
+6692  xcodebuild      108M 98M  
+485   mds_stores      108M 11M  
+1027  Runner.Worker   89M  66M  
+== 02:21:12 swapouts 634404 (+0) load { 250.70 274.33 282.52 }
+Pages free:                                     3827.
+Pages stored in compressor:                   389326.
+Pages occupied by compressor:                  24450.
+PID    COMMAND          MEM  CMPRS
+5724   SimRenderServer  829M 29M  
+5727   SimMetalHost     280M 19M  
+4226   node             225M 22M  
+5787   SpringBoard      199M 124M 
+32029  com.apple.WebKit 124M 0B   
+5211   node             123M 25M  
+6692   xcodebuild       109M 98M  
+1027   Runner.Worker    89M  66M  
+== 02:22:16 swapouts 634404 (+0) load { 303.28 285.79 286.26 }
+Pages free:                                     4797.
+Pages stored in compressor:                   497145.
+Pages occupied by compressor:                  66405.
+PID    COMMAND          MEM   CMPRS
+5724   SimRenderServer  1607M 33M  
+5727   SimMetalHost     378M  28M  
+5787   SpringBoard      199M  208M 
+32029  com.apple.WebKit 164M  102M 
+4226   node             129M  111M 
+6692   xcodebuild       109M  101M 
+1027   Runner.Worker    89M   76M  
+485    mds_stores       89M   89M  
+== 02:23:52 swapouts 770932 (+136528) load { 134.43 235.44 266.97 }
+Pages free:                                   123582.
+Pages stored in compressor:                   449542.
+Pages occupied by compressor:                  18372.
+PID    COMMAND          MEM   CMPRS
+5724   SimRenderServer  1006M 32M  
+5727   SimMetalHost     380M  25M  
+5787   SpringBoard      199M  193M 
+32029  com.apple.WebKit 173M  61M  
+4226   node             129M  69M  
+6692   xcodebuild       109M  97M  
+1027   Runner.Worker    93M   53M  
+485    mds_stores       89M   89M  
+02:23:55 WATCHDOG: the Mac wrote 136528 pages to swap in one round; stopping the app

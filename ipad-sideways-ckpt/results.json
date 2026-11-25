@@ -1,0 +1,156 @@
+[
+ {
+  "level": 1,
+  "id": "wolf-two-sheep",
+  "title": "Wolf and Two Sheep",
+  "device": "ipad-sideways-ckpt",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>({mark:!!Array.from(document.querySelec",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 0,
+  "moves": 7,
+  "touches": 0,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>({mark:!!Array.from(document.querySelectorAll('[role=status][aria-label=\"Loading level\"]')).find(e=>e.getBoundingClientRect().width>0),rules:!!Array.from(document.querySelectorAll(\"h1,h2,h3\")).find(h=>/Let's go/.test(h.closest(\"div\")?.parentElement?.textContent??\"\")),go:!!Array.from(document.querySelectorAll(\"button\")).find(b=>b.textContent?.trim()===\"Let's go!\"&&b.getBoundingClientRect().width>0),ready:!!window.__taps?.ready(),session:window.__riddle?.getState().level.id??null}))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+  "seconds": {
+   "open": null,
+   "rulesCard": 179.248,
+   "drawn": null,
+   "play": null,
+   "total": 222.92
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "ipad-sideways-ckpt-L01-loading-mark.png",
+   "ipad-sideways-ckpt-L01-error.png"
+  ],
+  "fps": 0
+ },
+ {
+  "level": 2,
+  "id": "wolf-goat-cabbage",
+  "title": "Wolf, Goat and Cabbage",
+  "device": "ipad-sideways-ckpt",
+  "size": "1376x1032",
+  "quality": "SD",
+  "openedBy": "its card on the level map",
+  "state": "won, finished by the debug hook after a known tap fault at step 5 (wrong-pick)",
+  "wonByTaps": false,
+  "won": true,
+  "finishedByHook": true,
+  "movesByTaps": 4,
+  "moves": 7,
+  "touches": 8,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": {
+   "kind": "wrong-pick",
+   "step": 5,
+   "detail": "the tap on the cabbage made the Row button read \"Row across ➜with goat\": the cabbage at (192, 495); the first listening object under it has its origin at [-3.8, 0.4, 1.4]",
+   "known": true,
+   "knownReason": "Level 2, move 5 (row the cabbage across): on the left bank a tap on the middle of the cabbage puts the goat in the boat. The goat stands in front, and its unseen tap sphere (radius 0.6) reaches over the cabbage's middle."
+  },
+  "error": null,
+  "seconds": {
+   "open": 17.446,
+   "rulesCard": 17.446,
+   "drawn": 17.446,
+   "play": 144.965,
+   "total": 198.169
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "ipad-sideways-ckpt-L02-rules-card.png",
+   "ipad-sideways-ckpt-L02-in-play.png",
+   "ipad-sideways-ckpt-L02-fault-step-5.png",
+   "ipad-sideways-ckpt-L02-win-card.png"
+  ],
+  "fps": 19.9
+ },
+ {
+  "level": 3,
+  "id": "two-jugs",
+  "title": "Two Jugs",
+  "device": "ipad-sideways-ckpt",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "",
+  "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); r",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 0,
+  "moves": 6,
+  "touches": 0,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"",
+  "seconds": {
+   "open": null,
+   "rulesCard": null,
+   "drawn": null,
+   "play": null,
+   "total": 15.409
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "ipad-sideways-ckpt-L03-error.png"
+  ]
+ },
+ {
+  "level": 4,
+  "id": "tower-of-hanoi",
+  "title": "Tower of Hanoi",
+  "device": "ipad-sideways-ckpt",
+  "size": "1376x1032",
+  "quality": "SD",
+  "openedBy": "its card on the level map",
+  "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (plan=>{const s=window.__riddle.getState();c",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 10,
+  "moves": 15,
+  "touches": 22,
+  "stars": null,
+  "savedStars": null,
+  "fault": {
+   "kind": "no-move",
+   "step": 11,
+   "detail": "no move followed the touches for {\"from\":2,\"to\":0}. Last touch: the left pillar at (405, 515); the first listening object under it has its origin at [-2.7, 0, 0]",
+   "known": false
+  },
+  "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (plan=>{const s=window.__riddle.getState();const made=s.moves.map(m=>JSON.stringify(m));const ok=made.every((m,i)=>m===JSON.stringify(plan[i]));return ok?made.length:-1})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+  "seconds": {
+   "open": 16.003,
+   "rulesCard": 14.932,
+   "drawn": 16.003,
+   "play": null,
+   "total": 147.204
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "ipad-sideways-ckpt-L04-loading-mark.png",
+   "ipad-sideways-ckpt-L04-rules-card.png",
+   "ipad-sideways-ckpt-L04-in-play.png",
+   "ipad-sideways-ckpt-L04-fault-step-11.png",
+   "ipad-sideways-ckpt-L04-error.png"
+  ],
+  "fps": 0
+ }
+]

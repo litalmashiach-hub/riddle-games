@@ -1,0 +1,36 @@
+{
+ "level": 1,
+ "id": "wolf-two-sheep",
+ "title": "Wolf and Two Sheep",
+ "device": "ipad-sideways-ckpt",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "not won: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>({mark:!!Array.from(document.querySelec",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 0,
+ "moves": 7,
+ "touches": 0,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>({mark:!!Array.from(document.querySelectorAll('[role=status][aria-label=\"Loading level\"]')).find(e=>e.getBoundingClientRect().width>0),rules:!!Array.from(document.querySelectorAll(\"h1,h2,h3\")).find(h=>/Let's go/.test(h.closest(\"div\")?.parentElement?.textContent??\"\")),go:!!Array.from(document.querySelectorAll(\"button\")).find(b=>b.textContent?.trim()===\"Let's go!\"&&b.getBoundingClientRect().width>0),ready:!!window.__taps?.ready(),session:window.__riddle?.getState().level.id??null}))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+ "seconds": {
+  "open": null,
+  "rulesCard": 179.248,
+  "drawn": null,
+  "play": null,
+  "total": 222.92
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "ipad-sideways-ckpt-L01-loading-mark.png",
+  "ipad-sideways-ckpt-L01-error.png"
+ ],
+ "log": [],
+ "fps": 0
+}
