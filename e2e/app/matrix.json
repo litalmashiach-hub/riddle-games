@@ -1,22 +1,6 @@
 [
  {
-  "label": "fix76f-ipad-mini-27",
-  "sim": "iPad mini (A17 Pro)",
-  "orientation": "LANDSCAPE",
-  "levels": "27",
-  "extras": "0",
-  "flags": "quality=low relaunch-each level-minutes=25 fps=6 open-seconds=600 card-seconds=60 sit-seconds=40"
- },
- {
-  "label": "fix76f-ipad11-27",
-  "sim": "iPad Pro 11-inch (M5)",
-  "orientation": "LANDSCAPE",
-  "levels": "27",
-  "extras": "0",
-  "flags": "quality=low relaunch-each level-minutes=25 fps=6 open-seconds=600 card-seconds=60 sit-seconds=40"
- },
- {
-  "label": "fix76f-ipad13-27-long",
+  "label": "fix76f-ipad13-27-again",
   "sim": "iPad Pro 13-inch (M5)",
   "orientation": "LANDSCAPE",
   "levels": "27",
