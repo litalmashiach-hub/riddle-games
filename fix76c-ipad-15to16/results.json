@@ -1,0 +1,76 @@
+[
+ {
+  "level": 15,
+  "id": "slippery-pond",
+  "title": "Slippery Pond",
+  "device": "fix76c-ipad-15to16",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 7,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 20.675,
+   "rulesCard": 20.346,
+   "drawn": 20.675,
+   "play": 51.877,
+   "total": 136.563
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-15to16-L15-loading-mark.png",
+   "fix76c-ipad-15to16-L15-rules-card.png",
+   "fix76c-ipad-15to16-L15-in-play.png",
+   "fix76c-ipad-15to16-L15-win-card.png"
+  ],
+  "fps": 4.8
+ },
+ {
+  "level": 16,
+  "id": "firefly-jars",
+  "title": "Firefly Jars",
+  "device": "fix76c-ipad-15to16",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 16,
+  "moves": 16,
+  "touches": 32,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 11.476,
+   "rulesCard": 9.898,
+   "drawn": 11.476,
+   "play": 46.805,
+   "total": 82.871
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76c-ipad-15to16-L16-loading-mark.png",
+   "fix76c-ipad-15to16-L16-rules-card.png",
+   "fix76c-ipad-15to16-L16-in-play.png",
+   "fix76c-ipad-15to16-L16-win-card.png"
+  ],
+  "fps": 6.6
+ }
+]

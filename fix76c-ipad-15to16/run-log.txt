@@ -1,0 +1,20 @@
+    0.0s device fix76c-ipad-15to16; levels 15-16 (2); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  564.7s page in WEBVIEW_11624.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  566.7s web view found: WEBVIEW_11624.1, 1032 by 1376
+  605.7s turned LANDSCAPE: 1376 by 1032
+  739.0s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  784.2s page in WEBVIEW_11624.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  789.3s graphics quality set to SD by the player's setting
+  829.7s page in WEBVIEW_11624.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  831.9s frames capped at 6 a second by the test (page says 6)
+  855.8s page in WEBVIEW_11624.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  887.2s L15 slippery-pond: opened by its card on the level map (scrolled into view by the run)
+  968.5s L15 slippery-pond: won by taps; stars 3 (saved 3); open 20.675s, play 51.877s, total 136.563s; page errors 0, console errors 0; frames per second 4.8
+  991.1s page in WEBVIEW_16262.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  999.1s L16: fresh app
+ 1007.2s page in WEBVIEW_16262.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1014.5s L16 firefly-jars: opened by its card on the level map (scrolled into view by the run)
+ 1082.3s L16 firefly-jars: won by taps; stars 3 (saved 3); open 11.476s, play 46.805s, total 82.871s; page errors 0, console errors 0; frames per second 6.6
+ 1082.3s script calls: 387, median 26 ms, 90th 474 ms
+ 1082.8s done: 2 of 2 levels won, 2 by taps alone

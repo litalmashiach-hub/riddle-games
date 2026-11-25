@@ -1,0 +1,172 @@
+{
+ "level": 15,
+ "id": "slippery-pond",
+ "title": "Slippery Pond",
+ "device": "fix76c-ipad-15to16",
+ "size": "1376x1032",
+ "quality": null,
+ "openedBy": "its card on the level map (scrolled into view by the run)",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 7,
+ "touches": 7,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 20.675,
+  "rulesCard": 20.346,
+  "drawn": 20.675,
+  "play": 51.877,
+  "total": 136.563
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "fix76c-ipad-15to16-L15-loading-mark.png",
+  "fix76c-ipad-15to16-L15-rules-card.png",
+  "fix76c-ipad-15to16-L15-in-play.png",
+  "fix76c-ipad-15to16-L15-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 688,
+    "y": 720.9055667519276
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "95d9ab83-0e51-48c8-85f2-4e18f93406b8",
+    "world": [
+     0,
+     0.06,
+     2.3900000000000006
+    ],
+    "distance": 9.222367252007762
+   }
+  },
+  {
+   "step": 2,
+   "what": "the left arrow",
+   "kind": "tap",
+   "at": {
+    "x": 589.1798927467592,
+    "y": 686.3525827803595
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "526b9121-8ed0-44c4-b8b4-107cde3a3d7e",
+    "world": [
+     -0.76,
+     0.06,
+     2.1
+    ],
+    "distance": 9.36611502302829
+   }
+  },
+  {
+   "step": 3,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 423.4798179516449,
+    "y": 599.9613639851367
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "87e41506-492f-453a-a440-02d630b59a64",
+    "world": [
+     -2.1,
+     0.06,
+     1.34
+    ],
+    "distance": 9.888638297356833
+   }
+  },
+  {
+   "step": 4,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 462.79058324121684,
+    "y": 303.7745344438739
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "22786dbc-2739-43de-a8ef-d650c30736c0",
+    "world": [
+     -2.1,
+     0.06,
+     -1.81
+    ],
+    "distance": 11.680252442903305
+   }
+  },
+  {
+   "step": 5,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 547.9750978996685,
+    "y": 281.371044261983
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f900628f-300e-4ba5-9760-8aa39caf3b27",
+    "world": [
+     -1.34,
+     0.06,
+     -2.1
+    ],
+    "distance": 11.760392359140365
+   }
+  },
+  {
+   "step": 6,
+   "what": "the up arrow",
+   "kind": "tap",
+   "at": {
+    "x": 580.7503148853867,
+    "y": 221.81906629779732
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "74fcb062-121a-45de-9c02-be31f15f182a",
+    "world": [
+     -1.05,
+     0.06,
+     -2.8600000000000003
+    ],
+    "distance": 12.28114778018822
+   }
+  },
+  {
+   "step": 7,
+   "what": "the right arrow",
+   "kind": "tap",
+   "at": {
+    "x": 660.9836000402527,
+    "y": 203.4461662531031
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "fc89127b-bc2c-40c6-b904-a74ccffc13e7",
+    "world": [
+     -0.29000000000000004,
+     0.06,
+     -3.1500000000000004
+    ],
+    "distance": 12.423798449760909
+   }
+  }
+ ],
+ "fps": 4.8
+}
