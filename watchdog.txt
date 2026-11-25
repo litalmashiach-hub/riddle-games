@@ -1,0 +1,20 @@
+21:19:57 WATCHDOG: the Mac wrote 56484 pages to swap in one round; stopping the app
+PID   COMMAND          MEM   CMPRS %CPU
+6317  SimRenderServer  3007M 29M   0.0 
+6328  SimMetalHost     266M  18M   0.0 
+4354  node             101M  69M   0.0 
+6402  SpringBoard      99M   73M   0.0 
+964   Runner.Worker    96M   78M   0.0 
+953   Runner.Listener  74M   55M   0.0 
+4623  node             73M   55M   0.0 
+160   WindowServer     73M   33M   0.0 
+484   Spotlight        72M   65M   0.0 
+6261  Simulator        64M   59M   0.0 
+7879  BackgroundShortc 64M   62M   0.0 
+1973  diskimagesiod    48M   15M   0.0 
+An error was encountered processing the command (domain=NSPOSIXErrorDomain, code=3):
+Simulator device failed to terminate com.example.riddlegames.
+found nothing to terminate
+Underlying error (domain=NSPOSIXErrorDomain, code=3):
+	The request to terminate "com.example.riddlegames" failed. found nothing to terminate
+	found nothing to terminate

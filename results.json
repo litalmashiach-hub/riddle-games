@@ -1,0 +1,76 @@
+[
+ {
+  "level": 28,
+  "id": "family-portrait",
+  "title": "Family Portrait",
+  "device": "fix76b-ipad-28to30",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 24,
+  "moves": 24,
+  "touches": 24,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 27.549,
+   "rulesCard": 26.523,
+   "drawn": 27.549,
+   "play": 38.411,
+   "total": 184.518
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-28to30-L28-loading-mark.png",
+   "fix76b-ipad-28to30-L28-rules-card.png",
+   "fix76b-ipad-28to30-L28-in-play.png",
+   "fix76b-ipad-28to30-L28-win-card.png"
+  ],
+  "fps": 4.7
+ },
+ {
+  "level": 29,
+  "id": "cricket-crossing",
+  "title": "Cricket Crossing",
+  "device": "fix76b-ipad-28to30",
+  "size": "1376x1032",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 16,
+  "moves": 16,
+  "touches": 27,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 14.41,
+   "rulesCard": 12.238,
+   "drawn": 14.41,
+   "play": 32.719,
+   "total": 67.502
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "fix76b-ipad-28to30-L29-loading-mark.png",
+   "fix76b-ipad-28to30-L29-rules-card.png",
+   "fix76b-ipad-28to30-L29-in-play.png",
+   "fix76b-ipad-28to30-L29-win-card.png"
+  ],
+  "fps": 6.6
+ }
+]

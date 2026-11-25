@@ -1,0 +1,22 @@
+    0.0s device fix76b-ipad-28to30; levels 28-30 (3); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  533.5s page in WEBVIEW_17145.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  533.9s web view found: WEBVIEW_17145.1, 1032 by 1376
+  550.8s turned LANDSCAPE: 1376 by 1032
+  593.2s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  602.5s page in WEBVIEW_17145.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  603.3s graphics quality set to SD by the player's setting
+  615.7s page in WEBVIEW_17145.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  621.0s frames capped at 6 a second by the test (page says 6)
+  715.5s page in WEBVIEW_17145.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  734.7s L28 family-portrait: opened by its card on the level map (scrolled into view by the run)
+  805.7s L28 family-portrait: won by taps; stars 3 (saved 3); open 27.549s, play 38.411s, total 184.518s; page errors 0, console errors 0; frames per second 4.7
+  828.5s page in WEBVIEW_20395.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  829.7s L29: fresh app
+  836.6s page in WEBVIEW_20395.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  847.1s L29 cricket-crossing: opened by its card on the level map (scrolled into view by the run)
+  897.4s L29 cricket-crossing: won by taps; stars 3 (saved 3); open 14.41s, play 32.719s, total 67.502s; page errors 0, console errors 0; frames per second 6.6
+  916.6s page in WEBVIEW_22335.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  918.7s L30: fresh app
+  925.1s page in WEBVIEW_22335.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  938.5s L30 moonlit-tower: opened by its card on the level map (scrolled into view by the run)
