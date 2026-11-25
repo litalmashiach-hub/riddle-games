@@ -1,0 +1,11 @@
+1795616178.8576941 launched
+1795616198.304601 start marker: true
+1795616233.7516 scene 05-moonbeam: true
+1795616273.784536 xc picture 05-moonbeam 0 1376x1032 scale 2.0
+1795616279.6015801 xc picture 05-moonbeam 1 1376x1032 scale 2.0
+1795616282.629148 xc picture 05-moonbeam 2 1376x1032 scale 2.0
+1795616285.78752 xc picture 05-moonbeam 3 1376x1032 scale 2.0
+1795616288.8776689 xc picture 05-moonbeam 4 1376x1032 scale 2.0
+1795616292.00732 xc picture 05-moonbeam 5 1376x1032 scale 2.0
+1795616298.158004 tapped 05-moonbeam
+1795616299.428252 done marker: true
