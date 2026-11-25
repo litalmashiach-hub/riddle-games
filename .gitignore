@@ -7,3 +7,7 @@ coverage
 test-results
 playwright-report
 dist-app
+e2e/app/node_modules/
+e2e/app/.appium/
+e2e/app/package-lock.json
+out/
