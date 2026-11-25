@@ -17,8 +17,10 @@ export const PRESS_SLOP = 12;
 /**
  * How long after a tap was counted on the lift the browser's own click for that touch may still come,
  * timed by the events' own time stamps, so a device that is slow to hand the click over still matches it.
- * The click comes straight after the lift when it comes at all; a new press ends the wait at once. The bound
- * is only there so that a click with no press of its own (a key on a button) is never held off.
+ * The click comes straight after the lift when it comes at all; a new press ends the wait at once. Only a
+ * click on what the finger lifted on (the scene's canvas) is held off, so a click with no press of its own
+ * elsewhere on the page (a key or a screen reader on a button) always gets through; the bound ends the wait
+ * for the scene itself.
  */
 export const CLICK_ECHO_MS = 1000;
 
@@ -27,6 +29,8 @@ export interface PointerAt {
   pointerId: number;
   clientX: number;
   clientY: number;
+  /** False for a finger put down while another is on the screen. Left out, the pointer counts as the only one. */
+  isPrimary?: boolean;
 }
 
 /** What a lift on the target was: a tap, a drag (it moved too far), or no press of this pointer began here. */
@@ -36,9 +40,21 @@ export type Lift = 'tap' | 'drag' | 'none';
 export class LiftPress {
   private down: { id: number; x: number; y: number; far: boolean } | null = null;
 
-  /** A pointer went down on the target. */
+  /**
+   * A pointer went down on the target. A finger that joins another one already on the screen is half of a
+   * two-finger camera gesture, so its press is no tap, however still it stays.
+   */
   press(e: PointerAt) {
-    this.down = { id: e.pointerId, x: e.clientX, y: e.clientY, far: false };
+    this.down = { id: e.pointerId, x: e.clientX, y: e.clientY, far: e.isPrimary === false };
+  }
+
+  /**
+   * Another pointer went down while this press was held: two fingers are a camera gesture, so the press is
+   * no tap any more, whichever finger lifts first. The pressing pointer's own events change nothing.
+   */
+  joined(pointerId: number) {
+    const d = this.down;
+    if (d && d.id !== pointerId) d.far = true;
   }
 
   /** The pointer moved, anywhere: once it has gone further than a tap may, the press is a drag even if it comes back. */
@@ -67,13 +83,29 @@ export class LiftPress {
 
 type Listen = Pick<EventTarget, 'addEventListener'>;
 
+/** Whether `node` is `other` or holds it. Told by the DOM where there is one; else only the same thing counts. */
+function isOrHolds(node: EventTarget | null, other: EventTarget | null): boolean {
+  if (!node || !other) return false;
+  if (node === other) return true;
+  const holds = (node as Partial<Node>).contains;
+  return typeof holds === 'function' && holds.call(node, other as Node);
+}
+
 /**
- * Watches the whole page for what no single target sees: the finger's way between press and lift; a lift
- * anywhere, which ends every press of that pointer; and the click that follows a tap already counted, which
- * it stops before the scene gets it.
+ * Watches the whole page for what no single target sees: the finger's way between press and lift; a second
+ * finger put down meanwhile; a lift anywhere, which ends every press of that pointer; and the click that
+ * follows a tap already counted, which it stops before the scene gets it.
+ *
+ * Only that click is stopped: the one aimed at what the finger lifted on. The browser aims a touch's click
+ * at the element the touch began and ended on, and a mouse's at the nearest element that holds both ends,
+ * so the click of a scene press lands on the scene's canvas or, at most, on something around it. A click
+ * anywhere else (Enter or Space on a focused button, a screen reader's activation) is somebody's own press
+ * and is never held off.
  */
 export class ClickGuard {
   private until = -Infinity;
+  /** What the held-off click is aimed at: where the lift landed. */
+  private on: EventTarget | null = null;
   private readonly open = new Set<LiftPress>();
 
   constructor(win: Listen) {
@@ -82,14 +114,25 @@ export class ClickGuard {
       'click',
       (e) => {
         if (e.timeStamp >= this.until) return;
-        this.until = -Infinity;
+        // Not the scene's: a click of its own, on a button of the page. The scene's may still come.
+        if (!isOrHolds(e.target, this.on)) return;
+        this.release();
         e.stopImmediatePropagation();
         e.preventDefault();
       },
       true,
     );
-    // A new press: the click of the last touch is not coming any more.
-    win.addEventListener('pointerdown', () => (this.until = -Infinity), true);
+    win.addEventListener(
+      'pointerdown',
+      (e) => {
+        // A new press: the click of the last touch is not coming any more.
+        this.release();
+        // And a second finger beside one that is held: neither is tapping.
+        const id = (e as PointerEvent).pointerId;
+        for (const p of this.open) p.joined(id);
+      },
+      true,
+    );
     // On the way up, after the scene has had the lift.
     const ended = (e: Event) => {
       const id = (e as PointerEvent).pointerId;
@@ -113,10 +156,16 @@ export class ClickGuard {
 
   /**
    * A lift was taken as a tap (or as the end of a drag): the click that the browser may send for the same
-   * touch is not a second one. `lift` is that lift's event.
+   * touch is not a second one. `lift` is that lift's event; the click is known by where it lands.
    */
-  holdOffClick(lift: Pick<Event, 'timeStamp'>) {
+  holdOffClick(lift: Pick<Event, 'timeStamp' | 'target'>) {
     this.until = lift.timeStamp + CLICK_ECHO_MS;
+    this.on = lift.target;
+  }
+
+  private release() {
+    this.until = -Infinity;
+    this.on = null;
   }
 }
 
