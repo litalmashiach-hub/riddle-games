@@ -48,10 +48,15 @@ const boatX = (s: Side) => sign(s) * 1.55;
 /** Passenger seat: the end of the boat nearest the bank it boarded from. */
 const seat = (boatSide: Side, boardedFrom: Side): Vec3 => [boatX(boatSide) + sign(boardedFrom) * 0.72, 0.05, 0];
 
+/**
+ * Where each one stands on the right bank (mirrored on the left). The goat stands nearest the camera,
+ * so the cabbage keeps well to the outside of it: close by, the goat (and its unseen tap sphere) was
+ * drawn over the cabbage, and a tap on the cabbage could put the goat in the boat.
+ */
 const SLOTS: Record<Item, { x: number; z: number }> = {
   wolf: { x: 4.3, z: -0.7 },
   goat: { x: 3.8, z: 1.4 },
-  cabbage: { x: 4.85, z: 0.45 },
+  cabbage: { x: 5.5, z: 0.35 },
 };
 const slot = (a: Item, side: Side): Vec3 => {
   const x = sign(side) * SLOTS[a].x;
