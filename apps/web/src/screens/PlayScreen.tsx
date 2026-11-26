@@ -15,6 +15,7 @@ import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIco
 import { Stars } from '../components/Stars';
 import { hintLine, hintOutlived, winLine } from '../hint';
 import { returnFocus } from '../focusReturn';
+import { DRAW_ON_CHANGE, DrawOnChange } from '../components/DrawOnChange';
 
 /** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
 const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -127,6 +128,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
       {/* Never a blank level: a scene that can't be drawn, or loses its 3D context, says so and offers two ways out. */}
       <SceneGuard onExit={onExit} onRetry={() => { setSceneReady(false); setSceneStuck(false); }} stuck={sceneStuck && !sceneReady}>
       <Canvas
+        // TRIAL: a few levels draw only when something changes (see DrawOnChange).
+        frameloop={DRAW_ON_CHANGE.has(level.id) ? 'demand' : 'always'}
         shadows
         flat
         dpr={quality === 'high' ? [1, TOUCH ? 1.5 : 2] : [1, 1.25]}
@@ -139,6 +142,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
           gl.domElement.setAttribute('aria-label', `Level ${level.number}: ${level.title}, the riddle's scene`);
         }}
       >
+        {DRAW_ON_CHANGE.has(level.id) && <DrawOnChange session={session} />}
         <Suspense fallback={null}>
           <WorldStage world={level.world}>
             <Scene
