@@ -1,0 +1,39 @@
+17:15:44 [shell] device iPhone 17 Pro (com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro) on com.apple.CoreSimulator.SimRuntime.iOS-26-5: E9D69F7E-60F5-46B5-998C-5D652AD3BEC0 (made new for this run)
+17:18:09 [shell] booted
+17:19:26 [shell] app installed fresh
+com.example.riddlegames: 4460
+17:21:30 [shell] cold launch filmed
+17:30:08 [review] WEBVIEW_17290.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+17:30:11 [review] page in WEBVIEW_17290.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+17:30:11 [review] web view found 492 s after the session was asked for: 874 by 402
+17:30:17 [review] calibration: touched [{"x":262,"y":161},{"x":612,"y":302}], the page saw [{"x":262,"y":161},{"x":612,"y":302}]: same (error 0.0 pt)
+17:30:19 [review] --- first-launch
+17:30:36 [review] page in WEBVIEW_17290.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+17:30:36 [review] frames capped at 6 a second by the test
+17:30:36 [review] --- browser-gestures-map
+17:32:09 [review] --- level-1
+17:33:46 [review] --- level-2
+17:34:28 [review] --- level-3
+17:35:25 [review] --- level-4
+17:36:31 [review] --- level-5
+17:37:42 [review] --- back-to-map
+17:37:48 [review] --- about
+17:39:07 [review] --- turned-upright
+17:39:09 [review] turned-upright FAILED: unknown error: WebDriverError: Unable To Rotate Device when running "orientation" with method "POST" and args "{"orientation":"PORTRAIT"}"
+    at FetchRequest._request (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/webdriver/build/node.js:1968:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Browser.wrapCommandFn (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@wdio/utils/build/index.js:982:23)
+    at async AppiumBackend.setOrientation (/Users/runner/work/riddle-games/riddle-games/e2e/app/backends.ts:189:7)
+    at async <anonymous> (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:404:5)
+    at async step (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:121:17)
+    at async main (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:402:3)
+17:39:17 [review] --- open-hard-levels
+17:39:22 [review] page in WEBVIEW_17290.1: {"ok":true,"href":"capacitor://localhost#/","hooks":"function","scene":"object"}
+17:39:26 [review] --- level-12
+17:40:40 [review] page in WEBVIEW_17290.1: {"ok":true,"href":"capacitor://localhost#/level/twelve-coins","hooks":"function","scene":"object"}
+17:40:55 [review] --- level-18
+17:42:06 [review] --- level-30
+17:43:47 [review] --- end
+17:43:54 [shell] session ended with status 0
+17:44:24 [shell] app state: 1 process(es)
+       7 /Users/runner/work/riddle-games/riddle-games/out/iphone/device-log-faults.txt
