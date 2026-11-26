@@ -52,3 +52,23 @@ describe('iOS shell orientation settings', () => {
     expect(body![1].trim()).toBe('.landscape');
   });
 });
+
+/**
+ * The lowest iOS the app allows. 16.4 is the floor the game's style tool (Tailwind CSS 4) is built for: below 16.2
+ * the gold, green and red buttons lose their gradient fill, and below 15.4 the app never starts. `cap sync`
+ * rewrites CapApp-SPM/Package.swift from the major number alone, so the package says .v16 while the app says 16.4.
+ */
+describe('iOS minimum system', () => {
+  const pbx = readFileSync(join(here, '..', 'ios', 'App', 'App.xcodeproj', 'project.pbxproj'), 'utf8');
+  const spm = readFileSync(join(here, '..', 'ios', 'App', 'CapApp-SPM', 'Package.swift'), 'utf8');
+
+  it('every build setting of the Xcode project says 16.4', () => {
+    const targets = [...pbx.matchAll(/IPHONEOS_DEPLOYMENT_TARGET = ([^;]+);/g)].map((m) => m[1]);
+    expect(targets.length).toBeGreaterThan(0);
+    expect(new Set(targets)).toEqual(new Set(['16.4']));
+  });
+
+  it('the Swift package says iOS 16, as cap sync writes it', () => {
+    expect(spm).toContain('platforms: [.iOS(.v16)]');
+  });
+});
