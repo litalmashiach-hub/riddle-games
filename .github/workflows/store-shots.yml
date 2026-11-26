@@ -1,0 +1,107 @@
+name: Store screenshots (test only)
+
+# TEST ONLY, not for merging. Builds the app unsigned for the simulator, Release, and takes the App Store
+# screenshot scenes in Apple's simulators (apps/mobile/ios/StoreShots). Nothing is signed or uploaded anywhere
+# except this run's own artifact; small previews are committed back to this test branch.
+
+on:
+  push:
+    branches: [store-screenshots-retake]
+    paths-ignore: ['shoot-out/**', 'store-shots/**', 'shoot-pick.txt', '.github/workflows/store-shots-pick.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: store-shots-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SHOOT_NO_HOST: '1'
+  PROJECT: apps/mobile/ios/App/App.xcodeproj
+  DERIVED: build/ios
+
+jobs:
+  shoot:
+    name: ${{ matrix.label }}
+    runs-on: macos-26
+    timeout-minutes: 90
+    # One size and a few scenes per job: each job is its own Mac and a fresh launch of the app, so the heavy
+    # beam level (05) never follows four other levels in the same web view.
+    env:
+      VITE_SHOOT_ONLY: ${{ matrix.only }}
+      VITE_SHOOT_HOLD: ${{ matrix.hold }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: iphone-63-r, sim: "iPhone 17 Pro", only: "03-coins,04-balloon,07-hint,08-map", hold: "150000" }
+          - { label: iphone-69-r, sim: "iPhone 17 Pro Max", only: "03-coins,04-balloon,07-hint,08-map", hold: "150000" }
+          - { label: ipad-13-r, sim: "iPad Pro 13-inch (M5)", only: "03-coins,04-balloon,07-hint,08-map", hold: "150000" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode and simulators on this runner
+        run: |
+          xcodebuild -version
+          xcrun simctl list devices available | grep -E "iPhone 17|iPad Pro 13" || true
+      - name: Build the UI test (made with XcodeGen)
+        run: |
+          set -o pipefail
+          which xcodegen || brew install xcodegen
+          cd apps/mobile/ios/StoreShots
+          xcodegen generate
+          xcodebuild build-for-testing -project StoreShots.xcodeproj -scheme StoreShots \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$GITHUB_WORKSPACE/build/storeshots" 2>&1 | tail -n 20
+      - name: Build the app content and sync Capacitor
+        run: pnpm ios:sync
+      - name: Build the app for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build | tail -n 15
+      - name: Take the scenes
+        timeout-minutes: 62
+        run: apps/mobile/ios/StoreShots/shoot.sh "${{ matrix.sim }}" "${{ matrix.label }}"
+      - name: Pixel sizes and previews
+        if: always()
+        run: |
+          cd out/${{ matrix.label }}
+          : > sizes.txt
+          for f in frames/*/*.png xc/*/*.png; do
+            [ -f "$f" ] || continue
+            echo "$f $(sips -g pixelWidth -g pixelHeight "$f" | awk '/pixel/{printf "%s ", $2}')" >> sizes.txt
+            mkdir -p "previews/$(dirname "$f")"
+            sips -s format jpeg -s formatOptions 70 -Z 900 "$f" --out "previews/${f%.png}.jpg" > /dev/null
+          done
+          head -n 5 sizes.txt; wc -l sizes.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: store-shots-${{ matrix.label }}
+          path: |
+            out/${{ matrix.label }}/frames
+            out/${{ matrix.label }}/xc
+          retention-days: 7
+      - name: Commit the previews and logs to this test branch
+        if: always()
+        run: |
+          L=${{ matrix.label }}
+          mkdir -p "shoot-out/$L"
+          rm -rf "shoot-out/$L/previews"
+          cp -R "out/$L/previews" "shoot-out/$L/" 2> /dev/null || true
+          cp out/$L/*.txt "shoot-out/$L/" 2> /dev/null || true
+          echo "${{ github.run_id }}" > "shoot-out/$L/run-id"
+          git rev-parse HEAD > "shoot-out/$L/commit"
+          git config user.name "store-shots test"
+          git config user.email "store-shots-test@users.noreply.github.com"
+          git add -A shoot-out
+          git commit -m "TEST ONLY: previews of store screenshot run ${{ github.run_id }} ($L)" || exit 0
+          for i in 1 2 3 4 5 6 7 8 9 10; do git pull --rebase origin store-screenshots-retake && git push origin HEAD:store-screenshots-retake && break; sleep $((i * 7)); done
