@@ -9,8 +9,14 @@ mkdir -p "$OUT"
 APP="$ROOT/build/ios/Build/Products/Release-iphonesimulator/App.app"
 BUNDLE=$(sed -n 's/^APP_BUNDLE_ID *= *//p' "$ROOT/apps/mobile/ios/AppIdentity.xcconfig" | tr -d ' ')
 
-# The device: an existing one by its name, else made from its type on the newest iOS runtime.
-UDID=$(xcrun simctl list devices available -j | python3 -c "
+# The device: with RUNTIME set (such as com.apple.CoreSimulator.SimRuntime.iOS-15-0), a new one of that
+# type on exactly that runtime; else an existing one by its name, else made on the newest iOS runtime.
+UDID=""
+if [ -n "${RUNTIME:-}" ]; then
+  TYPE=$(xcrun simctl list devicetypes -j | python3 -c "import json,sys; print([t['identifier'] for t in json.load(sys.stdin)['devicetypes'] if t['name']=='$NAME'][0])")
+  UDID=$(xcrun simctl create "$NAME ($RUNTIME)" "$TYPE" "$RUNTIME") || { echo "cannot make $NAME on $RUNTIME"; exit 1; }
+fi
+[ -z "$UDID" ] && UDID=$(xcrun simctl list devices available -j | python3 -c "
 import json,sys
 d=json.load(sys.stdin)['devices']
 for rt in sorted(d, reverse=True):

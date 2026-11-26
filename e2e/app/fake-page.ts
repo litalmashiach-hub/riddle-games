@@ -106,6 +106,15 @@ export class FakeLocator {
     this.page.lastTap = { what: this.describe(), at: p };
     await this.page.backend.tap(p.x, p.y);
   }
+  /** Runs a function on the element in the page, as Playwright's Locator.evaluate does. */
+  evaluate<R, A>(fn: (el: Element, arg: A) => R, arg?: A): Promise<Awaited<R>> {
+    return this.page.evaluate((x: { steps: Step[]; nth: number; src: string; arg: unknown }) => (window as any).__appEval({ steps: x.steps }, x.nth, x.src, x.arg), {
+      steps: this.steps,
+      nth: this.nth,
+      src: fn.toString(),
+      arg,
+    }) as Promise<Awaited<R>>;
+  }
   click(o: { timeout?: number } = {}) {
     return this.tap(o);
   }

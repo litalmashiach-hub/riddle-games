@@ -461,6 +461,13 @@ async function main() {
     } catch (e) {
       log(`could not read the page's faults: ${e}`);
     }
+    try {
+      const p = await backend.exec<any>('() => window.__appProbe ? window.__appProbe() : null');
+      (r as any).probe = p;
+      if (p) log(`L${nn(level.number)} probe: sound engines ${p.audioContexts} (${p.audioStates.join(', ')}), sounds started ${p.soundStarts}, decoded ${p.decoded}, decode errors ${p.decodeErrors}, start errors ${p.startErrors.length}; 3D ${p.canvas.join(' | ') || 'none asked'}; CSS layers ${p.cssLayers}; ${p.userAgent}`);
+    } catch (e) {
+      log(`could not read the probe: ${e}`);
+    }
     r.state = r.wonByTaps
       ? 'won by taps'
       : r.won && r.fault

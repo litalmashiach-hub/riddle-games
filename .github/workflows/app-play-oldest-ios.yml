@@ -1,7 +1,10 @@
 name: App play on the oldest iOS (test only)
 
 # TEST ONLY, not for merging. The app allows iOS/iPadOS 15.0 and up (IPHONEOS_DEPLOYMENT_TARGET).
-# Step 1: which iOS simulator systems the hosted Macs carry, and whether an iOS 15 one can be added.
+# The hosted Macs carry no iOS 15 simulator; each play job adds one with xcodes (Apple's own download,
+# no sign-in), makes an iPhone or iPad on it, installs the app built here and plays a few levels by
+# real touches (e2e/app, Appium). No signing, no secrets. Results only go to the run's own artifacts.
+# Run 45814150784 found what the Macs carry and that xcodes can add iOS 15.5 in about 7 to 10 minutes.
 
 on:
   push:
@@ -10,53 +13,97 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: app-play-oldest-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  runtimes:
-    name: runtimes ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 50
+  build:
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode and Mac
+        run: |
+          xcodebuild -version; sw_vers
+          grep -n IPHONEOS_DEPLOYMENT_TARGET apps/mobile/ios/App/App.xcodeproj/project.pbxproj
+      - name: App content with the test hooks, synced into the iOS project
+        run: |
+          VITE_APP_TEST_HOOKS=1 pnpm build:app
+          npm --prefix e2e/app install --no-audit --no-fund
+          e2e/app/node_modules/.bin/tsx e2e/app/prepare-app-build.ts
+          CAP_TEST_INSPECTABLE=1 pnpm --filter @riddle/mobile exec cap sync ios
+      - name: Build the app for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project apps/mobile/ios/App/App.xcodeproj -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build | tail -n 20
+          /usr/libexec/PlistBuddy -c 'Print :MinimumOSVersion' build/ios/Build/Products/Release-iphonesimulator/App.app/Info.plist
+          vtool -show-build build/ios/Build/Products/Release-iphonesimulator/App.app/App | head -n 12 || true
+          tar -czf app.tgz -C build/ios/Build/Products/Release-iphonesimulator App.app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: app.tgz
+
+  play:
+    needs: [build]
+    name: ${{ matrix.label }}
+    runs-on: macos-26
+    timeout-minutes: 120
     strategy:
       fail-fast: false
+      max-parallel: 4
       matrix:
-        os: [macos-14, macos-15, macos-26]
+        include:
+          - { label: iphone-se2-ios15-0, ios: '15.0', sim: 'iPhone SE (2nd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
+          - { label: ipad9-ios15-0, ios: '15.0', sim: 'iPad (9th generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'quality=low relaunch-each fps=6 level-minutes=25 open-seconds=600 card-seconds=90' }
+          - { label: iphone-se3-ios15-5, ios: '15.5', sim: 'iPhone SE (3rd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
+          - { label: ipad9-ios15-5, ios: '15.5', sim: 'iPad (9th generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'quality=low relaunch-each fps=6 level-minutes=25 open-seconds=600 card-seconds=90' }
     steps:
-      - name: What is on this Mac
+      - uses: actions/checkout@v4
+      - name: Add the iOS ${{ matrix.ios }} simulator system
+        timeout-minutes: 30
         run: |
-          sw_vers; sysctl -n machdep.cpu.brand_string hw.ncpu hw.memsize; df -h / | tail -1
-          ls -d /Applications/Xcode* ; xcodebuild -version
+          T0=$(date +%s); sudo xcodes runtimes install "iOS ${{ matrix.ios }}" 2>&1 | tail -n 10; echo "took $(( $(date +%s) - T0 )) s"
           xcrun simctl list runtimes
-          xcrun simctl list devicetypes | grep -E "iPhone|iPad"
-          which xcodes && xcodes version || true
-      - name: Runtimes xcodes can fetch
-        continue-on-error: true
-        run: xcodes runtimes 2>&1 | grep -E "iOS" | head -80
-      - name: Try to add iOS 15 by xcodebuild
-        continue-on-error: true
-        timeout-minutes: 20
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: app
+      - name: Runner, Appium and its iOS driver
         run: |
-          for v in 15.5 15.4 15.2 15.0; do
-            echo "== xcodebuild -downloadPlatform iOS -buildVersion $v"
-            T0=$(date +%s); xcodebuild -downloadPlatform iOS -buildVersion "$v" 2>&1 | tail -n 8 && echo "took $(( $(date +%s) - T0 )) s"
-            xcrun simctl list runtimes | grep -q "iOS 15" && break
-          done
-          xcrun simctl list runtimes
-      - name: Try to add iOS 15 by xcodes
-        continue-on-error: true
-        timeout-minutes: 20
+          mkdir -p build/ios/Build/Products/Release-iphonesimulator
+          tar -xzf app.tgz -C build/ios/Build/Products/Release-iphonesimulator
+          npm --prefix e2e/app install --no-audit --no-fund
+          export APPIUM_HOME="$PWD/e2e/app/.appium"
+          e2e/app/node_modules/.bin/appium driver install xcuitest@12.22.8
+      - name: Play in the simulator
+        timeout-minutes: 80
         run: |
-          xcrun simctl list runtimes | grep -q "iOS 15" && exit 0
-          T0=$(date +%s); sudo xcodes runtimes install "iOS 15.5" 2>&1 | tail -n 20; echo "took $(( $(date +%s) - T0 )) s"
-          xcrun simctl list runtimes
-      - name: Can a device be made and booted on the oldest runtime
-        continue-on-error: true
-        timeout-minutes: 10
+          RT=$(xcrun simctl list runtimes -j | python3 -c "import json,sys; r=[x['identifier'] for x in json.load(sys.stdin)['runtimes'] if x['platform']=='iOS' and x['isAvailable'] and x['version'] in ('${{ matrix.ios }}','${{ matrix.ios }}.0')]; print(r[0] if r else '')")
+          [ -z "$RT" ] && { echo "iOS ${{ matrix.ios }} is not on this Mac"; exit 1; }
+          echo "runtime $RT"
+          RUNTIME="$RT" e2e/app/ios-play.sh "${{ matrix.label }}" "${{ matrix.sim }}" "${{ matrix.orientation }}" "${{ matrix.levels }}" "0" "${{ matrix.flags }}"
+      - name: What Appium said about the web view
+        if: always()
         run: |
-          RT=$(xcrun simctl list runtimes -j | python3 -c "import json,sys; r=[x for x in json.load(sys.stdin)['runtimes'] if x['isAvailable'] and x['platform']=='iOS']; r.sort(key=lambda x:[int(n) for n in x['version'].split('.')]); print(r[0]['identifier'] if r else '')")
-          echo "oldest available iOS runtime: $RT"
-          for N in "iPhone SE (3rd generation)" "iPhone SE (2nd generation)" "iPhone 13" "iPad (9th generation)" "iPad Air (5th generation)" "iPad Pro (12.9-inch) (5th generation)"; do
-            T=$(xcrun simctl list devicetypes -j | python3 -c "import json,sys; t=[x['identifier'] for x in json.load(sys.stdin)['devicetypes'] if x['name']=='$N']; print(t[0] if t else '')")
-            [ -z "$T" ] && { echo "$N: no such device type"; continue; }
-            U=$(xcrun simctl create "t-$N" "$T" "$RT" 2>&1) && echo "$N on $RT: made $U" || echo "$N on $RT: $U"
-          done
-          U=$(xcrun simctl list devices -j | python3 -c "import json,sys; d=json.load(sys.stdin)['devices'].get('$RT',[]); print(d[0]['udid'] if d else '')")
-          [ -n "$U" ] && { T0=$(date +%s); xcrun simctl boot "$U"; xcrun simctl bootstatus "$U" -b > /dev/null; echo "booted in $(( $(date +%s) - T0 )) s"; xcrun simctl list devices | grep "$U"; }
+          gzcat out/*/appium.txt.gz 2> /dev/null | grep -iE "webview|web view|remote ?debugger|inspector|context|error|socket" | head -n 150 || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: app-play-${{ matrix.label }}
+          path: out/
+          if-no-files-found: warn
