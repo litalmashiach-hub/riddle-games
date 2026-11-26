@@ -1,0 +1,57 @@
+Attributes: Application, 0x102e0b700, pid: 9802, label: 'Riddle Games'
+Element subtree:
+ →Application, 0x102e0b700, pid: 9802, label: 'Riddle Games'
+    Window (Main), 0x102e0bd40, {{0.0, 305.1}, {820.0, 569.8}}
+      Other, 0x102e0be80, {{0.0, 305.1}, {820.0, 569.8}}
+        Other, 0x102e0b5c0, {{0.0, 305.1}, {820.0, 569.8}}
+          Other, 0x102e0bac0, {{0.0, 305.1}, {820.0, 569.8}}
+            WebView, 0x102e0b200, {{0.0, 305.1}, {820.0, 569.8}}
+              WebView, 0x102e0b980, {{0.0, 305.1}, {820.0, 569.8}}
+                WebView, 0x102e0bc00, {{0.0, 305.1}, {820.0, 569.8}}
+                  Other, 0x102e0b480, {{0.0, 305.1}, {820.0, 569.8}}
+                    Other, 0x102e0b340, {{0.0, 305.1}, {820.0, 569.8}}
+                      Other, 0x102e0b840, {{0.0, 305.1}, {820.0, 569.8}}
+                        Other, 0x113025400, {{0.0, 305.1}, {820.0, 569.8}}, label: 'Riddle Games'
+                          Image, 0x113032940, {{0.0, 305.1}, {820.0, 569.8}}, label: 'Level 1: Wolf and Two Sheep, the riddle's scene'
+                          Other, 0x113032080, {{0.0, 305.1}, {820.0, 6.9}}
+                            Other, 0x113030640, {{347.5, 741.5}, {125.1, 32.0}}
+                              Button, 0x113032580, {{347.5, 741.5}, {125.1, 32.0}}, label: 'Row across, alone'
+                          Other, 0x113031f40, {{0.0, 305.1}, {820.0, 569.8}}, label: 'First move, note'
+                            Other, 0x113032300, {{132.7, 507.3}, {91.7, 92.4}}
+                            StaticText, 0x113032440, {{362.7, 376.7}, {62.5, 13.9}}, label: 'Tap the wolf', value: Tap the wolf
+                            Button, 0x113032800, {{427.4, 369.7}, {38.2, 27.8}}, label: 'Skip the guide'
+                          Button, 0x113030280, {{8.3, 316.9}, {32.0, 29.2}}, label: 'Back to levels'
+                          Other, 0x113030000, {{57.7, 318.3}, {114.7, 11.1}}
+                            StaticText, 0x113030500, {{57.7, 318.3}, {29.9, 11.1}}, label: 'LEVEL', value: LEVEL 
+                            StaticText, 0x113030dc0, {{86.9, 318.3}, {6.3, 11.1}}, label: '1', value: 1
+                            StaticText, 0x1130303c0, {{92.4, 318.3}, {9.0, 11.1}}, label: '·', value:  · 
+                            StaticText, 0x1130321c0, {{100.8, 318.3}, {71.6, 11.1}}, label: 'MEADOW RIVER', value: MEADOW RIVER
+                          Other, 0x113030a00, {{57.7, 328.7}, {114.7, 16.0}}
+                            StaticText, 0x113030b40, {{57.7, 328.7}, {114.0, 16.0}}, label: 'Wolf and Two Sheep', value: Wolf and Two Sheep
+                          Image, 0x113030c80, {{388.5, 313.4}, {114.7, 37.5}}, label: '0 crossings, best 7'
+                          Button, 0x113030780, {{707.4, 314.8}, {29.9, 26.4}}, label: 'HD graphics'
+                          Switch, 0x1130308c0, {{741.5, 313.4}, {32.7, 29.2}}, label: 'Sound', value: 1
+                          Button, 0x113030140, {{779.0, 313.4}, {32.7, 29.2}}, label: 'Rules', Focused
+                          Button, 0x113030f00, {{276.6, 819.3}, {70.2, 32.0}}, label: 'Undo', Disabled
+                          Button, 0x1131a61c0, {{351.6, 819.3}, {38.2, 32.0}}, label: 'Redo', Disabled
+                          Button, 0x1131a6bc0, {{394.7, 819.3}, {81.3, 32.0}}, label: 'Restart', Disabled
+                          Button, 0x1131a5b80, {{480.9, 819.3}, {63.2, 32.0}}, label: 'Hint'
+                          Other, 0x1131a5cc0, {{0.0, 305.1}, {820.0, 6.9}}, label: 'application status'
+                Other, 0x1131a7980, {{797.1, 317.6}, {20.8, 544.8}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                  Other, 0x1131a5540, {{815.8, 851.3}, {2.1, 4.9}}
+                Other, 0x1131a5400, {{22.2, 852.0}, {785.3, 20.8}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                  Other, 0x1131a7c00, {{798.1, 870.7}, {4.9, 2.1}}
+                Other, 0x1131a6080, {{797.1, 317.6}, {20.8, 544.8}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                  Other, 0x1131a7e80, {{815.8, 851.3}, {2.1, 4.9}}
+                Other, 0x1131a7ac0, {{22.2, 852.0}, {785.3, 20.8}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                  Other, 0x1132cc000, {{798.1, 870.7}, {4.9, 2.1}}
+    Window, 0x1132cc140, {{0.0, 305.1}, {820.0, 569.8}}
+      Other, 0x1132cc280, {{0.0, 305.1}, {820.0, 569.8}}
+        Other, 0x1132cc3c0, {{0.0, 305.1}, {820.0, 569.8}}
+Path to element:
+ →Application, 0x102e0b700, pid: 9802, label: 'Riddle Games'
+Query chain:
+ →Find: Application 'com.example.riddlegames'
+  Output: {
+    Application, 0x1132cc500, pid: 9802, label: 'Riddle Games'
+  }

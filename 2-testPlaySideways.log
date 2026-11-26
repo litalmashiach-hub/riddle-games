@@ -1,0 +1,226 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj -scheme SidewaysTest -destination "platform=iOS Simulator,id=B93AC885-30EF-40D3-911E-AFBFE471286C" -destination-timeout 180 -derivedDataPath /Users/runner/work/riddle-games/riddle-games/build/sidewaystest -parallel-testing-enabled NO "-only-testing:SidewaysUITests/SidewaysTests/testPlaySideways"
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+2026-11-26 08:12:20.446957+0000 SidewaysUITests-Runner[12034:41530] [Default] Running tests...
+2026-11-26 08:12:20.610625+0000 SidewaysUITests-Runner[12034:41530] [UIKit App Config] Update the Info.plist: Launch screens will soon be required.
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-11-26 08:12:21.925.
+Test Suite 'SidewaysUITests.xctest' started at 2026-11-26 08:12:21.925.
+Test Suite 'SidewaysTests' started at 2026-11-26 08:12:21.925.
+Test Case '-[SidewaysUITests.SidewaysTests testPlaySideways]' started.
+    t =     0.00s Start Test at 2026-11-26 08:12:21.927
+    t =     0.13s Set Up
+    t =     0.13s Setting device orientation to Landscape Left
+    t =     0.14s     Device orientation changed to Landscape Left
+    t =     0.43s     Interface orientation changed to Landscape Right
+    t =     1.13s     Wait for com.apple.DocumentManager.DockFolderViewService to idle
+    t =     1.38s     Wait for com.apple.springboard to idle
+objc[12034]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x10886c310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1087d0398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     5.46s Getting device orientation
+    t =     5.65s Checking existence of `Window (First Match)`
+    t =     6.66s Checking existence of `Window (First Match)` (retry 1)
+    t =     7.68s Checking existence of `Window (First Match)` (retry 2)
+    t =     7.68s Checking existence of `WebView (First Match)`
+    t =     8.69s Checking existence of `WebView (First Match)` (retry 1)
+    t =     9.70s Checking existence of `WebView (First Match)` (retry 2)
+SW turned to sideways-left; device=sideways-left appWindow=none appState=1
+    t =     9.70s Open com.example.riddlegames
+    t =     9.70s     Launch com.example.riddlegames
+    t =    11.51s         Setting up automation session
+    t =    12.15s         Wait for com.example.riddlegames to idle
+    t =    14.67s Waiting 90.0s for Button (First Match) to exist
+    t =    15.72s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    15.72s         Checking existence of `Button (First Match)`
+SW level map shown=true
+    t =    19.06s Setting device orientation to Landscape Left
+    t =    19.11s     Wait for com.example.riddlegames to idle
+    t =    19.12s     Wait for com.apple.springboard to idle
+    t =    23.16s Getting device orientation
+    t =    23.18s Checking existence of `Window (First Match)`
+    t =    23.20s Find the Window (First Match)
+    t =    23.56s Checking existence of `WebView (First Match)`
+    t =    23.61s Find the WebView (First Match)
+SW turned to sideways-left; device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    24.47s Added attachment named 'sideways-map'
+    t =    24.77s Getting device orientation
+    t =    24.77s Checking existence of `Window (First Match)`
+    t =    24.79s Find the Window (First Match)
+    t =    24.99s Checking existence of `WebView (First Match)`
+    t =    25.01s Find the WebView (First Match)
+SW picture 2-testPlaySideways-01-sideways-map.png size=(1180.0, 820.0) device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    25.05s Find the Button (First Match)
+    t =    25.42s Find the "Level 1: Wolf and Two Sheep, not solved yet" Button
+SW card hittable=true frame=(94.0, 394.0, 320.0, 176.0)
+    t =    25.72s Tap "Level 1: Wolf and Two Sheep, not solved yet" Button
+    t =    25.72s     Wait for com.example.riddlegames to idle
+    t =    25.75s     Find the "Level 1: Wolf and Two Sheep, not solved yet" Button
+    t =    25.93s     Check for interrupting elements affecting "Level 1: Wolf and Two Sheep, not solved yet" Button
+    t =    26.09s         Wait for com.apple.springboard to idle
+    t =    26.20s     Synthesize event
+    t =    26.68s     Wait for com.example.riddlegames to idle
+    t =    26.73s Waiting 90.0s for "Let's go!" Button to exist
+    t =    27.81s     Checking `Expect predicate `existsNoRetry == 1` for object "Let's go!" Button`
+    t =    27.82s         Checking existence of `"Let's go!" Button`
+SW rules card shown=true
+    t =    29.81s Added attachment named 'sideways-rules-card'
+    t =    29.82s Getting device orientation
+    t =    29.86s Checking existence of `Window (First Match)`
+    t =    29.87s Find the Window (First Match)
+    t =    29.93s Checking existence of `WebView (First Match)`
+    t =    30.12s Find the WebView (First Match)
+SW picture 2-testPlaySideways-02-sideways-rules-card.png size=(1180.0, 820.0) device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    30.16s Checking existence of `"Let's go!" Button`
+    t =    30.23s Find the "Let's go!" Button
+    t =    30.55s Find the "Let's go!" Button
+SW go hittable=true frame=(391.0, 521.0, 398.0, 52.0)
+    t =    30.65s Tap "Let's go!" Button
+    t =    30.65s     Wait for com.example.riddlegames to idle
+    t =    30.72s     Find the "Let's go!" Button
+    t =    30.93s     Check for interrupting elements affecting "Let's go!" Button
+    t =    31.14s         Wait for com.apple.springboard to idle
+    t =    31.25s     Synthesize event
+    t =    31.59s     Wait for com.example.riddlegames to idle
+    t =    41.62s Requesting snapshot of accessibility hierarchy for app with pid 12283
+    t =    42.73s Requesting snapshot of accessibility hierarchy for app with pid 12283
+    t =    42.91s Get all elements bound by index for: Elements matching predicate 'label CONTAINS[c] "crossing"'
+SW counter before: 
+    t =    43.01s Waiting 10.0s for Button (First Match) to exist
+    t =    44.10s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    44.10s         Checking existence of `Button (First Match)`
+    t =    44.14s Find the Button (First Match)
+    t =    44.22s Find the "Row across, alone" Button
+SW row 1 hittable=true frame=(500.0, 628.0, 180.0, 46.0)
+    t =    44.30s Tap "Row across, alone" Button
+    t =    44.30s     Wait for com.example.riddlegames to idle
+    t =    44.31s     Find the "Row across, alone" Button
+    t =    44.37s     Check for interrupting elements affecting "Row across, alone" Button
+    t =    44.51s         Wait for com.apple.springboard to idle
+    t =    44.62s     Synthesize event
+    t =    44.96s     Wait for com.example.riddlegames to idle
+    t =    50.98s Get all elements bound by index for: Elements matching predicate 'label CONTAINS[c] "crossing"'
+SW counter after row 1: 
+    t =    51.10s Waiting 10.0s for Button (First Match) to exist
+    t =    52.19s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    52.29s         Checking existence of `Button (First Match)`
+    t =    52.45s         Capturing element debug description
+    t =    53.12s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    53.13s         Checking existence of `Button (First Match)`
+    t =    53.20s         Capturing element debug description
+    t =    54.16s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    54.17s         Checking existence of `Button (First Match)`
+    t =    54.29s         Capturing element debug description
+    t =    55.16s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    55.19s         Checking existence of `Button (First Match)`
+    t =    55.28s         Capturing element debug description
+    t =    56.14s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    56.16s         Checking existence of `Button (First Match)`
+    t =    56.36s         Capturing element debug description
+    t =    57.12s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    57.12s         Checking existence of `Button (First Match)`
+    t =    57.20s         Capturing element debug description
+    t =    58.16s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    58.17s         Checking existence of `Button (First Match)`
+    t =    58.23s         Capturing element debug description
+    t =    59.20s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    59.20s         Checking existence of `Button (First Match)`
+    t =    59.31s         Capturing element debug description
+    t =    60.11s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    60.11s         Checking existence of `Button (First Match)`
+    t =    60.18s         Capturing element debug description
+    t =    61.11s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    61.11s         Checking existence of `Button (First Match)`
+    t =    61.25s         Capturing element debug description
+    t =    61.27s     Checking existence of `Button (First Match)`
+    t =    61.40s Collecting debug information to assist test failure triage
+    t =    61.40s     Requesting snapshot of accessibility hierarchy for app with pid 12283
+SW row 2 button not found
+    t =    61.65s Waiting 10.0s for Button (First Match) to exist
+    t =    62.68s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    62.68s         Checking existence of `Button (First Match)`
+    t =    62.75s         Capturing element debug description
+    t =    63.66s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    63.66s         Checking existence of `Button (First Match)`
+    t =    63.76s         Capturing element debug description
+    t =    64.70s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    64.70s         Checking existence of `Button (First Match)`
+    t =    64.82s         Capturing element debug description
+    t =    65.66s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    65.66s         Checking existence of `Button (First Match)`
+    t =    65.80s         Capturing element debug description
+    t =    66.66s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    66.67s         Checking existence of `Button (First Match)`
+    t =    66.89s         Capturing element debug description
+    t =    67.66s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    67.67s         Checking existence of `Button (First Match)`
+    t =    67.80s         Capturing element debug description
+    t =    68.68s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    68.68s         Checking existence of `Button (First Match)`
+    t =    68.82s         Capturing element debug description
+    t =    69.67s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    69.68s         Checking existence of `Button (First Match)`
+    t =    69.74s         Capturing element debug description
+    t =    70.70s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    70.70s         Checking existence of `Button (First Match)`
+    t =    70.78s         Capturing element debug description
+    t =    71.66s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    71.67s         Checking existence of `Button (First Match)`
+    t =    71.75s         Capturing element debug description
+    t =    71.75s     Checking existence of `Button (First Match)`
+    t =    71.85s Collecting debug information to assist test failure triage
+    t =    71.85s     Requesting snapshot of accessibility hierarchy for app with pid 12283
+SW row 3 button not found
+    t =    73.47s Added attachment named 'sideways-after-rows'
+    t =    73.62s Getting device orientation
+    t =    73.66s Checking existence of `Window (First Match)`
+    t =    73.68s Find the Window (First Match)
+    t =    73.87s Checking existence of `WebView (First Match)`
+    t =    73.88s Find the WebView (First Match)
+SW picture 2-testPlaySideways-03-sideways-after-rows.png size=(1180.0, 820.0) device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    73.93s Checking existence of `Button (First Match)`
+    t =    74.01s Find the Button (First Match)
+    t =    76.38s Find the "Undo" Button
+SW undo hittable=true frame=(398.0, 740.0, 101.0, 46.0)
+    t =    76.59s Tap "Undo" Button
+    t =    76.59s     Wait for com.example.riddlegames to idle
+    t =    76.67s     Find the "Undo" Button
+    t =    76.93s     Check for interrupting elements affecting "Undo" Button
+    t =    78.15s         Wait for com.apple.springboard to idle
+    t =    78.97s     Synthesize event
+    t =    81.13s     Wait for com.example.riddlegames to idle
+    t =    85.16s Get all elements bound by index for: Elements matching predicate 'label CONTAINS[c] "crossing"'
+SW counter after undo: 
+    t =    85.33s Checking existence of `Button (First Match)`
+    t =    85.39s Find the Button (First Match)
+    t =    85.54s Find the "Hint" Button
+SW hint hittable=true frame=(692.0, 740.0, 91.0, 46.0)
+    t =    85.68s Tap "Hint" Button
+    t =    85.68s     Wait for com.example.riddlegames to idle
+    t =    85.69s     Find the "Hint" Button
+    t =    85.76s     Check for interrupting elements affecting "Hint" Button
+    t =    85.98s         Wait for com.apple.springboard to idle
+    t =    86.23s     Synthesize event
+    t =    86.68s     Wait for com.example.riddlegames to idle
+    t =    90.70s Requesting snapshot of accessibility hierarchy for app with pid 12283
+    t =    91.36s Requesting snapshot of accessibility hierarchy for app with pid 12283
+    t =    91.44s Terminate com.example.riddlegames:12283
+    t =    92.51s Tear Down
+Test Case '-[SidewaysUITests.SidewaysTests testPlaySideways]' passed (94.868 seconds).
+Test Suite 'SidewaysTests' passed at 2026-11-26 08:13:56.797.
+	 Executed 1 test, with 0 failures (0 unexpected) in 94.868 (94.872) seconds
+Test Suite 'SidewaysUITests.xctest' passed at 2026-11-26 08:13:56.800.
+	 Executed 1 test, with 0 failures (0 unexpected) in 94.868 (94.874) seconds
+Test Suite 'Selected tests' passed at 2026-11-26 08:13:56.800.
+	 Executed 1 test, with 0 failures (0 unexpected) in 94.868 (94.875) seconds
+2026-11-26 08:13:58.798 xcodebuild[11096:39303] [MT] IDETestOperationsObserverDebug: 104.177 elapsed -- Testing started completed.
+2026-11-26 08:13:58.799 xcodebuild[11096:39303] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-26 08:13:58.799 xcodebuild[11096:39303] [MT] IDETestOperationsObserverDebug: 104.177 sec, +104.177 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/build/sidewaystest/Logs/Test/Test-SidewaysTest-2026.11.26_08-12-04-+0000.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started
