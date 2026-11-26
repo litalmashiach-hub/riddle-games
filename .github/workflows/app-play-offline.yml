@@ -1,0 +1,121 @@
+name: App play with the network off (test only)
+
+# TEST ONLY, not for merging. Opens the app built from main cold on an iPhone simulator with the
+# network cut off (e2e/app/offline), and plays it: the shipping build by the system alone, then the
+# test build by real touches (e2e/app, Appium). Results are committed to this branch under results/,
+# because the mission cannot read the run's artifacts.
+
+on:
+  push:
+    branches: ['test/app-play-offline']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-play-offline-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode and Mac
+        run: xcodebuild -version; sw_vers
+      - name: The app as it ships (no test hooks), for the simulator (Release)
+        run: |
+          set -o pipefail
+          pnpm build:app
+          pnpm --filter @riddle/mobile exec cap sync ios
+          xcodebuild -project apps/mobile/ios/App/App.xcodeproj -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/plain-dd CODE_SIGNING_ALLOWED=NO build | tail -n 5
+          A=build/plain-dd/Build/Products/Release-iphonesimulator/App.app
+          echo "files naming the test hooks in the shipping build: $(grep -rl 'app-test-hooks' "$A/public" | wc -l)"
+          echo "web view open to tools in the shipping build: $(grep -c webContentsDebuggingEnabled "$A/capacitor.config.json" || true)"
+          tar -czf plain.tgz -C build/plain-dd/Build/Products/Release-iphonesimulator App.app
+      - name: The test build (the same app plus read-only hooks and an open web view)
+        run: |
+          set -o pipefail
+          VITE_APP_TEST_HOOKS=1 pnpm build:app
+          npm --prefix e2e/app install --no-audit --no-fund
+          e2e/app/node_modules/.bin/tsx e2e/app/prepare-app-build.ts
+          CAP_TEST_INSPECTABLE=1 pnpm --filter @riddle/mobile exec cap sync ios
+          xcodebuild -project apps/mobile/ios/App/App.xcodeproj -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build | tail -n 5
+          tar -czf app.tgz -C build/ios/Build/Products/Release-iphonesimulator App.app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apps
+          path: |
+            plain.tgz
+            app.tgz
+
+  play:
+    needs: [build]
+    name: ${{ matrix.label }}
+    runs-on: macos-26
+    timeout-minutes: 150
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: iphone17pro-offline, sim: 'iPhone 17 Pro', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'fps=6 level-minutes=20 open-seconds=600 card-seconds=90', steps: 'stars-over-restart,launch,about,background-mid-level,loss-and-undo,net-probe' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: apps
+      - name: Runner, Appium and its iOS driver (before the cut)
+        run: |
+          sw_vers; xcodebuild -version
+          mkdir -p build/plain build/ios/Build/Products/Release-iphonesimulator
+          tar -xzf plain.tgz -C build/plain
+          tar -xzf app.tgz -C build/ios/Build/Products/Release-iphonesimulator
+          npm --prefix e2e/app install --no-audit --no-fund
+          export APPIUM_HOME="$PWD/e2e/app/.appium"
+          e2e/app/node_modules/.bin/appium driver install xcuitest@12.22.8
+      - name: Play with the network cut off
+        timeout-minutes: 120
+        env:
+          RUN_SECONDS: '4800'
+        run: e2e/app/offline/play-offline.sh "${{ matrix.label }}" "${{ matrix.sim }}" "${{ matrix.orientation }}" "${{ matrix.levels }}" "${{ matrix.flags }}" "${{ matrix.steps }}"
+      - name: Network back, whatever happened
+        if: always()
+        run: |
+          sudo pfctl -f /etc/pf.conf 2> /dev/null; sudo pfctl -d 2> /dev/null || true
+          curl -sS -m 15 -o /dev/null -w 'github.com: HTTP %{http_code}\n' https://github.com/ || true
+      - name: Keep the pictures and logs on this branch, under results/ (test only)
+        if: always()
+        run: |
+          sudo chown -R "$(id -u)" out 2> /dev/null || true
+          for F in $(find out -type f -size +20M ! -name '*.gz'); do { head -c 4000000 "$F"; echo; echo "[... cut ...]"; tail -c 12000000 "$F"; } > "$F.cut" && mv "$F.cut" "$F"; gzip -f "$F"; done
+          find out -type f -size +40M -delete
+          git config user.name "app-play run"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch -q --depth 5 origin "$GITHUB_REF_NAME" && git reset -q --hard FETCH_HEAD
+            rm -rf "results/${{ matrix.label }}"; mkdir -p results; cp -R "out/${{ matrix.label }}" "results/${{ matrix.label }}"
+            echo "Run ${{ github.run_id }}, job ${{ matrix.label }}, commit ${{ github.sha }}" > "results/${{ matrix.label }}/RUN.txt"
+            git add -A results
+            git commit -q -m "TEST ONLY: results of run ${{ github.run_id }}, ${{ matrix.label }}"
+            git push -q origin "HEAD:$GITHUB_REF_NAME" && break
+            sleep $(( i * 7 ))
+          done
