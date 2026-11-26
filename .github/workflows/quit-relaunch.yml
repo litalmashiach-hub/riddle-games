@@ -1,0 +1,110 @@
+name: Quit and relaunch (test only)
+
+# TEST ONLY, not for merging. Builds the iPhone/iPad app unsigned for the simulator on a hosted Mac,
+# wins levels 1 and 2 inside it by real touches, then ends the app fully and starts it again, to see
+# what it kept (e2e/app/quit.ts and ios-quit.sh). No signing, no secrets.
+
+on:
+  push:
+    branches: ['quit-relaunch-mac-test']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quit-relaunch-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode and Mac
+        run: |
+          xcodebuild -version; sw_vers; sysctl -n machdep.cpu.brand_string hw.ncpu hw.memsize
+          xcrun simctl list runtimes
+          xcrun simctl list devicetypes | grep -E "iPhone|iPad"
+      - name: App content with the test hooks, synced into the iOS project
+        run: |
+          VITE_APP_TEST_HOOKS=1 pnpm build:app
+          npm --prefix e2e/app install --no-audit --no-fund
+          e2e/app/node_modules/.bin/tsx e2e/app/prepare-app-build.ts
+          CAP_TEST_INSPECTABLE=1 pnpm --filter @riddle/mobile exec cap sync ios
+          cat apps/mobile/ios/App/App/capacitor.config.json
+      - name: Build the app for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project apps/mobile/ios/App/App.xcodeproj -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build | tail -n 20
+          tar -czf app.tgz -C build/ios/Build/Products/Release-iphonesimulator App.app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: app.tgz
+
+  quit:
+    needs: build
+    name: ${{ matrix.label }}
+    runs-on: macos-26
+    timeout-minutes: 110
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: iphone, sim: 'iPhone 17 Pro Max', orientation: '-', flags: 'fps=6' }
+          - { label: ipad, sim: 'iPad Pro 11-inch (M5)', orientation: LANDSCAPE, flags: 'fps=6 settings-first' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: app
+      - name: Runner, Appium and its iOS driver
+        run: |
+          mkdir -p build/ios/Build/Products/Release-iphonesimulator
+          tar -xzf app.tgz -C build/ios/Build/Products/Release-iphonesimulator
+          npm --prefix e2e/app install --no-audit --no-fund
+          export APPIUM_HOME="$PWD/e2e/app/.appium"
+          e2e/app/node_modules/.bin/appium driver install xcuitest@12.22.8
+      - name: Play, quit and relaunch in the simulator
+        timeout-minutes: 95
+        run: e2e/app/ios-quit.sh "${{ matrix.label }}" "${{ matrix.sim }}" "${{ matrix.orientation }}" "${{ matrix.flags }}"
+      - name: The run's log and what the app's folder held
+        if: always()
+        run: |
+          cat out/*/run-log.txt || true
+          cat out/*/app-folder.txt || true
+      - name: Keep the results on the branch quit-relaunch-out-${{ matrix.label }}-mac-test (test only, overwritten each run)
+        if: always()
+        run: |
+          cd out
+          rm -rf */shots
+          git init -q -b results
+          git config user.name "quit-relaunch run"
+          git config user.email "actions@users.noreply.github.com"
+          echo "Run ${{ github.run_id }}, job ${{ matrix.label }}, commit ${{ github.sha }}" > RUN.txt
+          git add -A
+          git commit -q -m "TEST ONLY: quit-and-relaunch results of run ${{ github.run_id }}, ${{ matrix.label }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "results:refs/heads/quit-relaunch-out-${{ matrix.label }}-mac-test"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quit-relaunch-${{ matrix.label }}
+          path: out/
+          if-no-files-found: warn
