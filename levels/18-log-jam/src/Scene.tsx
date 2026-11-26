@@ -1,7 +1,7 @@
 import type { SceneProps } from '@riddle/engine';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
-import { Burst, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, ComicWord, DizzyStars, FocusCam, LiftPress, PRESS_SLOP, Shake, clickGuard, liftTapped, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
 import { HintRing, toon } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
@@ -485,6 +485,9 @@ function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }
   // Set when this ring took a touch's pointer-down. A click counts only then: the scene's event system sends a
   // click to everything that lay under the touch when it began, also when a log in front took that touch.
   const took = useRef(false);
+  // The tap counts when the finger lifts, as a Clickable's does (see pressOnLift.ts): iOS sends no click for a
+  // press held a little long. The click that may still follow for the same touch is then held off.
+  const [press] = useState(() => new LiftPress());
   useEffect(() => {
     // Every new touch starts untaken; the ring's own pointer-down, which comes after this, may take it.
     const reset = () => (took.current = false);
@@ -522,14 +525,30 @@ function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }
         // box keeps the touch (see barkWins), and so does a log drawn in front of the ring (see onPieceDown).
         onPointerDown={(e) => {
           took.current = !barkWins(e);
-          if (took.current) e.stopPropagation();
+          if (!took.current) return;
+          e.stopPropagation();
+          press.press(e.nativeEvent);
+          clickGuard().watch(press);
         }}
+        onPointerUp={(e) => {
+          const lift = e.nativeEvent;
+          const was = press.lift(lift);
+          if (was === 'none' || !took.current) return;
+          took.current = false;
+          e.stopPropagation();
+          // This touch's click, if the browser sends one, is not a second tap; nor is the click after a drag.
+          clickGuard().holdOffClick(lift);
+          if (was !== 'tap' || touch.slid) return; // the finger slid the log instead
+          liftTapped();
+          onClick();
+        }}
+        // A click with no lift seen here (none came to this ring) still counts, as before.
         onClick={(e) => {
           if (!took.current) return;
           took.current = false;
           if (touch.slid) return; // the finger slid the log instead (a mouse sends a click after a drag)
           e.stopPropagation();
-          onClick();
+          if (e.delta <= PRESS_SLOP) onClick();
         }}
       >
         <boxGeometry args={[0.96, 0.4, 0.96]} />

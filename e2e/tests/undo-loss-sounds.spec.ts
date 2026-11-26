@@ -28,18 +28,10 @@ const PIECES_GOING_BACK: Record<string, RegExp> = {
   'twelve-coins': /^clink\b/,
   'firefly-jars': /<onLand\b/,
   'firefly-rainbow': /<onLand\b/,
-  'picture-tiles': /^click<onEnd\b/,
-  'family-portrait': /^(click|select)<onEnd\b/,
+  // A tile sliding back: its poof as it starts, its click as it lands.
+  'picture-tiles': /^(poof<current|click<onEnd)\b/,
+  'family-portrait': /^(poof<current|(click|select)<onEnd)\b/,
 };
-/**
- * Known and left alone: in Log Jam and Timber Tangle the duck's hop off the logs can boing once after the undo.
- * Its scene files are being changed elsewhere; when that is done, fix it there and take this out.
- */
-const KNOWN_LEFTOVER: Record<string, RegExp> = {
-  'log-jam': /^boing<current\b/,
-  'timber-tangle': /^boing<current\b/,
-};
-
 const CASES: LossCase[] = await lossCases();
 // A level may have a second kind of loss, with a scene of its own: one that comes only when the moves run out.
 for (const first of [...CASES]) {
@@ -156,21 +148,28 @@ function listen() {
     if (p.__first === undefined) p.__first = value;
     return setValue.call(this, value, at);
   };
-  // Every sound of the game is an oscillator or a buffer, started here. A sound asked for with a delay is
-  // counted when it is asked for: from then on the browser plays it, whatever the game does.
-  const start = AudioScheduledSourceNode.prototype.start as (this: AudioScheduledSourceNode, when?: number, ...rest: number[]) => void;
-  AudioScheduledSourceNode.prototype.start = function (when?: number, ...rest: number[]) {
-    // The game's functions that asked for the sound, nearest first. Names of two letters are the build's own.
-    const names = lines(3, 10)
-      .map((l) => l.match(/at (?:async )?(?:Object\.)?([\w$.<>]+)(?: \[as \w+\])? \(/)?.[1])
-      // The game's own wrapper round start() (packages/fx/src/soundLife.ts) is no asker either.
-      .filter((n): n is string => !!n && n.length > 2 && n !== 'fire' && !/\.start$/.test(n))
-      .slice(0, 3)
-      .join('<');
-    const pitch = (this as unknown as { frequency?: { __first?: number } }).frequency?.__first;
-    H.sounds.push({ at: performance.now(), name: `${names || '?'}${pitch ? ` ${Math.round(pitch)}Hz` : ''}`, site: current?.site ?? null, armedAt: current?.armedAt ?? null });
-    return start.call(this, when, ...rest);
+  // Every sound of the game is an oscillator (a tone) or a buffer (a noise: a splash, a poof), started here. A
+  // sound asked for with a delay is counted when it is asked for: from then on the browser plays it, whatever
+  // the game does. A buffer has a start() of its own in Chromium, which a hook on the shared one never sees.
+  const hear = (proto: AudioScheduledSourceNode) => {
+    const start = proto.start as (this: AudioScheduledSourceNode, when?: number, ...rest: number[]) => void;
+    proto.start = function (when?: number, ...rest: number[]) {
+      // The game's functions that asked for the sound, nearest first. Names of two letters are the build's own.
+      const names = lines(3, 10)
+        .map((l) => l.match(/at (?:async )?(?:Object\.)?([\w$.<>]+)(?: \[as \w+\])? \(/)?.[1])
+        // The game's own wrapper round start() (packages/fx/src/soundLife.ts) is no asker either.
+        .filter((n): n is string => !!n && n.length > 2 && n !== 'fire' && !/\.start$/.test(n))
+        .slice(0, 3)
+        .join('<');
+      const pitch = (this as unknown as { frequency?: { __first?: number } }).frequency?.__first;
+      const noise = this instanceof AudioBufferSourceNode ? ' noise' : '';
+      H.sounds.push({ at: performance.now(), name: `${names || '?'}${pitch ? ` ${Math.round(pitch)}Hz` : noise}`, site: current?.site ?? null, armedAt: current?.armedAt ?? null });
+      return start.call(this, when, ...rest);
+    };
   };
+  for (const proto of [AudioScheduledSourceNode.prototype, AudioBufferSourceNode.prototype, OscillatorNode.prototype, ConstantSourceNode.prototype]) {
+    if (Object.prototype.hasOwnProperty.call(proto, 'start')) hear(proto as AudioScheduledSourceNode);
+  }
 }
 
 /** Waits until no sound has started for `quiet` ms, and at least `least` ms have passed. */
@@ -315,7 +314,7 @@ for (const { level, path, kind } of CASES) {
       got.after.filter((s) => s.fromTimerOfTheLoss).map((s) => s.name),
       'sounds after the undo that came from a timer set during the loss',
     ).toEqual([]);
-    const allowed = [PIECES_GOING_BACK[level.id], KNOWN_LEFTOVER[level.id]].filter(Boolean);
+    const allowed = [PIECES_GOING_BACK[level.id]].filter(Boolean);
     expect(
       got.after.filter((s) => !s.fromTimerOfTheLoss && !allowed.some((r) => r.test(s.name))).map((s) => `${s.name} (${s.msAfterUndo} ms after the undo)`),
       'other sounds after the undo',
