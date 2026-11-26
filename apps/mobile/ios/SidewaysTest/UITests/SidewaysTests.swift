@@ -192,7 +192,6 @@ final class SidewaysTests: XCTestCase {
         shot("\(tag)-rules-card")
         if go.exists { print("SW go hittable=\(go.isHittable) frame=\(go.frame)"); go.tap() }
         sleep(10)
-        shot("\(tag)-level-start")
         dump(app, "\(tag)-level-start")
         func counter() -> String {
             let t = app.staticTexts.matching(NSPredicate(format: "label CONTAINS[c] 'crossing'")).allElementsBoundByIndex.map { $0.label }
@@ -212,7 +211,6 @@ final class SidewaysTests: XCTestCase {
         if undo.exists { print("SW undo hittable=\(undo.isHittable) frame=\(undo.frame)"); undo.tap(); sleep(4); print("SW counter after undo: \(counter())") }
         let hint = app.buttons.matching(NSPredicate(format: "label BEGINSWITH[c] 'Hint'")).firstMatch
         if hint.exists { print("SW hint hittable=\(hint.isHittable) frame=\(hint.frame)"); hint.tap(); sleep(4) }
-        shot("\(tag)-after-undo-hint")
         dump(app, "\(tag)-after-undo-hint")
         app.terminate()
     }

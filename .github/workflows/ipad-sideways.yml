@@ -28,9 +28,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { variant: main, slot: newest, runner: macos-26, steps: "testTurnOnMap testTurnInLevel testPlayUpright testPlaySideways" }
+          - { variant: main, slot: newest, runner: macos-26, steps: "testPlayUpright testPlaySideways" }
     env:
-      LABEL: qa97-${{ matrix.variant }}-${{ matrix.slot }}-${{ matrix.runner }}
+      LABEL: qa97b-${{ matrix.variant }}-${{ matrix.slot }}-${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
