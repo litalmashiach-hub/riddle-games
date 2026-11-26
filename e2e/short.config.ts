@@ -4,7 +4,7 @@ import whole from './playwright.config';
 /**
  * The short play-through: the few tests that GitHub runs on every pull request and every merge
  * (.github/workflows/app-checks.yml). The whole suite (playwright.config.ts) takes about an hour;
- * this takes about five minutes. See docs/play-through-tests.md, "In GitHub's checks".
+ * this takes five to six minutes on GitHub's runner. See docs/play-through-tests.md, "In GitHub's checks".
  *
  *   pnpm test:e2e:short          # builds the website and the app content, then the short set
  *   pnpm test:e2e:short:built    # the short set alone, against the builds that are already there
@@ -14,10 +14,11 @@ import whole from './playwright.config';
  */
 
 /**
- * Levels of different kinds, each among the quickest of its kind: pouring (3), weighing (12) and lighting lanterns (14).
+ * Levels of different kinds, each among the quickest of its kind: pouring (3) and weighing (12). Every level more
+ * costs most of a minute on GitHub's runner, and every merge waits for this.
  * Level 1, a river crossing, is played by taps alone and once more for the saved progress, so it is not listed here too.
  */
-const SHORT_LEVELS = /level (03|12|14) .*plays to a three-star win/;
+const SHORT_LEVELS = /level (03|12) .*plays to a three-star win/;
 
 const project = (name: string) => {
   const found = whole.projects!.find((p) => p.name === name);
@@ -36,7 +37,7 @@ export default defineConfig({
   // The slowest of these takes about a minute and a half on a small machine. The whole suite allows eight.
   timeout: 240_000,
   projects: [
-    // The website build at a current iPhone's size: level 1 by taps alone (a win and a loss), three more levels to their win, and saved progress.
+    // The website build at a current iPhone's size: level 1 by taps alone (a win and a loss), two more levels to their win, and saved progress.
     {
       ...project('iphone-landscape'),
       testMatch: /(levels|level-1-by-taps|progress)\.spec\.ts$/,

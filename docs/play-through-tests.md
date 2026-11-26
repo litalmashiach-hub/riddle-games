@@ -126,11 +126,11 @@ Linux runner, with no secret. It guards the app, where `ci.yml` guards the websi
 1. The privacy manifest: `apps/mobile/scripts/check-privacy-manifest.py` (see `docs/ios-app.md`).
 2. The app's web build and Capacitor's sync, `pnpm ios:sync`: the build must hold the privacy policy and the
    contact line and no service worker, and the sync must leave the committed iOS files as they are.
-3. The short play-through, `pnpm test:e2e:short:built` (`e2e/short.config.ts`), about five minutes:
+3. The short play-through, `pnpm test:e2e:short:built` (`e2e/short.config.ts`), five to six minutes there:
 
 | Build | Size | Tests |
 | --- | --- | --- |
-| website | 852 by 393 | level 1 by taps alone, to a win and to a loss with undo; levels 3, 12 and 14 to a three-star win; stars and settings after a restart; the map lists every level |
+| website | 852 by 393 | level 1 by taps alone, to a win and to a loss with undo; levels 3 and 12 to a three-star win; stars and settings after a restart; the map lists every level; no level folder that the tests cannot load |
 | app | 852 by 393 | `about.spec.ts`: the About screen, with the privacy policy, the contact line and reset |
 
 The short set runs one browser at a time, and a failed test gets one more try: a real fault fails twice, a
