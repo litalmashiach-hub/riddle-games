@@ -1,0 +1,35 @@
+   78.3s [on] WEBVIEW_43412.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+   80.3s [on] WEBVIEW_43412.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+   82.7s [on] page in WEBVIEW_43412.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+   86.1s [on] web view WEBVIEW_43412.1, 874 by 402
+   89.6s [on] calibration: touched [{"x":262,"y":161},{"x":612,"y":302}], the page saw [{"x":262,"y":161},{"x":612,"y":302}]: same (error 0.0 pt)
+   89.6s [on] the device's setting as the web view reports it: {"reduce":true,"noPreference":false,"userAgent":"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148","href":"capacitor://localhost"}
+   94.8s [on] page in WEBVIEW_43412.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+   94.9s [on] after a reload: {"reduce":true,"noPreference":false,"userAgent":"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148","href":"capacitor://localhost/"}
+  102.5s [on] level map: {"frames":["L00-map-a-reduce-motion-on.png","L00-map-b-reduce-motion-on.png"],"changed":0}
+  102.5s [on] level 01 wolf-two-sheep: opening
+  114.6s [on] level 01: camera positions from the hash change until settled: 2
+  120.7s [on] level 01: share of the screen that changed in 2.289 s once settled: 0
+  135.5s [on] level 01 loss: {"moveTaken":true,"status":"lost","cameraPositions":1,"frames":9}
+  163.6s [on] level 01 win: {"moveTaken":true,"status":"won","cameraPositions":1,"frames":10}
+  166.6s [on] level 02 wolf-goat-cabbage: opening
+  176.3s [on] level 02: camera positions from the hash change until settled: 3
+  183.1s [on] level 02: share of the screen that changed in 2.063 s once settled: 0
+  191.5s [on] level 02: hint "", changed 0.027401765644191958
+  194.6s [on] level 04 tower-of-hanoi: opening
+  210.5s [on] level 04: camera positions from the hash change until settled: 3
+  227.2s [on] level 04: share of the screen that changed in 8.948 s once settled: 0
+  245.0s [on] level 04 win: {"moveTaken":true,"status":"won","cameraPositions":1,"frames":6}
+  248.0s [on] level 07 jealous-couples: opening
+  262.1s [on] level 07: camera positions from the hash change until settled: 3
+  268.9s [on] level 07: share of the screen that changed in 1.795 s once settled: 0
+  283.0s [on] level 07 loss: {"moveTaken":true,"status":"lost","cameraPositions":1,"frames":7}
+  286.1s [on] level 12 twelve-coins: opening
+  296.5s [on] level 12: camera positions from the hash change until settled: 3
+  304.0s [on] level 12: share of the screen that changed in 2.641 s once settled: 0
+  319.1s [on] level 12 loss: {"moveTaken":true,"status":"lost","cameraPositions":1,"frames":2}
+  322.1s [on] level 22 pancake-stack: opening
+  333.9s [on] level 22: camera positions from the hash change until settled: 4
+  340.6s [on] level 22: share of the screen that changed in 2.336 s once settled: 0
+  354.2s [on] level 22 loss: {"moveTaken":true,"status":"lost","cameraPositions":1,"frames":8}
+  357.5s [on] pass done

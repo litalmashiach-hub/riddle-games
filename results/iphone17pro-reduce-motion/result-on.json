@@ -1,0 +1,702 @@
+{
+ "pass": "on",
+ "setting": {
+  "reduce": true,
+  "noPreference": false,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "href": "capacitor://localhost"
+ },
+ "size": {
+  "width": 874,
+  "height": 402
+ },
+ "levels": [
+  {
+   "level": 1,
+   "id": "wolf-two-sheep",
+   "title": "Wolf and Two Sheep",
+   "frames": {
+    "rulesCard": "L01-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L01-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 0.7
+     },
+     {
+      "file": "L01-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 3.33
+     },
+     {
+      "file": "L01-1-open-3-reduce-motion-on.png",
+      "sAfterTap": 4.26
+     },
+     {
+      "file": "L01-1-open-4-reduce-motion-on.png",
+      "sAfterTap": 4.82
+     }
+    ],
+    "still": [
+     "L01-2-still-a-reduce-motion-on.png",
+     "L01-2-still-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 2,
+    "first": {
+     "t": 1312,
+     "p": "0.000,5.400,8.600"
+    },
+    "last": {
+     "t": 1872,
+     "p": "0.000,5.808,9.264"
+    },
+    "sample": [
+     {
+      "t": 1312,
+      "p": "0.000,5.400,8.600"
+     },
+     {
+      "t": 1872,
+      "p": "0.000,5.808,9.264"
+     }
+    ]
+   },
+   "stillChanged": 0,
+   "stillGapS": 2.289,
+   "loss": {
+    "moveTaken": true,
+    "status": {
+     "kind": "lost",
+     "reason": "The wolf was left alone with one sheep. Now the sheep has no wool, and the wolf has a fluffy beard!"
+    },
+    "before": "L01-4-loss-0-before-reduce-motion-on.png",
+    "frames": [
+     {
+      "file": "L01-4-loss-1-reduce-motion-on.png",
+      "sAfterMove": 0.04
+     },
+     {
+      "file": "L01-4-loss-2-reduce-motion-on.png",
+      "sAfterMove": 1.74
+     },
+     {
+      "file": "L01-4-loss-3-reduce-motion-on.png",
+      "sAfterMove": 2.29
+     },
+     {
+      "file": "L01-4-loss-4-reduce-motion-on.png",
+      "sAfterMove": 3.09
+     },
+     {
+      "file": "L01-4-loss-5-reduce-motion-on.png",
+      "sAfterMove": 4.01
+     },
+     {
+      "file": "L01-4-loss-6-reduce-motion-on.png",
+      "sAfterMove": 4.6
+     },
+     {
+      "file": "L01-4-loss-7-reduce-motion-on.png",
+      "sAfterMove": 5.36
+     },
+     {
+      "file": "L01-4-loss-8-reduce-motion-on.png",
+      "sAfterMove": 6.17
+     },
+     {
+      "file": "L01-4-loss-9-reduce-motion-on.png",
+      "sAfterMove": 6.96
+     }
+    ],
+    "card": "L01-4-loss-card-reduce-motion-on.png",
+    "clip": "L01-loss-reduce-motion-on.mp4",
+    "cameraPositions": 1,
+    "camera": [
+     {
+      "t": 42,
+      "p": "0.000,5.808,9.264"
+     }
+    ]
+   },
+   "win": {
+    "moveTaken": true,
+    "status": {
+     "kind": "won"
+    },
+    "before": "L01-4-win-0-before-reduce-motion-on.png",
+    "frames": [
+     {
+      "file": "L01-4-win-1-reduce-motion-on.png",
+      "sAfterMove": 0.14
+     },
+     {
+      "file": "L01-4-win-2-reduce-motion-on.png",
+      "sAfterMove": 1.41
+     },
+     {
+      "file": "L01-4-win-3-reduce-motion-on.png",
+      "sAfterMove": 2.02
+     },
+     {
+      "file": "L01-4-win-4-reduce-motion-on.png",
+      "sAfterMove": 2.53
+     },
+     {
+      "file": "L01-4-win-5-reduce-motion-on.png",
+      "sAfterMove": 3.4
+     },
+     {
+      "file": "L01-4-win-6-reduce-motion-on.png",
+      "sAfterMove": 3.99
+     },
+     {
+      "file": "L01-4-win-7-reduce-motion-on.png",
+      "sAfterMove": 4.34
+     },
+     {
+      "file": "L01-4-win-8-reduce-motion-on.png",
+      "sAfterMove": 4.71
+     },
+     {
+      "file": "L01-4-win-9-reduce-motion-on.png",
+      "sAfterMove": 5.49
+     },
+     {
+      "file": "L01-4-win-10-reduce-motion-on.png",
+      "sAfterMove": 6.16
+     }
+    ],
+    "card": "L01-4-win-card-reduce-motion-on.png",
+    "clip": "L01-win-reduce-motion-on.mp4",
+    "cameraPositions": 1,
+    "camera": [
+     {
+      "t": 42,
+      "p": "0.000,5.808,9.264"
+     }
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "id": "wolf-goat-cabbage",
+   "title": "Wolf, Goat and Cabbage",
+   "frames": {
+    "rulesCard": "L02-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L02-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 0.51
+     },
+     {
+      "file": "L02-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 1.41
+     },
+     {
+      "file": "L02-1-open-3-reduce-motion-on.png",
+      "sAfterTap": 1.79
+     },
+     {
+      "file": "L02-1-open-4-reduce-motion-on.png",
+      "sAfterTap": 2.33
+     },
+     {
+      "file": "L02-1-open-5-reduce-motion-on.png",
+      "sAfterTap": 3.1
+     },
+     {
+      "file": "L02-1-open-6-reduce-motion-on.png",
+      "sAfterTap": 3.7
+     },
+     {
+      "file": "L02-1-open-7-reduce-motion-on.png",
+      "sAfterTap": 4.36
+     },
+     {
+      "file": "L02-1-open-8-reduce-motion-on.png",
+      "sAfterTap": 4.95
+     },
+     {
+      "file": "L02-1-open-9-reduce-motion-on.png",
+      "sAfterTap": 5.62
+     }
+    ],
+    "still": [
+     "L02-2-still-a-reduce-motion-on.png",
+     "L02-2-still-b-reduce-motion-on.png"
+    ],
+    "hint": [
+     "L02-3-hint-a-reduce-motion-on.png",
+     "L02-3-hint-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 3,
+    "first": {
+     "t": 41,
+     "p": "0.000,5.808,9.264"
+    },
+    "last": {
+     "t": 1070,
+     "p": "0.000,5.808,9.264"
+    },
+    "sample": [
+     {
+      "t": 41,
+      "p": "0.000,5.808,9.264"
+     },
+     {
+      "t": 559,
+      "p": "0.000,5.400,8.600"
+     },
+     {
+      "t": 1070,
+      "p": "0.000,5.808,9.264"
+     }
+    ]
+   },
+   "stillChanged": 0,
+   "stillGapS": 2.063,
+   "hintChanged": 0.027401765644191958,
+   "hintSpoken": ""
+  },
+  {
+   "level": 4,
+   "id": "tower-of-hanoi",
+   "title": "Tower of Hanoi",
+   "frames": {
+    "rulesCard": "L04-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L04-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 1.03
+     },
+     {
+      "file": "L04-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 3.75
+     }
+    ],
+    "still": [
+     "L04-2-still-a-reduce-motion-on.png",
+     "L04-2-still-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 3,
+    "first": {
+     "t": 42,
+     "p": "0.000,5.808,9.264"
+    },
+    "last": {
+     "t": 1385,
+     "p": "0.000,5.312,10.616"
+    },
+    "sample": [
+     {
+      "t": 42,
+      "p": "0.000,5.808,9.264"
+     },
+     {
+      "t": 827,
+      "p": "0.000,5.000,9.800"
+     },
+     {
+      "t": 1385,
+      "p": "0.000,5.312,10.616"
+     }
+    ]
+   },
+   "stillChanged": 0,
+   "stillGapS": 8.948,
+   "win": {
+    "moveTaken": true,
+    "status": {
+     "kind": "won"
+    },
+    "before": "L04-4-win-0-before-reduce-motion-on.png",
+    "frames": [
+     {
+      "file": "L04-4-win-1-reduce-motion-on.png",
+      "sAfterMove": 0.19
+     },
+     {
+      "file": "L04-4-win-2-reduce-motion-on.png",
+      "sAfterMove": 1.88
+     },
+     {
+      "file": "L04-4-win-3-reduce-motion-on.png",
+      "sAfterMove": 4.16
+     },
+     {
+      "file": "L04-4-win-4-reduce-motion-on.png",
+      "sAfterMove": 5.05
+     },
+     {
+      "file": "L04-4-win-5-reduce-motion-on.png",
+      "sAfterMove": 5.85
+     },
+     {
+      "file": "L04-4-win-6-reduce-motion-on.png",
+      "sAfterMove": 6.38
+     }
+    ],
+    "card": "L04-4-win-card-reduce-motion-on.png",
+    "clip": "L04-win-reduce-motion-on.mp4",
+    "cameraPositions": 1,
+    "camera": [
+     {
+      "t": 41,
+      "p": "0.000,5.312,10.616"
+     }
+    ]
+   }
+  },
+  {
+   "level": 7,
+   "id": "jealous-couples",
+   "title": "Three Jealous Couples",
+   "frames": {
+    "rulesCard": "L07-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L07-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 0.6
+     },
+     {
+      "file": "L07-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 1.97
+     },
+     {
+      "file": "L07-1-open-3-reduce-motion-on.png",
+      "sAfterTap": 2.72
+     },
+     {
+      "file": "L07-1-open-4-reduce-motion-on.png",
+      "sAfterTap": 3.52
+     },
+     {
+      "file": "L07-1-open-5-reduce-motion-on.png",
+      "sAfterTap": 4.89
+     }
+    ],
+    "still": [
+     "L07-2-still-a-reduce-motion-on.png",
+     "L07-2-still-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 3,
+    "first": {
+     "t": 42,
+     "p": "0.000,5.312,10.616"
+    },
+    "last": {
+     "t": 1314,
+     "p": "0.000,4.812,11.016"
+    },
+    "sample": [
+     {
+      "t": 42,
+      "p": "0.000,5.312,10.616"
+     },
+     {
+      "t": 663,
+      "p": "0.000,4.500,10.200"
+     },
+     {
+      "t": 1314,
+      "p": "0.000,4.812,11.016"
+     }
+    ]
+   },
+   "stillChanged": 0,
+   "stillGapS": 1.795,
+   "loss": {
+    "moveTaken": true,
+    "status": {
+     "kind": "lost",
+     "reason": "Mrs Coral was on the island with Mr Teal without Mr Coral. Jealousy!"
+    },
+    "before": "L07-4-loss-0-before-reduce-motion-on.png",
+    "frames": [
+     {
+      "file": "L07-4-loss-1-reduce-motion-on.png",
+      "sAfterMove": 0.12
+     },
+     {
+      "file": "L07-4-loss-2-reduce-motion-on.png",
+      "sAfterMove": 1.33
+     },
+     {
+      "file": "L07-4-loss-3-reduce-motion-on.png",
+      "sAfterMove": 1.99
+     },
+     {
+      "file": "L07-4-loss-4-reduce-motion-on.png",
+      "sAfterMove": 4.16
+     },
+     {
+      "file": "L07-4-loss-5-reduce-motion-on.png",
+      "sAfterMove": 5.01
+     },
+     {
+      "file": "L07-4-loss-6-reduce-motion-on.png",
+      "sAfterMove": 5.64
+     },
+     {
+      "file": "L07-4-loss-7-reduce-motion-on.png",
+      "sAfterMove": 6.74
+     }
+    ],
+    "card": "L07-4-loss-card-reduce-motion-on.png",
+    "clip": "L07-loss-reduce-motion-on.mp4",
+    "cameraPositions": 1,
+    "camera": [
+     {
+      "t": 44,
+      "p": "0.000,4.812,11.016"
+     }
+    ]
+   }
+  },
+  {
+   "level": 12,
+   "id": "twelve-coins",
+   "title": "The Twelve Coins",
+   "frames": {
+    "rulesCard": "L12-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L12-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 0.78
+     },
+     {
+      "file": "L12-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 1.99
+     },
+     {
+      "file": "L12-1-open-3-reduce-motion-on.png",
+      "sAfterTap": 2.74
+     },
+     {
+      "file": "L12-1-open-4-reduce-motion-on.png",
+      "sAfterTap": 3.58
+     },
+     {
+      "file": "L12-1-open-5-reduce-motion-on.png",
+      "sAfterTap": 4.3
+     },
+     {
+      "file": "L12-1-open-6-reduce-motion-on.png",
+      "sAfterTap": 4.96
+     },
+     {
+      "file": "L12-1-open-7-reduce-motion-on.png",
+      "sAfterTap": 5.67
+     }
+    ],
+    "still": [
+     "L12-2-still-a-reduce-motion-on.png",
+     "L12-2-still-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 3,
+    "first": {
+     "t": 43,
+     "p": "0.000,4.812,11.016"
+    },
+    "last": {
+     "t": 1714,
+     "p": "0.000,6.744,9.296"
+    },
+    "sample": [
+     {
+      "t": 43,
+      "p": "0.000,4.812,11.016"
+     },
+     {
+      "t": 774,
+      "p": "0.000,6.300,8.600"
+     },
+     {
+      "t": 1714,
+      "p": "0.000,6.744,9.296"
+     }
+    ]
+   },
+   "stillChanged": 0,
+   "stillGapS": 2.641,
+   "loss": {
+    "moveTaken": true,
+    "status": {
+     "kind": "lost",
+     "reason": "Right coin, wrong weight! Coin 1 was lighter."
+    },
+    "before": "L12-4-loss-0-before-reduce-motion-on.png",
+    "frames": [
+     {
+      "file": "L12-4-loss-1-reduce-motion-on.png",
+      "sAfterMove": 0.34
+     },
+     {
+      "file": "L12-4-loss-2-reduce-motion-on.png",
+      "sAfterMove": 2.73
+     }
+    ],
+    "card": "L12-4-loss-card-reduce-motion-on.png",
+    "clip": "L12-loss-reduce-motion-on.mp4",
+    "cameraPositions": 1,
+    "camera": [
+     {
+      "t": 43,
+      "p": "0.000,6.744,9.296"
+     }
+    ]
+   }
+  },
+  {
+   "level": 22,
+   "id": "pancake-stack",
+   "title": "Pancake Stack",
+   "frames": {
+    "rulesCard": "L22-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L22-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 0.88
+     },
+     {
+      "file": "L22-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 1.98
+     },
+     {
+      "file": "L22-1-open-3-reduce-motion-on.png",
+      "sAfterTap": 2.79
+     },
+     {
+      "file": "L22-1-open-4-reduce-motion-on.png",
+      "sAfterTap": 3.6
+     },
+     {
+      "file": "L22-1-open-5-reduce-motion-on.png",
+      "sAfterTap": 4.44
+     },
+     {
+      "file": "L22-1-open-6-reduce-motion-on.png",
+      "sAfterTap": 5.09
+     },
+     {
+      "file": "L22-1-open-7-reduce-motion-on.png",
+      "sAfterTap": 5.99
+     }
+    ],
+    "still": [
+     "L22-2-still-a-reduce-motion-on.png",
+     "L22-2-still-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 4,
+    "first": {
+     "t": 42,
+     "p": "0.000,6.744,9.296"
+    },
+    "last": {
+     "t": 1655,
+     "p": "0.600,3.959,6.649"
+    },
+    "sample": [
+     {
+      "t": 42,
+      "p": "0.000,6.744,9.296"
+     },
+     {
+      "t": 648,
+      "p": "0.600,3.300,6.300"
+     },
+     {
+      "t": 1051,
+      "p": "0.600,3.424,6.804"
+     },
+     {
+      "t": 1655,
+      "p": "0.600,3.959,6.649"
+     }
+    ]
+   },
+   "stillChanged": 0,
+   "stillGapS": 2.336,
+   "loss": {
+    "moveTaken": true,
+    "status": {
+     "kind": "lost",
+     "reason": "After 12 flips the wobbly tower toppled over. Flop!"
+    },
+    "before": "L22-4-loss-0-before-reduce-motion-on.png",
+    "frames": [
+     {
+      "file": "L22-4-loss-1-reduce-motion-on.png",
+      "sAfterMove": 0.23
+     },
+     {
+      "file": "L22-4-loss-2-reduce-motion-on.png",
+      "sAfterMove": 1.24
+     },
+     {
+      "file": "L22-4-loss-3-reduce-motion-on.png",
+      "sAfterMove": 1.85
+     },
+     {
+      "file": "L22-4-loss-4-reduce-motion-on.png",
+      "sAfterMove": 2.47
+     },
+     {
+      "file": "L22-4-loss-5-reduce-motion-on.png",
+      "sAfterMove": 3.27
+     },
+     {
+      "file": "L22-4-loss-6-reduce-motion-on.png",
+      "sAfterMove": 5.06
+     },
+     {
+      "file": "L22-4-loss-7-reduce-motion-on.png",
+      "sAfterMove": 5.71
+     },
+     {
+      "file": "L22-4-loss-8-reduce-motion-on.png",
+      "sAfterMove": 6.46
+     }
+    ],
+    "card": "L22-4-loss-card-reduce-motion-on.png",
+    "clip": "L22-loss-reduce-motion-on.mp4",
+    "cameraPositions": 1,
+    "camera": [
+     {
+      "t": 42,
+      "p": "0.600,3.959,6.649"
+     }
+    ]
+   }
+  }
+ ],
+ "settingAfterReload": {
+  "reduce": true,
+  "noPreference": false,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "href": "capacitor://localhost/"
+ },
+ "map": {
+  "frames": [
+   "L00-map-a-reduce-motion-on.png",
+   "L00-map-b-reduce-motion-on.png"
+  ],
+  "changed": 0
+ },
+ "settingAtEnd": {
+  "reduce": true,
+  "noPreference": false,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "href": "capacitor://localhost/#/"
+ }
+}

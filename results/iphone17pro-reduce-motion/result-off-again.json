@@ -1,0 +1,20 @@
+{
+ "pass": "off-again",
+ "setting": {
+  "reduce": false,
+  "noPreference": true,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "href": "capacitor://localhost"
+ },
+ "size": {
+  "width": 874,
+  "height": 402
+ },
+ "levels": [],
+ "settingAfterReload": {
+  "reduce": false,
+  "noPreference": true,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "href": "capacitor://localhost"
+ }
+}
