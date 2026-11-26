@@ -1,0 +1,434 @@
+{"s":41,"where":"start","draw":8,"drawCompressed":0}
+{"s":79,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":83,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":93,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":103,"where":"start","metalHost":62,"draw":32,"drawCompressed":11}
+{"s":113,"where":"start","metalHost":62,"draw":32,"drawCompressed":13}
+{"s":123,"where":"start","metalHost":62,"draw":32,"drawCompressed":13}
+{"s":135,"where":"start","metalHost":67,"draw":32,"drawCompressed":10}
+{"s":143,"where":"start","metalHost":63,"draw":32,"drawCompressed":10}
+{"s":153,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":163,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":173,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":183,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":193,"where":"start","metalHost":64,"draw":32,"drawCompressed":10}
+{"s":203,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":213,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":223,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":232,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":242,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":252,"where":"start","metalHost":64,"draw":32,"drawCompressed":10}
+{"s":262,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":272,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":283,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":292,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":303,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":313,"where":"start","metalHost":64,"draw":32,"drawCompressed":10}
+{"s":322,"where":"start","metalHost":62,"draw":32,"drawCompressed":10}
+{"s":335,"where":"start","metalHost":62,"draw":32,"drawCompressed":11}
+{"s":344,"where":"start","metalHost":62,"draw":32,"drawCompressed":11}
+{"s":406,"where":"start","metalHost":65,"draw":31,"drawCompressed":10}
+{"s":441,"where":"start","metalHost":64,"draw":31,"drawCompressed":9}
+{"s":444,"where":"start","metalHost":65,"draw":31,"drawCompressed":9}
+{"s":454,"where":"start","metalHost":65,"draw":31,"drawCompressed":9}
+{"s":464,"where":"start","metalHost":65,"draw":31,"drawCompressed":9}
+{"s":474,"where":"start","metalHost":65,"draw":31,"drawCompressed":9}
+{"s":484,"where":"start","metalHost":94,"draw":43,"drawCompressed":9}
+{"s":494,"where":"start","metalHost":94,"draw":43,"drawCompressed":10}
+{"s":503,"where":"start","metalHost":94,"draw":43,"drawCompressed":10}
+{"s":514,"where":"start","metalHost":94,"draw":43,"drawCompressed":10}
+{"s":523,"where":"start","metalHost":94,"draw":43,"drawCompressed":10}
+{"s":534,"where":"start","metalHost":94,"draw":43,"drawCompressed":12}
+{"s":544,"where":"start","metalHost":94,"draw":43,"drawCompressed":13}
+{"s":554,"where":"start","metalHost":66,"draw":43,"drawCompressed":11}
+{"s":564,"where":"start","metalHost":66,"draw":43,"drawCompressed":11}
+{"s":573,"where":"start","metalHost":66,"draw":39,"drawCompressed":13}
+{"s":583,"where":"start","metalHost":66,"draw":35,"drawCompressed":13}
+{"s":594,"where":"start","metalHost":66,"draw":31,"drawCompressed":13}
+{"s":604,"where":"start","metalHost":74,"draw":37,"drawCompressed":12}
+{"s":615,"where":"start","metalHost":74,"draw":37,"drawCompressed":11}
+{"s":624,"where":"start","metalHost":74,"draw":37,"drawCompressed":12}
+{"s":633,"where":"start","metalHost":74,"draw":37,"drawCompressed":12}
+{"s":643,"where":"start","metalHost":74,"draw":37,"drawCompressed":12}
+{"s":654,"where":"start","metalHost":74,"draw":37,"drawCompressed":14}
+{"s":664,"where":"start","metalHost":74,"draw":37,"drawCompressed":14}
+{"s":673,"where":"start","metalHost":71,"draw":37,"drawCompressed":11}
+{"s":683,"where":"start","metalHost":71,"draw":37,"drawCompressed":11}
+{"s":693,"where":"start","metalHost":71,"draw":37,"drawCompressed":11}
+{"s":703,"where":"start","metalHost":71,"draw":37,"drawCompressed":11}
+{"s":718,"where":"start","metalHost":71,"draw":37,"drawCompressed":13}
+{"s":727,"where":"start","metalHost":71,"draw":37,"drawCompressed":13}
+{"s":738,"where":"start","metalHost":69,"draw":37,"drawCompressed":11}
+{"s":745,"where":"start","metalHost":69,"draw":37,"drawCompressed":11}
+{"s":755,"where":"start","metalHost":69,"draw":37,"drawCompressed":11}
+{"s":766,"where":"start","metalHost":69,"draw":37,"drawCompressed":11}
+{"s":775,"where":"start","metalHost":70,"draw":37,"drawCompressed":12}
+{"s":785,"where":"start","metalHost":69,"draw":37,"drawCompressed":11}
+{"s":795,"where":"start","metalHost":69,"draw":37,"drawCompressed":10}
+{"s":804,"where":"start","metalHost":69,"draw":37,"drawCompressed":10}
+{"s":815,"where":"start","metalHost":69,"draw":37,"drawCompressed":10}
+{"s":833,"where":"start","metalHost":69,"draw":37,"drawCompressed":12}
+{"s":841,"where":"start","gpu":194,"web":82,"app":39,"metalHost":87,"draw":85,"drawCompressed":9}
+{"s":847,"where":"start","gpu":212,"web":83,"app":39,"metalHost":156,"draw":90,"drawCompressed":9}
+{"s":856,"where":"start","gpu":254,"web":78,"app":39,"metalHost":156,"draw":90,"drawCompressed":9}
+{"s":866,"where":"L01 opening","gpu":248,"web":108,"app":39,"metalHost":175,"draw":107,"drawCompressed":10}
+{"s":877,"where":"L01 opening","gpu":67,"web":148,"app":39,"metalHost":121,"draw":125,"drawCompressed":7}
+{"s":887,"where":"L01 playing","gpu":74,"web":168,"app":40,"metalHost":149,"draw":133,"drawCompressed":7}
+{"s":897,"where":"L01 playing","gpu":74,"web":171,"app":40,"metalHost":132,"draw":190,"drawCompressed":7}
+{"s":908,"where":"L01 playing","gpu":74,"web":171,"app":40,"metalHost":131,"draw":115,"drawCompressed":7}
+{"s":920,"where":"L01 playing","gpu":74,"web":174,"app":40,"metalHost":131,"draw":316,"drawCompressed":7}
+{"s":944,"where":"L01 won, win card showing","gpu":74,"web":170,"app":40,"metalHost":122,"draw":765,"drawCompressed":10}
+{"s":966,"where":"after L01","gpu":74,"web":170,"app":40,"metalHost":116,"draw":2642,"drawCompressed":10}
+{"s":976,"where":"after L01","gpu":74,"web":170,"app":40,"metalHost":117,"draw":3284,"drawCompressed":10}
+{"s":998,"where":"after L01","gpu":74,"web":174,"app":40,"metalHost":117,"draw":3867,"drawCompressed":10}
+{"s":1015,"where":"L02 opening","gpu":74,"web":173,"app":40,"metalHost":117,"draw":4974,"drawCompressed":10}
+{"s":1024,"where":"L02 opening","gpu":74,"web":178,"app":40,"metalHost":116,"draw":5446,"drawCompressed":10}
+{"s":1036,"where":"L02 opening","metalHost":99,"draw":5873,"drawCompressed":10}
+{"s":1039,"where":"L02 opening","metalHost":81,"draw":5880,"drawCompressed":10}
+{"s":1051,"where":"L02 opening","gpu":209,"web":82,"app":41,"metalHost":77,"draw":3736,"drawCompressed":9}
+{"s":1058,"where":"L05 opening","gpu":232,"web":116,"app":41,"metalHost":176,"draw":2668,"drawCompressed":9}
+{"s":1067,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1077,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1087,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1097,"where":"L05 opening","web":9,"metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1107,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1117,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1127,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1137,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1147,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1157,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1167,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1177,"where":"L05 opening","metalHost":77,"draw":37,"drawCompressed":9}
+{"s":1188,"where":"L05 opening","app":26,"metalHost":98,"draw":45,"drawCompressed":8}
+{"s":1201,"where":"L05 opening","gpu":222,"web":77,"app":40,"metalHost":238,"draw":92,"drawCompressed":8}
+{"s":1214,"where":"L05 opening","gpu":175,"web":76,"app":40,"metalHost":162,"draw":96,"drawCompressed":8}
+{"s":1218,"where":"L05 opening","gpu":234,"web":76,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":1228,"where":"L05 opening","gpu":222,"web":73,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":1237,"where":"L05 opening","web":100,"gpu":251,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":1248,"where":"L05 opening","web":82,"gpu":251,"app":40,"metalHost":218,"draw":92,"drawCompressed":8}
+{"s":1257,"where":"L05 opening","web":82,"gpu":222,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":1267,"where":"L05 opening","gpu":238,"web":74,"app":40,"metalHost":215,"draw":92,"drawCompressed":8}
+{"s":1278,"where":"L05 opening","gpu":251,"web":74,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":1287,"where":"L05 opening","gpu":251,"web":74,"app":40,"metalHost":160,"draw":92,"drawCompressed":8}
+{"s":1299,"where":"L05 opening","gpu":222,"web":74,"app":40,"metalHost":200,"draw":92,"drawCompressed":8}
+{"s":1308,"where":"L05 opening","gpu":175,"web":74,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1318,"where":"L05 opening","gpu":222,"web":75,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1327,"where":"L05 opening","gpu":219,"web":75,"app":40,"metalHost":238,"draw":91,"drawCompressed":8}
+{"s":1337,"where":"L05 opening","gpu":238,"web":75,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1348,"where":"L05 opening","gpu":222,"web":75,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1359,"where":"L05 opening","gpu":238,"web":76,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":1368,"where":"L05 opening","gpu":235,"web":76,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1379,"where":"L05 opening","gpu":238,"web":76,"app":40,"metalHost":211,"draw":91,"drawCompressed":8}
+{"s":1388,"where":"L05 opening","gpu":251,"web":76,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1398,"where":"L05 opening","gpu":194,"web":76,"app":40,"metalHost":209,"draw":91,"drawCompressed":8}
+{"s":1407,"where":"L05 opening","gpu":234,"web":76,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1417,"where":"L05 opening","gpu":251,"web":77,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1429,"where":"after L05","gpu":236,"web":77,"app":40,"metalHost":238,"draw":91,"drawCompressed":8}
+{"s":1438,"where":"after L05","gpu":201,"web":77,"app":40,"metalHost":161,"draw":88,"drawCompressed":8}
+{"s":1447,"where":"after L05","gpu":221,"web":77,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":1458,"where":"after L05","gpu":251,"web":78,"app":40,"metalHost":218,"draw":91,"drawCompressed":8}
+{"s":1468,"where":"after L05","gpu":251,"web":78,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1479,"where":"after L05","gpu":140,"web":78,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1488,"where":"after L05","gpu":238,"web":78,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1500,"where":"after L05","gpu":207,"web":78,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1508,"where":"after L05","gpu":246,"web":78,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1517,"where":"after L05","gpu":218,"web":78,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1527,"where":"after L05","gpu":218,"web":78,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1538,"where":"after L05","gpu":158,"web":78,"app":40,"metalHost":179,"draw":91,"drawCompressed":8}
+{"s":1548,"where":"after L05","gpu":236,"web":79,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1558,"where":"after L05","gpu":194,"web":79,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1567,"where":"after L05","gpu":251,"web":79,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1578,"where":"after L05","gpu":222,"web":79,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1587,"where":"after L05","gpu":222,"web":79,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1597,"where":"after L05","gpu":251,"web":79,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1609,"where":"after L05","gpu":238,"web":79,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1619,"where":"after L05","gpu":251,"web":79,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1628,"where":"after L05","gpu":221,"web":79,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":1639,"where":"after L05","gpu":222,"web":80,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1649,"where":"after L05","gpu":251,"web":80,"app":40,"metalHost":168,"draw":91,"drawCompressed":8}
+{"s":1659,"where":"after L05","gpu":254,"web":80,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1668,"where":"after L05","gpu":222,"web":80,"app":40,"metalHost":216,"draw":91,"drawCompressed":8}
+{"s":1678,"where":"after L05","gpu":251,"web":80,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1688,"where":"after L05","gpu":236,"web":80,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1699,"where":"after L05","gpu":238,"web":81,"app":40,"metalHost":239,"draw":91,"drawCompressed":8}
+{"s":1708,"where":"after L05","gpu":193,"web":81,"app":40,"metalHost":220,"draw":91,"drawCompressed":8}
+{"s":1717,"where":"after L05","gpu":234,"web":81,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":1728,"where":"after L05","gpu":194,"web":81,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1737,"where":"after L05","gpu":228,"web":81,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1748,"where":"after L05","gpu":225,"web":81,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1758,"where":"after L05","gpu":251,"web":81,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1768,"where":"after L05","gpu":251,"web":81,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1778,"where":"after L05","gpu":251,"web":81,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1788,"where":"after L05","gpu":207,"web":82,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1803,"where":"after L05","gpu":238,"web":82,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1814,"where":"after L05","gpu":236,"web":82,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1818,"where":"after L05","gpu":250,"web":82,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1829,"where":"after L05","gpu":238,"web":82,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1839,"where":"after L05","gpu":194,"web":82,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1848,"where":"after L05","gpu":222,"web":82,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1858,"where":"after L05","gpu":222,"web":83,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1868,"where":"after L05","gpu":210,"web":83,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1878,"where":"after L05","gpu":236,"web":83,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1890,"where":"after L05","gpu":209,"web":83,"app":40,"metalHost":182,"draw":91,"drawCompressed":8}
+{"s":1898,"where":"after L05","gpu":219,"web":83,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":1908,"where":"after L05","gpu":225,"web":83,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1918,"where":"after L05","gpu":194,"web":83,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1928,"where":"after L05","gpu":219,"web":84,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1938,"where":"after L05","gpu":238,"web":84,"app":40,"metalHost":208,"draw":91,"drawCompressed":8}
+{"s":1948,"where":"after L05","gpu":201,"web":84,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1960,"where":"after L05","gpu":194,"web":84,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1968,"where":"after L05","gpu":240,"web":84,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1978,"where":"after L05","gpu":182,"web":84,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":1988,"where":"after L05","gpu":188,"web":84,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":1998,"where":"after L05","gpu":251,"web":85,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2008,"where":"after L05","gpu":238,"web":85,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2018,"where":"after L05","gpu":251,"web":85,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2031,"where":"after L05","gpu":234,"web":85,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2041,"where":"after L05","gpu":248,"web":85,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2048,"where":"after L05","gpu":218,"web":85,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2059,"where":"after L05","gpu":238,"web":86,"app":40,"metalHost":214,"draw":91,"drawCompressed":8}
+{"s":2068,"where":"after L05","gpu":238,"web":86,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2078,"where":"after L05","gpu":193,"web":86,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":2089,"where":"after L05","gpu":235,"web":86,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2098,"where":"after L05","gpu":219,"web":86,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2108,"where":"after L05","gpu":251,"web":86,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2119,"where":"after L05","gpu":209,"web":86,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2128,"where":"after L05","gpu":251,"web":86,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2138,"where":"after L05","gpu":238,"web":86,"app":40,"metalHost":238,"draw":91,"drawCompressed":8}
+{"s":2148,"where":"after L05","gpu":206,"web":87,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2158,"where":"after L05","gpu":222,"web":87,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2168,"where":"after L05","gpu":233,"web":87,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":2178,"where":"after L05","gpu":251,"web":87,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2195,"where":"after L05","gpu":238,"web":87,"app":40,"metalHost":238,"draw":91,"drawCompressed":8}
+{"s":2201,"where":"after L05","gpu":238,"web":87,"app":40,"metalHost":179,"draw":91,"drawCompressed":8}
+{"s":2209,"where":"after L05","gpu":238,"web":87,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2218,"where":"after L05","gpu":238,"web":87,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2228,"where":"after L05","gpu":245,"web":88,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2239,"where":"after L05","gpu":193,"web":88,"app":40,"metalHost":164,"draw":95,"drawCompressed":8}
+{"s":2249,"where":"after L05","gpu":242,"web":88,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2259,"where":"after L05","gpu":233,"web":88,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":2269,"where":"after L05","gpu":222,"web":88,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2283,"where":"after L05","gpu":238,"web":88,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2288,"where":"after L05","gpu":218,"web":88,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2299,"where":"after L05","gpu":222,"web":89,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2309,"where":"after L05","gpu":175,"web":89,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2319,"where":"after L05","gpu":194,"web":89,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2328,"where":"after L05","gpu":252,"web":89,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2338,"where":"after L05","gpu":217,"web":89,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2348,"where":"after L05","gpu":238,"web":89,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":2362,"where":"after L05","gpu":238,"web":89,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2369,"where":"after L05","gpu":194,"web":89,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2379,"where":"after L05","gpu":175,"web":90,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2389,"where":"after L05","gpu":222,"web":90,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2399,"where":"after L05","gpu":194,"web":90,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2410,"where":"after L05","gpu":218,"web":90,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2419,"where":"after L05","gpu":253,"web":90,"app":40,"metalHost":220,"draw":91,"drawCompressed":8}
+{"s":2434,"where":"after L05","gpu":236,"web":90,"app":40,"metalHost":235,"draw":91,"drawCompressed":8}
+{"s":2439,"where":"after L05","gpu":220,"web":90,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":2448,"where":"after L05","gpu":222,"web":91,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2458,"where":"after L05","gpu":238,"web":91,"app":40,"metalHost":179,"draw":91,"drawCompressed":8}
+{"s":2468,"where":"after L05","gpu":238,"web":91,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2478,"where":"after L05","gpu":251,"web":91,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2488,"where":"after L05","gpu":238,"web":91,"app":40,"metalHost":220,"draw":91,"drawCompressed":8}
+{"s":2498,"where":"after L05","gpu":238,"web":91,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2508,"where":"after L05","gpu":221,"web":92,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2518,"where":"after L05","gpu":194,"web":92,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2528,"where":"after L05","gpu":235,"web":92,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":2539,"where":"after L05","gpu":238,"web":92,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2549,"where":"after L05","gpu":227,"web":92,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2558,"where":"after L05","gpu":238,"web":92,"app":40,"metalHost":200,"draw":91,"drawCompressed":8}
+{"s":2568,"where":"after L05","gpu":222,"web":92,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2579,"where":"after L05","gpu":253,"web":93,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2588,"where":"after L05","gpu":175,"web":93,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2598,"where":"after L05","gpu":238,"web":93,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2608,"where":"after L05","gpu":201,"web":93,"app":40,"metalHost":161,"draw":91,"drawCompressed":8}
+{"s":2618,"where":"after L05","gpu":193,"web":93,"app":40,"metalHost":160,"draw":91,"drawCompressed":8}
+{"s":2628,"where":"after L05","gpu":212,"web":93,"app":40,"metalHost":220,"draw":92,"drawCompressed":8}
+{"s":2639,"where":"after L05","gpu":220,"web":94,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2652,"where":"after L05","gpu":222,"web":94,"app":40,"metalHost":245,"draw":92,"drawCompressed":8}
+{"s":2662,"where":"after L05","gpu":176,"web":94,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2670,"where":"after L05","gpu":224,"web":94,"app":40,"metalHost":220,"draw":92,"drawCompressed":8}
+{"s":2679,"where":"after L05","gpu":236,"web":94,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2690,"where":"after L05","gpu":174,"web":94,"app":40,"metalHost":160,"draw":92,"drawCompressed":8}
+{"s":2699,"where":"after L05","gpu":238,"web":94,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2709,"where":"after L05","gpu":254,"web":95,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2718,"where":"after L05","gpu":251,"web":95,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2729,"where":"after L05","gpu":238,"web":95,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2739,"where":"after L05","gpu":235,"web":95,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2749,"where":"after L05","gpu":251,"web":95,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2759,"where":"after L05","gpu":222,"web":95,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2769,"where":"after L05","gpu":222,"web":96,"app":40,"metalHost":221,"draw":92,"drawCompressed":8}
+{"s":2778,"where":"after L05","gpu":231,"web":96,"app":40,"metalHost":201,"draw":92,"drawCompressed":8}
+{"s":2789,"where":"after L05","gpu":220,"web":96,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2798,"where":"after L05","gpu":220,"web":96,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2808,"where":"after L05","gpu":236,"web":96,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2818,"where":"after L05","gpu":238,"web":97,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2828,"where":"after L05","gpu":249,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2839,"where":"after L05","gpu":194,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2848,"where":"after L05","gpu":140,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2858,"where":"after L05","gpu":238,"web":76,"app":40,"metalHost":239,"draw":92,"drawCompressed":8}
+{"s":2868,"where":"after L05","gpu":241,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2879,"where":"after L05","gpu":238,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2888,"where":"after L05","gpu":251,"web":76,"app":40,"metalHost":173,"draw":92,"drawCompressed":8}
+{"s":2898,"where":"after L05","gpu":251,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2909,"where":"after L05","gpu":238,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2919,"where":"after L05","gpu":251,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2929,"where":"after L05","gpu":234,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2939,"where":"after L05","gpu":251,"web":76,"app":40,"metalHost":219,"draw":92,"drawCompressed":8}
+{"s":2949,"where":"after L05","gpu":208,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2962,"where":"after L05","gpu":222,"web":76,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2969,"where":"after L05","gpu":218,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2979,"where":"after L05","gpu":251,"web":76,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":2989,"where":"after L05","gpu":251,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":2999,"where":"after L05","gpu":219,"web":76,"app":40,"metalHost":180,"draw":92,"drawCompressed":8}
+{"s":3009,"where":"after L05","gpu":222,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3019,"where":"after L05","gpu":222,"web":76,"app":40,"metalHost":171,"draw":92,"drawCompressed":8}
+{"s":3028,"where":"after L05","gpu":229,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3041,"where":"after L05","gpu":251,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3049,"where":"after L05","gpu":140,"web":76,"app":40,"metalHost":209,"draw":92,"drawCompressed":8}
+{"s":3059,"where":"after L05","gpu":222,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3068,"where":"after L05","gpu":235,"web":76,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":3078,"where":"after L05","gpu":222,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3088,"where":"after L05","gpu":219,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3098,"where":"after L05","gpu":251,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3108,"where":"after L05","gpu":194,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3118,"where":"after L05","gpu":200,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3128,"where":"after L05","gpu":166,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3138,"where":"after L05","gpu":235,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3148,"where":"after L05","gpu":228,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3158,"where":"after L05","gpu":201,"web":76,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":3168,"where":"after L05","gpu":175,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3181,"where":"after L05","gpu":238,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3188,"where":"after L05","gpu":234,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3198,"where":"after L05","gpu":238,"web":76,"app":40,"metalHost":180,"draw":92,"drawCompressed":8}
+{"s":3208,"where":"after L05","gpu":185,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3219,"where":"after L05","gpu":162,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3229,"where":"after L05","gpu":193,"web":76,"app":40,"metalHost":180,"draw":92,"drawCompressed":8}
+{"s":3239,"where":"after L05","gpu":140,"web":76,"app":40,"metalHost":201,"draw":92,"drawCompressed":8}
+{"s":3250,"where":"after L05","gpu":222,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3259,"where":"after L05","gpu":222,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3269,"where":"after L05","gpu":187,"web":76,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3279,"where":"after L05","gpu":196,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3289,"where":"after L05","gpu":214,"web":79,"app":40,"metalHost":175,"draw":92,"drawCompressed":8}
+{"s":3299,"where":"after L05","gpu":258,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3309,"where":"after L05","gpu":242,"web":79,"app":40,"metalHost":180,"draw":92,"drawCompressed":8}
+{"s":3319,"where":"after L05","gpu":271,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3329,"where":"after L05","gpu":242,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3341,"where":"after L05","gpu":227,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3349,"where":"after L05","gpu":214,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3359,"where":"after L05","gpu":257,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3369,"where":"after L05","gpu":233,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3379,"where":"after L05","gpu":271,"web":79,"app":40,"metalHost":201,"draw":92,"drawCompressed":8}
+{"s":3388,"where":"after L05","gpu":204,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3399,"where":"after L05","gpu":254,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3409,"where":"after L05","gpu":233,"web":79,"app":40,"metalHost":201,"draw":92,"drawCompressed":8}
+{"s":3418,"where":"after L05","gpu":258,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3428,"where":"after L05","gpu":268,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":3439,"where":"after L05","gpu":214,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3449,"where":"after L05","gpu":259,"web":79,"app":40,"metalHost":180,"draw":92,"drawCompressed":8}
+{"s":3458,"where":"after L05","gpu":256,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3469,"where":"after L05","gpu":259,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3479,"where":"after L05","gpu":260,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3489,"where":"after L05","gpu":252,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3499,"where":"after L05","gpu":196,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3508,"where":"after L05","gpu":214,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3519,"where":"after L05","gpu":242,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":3529,"where":"after L05","gpu":199,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3539,"where":"after L05","gpu":245,"web":79,"app":40,"metalHost":180,"draw":92,"drawCompressed":8}
+{"s":3549,"where":"after L05","gpu":238,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3559,"where":"after L05","gpu":257,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3569,"where":"after L05","gpu":259,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3579,"where":"after L05","gpu":259,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3589,"where":"after L05","gpu":271,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3599,"where":"after L05","gpu":259,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3609,"where":"after L05","gpu":242,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":3619,"where":"after L05","gpu":272,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3630,"where":"after L05","gpu":259,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3639,"where":"after L05","gpu":214,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3649,"where":"after L05","gpu":254,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3659,"where":"after L05","gpu":257,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3669,"where":"after L05","gpu":264,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3679,"where":"after L05","gpu":258,"web":79,"app":40,"metalHost":180,"draw":92,"drawCompressed":8}
+{"s":3689,"where":"after L05","gpu":229,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3701,"where":"after L05","gpu":257,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3709,"where":"after L05","gpu":221,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3719,"where":"after L05","gpu":241,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3729,"where":"after L05","gpu":255,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3739,"where":"after L05","gpu":214,"web":79,"app":40,"metalHost":185,"draw":92,"drawCompressed":8}
+{"s":3749,"where":"after L05","gpu":214,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3759,"where":"after L05","gpu":259,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3770,"where":"after L05","gpu":271,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":3779,"where":"after L05","gpu":242,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3789,"where":"after L05","gpu":213,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":3799,"where":"after L05","gpu":214,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3809,"where":"after L05","gpu":214,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3819,"where":"after L05","gpu":242,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3829,"where":"after L05","gpu":271,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3839,"where":"after L05","gpu":259,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3852,"where":"after L05","gpu":240,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3859,"where":"after L05","gpu":213,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":3871,"where":"after L05","gpu":200,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3879,"where":"after L05","gpu":193,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":3890,"where":"after L05","gpu":194,"web":79,"app":40,"metalHost":234,"draw":92,"drawCompressed":8}
+{"s":3899,"where":"after L05","gpu":241,"web":79,"app":40,"metalHost":201,"draw":92,"drawCompressed":8}
+{"s":3909,"where":"after L05","gpu":200,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3919,"where":"after L05","gpu":202,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3931,"where":"after L05","gpu":236,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3939,"where":"after L05","gpu":201,"web":79,"app":40,"metalHost":205,"draw":92,"drawCompressed":8}
+{"s":3949,"where":"after L05","gpu":224,"web":79,"app":40,"metalHost":239,"draw":92,"drawCompressed":8}
+{"s":3959,"where":"after L05","gpu":240,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3969,"where":"after L05","gpu":222,"web":79,"app":40,"metalHost":221,"draw":92,"drawCompressed":8}
+{"s":3979,"where":"after L05","gpu":239,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3989,"where":"after L05","gpu":141,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":3999,"where":"after L05","gpu":243,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4011,"where":"after L05","gpu":184,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4019,"where":"after L05","gpu":240,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4029,"where":"after L05","gpu":177,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4039,"where":"after L05","gpu":218,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":4049,"where":"after L05","gpu":239,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4059,"where":"after L05","gpu":238,"web":79,"app":40,"metalHost":201,"draw":92,"drawCompressed":8}
+{"s":4069,"where":"after L05","gpu":252,"web":79,"app":40,"metalHost":201,"draw":92,"drawCompressed":8}
+{"s":4079,"where":"after L05","gpu":222,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4089,"where":"after L05","gpu":140,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4099,"where":"after L05","gpu":223,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4109,"where":"after L05","gpu":229,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4119,"where":"after L05","gpu":252,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4129,"where":"after L05","gpu":216,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":4139,"where":"after L05","gpu":239,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4151,"where":"after L05","gpu":222,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4161,"where":"after L05","gpu":252,"web":79,"app":40,"metalHost":201,"draw":92,"drawCompressed":8}
+{"s":4169,"where":"after L05","gpu":194,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4179,"where":"after L05","gpu":252,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4189,"where":"after L05","gpu":239,"web":79,"app":40,"metalHost":178,"draw":92,"drawCompressed":8}
+{"s":4199,"where":"after L05","gpu":222,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4209,"where":"after L05","gpu":176,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4219,"where":"after L05","gpu":235,"web":79,"app":40,"metalHost":161,"draw":92,"drawCompressed":8}
+{"s":4231,"where":"after L05","gpu":239,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4239,"where":"after L05","gpu":236,"web":79,"app":40,"metalHost":180,"draw":92,"drawCompressed":8}
+{"s":4250,"where":"after L05","gpu":194,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4259,"where":"after L05","gpu":232,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4270,"where":"after L05","gpu":218,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4279,"where":"after L05","gpu":194,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4289,"where":"after L05","gpu":191,"web":79,"app":40,"metalHost":180,"draw":92,"drawCompressed":8}
+{"s":4299,"where":"after L05","gpu":222,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4309,"where":"after L05","gpu":176,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4320,"where":"after L05","gpu":222,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4329,"where":"after L05","gpu":194,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4340,"where":"after L05","gpu":238,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4349,"where":"after L05","gpu":194,"web":79,"app":40,"metalHost":202,"draw":92,"drawCompressed":8}
+{"s":4359,"where":"after L05","gpu":254,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4370,"where":"after L05","gpu":176,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4381,"where":"after L05","gpu":216,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4389,"where":"after L05","gpu":240,"web":79,"app":40,"metalHost":181,"draw":92,"drawCompressed":8}
+{"s":4400,"where":"after L05","gpu":140,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4409,"where":"after L05","gpu":240,"web":79,"app":40,"metalHost":181,"draw":92,"drawCompressed":8}
+{"s":4419,"where":"L11 opening","gpu":252,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4429,"where":"L11 opening","gpu":236,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4439,"where":"L11 opening","gpu":194,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4449,"where":"L11 opening","gpu":222,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4459,"where":"L11 opening","gpu":222,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4469,"where":"L11 opening","gpu":194,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4479,"where":"L11 opening","gpu":241,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4489,"where":"L11 opening","gpu":221,"web":79,"app":40,"metalHost":162,"draw":92,"drawCompressed":8}
+{"s":4499,"where":"L11 opening","gpu":219,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}
+{"s":4510,"where":"after L11","gpu":237,"web":79,"app":40,"metalHost":163,"draw":92,"drawCompressed":8}

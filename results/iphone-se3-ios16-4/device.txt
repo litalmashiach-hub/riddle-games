@@ -1,0 +1,8 @@
+device iPhone SE (3rd generation): 78E9721C-A796-4C88-B105-165C0F4AEFF1
+    iPhone SE (3rd generation) (com.apple.CoreSimulator.SimRuntime.iOS-16-4) (78E9721C-A796-4C88-B105-165C0F4AEFF1) (Shutdown) 
+booted in 77 s
+com.example.riddlegames: 9571
+system picture at 20 s
+system picture at 60 s
+system picture at 120 s
+run ended with status 142
