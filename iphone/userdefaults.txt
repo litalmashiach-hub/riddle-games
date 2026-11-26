@@ -1,0 +1,8 @@
+== 07:24:40 UserDefaults of com.example.riddlegames: after play
+(no CapacitorStorage entries)
+== 07:26:06 UserDefaults of com.example.riddlegames: after the start that followed the wipe
+(no CapacitorStorage entries)
+== 07:27:39 UserDefaults of com.example.riddlegames: after reset
+(no CapacitorStorage entries)
+== 07:28:47 UserDefaults of com.example.riddlegames: after the last start
+(no CapacitorStorage entries)

@@ -1,0 +1,100 @@
+{
+ "phase": "check",
+ "name": "4-after-reset-and-wipe",
+ "device": "iphone",
+ "startedAt": "2026-11-26T07:27:43.049Z",
+ "atLaunch": {
+  "href": "capacitor://localhost",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"high\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{}}"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "0 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, not solved yet",
+   "Level 2: Wolf, Goat and Cabbage, locked",
+   "Level 3: Two Jugs, locked",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 0,
+  "at": "2026-11-26T07:28:09.100Z"
+ },
+ "mapShot": "iphone-4-after-reset-and-wipe-01-map.png",
+ "map": {
+  "href": "capacitor://localhost",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"high\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{}}"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "0 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, not solved yet",
+   "Level 2: Wolf, Goat and Cabbage, locked",
+   "Level 3: Two Jugs, locked",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 0,
+  "at": "2026-11-26T07:28:09.100Z"
+ },
+ "about": {
+  "href": "capacitor://localhost#/about",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"high\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{}}"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": null,
+  "firstCards": [],
+  "mapSoundButtonPressed": null,
+  "aboutSwitches": {
+   "sound": "false",
+   "hd": "true"
+  },
+  "progressLine": "No stars yet.",
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 0,
+  "at": "2026-11-26T07:28:13.900Z"
+ },
+ "aboutShot": "iphone-4-after-reset-and-wipe-02-about.png",
+ "lockedCardName": "Level 2: Wolf, Goat and Cabbage, locked",
+ "lockedLevelStaysShut": true,
+ "comparedWith": "3-reset.json",
+ "same": {
+  "storedEntries": true,
+  "starCount": true,
+  "firstCards": true,
+  "soundSwitch": true,
+  "hdSwitch": true,
+  "progressLine": true
+ },
+ "allSame": true,
+ "faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "outsideRequests": []
+ },
+ "endedAt": "2026-11-26T07:28:20.187Z"
+}

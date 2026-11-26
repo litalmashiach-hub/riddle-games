@@ -1,0 +1,100 @@
+== 07:24:38 after play and a quit
+folder: /Users/runner/Library/Developer/CoreSimulator/Devices/F90353E4-F95D-488C-9F4E-B43F74E385F2/data/Containers/Data/Application/13808C83-E5C6-4CF3-86DC-A61D3AB73C5A
+526 ./.com.apple.mobile_container_manager.metadata.plist
+756 ./Library/Saved Application State/com.example.riddlegames.savedState/KnownSceneSessions/data.data
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/MediaKeys/v1/salt
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/salt
+61832 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3-wal
+32768 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3-shm
+4096 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3
+58 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/origin
+490312 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-wal
+32768 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-shm
+4096 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db
+260 ./Library/Preferences/com.example.riddlegames.plist
+5 ./Library/kvstore/standard/lastBinaryVersionName
+3 ./Library/kvstore/standard/lastBinaryVersionCode
+8 ./Library/Caches/com.example.riddlegames/WebKit/NetworkCache/Version 17/salt
+8 ./Library/Caches/com.example.riddlegames/WebKit/CacheStorage/salt
+-- entries in ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3
+app-test:fps|2|3600
+riddle-games:progress:v1|168|7B0022007300740061007200730022003A007B00220077006F006C0066002D00740077006F002D007300680065006500700022003A0033002C00220077006F006C0066002D0067006F00610074002D00630061006200620061006700650022003A0033007D002C0022006700750069006400650073005300650065006E0022003A005B00220077006F006C0066002D00740077006F002D007300680065006500700022005D007D00
+riddle-games:settings:v1|64|7B0022007100750061006C0069007400790022003A002200680069006700680022002C00220073006F0075006E00640022003A00660061006C00730065007D00
+== 07:24:43 after the wipe, before the next start
+folder: /Users/runner/Library/Developer/CoreSimulator/Devices/F90353E4-F95D-488C-9F4E-B43F74E385F2/data/Containers/Data/Application/13808C83-E5C6-4CF3-86DC-A61D3AB73C5A
+526 ./.com.apple.mobile_container_manager.metadata.plist
+756 ./Library/Saved Application State/com.example.riddlegames.savedState/KnownSceneSessions/data.data
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/MediaKeys/v1/salt
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/salt
+58 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/origin
+490312 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-wal
+32768 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-shm
+4096 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db
+260 ./Library/Preferences/com.example.riddlegames.plist
+5 ./Library/kvstore/standard/lastBinaryVersionName
+3 ./Library/kvstore/standard/lastBinaryVersionCode
+8 ./Library/Caches/com.example.riddlegames/WebKit/NetworkCache/Version 17/salt
+8 ./Library/Caches/com.example.riddlegames/WebKit/CacheStorage/salt
+== 07:26:05 after the start that followed the wipe
+folder: /Users/runner/Library/Developer/CoreSimulator/Devices/F90353E4-F95D-488C-9F4E-B43F74E385F2/data/Containers/Data/Application/13808C83-E5C6-4CF3-86DC-A61D3AB73C5A
+526 ./.com.apple.mobile_container_manager.metadata.plist
+756 ./Library/Saved Application State/com.example.riddlegames.savedState/KnownSceneSessions/data.data
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/MediaKeys/v1/salt
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/salt
+20632 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3-wal
+32768 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3-shm
+4096 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3
+58 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/origin
+20632 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-wal
+32768 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-shm
+118784 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db
+260 ./Library/Preferences/com.example.riddlegames.plist
+5 ./Library/kvstore/standard/lastBinaryVersionName
+3 ./Library/kvstore/standard/lastBinaryVersionCode
+8 ./Library/Caches/com.example.riddlegames/WebKit/NetworkCache/Version 17/salt
+8 ./Library/Caches/com.example.riddlegames/WebKit/CacheStorage/salt
+-- entries in ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3
+riddle-games:progress:v1|168|7B0022007300740061007200730022003A007B00220077006F006C0066002D00740077006F002D007300680065006500700022003A0033002C00220077006F006C0066002D0067006F00610074002D00630061006200620061006700650022003A0033007D002C0022006700750069006400650073005300650065006E0022003A005B00220077006F006C0066002D00740077006F002D007300680065006500700022005D007D00
+riddle-games:settings:v1|64|7B0022007100750061006C0069007400790022003A002200680069006700680022002C00220073006F0075006E00640022003A00660061006C00730065007D00
+== 07:27:38 after reset and quit
+folder: /Users/runner/Library/Developer/CoreSimulator/Devices/F90353E4-F95D-488C-9F4E-B43F74E385F2/data/Containers/Data/Application/13808C83-E5C6-4CF3-86DC-A61D3AB73C5A
+526 ./.com.apple.mobile_container_manager.metadata.plist
+756 ./Library/Saved Application State/com.example.riddlegames.savedState/KnownSceneSessions/data.data
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/MediaKeys/v1/salt
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/salt
+8272 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3-wal
+32768 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3-shm
+12288 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3
+58 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/origin
+16512 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-wal
+32768 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-shm
+118784 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db
+186 ./Library/Preferences/com.example.riddlegames.plist
+5 ./Library/kvstore/standard/lastBinaryVersionName
+3 ./Library/kvstore/standard/lastBinaryVersionCode
+8 ./Library/Caches/com.example.riddlegames/WebKit/NetworkCache/Version 17/salt
+8 ./Library/Caches/com.example.riddlegames/WebKit/CacheStorage/salt
+-- entries in ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3
+riddle-games:settings:v1|64|7B0022007100750061006C0069007400790022003A002200680069006700680022002C00220073006F0075006E00640022003A00660061006C00730065007D00
+riddle-games:progress:v1|24|7B0022007300740061007200730022003A007B007D007D00
+== 07:28:46 after the last start
+folder: /Users/runner/Library/Developer/CoreSimulator/Devices/F90353E4-F95D-488C-9F4E-B43F74E385F2/data/Containers/Data/Application/13808C83-E5C6-4CF3-86DC-A61D3AB73C5A
+526 ./.com.apple.mobile_container_manager.metadata.plist
+756 ./Library/Saved Application State/com.example.riddlegames.savedState/KnownSceneSessions/data.data
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/MediaKeys/v1/salt
+8 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/salt
+20632 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3-wal
+32768 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3-shm
+4096 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3
+58 ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/origin
+16512 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-wal
+32768 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db-shm
+118784 ./Library/WebKit/com.example.riddlegames/WebsiteData/ResourceLoadStatistics/observations.db
+186 ./Library/Preferences/com.example.riddlegames.plist
+5 ./Library/kvstore/standard/lastBinaryVersionName
+3 ./Library/kvstore/standard/lastBinaryVersionCode
+8 ./Library/Caches/com.example.riddlegames/WebKit/NetworkCache/Version 17/salt
+8 ./Library/Caches/com.example.riddlegames/WebKit/CacheStorage/salt
+-- entries in ./Library/WebKit/com.example.riddlegames/WebsiteData/Default/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/0Z7pULZvld9LaAmOF5d9NuiYkvqHsaM2oVJ_M0NAtv4/LocalStorage/localstorage.sqlite3
+riddle-games:progress:v1|24|7B0022007300740061007200730022003A007B007D007D00
+riddle-games:settings:v1|64|7B0022007100750061006C0069007400790022003A002200680069006700680022002C00220073006F0075006E00640022003A00660061006C00730065007D00

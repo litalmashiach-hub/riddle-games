@@ -1,0 +1,141 @@
+{
+ "phase": "reset",
+ "name": "3-reset",
+ "device": "iphone",
+ "startedAt": "2026-11-26T07:26:11.478Z",
+ "atLaunch": {
+  "href": "capacitor://localhost",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"high\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "6 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, 3 of 3 stars",
+   "Level 2: Wolf, Goat and Cabbage, 3 of 3 stars",
+   "Level 3: Two Jugs, not solved yet",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 0,
+  "at": "2026-11-26T07:26:47.006Z"
+ },
+ "mapShot": "iphone-3-reset-01-map.png",
+ "map": {
+  "href": "capacitor://localhost",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"high\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "6 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, 3 of 3 stars",
+   "Level 2: Wolf, Goat and Cabbage, 3 of 3 stars",
+   "Level 3: Two Jugs, not solved yet",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 0,
+  "at": "2026-11-26T07:26:47.006Z"
+ },
+ "about": {
+  "href": "capacitor://localhost#/about",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"high\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": null,
+  "firstCards": [],
+  "mapSoundButtonPressed": null,
+  "aboutSwitches": {
+   "sound": "false",
+   "hd": "true"
+  },
+  "progressLine": "6 stars on 2 riddles, saved on this device.",
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 0,
+  "at": "2026-11-26T07:26:54.164Z"
+ },
+ "aboutShot": "iphone-3-reset-02-about.png",
+ "confirmText": "Erase your stars?All 6 of your stars will be gone, and the riddles after the first lock again. Your sound and graphics choices stay. This can't be undone.Keep my starsErase stars",
+ "confirmShot": "iphone-3-reset-03-reset-confirm.png",
+ "erasedAt": "2026-11-26T07:26:58.171Z",
+ "aboutAfterReset": {
+  "href": "capacitor://localhost#/about",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"high\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{}}"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": null,
+  "firstCards": [],
+  "mapSoundButtonPressed": null,
+  "aboutSwitches": {
+   "sound": "false",
+   "hd": "true"
+  },
+  "progressLine": "Progress reset. Every star is gone.",
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 0,
+  "at": "2026-11-26T07:26:59.718Z"
+ },
+ "aboutAfterResetShot": "iphone-3-reset-04-about-after-reset.png",
+ "mapAfterReset": {
+  "href": "capacitor://localhost#/",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"high\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{}}"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "0 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, not solved yet",
+   "Level 2: Wolf, Goat and Cabbage, locked",
+   "Level 3: Two Jugs, locked",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 0,
+  "at": "2026-11-26T07:27:05.053Z"
+ },
+ "mapAfterResetShot": "iphone-3-reset-05-map-after-reset.png",
+ "faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "outsideRequests": []
+ },
+ "endedAt": "2026-11-26T07:27:07.535Z"
+}
