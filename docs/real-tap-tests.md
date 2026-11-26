@@ -104,15 +104,13 @@ and a fault at a listed step of the listed kind is an expected failure.
 
 A listed level stops at its first fault, so the steps after it are not proven by this run.
 
-Listed today (the full account of the first run is in the project's report "real-taps", and of this
-update in "real-taps/fault-list-update"). In each of these the same touch is lost in some runs and not
-in others, so a run that gets past the first listed step may stop at a later one; every step listed
-was seen on main in a run of the whole level, at one size or another, and each entry holds for all three sizes:
+No level is listed today: every level is won by taps at every size. The accounts are in the project's
+reports "real-taps", "real-taps/fault-list-update" and "log-ring-taps/after-the-fix".
 
-- Level 18, Log Jam: the tap on the picked log's ring is lost to a log in front of it (move 3,
-  17 or 19).
-- Level 27, Timber Tangle: the tap on the ring is lost to another log (move 2) or to the picked log
-  itself (move 9).
+Levels 18 and 27, Log Jam and Timber Tangle, are no longer listed. A tap on the picked log's ring used
+to be lost to a log in front of it, or to the picked log itself (level 18 at move 3, 17 or 19, level 27
+at move 2 or 9). Since the ring fix of pull request #64 a tap on a ring goes to the ring, and both levels
+win by taps at every size: 18 runs of 18 on main after that fix, three of each level at each size.
 
 Level 7's player taps each bird on its *visible middle* (`tapVisible` in `harness.ts`): the middle of
 the part of the bird that the screen shows, found by casting a ray through each point of the bird's box

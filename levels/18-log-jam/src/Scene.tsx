@@ -4,7 +4,7 @@ import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import { Burst, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
 import { HintRing, toon } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 import { pond } from './audio';
 import { Dottie, Duckling, type DuckMood } from './Duck';
@@ -24,6 +24,10 @@ const PHASES: [Phase, number][] = [
   ['splash', 1300],
   ['after', 60000],
 ];
+/** Dottie's hops along the logs share this much of the 'hop' beat, each after a short crouch. */
+const HOPS_MS = 1400;
+const hopMs = (hops: number) => HOPS_MS / Math.max(1, hops);
+const HOP_CROUCH = 0.15;
 
 /** The grid cell a piece's leading end moves into when it slides to `to`. */
 function leadCell(pc: Piece, from: number, to: number): [number, number] {
@@ -63,7 +67,14 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const lost = status.kind === 'lost';
   const over = won || lost;
   const locked = busy || over;
-  const phase = usePhases(lost && !busy, PHASES);
+  // The fail scene lives only while the loss stands. An undo or a restart ends it in the very draw that takes
+  // the loss back, not one draw later when the timed phase has caught up, and with it the sounds still to come.
+  const failing = lost && !busy;
+  const timedPhase = usePhases(failing, PHASES);
+  const phase = failing ? timedPhase : null;
+  // What the splash asks at the moment it is due: does the loss still stand? Set as the scene is drawn.
+  const stillFailing = useRef(failing);
+  stillFailing.current = failing;
 
   useEffect(() => {
     if (!won) return;
@@ -79,8 +90,11 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [won]);
 
-  // The fail beats: sounds and the screen shake.
-  useEffect(() => {
+  // The fail beats: sounds and the screen shake. (The boing of each hop comes from FailDuck, with the hop.)
+  // A layout effect, so that an undo, a restart or leaving the level takes the splash back in the same step
+  // that takes the fail scene away. A plain effect's cleanup waits for the next drawn frame, and on a slow
+  // device a sound that falls due during that frame would still play.
+  useLayoutEffect(() => {
     if (phase === 'huff') {
       pond.quack(0, 0.8);
       pond.quack(0.18, 0.75);
@@ -88,6 +102,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     } else if (phase === 'slip') sfx.squeak();
     else if (phase === 'splash') {
       const t = setTimeout(() => {
+        if (!stillFailing.current) return;
         pond.bigSplash();
         setSplashBurst((b) => b + 1);
         setShake((s) => s + 1);
@@ -560,12 +575,16 @@ function DucklingActor({ seed, home, party, won, giggle }: { seed: number; home:
 function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Vec3[]; perch: Vec3; splash: Vec3 } }) {
   const ref = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
+  const [hopsBegun, setHopsBegun] = useState(0);
   const segs = useMemo<PathSegment[]>(() => {
     if (phase === 'huff') return [{ to: plan.start, durationMs: 10 }];
     if (phase === 'hop') {
-      const d = 1400 / Math.max(1, plan.hops.length);
+      // Each hop starts in a drawn frame, and its boing goes with it: one a hop, one at a time, however slow the
+      // device. The frame does not play it. It counts the hop (below), and React plays the boing with that count.
+      const d = hopMs(plan.hops.length);
+      const boing = () => setHopsBegun((n) => n + 1);
       return plan.hops.length
-        ? plan.hops.map((h) => ({ to: h, durationMs: d * 0.85, delayMs: d * 0.15, height: 0.55, onStart: sfx.boing }))
+        ? plan.hops.map((h) => ({ to: h, durationMs: d * (1 - HOP_CROUCH), delayMs: d * HOP_CROUCH, height: 0.55, onStart: boing }))
         : [{ to: plan.start, durationMs: 10 }];
     }
     if (phase === 'slip') return [{ to: [plan.perch[0] + 0.12, plan.perch[1] + 0.1, plan.perch[2]], durationMs: 600, height: 0.15 }];
@@ -573,6 +592,13 @@ function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Ve
     return [{ to: [plan.splash[0], -0.13, plan.splash[2]], durationMs: 300 }];
   }, [phase, plan]);
   usePath(ref, segs, phase, { face: false });
+  // The boing of a hop that has begun. It goes through React's own queue, behind any redraw of the scene that is
+  // already waiting there. So when the player has taken the loss back, this duck is gone before its boing would
+  // play, even if a frame was drawn in between and began a hop: no boing follows an undo or a restart. A timer
+  // or the frame itself would not know of the undo until the scene's next redraw.
+  useLayoutEffect(() => {
+    if (hopsBegun > 0) sfx.boing();
+  }, [hopsBegun]);
 
   useFrame(({ clock }) => {
     const s = spin.current;
