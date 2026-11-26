@@ -1,0 +1,162 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj -scheme SidewaysTest -destination "platform=iOS Simulator,id=B93AC885-30EF-40D3-911E-AFBFE471286C" -destination-timeout 180 -derivedDataPath /Users/runner/work/riddle-games/riddle-games/build/sidewaystest -parallel-testing-enabled NO "-only-testing:SidewaysUITests/SidewaysTests/testTurnOnMap"
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+2026-11-26 07:45:16.368920+0000 SidewaysUITests-Runner[9680:33364] [Default] Running tests...
+2026-11-26 07:45:16.733994+0000 SidewaysUITests-Runner[9680:33364] [UIKit App Config] Update the Info.plist: Launch screens will soon be required.
+objc[9680]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x107114310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x106b5c398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-11-26 07:45:34.975.
+Test Suite 'SidewaysUITests.xctest' started at 2026-11-26 07:45:34.976.
+Test Suite 'SidewaysTests' started at 2026-11-26 07:45:34.976.
+Test Case '-[SidewaysUITests.SidewaysTests testTurnOnMap]' started.
+    t =     0.00s Start Test at 2026-11-26 07:45:34.978
+    t =     1.95s Set Up
+    t =     1.95s Setting device orientation to Portrait
+    t =     2.01s     Device orientation changed to Portrait
+    t =     2.07s     Wait for com.apple.DocumentManager.DockFolderViewService to idle
+    t =     2.17s     Wait for com.apple.springboard to idle
+    t =     6.55s Getting device orientation
+    t =     6.57s Checking existence of `Window (First Match)`
+    t =     7.58s Checking existence of `Window (First Match)` (retry 1)
+    t =     8.59s Checking existence of `Window (First Match)` (retry 2)
+    t =     8.59s Checking existence of `WebView (First Match)`
+    t =     9.65s Checking existence of `WebView (First Match)` (retry 1)
+    t =    10.66s Checking existence of `WebView (First Match)` (retry 2)
+SW turned to upright; device=upright appWindow=none appState=1
+    t =    10.66s Open com.example.riddlegames
+    t =    10.66s     Launch com.example.riddlegames
+    t =    14.63s         Setting up automation session
+    t =    16.97s         Wait for com.example.riddlegames to idle
+    t =    20.72s Added attachment named 'opening-device-upright'
+    t =    20.87s Getting device orientation
+    t =    20.87s Checking existence of `Window (First Match)`
+    t =    20.93s Find the Window (First Match)
+    t =    20.96s Checking existence of `WebView (First Match)`
+    t =    21.05s Find the WebView (First Match)
+SW picture 1-testTurnOnMap-01-opening-device-upright.png size=(820.0, 1180.0) device=upright appWindow=(0.0, 305.08474576271186, 820.0, 569.8305084745764) webView=(0.0, 305.08474576271186, 820.0, 569.8305084745764) appState=4
+    t =    21.08s Waiting 90.0s for Button (First Match) to exist
+    t =    22.10s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    22.10s         Checking existence of `Button (First Match)`
+    t =    22.22s         Capturing element debug description
+    t =    23.09s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    23.09s         Checking existence of `Button (First Match)`
+    t =    23.12s         Capturing element debug description
+    t =    24.08s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    24.08s         Checking existence of `Button (First Match)`
+    t =    24.10s         Capturing element debug description
+    t =    25.15s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    25.16s         Checking existence of `Button (First Match)`
+    t =    25.23s         Capturing element debug description
+    t =    26.08s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    26.08s         Checking existence of `Button (First Match)`
+    t =    26.12s         Capturing element debug description
+    t =    27.09s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    27.09s         Checking existence of `Button (First Match)`
+    t =    27.27s         Capturing element debug description
+    t =    28.15s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    28.15s         Checking existence of `Button (First Match)`
+    t =    28.53s         Capturing element debug description
+    t =    29.13s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    29.13s         Checking existence of `Button (First Match)`
+SW level map shown=true
+    t =    34.15s Added attachment named 'map-device-upright'
+    t =    34.15s Getting device orientation
+    t =    34.16s Checking existence of `Window (First Match)`
+    t =    34.18s Find the Window (First Match)
+    t =    34.33s Checking existence of `WebView (First Match)`
+    t =    34.37s Find the WebView (First Match)
+SW picture 1-testTurnOnMap-02-map-device-upright.png size=(820.0, 1180.0) device=upright appWindow=(0.0, 305.08474576271186, 820.0, 569.8305084745764) webView=(0.0, 305.08474576271186, 820.0, 569.8305084745764) appState=4
+    t =    34.55s Setting device orientation to Landscape Left
+    t =    35.06s     Device orientation changed to Landscape Left
+    t =    35.57s     Interface orientation changed to Landscape Right
+    t =    35.57s     Wait for com.example.riddlegames to idle
+    t =    35.91s     Wait for com.apple.springboard to idle
+    t =    40.32s Getting device orientation
+    t =    40.35s Checking existence of `Window (First Match)`
+    t =    40.37s Find the Window (First Match)
+    t =    40.39s Checking existence of `WebView (First Match)`
+    t =    40.42s Find the WebView (First Match)
+SW turned to sideways-left; device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    41.66s Added attachment named 'map-device-sideways-left'
+    t =    41.67s Getting device orientation
+    t =    41.68s Checking existence of `Window (First Match)`
+    t =    41.69s Find the Window (First Match)
+    t =    41.72s Checking existence of `WebView (First Match)`
+    t =    41.87s Find the WebView (First Match)
+SW picture 1-testTurnOnMap-03-map-device-sideways-left.png size=(1180.0, 820.0) device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    41.95s Setting device orientation to Portrait
+    t =    42.18s     Device orientation changed to Portrait
+    t =    42.40s     Interface orientation changed to Portrait
+    t =    42.41s     Wait for com.example.riddlegames to idle
+    t =    42.41s     Wait for com.apple.springboard to idle
+    t =    47.27s Getting device orientation
+    t =    47.27s Checking existence of `Window (First Match)`
+    t =    47.29s Find the Window (First Match)
+    t =    47.31s Checking existence of `WebView (First Match)`
+    t =    47.32s Find the WebView (First Match)
+SW turned to upright; device=upright appWindow=(0.0, 305.08474576271186, 820.0, 569.8305084745764) webView=(0.0, 305.08474576271186, 820.0, 569.8305084745764) appState=4
+    t =    47.78s Added attachment named 'map-device-upright-again'
+    t =    47.79s Getting device orientation
+    t =    47.79s Checking existence of `Window (First Match)`
+    t =    47.81s Find the Window (First Match)
+    t =    47.84s Checking existence of `WebView (First Match)`
+    t =    47.86s Find the WebView (First Match)
+SW picture 1-testTurnOnMap-04-map-device-upright-again.png size=(820.0, 1180.0) device=upright appWindow=(0.0, 305.08474576271186, 820.0, 569.8305084745764) webView=(0.0, 305.08474576271186, 820.0, 569.8305084745764) appState=4
+    t =    47.92s Setting device orientation to Portrait Upside Down
+    t =    47.93s     Device orientation changed to Portrait Upside Down
+    t =    48.17s     Interface orientation changed to Portrait Upside Down
+    t =    48.18s     Wait for com.example.riddlegames to idle
+    t =    48.18s     Wait for com.apple.springboard to idle
+    t =    53.88s Getting device orientation
+    t =    53.89s Checking existence of `Window (First Match)`
+    t =    53.91s Find the Window (First Match)
+    t =    53.94s Checking existence of `WebView (First Match)`
+    t =    53.96s Find the WebView (First Match)
+SW turned to upside-down; device=upside-down appWindow=(0.0, 305.0847457627119, 820.0, 569.8305084745763) webView=(0.0, 305.0847457627119, 820.0, 569.8305084745763) appState=4
+    t =    54.58s Added attachment named 'map-device-upside-down'
+    t =    54.58s Getting device orientation
+    t =    54.59s Checking existence of `Window (First Match)`
+    t =    54.60s Find the Window (First Match)
+    t =    54.66s Checking existence of `WebView (First Match)`
+    t =    54.68s Find the WebView (First Match)
+SW picture 1-testTurnOnMap-05-map-device-upside-down.png size=(820.0, 1180.0) device=upside-down appWindow=(0.0, 305.0847457627119, 820.0, 569.8305084745763) webView=(0.0, 305.0847457627119, 820.0, 569.8305084745763) appState=4
+    t =    54.72s Setting device orientation to Landscape Right
+    t =    54.74s     Device orientation changed to Landscape Right
+    t =    55.29s     Wait for com.example.riddlegames to idle
+    t =    55.38s         Interface orientation changed to Landscape Left
+    t =    55.38s     Wait for com.apple.springboard to idle
+    t =    60.10s Getting device orientation
+    t =    60.11s Checking existence of `Window (First Match)`
+    t =    60.12s Find the Window (First Match)
+    t =    60.15s Checking existence of `WebView (First Match)`
+    t =    60.16s Find the WebView (First Match)
+SW turned to sideways-right; device=sideways-right appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    60.68s Added attachment named 'map-device-sideways-right'
+    t =    60.69s Getting device orientation
+    t =    60.70s Checking existence of `Window (First Match)`
+    t =    60.71s Find the Window (First Match)
+    t =    60.74s Checking existence of `WebView (First Match)`
+    t =    60.81s Find the WebView (First Match)
+SW picture 1-testTurnOnMap-06-map-device-sideways-right.png size=(1180.0, 820.0) device=sideways-right appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    60.86s Terminate com.example.riddlegames:10691
+    t =    64.09s Tear Down
+Test Case '-[SidewaysUITests.SidewaysTests testTurnOnMap]' passed (67.380 seconds).
+Test Suite 'SidewaysTests' passed at 2026-11-26 07:46:42.360.
+	 Executed 1 test, with 0 failures (0 unexpected) in 67.380 (67.384) seconds
+Test Suite 'SidewaysUITests.xctest' passed at 2026-11-26 07:46:42.361.
+	 Executed 1 test, with 0 failures (0 unexpected) in 67.380 (67.386) seconds
+Test Suite 'Selected tests' passed at 2026-11-26 07:46:42.362.
+	 Executed 1 test, with 0 failures (0 unexpected) in 67.380 (67.387) seconds
+2026-11-26 07:46:45.635 xcodebuild[6620:24726] [MT] IDETestOperationsObserverDebug: 187.488 elapsed -- Testing started completed.
+2026-11-26 07:46:45.642 xcodebuild[6620:24726] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-26 07:46:45.642 xcodebuild[6620:24726] [MT] IDETestOperationsObserverDebug: 187.488 sec, +187.488 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/build/sidewaystest/Logs/Test/Test-SidewaysTest-2026.11.26_07-43-24-+0000.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started

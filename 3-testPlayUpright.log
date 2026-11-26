@@ -1,0 +1,10 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj -scheme SidewaysTest -destination "platform=iOS Simulator,id=B93AC885-30EF-40D3-911E-AFBFE471286C" -destination-timeout 180 -derivedDataPath /Users/runner/work/riddle-games/riddle-games/build/sidewaystest -parallel-testing-enabled NO "-only-testing:SidewaysUITests/SidewaysTests/testPlayUpright"
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+2026-11-26 07:57:56.886802+0000 SidewaysUITests-Runner[16219:57596] [Default] Running tests...
+2026-11-26 07:57:56.979269+0000 SidewaysUITests-Runner[16219:57596] [UIKit App Config] Update the Info.plist: Launch screens will soon be required.
+2026-11-26 07:57:56.982162+0000 SidewaysUITests-Runner[16219:57843] [General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+2026-11-26 07:57:57.028053+0000 SidewaysUITests-Runner[16219:57843] [General] Failed to send CA Event for app launch measurements for ca_event_type: 1 event_name: com.apple.app_launch_measurement.ExtendedLaunchMetrics
