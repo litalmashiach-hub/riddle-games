@@ -1,0 +1,111 @@
+{"s":39,"where":"start","metalHost":77,"draw":90,"drawCompressed":21}
+{"s":41,"where":"start","metalHost":69,"draw":89,"drawCompressed":22}
+{"s":51,"where":"start","metalHost":66,"draw":89,"drawCompressed":23}
+{"s":62,"where":"start","metalHost":66,"draw":89,"drawCompressed":23}
+{"s":71,"where":"start","metalHost":66,"draw":89,"drawCompressed":25}
+{"s":81,"where":"start","metalHost":66,"draw":89,"drawCompressed":25}
+{"s":91,"where":"start","metalHost":66,"draw":89,"drawCompressed":25}
+{"s":101,"where":"start","metalHost":66,"draw":89,"drawCompressed":25}
+{"s":111,"where":"start","metalHost":66,"draw":87,"drawCompressed":23}
+{"s":121,"where":"start","metalHost":66,"draw":87,"drawCompressed":23}
+{"s":131,"where":"start","metalHost":66,"draw":87,"drawCompressed":23}
+{"s":147,"where":"start","metalHost":66,"draw":87,"drawCompressed":23}
+{"s":151,"where":"start","metalHost":66,"draw":87,"drawCompressed":23}
+{"s":161,"where":"start","metalHost":66,"draw":87,"drawCompressed":23}
+{"s":172,"where":"start","metalHost":60,"draw":87,"drawCompressed":23}
+{"s":181,"where":"start","metalHost":101,"draw":123,"drawCompressed":23}
+{"s":191,"where":"start","metalHost":98,"draw":123,"drawCompressed":24}
+{"s":201,"where":"start","metalHost":98,"draw":112,"drawCompressed":24}
+{"s":211,"where":"start","metalHost":98,"draw":100,"drawCompressed":25}
+{"s":221,"where":"start","metalHost":68,"draw":85,"drawCompressed":23}
+{"s":232,"where":"start","gpu":290,"web":83,"app":39,"metalHost":81,"draw":206,"drawCompressed":22}
+{"s":241,"where":"start","gpu":491,"web":77,"app":38,"metalHost":242,"draw":183,"drawCompressed":23}
+{"s":252,"where":"start","gpu":556,"web":84,"app":39,"metalHost":242,"draw":183,"drawCompressed":23}
+{"s":261,"where":"start","gpu":325,"web":136,"app":39,"metalHost":74,"draw":217,"drawCompressed":23}
+{"s":272,"where":"start","gpu":506,"web":127,"app":39,"metalHost":258,"draw":200,"drawCompressed":23}
+{"s":281,"where":"L01 opening","gpu":297,"web":158,"app":39,"metalHost":105,"draw":270,"drawCompressed":23}
+{"s":292,"where":"L01 opening","gpu":560,"web":161,"app":39,"metalHost":259,"draw":200,"drawCompressed":23}
+{"s":301,"where":"L01 opening","gpu":560,"web":163,"app":39,"metalHost":258,"draw":200,"drawCompressed":23}
+{"s":312,"where":"L01 opening","gpu":446,"web":161,"app":39,"metalHost":395,"draw":200,"drawCompressed":23}
+{"s":322,"where":"L01 opening","gpu":493,"web":161,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":331,"where":"L01 opening","gpu":496,"web":157,"app":39,"metalHost":391,"draw":200,"drawCompressed":23}
+{"s":341,"where":"L01 opening","gpu":532,"web":154,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":353,"where":"L01 opening","gpu":561,"web":154,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":362,"where":"L01 opening","gpu":431,"web":154,"app":39,"metalHost":299,"draw":200,"drawCompressed":23}
+{"s":372,"where":"L01 opening","gpu":531,"web":156,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":381,"where":"L01 opening","gpu":494,"web":158,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":391,"where":"L01 opening","gpu":368,"web":159,"app":39,"metalHost":299,"draw":200,"drawCompressed":23}
+{"s":401,"where":"L01 opening","gpu":561,"web":163,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":411,"where":"L01 opening","gpu":429,"web":166,"app":39,"metalHost":324,"draw":200,"drawCompressed":23}
+{"s":421,"where":"L01 opening","gpu":431,"web":132,"app":39,"metalHost":299,"draw":200,"drawCompressed":23}
+{"s":431,"where":"L01 opening","gpu":493,"web":132,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":441,"where":"L01 opening","gpu":494,"web":133,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":451,"where":"L01 opening","gpu":431,"web":135,"app":39,"metalHost":346,"draw":200,"drawCompressed":23}
+{"s":463,"where":"L01 opening","gpu":462,"web":139,"app":39,"metalHost":257,"draw":200,"drawCompressed":22}
+{"s":472,"where":"L01 opening","gpu":545,"web":141,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":482,"where":"L01 opening","gpu":496,"web":143,"app":39,"metalHost":347,"draw":200,"drawCompressed":23}
+{"s":492,"where":"L01 opening","gpu":526,"web":136,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":501,"where":"L01 opening","gpu":468,"web":137,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":512,"where":"L01 opening","gpu":515,"web":137,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":521,"where":"L01 opening","gpu":499,"web":138,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":532,"where":"L01 opening","gpu":535,"web":138,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":542,"where":"L01 opening","gpu":285,"web":139,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":552,"where":"L01 opening","gpu":469,"web":140,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":562,"where":"L01 opening","gpu":472,"web":140,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":572,"where":"L01 opening","gpu":544,"web":141,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":582,"where":"L01 opening","gpu":506,"web":141,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":592,"where":"L01 opening","gpu":535,"web":142,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":601,"where":"L01 opening","gpu":406,"web":143,"app":39,"metalHost":306,"draw":200,"drawCompressed":23}
+{"s":612,"where":"L01 opening","gpu":495,"web":143,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":622,"where":"L01 opening","gpu":424,"web":144,"app":39,"metalHost":391,"draw":200,"drawCompressed":23}
+{"s":632,"where":"L01 opening","gpu":521,"web":144,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":642,"where":"L01 opening","gpu":502,"web":145,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":652,"where":"L01 opening","gpu":325,"web":145,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":662,"where":"L01 opening","gpu":487,"web":146,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":672,"where":"L01 opening","gpu":505,"web":147,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":682,"where":"L01 opening","gpu":285,"web":147,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":692,"where":"L01 opening","gpu":474,"web":148,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":702,"where":"L01 opening","gpu":386,"web":148,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":712,"where":"L01 opening","gpu":534,"web":149,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":722,"where":"L01 opening","gpu":406,"web":149,"app":39,"metalHost":299,"draw":200,"drawCompressed":23}
+{"s":732,"where":"L01 opening","gpu":508,"web":150,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":742,"where":"L01 opening","gpu":478,"web":150,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":752,"where":"L01 opening","gpu":536,"web":151,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":762,"where":"L01 opening","gpu":561,"web":152,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":772,"where":"L01 opening","gpu":523,"web":153,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":782,"where":"L01 opening","gpu":478,"web":154,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":792,"where":"L01 opening","web":164,"gpu":364,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":802,"where":"L01 opening","web":165,"gpu":521,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":812,"where":"L01 opening","gpu":458,"web":155,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":822,"where":"L01 opening","gpu":523,"web":155,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":832,"where":"L01 opening","web":168,"gpu":459,"app":39,"metalHost":289,"draw":189,"drawCompressed":23}
+{"s":842,"where":"L01 opening","web":194,"gpu":561,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":853,"where":"L01 opening","web":170,"gpu":448,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":863,"where":"L01 opening","web":171,"gpu":403,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":872,"where":"L01 opening","gpu":494,"web":158,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":882,"where":"L01 opening","gpu":525,"web":158,"app":39,"metalHost":257,"draw":200,"drawCompressed":23}
+{"s":892,"where":"L01 opening","gpu":521,"web":150,"app":39,"metalHost":299,"draw":200,"drawCompressed":23}
+{"s":903,"where":"L01 opening","gpu":109,"web":84,"app":40,"metalHost":107,"draw":199,"drawCompressed":22}
+{"s":912,"where":"after L01","gpu":110,"web":82,"app":41,"metalHost":284,"draw":258,"drawCompressed":22}
+{"s":923,"where":"L02 opening","gpu":30,"web":126,"app":40,"metalHost":268,"draw":286,"drawCompressed":23}
+{"s":932,"where":"L02 playing","gpu":76,"web":160,"app":40,"metalHost":155,"draw":248,"drawCompressed":22}
+{"s":942,"where":"L02 playing","gpu":77,"web":154,"app":40,"metalHost":158,"draw":178,"drawCompressed":22}
+{"s":952,"where":"L02 playing","gpu":77,"web":157,"app":40,"metalHost":144,"draw":178,"drawCompressed":22}
+{"s":962,"where":"L02 won, win card showing","gpu":77,"web":164,"app":40,"metalHost":133,"draw":207,"drawCompressed":22}
+{"s":972,"where":"after L02","gpu":534,"web":84,"app":41,"metalHost":264,"draw":200,"drawCompressed":23}
+{"s":982,"where":"L05 opening","gpu":50,"web":155,"app":40,"metalHost":138,"draw":194,"drawCompressed":22}
+{"s":992,"where":"L05 playing","gpu":59,"web":156,"app":40,"metalHost":156,"draw":199,"drawCompressed":22}
+{"s":1002,"where":"L05 playing","gpu":60,"web":154,"app":40,"metalHost":161,"draw":208,"drawCompressed":22}
+{"s":1012,"where":"L05 playing","gpu":61,"web":152,"app":40,"metalHost":163,"draw":200,"drawCompressed":22}
+{"s":1022,"where":"after L05","metalHost":99,"draw":167,"drawCompressed":21}
+{"s":1032,"where":"L11 opening","gpu":329,"web":117,"app":41,"metalHost":113,"draw":269,"drawCompressed":22}
+{"s":1042,"where":"L11 opening","gpu":74,"web":157,"app":40,"metalHost":143,"draw":227,"drawCompressed":22}
+{"s":1052,"where":"L11 playing","gpu":83,"web":162,"app":40,"metalHost":154,"draw":178,"drawCompressed":22}
+{"s":1062,"where":"L11 playing","gpu":84,"web":168,"app":40,"metalHost":152,"draw":179,"drawCompressed":22}
+{"s":1072,"where":"L11 playing","gpu":84,"web":168,"app":40,"metalHost":158,"draw":182,"drawCompressed":22}
+{"s":1082,"where":"L11 playing","gpu":84,"web":165,"app":40,"metalHost":153,"draw":181,"drawCompressed":22}
+{"s":1092,"where":"L11 playing","gpu":84,"web":166,"app":40,"metalHost":154,"draw":180,"drawCompressed":22}
+{"s":1102,"where":"L11 playing","gpu":84,"web":166,"app":40,"metalHost":151,"draw":181,"drawCompressed":22}
+{"s":1112,"where":"L11 playing","gpu":84,"web":168,"app":40,"metalHost":152,"draw":180,"drawCompressed":22}
+{"s":1122,"where":"L11 playing","gpu":85,"web":171,"app":40,"metalHost":148,"draw":169,"drawCompressed":22}
+{"s":1132,"where":"L11 won, win card showing","gpu":85,"web":174,"app":40,"metalHost":172,"draw":192,"drawCompressed":22}

@@ -1,0 +1,230 @@
+{
+ "level": 2,
+ "id": "wolf-goat-cabbage",
+ "title": "Wolf, Goat and Cabbage",
+ "device": "iphone14-ios16-4-sd",
+ "size": "844x390",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 7,
+ "touches": 12,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 7.192,
+  "rulesCard": 2.275,
+  "drawn": 7.192,
+  "play": 27.917,
+  "total": 46.973
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone14-ios16-4-sd-L02-loading-mark.png",
+  "iphone14-ios16-4-sd-L02-rules-card.png",
+  "iphone14-ios16-4-sd-L02-in-play.png",
+  "iphone14-ios16-4-sd-L02-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the goat",
+   "kind": "tap",
+   "at": {
+    "x": 223.49754271010153,
+    "y": 199.2983490727402
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ad493de9-c926-4ad0-8ee0-47bd21e82c51",
+    "world": [
+     -3.8,
+     0.35,
+     1.4
+    ],
+    "distance": 9.847120924179142
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 422.078125,
+    "y": 277.29998779296875
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 421.9635314941406,
+    "y": 277.29998779296875
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 247.4612486923555,
+    "y": 149.704775318297
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "d9302bbe-6e95-425d-89a8-1033375d97b5",
+    "world": [
+     -4.3,
+     0.3500000000000001,
+     -0.7
+    ],
+    "distance": 11.610596873866761
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 421.99476623535156,
+    "y": 277.29998779296875
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "the goat",
+   "kind": "tap",
+   "at": {
+    "x": 615.8741943503305,
+    "y": 196.19929537672274
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ad493de9-c926-4ad0-8ee0-47bd21e82c51",
+    "world": [
+     3.8,
+     0.3500000000000001,
+     1.4
+    ],
+    "distance": 9.266250958039823
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 422.01820373535156,
+    "y": 277.29998779296875
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "the cabbage",
+   "kind": "tap",
+   "at": {
+    "x": 173.70489465361527,
+    "y": 181.49935627407112
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "da59a949-c2ab-4c24-b097-b9e5a1f7c2a0",
+    "world": [
+     -5.5,
+     0.3607496398979386,
+     0.35
+    ],
+    "distance": 11.413552297216192
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 422.05992126464844,
+    "y": 277.29998779296875
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 421.9635314941406,
+    "y": 277.29998779296875
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 7,
+   "what": "the goat",
+   "kind": "tap",
+   "at": {
+    "x": 220.55145873242245,
+    "y": 202.23219543919933
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ad493de9-c926-4ad0-8ee0-47bd21e82c51",
+    "world": [
+     -3.8,
+     0.3500000000000001,
+     1.4
+    ],
+    "distance": 9.781720732222789
+   }
+  },
+  {
+   "step": 7,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 422.078125,
+    "y": 277.29998779296875
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 6.4,
+ "probe": {
+  "audioContexts": 1,
+  "audioStates": [
+   "running"
+  ],
+  "soundStarts": 15,
+  "decoded": 0,
+  "decodeErrors": 0,
+  "startErrors": [],
+  "canvas": [
+   "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+  ],
+  "liveAudioStates": [
+   "running"
+  ],
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "cssLayers": true,
+  "webgl2": true
+ }
+}

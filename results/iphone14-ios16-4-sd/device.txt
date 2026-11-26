@@ -1,0 +1,8 @@
+device iPhone 14: C4B4A6CC-5FF3-4F4A-AC6A-7E7A5672E66E
+    iPhone 14 (com.apple.CoreSimulator.SimRuntime.iOS-16-4) (C4B4A6CC-5FF3-4F4A-AC6A-7E7A5672E66E) (Shutdown) 
+booted in 38 s
+com.example.riddlegames: 6723
+system picture at 20 s
+system picture at 60 s
+system picture at 120 s
+run ended with status 0

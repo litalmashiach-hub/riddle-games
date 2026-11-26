@@ -1,0 +1,217 @@
+[
+ {
+  "level": 1,
+  "id": "wolf-two-sheep",
+  "title": "Wolf and Two Sheep",
+  "device": "iphone14-ios16-4-sd",
+  "size": "844x390",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "not won: the level did not open within 600 s (rules card never, scene never; loading mark seen: false)",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 0,
+  "moves": 7,
+  "touches": 0,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "the level did not open within 600 s (rules card never, scene never; loading mark seen: false)",
+  "seconds": {
+   "open": null,
+   "rulesCard": null,
+   "drawn": null,
+   "play": null,
+   "total": 628.619
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone14-ios16-4-sd-L01-error.png"
+  ],
+  "fps": 0,
+  "probe": {
+   "audioContexts": 0,
+   "audioStates": [],
+   "soundStarts": 0,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [],
+   "liveAudioStates": [],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 2,
+  "id": "wolf-goat-cabbage",
+  "title": "Wolf, Goat and Cabbage",
+  "device": "iphone14-ios16-4-sd",
+  "size": "844x390",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 7.192,
+   "rulesCard": 2.275,
+   "drawn": 7.192,
+   "play": 27.917,
+   "total": 46.973
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone14-ios16-4-sd-L02-loading-mark.png",
+   "iphone14-ios16-4-sd-L02-rules-card.png",
+   "iphone14-ios16-4-sd-L02-in-play.png",
+   "iphone14-ios16-4-sd-L02-win-card.png"
+  ],
+  "fps": 6.4,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 15,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 5,
+  "id": "bridge-and-torch",
+  "title": "Bridge and Torch",
+  "device": "iphone14-ios16-4-sd",
+  "size": "844x390",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 5,
+  "moves": 5,
+  "touches": 13,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 6.524,
+   "rulesCard": 2.419,
+   "drawn": 6.524,
+   "play": 30.077,
+   "total": 48.229
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone14-ios16-4-sd-L05-loading-mark.png",
+   "iphone14-ios16-4-sd-L05-rules-card.png",
+   "iphone14-ios16-4-sd-L05-in-play.png",
+   "iphone14-ios16-4-sd-L05-win-card.png"
+  ],
+  "fps": 6.1,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 18,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 11,
+  "id": "family-crossing",
+  "title": "Family Crossing",
+  "device": "iphone14-ios16-4-sd",
+  "size": "844x390",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 17,
+  "moves": 17,
+  "touches": 45,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 6.814,
+   "rulesCard": 1.918,
+   "drawn": 6.814,
+   "play": 85.084,
+   "total": 103.889
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone14-ios16-4-sd-L11-loading-mark.png",
+   "iphone14-ios16-4-sd-L11-rules-card.png",
+   "iphone14-ios16-4-sd-L11-in-play.png",
+   "iphone14-ios16-4-sd-L11-win-card.png"
+  ],
+  "fps": 6.5,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 61,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ }
+]
