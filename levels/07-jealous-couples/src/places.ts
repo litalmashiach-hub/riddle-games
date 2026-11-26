@@ -40,3 +40,20 @@ export const slot = (b: Bird, s: Side): Vec3 => {
 
 /** Two spots in the basket, side by side so both riders face the camera. */
 export const seat = (s: Side, i: number): Vec3 => [sign(s) * DOCK_X + (i === 0 ? -0.21 : 0.21), BASKET_FLOOR * BALLOON_SCALE, 0.03];
+
+/** How much the scene enlarges a bird. */
+export const BIRD_SCALE = 1.22;
+/** The middle of a bird's body above its feet, as drawn. */
+const BODY_Y = 0.36 * BIRD_SCALE;
+/** Hint's halo round a bird is this large: wider than the body, and smaller than the way to the nearest bird. */
+export const HALO_R = 0.46;
+
+/**
+ * Where Hint's halo is drawn: round the bird itself, a little above the middle of its body so that the
+ * face is inside. A ring at a bird's feet is hidden whenever another row stands in front (at the start,
+ * the whole ring at the Corals is behind the Teals), so the hint also circles the bird, over everything.
+ */
+export const hintMark = (b: Bird, s: Side): Vec3 => {
+  const [x, y, z] = slot(b, s);
+  return [x, y + BODY_Y + 0.08, z];
+};

@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, sfx, useFaceYaw, usePath, tapPadRaycast, tapBackdropRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
-import { Bubble, HintRing, type Mood } from '@riddle/props';
+import { Bubble, HintHalo, HintRing, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -8,7 +8,7 @@ import { Balloon } from './Balloon';
 import { Bird as BirdModel, COUPLE_COLORS, Steam } from './Bird';
 import { FeatherPuff, MusicNotes, StormCloud, SweatDrop } from './Drama';
 import { BIRDS, coupleOf, gent, nameOf, roleOf, trouble, type Bird, type Move, type Side, type State } from './rules';
-import { BALLOON_SCALE, DOCK_X, seat, sign, slot } from './places';
+import { BALLOON_SCALE, BIRD_SCALE, DOCK_X, HALO_R, hintMark, seat, sign, slot } from './places';
 import { ISLAND_X, SkyIslands } from './SkyIslands';
 
 /** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
@@ -25,7 +25,6 @@ const FLY_MS = 2600;
 const HOP_MS = 520;
 const FLY_HEIGHT = 1.7;
 const BOARD_MS = 420;
-const BIRD_SCALE = 1.22;
 export const MOVE_MS = FLY_MS + HOP_MS + 200;
 
 const balloonPos = (s: Side): Vec3 => [sign(s) * DOCK_X, 0, 0];
@@ -189,6 +188,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           const p = slot(b, state.at[b]);
           return <HintRing key={b} position={[p[0], 0.04, p[2]]} radius={0.5} />;
         })}
+      {/* The ring lies behind the rows in front: a halo round the bird itself shows from anywhere. */}
+      {!busy && hinted.map((b) => <HintHalo key={b} position={hintMark(b, state.at[b])} radius={HALO_R} />)}
       <Burst trigger={burst} position={[ISLAND_X - 1.2, 1.4, 0.3]} />
     </group>
   );

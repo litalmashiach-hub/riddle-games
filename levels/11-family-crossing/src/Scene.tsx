@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, DizzyStars, FocusCam, Shake, sfx, useFaceYaw, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
-import { Bubble, HintRing, type Mood } from '@riddle/props';
+import { Bubble, HINT_LABEL_STYLE, HintRing, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -229,6 +229,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           busy={busy}
           disabled={busy || over}
           showLabel={!over}
+          hinted={!busy && !over && hinted.includes(p) && !loaded.includes(p)}
           onClick={() => toggle(p)}
           spread={spread}
         />
@@ -266,11 +267,13 @@ interface ActorProps {
   busy: boolean;
   disabled: boolean;
   showLabel: boolean;
+  /** Hint points at this person: their name label wears the hint's gold band. */
+  hinted: boolean;
   onClick(): void;
   spread: LabelSpread;
 }
 
-function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, fail, won, busy, disabled, showLabel, onClick, spread }: ActorProps) {
+function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, fail, won, busy, disabled, showLabel, hinted, onClick, spread }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const side = state[who];
   const rideIndex = forward && previous ? (lastMove?.riders.indexOf(who) ?? -1) : -1;
@@ -361,6 +364,8 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
               color: '#2a1f2b',
               boxShadow: '0 2px 6px rgba(0,0,0,.25)',
               whiteSpace: 'nowrap',
+              // The ring at a hinted person's feet is mostly behind the crowd: the label is always on top.
+              ...(hinted ? { background: 'rgba(255,248,235,1)', ...HINT_LABEL_STYLE } : null),
             }}
           >
             {LABEL[who]}

@@ -148,7 +148,8 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
         <Frog ref={frogBody} happy={won} gag={gag} />
       </group>
 
-      {hintCell >= 0 && <HintRing position={[padPos(hintCell)[0], 0.09, padPos(hintCell)[2]]} radius={0.82} />}
+      {/* Drawn after the lanterns' glow (Lantern.tsx draws it at 3): a lit lantern's glow would wash a gold ring out. */}
+      {hintCell >= 0 && <HintRing position={[padPos(hintCell)[0], 0.09, padPos(hintCell)[2]]} radius={0.82} renderOrder={4} />}
 
       <SleepMeter taps={state.taps} />
 

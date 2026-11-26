@@ -35,7 +35,13 @@ The shell gives the scene `state`, `previous`, `lastMove`, `status`, `play(move)
 - Call `play(move)` for each player move. Input is locked (`busy`) for `moveDurationMs`.
 - `moveCount` going up means animate the new move; going down (undo) or `resetCount` changing means move back
   quickly. Use `usePath` / `useHopTo` from `@riddle/fx` so nothing ever teleports.
-- Show the `hint` move with `<HintRing>` from `@riddle/props`.
+- Show the `hint` move with `<HintRing>` from `@riddle/props`: a gold ring with a dark edge on the ground. Then press
+  Hint at a small iPhone's size (667 by 375) and look: the mark must catch the eye at once. Where the ring is hidden
+  or lost, add to it. A figure in a crowd, whose feet are behind the figures in front, gets a `<HintHalo>` round its
+  body as well (levels 6 and 7). A figure or thing with a name label gets the hint's band round the label
+  (`HINT_LABEL_STYLE`, levels 9 and 11; level 8 draws the same band round a plaque in the scene). Where a glow is
+  drawn over the ground late, give the ring a `renderOrder` above the glow's (level 14). A hint mark takes no taps
+  (`raycast={noHit}`), and a fill of gold or green stays free to mean "picked".
 - On a loss, play a short, funny, kid-friendly fail scene (cartoon slapstick, never gore). See
   [Fail scenes](#fail-scenes) below and level 1. Set `endDelayMs` so it plays before the "Oh no!" screen.
 - On a win, fire `<Burst>` confetti and make the characters celebrate (`mood="happy"`).

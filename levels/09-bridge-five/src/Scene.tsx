@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, Shake, easeInOut, sfx, useSettings, tapPadRaycast, type Vec3 } from '@riddle/fx';
-import { Bubble, HintRing } from '@riddle/props';
+import { Bubble, HINT_LABEL_STYLE, HintRing } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
@@ -448,6 +448,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             crossing={crossing}
             busy={busy}
             pickedIndex={picked.indexOf(t)}
+            hinted={!!hint && !busy && !over && hinted.includes(t) && !picked.includes(t)}
             stepKey={stepKey}
             mood={won && !busy ? 'happy' : dark && crossing?.walkers.includes(t) ? 'scared' : 'idle'}
             bubble={blackout && crossing ? walkerLine(crossing.walkers, t) : null}
@@ -494,6 +495,8 @@ interface ActorProps {
   /** Only a move that is still animating counts as a crossing (taps after it must not replay it). */
   busy: boolean;
   pickedIndex: number;
+  /** Hint points at this traveller: their badge wears the hint's gold band. */
+  hinted: boolean;
   stepKey: string;
   mood: FolkMood;
   bubble: string | null;
@@ -507,7 +510,7 @@ interface ActorProps {
   spread: LabelSpread;
 }
 
-function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick, register, spread }: ActorProps) {
+function Actor({ kind, seed, side, crossing, busy, pickedIndex, hinted, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick, register, spread }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   useEffect(() => {
     if (ref.current) register(ref.current);
@@ -585,6 +588,8 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
             boxShadow: '0 3px 8px rgba(0,0,0,.25)',
             transition: 'background .2s, opacity .2s',
             opacity: bubble || hideBadge ? 0 : 1,
+            // The thin ring at a traveller's feet is easy to miss, and the gate on the far island wears a gold ring of its own.
+            ...(hinted ? { background: '#ffffff', ...HINT_LABEL_STYLE } : null),
           }}
         >
           ⏱ {MINUTES[kind]} min

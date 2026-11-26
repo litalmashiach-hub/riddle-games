@@ -2,7 +2,7 @@ import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, sfx, usePath, useFaceYaw, useSettings, tapPadRaycast, tapBackdropRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
-import { Bubble, HintRing } from '@riddle/props';
+import { Bubble, HintHalo, HintRing } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Barge } from './Barge';
@@ -44,6 +44,9 @@ function groupLabel(riders: Who[]) {
   const parts = [e ? `${e} explorer${e > 1 ? 's' : ''}` : '', g ? `${g} guardian${g > 1 ? 's' : ''}` : ''].filter(Boolean);
   return parts.length ? parts.join(' + ') : 'empty';
 }
+
+/** The middle of an explorer or a guardian, above the floor they stand on: both are about one unit tall. */
+const BODY_Y = 0.52;
 
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
   const low = useSettings((s) => s.quality) === 'low';
@@ -138,7 +141,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // Hint: ring whoever still needs to board (any explorer/guardian of the right kind will do),
   // or the barge once the right group is aboard.
   const hintRings = useMemo(() => {
-    if (!hint || busy) return [] as { pos: Vec3; r: number }[];
+    if (!hint || busy) return [] as { pos: Vec3; r: number; body?: Vec3 }[];
     const needE = hint.riders.filter(isExplorer).length;
     const needG = hint.riders.length - needE;
     const haveE = loaded.filter(isExplorer).length;
@@ -147,7 +150,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     const pick = (pool: Who[], n: number) => pool.filter((w) => state[w] === state.boat && !loaded.includes(w)).slice(0, Math.max(0, n));
     return [...pick(EXPLORERS, needE - haveE), ...pick(GUARDIANS, needG - haveG)].map((w) => {
       const p = slot(w, state.boat);
-      return { pos: [p[0], p[1] + 0.04, p[2]] as Vec3, r: 0.55 };
+      return { pos: [p[0], p[1] + 0.04, p[2]] as Vec3, r: 0.55, body: [p[0], p[1] + BODY_Y, p[2]] as Vec3 };
     });
   }, [hint, busy, loaded, state]);
 
@@ -224,6 +227,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       {hintRings.map((h, i) => (
         <HintRing key={i} position={h.pos} radius={h.r} />
       ))}
+      {/* The figures stand in two rows on tiles of the ring's own colour: a halo round the figure shows from anywhere. */}
+      {hintRings.map((h, i) => h.body && <HintHalo key={i} position={h.body} radius={0.56} />)}
       <Burst trigger={burst} position={[5, 1.4, 0]} />
     </group>
   );
