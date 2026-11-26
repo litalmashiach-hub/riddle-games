@@ -65,11 +65,10 @@ jobs:
       max-parallel: 4
       matrix:
         include:
-          - { label: iphone-se2-ios15-2, ios: '15.2', sim: 'iPhone SE (2nd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
-          - { label: iphone-se3-ios15-4, ios: '15.4', sim: 'iPhone SE (3rd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
-          - { label: ipad9-ios15-4, ios: '15.4', sim: 'iPad (9th generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'quality=low relaunch-each fps=6 level-minutes=25 open-seconds=600 card-seconds=90' }
-          - { label: iphone-se3-ios15-5, ios: '15.5', sim: 'iPhone SE (3rd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
-          - { label: ipad9-ios15-5, ios: '15.5', sim: 'iPad (9th generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'quality=low relaunch-each fps=6 level-minutes=25 open-seconds=600 card-seconds=90' }
+          # Run 45827069118 played 15.2, 15.4 and 15.5. This run: the 16.x floors a raise could pick.
+          - { label: iphone-se3-ios16-2, ios: '16.2', sim: 'iPhone SE (3rd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
+          - { label: iphone-se3-ios16-4, ios: '16.4', sim: 'iPhone SE (3rd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
+          - { label: ipad9-ios16-4, ios: '16.4', sim: 'iPad (9th generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'quality=low relaunch-each fps=6 level-minutes=25 open-seconds=600 card-seconds=90' }
     steps:
       - uses: actions/checkout@v4
       - name: Add the iOS ${{ matrix.ios }} simulator system
