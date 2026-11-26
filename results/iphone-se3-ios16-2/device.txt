@@ -1,0 +1,3 @@
+device iPhone SE (3rd generation): D859606D-7E25-4344-988E-2B050C6BF023
+    iPhone SE (3rd generation) (com.apple.CoreSimulator.SimRuntime.iOS-16-2) (D859606D-7E25-4344-988E-2B050C6BF023) (Shutdown) 
+booted in 100 s
