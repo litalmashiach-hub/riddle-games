@@ -1,0 +1,5 @@
+[
+  { "name": "1-wolf-goat-cabbage", "level": 2, "before": 0, "at": [12, 13, 14], "gap": 6, "frames": 280 },
+  { "name": "2-moonbeam-maze", "level": 26, "before": 5, "at": [10, 11, 12], "gap": 14, "frames": 170 },
+  { "name": "3-tower-of-hanoi", "level": 4, "before": 12, "at": [10, 11, 12], "gap": 6, "frames": 260 }
+]
