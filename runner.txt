@@ -1,0 +1,99 @@
+ProductName:		macOS
+ProductVersion:		26.7.2
+BuildVersion:		25G332
+Xcode 26.6
+Build version 17F113
+---- Xcodes installed
+Xcode_26.0.1.app
+Xcode_26.0.app
+Xcode_26.1.1.app
+Xcode_26.1.app
+Xcode_26.2.0.app
+Xcode_26.2.app
+Xcode_26.3.0.app
+Xcode_26.3.app
+Xcode_26.4.1.app
+Xcode_26.4.app
+Xcode_26.5.0.app
+Xcode_26.5.app
+Xcode_26.6.0.app
+Xcode_26.6.app
+Xcode.app
+---- SDKs
+DriverKit SDKs:
+	DriverKit 25.5                	-sdk driverkit25.5
+
+iOS SDKs:
+	iOS 26.5                      	-sdk iphoneos26.5
+
+iOS Simulator SDKs:
+	Simulator - iOS 26.5          	-sdk iphonesimulator26.5
+
+macOS SDKs:
+	macOS 26.5                    	-sdk macosx26.5
+	macOS 26.5                    	-sdk macosx26.5
+
+tvOS SDKs:
+	tvOS 26.5                     	-sdk appletvos26.5
+
+tvOS Simulator SDKs:
+	Simulator - tvOS 26.5         	-sdk appletvsimulator26.5
+
+visionOS SDKs:
+	visionOS 26.5                 	-sdk xros26.5
+
+visionOS Simulator SDKs:
+	Simulator - visionOS 26.5     	-sdk xrsimulator26.5
+
+watchOS SDKs:
+	watchOS 26.5                  	-sdk watchos26.5
+
+watchOS Simulator SDKs:
+	Simulator - watchOS 26.5      	-sdk watchsimulator26.5
+
+---- simulator runtimes
+== Runtimes ==
+iOS 26.2 (26.2 - 23C54) - com.apple.CoreSimulator.SimRuntime.iOS-26-2
+iOS 26.4 (26.4.1 - 23E254a) - com.apple.CoreSimulator.SimRuntime.iOS-26-4
+iOS 26.5 (26.5 - 23F77) - com.apple.CoreSimulator.SimRuntime.iOS-26-5
+tvOS 26.2 (26.2 - 23K51) - com.apple.CoreSimulator.SimRuntime.tvOS-26-2
+tvOS 26.4 (26.4 - 23L243a) - com.apple.CoreSimulator.SimRuntime.tvOS-26-4
+tvOS 26.5 (26.5 - 23L470) - com.apple.CoreSimulator.SimRuntime.tvOS-26-5
+watchOS 26.2 (26.2 - 23S303) - com.apple.CoreSimulator.SimRuntime.watchOS-26-2
+watchOS 26.4 (26.4 - 23T240b) - com.apple.CoreSimulator.SimRuntime.watchOS-26-4
+watchOS 26.5 (26.5 - 23T570) - com.apple.CoreSimulator.SimRuntime.watchOS-26-5
+visionOS 26.2 (26.2 - 23N301) - com.apple.CoreSimulator.SimRuntime.xrOS-26-2
+visionOS 26.4 (26.4.1 - 23O249a) - com.apple.CoreSimulator.SimRuntime.xrOS-26-4
+visionOS 26.5 (26.5 - 23O470) - com.apple.CoreSimulator.SimRuntime.xrOS-26-5
+---- iPad simulators
+-- iOS 26.2 --
+    iPad Pro 13-inch (M5) (70A7952C-F289-459B-8875-D154D551E8CB) (Shutdown) 
+    iPad Pro 11-inch (M5) (EEF7FA09-1BF7-4CA0-A381-5F0A883FF632) (Shutdown) 
+    iPad mini (A17 Pro) (706151BA-6C80-4F5B-97B9-6326F6122EB2) (Shutdown) 
+    iPad (A16) (6D181590-D19F-48F6-AC2F-8C98F5F77D34) (Shutdown) 
+    iPad Air 13-inch (M3) (2DA453A7-F093-478D-A736-C479712036A4) (Shutdown) 
+    iPad Air 11-inch (M3) (ABF743D3-A9E9-4317-BB4C-DDCFB58C38DE) (Shutdown) 
+-- iOS 26.4 --
+    iPad Pro 13-inch (M5) (2239CD22-6BE3-4D11-B927-9245F8915748) (Shutdown) 
+    iPad Pro 11-inch (M5) (01CB0E86-839C-47B2-B57E-9431B8B2C21C) (Shutdown) 
+    iPad mini (A17 Pro) (518E4C9C-4259-4885-AA50-B803C3DE2D05) (Shutdown) 
+    iPad Air 13-inch (M4) (D443F0B4-5BAC-4C52-B5C9-C4150281B9AF) (Shutdown) 
+    iPad Air 11-inch (M4) (0BA81479-0013-4163-9C1B-8657B690465D) (Shutdown) 
+    iPad (A16) (BB9BCE9B-E401-40A3-A0C1-F8B13C50F459) (Shutdown) 
+-- iOS 26.5 --
+    iPad Pro 13-inch (M5) (2A020491-3EBC-4783-8622-F8314CC00294) (Shutdown) 
+    iPad Pro 11-inch (M5) (E6D22F64-35F4-4792-92E9-462C0B7C23BA) (Shutdown) 
+    iPad mini (A17 Pro) (BB3AAE9A-1B8F-4B6F-B536-0744287562C8) (Shutdown) 
+    iPad Air 13-inch (M4) (A3140D84-3F55-44CB-A4E0-BB0E256CBD79) (Shutdown) 
+    iPad Air 11-inch (M4) (B93AC885-30EF-40D3-911E-AFBFE471286C) (Shutdown) 
+    iPad (A16) (2C358D2A-D903-489E-9517-1EE4B2273E04) (Shutdown) 
+-- tvOS 26.2 --
+-- tvOS 26.4 --
+-- tvOS 26.5 --
+-- watchOS 26.2 --
+-- watchOS 26.4 --
+-- watchOS 26.5 --
+-- visionOS 26.2 --
+-- visionOS 26.4 --
+-- visionOS 26.5 --
+284755735a1074b8a0c648d5b715288fbe1d0a73
