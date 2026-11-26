@@ -1,0 +1,62 @@
+name: Start time in the iPhone simulator (test only)
+
+# TEST ONLY, not for merging. Builds the app from main (before) and from claude/load-levels-on-open
+# (after) on one hosted Mac, and times launch -> tappable level map in the simulator, turn about.
+
+on:
+  push:
+    branches: ['test/start-time']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: start-time-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: macos-26
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - { label: iphone-se3, sim: 'iPhone SE (3rd generation)' }
+          - { label: iphone-17-pro-max, sim: 'iPhone 17 Pro Max' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with: { ref: 029955b52914bfd48521a168e1a04cd168613776, path: before }
+      - uses: actions/checkout@v4
+        with: { ref: claude/load-levels-on-open, path: after }
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Mac and Xcode
+        run: |
+          xcodebuild -version; sw_vers; sysctl -n machdep.cpu.brand_string hw.ncpu hw.memsize
+          git -C before log --oneline -1; git -C after log --oneline -1
+      - name: Build before
+        run: e2e/start-time/prepare.sh before .before
+      - name: Build after
+        run: e2e/start-time/prepare.sh after .after
+      - name: Time the start
+        timeout-minutes: 60
+        run: e2e/start-time/measure.sh "${{ matrix.sim }}" "out/${{ matrix.label }}" 4 12
+      - name: Keep the results on this branch (test only)
+        if: always()
+        run: |
+          git config user.name "start-time run"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch -q --depth 5 origin "$GITHUB_REF_NAME" && git reset -q --hard FETCH_HEAD
+            rm -rf "results/${{ matrix.label }}"; mkdir -p results; cp -R "out/${{ matrix.label }}" "results/${{ matrix.label }}" 2> /dev/null || mkdir -p "results/${{ matrix.label }}"
+            echo "Run ${{ github.run_id }}, job ${{ matrix.label }}, commit ${{ github.sha }}" > "results/${{ matrix.label }}/RUN.txt"
+            git add -A results
+            git commit -q -m "TEST ONLY: start-time results of run ${{ github.run_id }}, ${{ matrix.label }}"
+            git push -q origin "HEAD:$GITHUB_REF_NAME" && break
+            sleep $(( i * 7 ))
+          done
