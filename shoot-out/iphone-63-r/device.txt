@@ -1,13 +1,13 @@
-Simulator: iPhone 17 Pro 6478AFFB-AE17-412A-A1E5-51BCFFD300B6
-    iPhone 17 Pro (6478AFFB-AE17-412A-A1E5-51BCFFD300B6) (Shutdown) 
+Simulator: iPhone 17 Pro 7F81FA48-EEA2-44A5-AC62-55FB6DDF82EA
+    iPhone 17 Pro (7F81FA48-EEA2-44A5-AC62-55FB6DDF82EA) (Shutdown) 
 Port:
-    UUID: 527C0609-C53B-4690-A1BD-D57A65BFC4E4
+    UUID: 9E25D7AB-F44B-4E9C-8C3D-5DDC4F64CFD8
     Class: Unknown
     Port Identifier: com.apple.display.captureservice
     Power state: On
 
 Port:
-    UUID: A813F975-50ED-4E36-913D-D2B71CFB60C6
+    UUID: 0D34A7DB-1854-4D29-8A1F-823C5662A580
     Class: Display
     Port Identifier: com.apple.framebuffer.display
     Power state: On
@@ -17,7 +17,7 @@ Port:
     Default pixel format: 'BGRA'
 
 Port:
-    UUID: 5A7A81BC-7FF7-473C-9751-F2DE077F2864
+    UUID: D0717ED7-3F73-403D-928F-4A283490E055
     Class: Display
     Port Identifier: com.apple.framebuffer.display
     Power state: On
@@ -36,7 +36,7 @@ Port:
         Pixel size casting = Yes
 
 Port:
-    UUID: EBF36F4A-F1C2-4BAE-8EBC-E916273500F8
+    UUID: 74B5730F-A033-415D-ABCA-474FF60539DC
     Class: DisplayAdapter
     Port Identifier: com.apple.framebuffer.server
     Power state: On
