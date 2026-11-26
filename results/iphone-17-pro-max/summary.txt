@@ -1,4 +1,4 @@
-first-open before launch->map ms: median 16694 min 6853 max 33882 n 4 missing 0 | page->map median 6639.0
-first-open after  launch->map ms: median 8045 min 6103 max 10346 n 4 missing 0 | page->map median 4275.0
-relaunch   before launch->map ms: median 5274 min 3825 max 6075 n 12 missing 0 | page->map median 2300.5
-relaunch   after  launch->map ms: median 5081 min 3537 max 6591 n 12 missing 0 | page->map median 2128.5
+first-open before launch->map ms: median 7857 min 6310 max 36292 n 4 missing 0 | page->map median 3392.0
+first-open after  launch->map ms: median 6745 min 6005 max 7221 n 4 missing 0 | page->map median 3076.5
+relaunch   before launch->map ms: median 5372 min 4749 max 6790 n 12 missing 0 | page->map median 2212.5
+relaunch   after  launch->map ms: median 5542 min 4831 max 8188 n 12 missing 0 | page->map median 2250.0
