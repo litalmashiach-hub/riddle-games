@@ -185,8 +185,12 @@ export class AppiumBackend implements Backend {
   async setOrientation(o: 'PORTRAIT' | 'LANDSCAPE') {
     const ctx = this.webview;
     await this.driver.switchContext('NATIVE_APP');
-    await this.driver.setOrientation(o);
-    await this.driver.switchContext(ctx).catch(() => undefined);
+    try {
+      await this.driver.setOrientation(o);
+    } finally {
+      // Back to the web view even when the app refuses the turn (an iPhone app that is sideways only does).
+      await this.driver.switchContext(ctx).catch(() => undefined);
+    }
     await sleep(2500);
     await this.measure();
   }
