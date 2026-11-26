@@ -1,0 +1,4 @@
+first-open before launch->map ms: median 11055 min 5981 max 33434 n 4 missing 0 | page->map median 4490.0
+first-open after  launch->map ms: median 7554 min 6864 max 8283 n 4 missing 0 | page->map median 3545.5
+relaunch   before launch->map ms: median 4854 min 3420 max 7398 n 12 missing 0 | page->map median 1804.0
+relaunch   after  launch->map ms: median 5187 min 3787 max 7286 n 12 missing 0 | page->map median 1748.5
