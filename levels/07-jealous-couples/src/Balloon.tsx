@@ -3,9 +3,10 @@ import { useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useMemo, useRef, type ReactNode } from 'react';
 import * as THREE from 'three';
+import { BASKET_FLOOR } from './places';
 
 /** Height of the basket floor above the balloon's origin. Riders stand here. */
-export const BASKET_FLOOR = 0.08;
+export { BASKET_FLOOR };
 const BASKET_TOP = 0.42;
 const NECK_Y = 1.2;
 

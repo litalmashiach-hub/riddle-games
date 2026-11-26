@@ -14,6 +14,8 @@ export const gent = (c: Couple) => `g${c}` as Bird;
 export const lady = (c: Couple) => `l${c}` as Bird;
 
 export const COUPLE_NAMES = ['Coral', 'Teal', 'Plum'] as const;
+/** Each couple also shares a pattern, which shows without colour (drawn in Bird.tsx, named in the rules card). */
+export const COUPLE_PATTERNS = ['spotted', 'striped', 'pale-faced'] as const;
 export const nameOf = (b: Bird) => `${roleOf(b) === 'gent' ? 'Mr' : 'Mrs'} ${COUPLE_NAMES[coupleOf(b)]}`;
 
 /** Where everyone is. `balloon` is the island the balloon is moored at. */

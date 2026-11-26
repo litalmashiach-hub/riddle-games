@@ -15,6 +15,35 @@ export const COUPLE_COLORS: Record<Couple, { body: string; accent: string; belly
   2: { body: '#9d74e0', accent: '#7ee0b0', belly: '#efe4ff' },
 };
 
+/**
+ * Each couple also shares a pattern, so that who belongs with whom never rests on colour alone:
+ * it shows in a grey picture at a small iPhone's size. The Corals are spotted, the Teals striped,
+ * the Plums pale-faced (COUPLE_PATTERNS in rules.ts names them for the rules card, in this order).
+ */
+export const COUPLE_MARKS: Record<Couple, { kind: 'spots' | 'stripes' | 'mask'; color: string }> = {
+  0: { kind: 'spots', color: '#8a2638' },
+  1: { kind: 'stripes', color: '#0e5c63' },
+  2: { kind: 'mask', color: '#f6edff' },
+};
+
+/** The body is a ball of this radius at BODY_Y, stretched by BODY_SCALE. The marks are laid on it. */
+const BODY_R = 0.27;
+const BODY_Y = 0.36;
+const BODY_SCALE: [number, number, number] = [1, 1.12, 0.95];
+/** Spots: where on the ball (a direction from its middle), and how big. Kept to the top and back, clear of the face. */
+const SPOTS: [number, number, number, number][] = [
+  [0.6, 0.74, 0.3, 0.075],
+  [-0.6, 0.74, 0.3, 0.075],
+  [0, 0.98, 0.2, 0.07],
+  [0, 0.8, -0.6, 0.08],
+  [0.74, 0.48, -0.48, 0.075],
+  [-0.74, 0.48, -0.48, 0.075],
+  [0, 0.3, -0.95, 0.08],
+];
+/** Stripes: heights on the ball, from -1 (bottom) to 1 (top). The top one runs over the brow, above the wings. */
+const STRIPES = [0.7, 0.1, -0.5];
+const STRIPE_HALF = 0.085;
+
 const ORANGE = '#ffa62b';
 const RED = new THREE.Color('#ff3b2f');
 
@@ -110,6 +139,27 @@ export function Bird({ couple, role, mood = 'idle', seed = 0, act }: { couple: C
   const orange = toon(ORANGE);
   const eye = toon('#1b1530', { flat: false, rough: 0.12 });
   const hat = toon('#2b2440', { rough: 0.5 });
+  const markKind = COUPLE_MARKS[couple].kind;
+  const mark = toon(COUPLE_MARKS[couple].color);
+  /** The couple's pattern on one wing: it moves with the wing. */
+  const wingMark = (side: 1 | -1) => (
+    <group position={[side * 0.04, -0.12, 0]} rotation-z={side * 0.25} scale={[0.32, 0.8, 0.85]}>
+      {markKind === 'stripes' && (
+        <mesh scale={[1.14, 0.2, 1.08]} material={mark}>
+          <icosahedronGeometry args={[0.17, 0]} />
+        </mesh>
+      )}
+      {markKind === 'spots' &&
+        [
+          [0.05, 0.035],
+          [-0.065, -0.03],
+        ].map(([y, z]) => (
+          <mesh key={y} position={[side * 0.1, y, z]} material={mark}>
+            <icosahedronGeometry args={[0.085, 1]} />
+          </mesh>
+        ))}
+    </group>
+  );
 
   return (
     <group scale={isGent ? 1.08 : 1}>
@@ -121,16 +171,40 @@ export function Bird({ couple, role, mood = 'idle', seed = 0, act }: { couple: C
         <mesh position={[0, 0.3, 0.12]} scale={[0.95, 1.05, 0.7]} material={belly}>
           <icosahedronGeometry args={[0.2, 1]} />
         </mesh>
+        {/* the couple's pattern on the body */}
+        <group position={[0, BODY_Y, 0]} scale={BODY_SCALE}>
+          {markKind === 'spots' &&
+            SPOTS.map(([x, y, z, r], i) => {
+              const n = Math.hypot(x, y, z);
+              const k = (BODY_R * 0.84) / n;
+              return (
+                <mesh key={i} position={[x * k, y * k, z * k]} material={mark}>
+                  <icosahedronGeometry args={[r, 1]} />
+                </mesh>
+              );
+            })}
+          {markKind === 'stripes' &&
+            STRIPES.map((h) => {
+              const at = (v: number) => BODY_R * 1.04 * Math.sqrt(1 - Math.min(0.98, v * v));
+              return (
+                <mesh key={h} position-y={h * BODY_R} material={mark}>
+                  <cylinderGeometry args={[at(h + STRIPE_HALF), at(h - STRIPE_HALF), 2 * STRIPE_HALF * BODY_R, 12]} />
+                </mesh>
+              );
+            })}
+        </group>
         {/* wings */}
         <group ref={wingL} position={[0.23, 0.44, -0.02]}>
           <mesh position={[0.04, -0.12, 0]} rotation-z={0.25} scale={[0.32, 0.8, 0.85]} material={body} castShadow>
             <icosahedronGeometry args={[0.17, 0]} />
           </mesh>
+          {wingMark(1)}
         </group>
         <group ref={wingR} position={[-0.23, 0.44, -0.02]}>
           <mesh position={[-0.04, -0.12, 0]} rotation-z={-0.25} scale={[0.32, 0.8, 0.85]} material={body} castShadow>
             <icosahedronGeometry args={[0.17, 0]} />
           </mesh>
+          {wingMark(-1)}
         </group>
         {/* tail */}
         <mesh position={[0, 0.3, -0.27]} rotation-x={-2.0} material={body} castShadow>
@@ -143,6 +217,11 @@ export function Bird({ couple, role, mood = 'idle', seed = 0, act }: { couple: C
           </mesh>
         ))}
         <group ref={head}>
+          {markKind === 'mask' && (
+            <mesh position={[0, 0.5, 0.115]} scale={[1, 0.74, 0.62]} material={mark}>
+              <icosahedronGeometry args={[0.215, 1]} />
+            </mesh>
+          )}
           {/* face */}
           <mesh position={[0, 0.44, 0.27]} rotation-x={Math.PI / 2} material={orange} castShadow>
             <coneGeometry args={[0.055, 0.14, 5]} />
