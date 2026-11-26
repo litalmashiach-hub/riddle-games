@@ -22,9 +22,9 @@ for STEP in "$@"; do
   N=$((N + 1))
   echo "---- step $N $STEP"
   TEST_RUNNER_SW_OUT="$OUT" TEST_RUNNER_SW_STEP="$N-$STEP" TEST_RUNNER_SW_BUNDLE="$BUNDLE_ID" \
-  perl -e 'alarm shift; exec @ARGV' 600 xcodebuild test-without-building \
+  perl -e 'alarm shift; exec @ARGV' 420 xcodebuild test-without-building \
     -project "$ROOT/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj" -scheme SidewaysTest \
-    -destination "id=$UDID" -derivedDataPath "$ROOT/build/sidewaystest" \
+    -destination "platform=iOS Simulator,id=$UDID" -destination-timeout 180 -derivedDataPath "$ROOT/build/sidewaystest" \
     -parallel-testing-enabled NO -only-testing:"SidewaysUITests/SidewaysTests/$STEP" > "$OUT/$N-$STEP.log" 2>&1
   echo "exit code $?"
   grep -E "SW |Test Case|\*\* TEST|error:" "$OUT/$N-$STEP.log" | cut -c1-400 | head -n 60

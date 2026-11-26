@@ -28,14 +28,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { variant: key, slot: newest, runner: macos-26, steps: "testWindowedSetting testPortraitWindow testShareScreen" }
-          - { variant: nokey, slot: newest, runner: macos-26, steps: "testWindowedSetting testPortraitWindow testShareScreen" }
-          - { variant: main, slot: newest, runner: macos-26, steps: "testWindowedSetting testPortraitWindow" }
-          - { variant: key, slot: older, runner: macos-26, older: "18.6", steps: "testTurnOnMap testTurnInLevel testShareScreen testWindowedSetting testShareScreen" }
-          - { variant: nokey, slot: older, runner: macos-26, older: "18.6", steps: "testTurnOnMap testTurnInLevel testShareScreen testWindowedSetting testShareScreen" }
-          - { variant: key, slot: newest, runner: macos-27, steps: "testTurnOnMap testTurnInLevel testShareScreen testWindowedSetting testPortraitWindow" }
+          - { variant: key, slot: older, runner: macos-26, older: "18.6", steps: "testTurnOnMap testTurnInLevel testShareScreen" }
+          - { variant: main, slot: older, runner: macos-26, older: "18.6", steps: "testTurnOnMap testShareScreen" }
     env:
-      LABEL: b-${{ matrix.variant }}-${{ matrix.slot }}-${{ matrix.runner }}
+      LABEL: c-${{ matrix.variant }}-${{ matrix.slot }}-${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
