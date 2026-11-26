@@ -1,0 +1,198 @@
+{
+ "phase": "play",
+ "name": "1-play",
+ "device": "ipad",
+ "startedAt": "2026-11-26T05:34:17.576Z",
+ "atLaunch": {
+  "href": "capacitor://localhost",
+  "storage": {},
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "0 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, not solved yet",
+   "Level 2: Wolf, Goat and Cabbage, locked",
+   "Level 3: Two Jugs, locked",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "true",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   1210,
+   834
+  ],
+  "fpsCap": 0,
+  "at": "2026-11-26T05:42:45.886Z"
+ },
+ "launchMapShot": "ipad-1-play-01-map-at-first-launch.png",
+ "aboutBefore": {
+  "href": "capacitor://localhost#/about",
+  "storage": {
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": null,
+  "firstCards": [],
+  "mapSoundButtonPressed": null,
+  "aboutSwitches": {
+   "sound": "true",
+   "hd": "true"
+  },
+  "progressLine": "No stars yet.",
+  "screen": [
+   1210,
+   834
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:43:04.332Z"
+ },
+ "flips": [
+  {
+   "label": "Sound",
+   "before": "true",
+   "after": "false",
+   "at": 1795671794985
+  },
+  {
+   "label": "HD graphics",
+   "before": "true",
+   "after": "false",
+   "at": 1795671796961
+  }
+ ],
+ "aboutAfter": {
+  "href": "capacitor://localhost#/about",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": null,
+  "firstCards": [],
+  "mapSoundButtonPressed": null,
+  "aboutSwitches": {
+   "sound": "false",
+   "hd": "false"
+  },
+  "progressLine": "No stars yet.",
+  "screen": [
+   1210,
+   834
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:43:18.510Z"
+ },
+ "aboutShot": "ipad-1-play-03-about-after-switching.png",
+ "levels": [
+  {
+   "level": 1,
+   "id": "wolf-two-sheep",
+   "movesNeeded": 7,
+   "movesByTaps": 7,
+   "finishedByHook": false,
+   "openedBy": "its card on the level map",
+   "rulesCardTouches": 1,
+   "guideShown": true,
+   "wonAt": "2026-11-26T05:44:19.397Z",
+   "winShot": "ipad-1-play-06-L1-win-card.png",
+   "storedAtWin": {
+    "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+    "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+    "app-test:fps": "6"
+   },
+   "buttons": [
+    "Next level",
+    "Play again",
+    "All levels"
+   ]
+  },
+  {
+   "level": 2,
+   "id": "wolf-goat-cabbage",
+   "movesNeeded": 7,
+   "movesByTaps": 7,
+   "finishedByHook": false,
+   "openedBy": "\"Next level\" on the win card",
+   "rulesCardTouches": 1,
+   "wonAt": "2026-11-26T05:45:02.905Z",
+   "winShot": "ipad-1-play-09-L2-win-card.png",
+   "storedAtWin": {
+    "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+    "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+    "app-test:fps": "6"
+   },
+   "buttons": [
+    "Next level",
+    "Play again",
+    "All levels"
+   ]
+  }
+ ],
+ "mapShot": "ipad-1-play-10-map-after-play.png",
+ "map": {
+  "href": "capacitor://localhost#/",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "6 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, 3 of 3 stars",
+   "Level 2: Wolf, Goat and Cabbage, 3 of 3 stars",
+   "Level 3: Two Jugs, not solved yet",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   1210,
+   834
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:45:35.312Z"
+ },
+ "about": {
+  "href": "capacitor://localhost#/about",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": null,
+  "firstCards": [],
+  "mapSoundButtonPressed": null,
+  "aboutSwitches": {
+   "sound": "false",
+   "hd": "false"
+  },
+  "progressLine": "6 stars on 2 riddles, saved on this device.",
+  "screen": [
+   1210,
+   834
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:45:40.861Z"
+ },
+ "aboutEndShot": "ipad-1-play-11-about-after-play.png",
+ "faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "consoleWarnings": [
+   "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+   "THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.",
+   "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+   "THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead."
+  ],
+  "outsideRequests": []
+ },
+ "endedAt": "2026-11-26T05:45:43.605Z"
+}

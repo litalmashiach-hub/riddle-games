@@ -1,0 +1,92 @@
+{
+ "phase": "quick",
+ "name": "3-quick-save",
+ "device": "ipad",
+ "startedAt": "2026-11-26T05:55:27.016Z",
+ "atLaunch": {
+  "href": "capacitor://localhost",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "6 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, 3 of 3 stars",
+   "Level 2: Wolf, Goat and Cabbage, 3 of 3 stars",
+   "Level 3: Two Jugs, not solved yet",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   1210,
+   834
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:57:10.891Z"
+ },
+ "mapShot": "ipad-3-quick-save-01-map.png",
+ "map": {
+  "href": "capacitor://localhost",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "6 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, 3 of 3 stars",
+   "Level 2: Wolf, Goat and Cabbage, 3 of 3 stars",
+   "Level 3: Two Jugs, not solved yet",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   1210,
+   834
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:57:10.891Z"
+ },
+ "about": {
+  "href": "capacitor://localhost#/about",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": null,
+  "firstCards": [],
+  "mapSoundButtonPressed": null,
+  "aboutSwitches": {
+   "sound": "false",
+   "hd": "false"
+  },
+  "progressLine": "6 stars on 2 riddles, saved on this device.",
+  "screen": [
+   1210,
+   834
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:57:17.014Z"
+ },
+ "aboutShot": "ipad-3-quick-save-02-about.png",
+ "quick": {
+  "label": "HD graphics",
+  "before": "false",
+  "after": "true",
+  "at": 1795672638389,
+  "endedMsAfterTheChangeWasSeen": 4446,
+  "endedBy": "simctl terminate, straight after the page showed the change"
+ }
+}
