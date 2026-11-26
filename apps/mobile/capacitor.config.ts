@@ -27,6 +27,8 @@ const config: CapacitorConfig = {
     scrollEnabled: false,
     contentInset: 'never',
     allowsLinkPreview: false,
+    // TEST ONLY (branch test/reviewer-session-mac-test): lets the simulator run read the web view.
+    ...(process.env.CAP_TEST_INSPECTABLE === '1' ? { webContentsDebuggingEnabled: true } : {}),
   },
 };
 
