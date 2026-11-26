@@ -1,0 +1,130 @@
+name: App play on iPhone, iOS 16.4 (test only)
+
+# TEST ONLY, not for merging. Plays the app built from the raise of its lowest iOS to 16.4 on iPhones on exactly
+# iOS 16.4, by real touches (e2e/app, Appium), as the runner of test/app-play-oldest-ios did on older systems.
+# Run 45835841200 played the iPad on 16.4 but not the iPhone: "no web view found in 180 s", then 80 minutes of
+# hang. This run gives the first look at the web view 15 minutes, logs the look every 30 s, takes the simulator's
+# own pictures before any test tool, stops on its own, and keeps big logs small enough to commit.
+
+on:
+  push:
+    branches: ['test/app-play-ios16-4-iphone']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-play-ios16-4-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode and Mac
+        run: |
+          xcodebuild -version; sw_vers
+          grep -n IPHONEOS_DEPLOYMENT_TARGET apps/mobile/ios/App/App.xcodeproj/project.pbxproj
+      - name: App content with the test hooks, synced into the iOS project
+        run: |
+          VITE_APP_TEST_HOOKS=1 pnpm build:app
+          npm --prefix e2e/app install --no-audit --no-fund
+          e2e/app/node_modules/.bin/tsx e2e/app/prepare-app-build.ts
+          CAP_TEST_INSPECTABLE=1 pnpm --filter @riddle/mobile exec cap sync ios
+      - name: Build the app for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project apps/mobile/ios/App/App.xcodeproj -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build | tail -n 20
+          /usr/libexec/PlistBuddy -c 'Print :MinimumOSVersion' build/ios/Build/Products/Release-iphonesimulator/App.app/Info.plist
+          vtool -show-build build/ios/Build/Products/Release-iphonesimulator/App.app/App | head -n 12 || true
+          tar -czf app.tgz -C build/ios/Build/Products/Release-iphonesimulator App.app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: app.tgz
+
+  play:
+    needs: [build]
+    name: ${{ matrix.label }}
+    runs-on: macos-26
+    timeout-minutes: 150
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include:
+          - { label: iphone-se3-ios16-4, ios: '16.4', sim: 'iPhone SE (3rd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=20' }
+          - { label: iphone14-ios16-4, ios: '16.4', sim: 'iPhone 14', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=20' }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add the iOS ${{ matrix.ios }} simulator system
+        timeout-minutes: 30
+        run: |
+          T0=$(date +%s); sudo xcodes runtimes install "iOS ${{ matrix.ios }}" 2>&1 | tail -n 10; echo "took $(( $(date +%s) - T0 )) s"
+          mkdir -p "out/${{ matrix.label }}"
+          xcrun simctl list runtimes | tee "out/${{ matrix.label }}/runtimes.txt"
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: app
+      - name: Runner, Appium and its iOS driver
+        run: |
+          mkdir -p build/ios/Build/Products/Release-iphonesimulator
+          tar -xzf app.tgz -C build/ios/Build/Products/Release-iphonesimulator
+          npm --prefix e2e/app install --no-audit --no-fund
+          export APPIUM_HOME="$PWD/e2e/app/.appium"
+          e2e/app/node_modules/.bin/appium driver install xcuitest@12.22.8
+      - name: Play in the simulator
+        timeout-minutes: 100
+        env:
+          WEBVIEW_FIRST_SECONDS: '900'
+          RUN_SECONDS: '4500'
+        run: |
+          RT=$(xcrun simctl list runtimes -j | python3 -c "import json,sys; r=[x['identifier'] for x in json.load(sys.stdin)['runtimes'] if x['platform']=='iOS' and x['isAvailable'] and x['version'] in ('${{ matrix.ios }}','${{ matrix.ios }}.0')]; print(r[0] if r else '')")
+          [ -z "$RT" ] && { echo "iOS ${{ matrix.ios }} is not on this Mac"; exit 1; }
+          echo "runtime $RT"
+          RUNTIME="$RT" e2e/app/ios-play.sh "${{ matrix.label }}" "${{ matrix.sim }}" "${{ matrix.orientation }}" "${{ matrix.levels }}" "0" "${{ matrix.flags }}"
+      - name: What Appium said about the web view
+        if: always()
+        run: |
+          { gzcat out/*/appium.txt.gz 2> /dev/null || cat out/*/appium.txt 2> /dev/null; } | grep -iE "webview|web view|remote ?debugger|inspector|context|error|socket" | head -n 150 || true
+      - name: Keep the pictures and logs on this branch, under results/ (test only; the mission cannot read artifacts)
+        if: always()
+        run: |
+          # A run killed before ios-play.sh could cut its logs: cut them here (first 4 MB, last 12 MB), then drop anything still too big.
+          for F in $(find out -type f -size +20M ! -name '*.gz'); do { head -c 4000000 "$F"; echo; echo "[... cut ...]"; tail -c 12000000 "$F"; } > "$F.cut" && mv "$F.cut" "$F"; gzip -f "$F"; done
+          find out -type f -size +40M -delete
+          git config user.name "app-play run"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch -q --depth 5 origin "$GITHUB_REF_NAME" && git reset -q --hard FETCH_HEAD
+            rm -rf "results/${{ matrix.label }}"; mkdir -p results; cp -R "out/${{ matrix.label }}" "results/${{ matrix.label }}"
+            echo "Run ${{ github.run_id }}, job ${{ matrix.label }}, commit ${{ github.sha }}" > "results/${{ matrix.label }}/RUN.txt"
+            git add -A results
+            git commit -q -m "TEST ONLY: results of run ${{ github.run_id }}, ${{ matrix.label }}"
+            git push -q origin "HEAD:$GITHUB_REF_NAME" && break
+            sleep $(( i * 7 ))
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: app-play-${{ matrix.label }}
+          path: out/
+          if-no-files-found: warn
