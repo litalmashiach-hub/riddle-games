@@ -18,8 +18,11 @@ import { PLAYERS } from '../players';
 const MARKED = ['wolf-goat-cabbage', 'two-jugs', 'explorers-guardians', 'jealous-couples', 'three-jugs', 'bridge-five', 'family-crossing', 'firefly-lanterns'];
 
 /**
- * Levels whose mark lies wholly over things that listen at the start: level 7's halos over a crowd of
- * birds, level 14's ring on a lily pad.
+ * Levels whose mark lies mostly over things that listen at the start: level 7's halos over a crowd of
+ * birds, level 14's ring on a lily pad. The ring swells and the pads bob, so a free point on the mark
+ * comes and goes: in these levels one is not demanded, and any found are kept well clear of what listens
+ * and touched like the others. Then a ray is put through the mark the game's own way, with no touch,
+ * where it lies over what listens: the mark must not answer it. That keeps the guard in these two levels.
  */
 const COVERED = ['jealous-couples', 'firefly-lanterns'];
 
@@ -66,11 +69,13 @@ for (const level of LEVELS.filter((l) => MARKED.includes(l.id))) {
 
     // First a touch on each mark itself, where nothing that listens lies under it: no mark may take it,
     // and it must make no move. Then the hinted move, by touches on what the mark points at.
-    // Where every point of the marks lies over something that listens, a touch on them would pick that
-    // thing: those levels leave out these touches (see COVERED).
-    const onMarks = await page.evaluate(() => window.__taps.markPoints(2));
-    if (COVERED.includes(level.id)) expect(onMarks, `${level.id} now has a free point on its mark: take it off COVERED`).toEqual([]);
-    else expect(onMarks.length, "a point of the screen where Hint's mark lies over nothing that listens").toBeGreaterThan(0);
+    // Where the marks lie mostly over things that listen (see COVERED), a free point is not demanded, and
+    // any found must lie 8 pixels clear of what listens, so that a bobbing thing can't come under the finger.
+    // The touches are real touches (touchscreen.tap), not clicks made by script in the page.
+    const covered = COVERED.includes(level.id);
+    const onMarks = await page.evaluate((clear) => window.__taps.markPoints(2, clear), covered ? 8 : 0);
+    test.info().annotations.push({ type: 'touches on the mark', description: String(onMarks.length) });
+    if (!covered) expect(onMarks.length, "a point of the screen where Hint's mark lies over nothing that listens").toBeGreaterThan(0);
     for (const at of onMarks) {
       const where = `(${Math.round(at.x)}, ${Math.round(at.y)})`;
       const seenBefore = await page.evaluate(() => (window as any).__markTouches.length);
@@ -78,6 +83,19 @@ for (const level of LEVELS.filter((l) => MARKED.includes(l.id))) {
       const markTouch = await page.evaluate((n) => (window as any).__markTouches[n], seenBefore);
       expect(markTouch?.crossed, `the touch at ${where} went through a mark`).toBeGreaterThan(0);
       expect(markTouch.taken, `a mark took the touch on itself at ${where}`).toBe(0);
+    }
+    if (covered) {
+      // No free point to touch, most of the time. Put a ray through a point of each mark the game's way,
+      // with no touch, wherever it lies: the mark must not answer it. This is what fails in these levels
+      // when the "takes no taps" rule is taken off, since the touches of the move may not cross the mark.
+      const anyOnMarks = await page.evaluate(() => window.__taps.markPoints(2, 0, false));
+      expect(anyOnMarks.length, "a point well inside Hint's mark").toBeGreaterThan(0);
+      for (const at of anyOnMarks) {
+        const where = `(${Math.round(at.x)}, ${Math.round(at.y)})`;
+        const ray = await page.evaluate(([x, y]) => window.__taps.marksAt(x, y), [at.x, at.y] as const);
+        expect(ray.crossed, `the ray at ${where} went through a mark`).toBeGreaterThan(0);
+        expect(ray.taken, `a mark answered the ray at ${where}`).toBe(0);
+      }
     }
     await page.waitForTimeout(300);
     expect(await page.evaluate(() => window.__riddle!.getState().moves.length), 'a touch on the mark made no move').toBe(0);

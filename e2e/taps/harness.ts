@@ -367,8 +367,11 @@ export const READ_SCENE = () => {
      * For each of Hint's marks, a screen point on it where nothing that listens lies under it and no page
      * element lies over it: a touch there lands on the mark and on nothing else. The point nearest the
      * middle of the mark's box, searched on a grid `step` apart. A mark with no such point is left out.
+     * With `clear` above 0, nothing that listens may lie within `clear` pixels of the point either, so
+     * that a thing that bobs or swells can't move under the finger between the search and the touch.
+     * With `free` false, what lies under or over the point is not asked: any point well inside the band.
      */
-    markPoints: (step: number) => {
+    markPoints: (step: number, clear = 0, free = true) => {
       const st = three();
       if (!st) return [];
       const marks: any[] = [];
@@ -398,9 +401,13 @@ export const READ_SCENE = () => {
               return shape.length > 0;
             });
             if (!onBand) continue;
-            rc.setFromCamera({ x: ((x - rect.left) / rect.width) * 2 - 1, y: -((y - rect.top) / rect.height) * 2 + 1 }, st.camera);
-            if (rc.intersectObjects(st.internal.interaction, true).length) continue;
-            if (document.elementFromPoint(x, y) !== st.gl.domElement) continue;
+            const around = clear > 0 ? [[0, 0], [-clear, 0], [clear, 0], [0, -clear], [0, clear], [-clear, -clear], [clear, -clear], [-clear, clear], [clear, clear]] : [[0, 0]];
+            const listens = free && around.some(([dx, dy]) => {
+              rc.setFromCamera({ x: ((x + dx - rect.left) / rect.width) * 2 - 1, y: -((y + dy - rect.top) / rect.height) * 2 + 1 }, st.camera);
+              return rc.intersectObjects(st.internal.interaction, true).length > 0;
+            });
+            if (listens) continue;
+            if (free && document.elementFromPoint(x, y) !== st.gl.domElement) continue;
             best = { x, y, d };
           }
         if (best) out.push({ x: best.x, y: best.y });
@@ -444,7 +451,7 @@ declare global {
       targets(): Target[];
       firstHit(x: number, y: number): TapRecord['firstHit'];
       marksAt(x: number, y: number): { crossed: number; taken: number; shown: number };
-      markPoints(step: number): Point[];
+      markPoints(step: number, clear?: number, free?: boolean): Point[];
       clearMiddle(uuid: string, step: number): (Point & { depth: number }) | null;
       visibleMiddle(uuid: string, step: number): (Point & { depth: number; shown: number }) | null;
     };
