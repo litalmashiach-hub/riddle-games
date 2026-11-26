@@ -7,6 +7,7 @@ import { Stars } from '../components/Stars';
 import { LockIcon, PlayIcon, SoundIcon } from '../components/Icons';
 import { LEVELS, WORLD_ORDER, type LevelEntry } from '../levels';
 import { GearIcon } from './AboutScreen';
+import { SHOWN_NAME } from '../about/shown';
 import { levelCardName, starTotal } from '../spoken';
 
 /** A built level is open when every built level before it is solved. `?all` opens everything (website only). */
@@ -61,7 +62,7 @@ function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay
       <header className="relative flex shrink-0 items-center justify-between gap-4 pb-1 pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pt-[max(0.625rem,env(safe-area-inset-top))]">
         <div className="flex min-w-0 items-baseline gap-3">
           <h1 className="title-shadow shrink-0 font-display text-[2rem] font-bold leading-none">
-            <span className="bg-gradient-to-b from-white via-amber-100 to-amber-200 bg-clip-text text-transparent">Riddle Games</span>
+            <span className="bg-gradient-to-b from-white via-amber-100 to-amber-200 bg-clip-text text-transparent">{SHOWN_NAME}</span>
           </h1>
           <p className={`truncate px-2 py-1 font-display text-[11px] font-semibold uppercase leading-none tracking-[0.22em] text-amber-200 ${LABEL_PILL}`}>{LEVELS.length} legendary puzzles</p>
         </div>
@@ -122,7 +123,7 @@ function TallMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (i
         <motion.header initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ type: 'spring', stiffness: 120, damping: 14 }} className="text-center">
           <p className="font-display text-sm font-semibold uppercase tracking-[0.35em] text-amber-200/90">{LEVELS.length} legendary puzzles</p>
           <h1 className="title-shadow mt-2 font-display text-5xl font-bold leading-none sm:text-7xl">
-            <span className="bg-gradient-to-b from-white via-amber-100 to-amber-300 bg-clip-text text-transparent">Riddle Games</span>
+            <span className="bg-gradient-to-b from-white via-amber-100 to-amber-300 bg-clip-text text-transparent">{SHOWN_NAME}</span>
           </h1>
           <p className="mx-auto mt-4 max-w-md text-base text-sky-100/85 sm:text-lg">Cross rivers, measure potions and outsmart the scales. Every level is harder than the last.</p>
           <div className="glass mx-auto mt-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5" role="img" aria-label={starTotal(totalStars, LEVELS.length * 3)}>
