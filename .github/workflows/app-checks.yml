@@ -80,7 +80,7 @@ jobs:
           retention-days: 7
 
   whole-suite:
-    name: whole play-through (${{ matrix.project }})
+    name: whole play-through
     if: github.event_name == 'workflow_dispatch' && inputs.whole_suite
     runs-on: ubuntu-latest
     # GitHub stops a job after six hours. The largest part, iphone-landscape, has about 140 tests of one to four minutes.

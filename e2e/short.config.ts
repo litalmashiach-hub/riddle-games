@@ -40,7 +40,8 @@ export default defineConfig({
     {
       ...project('iphone-landscape'),
       testMatch: /(levels|level-1-by-taps|progress)\.spec\.ts$/,
-      grep: [SHORT_LEVELS, /level 1 by real taps/, /level 1: a loss/, /progress and settings/, /the map lists every level/],
+      // "level folder": a level that the tests cannot load at all fails here by name, whichever level it is.
+      grep: [SHORT_LEVELS, /level folder .*can be loaded by the tests/, /level 1 by real taps/, /level 1: a loss/, /progress and settings/, /the map lists every level/],
     },
     // The app build (apps/web/dist-app, what Capacitor wraps): its About screen, with the privacy policy and the contact line.
     { ...project('app-iphone-landscape'), testMatch: /about\.spec\.ts$/ },
