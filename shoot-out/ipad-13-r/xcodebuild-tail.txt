@@ -1,0 +1,80 @@
+    t =   287.68s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   287.72s         Checking existence of `Any (First Match)`
+    t =   287.97s         Capturing element debug description
+    t =   288.67s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   288.69s         Checking existence of `Any (First Match)`
+SHOTLOG 1795703588.863961 scene 07-hint: true
+SHOTLOG 1795703589.955977 xc picture 07-hint 0 1376x1032 scale 2.0
+SHOTLOG 1795703605.623155 xc picture 07-hint 1 1376x1032 scale 2.0
+SHOTLOG 1795703608.722427 xc picture 07-hint 2 1376x1032 scale 2.0
+SHOTLOG 1795703611.553119 xc picture 07-hint 3 1376x1032 scale 2.0
+SHOTLOG 1795703615.9617639 xc picture 07-hint 4 1376x1032 scale 2.0
+SHOTLOG 1795703618.703248 xc picture 07-hint 5 1376x1032 scale 2.0
+    t =   322.67s Tap Application 'com.example.riddlegames'[0.00, 0.00] -> (3.0, 3.0)
+    t =   322.76s     Wait for com.example.riddlegames to idle
+    t =   322.84s     Find the Application 'com.example.riddlegames'
+    t =   323.38s     Check for interrupting elements affecting "Riddle Games" Application
+    t =   323.99s         Wait for com.apple.springboard to idle
+    t =   324.52s     Synthesize event
+    t =   324.54s         Find the Application 'com.example.riddlegames'
+    t =   324.62s         Find the Application 'com.example.riddlegames'
+    t =   324.75s         Find the Application 'com.example.riddlegames'
+    t =   325.31s     Wait for com.example.riddlegames to idle
+SHOTLOG 1795703625.072129 tapped 07-hint
+    t =   327.03s Waiting 600.0s for Any (First Match) to exist
+    t =   328.11s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   328.15s         Checking existence of `Any (First Match)`
+    t =   328.33s         Capturing element debug description
+    t =   329.09s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   329.09s         Checking existence of `Any (First Match)`
+    t =   329.24s         Capturing element debug description
+    t =   330.11s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   330.11s         Checking existence of `Any (First Match)`
+SHOTLOG 1795703628.3090549 scene 08-map: true
+SHOTLOG 1795703629.080589 xc picture 08-map 0 1376x1032 scale 2.0
+SHOTLOG 1795703631.758605 xc picture 08-map 1 1376x1032 scale 2.0
+SHOTLOG 1795703634.486854 xc picture 08-map 2 1376x1032 scale 2.0
+SHOTLOG 1795703637.311174 xc picture 08-map 3 1376x1032 scale 2.0
+SHOTLOG 1795703640.7716599 xc picture 08-map 4 1376x1032 scale 2.0
+SHOTLOG 1795703643.967346 xc picture 08-map 5 1376x1032 scale 2.0
+    t =   347.93s Tap Application 'com.example.riddlegames'[0.00, 0.00] -> (3.0, 3.0)
+    t =   347.93s     Wait for com.example.riddlegames to idle
+    t =   348.02s     Find the Application 'com.example.riddlegames'
+    t =   357.87s     Check for interrupting elements affecting "Riddle Games" Application
+    t =   357.98s         Wait for com.apple.springboard to idle
+    t =   358.07s     Synthesize event
+    t =   358.09s         Find the Application 'com.example.riddlegames'
+    t =   358.15s         Find the Application 'com.example.riddlegames'
+    t =   358.22s         Find the Application 'com.example.riddlegames'
+    t =   358.65s     Wait for com.example.riddlegames to idle
+SHOTLOG 1795703656.718168 tapped 08-map
+    t =   358.68s Waiting 300.0s for Any (First Match) to exist
+    t =   359.71s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   359.72s         Checking existence of `Any (First Match)`
+    t =   359.88s         Capturing element debug description
+    t =   360.71s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   360.72s         Checking existence of `Any (First Match)`
+SHOTLOG 1795703658.93442 done marker: true
+    t =   363.04s Terminate com.example.riddlegames:8034
+/Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/StoreShots/UITests/StoreShots.swift:61: error: -[StoreShotsUITests.StoreShots testShoot] : Failed to terminate com.example.riddlegames:8034: Failed to terminate com.example.riddlegames:0
+    t =   429.35s Tear Down
+Test Case '-[StoreShotsUITests.StoreShots testShoot]' failed (448.003 seconds).
+Test Suite 'StoreShots' failed at 2026-11-26 14:35:46.061.
+	 Executed 1 test, with 1 failure (0 unexpected) in 448.003 (448.012) seconds
+Test Suite 'StoreShotsUITests.xctest' failed at 2026-11-26 14:35:46.069.
+	 Executed 1 test, with 1 failure (0 unexpected) in 448.003 (448.020) seconds
+Test Suite 'All tests' failed at 2026-11-26 14:35:46.070.
+	 Executed 1 test, with 1 failure (0 unexpected) in 448.003 (448.022) seconds
+2026-11-26 14:36:50.136 xcodebuild[5708:22629] [MT] IDETestOperationsObserverDebug: 600.992 elapsed -- Testing started completed.
+2026-11-26 14:36:50.139 xcodebuild[5708:22629] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-26 14:36:50.139 xcodebuild[5708:22629] [MT] IDETestOperationsObserverDebug: 600.992 sec, +600.992 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/out/ipad-13-r/result.xcresult
+
+Failing tests:
+	StoreShots.testShoot()
+
+** TEST FAILED **
+
+Testing started
