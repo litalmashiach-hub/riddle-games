@@ -1,0 +1,15 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj -scheme SidewaysTest -destination id=7309613A-B8BC-4038-9955-87F6D667470B -derivedDataPath /Users/runner/work/riddle-games/riddle-games/build/sidewaystest -parallel-testing-enabled NO "-only-testing:SidewaysUITests/SidewaysTests/testTurnOnMap"
+
+2026-11-26 06:40:35.019 xcodebuild[25835:75419] Writing error result bundle to /var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/ResultBundle_2026-26-11_06-40-0034.xcresult
+xcodebuild: error: Unable to find a device matching the provided destination specifier:
+		{ id:7309613A-B8BC-4038-9955-87F6D667470B }
+
+	The requested device could not be found because no available devices matched the request.
+
+	Available destinations for the "SidewaysTest" scheme:
+		{ platform:macOS, arch:arm64, variant:Mac Catalyst, id:39e69d79c897daff8b677859075484ee13b2e61d, name:My Mac }
+		{ platform:macOS, arch:x86_64, variant:Mac Catalyst, id:39e69d79c897daff8b677859075484ee13b2e61d, name:My Mac }
+		{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+		{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
+		{ platform:macOS, variant:Mac Catalyst, name:Any Mac }

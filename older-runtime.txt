@@ -1,0 +1,62 @@
+SW downloading the iOS 18.6 simulator runtime
+Finding content...
+Downloading iOS 18.6 Universal Simulator (22G86): Downloading iOS 18.6 Universal Simulator (22G86): Preparing to download...Downloading iOS 18.6 Universal Simulator (22G86): 1.5% (131.1 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 1.5% (131.1 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 1.5% (131.1 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 1.5% (131.1 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 1.5% (131.1 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 1.5% (131.1 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 3.3% (291.9 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 3.3% (291.9 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 3.3% (291.9 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 3.3% (291.9 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 5.0% (443 MB of 8.86 GB)  Downloading iOS 18.6 Universal Simulator (22G86): 5.0% (443 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 5.0% (443 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 10.0% (886 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 10.0% (886 MB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 15.0% (1.33 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 15.0% (1.33 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 19.8% (1.76 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 19.8% (1.76 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 22.1% (1.95 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 22.1% (1.95 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 26.7% (2.37 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 26.7% (2.37 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 30.0% (2.66 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 30.0% (2.66 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 34.0% (3.01 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 34.0% (3.01 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 36.6% (3.24 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 36.6% (3.24 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 40.4% (3.57 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 40.4% (3.57 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 41.3% (3.65 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 41.3% (3.65 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 44.1% (3.91 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 44.1% (3.91 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 46.4% (4.11 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 46.4% (4.11 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 52.8% (4.68 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 52.8% (4.68 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 57.7% (5.11 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 57.7% (5.11 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 62.5% (5.54 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 62.5% (5.54 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 65.0% (5.76 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 65.0% (5.76 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 68.7% (6.09 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 68.7% (6.09 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 71.5% (6.33 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 71.5% (6.33 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 75.0% (6.65 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 75.0% (6.65 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 80.0% (7.09 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 80.0% (7.09 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 83.7% (7.41 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 83.7% (7.41 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 83.7% (7.41 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 86.8% (7.69 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 86.8% (7.69 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 90.0% (7.98 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 90.0% (7.98 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 93.7% (8.3 GB of 8.86 GB) Downloading iOS 18.6 Universal Simulator (22G86): 93.7% (8.3 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 96.7% (8.57 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 96.7% (8.57 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): 99.0% (8.77 GB of 8.86 GB)Downloading iOS 18.6 Universal Simulator (22G86): Installing...             Downloading iOS 18.6 Universal Simulator (22G86): Done.        
+iOS 18.6 (22G86) - BF28B5C8-9405-45B4-A9E3-8C3FAE93FFBF
+
+real	2m2.941s
+user	0m2.936s
+sys	0m1.237s
+== Runtimes ==
+iOS 18.6 (18.6 - 22G86) - com.apple.CoreSimulator.SimRuntime.iOS-18-6
+iOS 26.2 (26.2 - 23C54) - com.apple.CoreSimulator.SimRuntime.iOS-26-2
+iOS 26.4 (26.4.1 - 23E254a) - com.apple.CoreSimulator.SimRuntime.iOS-26-4
+iOS 26.5 (26.5 - 23F77) - com.apple.CoreSimulator.SimRuntime.iOS-26-5
+tvOS 26.2 (26.2 - 23K51) - com.apple.CoreSimulator.SimRuntime.tvOS-26-2
+tvOS 26.4 (26.4 - 23L243a) - com.apple.CoreSimulator.SimRuntime.tvOS-26-4
+tvOS 26.5 (26.5 - 23L470) - com.apple.CoreSimulator.SimRuntime.tvOS-26-5
+watchOS 26.2 (26.2 - 23S303) - com.apple.CoreSimulator.SimRuntime.watchOS-26-2
+watchOS 26.4 (26.4 - 23T240b) - com.apple.CoreSimulator.SimRuntime.watchOS-26-4
+watchOS 26.5 (26.5 - 23T570) - com.apple.CoreSimulator.SimRuntime.watchOS-26-5
+visionOS 26.2 (26.2 - 23N301) - com.apple.CoreSimulator.SimRuntime.xrOS-26-2
+visionOS 26.4 (26.4.1 - 23O249a) - com.apple.CoreSimulator.SimRuntime.xrOS-26-4
+visionOS 26.5 (26.5 - 23O470) - com.apple.CoreSimulator.SimRuntime.xrOS-26-5
+7309613A-B8BC-4038-9955-87F6D667470B
+SW made iPad Air 11-inch (M2) on com.apple.CoreSimulator.SimRuntime.iOS-18-6
+-- iOS 18.6 --
+    iPad Pro 11-inch (M4) (D9655F3D-5E13-42B1-A87B-F4C1A8095433) (Shutdown) 
+    iPad Pro 13-inch (M4) (BC68FF13-F507-469E-A78F-94DBC54B4DB5) (Shutdown) 
+    iPad Air 11-inch (M2) (7309613A-B8BC-4038-9955-87F6D667470B) (Shutdown) 
+    iPad mini (A17 Pro) (4123BA34-D1EB-47BA-9199-C125D8BBBC7E) (Shutdown) 
+    iPad (A16) (3699045D-ECB3-4760-9EF2-24578D7C6797) (Shutdown) 
+    iPad Air 13-inch (M3) (700BF8AC-7CE5-4730-A6AB-1C7E8015573C) (Shutdown) 
+    iPad Air 11-inch (M3) (880D14FB-7484-458C-BFAB-7541A78F0B0D) (Shutdown) 
+-- iOS 26.2 --
+    iPad Pro 13-inch (M5) (70A7952C-F289-459B-8875-D154D551E8CB) (Shutdown) 
+    iPad Pro 11-inch (M5) (EEF7FA09-1BF7-4CA0-A381-5F0A883FF632) (Shutdown) 
+    iPad mini (A17 Pro) (706151BA-6C80-4F5B-97B9-6326F6122EB2) (Shutdown) 
+    iPad (A16) (6D181590-D19F-48F6-AC2F-8C98F5F77D34) (Shutdown) 
+    iPad Air 13-inch (M3) (2DA453A7-F093-478D-A736-C479712036A4) (Shutdown) 
+    iPad Air 11-inch (M3) (ABF743D3-A9E9-4317-BB4C-DDCFB58C38DE) (Shutdown) 
+-- iOS 26.4 --
+    iPad Pro 13-inch (M5) (2239CD22-6BE3-4D11-B927-9245F8915748) (Shutdown) 
+    iPad Pro 11-inch (M5) (01CB0E86-839C-47B2-B57E-9431B8B2C21C) (Shutdown) 
+    iPad mini (A17 Pro) (518E4C9C-4259-4885-AA50-B803C3DE2D05) (Shutdown) 
+    iPad Air 13-inch (M4) (D443F0B4-5BAC-4C52-B5C9-C4150281B9AF) (Shutdown) 
+    iPad Air 11-inch (M4) (0BA81479-0013-4163-9C1B-8657B690465D) (Shutdown) 
+    iPad (A16) (BB9BCE9B-E401-40A3-A0C1-F8B13C50F459) (Shutdown) 
+-- iOS 26.5 --
+    iPad Pro 13-inch (M5) (2A020491-3EBC-4783-8622-F8314CC00294) (Shutdown) 
+    iPad Pro 11-inch (M5) (E6D22F64-35F4-4792-92E9-462C0B7C23BA) (Shutdown) 
+    iPad mini (A17 Pro) (BB3AAE9A-1B8F-4B6F-B536-0744287562C8) (Shutdown) 
+    iPad Air 13-inch (M4) (A3140D84-3F55-44CB-A4E0-BB0E256CBD79) (Shutdown) 
+    iPad Air 11-inch (M4) (B93AC885-30EF-40D3-911E-AFBFE471286C) (Shutdown) 
+    iPad (A16) (2C358D2A-D903-489E-9517-1EE4B2273E04) (Shutdown) 
+-- tvOS 26.2 --
+-- tvOS 26.4 --
+-- tvOS 26.5 --
+-- watchOS 26.2 --
+-- watchOS 26.4 --
+-- watchOS 26.5 --
+-- visionOS 26.2 --
+-- visionOS 26.4 --
+-- visionOS 26.5 --
