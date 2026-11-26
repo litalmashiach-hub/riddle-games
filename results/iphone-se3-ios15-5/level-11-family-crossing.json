@@ -1,0 +1,777 @@
+{
+ "level": 11,
+ "id": "family-crossing",
+ "title": "Family Crossing",
+ "device": "iphone-se3-ios15-5",
+ "size": "667x375",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 17,
+ "moves": 17,
+ "touches": 45,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 12.402,
+  "rulesCard": 4.366,
+  "drawn": 12.402,
+  "play": 116.959,
+  "total": 144.364
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-se3-ios15-5-L11-loading-mark.png",
+  "iphone-se3-ios15-5-L11-rules-card.png",
+  "iphone-se3-ios15-5-L11-in-play.png",
+  "iphone-se3-ios15-5-L11-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 227.23889065414087,
+    "y": 175.0746900590321
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "827d49d6-b215-4451-8f98-0b386ffae2ea",
+    "world": [
+     -3.25,
+     0.4,
+     -1.55
+    ],
+    "distance": 12.359702743556861
+   }
+  },
+  {
+   "step": 1,
+   "what": "Thief (thief)",
+   "kind": "tap",
+   "at": {
+    "x": 188.4894543191911,
+    "y": 175.02903502109245
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "30824e73-63c7-4927-aeb6-394544021254",
+    "world": [
+     -4.5,
+     0.4,
+     -1.7
+    ],
+    "distance": 12.788794687484883
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 438.61112513267744,
+    "y": 174.99304645326254
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "827d49d6-b215-4451-8f98-0b386ffae2ea",
+    "world": [
+     3.25,
+     0.40000000000000013,
+     -1.5499999999999998
+    ],
+    "distance": 12.367305787114837
+   }
+  },
+  {
+   "step": 2,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.4140625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "Son (sonA)",
+   "kind": "tap",
+   "at": {
+    "x": 207.26943412844622,
+    "y": 215.16319607969922
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "9324a6f0-7dd2-41b4-b14a-eb95d07521a8",
+    "world": [
+     -3.2,
+     0.4,
+     0.75
+    ],
+    "distance": 10.433000069400787
+   }
+  },
+  {
+   "step": 3,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 226.8926856857762,
+    "y": 174.7633200956356
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "827d49d6-b215-4451-8f98-0b386ffae2ea",
+    "world": [
+     -3.25,
+     0.4,
+     -1.55
+    ],
+    "distance": 12.356168229432667
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 438.8089273856067,
+    "y": 174.79299569369033
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "827d49d6-b215-4451-8f98-0b386ffae2ea",
+    "world": [
+     3.25,
+     0.40000000000000013,
+     -1.5499999999999998
+    ],
+    "distance": 12.360848078679004
+   }
+  },
+  {
+   "step": 4,
+   "what": "Thief (thief)",
+   "kind": "tap",
+   "at": {
+    "x": 480.3170236878558,
+    "y": 176.6943601461416
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "30824e73-63c7-4927-aeb6-394544021254",
+    "world": [
+     4.5,
+     0.4,
+     -1.7
+    ],
+    "distance": 12.941908844559862
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.4140625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "Dad (father)",
+   "kind": "tap",
+   "at": {
+    "x": 214.03371227324652,
+    "y": 188.458076377529
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "91cc1c3c-cd8c-4539-be1d-220fc164f8bb",
+    "world": [
+     -3.3,
+     0.4,
+     -0.4
+    ],
+    "distance": 11.356260585651414
+   }
+  },
+  {
+   "step": 5,
+   "what": "Son (sonB)",
+   "kind": "tap",
+   "at": {
+    "x": 167.7479098689247,
+    "y": 217.36163378957042
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "ba62e2f0-d758-4e95-a74e-0675a2e1eabd",
+    "world": [
+     -4.15,
+     0.4,
+     0.85
+    ],
+    "distance": 10.717329928936854
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "Dad (father)",
+   "kind": "tap",
+   "at": {
+    "x": 452.9124628893924,
+    "y": 188.70630379222897
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "91cc1c3c-cd8c-4539-be1d-220fc164f8bb",
+    "world": [
+     3.3,
+     0.40000000000000013,
+     -0.4
+    ],
+    "distance": 11.364643343948934
+   }
+  },
+  {
+   "step": 6,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.4140625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 7,
+   "what": "Dad (father)",
+   "kind": "tap",
+   "at": {
+    "x": 214.01378720667194,
+    "y": 188.3444762145216
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "91cc1c3c-cd8c-4539-be1d-220fc164f8bb",
+    "world": [
+     -3.3,
+     0.40000000000000013,
+     -0.4
+    ],
+    "distance": 11.357330772528837
+   }
+  },
+  {
+   "step": 7,
+   "what": "Mom (mother)",
+   "kind": "tap",
+   "at": {
+    "x": 168.71773008984604,
+    "y": 188.41704973224438
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "70faf1c6-d525-43ca-ad4d-1504d34b7671",
+    "world": [
+     -4.45,
+     0.4,
+     -0.45
+    ],
+    "distance": 1000.1776204790393
+   }
+  },
+  {
+   "step": 7,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 8,
+   "what": "Mom (mother)",
+   "kind": "tap",
+   "at": {
+    "x": 491.8247360665481,
+    "y": 185.4125481080299
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "70faf1c6-d525-43ca-ad4d-1504d34b7671",
+    "world": [
+     4.45,
+     0.40000000000000013,
+     -0.45000000000000007
+    ],
+    "distance": 11.751553666564652
+   }
+  },
+  {
+   "step": 8,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.4140625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 9,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 227.90239321160027,
+    "y": 175.06146807578477
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "827d49d6-b215-4451-8f98-0b386ffae2ea",
+    "world": [
+     -3.25,
+     0.4,
+     -1.55
+    ],
+    "distance": 12.362357223778796
+   }
+  },
+  {
+   "step": 9,
+   "what": "Thief (thief)",
+   "kind": "tap",
+   "at": {
+    "x": 188.57767274549408,
+    "y": 175.27711936489706
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "30824e73-63c7-4927-aeb6-394544021254",
+    "world": [
+     -4.5,
+     0.4,
+     -1.7
+    ],
+    "distance": 12.792791726211275
+   }
+  },
+  {
+   "step": 9,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 10,
+   "what": "Dad (father)",
+   "kind": "tap",
+   "at": {
+    "x": 452.8731922638095,
+    "y": 188.88742240178783
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "91cc1c3c-cd8c-4539-be1d-220fc164f8bb",
+    "world": [
+     3.3,
+     0.4,
+     -0.4
+    ],
+    "distance": 11.37132235427373
+   }
+  },
+  {
+   "step": 10,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.4140625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 11,
+   "what": "Dad (father)",
+   "kind": "tap",
+   "at": {
+    "x": 214.20945239325607,
+    "y": 189.2135661861438
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "91cc1c3c-cd8c-4539-be1d-220fc164f8bb",
+    "world": [
+     -3.3,
+     0.40000000000000013,
+     -0.4
+    ],
+    "distance": 11.369247199630426
+   }
+  },
+  {
+   "step": 11,
+   "what": "Mom (mother)",
+   "kind": "tap",
+   "at": {
+    "x": 168.97680809252802,
+    "y": 189.21070026013132
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "70faf1c6-d525-43ca-ad4d-1504d34b7671",
+    "world": [
+     -4.45,
+     0.4,
+     -0.45
+    ],
+    "distance": 1000.1749022226007
+   }
+  },
+  {
+   "step": 11,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 12,
+   "what": "Mom (mother)",
+   "kind": "tap",
+   "at": {
+    "x": 491.84632967096394,
+    "y": 185.33614576483384
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "70faf1c6-d525-43ca-ad4d-1504d34b7671",
+    "world": [
+     4.45,
+     0.40000000000000013,
+     -0.45000000000000007
+    ],
+    "distance": 11.746228954159644
+   }
+  },
+  {
+   "step": 12,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.4140625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 13,
+   "what": "Mom (mother)",
+   "kind": "tap",
+   "at": {
+    "x": 168.69940093497215,
+    "y": 188.3609861810371
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "70faf1c6-d525-43ca-ad4d-1504d34b7671",
+    "world": [
+     -4.45,
+     0.40000000000000013,
+     -0.45000000000000007
+    ],
+    "distance": 1000.177812991018
+   }
+  },
+  {
+   "step": 13,
+   "what": "Daughter (daughterA)",
+   "kind": "tap",
+   "at": {
+    "x": 189.6145350561032,
+    "y": 239.80420704880328
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "adcd3d79-4fe5-4f01-913d-b733974dcbca",
+    "world": [
+     -3.3,
+     0.4,
+     1.9
+    ],
+    "distance": 9.59126825989722
+   }
+  },
+  {
+   "step": 13,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.5390625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 14,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 438.45211262498884,
+    "y": 175.41537438616572
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "827d49d6-b215-4451-8f98-0b386ffae2ea",
+    "world": [
+     3.25,
+     0.4,
+     -1.55
+    ],
+    "distance": 12.370532813696588
+   }
+  },
+  {
+   "step": 14,
+   "what": "Thief (thief)",
+   "kind": "tap",
+   "at": {
+    "x": 480.33609551283246,
+    "y": 177.36654525587684
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "30824e73-63c7-4927-aeb6-394544021254",
+    "world": [
+     4.5,
+     0.4,
+     -1.7
+    ],
+    "distance": 12.95058881878802
+   }
+  },
+  {
+   "step": 14,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.4140625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 15,
+   "what": "Daughter (daughterB)",
+   "kind": "tap",
+   "at": {
+    "x": 145.46258976574717,
+    "y": 241.51984065813167
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "05fa618a-55a7-424f-9003-55e147fca335",
+    "world": [
+     -4.3,
+     0.4,
+     1.95
+    ],
+    "distance": 9.948872301701943
+   }
+  },
+  {
+   "step": 15,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 227.71642716399057,
+    "y": 175.2895722327774
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "827d49d6-b215-4451-8f98-0b386ffae2ea",
+    "world": [
+     -3.25,
+     0.4,
+     -1.55
+    ],
+    "distance": 12.368058685443794
+   }
+  },
+  {
+   "step": 15,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.5234375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 16,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 438.699751122825,
+    "y": 175.07907438640626
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "827d49d6-b215-4451-8f98-0b386ffae2ea",
+    "world": [
+     3.25,
+     0.40000000000000013,
+     -1.5499999999999998
+    ],
+    "distance": 12.365730899762502
+   }
+  },
+  {
+   "step": 16,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.4140625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 17,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 227.55488645350184,
+    "y": 174.72505802247548
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "827d49d6-b215-4451-8f98-0b386ffae2ea",
+    "world": [
+     -3.25,
+     0.40000000000000013,
+     -1.5499999999999998
+    ],
+    "distance": 12.357347401461341
+   }
+  },
+  {
+   "step": 17,
+   "what": "Thief (thief)",
+   "kind": "tap",
+   "at": {
+    "x": 187.80623933494132,
+    "y": 175.25056723351952
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "30824e73-63c7-4927-aeb6-394544021254",
+    "world": [
+     -4.5,
+     0.4,
+     -1.7
+    ],
+    "distance": 12.801694188166985
+   }
+  },
+  {
+   "step": 17,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 17.4,
+ "probe": {
+  "audioContexts": 1,
+  "audioStates": [
+   "running"
+  ],
+  "soundStarts": 61,
+  "decoded": 0,
+  "decodeErrors": 0,
+  "startErrors": [],
+  "canvas": [
+   "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+  ],
+  "liveAudioStates": [
+   "running"
+  ],
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "cssLayers": true,
+  "webgl2": true
+ }
+}

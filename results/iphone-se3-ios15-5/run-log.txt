@@ -1,0 +1,35 @@
+    0.0s device iphone-se3-ios15-5; levels 1,2,5,11 (4); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"755D4F49-030D-4B75-97F1-68B5A96EC393","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  332.8s page in WEBVIEW_29059.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  332.9s web view found: WEBVIEW_29059.1, 667 by 375
+  343.1s turned LANDSCAPE: 667 by 375
+  364.7s calibration: touched [{"x":200,"y":150},{"x":467,"y":281}], the page saw [{"x":200,"y":150},{"x":467,"y":281}]: same (error 0.0 pt)
+  380.2s page in WEBVIEW_29059.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  384.9s L01 wolf-two-sheep: opened by its card on the level map
+  407.5s L01: before touch 1 on "Let's go!": {"there":true,"box":[402,224,236,52],"screen":[667,375],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":104,"y":225,"t":1795700268371,"kind":"touch","on":"DIV"}],"now":1795700291144}
+  408.3s L01: touch 1 on "Let's go!" sent (733 ms)
+  410.7s L01: rules card closed 3.2 s after touch 1
+  498.1s L01 probe: sound engines 1 (running), sounds started 15, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  498.1s L01 wolf-two-sheep: won by taps; stars 3 (saved 3); open 14.357s, play 74.795s, total 133.293s; page errors 0, console errors 0; frames per second 19.8
+  498.7s L02 wolf-goat-cabbage: opened by "Next level" on the win card
+  507.3s L02: before touch 1 on "Let's go!": {"there":true,"box":[402,224,236,52],"screen":[667,375],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":156,"y":152,"t":1795700367762,"kind":"touch","on":"CANVAS"},{"x":334,"y":264,"t":1795700371341,"kind":"touch","on":"BUTTON"},{"x":334,"y":229,"t":1795700382208,"kind":"touch","on":"BUTTON"}],"now":1795700390865}
+  507.9s L02: touch 1 on "Let's go!" sent (648 ms)
+  508.8s L02: rules card closed 1.6 s after touch 1
+  618.3s L02 probe: sound engines 1 (running), sounds started 31, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192) | webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  618.3s L02 wolf-goat-cabbage: won by taps; stars 3 (saved 3); open 7.032s, play 86.876s, total 119.917s; page errors 0, console errors 0; frames per second 20.6
+  622.7s page in WEBVIEW_29059.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  625.3s L05 bridge-and-torch: opened by its card on the level map
+  637.6s L05: before touch 1 on "Let's go!": {"there":true,"box":[402,234,236,52],"screen":[667,375],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":333,"y":225,"t":1795700509022,"kind":"touch","on":"DIV"}],"now":1795700521186}
+  638.3s L05: touch 1 on "Let's go!" sent (736 ms)
+  639.2s L05: rules card closed 1.6 s after touch 1
+  687.3s L05 probe: sound engines 1 (running), sounds started 18, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  687.3s L05 bridge-and-torch: won by taps; stars 3 (saved 3); open 11.821s, play 43.263s, total 68.726s; page errors 0, console errors 0; frames per second 14.8
+  692.0s page in WEBVIEW_29059.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  695.1s L11 family-crossing: opened by its card on the level map
+  707.6s L11: before touch 1 on "Let's go!": {"there":true,"box":[402,244,236,52],"screen":[667,375],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":333,"y":225,"t":1795700578747,"kind":"touch","on":"DIV"}],"now":1795700591196}
+  708.6s L11: touch 1 on "Let's go!" sent (1000 ms)
+  710.3s L11: rules card closed 2.7 s after touch 1
+  831.8s L11 probe: sound engines 1 (running), sounds started 61, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  831.8s L11 family-crossing: won by taps; stars 3 (saved 3); open 12.402s, play 116.959s, total 144.364s; page errors 0, console errors 0; frames per second 17.4
+  831.8s script calls: 1019, median 68 ms, 90th 343 ms
+  831.8s done: 4 of 4 levels won, 4 by taps alone
