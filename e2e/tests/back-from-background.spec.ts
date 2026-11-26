@@ -509,11 +509,11 @@ for (const level of LEVELS) {
     await page.waitForTimeout(AWAY_MS);
     await page.evaluate(() => window.__phone.comeBack(false));
     await expect(page.getByRole('dialog', { name: 'Solved!' }), 'a win after a return: the card comes').toBeVisible({ timeout: 15_000 });
-    // Only the play screen's fanfare counts, and only notes of it that reach a speaker. Levels 16 and 19 also
-    // play a copy of their own from the scene, on a timer, a while after the win: after a return that copy is
-    // sometimes late and rightly dropped (asked for, not heard), and sometimes heard as in a normal win. It is
-    // left out (asked for from a timer); the play screen asks for its fanfare from no timer, and only its
-    // first fanfare counts (four notes asked for at one instant).
+    // Only the play screen's fanfare counts, and only notes of it that reach a speaker. Levels 16 and 19 (and
+    // 25 and 28, which use their scenes) also play a copy of their own from the scene, on a timer, a while
+    // after the win: after a return that copy is sometimes late and rightly dropped (asked for, not heard),
+    // and sometimes heard as in a normal win. It is left out (asked for from a timer); the play screen asks
+    // for its fanfare from no timer, and only its first fanfare counts (four notes asked at one instant).
     const fanfare = () =>
       page.evaluate(() => {
         const P = window.__phone;
