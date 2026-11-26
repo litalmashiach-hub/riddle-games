@@ -163,7 +163,8 @@ function listen() {
     // The game's functions that asked for the sound, nearest first. Names of two letters are the build's own.
     const names = lines(3, 10)
       .map((l) => l.match(/at (?:async )?(?:Object\.)?([\w$.<>]+)(?: \[as \w+\])? \(/)?.[1])
-      .filter((n): n is string => !!n && n.length > 2 && n !== 'fire')
+      // The game's own wrapper round start() (packages/fx/src/soundLife.ts) is no asker either.
+      .filter((n): n is string => !!n && n.length > 2 && n !== 'fire' && !/\.start$/.test(n))
       .slice(0, 3)
       .join('<');
     const pitch = (this as unknown as { frequency?: { __first?: number } }).frequency?.__first;

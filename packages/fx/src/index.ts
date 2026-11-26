@@ -1,5 +1,6 @@
 export * from './settings';
 export * from './sfx';
+export * from './soundLife';
 export * from './worlds';
 export * from './Water';
 export * from './WorldStage';
