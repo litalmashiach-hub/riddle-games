@@ -118,13 +118,31 @@ failed removal of a page element, from the scenes' `<Html>` labels); their entri
 build: install it once with `pnpm exec playwright install chromium`, or use a machine where the
 matching one is already present.
 
-## Not in CI yet
+## In GitHub's checks
 
-The workflow in `.github/workflows/ci.yml` does not run these tests. To add them, a job needs, after
-`pnpm install --frozen-lockfile`: `pnpm exec playwright install --with-deps chromium`, then
-`pnpm test:e2e`, then an upload of `playwright-report/` and `test-results/wins/` as artifacts
-(`if: always()`), with a time limit of about 45 minutes (the run may be slower on a two-core runner). `CI=true` makes the tests start their own
-server and refuse a stray `test.only`.
+`.github/workflows/app-checks.yml` ("App checks") runs on every pull request and every merge to main, on a
+Linux runner, with no secret. It guards the app, where `ci.yml` guards the website:
+
+1. The privacy manifest: `apps/mobile/scripts/check-privacy-manifest.py` (see `docs/ios-app.md`).
+2. The app's web build and Capacitor's sync, `pnpm ios:sync`: the build must hold the privacy policy and the
+   contact line and no service worker, and the sync must leave the committed iOS files as they are.
+3. The short play-through, `pnpm test:e2e:short:built` (`e2e/short.config.ts`), about five minutes:
+
+| Build | Size | Tests |
+| --- | --- | --- |
+| website | 852 by 393 | level 1 by taps alone, to a win and to a loss with undo; levels 3, 12 and 14 to a three-star win; stars and settings after a restart; the map lists every level |
+| app | 852 by 393 | `about.spec.ts`: the About screen, with the privacy policy, the contact line and reset |
+
+The short set runs one browser at a time, and a failed test gets one more try: a real fault fails twice, a
+hiccup of the runner shows as "flaky" and does not stop a merge. To run it here: `pnpm test:e2e:short`.
+
+It is a sample. It does not play the other levels, the small or the largest iPhone, the loss and undo checks
+of every level, contrast, VoiceOver names or the loading cards; levels are played on the website build, since
+the app build has no `?debug` hook. And nothing here builds the native app: that needs a Mac.
+
+The whole suite runs by hand only: on GitHub, Actions, "App checks", "Run workflow", tick "Run the whole
+play-through suite". It then runs once per screen size, side by side, one browser at a time each, and keeps
+each part's report and win pictures as artifacts. Expect a few hours for the largest part.
 
 ## Limits
 

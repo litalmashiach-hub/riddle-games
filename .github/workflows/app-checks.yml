@@ -1,0 +1,121 @@
+name: App checks
+
+# Guards the iPhone and iPad app, as far as a Linux runner can, on every pull request and every merge:
+# the app's web build and Capacitor's sync, the privacy manifest, and a short play-through.
+# No signing, no secrets, no Mac. See docs/play-through-tests.md ("In GitHub's checks").
+#
+# The whole play-through suite takes hours on these runners, so it runs only by hand:
+# Actions, "App checks", Run workflow, tick "Run the whole play-through suite".
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      whole_suite:
+        description: "Run the whole play-through suite too (several hours)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-checks-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  app:
+    name: app build, privacy manifest, short play-through
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Privacy manifest
+        run: python3 apps/mobile/scripts/check-privacy-manifest.py
+
+      - name: Build the app content and sync Capacitor
+        run: pnpm ios:sync
+
+      - name: The app content is whole, has no service worker, and the committed iOS files match the sync
+        run: |
+          test -f apps/web/dist-app/index.html
+          test -f apps/mobile/ios/App/App/public/index.html
+          test ! -e apps/mobile/ios/App/App/public/sw.js
+          if grep -rl "sw.js" apps/mobile/ios/App/App/public; then echo "The app content still registers a service worker"; exit 1; fi
+          # `cap sync` rewrites generated files that are committed (CapApp-SPM/Package.swift). A difference here
+          # means a plugin was added or removed without committing what the sync wrote.
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "The sync changed committed files. Run pnpm ios:sync and commit the result:"
+            git status --porcelain
+            git diff
+            exit 1
+          fi
+
+      - name: Build the website (the play-through plays this build)
+        run: pnpm build
+
+      - name: Install the test browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Short play-through
+        run: pnpm test:e2e:short:built
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: short-play-through-report
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: ignore
+          retention-days: 7
+
+  whole-suite:
+    name: whole play-through (${{ matrix.project }})
+    if: github.event_name == 'workflow_dispatch' && inputs.whole_suite
+    runs-on: ubuntu-latest
+    # GitHub stops a job after six hours. The largest part, iphone-landscape, has about 140 tests of one to four minutes.
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - iphone-landscape
+          - iphone-small-landscape
+          - app-iphone-landscape
+          - app-iphone-small-landscape
+          - iphone-largest-landscape
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm build:app
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Whole play-through, one screen size
+        env:
+          # One browser at a time: side by side on a small runner the scenes starve each other.
+          E2E_WORKERS: "1"
+        run: pnpm test:e2e:built --project=${{ matrix.project }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: play-through-${{ matrix.project }}
+          path: |
+            playwright-report
+            test-results/wins
+          if-no-files-found: ignore
+          retention-days: 14
