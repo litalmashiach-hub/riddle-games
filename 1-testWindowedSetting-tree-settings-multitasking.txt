@@ -1,0 +1,260 @@
+Attributes: Application, 0x117d3c280, pid: 6776, label: 'Settings'
+Element subtree:
+ →Application, 0x117d3c280, pid: 6776, label: 'Settings'
+    Window (Main), 0x117d3c3c0, {{0.0, 0.0}, {1180.0, 820.0}}
+      Other, 0x117d3c500, {{0.0, 0.0}, {1180.0, 820.0}}
+        Other, 0x117d3c640, {{0.0, 0.0}, {1180.0, 820.0}}
+          Other, 0x117d3c780, {{0.0, 0.0}, {1180.0, 820.0}}
+            Other, 0x117d3c8c0, {{0.0, 0.0}, {1180.0, 820.0}}
+              Other, 0x117d3ca00, {{0.0, 0.0}, {1180.0, 820.0}}
+                Other, 0x117d3cb40, {{0.0, 0.0}, {1180.0, 820.0}}
+                  Other, 0x117d3cc80, {{0.0, 0.0}, {1180.0, 820.0}}
+                    Other, 0x117d3cdc0, {{10.0, 32.0}, {320.0, 778.0}}
+                      Other, 0x117d3cf00, {{10.0, 32.0}, {320.0, 778.0}}
+                        Other, 0x117d3d040, {{10.0, 32.0}, {320.0, 778.0}}
+                          NavigationBar, 0x117d3d180, {{10.0, 32.0}, {320.0, 114.0}}, identifier: 'Settings'
+                            SearchField, 0x117d3d2c0, {{26.0, 87.0}, {288.0, 44.0}}, label: 'Search', placeholderValue: 'Search'
+                              Button, 0x117d3d400, {{281.0, 98.0}, {17.0, 22.0}}, identifier: 'Dictate', label: 'Dictate'
+                              Image, 0x117d3d540, {{38.0, 99.5}, {20.5, 18.5}}, identifier: 'magnifyingglass', label: 'Search'
+                              Button, 0x117d3d680, {{281.0, 98.0}, {17.0, 22.0}}, identifier: 'Dictate', label: 'Dictate'
+                          Other, 0x117d3d7c0, {{10.0, 32.0}, {320.0, 778.0}}
+                            Other, 0x117d3f5c0, {{10.0, 32.0}, {320.0, 778.0}}
+                              Other, 0x117d3f700, {{10.0, 32.0}, {320.0, 778.0}}
+                                Other, 0x117d3f840, {{10.0, 32.0}, {320.0, 778.0}}
+                                  CollectionView, 0x117d3f980, {{10.0, 32.0}, {320.0, 778.0}}, label: 'Sidebar'
+                                    Other, 0x117d3fac0, {{-6.0, -1410.0}, {352.0, 1666.5}}
+                                    Other, 0x117d3f480, {{10.0, 32.0}, {320.0, 778.0}}
+                                      Other, 0x117d3d900, {{10.0, 32.0}, {320.0, 163.8}}
+                                    Other, 0x117d3da40, {{10.0, 32.0}, {320.0, 778.0}}
+                                    Cell, 0x117d3db80, {{26.0, 146.0}, {288.0, 100.5}}
+                                      Other, 0x117d3dcc0, {{26.0, 146.0}, {288.0, 100.5}}
+                                      Other, 0x117d3de00, {{26.0, 146.0}, {288.0, 100.5}}
+                                        Other, 0x117d3df40, {{26.0, 146.0}, {288.0, 100.5}}
+                                          Other, 0x117d3e080, {{26.0, 146.0}, {288.0, 100.5}}
+                                            Button, 0x117d3e1c0, {{26.0, 146.0}, {288.0, 100.5}}, identifier: 'com.apple.settings.primaryAppleAccount', label: 'Apple Account, Sign in to access your iCloud data, the App Store, Apple services, and more.'
+                                              Image, 0x117d3e300, {{42.0, 166.5}, {60.0, 60.0}}, identifier: 'apple.id', label: 'apple.id'
+                                              StaticText, 0x117d3e440, {{110.0, 157.0}, {135.0, 24.0}}, label: 'Apple Account'
+                                              StaticText, 0x117d3e580, {{110.0, 183.5}, {178.5, 52.0}}, label: 'Sign in to access your iCloud data, the App Store, Apple services, and more.'
+                                    Other, 0x117d3e6c0, {{-6.0, 256.5}, {352.0, 62.0}}
+                                    Cell, 0x117d3e800, {{26.0, 256.5}, {288.0, 52.0}}
+                                      Other, 0x117d3e940, {{26.0, 256.5}, {288.0, 52.0}}
+                                      Other, 0x117d3ea80, {{26.0, 256.5}, {288.0, 52.0}}
+                                        Other, 0x117d3ebc0, {{26.0, 256.5}, {288.0, 52.0}}
+                                          Other, 0x117d3ed00, {{26.0, 256.5}, {288.0, 52.0}}
+                                            Button, 0x117d3ee40, {{26.0, 256.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.followUpItem.com.apple.icloud.gm', label: 'Ready for Apple Intelligence'
+                                    Other, 0x117d3ef80, {{-6.0, 318.5}, {352.0, 374.0}}
+                                    Cell, 0x117d3f0c0, {{26.0, 318.5}, {288.0, 52.0}}
+                                      Other, 0x117d3f200, {{26.0, 318.5}, {288.0, 52.0}}
+                                      Other, 0x117d3f340, {{26.0, 318.5}, {288.0, 52.0}}
+                                        Other, 0x117d3fc00, {{26.0, 318.5}, {288.0, 52.0}}
+                                          Other, 0x117d3fd40, {{26.0, 318.5}, {288.0, 52.0}}
+                                            Button, 0x117d3fe80, {{26.0, 318.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.general', label: 'General'
+                                              Image, 0x117d27c00, {{39.5, 330.0}, {29.0, 29.0}}
+                                              StaticText, 0x117d27d40, {{39.5, 330.0}, {96.0, 29.0}}, label: 'General'
+                                    Cell, 0x117d27e80, {{26.0, 370.5}, {288.0, 52.0}}
+                                      Other, 0x117dfc000, {{26.0, 370.5}, {288.0, 52.0}}
+                                      Other, 0x117dfc140, {{26.0, 370.5}, {288.0, 52.0}}
+                                        Other, 0x117dfc280, {{26.0, 370.5}, {288.0, 52.0}}
+                                          Other, 0x117dfc3c0, {{26.0, 370.5}, {288.0, 52.0}}
+                                            Button, 0x117dfc500, {{26.0, 370.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.accessibility', label: 'Accessibility'
+                                              Image, 0x117dfc640, {{39.5, 382.0}, {29.0, 29.0}}
+                                              StaticText, 0x117dfc780, {{39.5, 382.0}, {131.0, 29.0}}, label: 'Accessibility'
+                                    Cell, 0x117dfc8c0, {{26.0, 422.5}, {288.0, 52.0}}
+                                      Other, 0x117dfca00, {{26.0, 422.5}, {288.0, 52.0}}
+                                      Other, 0x117dfcb40, {{26.0, 422.5}, {288.0, 52.0}}
+                                        Other, 0x117dfcc80, {{26.0, 422.5}, {288.0, 52.0}}
+                                          Other, 0x117dfcdc0, {{26.0, 422.5}, {288.0, 52.0}}
+                                            Button, 0x117dfcf00, {{26.0, 422.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.siri', label: 'Apple Intelligence & Siri'
+                                              Image, 0x117dfd040, {{39.5, 434.0}, {29.0, 29.0}}
+                                              StaticText, 0x117dfd180, {{39.5, 434.0}, {216.5, 29.0}}, label: 'Apple Intelligence & Siri'
+                                    Cell, 0x117dfd2c0, {{26.0, 474.5}, {288.0, 52.0}}
+                                      Other, 0x117dfd400, {{26.0, 474.5}, {288.0, 52.0}}
+                                      Other, 0x117dfd540, {{26.0, 474.5}, {288.0, 52.0}}
+                                        Other, 0x117dfd680, {{26.0, 474.5}, {288.0, 52.0}}
+                                          Other, 0x117dfd7c0, {{26.0, 474.5}, {288.0, 52.0}}
+                                            Button, 0x117dfd900, {{26.0, 474.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.camera', label: 'Camera'
+                                              Image, 0x117dfda40, {{39.5, 486.0}, {29.0, 29.0}}
+                                              StaticText, 0x117dfdb80, {{39.5, 486.0}, {96.0, 29.0}}, label: 'Camera'
+                                    Cell, 0x117dfdcc0, {{26.0, 526.5}, {288.0, 52.0}}
+                                      Other, 0x117dfde00, {{26.0, 526.5}, {288.0, 52.0}}
+                                      Other, 0x117dfdf40, {{26.0, 526.5}, {288.0, 52.0}}
+                                        Other, 0x117dfe080, {{26.0, 526.5}, {288.0, 52.0}}
+                                          Other, 0x117dfe1c0, {{26.0, 526.5}, {288.0, 52.0}}
+                                            Button, 0x117dfe300, {{26.0, 526.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.homeScreen', label: 'Home Screen & App Library'
+                                              Image, 0x117dfe440, {{39.5, 538.0}, {29.0, 29.0}}
+                                              StaticText, 0x117dfe580, {{39.5, 538.0}, {248.5, 29.0}}, label: 'Home Screen & App Library'
+                                    Cell, 0x117dfe6c0, {{26.0, 578.5}, {288.0, 52.0}}, Focused, Selected
+                                      Other, 0x117dfe800, {{26.0, 578.5}, {288.0, 52.0}}
+                                        Other, 0x117dfe940, {{26.0, 578.5}, {288.0, 52.0}}
+                                          Other, 0x117dfea80, {{26.0, 578.5}, {288.0, 52.0}}
+                                      Other, 0x117dfebc0, {{26.0, 578.5}, {288.0, 52.0}}
+                                        Other, 0x117dfed00, {{26.0, 578.5}, {288.0, 52.0}}
+                                          Other, 0x117dfee40, {{26.0, 578.5}, {288.0, 52.0}}
+                                            Button, 0x117dfef80, {{26.0, 578.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.multitaskingAndGestures', label: 'Multitasking & Gestures', Selected
+                                              Image, 0x117dff0c0, {{39.5, 590.0}, {29.0, 29.0}}
+                                              StaticText, 0x117dff200, {{39.5, 590.0}, {218.0, 29.0}}, label: 'Multitasking & Gestures'
+                                    Cell, 0x117dff340, {{26.0, 630.5}, {288.0, 52.0}}
+                                      Other, 0x117dff480, {{26.0, 630.5}, {288.0, 52.0}}
+                                      Other, 0x117dff5c0, {{26.0, 630.5}, {288.0, 52.0}}
+                                        Other, 0x117dff700, {{26.0, 630.5}, {288.0, 52.0}}
+                                          Other, 0x117dff840, {{26.0, 630.5}, {288.0, 52.0}}
+                                            Button, 0x117dff980, {{26.0, 630.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.search', label: 'Search'
+                                              Image, 0x117dffac0, {{39.5, 642.0}, {29.0, 29.0}}
+                                              StaticText, 0x117dffc00, {{39.5, 642.0}, {90.0, 29.0}}, label: 'Search'
+                                    Other, 0x117dffd40, {{-6.0, 692.5}, {352.0, 62.0}}
+                                    Cell, 0x117dffe80, {{26.0, 692.5}, {288.0, 52.0}}
+                                      Other, 0x117e00000, {{26.0, 692.5}, {288.0, 52.0}}
+                                      Other, 0x117e00140, {{26.0, 692.5}, {288.0, 52.0}}
+                                        Other, 0x117e00280, {{26.0, 692.5}, {288.0, 52.0}}
+                                          Other, 0x117e003c0, {{26.0, 692.5}, {288.0, 52.0}}
+                                            Button, 0x117e00500, {{26.0, 692.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.screenTime', label: 'Screen Time'
+                                              Image, 0x117e00640, {{39.5, 704.0}, {29.0, 29.0}}
+                                              StaticText, 0x117e00780, {{39.5, 704.0}, {132.0, 29.0}}, label: 'Screen Time'
+                                    Other, 0x117e008c0, {{-6.0, 754.5}, {352.0, 114.0}}
+                                    Cell, 0x117e00a00, {{26.0, 754.5}, {288.0, 52.0}}
+                                      Other, 0x117e00b40, {{26.0, 754.5}, {288.0, 52.0}}
+                                      Other, 0x117e00c80, {{26.0, 754.5}, {288.0, 52.0}}
+                                        Other, 0x117e00dc0, {{26.0, 754.5}, {288.0, 52.0}}
+                                          Other, 0x117e00f00, {{26.0, 754.5}, {288.0, 52.0}}
+                                            Button, 0x117e01040, {{26.0, 754.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.passcodeAndBiometrics', label: 'Passcode'
+                                              Image, 0x117e01180, {{39.5, 766.0}, {29.0, 29.0}}
+                                              StaticText, 0x117e012c0, {{39.5, 766.0}, {110.5, 29.0}}, label: 'Passcode'
+                                    Cell, 0x117e01400, {{26.0, 806.5}, {288.0, 52.0}}
+                                      Other, 0x117e01540, {{26.0, 806.5}, {288.0, 52.0}}
+                                      Other, 0x117e01680, {{26.0, 806.5}, {288.0, 52.0}}
+                                        Other, 0x117e017c0, {{26.0, 806.5}, {288.0, 52.0}}
+                                          Other, 0x117e01900, {{26.0, 806.5}, {288.0, 52.0}}
+                                            Button, 0x117e01a40, {{26.0, 806.5}, {288.0, 52.0}}, identifier: 'com.apple.settings.privacyAndSecurity', label: 'Privacy & Security'
+                                              Image, 0x117e01b80, {{39.5, 818.0}, {29.0, 29.0}}
+                                              StaticText, 0x117e01cc0, {{39.5, 818.0}, {175.0, 29.0}}, label: 'Privacy & Security'
+                                    Other, 0x117e01e00, {{297.0, 146.0}, {30.0, 642.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                                      Other, 0x117e01f40, {{324.0, 149.0}, {3.0, 484.0}}
+                                    Other, 0x117e02080, {{297.0, 146.0}, {30.0, 642.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                                      Other, 0x117e021c0, {{324.0, 149.0}, {3.0, 484.0}}
+                                  Other, 0x117e02300, {{170.0, 473.0}, {0.0, 0.0}}
+                          Other, 0x117e02440, {{10.0, 32.0}, {320.0, 778.0}}
+                            Other, 0x117e02580, {{10.0, 32.0}, {320.0, 778.0}}
+                      Other, 0x117e026c0, {{10.0, 32.0}, {320.0, 778.0}}
+                        Other, 0x117e02800, {{10.0, 32.0}, {320.0, 778.0}}
+                          Other, 0x117e02940, {{10.0, 32.0}, {320.0, 778.0}}
+                            Other, 0x117e02a80, {{10.0, 32.0}, {320.0, 778.0}}
+                              Other, 0x117e02bc0, {{10.0, 32.0}, {320.0, 778.0}}
+                                Other, 0x117e02d00, {{10.0, 32.0}, {320.0, 778.0}}
+                            Other, 0x117e02e40, {{10.0, 32.0}, {320.0, 778.0}}
+                              Other, 0x117e02f80, {{10.0, 32.0}, {320.0, 778.0}}
+                    Other, 0x117e030c0, {{0.0, 0.0}, {1180.0, 820.0}}
+                      Other, 0x117e03200, {{0.0, 0.0}, {1180.0, 820.0}}
+                        NavigationBar, 0x117e03340, {{0.0, 32.0}, {1180.0, 54.0}}, identifier: 'Multitasking & Gestures'
+                          StaticText, 0x117e03480, {{664.5, 43.5}, {190.5, 21.0}}, label: 'Multitasking & Gestures'
+                        Other, 0x117e035c0, {{0.0, 0.0}, {1180.0, 820.0}}
+                          Other, 0x117e03700, {{0.0, 0.0}, {1180.0, 820.0}}
+                            Other, 0x117e03840, {{0.0, 0.0}, {1180.0, 820.0}}
+                              Other, 0x117e03980, {{0.0, 0.0}, {1180.0, 820.0}}
+                                CollectionView, 0x117e03ac0, {{0.0, 0.0}, {1180.0, 820.0}}
+                                  Other, 0x117e03c00, {{-12.0, -1554.0}, {1204.0, 2107.0}}
+                                  Other, 0x117e03d40, {{0.0, 0.0}, {1180.0, 820.0}}
+                                  Other, 0x117e03e80, {{0.0, 0.0}, {1180.0, 820.0}}
+                                  Cell, 0x117e04000, {{350.0, 121.0}, {810.0, 310.5}}
+                                    Other, 0x117e04140, {{350.0, 121.0}, {810.0, 310.5}}
+                                      Other, 0x117e04280, {{350.0, 121.0}, {810.0, 310.5}}
+                                        Other, 0x117e043c0, {{350.0, 121.0}, {810.0, 310.5}}
+                                    Other, 0x117e04500, {{350.0, 121.0}, {810.0, 310.5}}
+                                      Other, 0x117e04640, {{350.0, 121.0}, {810.0, 310.5}}
+                                        Other, 0x117e04780, {{350.0, 121.0}, {810.0, 310.5}}
+                                          Button, 0x117e048c0, {{383.5, 150.5}, {188.5, 233.0}}, identifier: 'com.apple.settings.multitaskingAndGestures.fullScreenApps', label: 'Full Screen Apps, Always use apps full screen and swipe Home to switch between them.'
+                                            Other, 0x117e04a00, {{384.0, 151.0}, {187.5, 140.0}}
+                                            Image, 0x117e04b40, {{385.5, 302.5}, {17.5, 17.5}}, identifier: 'circle', label: 'circle'
+                                            StaticText, 0x117e04c80, {{412.6, 301.0}, {128.0, 20.5}}, label: 'Full Screen Apps'
+                                            StaticText, 0x117e04dc0, {{384.1, 331.5}, {170.5, 52.0}}, label: 'Always use apps full screen and swipe Home to switch between them.'
+                                          Button, 0x117e04f00, {{661.0, 150.5}, {188.0, 233.0}}, identifier: 'com.apple.settings.multitaskingAndGestures.windowedApps', label: 'Windowed Apps, Resize and arrange multiple windows in a single space to multitask with ease.', Selected
+                                            Other, 0x117e05040, {{661.5, 151.0}, {187.0, 140.0}}
+                                            Image, 0x117e05180, {{663.0, 302.5}, {17.5, 17.5}}, identifier: 'checkmark.circle.fill', label: 'Selected', Selected
+                                            StaticText, 0x117e052c0, {{689.9, 301.0}, {124.0, 20.5}}, label: 'Windowed Apps'
+                                            StaticText, 0x117e05400, {{661.4, 331.5}, {176.0, 52.0}}, label: 'Resize and arrange multiple windows in a single space to multitask with ease.'
+                                          Button, 0x117e05540, {{938.0, 150.5}, {188.5, 251.0}}, identifier: 'com.apple.settings.multitaskingAndGestures.stageManager', label: 'Stage Manager, Arrange windows across multiple groups for a focused multitasking experience. Learn more…'
+                                            Other, 0x117e05680, {{938.5, 151.0}, {187.5, 140.0}}
+                                            Image, 0x117e057c0, {{940.0, 302.5}, {17.5, 17.5}}, identifier: 'circle', label: 'circle'
+                                            StaticText, 0x117e05900, {{967.1, 301.0}, {116.0, 20.5}}, label: 'Stage Manager'
+                                            StaticText, 0x117e05a40, {{938.6, 331.5}, {187.5, 70.0}}, label: 'Arrange windows across multiple groups for a focused multitasking experience. Learn more…'
+                                              Link, 0x117e05b80, {{938.6, 367.5}, {187.5, 33.5}}, identifier: 'https://support.apple.com/guide/ipad/move-resize-and-organize-windows-ipad1240f36f/ipados', label: 'Learn more…'
+                                  Cell, 0x117e05cc0, {{350.0, 431.5}, {810.0, 52.0}}
+                                    Other, 0x117e05e00, {{350.0, 431.5}, {810.0, 52.0}}
+                                      Other, 0x117e05f40, {{350.0, 431.5}, {810.0, 52.0}}
+                                        Other, 0x117e06080, {{350.0, 431.5}, {810.0, 52.0}}
+                                    Other, 0x117e061c0, {{350.0, 431.5}, {810.0, 52.0}}
+                                      Other, 0x117e06300, {{350.0, 431.5}, {810.0, 52.0}}
+                                        Other, 0x117e06440, {{350.0, 431.5}, {810.0, 52.0}}
+                                          Switch, 0x117e06580, {{350.0, 431.5}, {810.0, 52.0}}, label: 'Close All Windows After Swiping Home', value: 0
+                                            StaticText, 0x117e066c0, {{370.0, 447.2}, {296.0, 20.5}}, label: 'Close All Windows After Swiping Home'
+                                            Switch, 0x117e06800, {{1079.0, 443.5}, {63.0, 28.0}}, value: 0
+                                  Other, 0x117e06940, {{384.1, 430.5}, {755.9, 1.0}}
+                                  Cell, 0x117e06a80, {{350.0, 483.5}, {810.0, 52.0}}
+                                    Other, 0x117e06bc0, {{350.0, 483.5}, {810.0, 52.0}}
+                                      Other, 0x117e06d00, {{350.0, 483.5}, {810.0, 52.0}}
+                                        Other, 0x117e06e40, {{350.0, 483.5}, {810.0, 52.0}}
+                                    Other, 0x117e06f80, {{350.0, 483.5}, {810.0, 52.0}}
+                                      Other, 0x117e070c0, {{350.0, 483.5}, {810.0, 52.0}}
+                                        Other, 0x117e07200, {{350.0, 483.5}, {810.0, 52.0}}
+                                          Switch, 0x117e07340, {{350.0, 483.5}, {810.0, 52.0}}, label: 'Automatically Show and Hide Dock', value: 1
+                                            StaticText, 0x117e07480, {{370.0, 499.2}, {265.5, 20.5}}, label: 'Automatically Show and Hide Dock'
+                                            Switch, 0x117e075c0, {{1079.0, 495.5}, {63.0, 28.0}}, value: 1
+                                  Other, 0x117e07700, {{370.0, 482.5}, {770.0, 1.0}}
+                                  Other, 0x117e07840, {{-12.0, 553.0}, {1204.0, 152.0}}
+                                  Cell, 0x117e07980, {{350.0, 553.0}, {810.0, 38.0}}
+                                    Other, 0x117e07ac0, {{350.0, 553.0}, {810.0, 38.0}}
+                                    Other, 0x117e07c00, {{350.0, 553.0}, {810.0, 38.0}}
+                                      Other, 0x117e07d40, {{350.0, 553.0}, {810.0, 38.0}}
+                                        Other, 0x117e07e80, {{350.0, 553.0}, {810.0, 38.0}}
+                                          StaticText, 0x117e08000, {{350.0, 553.0}, {810.0, 38.0}}, label: 'Gestures'
+                                  Cell, 0x117e08140, {{350.0, 591.0}, {810.0, 52.0}}
+                                    Other, 0x117e08280, {{350.0, 591.0}, {810.0, 52.0}}
+                                      Other, 0x117e083c0, {{350.0, 591.0}, {810.0, 52.0}}
+                                        Other, 0x117e08500, {{350.0, 591.0}, {810.0, 52.0}}
+                                    Other, 0x117e08640, {{350.0, 591.0}, {810.0, 52.0}}
+                                      Other, 0x117e08780, {{350.0, 591.0}, {810.0, 52.0}}
+                                        Other, 0x117e088c0, {{350.0, 591.0}, {810.0, 52.0}}
+                                          Switch, 0x117e08a00, {{350.0, 591.0}, {810.0, 52.0}}, identifier: 'com.apple.settings.multitaskingAndGestures.fourAndFiveFingers', label: 'Four & Five Finger App Switching', value: 1
+                                            StaticText, 0x117e08b40, {{370.0, 606.8}, {252.0, 20.5}}, label: 'Four & Five Finger App Switching'
+                                            Switch, 0x117e08c80, {{1079.0, 603.0}, {63.0, 28.0}}, value: 1
+                                  Cell, 0x117e08dc0, {{350.0, 643.0}, {810.0, 62.0}}
+                                    Other, 0x117e08f00, {{350.0, 643.0}, {810.0, 62.0}}
+                                    Other, 0x117e09040, {{350.0, 643.0}, {810.0, 62.0}}
+                                      Other, 0x117e09180, {{350.0, 643.0}, {810.0, 62.0}}
+                                        Other, 0x117e092c0, {{350.0, 643.0}, {810.0, 62.0}}
+                                          StaticText, 0x117e09400, {{350.0, 643.0}, {810.0, 62.0}}, label: '- Go home by pinching with four or five fingers.
+- Switch apps by swiping left and right with four or five fingers.
+- Open the App Switcher by pinching and pausing with four or five fingers.'
+                                  Other, 0x117e09540, {{-12.0, 705.0}, {1204.0, 131.5}}
+                                  Cell, 0x117e09680, {{350.0, 722.5}, {810.0, 52.0}}
+                                    Other, 0x117e097c0, {{350.0, 722.5}, {810.0, 52.0}}
+                                      Other, 0x117e09900, {{350.0, 722.5}, {810.0, 52.0}}
+                                        Other, 0x117e09a40, {{350.0, 722.5}, {810.0, 52.0}}
+                                    Other, 0x117e09b80, {{350.0, 722.5}, {810.0, 52.0}}
+                                      Other, 0x117e09cc0, {{350.0, 722.5}, {810.0, 52.0}}
+                                        Other, 0x117e09e00, {{350.0, 722.5}, {810.0, 52.0}}
+                                          Switch, 0x117e09f40, {{350.0, 722.5}, {810.0, 52.0}}, identifier: 'com.apple.settings.multitaskingAndGestures.productivityGestures', label: 'Productivity Gestures', value: 1
+                                            StaticText, 0x117e0a080, {{370.0, 738.2}, {164.5, 20.5}}, label: 'Productivity Gestures'
+                                            Switch, 0x117e0a1c0, {{1079.0, 734.5}, {63.0, 28.0}}, value: 1
+                                  Cell, 0x117e0a300, {{350.0, 774.5}, {810.0, 62.0}}
+                                    Other, 0x117e0a440, {{350.0, 774.5}, {810.0, 62.0}}
+                                    Other, 0x117e0a580, {{350.0, 774.5}, {810.0, 62.0}}
+                                      Other, 0x117e0a6c0, {{350.0, 774.5}, {810.0, 62.0}}
+                                        Other, 0x117e0a800, {{350.0, 774.5}, {810.0, 62.0}}
+                                          StaticText, 0x117e0a940, {{350.0, 774.5}, {810.0, 62.0}}, label: '- Double-tap with three fingers to undo.
+- Pinch and spread with three fingers to copy and paste.
+- Swipe left with three fingers to undo and swipe right to redo.'
+                                  Other, 0x117e0aa80, {{1147.0, 86.0}, {30.0, 702.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                                    Other, 0x117e0abc0, {{1174.0, 778.0}, {3.0, 7.0}}
+                                  Other, 0x117e0ad00, {{1147.0, 86.0}, {30.0, 702.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                                    Other, 0x117e0ae40, {{1174.0, 778.0}, {3.0, 7.0}}
+                        Other, 0x117e0af80, {{0.0, 0.0}, {1180.0, 820.0}}
+                          Other, 0x117e0b0c0, {{0.0, 0.0}, {1180.0, 820.0}}
+                  Other, 0x117e0b200, {{0.0, 0.0}, {1180.0, 820.0}}
+                    Other, 0x117e0b340, {{0.0, 0.0}, {1180.0, 820.0}}
+Path to element:
+ →Application, 0x117d3c280, pid: 6776, label: 'Settings'
+Query chain:
+ →Find: Application 'com.apple.Preferences'
+  Output: {
+    Application, 0x117e0b480, pid: 6776, label: 'Settings'
+  }

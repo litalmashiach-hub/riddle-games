@@ -1,0 +1,77 @@
+{
+  "BuildMachineOSBuild" => "25G332"
+  "CAPACITOR_DEBUG" => ""
+  "CFBundleDevelopmentRegion" => "en"
+  "CFBundleDisplayName" => "Riddle Games"
+  "CFBundleExecutable" => "App"
+  "CFBundleIcons" => {
+    "CFBundlePrimaryIcon" => {
+      "CFBundleIconFiles" => [
+        0 => "AppIcon60x60"
+      ]
+      "CFBundleIconName" => "AppIcon"
+    }
+  }
+  "CFBundleIcons~ipad" => {
+    "CFBundlePrimaryIcon" => {
+      "CFBundleIconFiles" => [
+        0 => "AppIcon60x60"
+        1 => "AppIcon76x76"
+      ]
+      "CFBundleIconName" => "AppIcon"
+    }
+  }
+  "CFBundleIdentifier" => "com.example.riddlegames"
+  "CFBundleInfoDictionaryVersion" => "6.0"
+  "CFBundleName" => "App"
+  "CFBundlePackageType" => "APPL"
+  "CFBundleShortVersionString" => "1.0"
+  "CFBundleSupportedPlatforms" => [
+    0 => "iPhoneSimulator"
+  ]
+  "CFBundleVersion" => "1"
+  "DTCompiler" => "com.apple.compilers.llvm.clang.1_0"
+  "DTPlatformBuild" => "23F81a"
+  "DTPlatformName" => "iphonesimulator"
+  "DTPlatformVersion" => "26.5"
+  "DTSDKBuild" => "23F81a"
+  "DTSDKName" => "iphonesimulator26.5"
+  "DTXcode" => "2660"
+  "DTXcodeBuild" => "17F113"
+  "ITSAppUsesNonExemptEncryption" => false
+  "LSRequiresIPhoneOS" => true
+  "MinimumOSVersion" => "15.0"
+  "UIApplicationSceneManifest" => {
+    "UIApplicationSupportsMultipleScenes" => false
+    "UISceneConfigurations" => {
+      "UIWindowSceneSessionRoleApplication" => [
+        0 => {
+          "UISceneConfigurationName" => "Default Configuration"
+          "UISceneDelegateClassName" => "App.SceneDelegate"
+          "UISceneStoryboardFile" => "Main"
+        }
+      ]
+    }
+  }
+  "UIDeviceFamily" => [
+    0 => 1
+    1 => 2
+  ]
+  "UILaunchStoryboardName" => "LaunchScreen"
+  "UIMainStoryboardFile" => "Main"
+  "UIRequiredDeviceCapabilities" => [
+    0 => "arm64"
+  ]
+  "UIStatusBarHidden" => true
+  "UISupportedInterfaceOrientations" => [
+    0 => "UIInterfaceOrientationLandscapeLeft"
+    1 => "UIInterfaceOrientationLandscapeRight"
+  ]
+  "UISupportedInterfaceOrientations~ipad" => [
+    0 => "UIInterfaceOrientationPortrait"
+    1 => "UIInterfaceOrientationPortraitUpsideDown"
+    2 => "UIInterfaceOrientationLandscapeLeft"
+    3 => "UIInterfaceOrientationLandscapeRight"
+  ]
+  "UIViewControllerBasedStatusBarAppearance" => true
+}
