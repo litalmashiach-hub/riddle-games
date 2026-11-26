@@ -170,3 +170,12 @@ own server. It could share a job with the play-through tests if both run from on
   faults.
 - Where a level offers a tap and a drag (the logs of levels 18 and 27), the player taps.
 - SD graphics (`?quality=low`), as a phone picks by itself.
+
+## With Hint's mark up
+
+`e2e/taps/tests/hint-marks.spec.ts` runs with the commands above. In seven levels it presses Hint by a
+real touch and then makes the hinted move by touches on the scene, with the level's own player from
+`e2e/taps/players`, while Hint's mark is up. The mark is drawn over or round the very thing to tap: a
+halo round a figure (levels 6 and 7), a band round a name label or a plaque (8, 9 and 11), a ring drawn
+over a lantern's glow (14), and the plain ring on the ground (2). The mark must take no touch: the move
+that follows has to be the hinted one. Run it alone with `-g "Hint's mark"`.
