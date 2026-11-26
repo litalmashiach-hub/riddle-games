@@ -1,0 +1,38 @@
+19:15:17 device iPhone 17 Pro: 7F81FA48-EEA2-44A5-AC62-55FB6DDF82EA
+19:16:57 booted
+19:17:44 installed the shipping build
+19:18:54 proof (before): a request from the Mac to https://example.com
+curl: (7) Failed to connect to example.com port 443 after 23 ms: Couldn't connect to server
+HTTP 000
+exit 7
+curl: (7) Failed to connect to www.apple.com port 443 after 17 ms: Couldn't connect to server
+HTTP 000
+exit 7
+19:18:54 proof (before): Safari in the simulator opens https://example.com
+19:19:38 picture 00-safari-example-com-network-cut
+19:19:44 shipping build: cold open by the system
+com.example.riddlegames: 7812
+19:19:53 picture 01-ship-cold-open-3s
+19:20:00 picture 01-ship-cold-open-8s
+19:20:19 picture 01-ship-cold-open-20s
+19:21:05 picture 01-ship-cold-open-60s
+19:22:08 picture 01-ship-cold-open-120s
+19:22:08 shipping build: to the background (Settings opened over it) for 10 s, and back
+19:22:24 picture 02-ship-settings-over-app
+19:22:31 picture 03-ship-back-5s
+19:22:48 picture 03-ship-back-20s
+19:22:48 shipping build: quit and relaunch
+19:23:19 picture 04-ship-relaunch-20s
+19:24:04 picture 04-ship-relaunch-60s
+19:24:10 installed the test build (same app, plus read-only hooks and an open web view)
+19:25:20 picture 05-test-build-cold-open-60s
+19:25:28 test build: play by Appium
+19:38:06 play ended with status 0
+19:38:13 picture 06-end-of-play
+19:38:13 proof (after): a request from the Mac to https://example.com
+curl: (7) Failed to connect to example.com port 443 after 17 ms: Couldn't connect to server
+HTTP 000
+exit 7
+curl: (7) Failed to connect to www.apple.com port 443 after 22 ms: Couldn't connect to server
+HTTP 000
+exit 7

@@ -1,0 +1,4 @@
+tcpdump: listening on pflog0, link-type PFLOG (OpenBSD pflog file), snapshot length 524288 bytes
+5189 packets captured
+5197 packets received by filter
+0 packets dropped by kernel

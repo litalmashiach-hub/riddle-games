@@ -1,0 +1,55 @@
+    0.0s device iphone17pro-cut; levels 1,2,5,11 (4); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"7F81FA48-EEA2-44A5-AC62-55FB6DDF82EA","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  291.8s WEBVIEW_34005.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  293.9s WEBVIEW_34005.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  296.2s page in WEBVIEW_34005.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  296.6s web view found: WEBVIEW_34005.1, 874 by 402
+  299.5s turned LANDSCAPE: 874 by 402
+  304.6s calibration: touched [{"x":262,"y":161},{"x":612,"y":302}], the page saw [{"x":262,"y":161},{"x":612,"y":302}]: same (error 0.0 pt)
+  309.1s page in WEBVIEW_34005.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  309.1s frames capped at 6 a second by the test (page says 6)
+  313.4s page in WEBVIEW_34005.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  316.7s L01 wolf-two-sheep: opened by its card on the level map
+  329.3s L01: before touch 1 on "Let's go!": {"there":true,"box":[514,223,281,52],"screen":[874,402],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":146,"y":235,"t":1795721445977,"kind":"touch","on":"DIV"}],"now":1795721459295}
+  329.9s L01: touch 1 on "Let's go!" sent (557 ms)
+  337.7s L01: rules card closed 8.4 s after touch 1
+  380.5s L01 probe: sound engines 1 (running), sounds started 15, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  380.6s L01 wolf-two-sheep: won by taps; stars 3 (saved 3); open 12.401s, play 38.712s, total 71.359s; page errors 0, console errors 0; frames per second 4.1
+  381.2s L02 wolf-goat-cabbage: opened by "Next level" on the win card
+  387.2s L02: before touch 1 on "Let's go!": {"there":true,"box":[514,223,281,52],"screen":[874,402],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":252,"y":163,"t":1795721491105,"kind":"touch","on":"CANVAS"},{"x":437,"y":288,"t":1795721491657,"kind":"touch","on":"BUTTON"},{"x":437,"y":238,"t":1795721510774,"kind":"touch","on":"BUTTON"}],"now":1795721517187}
+  388.0s L02: touch 1 on "Let's go!" sent (818 ms)
+  388.6s L02: rules card closed 1.4 s after touch 1
+  423.5s L02 probe: sound engines 1 (running), sounds started 31, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192) | webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  423.5s L02 wolf-goat-cabbage: won by taps; stars 3 (saved 3); open 4.494s, play 30.95s, total 42.92s; page errors 0, console errors 0; frames per second 6.7
+  427.7s page in WEBVIEW_34005.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  429.4s L05 bridge-and-torch: opened by its card on the level map
+  439.5s L05: before touch 1 on "Let's go!": {"there":true,"box":[514,233,281,52],"screen":[874,402],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":437,"y":235,"t":1795721558917,"kind":"touch","on":"DIV"}],"now":1795721569441}
+  440.0s L05: touch 1 on "Let's go!" sent (558 ms)
+  440.6s L05: rules card closed 1.1 s after touch 1
+  476.3s L05 probe: sound engines 1 (running), sounds started 18, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  476.3s L05 bridge-and-torch: won by taps; stars 3 (saved 3); open 9.006s, play 31.624s, total 52.699s; page errors 0, console errors 0; frames per second 6.4
+  480.5s page in WEBVIEW_34005.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  482.9s L11 family-crossing: opened by its card on the level map
+  492.4s L11: before touch 1 on "Let's go!": {"there":true,"box":[514,233,281,52],"screen":[874,402],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":437,"y":235,"t":1795721612386,"kind":"touch","on":"DIV"}],"now":1795721622319}
+  493.1s L11: touch 1 on "Let's go!" sent (734 ms)
+  494.2s L11: rules card closed 1.8 s after touch 1
+  588.9s L11 probe: sound engines 1 (running), sounds started 61, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  588.9s L11 family-crossing: won by taps; stars 3 (saved 3); open 8.723s, play 90.715s, total 112.553s; page errors 0, console errors 0; frames per second 6.7
+  588.9s extras: stars-over-restart
+  604.8s page in WEBVIEW_50790.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  607.7s extras: stars-over-restart faults {"pageErrors":[],"consoleErrors":[],"outsideRequests":[]}
+  607.7s extras: launch
+  630.0s page in WEBVIEW_51439.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  630.0s extras: launch faults {"pageErrors":[],"consoleErrors":[],"outsideRequests":[]}
+  630.0s extras: about
+  651.5s extras: about faults {"pageErrors":[],"consoleErrors":[],"outsideRequests":[]}
+  651.5s extras: background-mid-level
+  691.7s page in WEBVIEW_51439.1: {"ok":true,"href":"capacitor://localhost#/level/wolf-two-sheep","hooks":"function","scene":"object"}
+  697.4s extras: background-mid-level faults {"pageErrors":[],"consoleErrors":[],"outsideRequests":[]}
+  697.4s extras: loss-and-undo
+  697.7s extras: loss path for level 2: [{"passenger":null}]
+  745.2s extras: loss-and-undo faults {"pageErrors":[],"consoleErrors":[],"outsideRequests":[]}
+  745.2s extras: net-probe
+  745.8s extras: net-probe faults {"pageErrors":[],"consoleErrors":[],"outsideRequests":["https://example.com/?offline-probe"]}
+  745.8s script calls: 1329, median 11 ms, 90th 38 ms
+  746.0s done: 4 of 4 levels won, 4 by taps alone

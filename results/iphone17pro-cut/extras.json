@@ -1,0 +1,265 @@
+{
+ "stars-over-restart": {
+  "before": "33 / 90",
+  "after": "33 / 90",
+  "savedSame": true,
+  "shots": [
+   "iphone17pro-cut-extra-map-before-restart.png",
+   "iphone17pro-cut-extra-map-after-restart.png"
+  ]
+ },
+ "stars-over-restart:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "launch": {
+  "mapAfter": 19.303,
+  "shots": [
+   {
+    "at": 2.478,
+    "file": "iphone17pro-cut-extra-launch-00.png"
+   },
+   {
+    "at": 3.956,
+    "file": "iphone17pro-cut-extra-launch-01.png"
+   },
+   {
+    "at": 6.045,
+    "file": "iphone17pro-cut-extra-launch-02.png"
+   },
+   {
+    "at": 7.581,
+    "file": "iphone17pro-cut-extra-launch-03.png"
+   },
+   {
+    "at": 9.468,
+    "file": "iphone17pro-cut-extra-launch-04.png"
+   },
+   {
+    "at": 11.083,
+    "file": "iphone17pro-cut-extra-launch-05.png"
+   },
+   {
+    "at": 12.787,
+    "file": "iphone17pro-cut-extra-launch-06.png"
+   },
+   {
+    "at": 14.494,
+    "file": "iphone17pro-cut-extra-launch-07.png"
+   },
+   {
+    "at": 16.206,
+    "file": "iphone17pro-cut-extra-launch-08.png"
+   },
+   {
+    "at": 17.668,
+    "file": "iphone17pro-cut-extra-launch-09.png"
+   }
+  ]
+ },
+ "launch:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "about": {
+  "Settings": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 812,
+     "y1": 382
+    },
+    "screen": {
+     "w": 874,
+     "h": 402
+    },
+    "scrollTop": 0,
+    "scrollHeight": 324,
+    "clientHeight": 324,
+    "offScreen": []
+   },
+   "scrolled": "nothing to scroll",
+   "shot": "iphone17pro-cut-extra-about-settings.png"
+  },
+  "Privacy": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 812,
+     "y1": 382
+    },
+    "screen": {
+     "w": 874,
+     "h": 402
+    },
+    "scrollTop": 0,
+    "scrollHeight": 1620,
+    "clientHeight": 324,
+    "offScreen": []
+   },
+   "scrolled": {
+    "before": 0,
+    "after": 327,
+    "of": 1296
+   },
+   "shot": "iphone17pro-cut-extra-about-privacy.png"
+  },
+  "Contact": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 812,
+     "y1": 382
+    },
+    "screen": {
+     "w": 874,
+     "h": 402
+    },
+    "scrollTop": 0,
+    "scrollHeight": 324,
+    "clientHeight": 324,
+    "offScreen": []
+   },
+   "scrolled": "nothing to scroll",
+   "shot": "iphone17pro-cut-extra-about-contact.png",
+   "emailTap": "no \"Write an email\" button on this build"
+  },
+  "Credits": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 812,
+     "y1": 382
+    },
+    "screen": {
+     "w": 874,
+     "h": 402
+    },
+    "scrollTop": 0,
+    "scrollHeight": 2784,
+    "clientHeight": 324,
+    "offScreen": [
+     {
+      "what": "MIT LicenseRead",
+      "x0": 251,
+      "y0": 2549,
+      "x1": 783,
+      "y1": 2597
+     },
+     {
+      "what": "zlib LicenseRead",
+      "x0": 251,
+      "y0": 2605,
+      "x1": 783,
+      "y1": 2653
+     },
+     {
+      "what": "SIL Open Font License 1.1Read",
+      "x0": 251,
+      "y0": 2661,
+      "x1": 783,
+      "y1": 2709
+     },
+     {
+      "what": "Apache License 2.0Read",
+      "x0": 251,
+      "y0": 2717,
+      "x1": 783,
+      "y1": 2765
+     },
+     {
+      "what": "CC0 1.0 UniversalRead",
+      "x0": 251,
+      "y0": 2773,
+      "x1": 783,
+      "y1": 2821
+     }
+    ]
+   },
+   "scrolled": {
+    "before": 0,
+    "after": 453,
+    "of": 2460
+   },
+   "shot": "iphone17pro-cut-extra-about-credits.png"
+  }
+ },
+ "about:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "background-mid-level": {
+  "before": {
+   "moves": 1
+  },
+  "after": {
+   "moves": 1,
+   "ready": true,
+   "card": false,
+   "lost": false
+  },
+  "shots": [
+   "iphone17pro-cut-extra-background-before.png",
+   "iphone17pro-cut-extra-background-back-1s.png",
+   "iphone17pro-cut-extra-background-back-6s.png"
+  ],
+  "consoleErrors": [],
+  "pageErrors": []
+ },
+ "background-mid-level:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "loss-and-undo": {
+  "path": [
+   {
+    "passenger": null
+   }
+  ],
+  "losingMoveBy": "real touches",
+  "atLoss": {
+   "kind": "lost",
+   "moves": 1
+  },
+  "afterUndo": {
+   "kind": "playing",
+   "moves": 0,
+   "redo": 1
+  },
+  "shots": [
+   "iphone17pro-cut-extra-loss-card.png",
+   "iphone17pro-cut-extra-after-undo.png"
+  ]
+ },
+ "loss-and-undo:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "net-probe": {
+  "request": "https://example.com/?offline-probe (the test's own)",
+  "result": {
+   "done": true,
+   "ok": false,
+   "error": "TypeError: Load failed"
+  },
+  "seconds": 0.601,
+  "origin": "capacitor://localhost",
+  "outsideResourcesThisPage": []
+ },
+ "net-probe:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [
+   "https://example.com/?offline-probe"
+  ]
+ }
+}

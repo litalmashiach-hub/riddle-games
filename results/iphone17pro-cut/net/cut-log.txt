@@ -1,0 +1,21 @@
+runner logs: /Users/runner/actions-runner/cached/_diag
+kept addresses:       24
+pfctl: Use of -f option, could result in flushing of rules
+present in the main ruleset added by the system at startup.
+See /etc/pf.conf for further details.
+
+pfctl: Use of -f option, could result in flushing of rules
+present in the main ruleset added by the system at startup.
+See /etc/pf.conf for further details.
+
+No ALTQ support in kernel
+ALTQ related functions disabled
+No ALTQ support in kernel
+ALTQ related functions disabled
+ghrun
+network cut at 2026-11-26T19:18:54Z
+kept addresses at the end:       34
+No ALTQ support in kernel
+ALTQ related functions disabled
+pf disabled
+network back at 2026-11-26T19:38:16Z

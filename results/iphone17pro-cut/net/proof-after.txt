@@ -1,0 +1,6 @@
+curl: (7) Failed to connect to example.com port 443 after 17 ms: Couldn't connect to server
+HTTP 000
+exit 7
+curl: (7) Failed to connect to www.apple.com port 443 after 22 ms: Couldn't connect to server
+HTTP 000
+exit 7

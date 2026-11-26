@@ -1,0 +1,7 @@
+20.75.202.224 # /opt/hca/hosted-compute-agent
+20.75.202.224 # /var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/provjobd4210901225
+20.85.130.105 # /Users/runner/actions-runner/cached/bin/Runner.Listener
+20.85.130.105 # /Users/runner/actions-runner/cached/bin/Runner.Listener
+140.82.112.21 # /Users/runner/actions-runner/cached/bin/Runner.Worker
+20.85.130.105 # /Users/runner/actions-runner/cached/bin/Runner.Worker
+17.253.253.7 # /System/Library/Frameworks/StoreKit.framework/Support/storekitd

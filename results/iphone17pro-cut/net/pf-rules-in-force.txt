@@ -1,0 +1,11 @@
+No ALTQ support in kernel
+ALTQ related functions disabled
+block return log all
+pass quick inet6 proto ipv6-icmp all keep state
+pass out quick proto udp from any port = 68 to any port = 67 keep state
+pass out log quick proto tcp from any to any port = 53 flags S/SA keep state
+pass out log quick proto udp from any to any port = 53 keep state
+pass out log quick proto tcp from any to <ghrun> flags any keep state
+pass out log quick proto udp from any to <ghrun> keep state
+pass in quick proto tcp from <ghrun> to any flags any keep state
+pass in quick proto udp from <ghrun> to any keep state

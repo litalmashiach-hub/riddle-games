@@ -1,0 +1,122 @@
+Connections pf refused while the network was cut (direction, address, port: packets; processes seen with that address):
+  none
+
+Names looked up while the network was cut (lookups are let through so the runner can find its hosts):
+  artifactcache.actions.githubusercontent.com: 92
+  claude.ai: 92
+  codeload.github.com: 92
+  github.com: 92
+  results-receiver.actions.githubusercontent.com: 92
+  api.github.com: 91
+  avatars.githubusercontent.com: 91
+  broker.actions.githubusercontent.com: 91
+  launch.actions.githubusercontent.com: 91
+  pipelinesghubeus5.actions.githubusercontent.com: 91
+  productionresultssa18.blob.core.windows.net: 91
+  run-actions-3-azure-eastus.actions.githubusercontent.com: 91
+  configuration.g.aaplimg.com: 21
+  updates.g.aaplimg.com: 14
+  gateway.fe2.apple-dns.net: 9
+  wps.v.aaplimg.com: 8
+  ohttp-relay1.fastly-edge.com: 8
+  cdn-icloud-content.g.aaplimg.com: 7
+  bag.itunes.g.aaplimg.com: 5
+  safebrowsing.g.aaplimg.com: 5
+  mask.apple-dns.net: 5
+  init-sb.push-apple.com.akadns.net: 5
+  mesu-cdn.origin-apple.com.akadns.net: 4
+  updates.cdn-apple.com: 4
+  gdmf.apple.com: 4
+  cdn.smoot.apple.com: 3
+  news-edge.apple.com: 3
+  apps-mzstatic-cdn.itunes-apple.com.akadns.net: 3
+  cdn.smoot.g.aaplimg.com: 3
+  example.com: 2
+  www.apple.com: 2
+  mesu.g.aaplimg.com: 2
+  safebrowsing.googleapis.com: 2
+  us-sandbox-courier-4.push-apple.com.akadns.net: 2
+  guzzoni-apple-com.v.aaplimg.com: 2
+  5.courier-sandbox-push-apple.com.akadns.net: 2
+  bag-cdn-lb.itunes-apple.com.akadns.net: 2
+  swallow-apple-com.v.aaplimg.com: 2
+  weatherkit-apple-com.v.aaplimg.com: 2
+  xp.g.aaplimg.com: 2
+  a1366.dscapi6.akamai.net: 2
+  glb-p4a577-public-internal.githubapp.com: 2
+  0.pool.ntp.org: 2
+  gdmf-ados.apple.com: 2
+  apple-relay.cloudflare.com: 2
+  gdmf.v.aaplimg.com: 2
+  bag-cdn.itunes-apple.com.akadns.net: 2
+  api-safari.smoot.apple.com: 1
+  wps.apple.com: 1
+  token.safebrowsing.apple: 1
+  ssl.gstatic.com: 1
+  itunes.apple.com: 1
+  weatherkit.apple.com: 1
+  device-config.v.aaplimg.com: 1
+  valid.apple.com: 1
+  sequoia.cdn-apple.com: 1
+  mask-api.fe2.apple-dns.net: 1
+  pancake.apple.com: 1
+  valid-apple.g.aaplimg.com: 1
+  amp-api.media-lb.apple.com.akadns.net: 1
+  sandbox.itunes.apple.com: 1
+  swallow.apple.com: 1
+  lb._dns-sd._udp.0.64.168.192.in-addr.arpa: 1
+  weather-edge.apple.com: 1
+  3.courier-sandbox-push-apple.com.akadns.net: 1
+  configuration-lb.ls-apple.com.akadns.net: 1
+  gspe1-ssl.ls.apple.com.edgesuite.net: 1
+  this-url-does-not-exist-41bd2efe-309d-4496-909b-3eba8435044d.invalid: 1
+  pds-init.ess.apple.com: 1
+  smp-device-content.apple.com: 1
+  itunes.apple.com.edgekey.net: 1
+  api.apple-cloudkit.com: 1
+  ab-apple-com.v.aaplimg.com: 1
+  e3925.dscg.akamaiedge.net: 1
+  apps.mzstatic.com.g.aaplimg.com: 1
+  this-url-does-not-exist-f8ef3052-5892-4658-8a46-d84b192aa293.invalid: 1
+  swscan-cdn.apple.com.akadns.net: 1
+  api.apple-cloudkit.fe2.apple-dns.net: 1
+
+Addresses pf let through that are not loopback, lookups or the runner's kept ones:
+  none
+
+The runner's kept addresses that were used (outward): 0
+Processes seen holding a non-loopback socket at any time during the cut:
+  mDNSRespo: 17 addresses
+  NewsToday: 12 addresses
+  nsurlsess: 12 addresses
+  amsaccoun: 8 addresses
+  amsengage: 8 addresses
+  managedap: 8 addresses
+  networkse: 7 addresses
+  amsondevi: 4 addresses
+  itunesclo: 4 addresses
+  gamed: 4 addresses
+  syspolicy: 4 addresses
+  com.apple: 4 addresses
+  privatecl: 4 addresses
+  assistant: 3 addresses
+  trustd: 3 addresses
+  promotedc: 3 addresses
+  Runner.Wo: 2 addresses
+  parsecd: 2 addresses
+  geod: 2 addresses
+  storekitd: 2 addresses
+  NewsTag: 2 addresses
+  WeatherWi: 2 addresses
+  mobileass: 2 addresses
+  provjobd4: 1 addresses
+  hosted-co: 1 addresses
+  Runner.Li: 1 addresses
+  apsd: 1 addresses
+  appstored: 1 addresses
+  jetpackas: 1 addresses
+  accountsd: 1 addresses
+  PromotedC: 1 addresses
+  Categorie: 1 addresses
+  adprivacy: 1 addresses
+  softwareu: 1 addresses
