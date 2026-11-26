@@ -52,6 +52,18 @@ async function openAbout(page: Page) {
 
 const settings = (page: Page) => page.evaluate((key) => JSON.parse(localStorage.getItem(key) ?? '{}'), SETTINGS_KEY);
 
+test('the page title and the spoken loading label carry this build\'s name only', async ({ page }) => {
+  // The page as served, before the game replaces the loading mark: VoiceOver reads this label at launch.
+  const served = await (await page.request.get('')).text();
+  expect(served).toContain(`<title>${nameHere()}</title>`);
+  expect(served).toContain(`aria-label="Loading ${nameHere()}"`);
+  if (appBuild()) expect(served).not.toContain('Riddle Games');
+  else expect(served).not.toContain(APP_ONLY_WORDS.name);
+  await page.goto('');
+  await expect(page.getByRole('heading', { name: nameHere() })).toBeVisible();
+  await expect(page).toHaveTitle(nameHere());
+});
+
 test('the screen opens from the map, shows every section, and leads back', async ({ page }) => {
   await openAbout(page);
   await expect(page).toHaveURL(/#\/about$/);
