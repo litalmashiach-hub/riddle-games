@@ -96,6 +96,11 @@ export class FakeLocator {
     const f = await this.one();
     return f ? f.box : null;
   }
+  /** Runs a function on the element in the page, as Playwright's locator.evaluate does. */
+  async evaluate<R, A>(fn: (el: Element, arg: A) => R, arg?: A): Promise<Awaited<R>> {
+    const src = `(a) => { const el = window.__appFind(a.spec); if (!el) throw new Error('no element for the look-up'); return (${fn.toString()})(el, a.arg); }`;
+    return this.page.backend.exec<Awaited<R>>(src, { spec: { steps: this.steps }, arg: arg ?? null });
+  }
   /** A real touch on the middle of the element, once it shows. */
   async tap(o: { timeout?: number } = {}) {
     await this.waitFor({ state: 'visible', timeout: o.timeout ?? 30_000 });
