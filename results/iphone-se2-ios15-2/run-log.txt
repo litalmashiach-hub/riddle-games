@@ -1,0 +1,32 @@
+    0.0s device iphone-se2-ios15-2; levels 1,2,5,11 (4); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"3E36D422-D0D4-4490-BD94-E5783F0C1719","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  246.7s page in WEBVIEW_26698.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  246.8s web view found: WEBVIEW_26698.1, 667 by 375
+  250.5s turned LANDSCAPE: 667 by 375
+  253.0s calibration: touched [{"x":200,"y":150},{"x":467,"y":281}], the page saw [{"x":200,"y":150},{"x":467,"y":281}]: same (error 0.0 pt)
+  257.5s page in WEBVIEW_26698.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  381.4s L01: ERROR timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]')
+  393.1s page in WEBVIEW_34159.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  513.3s relaunch failed: Error: timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]')
+  513.4s L01 probe: sound engines 0 (), sounds started 0, decoded 0, decode errors 0, start errors 0; 3D none asked; CSS layers false; Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  513.4s L01 wolf-two-sheep: not won: timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]'); stars null (saved null); open nulls, play nulls, total 260.26s; page errors 1, console errors 1; frames per second ?
+  517.5s page in WEBVIEW_34159.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  637.7s L02: ERROR timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]')
+  647.8s page in WEBVIEW_46646.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  767.8s relaunch failed: Error: timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]')
+  767.9s L02 probe: sound engines 0 (), sounds started 0, decoded 0, decode errors 0, start errors 0; 3D none asked; CSS layers false; Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+  767.9s L02 wolf-goat-cabbage: not won: timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]'); stars null (saved null); open nulls, play nulls, total 254.425s; page errors 1, console errors 1; frames per second ?
+  772.0s page in WEBVIEW_46646.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  892.2s L05: ERROR timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]')
+  901.8s page in WEBVIEW_59633.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1021.9s relaunch failed: Error: timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]')
+ 1021.9s L05 probe: sound engines 0 (), sounds started 0, decoded 0, decode errors 0, start errors 0; 3D none asked; CSS layers false; Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+ 1021.9s L05 bridge-and-torch: not won: timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]'); stars null (saved null); open nulls, play nulls, total 253.988s; page errors 1, console errors 1; frames per second ?
+ 1026.0s page in WEBVIEW_59633.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1146.2s L11: ERROR timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]')
+ 1155.9s page in WEBVIEW_72836.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1276.1s relaunch failed: Error: timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]')
+ 1276.1s L11 probe: sound engines 0 (), sounds started 0, decoded 0, decode errors 0, start errors 0; 3D none asked; CSS layers false; Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+ 1276.1s L11 family-crossing: not won: timed out waiting for ()=>!!document.querySelector('[aria-label="About and settings"]'); stars null (saved null); open nulls, play nulls, total 254.151s; page errors 1, console errors 1; frames per second ?
+ 1276.1s script calls: 3974, median 11 ms, 90th 22 ms
+ 1276.1s done: 0 of 4 levels won, 0 by taps alone

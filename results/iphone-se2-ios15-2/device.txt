@@ -1,0 +1,3 @@
+device iPhone SE (2nd generation): 3E36D422-D0D4-4490-BD94-E5783F0C1719
+    iPhone SE (2nd generation) (com.apple.CoreSimulator.SimRuntime.iOS-15-2) (3E36D422-D0D4-4490-BD94-E5783F0C1719) (Shutdown) 
+booted in 37 s

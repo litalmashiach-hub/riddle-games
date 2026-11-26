@@ -1,0 +1,51 @@
+{
+ "level": 1,
+ "id": "wolf-two-sheep",
+ "title": "Wolf and Two Sheep",
+ "device": "iphone-se2-ios15-2",
+ "size": "667x375",
+ "quality": null,
+ "openedBy": "",
+ "state": "not won: timed out waiting for ()=>!!document.querySelector('[aria-label=\"About and settings\"]')",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 0,
+ "moves": 7,
+ "touches": 0,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "timed out waiting for ()=>!!document.querySelector('[aria-label=\"About and settings\"]')",
+ "seconds": {
+  "open": null,
+  "rulesCard": null,
+  "drawn": null,
+  "play": null,
+  "total": 260.26
+ },
+ "pageErrors": [
+  "@capacitor://localhost/assets/index-DC45MjrC.js:5003:1442816\nfrom@[native code]\nmodule code@capacitor://localhost/assets/index-DC45MjrC.js:5003:1442881\nevaluate@[native code]\nmoduleEvaluation@[native code]\n@[native code]\npromiseReactionJob@[native code]"
+ ],
+ "consoleErrors": [
+  "@capacitor://localhost/assets/index-DC45MjrC.js:5003:1442816\nfrom@[native code]\nmodule code@capacitor://localhost/assets/index-DC45MjrC.js:5003:1442881\nevaluate@[native code]\nmoduleEvaluation@[native code]\n@[native code]\npromiseReactionJob@[native code]"
+ ],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-se2-ios15-2-L01-error.png"
+ ],
+ "log": [],
+ "probe": {
+  "audioContexts": 0,
+  "audioStates": [],
+  "soundStarts": 0,
+  "decoded": 0,
+  "decodeErrors": 0,
+  "startErrors": [],
+  "canvas": [],
+  "liveAudioStates": [],
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "cssLayers": false,
+  "webgl2": true
+ }
+}
