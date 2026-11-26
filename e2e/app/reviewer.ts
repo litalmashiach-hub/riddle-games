@@ -148,8 +148,31 @@ async function main() {
     }
     const go = page.getByRole('button', { name: "Let's go!" });
     const t = Date.now();
-    await go.waitFor({ state: 'visible', timeout: 600_000 });
-    await page.waitForFunction((id) => !!(window as any).__taps?.ready() && (window as any).__riddle?.getState().level.id === id, level.id, { timeout: 600_000 });
+    const cantShow: string[] = [];
+    // Ready, or the card "This level can't be shown": then "Try again", as a player would (twice at most).
+    for (;;) {
+      const state = await page.evaluate((id) => {
+        if (document.querySelector('[role=alertdialog], [role=dialog]')?.textContent?.includes("can't be shown")) return 'cant';
+        return (window as any).__taps?.ready() && (window as any).__riddle?.getState().level.id === id && !!Array.from(document.querySelectorAll('button')).find((b) => b.textContent?.trim() === "Let's go!") ? 'ready' : 'wait';
+      }, level.id).catch(() => 'wait');
+      if (state === 'ready') break;
+      if (state === 'cant') {
+        cantShow.push(await shot(`L${num}-cant-be-shown-${cantShow.length + 1}`));
+        log(`L${num}: "This level can't be shown" after ${Math.round((Date.now() - t) / 1000)} s`);
+        if (cantShow.length > 4) throw new Error(`"This level can't be shown" ${cantShow.length} times`);
+        if (cantShow.length > 2) {
+          // TEST ONLY, said in the report: on an overloaded Mac the game's own 30 s wait for a first frame is too short; the debug hook lets it wait 5 minutes.
+          await page.evaluate(() => { (window as any).__sceneWaitMs = 300_000; });
+          log(`L${num}: the scene's wait set to 5 minutes by the test`);
+        }
+        await page.getByRole('button', { name: 'Try again' }).tap();
+        await sleep(3000);
+        continue;
+      }
+      if (Date.now() - t > 900_000) throw new Error('the level was not ready in 15 minutes');
+      await sleep(1000);
+    }
+    (globalThis as any).__cantShow = cantShow;
     const openSeconds = Math.round((Date.now() - t) / 1000);
     await sleep(1500);
     const rules = await shot(`L${num}-rules-card`);
@@ -160,7 +183,7 @@ async function main() {
     }
     await waitCameraStill(page);
     await waitIdle(page);
-    return { level, openSeconds, rules, rulesText };
+    return { level, openSeconds, rules, rulesText, cantShow };
   };
 
   /** Plays the given moves by real taps; on a tap fault, says so and finishes by the debug hook. */
@@ -290,7 +313,7 @@ async function main() {
       const r: Record<string, any> = {};
       const via = num === 1 ? 'card' : 'next';
       const o = await openLevel(num, via);
-      Object.assign(r, { openSeconds: o.openSeconds, rules: o.rules, rulesText: o.rulesText, openedBy: via });
+      Object.assign(r, { openSeconds: o.openSeconds, rules: o.rules, rulesText: o.rulesText, openedBy: via, cantShow: o.cantShow });
       if (num === 1) {
         r.guideShown = await page.evaluate(() => !!document.querySelector('[data-testid="first-play-guide"]'));
         r.guideShot = await shot('L1-first-play-guide');
@@ -401,7 +424,7 @@ async function main() {
     await step(`level-${num}`, async () => {
       const r: Record<string, any> = {};
       const o = await openLevel(num, 'card');
-      Object.assign(r, { openSeconds: o.openSeconds, rules: o.rules, rulesText: o.rulesText });
+      Object.assign(r, { openSeconds: o.openSeconds, rules: o.rules, rulesText: o.rulesText, cantShow: o.cantShow });
       await playMoves(o.level, o.level.moves, r, async (i) => {
         if (i === 2) {
           r.inPlayShot = await shot(`L${num}-in-play`);
