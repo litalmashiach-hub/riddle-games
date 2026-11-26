@@ -90,9 +90,9 @@ class GameViewController: CAPBridgeViewController {
     // A first swipe from the bottom edge only shows the home bar; the second one leaves the game.
     override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge { .bottom }
 
-    // iPhone: sideways only, both directions. iPad: turns and resizes freely, as Apple asks of iPad apps
-    // (the setting that let an iPad app refuse to rotate, UIRequiresFullScreen, is deprecated).
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        UIDevice.current.userInterfaceIdiom == .phone ? .landscape : .all
-    }
+    // Sideways only, both directions, on iPhone and iPad alike: every scene is built wide, and upright they
+    // come out unfinished. On an iPad held upright, iPadOS shows the game sideways and smaller, with dark
+    // bars above and below; a resized window keeps the sideways shape. Info.plist says the same, and
+    // apps/mobile/src/shellSettings.test.ts keeps the two in step. See docs/ios-app.md.
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .landscape }
 }

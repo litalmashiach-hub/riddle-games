@@ -207,7 +207,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
           <Button onClick={s.undo} disabled={moveCount === 0} tone="readout" aria-label="Undo" className="short:!px-3"><UndoIcon /><span className="hidden sm:inline short:hidden">Undo</span></Button>
           <Button onClick={s.redo} disabled={s.future.length === 0} tone="readout" aria-label="Redo" className="short:!px-3"><RedoIcon /></Button>
           <Button onClick={s.restart} disabled={moveCount === 0 && s.future.length === 0} tone="readout" aria-label="Restart" className="short:!px-3"><RestartIcon /><span className="hidden sm:inline short:hidden">Restart</span></Button>
-          <Button tone="gold" className="short:hidden" onClick={() => setHintText(hintLine(s))} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline">Hint</span></Button>
+          <Button tone="gold" className="touch-44 short:hidden" onClick={() => setHintText(hintLine(s))} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon /><span className="hidden sm:inline">Hint</span></Button>
         </div>
         <div className="pointer-events-auto hidden short:block">
           <Button tone="gold" className="!rounded-3xl !px-4 !py-3.5" onClick={() => setHintText(hintLine(s))} disabled={s.status.kind !== 'playing' || s.busy} aria-label="Hint"><BulbIcon />Hint</Button>
