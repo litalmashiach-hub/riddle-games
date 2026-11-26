@@ -1,0 +1,49 @@
+  338.9s page in WEBVIEW_19783.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  342.4s web view WEBVIEW_19783.1, 956 by 440
+  348.2s calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+  354.5s page in WEBVIEW_19783.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  354.8s recorder in the page: object; quality high
+  354.8s scene 1-wolf-goat-cabbage: level 2 wolf-goat-cabbage
+  385.9s scene 1-wolf-goat-cabbage: frame 0/280, 2099 ms a frame; status playing; t 35418
+  400.3s scene 1-wolf-goat-cabbage frame 12: move {"passenger":"goat"} played (0 frames late); status playing
+  421.3s scene 1-wolf-goat-cabbage: frame 30/280, 915 ms a frame; status playing; t 36418
+  453.3s scene 1-wolf-goat-cabbage: frame 60/280, 1084 ms a frame; status playing; t 37418
+  487.5s scene 1-wolf-goat-cabbage: frame 90/280, 1187 ms a frame; status playing; t 38418
+  490.6s scene 1-wolf-goat-cabbage frame 93: move {"passenger":null} played (75 frames late); status playing
+  517.5s scene 1-wolf-goat-cabbage: frame 120/280, 980 ms a frame; status playing; t 39418
+  549.9s scene 1-wolf-goat-cabbage: frame 150/280, 1113 ms a frame; status playing; t 40418
+  574.8s scene 1-wolf-goat-cabbage frame 174: move {"passenger":"wolf"} played (75 frames late); status playing
+  582.9s scene 1-wolf-goat-cabbage: frame 180/280, 1037 ms a frame; status playing; t 41418
+  616.9s scene 1-wolf-goat-cabbage: frame 210/280, 1170 ms a frame; status playing; t 42418
+  648.4s scene 1-wolf-goat-cabbage: frame 240/280, 951 ms a frame; status playing; t 43418
+  679.6s scene 1-wolf-goat-cabbage: frame 270/280, 961 ms a frame; status playing; t 44418
+  689.1s scene 1-wolf-goat-cabbage done: 280 pictures, sound 0-9333.333333333325 ms, status {"kind":"playing"}
+  693.2s scene 2-moonbeam-maze: level 26 moonbeam-maze
+  719.2s scene 2-moonbeam-maze: frame 0/170, 1684 ms a frame; status playing; t 73277
+  731.8s scene 2-moonbeam-maze frame 10: move {"mirror":6} played (0 frames late); status playing
+  764.6s scene 2-moonbeam-maze: frame 30/170, 1196 ms a frame; status playing; t 74277
+  812.9s scene 2-moonbeam-maze: frame 60/170, 1363 ms a frame; status playing; t 75277
+  823.8s scene 2-moonbeam-maze frame 68: move {"mirror":7} played (44 frames late); status playing
+  864.7s scene 2-moonbeam-maze: frame 90/170, 1482 ms a frame; status playing; t 76277
+  913.3s scene 2-moonbeam-maze: frame 120/170, 1812 ms a frame; status playing; t 77277
+  922.9s scene 2-moonbeam-maze frame 126: move {"mirror":10} played (44 frames late); status playing
+  968.7s scene 2-moonbeam-maze: frame 150/170, 1755 ms a frame; status playing; t 78277
+ 1008.6s scene 2-moonbeam-maze done: 170 pictures, sound 12333.333333333325-18000.000000000007 ms, status {"kind":"playing"}
+ 1013.0s scene 3-tower-of-hanoi: level 4 tower-of-hanoi
+ 1038.0s scene 3-tower-of-hanoi: frame 0/260, 1457 ms a frame; status playing; t 106928
+ 1048.4s scene 3-tower-of-hanoi frame 10: move {"from":0,"to":1} played (0 frames late); status playing
+ 1071.5s scene 3-tower-of-hanoi: frame 30/260, 1016 ms a frame; status playing; t 107928
+ 1086.4s scene 3-tower-of-hanoi frame 47: move {"from":0,"to":2} played (31 frames late); status playing
+ 1099.1s scene 3-tower-of-hanoi: frame 60/260, 966 ms a frame; status playing; t 108928
+ 1123.2s scene 3-tower-of-hanoi frame 84: move {"from":1,"to":2} played (31 frames late); status won
+ 1133.7s scene 3-tower-of-hanoi: frame 90/260, 924 ms a frame; status won; t 109928
+ 1160.2s scene 3-tower-of-hanoi: frame 120/260, 875 ms a frame; status won; t 110928
+ 1189.1s scene 3-tower-of-hanoi: frame 150/260, 933 ms a frame; status won; t 111928
+ 1229.7s scene 3-tower-of-hanoi: frame 180/260, 1860 ms a frame; status won; t 112928
+ 1272.7s scene 3-tower-of-hanoi: frame 210/260, 1589 ms a frame; status won; t 113928
+ 1306.8s scene 3-tower-of-hanoi: frame 240/260, 1004 ms a frame; status won; t 114928
+ 1323.6s scene 3-tower-of-hanoi done: 260 pictures, sound 21000.000000000007-29666.66666666636 ms, status {"kind":"won"}
+ 1328.3s sound starts while filming: 42
+ 1329.3s sound rendered: {"len":5760000,"sr":48000}
+ 1335.9s sound.wav: 33.00 s, peak 6025
+ 1336.6s done

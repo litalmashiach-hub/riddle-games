@@ -1,0 +1,9 @@
+23:13:54 device iPhone 17 Pro Max: C7E47F48-6A76-4B9F-AC71-6B8190967A94 (com.apple.CoreSimulator.SimRuntime.iOS-26-5)
+23:16:12 installed the test build
+23:16:44 filming
+exit 0
+23:39:12 films of each scene
+23:40:48 scene-1-wolf-goat-cabbage.mp4 made
+23:42:16 scene-2-moonbeam-maze.mp4 made
+23:43:24 scene-3-tower-of-hanoi.mp4 made
+23:43:26 done
