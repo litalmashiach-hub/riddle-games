@@ -1,0 +1,70 @@
+{
+ "level": 5,
+ "id": "bridge-and-torch",
+ "title": "Bridge and Torch",
+ "device": "iphone14-ios16-4",
+ "size": "844x390",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "not won: no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 0,
+ "moves": 5,
+ "touches": 1,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+ "seconds": {
+  "open": 24.255,
+  "rulesCard": 4.294,
+  "drawn": 24.255,
+  "play": null,
+  "total": 388.598
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone14-ios16-4-L05-loading-mark.png",
+  "iphone14-ios16-4-L05-rules-card.png",
+  "iphone14-ios16-4-L05-error.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "Pip",
+   "kind": "tap",
+   "at": {
+    "x": 209.40924901427496,
+    "y": 208.77712646310354
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "3aeddfb1-cc93-482d-8aa6-3def8f8c6cb9",
+    "world": [
+     -4.4,
+     1.8369701987210297e-17,
+     1.75
+    ],
+    "distance": 10.360402413685625
+   }
+  }
+ ],
+ "fps": 0,
+ "probe": {
+  "audioContexts": 0,
+  "audioStates": [],
+  "soundStarts": 0,
+  "decoded": 0,
+  "decodeErrors": 0,
+  "startErrors": [],
+  "canvas": [],
+  "liveAudioStates": [],
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "cssLayers": true,
+  "webgl2": true
+ }
+}

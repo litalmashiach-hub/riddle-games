@@ -1,0 +1,211 @@
+[
+ {
+  "level": 1,
+  "id": "wolf-two-sheep",
+  "title": "Wolf and Two Sheep",
+  "device": "iphone14-ios16-4",
+  "size": "844x390",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 9.049,
+   "rulesCard": 2.565,
+   "drawn": 9.049,
+   "play": 36.639,
+   "total": 79.353
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone14-ios16-4-L01-loading-mark.png",
+   "iphone14-ios16-4-L01-rules-card.png",
+   "iphone14-ios16-4-L01-in-play.png",
+   "iphone14-ios16-4-L01-win-card.png"
+  ],
+  "fps": 27.1,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 15,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 2,
+  "id": "wolf-goat-cabbage",
+  "title": "Wolf, Goat and Cabbage",
+  "device": "iphone14-ios16-4",
+  "size": "844x390",
+  "quality": null,
+  "openedBy": "\"Next level\" on the win card",
+  "state": "not won: timed out waiting for ()=>window.__taps.ready() (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 0,
+  "moves": 7,
+  "touches": 0,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "timed out waiting for ()=>window.__taps.ready() (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>window.__taps.ready())(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, ); the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+  "seconds": {
+   "open": 12.374,
+   "rulesCard": 9.884,
+   "drawn": 12.374,
+   "play": null,
+   "total": 339.859
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone14-ios16-4-L02-loading-mark.png",
+   "iphone14-ios16-4-L02-rules-card.png",
+   "iphone14-ios16-4-L02-error.png"
+  ],
+  "probe": {
+   "audioContexts": 0,
+   "audioStates": [],
+   "soundStarts": 0,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [],
+   "liveAudioStates": [],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 5,
+  "id": "bridge-and-torch",
+  "title": "Bridge and Torch",
+  "device": "iphone14-ios16-4",
+  "size": "844x390",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "not won: no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 0,
+  "moves": 5,
+  "touches": 1,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)",
+  "seconds": {
+   "open": 24.255,
+   "rulesCard": 4.294,
+   "drawn": 24.255,
+   "play": null,
+   "total": 388.598
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone14-ios16-4-L05-loading-mark.png",
+   "iphone14-ios16-4-L05-rules-card.png",
+   "iphone14-ios16-4-L05-error.png"
+  ],
+  "fps": 0,
+  "probe": {
+   "audioContexts": 0,
+   "audioStates": [],
+   "soundStarts": 0,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [],
+   "liveAudioStates": [],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 11,
+  "id": "family-crossing",
+  "title": "Family Crossing",
+  "device": "iphone14-ios16-4",
+  "size": "844x390",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 17,
+  "moves": 17,
+  "touches": 45,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 8.946,
+   "rulesCard": 2.638,
+   "drawn": 8.946,
+   "play": 151.011,
+   "total": 175.138
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone14-ios16-4-L11-loading-mark.png",
+   "iphone14-ios16-4-L11-rules-card.png",
+   "iphone14-ios16-4-L11-in-play.png",
+   "iphone14-ios16-4-L11-win-card.png"
+  ],
+  "fps": 19.9,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 61,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ }
+]

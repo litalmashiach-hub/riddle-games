@@ -1,0 +1,8 @@
+device iPhone 14: 85280CBC-7F82-4788-8AB4-B5D6A0443344
+    iPhone 14 (com.apple.CoreSimulator.SimRuntime.iOS-16-4) (85280CBC-7F82-4788-8AB4-B5D6A0443344) (Shutdown) 
+booted in 57 s
+com.example.riddlegames: 6911
+system picture at 20 s
+system picture at 60 s
+system picture at 120 s
+run ended with status 0

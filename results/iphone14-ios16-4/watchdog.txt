@@ -1,0 +1,48 @@
+17:43:08 WATCHDOG: the Mac wrote 149848 pages to swap in one round; stopping the app
+PID    COMMAND          MEM   CMPRS %CPU
+9680   SimRenderServer  7670M 23M   0.0 
+40937  com.apple.WebKit 184M  172M  0.0 
+9767   SpringBoard      163M  161M  0.0 
+8533   node             114M  100M  0.0 
+40512  xcodebuild       108M  107M  0.0 
+9842   PosterBoard      98M   97M   0.0 
+9869   Spotlight        97M   95M   0.0 
+995    Runner.Worker    89M   87M   0.0 
+40945  com.apple.WebKit 85M   62M   0.0 
+10190  healthappd       80M   79M   0.0 
+476    Spotlight        77M   77M   0.0 
+984    Runner.Listener  74M   74M   0.0 
+17:45:47 WATCHDOG: the Mac wrote 366056 pages to swap in one round; stopping the app
+PID    COMMAND         MEM  CMPRS %CPU
+9767   SpringBoard     164M 148M  0.0 
+8533   node            113M 50M   0.0 
+9680   SimRenderServer 110M 23M   0.0 
+40512  xcodebuild      108M 100M  0.0 
+9842   PosterBoard     98M  95M   0.0 
+9869   Spotlight       97M  92M   0.0 
+995    Runner.Worker   89M  69M   0.0 
+8866   node            82M  34M   0.0 
+10190  healthappd      80M  77M   0.0 
+984    Runner.Listener 78M  67M   0.0 
+476    Spotlight       77M  77M   0.0 
+1208   spindump        72M  71M   0.0 
+An error was encountered processing the command (domain=NSPOSIXErrorDomain, code=3):
+Simulator device failed to terminate com.example.riddlegames.
+found nothing to terminate
+Underlying error (domain=NSPOSIXErrorDomain, code=3):
+	The operation couldn’t be completed. found nothing to terminate
+	found nothing to terminate
+17:48:57 WATCHDOG: the Mac wrote 108028 pages to swap in one round; stopping the app
+PID    COMMAND          MEM   CMPRS %CPU
+9680   SimRenderServer  6418M 25M   0.0 
+9767   SpringBoard      164M  161M  0.0 
+51490  com.apple.WebKit 155M  150M  0.0 
+8533   node             134M  117M  0.0 
+40512  xcodebuild       109M  108M  0.0 
+8866   node             100M  86M   0.0 
+9842   PosterBoard      98M   97M   0.0 
+9869   Spotlight        97M   95M   0.0 
+995    Runner.Worker    89M   87M   0.0 
+10190  healthappd       80M   79M   0.0 
+476    Spotlight        77M   77M   0.0 
+984    Runner.Listener  76M   74M   0.0 

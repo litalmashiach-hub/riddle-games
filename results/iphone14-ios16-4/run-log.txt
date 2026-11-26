@@ -1,0 +1,47 @@
+    0.0s device iphone14-ios16-4; levels 1,2,5,11 (4); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"85280CBC-7F82-4788-8AB4-B5D6A0443344","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  931.0s page in WEBVIEW_40934.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  931.2s web view found: WEBVIEW_40934.1, 844 by 390
+  940.4s turned LANDSCAPE: 844 by 390
+  954.3s calibration: touched [{"x":253,"y":156},{"x":591,"y":293}], the page saw [{"x":253,"y":156},{"x":591,"y":293}]: same (error 0.0 pt)
+  976.1s page in WEBVIEW_40934.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  978.4s L01 wolf-two-sheep: opened by its card on the level map
+  989.4s L01: before touch 1 on "Let's go!": {"there":true,"box":[499,217,281,52],"screen":[844,390],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":131,"y":229,"t":1795714801746,"kind":"touch","on":"DIV"}],"now":1795714813061}
+  990.5s L01: touch 1 on "Let's go!" sent (1024 ms)
+  992.0s L01: rules card closed 2.6 s after touch 1
+ 1033.9s L01 probe: sound engines 1 (running), sounds started 15, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+ 1033.9s L01 wolf-two-sheep: won by taps; stars 3 (saved 3); open 9.049s, play 36.639s, total 79.353s; page errors 0, console errors 0; frames per second 27.1
+ 1035.1s L02 wolf-goat-cabbage: opened by "Next level" on the win card
+ 1231.0s L02: before touch 1 on "Let's go!": {"there":true,"box":[499,217,281,52],"screen":[844,390],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":239,"y":157,"t":1795714845250,"kind":"touch","on":"CANVAS"},{"x":422,"y":277,"t":1795714846545,"kind":"touch","on":"BUTTON"},{"x":422,"y":232,"t":1795714858450,"kind":"touch","on":"BUTTON"}],"now":1795715006290}
+ 1285.7s L02: touch 1 on "Let's go!" sent (52134 ms)
+ 1298.9s L02: rules card closed 65.3 s after touch 1
+ 1359.0s L02: ERROR timed out waiting for ()=>window.__taps.ready() (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (()=>window.__taps.ready())(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, ); the memory watchdog stopped the app while this level ran (the Mac was swapping hard)
+ 1373.7s page in WEBVIEW_51438.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1373.7s app relaunched after the error
+ 1373.8s L02 probe: sound engines 0 (), sounds started 0, decoded 0, decode errors 0, start errors 0; 3D none asked; CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+ 1373.8s L02 wolf-goat-cabbage: not won: timed out waiting for ()=>window.__taps.ready() (last error: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (; stars null (saved null); open 12.374s, play nulls, total 339.859s; page errors 0, console errors 0; frames per second ?
+ 1378.0s page in WEBVIEW_51438.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1379.9s L05 bridge-and-torch: opened by its card on the level map
+ 1426.2s L05: before touch 1 on "Let's go!": {"there":true,"box":[499,227,281,52],"screen":[844,390],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":422,"y":229,"t":1795715203324,"kind":"touch","on":"DIV"}],"now":1795715248967}
+ 1527.2s L05: touch 1 on "Let's go!" sent (100885 ms)
+ 1535.5s L05: rules card closed 109.1 s after touch 1
+ 1543.7s script link lost (unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try); finding the web view again
+ 1576.6s looking for the web view, 33 s so far; contexts: NATIVE_APP
+ 1611.5s looking for the web view, 68 s so far; contexts: NATIVE_APP
+ 1646.4s looking for the web view, 103 s so far; contexts: NATIVE_APP
+ 1681.4s looking for the web view, 138 s so far; contexts: NATIVE_APP
+ 1716.2s looking for the web view, 173 s so far; contexts: NATIVE_APP
+ 1727.9s L05: ERROR no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard)
+ 1762.4s page in WEBVIEW_61624.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+ 1762.4s app relaunched after the error
+ 1762.5s L05 probe: sound engines 0 (), sounds started 0, decoded 0, decode errors 0, start errors 0; 3D none asked; CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+ 1762.5s L05 bridge-and-torch: not won: no web view found in 180 s; contexts: NATIVE_APP; the memory watchdog stopped the app while this level ran (the Mac was swapping hard); stars null (saved null); open 24.255s, play nulls, total 388.598s; page errors 0, console errors 0; frames per second 0
+ 1766.6s page in WEBVIEW_61624.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+ 1768.6s L11 family-crossing: opened by its card on the level map
+ 1779.2s L11: before touch 1 on "Let's go!": {"there":true,"box":[499,227,281,52],"screen":[844,390],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":422,"y":229,"t":1795715592041,"kind":"touch","on":"DIV"}],"now":1795715602834}
+ 1780.2s L11: touch 1 on "Let's go!" sent (973 ms)
+ 1781.2s L11: rules card closed 2.0 s after touch 1
+ 1937.9s L11 probe: sound engines 1 (running), sounds started 61, decoded 0, decode errors 0, start errors 0; 3D webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192); CSS layers true; Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+ 1937.9s L11 family-crossing: won by taps; stars 3 (saved 3); open 8.946s, play 151.011s, total 175.138s; page errors 0, console errors 0; frames per second 19.9
+ 1938.0s script calls: 957, median 56 ms, 90th 183 ms
+ 1938.5s done: 2 of 4 levels won, 2 by taps alone
