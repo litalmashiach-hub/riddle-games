@@ -49,8 +49,9 @@ canvas {
   box-shadow:
     0 10px 30px rgb(0 0 0 / 0.25),
     inset 0 1px 0 rgb(255 255 255 / 0.4);
-  backdrop-filter: blur(14px) saturate(140%);
+  /* Prefixed first: the minifier drops a plain backdrop-filter that comes before the prefixed one. */
   -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
 }
 
 /*
@@ -64,8 +65,9 @@ canvas {
   box-shadow:
     0 10px 30px rgb(0 0 0 / 0.25),
     inset 0 1px 0 rgb(255 255 255 / 0.25);
-  backdrop-filter: blur(14px) saturate(140%);
+  /* Prefixed first: the minifier drops a plain backdrop-filter that comes before the prefixed one. */
   -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
   text-shadow: 0 1px 2px rgb(0 0 0 / 0.45);
 }
 
