@@ -128,6 +128,8 @@ export const PAGE_HOOKS = () => {
       const r = e.getBoundingClientRect();
       return { visible: visible(e), text: e.textContent ?? '', inner: (e as HTMLElement).innerText ?? '', name: nameOf(e), box: { x: r.x, y: r.y, width: r.width, height: r.height }, disabled: (e as HTMLButtonElement).disabled === true };
     });
+  /** The element a finger would take: the first visible one of a look-up, else the first. */
+  w.__appFind = (spec: { steps: any[] }) => { const all = find(spec); return all.find((e) => visible(e)) ?? all[0] ?? null; };
   /** Puts the n-th element of a look-up into view (used only where the report says so). */
   w.__appScrollTo = (spec: { steps: any[] }, n: number) => {
     const el = find(spec)[n];
