@@ -1,7 +1,7 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
-import { Bubble, HintRing, edgedBandGeometry, noHit, toon, useHintPulse } from '@riddle/props';
+import { Bubble, HINT_MARK, HintRing, edgedBandGeometry, noHit, toon, useHintPulse } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import * as THREE from 'three';
@@ -696,7 +696,7 @@ function HintSquare({ position, color }: { position: [number, number, number]; c
   // Four corners make a square; turned an eighth so its sides run along the rows of coins. It wears the ring's dark edge.
   const geometry = useMemo(() => edgedBandGeometry(0.43, 0.56, 0.035, color, 4, Math.PI / 4), [color]);
   return (
-    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} raycast={noHit}>
+    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} raycast={noHit} name={HINT_MARK}>
       <meshBasicMaterial vertexColors transparent toneMapped={false} depthWrite={false} fog={false} />
     </mesh>
   );
