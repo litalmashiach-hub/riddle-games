@@ -28,14 +28,6 @@ const LEVELS = [
 const HOPS_FROM_MS = 900;
 const HOPS_MS = 1400;
 
-/**
- * A boing that starts this soon after the undo is not counted. An undo that is no real input reaches the scene
- * one redraw late (see above), and a frame drawn in between can start a hop: measured, such a boing starts 1 or
- * 2 ms after the undo, in the same instant to the ear. A real tap or key press leaves no such gap. Every fault
- * this test is for starts later: 140 ms and more after the undo, most of them about a second.
- */
-const SAME_INSTANT_MS = 40;
-
 /** Listens to every tone the page starts, and marks the first quack of a loss scene. */
 function listen() {
   const q = ((window as any).__hops = { tones: [] as { at: number; sig: string }[], sceneAt: 0, undoAt: 0, onScene: null as null | (() => void) });
@@ -185,11 +177,11 @@ function undoDuringTheHops(level: (typeof LEVELS)[number]) {
     const said = tries.map((t) => `${t.by} at ${t.undoMs} ms, ${t.before} of ${hops} boings before it, after it: [${t.after}] ms`).join('\n');
     const stillDue = tries.filter((t) => t.before < hops);
     expect(stillDue.length, `tries where a hop was still due at the undo\n${said}`).toBeGreaterThanOrEqual(3);
+    // Not one, not even in the undo's own instant: a frame drawn between a scripted undo and the scene's redraw
+    // must not start a hop's boing either.
     const faults: string[] = [];
     for (const t of tries) {
-      const late = t.after.filter((x) => x > SAME_INSTANT_MS);
-      if (late.length) faults.push(`a boing ${late.join(' and ')} ms after the undo (${t.by} at ${t.undoMs} ms into the scene)`);
-      else if (t.after.length > 1) faults.push(`${t.after.length} boings in the undo's own instant (${t.by} at ${t.undoMs} ms into the scene)`);
+      if (t.after.length) faults.push(`a boing ${t.after.join(' and ')} ms after the undo (${t.by} at ${t.undoMs} ms into the scene)`);
     }
     expect(faults, `no boing follows an undo\n${said}`).toEqual([]);
 

@@ -72,8 +72,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const failing = lost && !busy;
   const timedPhase = usePhases(failing, PHASES);
   const phase = failing ? timedPhase : null;
-  // What a sound of the fail scene asks at the moment it is due: does the loss still stand? Set as the scene is
-  // drawn, so it is already false when React gets round to an effect's cleanup, which can be a slow frame later.
+  // What the splash asks at the moment it is due: does the loss still stand? Set as the scene is drawn.
   const stillFailing = useRef(failing);
   stillFailing.current = failing;
 
@@ -309,7 +308,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
 
       <Ducklings won={won && !busy} giggle={phase === 'after'} />
 
-      {phase && <FailDuck phase={phase} plan={failPlan} live={stillFailing} />}
+      {phase && <FailDuck phase={phase} plan={failPlan} />}
       {phase === 'huff' && <ComicWord position={[failPlan.start[0], 1.5, failPlan.start[2]]} text="QUACK!!" color="#fff36b" />}
       {phase === 'slip' && <ComicWord position={[failPlan.perch[0], 1.4, failPlan.perch[2]]} text="WHOOPS!" color="#7ef0ff" tilt={8} />}
       {(phase === 'splash' || phase === 'after') && <ComicWord position={[failPlan.splash[0], 1.5, failPlan.splash[2]]} text="SPLOOSH!" color="#9be7ff" />}
@@ -573,19 +572,17 @@ function DucklingActor({ seed, home, party, won, giggle }: { seed: number; home:
 }
 
 /** Dottie on foot (well, webbed foot) during the fail scene. */
-function FailDuck({ phase, plan, live }: { phase: Phase; plan: { start: Vec3; hops: Vec3[]; perch: Vec3; splash: Vec3 }; live: RefObject<boolean> }) {
+function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Vec3[]; perch: Vec3; splash: Vec3 } }) {
   const ref = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
+  const [hopsBegun, setHopsBegun] = useState(0);
   const segs = useMemo<PathSegment[]>(() => {
     if (phase === 'huff') return [{ to: plan.start, durationMs: 10 }];
     if (phase === 'hop') {
-      // One boing as each hop starts, from the drawn frame that starts it: the sound goes with the hop the player
-      // sees, one at a time, however slow the device. It asks first whether the loss still stands, and the duck is
-      // gone with the redraw that takes the loss back, so no hop and no boing follow an undo or a restart.
+      // Each hop starts in a drawn frame, and its boing goes with it: one a hop, one at a time, however slow the
+      // device. The frame does not play it. It counts the hop (below), and React plays the boing with that count.
       const d = hopMs(plan.hops.length);
-      const boing = () => {
-        if (live.current) sfx.boing();
-      };
+      const boing = () => setHopsBegun((n) => n + 1);
       return plan.hops.length
         ? plan.hops.map((h) => ({ to: h, durationMs: d * (1 - HOP_CROUCH), delayMs: d * HOP_CROUCH, height: 0.55, onStart: boing }))
         : [{ to: plan.start, durationMs: 10 }];
@@ -593,8 +590,15 @@ function FailDuck({ phase, plan, live }: { phase: Phase; plan: { start: Vec3; ho
     if (phase === 'slip') return [{ to: [plan.perch[0] + 0.12, plan.perch[1] + 0.1, plan.perch[2]], durationMs: 600, height: 0.15 }];
     if (phase === 'splash') return [{ to: plan.splash, durationMs: 420, height: 0.7 }];
     return [{ to: [plan.splash[0], -0.13, plan.splash[2]], durationMs: 300 }];
-  }, [phase, plan, live]);
+  }, [phase, plan]);
   usePath(ref, segs, phase, { face: false });
+  // The boing of a hop that has begun. It goes through React's own queue, behind any redraw of the scene that is
+  // already waiting there. So when the player has taken the loss back, this duck is gone before its boing would
+  // play, even if a frame was drawn in between and began a hop: no boing follows an undo or a restart. A timer
+  // or the frame itself would not know of the undo until the scene's next redraw.
+  useLayoutEffect(() => {
+    if (hopsBegun > 0) sfx.boing();
+  }, [hopsBegun]);
 
   useFrame(({ clock }) => {
     const s = spin.current;
