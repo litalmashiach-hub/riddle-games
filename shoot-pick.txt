@@ -1,12 +1,2 @@
-45841191332 iphone-63-r xc/04-balloon 07 04
-45841191332 iphone-63-r xc/07-hint 01 07
-45841191332 iphone-63-r xc/08-map 01 08
-45841191332 iphone-69-r xc/04-balloon 05 04
-45841191332 iphone-69-r xc/07-hint 01 07
-45841191332 iphone-69-r xc/08-map 01 08
-45841191332 ipad-13-r xc/04-balloon 11 04
-45841191332 ipad-13-r xc/07-hint 01 07
-45841191332 ipad-13-r xc/08-map 01 08
-45841191332 iphone-63-r xc/04-balloon 06 04b
-45841191332 iphone-69-r xc/04-balloon 06 04b
-45841191332 ipad-13-r xc/04-balloon 03 04b
+45841191332 ipad-13-r xc/04-balloon 02 04c
+45841191332 ipad-13-r xc/04-balloon 06 04d
