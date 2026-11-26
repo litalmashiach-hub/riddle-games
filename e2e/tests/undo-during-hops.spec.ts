@@ -1,4 +1,8 @@
 import type { Page } from '@playwright/test';
+import { mkdirSync, rmSync, statSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { expect, passRulesCard, test, waitForSession } from './fixtures';
 
 /**
@@ -17,20 +21,57 @@ import { expect, passRulesCard, test, waitForSession } from './fixtures';
  *
  * It runs at the phone's size and on a very small page. Drawn in software, the phone's size gives about six
  * frames a second and the small page about twenty; the faults of a late cleanup differ between the two.
+ *
+ * Nothing is held: the hops are drawn as the machine draws them. A hop starts in a drawn frame, so a slow page
+ * begins fewer hops: drawn slowly, the duck falls behind and the slip comes before her last hop, which is left out
+ * with its boing. Right for the scene. So a loss left alone is judged against the hops the scene began, which it
+ * tells a test page of (`__hopsBegun`): a boing for each. Beside other browsers drawn in software (this file's own
+ * tests in other workers did it), a frame here can take two seconds and the hops pass with none begun: the
+ * machine is too busy. So the tests of this file take turns, one browser at a time whatever the number of workers
+ * (see `oneAtATime`), and a loss left alone with no hop begun is played again.
  */
 
 const LEVELS = [
-  { id: 'log-jam', number: 18, title: 'Log Jam' },
-  { id: 'timber-tangle', number: 27, title: 'Timber Tangle' },
+  { id: 'log-jam', number: 18, title: 'Log Jam', dir: '18-log-jam', jam: 'JAM' },
+  { id: 'timber-tangle', number: 27, title: 'Timber Tangle', dir: '27-timber-tangle', jam: 'jam' },
 ];
+
+/**
+ * How many hops the loss scene has after the losing move, from the rules alone (as `failPlan` in the scene): one
+ * a log in Dottie's row after her raft, up to three, until a gap. It sets the moments of the undos, and no loss
+ * may begin more hops. Taken from the rules, not from the first loss heard, so that a boing missing from that
+ * first loss changes nothing else.
+ */
+async function hopsDue(level: (typeof LEVELS)[number], pos: number[]) {
+  const rules = (dir: string) => import(pathToFileURL(join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'levels', dir, 'src', 'rules.ts')).href);
+  const g: number[] = ((await rules(level.dir)) as Record<string, any>)[level.jam].grid(pos);
+  const { SIZE, EXIT_ROW } = await rules('18-log-jam');
+  let n = 0;
+  for (let c = pos[0] + 2; c < SIZE && n < 3; c++) {
+    if (g[EXIT_ROW * SIZE + c] === -1) break;
+    n++;
+  }
+  return n;
+}
 
 /** The hops take 1.4 s of the scene, from 0.9 s after its first quack (PHASES and HOPS_MS in the scene). */
 const HOPS_FROM_MS = 900;
 const HOPS_MS = 1400;
 
-/** Listens to every tone the page starts, and marks the first quack of a loss scene. */
+/** Frames a second the page must draw before a loss is played: alone, the phone's size gives about six. */
+const ENOUGH_FRAMES = 4;
+
+/**
+ * Listens to every tone the page starts, marks the first quack of a loss scene, and notes when each frame is drawn.
+ */
 function listen() {
-  const q = ((window as any).__hops = { tones: [] as { at: number; sig: string }[], sceneAt: 0, undoAt: 0, onScene: null as null | (() => void) });
+  const q = ((window as any).__hops = { tones: [] as { at: number; sig: string }[], frames: [] as number[], sceneAt: 0, undoAt: 0, onScene: null as null | (() => void) });
+  const frame = () => {
+    q.frames.push(performance.now());
+    if (q.frames.length > 4000) q.frames.splice(0, 2000);
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
   const param = AudioParam.prototype as any;
   for (const fn of ['setValueAtTime', 'exponentialRampToValueAtTime']) {
     const real = param[fn];
@@ -96,6 +137,7 @@ async function arm(page: Page, clickUndoAtMs?: number) {
   await page.evaluate((ms) => {
     const q = (window as any).__hops;
     q.tones = [];
+    (window as any).__hopsBegun = [];
     q.sceneAt = 0;
     q.undoAt = 0;
     q.onScene =
@@ -121,6 +163,118 @@ async function boings(page: Page) {
   });
 }
 
+/**
+ * Waits for the end of the loss scene: its sad trombone (a sawtooth from 392 Hz), and two frames more. The card
+ * can come before it, and before the boing of a last hop that began just as "WHOOPS!" was drawn: React plays
+ * that boing only after the long frame. Counted at the card, that boing would seem missing.
+ */
+async function sceneOver(page: Page) {
+  await page.waitForFunction(
+    () => {
+      const q = (window as any).__hops;
+      const t = q.tones.find((t: any) => t.at >= q.sceneAt && /^sawtooth 392>/.test(t.sig));
+      return !!t && q.frames.filter((f: number) => f > t.at).length >= 2;
+    },
+    undefined,
+    { polling: 100, timeout: 60_000 },
+  );
+}
+
+/** How many frames the page drew during the hops of the last loss scene, and the longest wait for one. */
+const framesInHops = (page: Page) =>
+  page.evaluate(
+    ([from, ms]) => {
+      const q = (window as any).__hops;
+      const a = q.sceneAt + from;
+      const b = a + ms;
+      const inside = q.frames.filter((t: number) => t >= a && t <= b) as number[];
+      // The gaps at both ends count too: from the last frame before the hops, and from the last one in them to
+      // their end. Not past it: the slip that follows draws "WHOOPS!" in one long frame (about a second here),
+      // which holds back no hop, only the boing of one that began just before it.
+      const edges = [q.frames.filter((t: number) => t < a).at(-1) ?? a, ...inside, b];
+      const gap = Math.max(...edges.slice(1).map((t: number, i: number) => t - edges[i]));
+      return { count: inside.length, gap: Math.round(gap) };
+    },
+    [HOPS_FROM_MS, HOPS_MS],
+  );
+
+/** Waits (at most a minute) until the page draws at least `fps` frames a second again. */
+async function untilDrawing(page: Page, fps = ENOUGH_FRAMES) {
+  await page
+    .waitForFunction(
+      (fps) => {
+        const f = (window as any).__hops.frames as number[];
+        const now = performance.now();
+        return f.filter((t) => t > now - 1000).length >= fps;
+      },
+      fps,
+      { polling: 250, timeout: 60_000 },
+    )
+    .catch(() => {});
+}
+
+/**
+ * Plays a loss left alone (by `start`, which makes the losing move), and judges it: one boing for each hop that the
+ * scene began (it tells the page of each, see `arm`), no more and no fewer. Every try is judged, so a boing that
+ * goes missing only once fails at once. A loss is played again (at most four times) only when no hop began at all:
+ * on a busy machine the hops can go by without a frame, and there is then nothing to judge. The count of hops begun
+ * is not held to the hops due: drawn slowly, the scene leaves out a last hop that would come after the slip, and
+ * its boing with it. Returns the last try's boings, its hops begun, and how its hops were drawn.
+ */
+async function lossLeftAlone(page: Page, start: () => Promise<unknown>, what: string) {
+  let heard: Awaited<ReturnType<typeof boings>> | null = null;
+  let begun = 0;
+  const said: string[] = [];
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    if (attempt > 1) {
+      await page.evaluate(() => (window.__riddle as any).getState().undo());
+      await page.waitForTimeout(2000);
+    }
+    await untilDrawing(page);
+    await arm(page);
+    await start();
+    await sceneBegun(page);
+    await expect(page.getByRole('heading', { name: 'Oh no!' })).toBeVisible({ timeout: 60_000 });
+    await sceneOver(page);
+    heard = await boings(page);
+    begun = await page.evaluate(() => ((window as any).__hopsBegun as number[]).length);
+    const drawn = await framesInHops(page);
+    said.push(`${begun} hops begun, ${heard.all.length} boings at [${heard.all}] ms, ${drawn.count} frames during the hops, the longest wait ${drawn.gap} ms`);
+    expect(heard.all.length, `${what}: a boing for each hop begun, try ${attempt} (${said.join('; ')})`).toBe(begun);
+    expect(together(heard.all), `${what}: no two boings at once (${heard.all} ms)`).toBe(false);
+    if (begun > 0) break;
+  }
+  expect(begun, `${what}: a hop was drawn, else this machine is too busy to judge them (${said.join('; ')})`).toBeGreaterThan(0);
+  return { ...heard!, begun, said: said.join('; ') };
+}
+
+/**
+ * The tests of this file take turns across workers, so that no two of them draw at once: on a machine that draws
+ * in software, two browsers beside each other leave the hops without frames. A lock that a crashed run left is
+ * taken after ten minutes.
+ */
+async function oneAtATime<T>(run: () => Promise<T>): Promise<T> {
+  const lock = join(tmpdir(), 'riddle-games-undo-during-hops.lock');
+  for (;;) {
+    try {
+      mkdirSync(lock);
+      break;
+    } catch {
+      try {
+        if (Date.now() - statSync(lock).mtimeMs > 10 * 60_000) rmSync(lock, { recursive: true, force: true });
+      } catch {
+        // Gone in the meantime: try again.
+      }
+      await new Promise((done) => setTimeout(done, 500));
+    }
+  }
+  try {
+    return await run();
+  } finally {
+    rmSync(lock, { recursive: true, force: true });
+  }
+}
+
 /** Two boings that start together are one fault: timers that fell due during one slow frame. */
 const together = (times: number[]) => times.some((t, i) => i > 0 && t - times[i - 1] <= 5);
 
@@ -133,17 +287,17 @@ function undoDuringTheHops(level: (typeof LEVELS)[number]) {
     // The camera's opening glide, and the scene's first frames.
     await page.waitForTimeout(3000);
     const losing = await oneMoveFromLoss(page);
+    const lostAt = await page.evaluate((m) => {
+      const s = (window.__riddle as any).getState();
+      return s.level.rules.apply(s.history[s.history.length - 1], m).pos as number[];
+    }, losing);
+    const hops = await hopsDue(level, lostAt);
+    expect(hops, 'the loss scene has at least one hop').toBeGreaterThanOrEqual(1);
     await page.waitForTimeout(2500);
 
     // 1. A loss left alone: its boings, one a hop, and the loss card. This is what an undo must not cut short later.
-    await arm(page);
-    await page.evaluate((m) => (window.__riddle as any).getState().play(m), losing);
-    await sceneBegun(page);
-    await expect(page.getByRole('heading', { name: 'Oh no!' })).toBeVisible({ timeout: 60_000 });
-    const whole = await boings(page);
-    expect(whole.all.length, 'the loss has at least one hop, each with a boing').toBeGreaterThanOrEqual(1);
-    expect(together(whole.all), `a loss left alone: no two boings at once (${whole.all} ms)`).toBe(false);
-    const hops = whole.all.length;
+    const whole = await lossLeftAlone(page, () => page.evaluate((m) => (window.__riddle as any).getState().play(m), losing), 'a loss left alone');
+    expect(whole.begun, `no more hops begun than the ${hops} due (${whole.said})`).toBeLessThanOrEqual(hops);
     await page.evaluate(() => (window.__riddle as any).getState().undo());
     await page.waitForTimeout(2000);
 
@@ -158,6 +312,7 @@ function undoDuringTheHops(level: (typeof LEVELS)[number]) {
 
     const tries: { ms: number; by: string; undoMs: number | null; before: number; after: number[] }[] = [];
     for (const { ms, by } of moments) {
+      await untilDrawing(page);
       await arm(page, by === 'click' ? ms : undefined);
       await page.evaluate(() => (window.__riddle as any).getState().redo());
       await sceneBegun(page);
@@ -185,20 +340,19 @@ function undoDuringTheHops(level: (typeof LEVELS)[number]) {
     }
     expect(faults, `no boing follows an undo\n${said}`).toEqual([]);
 
-    // 3. The loss once more, left alone: it sounds whole again, and its card comes.
-    await arm(page);
-    await page.evaluate(() => (window.__riddle as any).getState().redo());
-    await sceneBegun(page);
-    await expect(page.getByRole('heading', { name: 'Oh no!' })).toBeVisible({ timeout: 60_000 });
-    const again = await boings(page);
-    expect(again.all.length, `a loss after the undos has all its boings (${again.all} ms)`).toBe(hops);
-    expect(together(again.all), `and no two at once (${again.all} ms)`).toBe(false);
+    // 3. The loss once more, left alone: it sounds whole again, and its card comes. Its first try is judged as it
+    // is: a boing that an undo took from it, even this once, fails here.
+    const again = await lossLeftAlone(page, () => page.evaluate(() => (window.__riddle as any).getState().redo()), 'a loss after the undos');
+    expect(again.begun, `no more hops begun than the ${hops} due (${again.said})`).toBeLessThanOrEqual(hops);
   };
 }
 
+// Waiting for its turn counts against a test's time: up to five others before it, a minute or so each.
+test.describe.configure({ timeout: 900_000 });
+
 for (const level of LEVELS) {
   const nn = String(level.number).padStart(2, '0');
-  test(`level ${nn} ${level.id}: Undo during the hops leaves no boing to come`, undoDuringTheHops(level));
+  test(`level ${nn} ${level.id}: Undo during the hops leaves no boing to come`, ({ page }) => oneAtATime(() => undoDuringTheHops(level)({ page })));
 }
 
 test.describe('on a small page, which draws faster', () => {
@@ -209,7 +363,7 @@ test.describe('on a small page, which draws faster', () => {
     const nn = String(level.number).padStart(2, '0');
     test(`level ${nn} ${level.id}: Undo during the hops leaves no boing to come`, async ({ page }, testInfo) => {
       test.skip(testInfo.project.name !== 'iphone-landscape', 'one run at this size is enough');
-      await undoDuringTheHops(level)({ page });
+      await oneAtATime(() => undoDuringTheHops(level)({ page }));
     });
   }
 });
