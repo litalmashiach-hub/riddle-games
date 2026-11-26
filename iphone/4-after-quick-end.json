@@ -1,0 +1,93 @@
+{
+ "phase": "check",
+ "name": "4-after-quick-end",
+ "device": "iphone",
+ "startedAt": "2026-11-26T05:50:20.092Z",
+ "atLaunch": {
+  "href": "capacitor://localhost",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "6 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, 3 of 3 stars",
+   "Level 2: Wolf, Goat and Cabbage, 3 of 3 stars",
+   "Level 3: Two Jugs, not solved yet",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:51:11.560Z"
+ },
+ "mapShot": "iphone-4-after-quick-end-01-map.png",
+ "map": {
+  "href": "capacitor://localhost",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": "6 / 90",
+  "firstCards": [
+   "Level 1: Wolf and Two Sheep, 3 of 3 stars",
+   "Level 2: Wolf, Goat and Cabbage, 3 of 3 stars",
+   "Level 3: Two Jugs, not solved yet",
+   "Level 4: Tower of Hanoi, locked"
+  ],
+  "mapSoundButtonPressed": "false",
+  "aboutSwitches": null,
+  "progressLine": null,
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:51:11.560Z"
+ },
+ "about": {
+  "href": "capacitor://localhost#/about",
+  "storage": {
+   "riddle-games:settings:v1": "{\"quality\":\"low\",\"sound\":false}",
+   "riddle-games:progress:v1": "{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}",
+   "app-test:fps": "6"
+  },
+  "sessionKeys": 0,
+  "cookie": "",
+  "mapHeader": null,
+  "firstCards": [],
+  "mapSoundButtonPressed": null,
+  "aboutSwitches": {
+   "sound": "false",
+   "hd": "false"
+  },
+  "progressLine": "6 stars on 2 riddles, saved on this device.",
+  "screen": [
+   956,
+   440
+  ],
+  "fpsCap": 6,
+  "at": "2026-11-26T05:51:17.513Z"
+ },
+ "aboutShot": "iphone-4-after-quick-end-02-about.png",
+ "lockedCardName": "Level 4: Tower of Hanoi, locked",
+ "lockedLevelStaysShut": true,
+ "faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "outsideRequests": []
+ },
+ "endedAt": "2026-11-26T05:51:24.195Z"
+}

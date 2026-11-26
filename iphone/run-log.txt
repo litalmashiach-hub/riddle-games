@@ -1,0 +1,96 @@
+05:30:36 [shell] device iPhone 17 Pro Max: F90353E4-F95D-488C-9F4E-B43F74E385F2
+05:33:04 [shell] booted in 146 s
+05:34:10 [shell] app installed (fresh: this simulator never had it)
+05:34:24 [shell] === 1-play: starting the app (phase play)
+05:34:27 [1-play] phase play on iphone
+05:43:47 [1-play] page in WEBVIEW_20240.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+05:43:48 [1-play] web view found 561 s after the session was asked for: 956 by 440
+05:43:53 [1-play] calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+05:43:55 [1-play] at launch: header 0 / 90; stored {}; cards ["Level 1: Wolf and Two Sheep, not solved yet","Level 2: Wolf, Goat and Cabbage, locked","Level 3: Two Jugs, locked","Level 4: Tower of Hanoi, locked"]
+05:44:03 [1-play] page in WEBVIEW_20240.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+05:44:03 [1-play] frames capped at 6 a second by the test (page says 6)
+05:45:42 [1-play] L1: won; 7 of 7 moves by taps; stored {"riddle-games:progress:v1":"{\"stars\":{\"wolf-two-sheep\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}","app-test:fps":"6"}
+05:46:26 [1-play] L2: won; 7 of 7 moves by taps; stored {"riddle-games:progress:v1":"{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}","app-test:fps":"6"}
+05:46:35 [1-play] Sound: true -> false, by a touch
+05:46:37 [1-play] HD graphics: false -> true, by a touch
+05:47:01 [shell] === 1-play: ended with status 0
+05:47:34 [shell] app processes before the quit: 1
+05:47:42 [shell] app processes after the quit: 0; on the Mac: 0
+05:47:43 [shell] === 2-after-quit: starting the app (phase check)
+05:47:45 [2-after-quit] phase check on iphone
+05:48:12 [2-after-quit] page in WEBVIEW_28926.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+05:48:12 [2-after-quit] web view found 27 s after the session was asked for: 956 by 440
+05:48:16 [2-after-quit] calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+05:48:18 [2-after-quit] at launch: header 6 / 90; stored {"riddle-games:settings:v1":"{\"quality\":\"high\",\"sound\":false}","riddle-games:progress:v1":"{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}","app-test:fps":"6"}; cards ["Level 1: Wolf and Two Sheep, 3 of 3 stars","Level 2: Wolf, Goat and Cabbage, 3 of 3 stars","Level 3: Two Jugs, not solved yet","Level 4: Tower of Hanoi, locked"]
+05:48:30 [2-after-quit] a touch on level 4: stays shut
+05:48:30 [2-after-quit] against 1-play.json: {"storedEntries":true,"starCount":true,"firstCards":true,"soundSwitch":true,"hdSwitch":true,"progressLine":true} => ALL KEPT
+05:48:39 [shell] === 2-after-quit: ended with status 0
+05:48:39 [shell] === 3-quick-save: starting the app (phase quick)
+05:48:45 [3-quick-save] phase quick on iphone
+05:49:21 [3-quick-save] page in WEBVIEW_31261.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+05:49:22 [3-quick-save] web view found 37 s after the session was asked for: 956 by 440
+05:49:27 [3-quick-save] calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+05:49:29 [3-quick-save] at launch: header 6 / 90; stored {"riddle-games:settings:v1":"{\"quality\":\"high\",\"sound\":false}","riddle-games:progress:v1":"{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}","app-test:fps":"6"}; cards ["Level 1: Wolf and Two Sheep, 3 of 3 stars","Level 2: Wolf, Goat and Cabbage, 3 of 3 stars","Level 3: Two Jugs, not solved yet","Level 4: Tower of Hanoi, locked"]
+05:49:38 [3-quick-save] HD graphics: true -> false, by a touch
+05:49:43 [3-quick-save] quick end: {"label":"HD graphics","before":"true","after":"false","at":1795672178020,"endedMsAfterTheChangeWasSeen":5587,"endedBy":"simctl terminate, straight after the page showed the change"}
+05:50:04 [shell] === 3-quick-save: ended with status 0
+05:50:09 [shell] app processes after the quick end: 0
+05:50:11 [shell] === 4-after-quick-end: starting the app (phase check)
+05:50:20 [4-after-quick-end] phase check on iphone
+05:51:04 [4-after-quick-end] page in WEBVIEW_34930.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+05:51:05 [4-after-quick-end] web view found 45 s after the session was asked for: 956 by 440
+05:51:09 [4-after-quick-end] calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+05:51:11 [4-after-quick-end] at launch: header 6 / 90; stored {"riddle-games:settings:v1":"{\"quality\":\"low\",\"sound\":false}","riddle-games:progress:v1":"{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}","app-test:fps":"6"}; cards ["Level 1: Wolf and Two Sheep, 3 of 3 stars","Level 2: Wolf, Goat and Cabbage, 3 of 3 stars","Level 3: Two Jugs, not solved yet","Level 4: Tower of Hanoi, locked"]
+05:51:24 [4-after-quick-end] a touch on level 4: stays shut
+05:51:32 [shell] === 4-after-quick-end: ended with status 0
+05:51:39 [shell] app processes before the quit: 1
+05:51:45 [shell] app processes after the quit: 0; on the Mac: 0
+05:51:45 [shell] shutting the simulated device down
+    iPhone 17 Pro Max (F90353E4-F95D-488C-9F4E-B43F74E385F2) (Shutdown) 
+05:52:58 [shell] device booted again in 63 s
+05:53:49 [shell] === 5-after-device-restart: starting the app (phase check)
+05:53:59 [5-after-device-restart] phase check on iphone
+05:55:14 [5-after-device-restart] WEBVIEW_42291.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+05:55:16 [5-after-device-restart] WEBVIEW_42291.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+05:55:18 [5-after-device-restart] page in WEBVIEW_42291.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+05:55:18 [5-after-device-restart] web view found 79 s after the session was asked for: 956 by 440
+05:55:23 [5-after-device-restart] calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":null,"y":null},{"x":669,"y":330}]: same (calibration failed) (error Infinity pt)
+05:55:24 [5-after-device-restart] at launch: header 6 / 90; stored {"riddle-games:settings:v1":"{\"quality\":\"low\",\"sound\":false}","riddle-games:progress:v1":"{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}","app-test:fps":"6"}; cards ["Level 1: Wolf and Two Sheep, 3 of 3 stars","Level 2: Wolf, Goat and Cabbage, 3 of 3 stars","Level 3: Two Jugs, not solved yet","Level 4: Tower of Hanoi, locked"]
+05:55:46 [5-after-device-restart] a touch on level 4: stays shut
+05:55:49 [5-after-device-restart] against 4-after-quick-end.json: {"storedEntries":true,"starCount":true,"firstCards":true,"soundSwitch":true,"hdSwitch":true,"progressLine":true} => ALL KEPT
+05:56:02 [shell] === 5-after-device-restart: ended with status 0
+05:56:14 [shell] app processes before the quit: 1
+05:56:22 [shell] app processes after the quit: 0; on the Mac: 0
+05:56:22 [shell] installing the same app again over itself, as an update does
+05:56:28 [shell] === 6-after-install-over: starting the app (phase check)
+05:56:31 [6-after-install-over] phase check on iphone
+05:56:51 [6-after-install-over] page in WEBVIEW_45755.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+05:56:51 [6-after-install-over] web view found 20 s after the session was asked for: 956 by 440
+05:56:56 [6-after-install-over] calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+05:56:57 [6-after-install-over] at launch: header 6 / 90; stored {"riddle-games:settings:v1":"{\"quality\":\"low\",\"sound\":false}","riddle-games:progress:v1":"{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}","app-test:fps":"6"}; cards ["Level 1: Wolf and Two Sheep, 3 of 3 stars","Level 2: Wolf, Goat and Cabbage, 3 of 3 stars","Level 3: Two Jugs, not solved yet","Level 4: Tower of Hanoi, locked"]
+05:57:09 [6-after-install-over] a touch on level 4: stays shut
+05:57:09 [6-after-install-over] against 4-after-quick-end.json: {"storedEntries":true,"starCount":true,"firstCards":true,"soundSwitch":true,"hdSwitch":true,"progressLine":true} => ALL KEPT
+05:57:18 [shell] === 6-after-install-over: ended with status 0
+05:57:28 [shell] app processes before the quit: 1
+05:57:36 [shell] app processes after the quit: 0; on the Mac: 0
+05:57:36 [shell] === 7-reset: starting the app (phase reset)
+05:57:39 [7-reset] phase reset on iphone
+05:57:55 [7-reset] page in WEBVIEW_48500.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+05:57:55 [7-reset] web view found 15 s after the session was asked for: 956 by 440
+05:58:00 [7-reset] calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+05:58:01 [7-reset] at launch: header 6 / 90; stored {"riddle-games:settings:v1":"{\"quality\":\"low\",\"sound\":false}","riddle-games:progress:v1":"{\"stars\":{\"wolf-two-sheep\":3,\"wolf-goat-cabbage\":3},\"guidesSeen\":[\"wolf-two-sheep\"]}","app-test:fps":"6"}; cards ["Level 1: Wolf and Two Sheep, 3 of 3 stars","Level 2: Wolf, Goat and Cabbage, 3 of 3 stars","Level 3: Two Jugs, not solved yet","Level 4: Tower of Hanoi, locked"]
+05:58:18 [7-reset] after reset: header 0 / 90; stored {"riddle-games:settings:v1":"{\"quality\":\"low\",\"sound\":false}","riddle-games:progress:v1":"{\"stars\":{}}","app-test:fps":"6"}
+05:58:26 [shell] === 7-reset: ended with status 0
+05:58:31 [shell] app processes before the quit: 1
+05:58:37 [shell] app processes after the quit: 0; on the Mac: 0
+05:58:38 [shell] === 8-after-reset-and-quit: starting the app (phase check)
+05:58:40 [8-after-reset-and-quit] phase check on iphone
+05:58:56 [8-after-reset-and-quit] page in WEBVIEW_50927.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+05:58:56 [8-after-reset-and-quit] web view found 16 s after the session was asked for: 956 by 440
+05:59:01 [8-after-reset-and-quit] calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+05:59:02 [8-after-reset-and-quit] at launch: header 0 / 90; stored {"riddle-games:settings:v1":"{\"quality\":\"low\",\"sound\":false}","riddle-games:progress:v1":"{\"stars\":{}}","app-test:fps":"6"}; cards ["Level 1: Wolf and Two Sheep, not solved yet","Level 2: Wolf, Goat and Cabbage, locked","Level 3: Two Jugs, locked","Level 4: Tower of Hanoi, locked"]
+05:59:15 [8-after-reset-and-quit] a touch on level 2: stays shut
+05:59:15 [8-after-reset-and-quit] against 7-reset.json: {"storedEntries":true,"starCount":true,"firstCards":true,"soundSwitch":true,"hdSwitch":true,"progressLine":true} => ALL KEPT
+05:59:23 [shell] === 8-after-reset-and-quit: ended with status 0
+05:59:43 [shell] app processes before the quit: 1
+05:59:49 [shell] app processes after the quit: 0; on the Mac: 0
