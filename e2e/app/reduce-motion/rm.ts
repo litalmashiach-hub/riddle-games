@@ -303,7 +303,7 @@ async function main() {
   log('pass done');
 }
 
-main().catch((e) => {
+main().then(() => process.exit(0), (e) => {
   log(`FAILED: ${e?.stack ?? e}`);
   process.exit(1);
 });
