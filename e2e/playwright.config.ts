@@ -3,7 +3,7 @@ import { defineConfig } from '@playwright/test';
 const PORT = Number(process.env.E2E_PORT ?? 4173);
 /** The app build is served beside the website build, for the About screen's tests. */
 const APP_PORT = Number(process.env.E2E_APP_PORT ?? PORT + 1);
-const ABOUT_ONLY = /(about|voiceover|contrast|touch-layout)\.spec\.ts$/;
+const ABOUT_ONLY = /(about|voiceover|contrast|touch-layout|rotate-tip)\.spec\.ts$/;
 
 /**
  * Play-through tests: they run the production build (apps/web/dist) in Chromium with touch,
@@ -41,7 +41,7 @@ export default defineConfig({
   projects: [
     { name: 'iphone-landscape', use: { viewport: { width: 852, height: 393 } } },
     { name: 'iphone-small-landscape', use: { viewport: { width: 667, height: 375 } } },
-    // The app build (apps/web/dist-app): only the About screen differs from the website, so only its tests run here, with the spoken-name checks and the touch areas of its four tabs.
+    // The app build (apps/web/dist-app): only the About screen and the turn-your-phone tip differ from the website, so only their tests run here, with the spoken-name checks and the touch areas of its four tabs.
     { name: 'app-iphone-landscape', testMatch: ABOUT_ONLY, use: { baseURL: `http://127.0.0.1:${APP_PORT}/`, viewport: { width: 852, height: 393 } } },
     { name: 'app-iphone-small-landscape', testMatch: ABOUT_ONLY, use: { baseURL: `http://127.0.0.1:${APP_PORT}/`, viewport: { width: 667, height: 375 } } },
     // The largest iPhone. Only the layout checks run here: a play-through would be the same as at 852 by 393.
