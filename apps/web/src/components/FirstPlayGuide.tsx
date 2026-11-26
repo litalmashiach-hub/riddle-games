@@ -29,7 +29,7 @@ export function GuideOverlay({ step, ring, onSkip }: { step: GuideStep; ring: Re
         {/* Darker than the game's glass, so the words read over bright water and mist alike. */}
         <div className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/35 bg-slate-900/60 py-1 pl-4 pr-1 font-display text-base font-semibold shadow-lg backdrop-blur-md short:text-[15px]">
           <span data-testid="first-play-guide-say" className="whitespace-nowrap">{step.say}</span>
-          <button onClick={onSkip} className="min-h-[2.5rem] rounded-full px-3.5 text-sm font-bold text-white/80 active:bg-white/20" aria-label="Skip the guide">
+          <button onClick={onSkip} className="touch-44 inline-flex min-h-[2.5rem] items-center justify-center rounded-full px-3.5 text-sm font-bold text-white/80 active:bg-white/20" aria-label="Skip the guide">
             Skip
           </button>
         </div>

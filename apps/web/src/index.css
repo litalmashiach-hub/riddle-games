@@ -236,3 +236,24 @@ html.app-shell svg {
     display: none;
   }
 }
+
+/*
+ * Apple asks that a control take touches over at least 44 by 44 points. Some buttons are drawn smaller
+ * than that (the play screen's round ones are 46 by 42, its SD/HD switch 40.6 by 38), and the drawing
+ * must stay as it is. So such a button carries an unseen pad of 44 by 44 points about its middle, and a
+ * touch on the pad is a touch on the button. The pad draws nothing and takes no room in the layout.
+ *
+ * The button must be a flex box that centres its content (`inline-flex items-center justify-center`):
+ * that is what puts the pad in the middle. The pad has no `top` or `left` on purpose, and the button gets
+ * no `position: relative`: a positioned button is painted after its plain neighbours, so it would come out
+ * on top of their shadows, and the screen would no longer look the same. This way nothing is painted
+ * differently.
+ *
+ * Not for a button inside a scrolling box: the pad would not scroll with it.
+ */
+.touch-44::before {
+  content: '';
+  position: absolute;
+  width: 44px;
+  height: 44px;
+}
