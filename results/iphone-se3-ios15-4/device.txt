@@ -1,0 +1,3 @@
+device iPhone SE (3rd generation): 1F63140A-621F-4BB8-BCF8-EB66623098A6
+    iPhone SE (3rd generation) (com.apple.CoreSimulator.SimRuntime.iOS-15-4) (1F63140A-621F-4BB8-BCF8-EB66623098A6) (Shutdown) 
+booted in 38 s

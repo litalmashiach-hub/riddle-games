@@ -1,0 +1,100 @@
+{
+ "level": 11,
+ "id": "family-crossing",
+ "title": "Family Crossing",
+ "device": "iphone-se3-ios15-4",
+ "size": "667x375",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "not won: button \"Cast off\" not found",
+ "wonByTaps": false,
+ "won": false,
+ "finishedByHook": false,
+ "movesByTaps": 1,
+ "moves": 17,
+ "touches": 3,
+ "stars": null,
+ "savedStars": null,
+ "fault": null,
+ "error": "button \"Cast off\" not found",
+ "seconds": {
+  "open": 11.818,
+  "rulesCard": 2.722,
+  "drawn": 11.818,
+  "play": null,
+  "total": 53.485
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-se3-ios15-4-L11-loading-mark.png",
+  "iphone-se3-ios15-4-L11-rules-card.png",
+  "iphone-se3-ios15-4-L11-error.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "Guard (guard)",
+   "kind": "tap",
+   "at": {
+    "x": 227.08220200476626,
+    "y": 174.89185377934663
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "dfd97b44-18df-4d1b-a793-3fa60bfcd50f",
+    "world": [
+     -3.25,
+     0.4,
+     -1.55
+    ],
+    "distance": 12.359645642704738
+   }
+  },
+  {
+   "step": 1,
+   "what": "Thief (thief)",
+   "kind": "tap",
+   "at": {
+    "x": 188.55481500633846,
+    "y": 175.20213865137862
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "27f44630-3a5e-47d2-bb1d-92a6ba98eab2",
+    "world": [
+     -4.5,
+     0.4,
+     -1.7
+    ],
+    "distance": 12.794933276483462
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Cast off button",
+   "kind": "button",
+   "at": {
+    "x": 333.515625,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 0,
+ "probe": {
+  "audioContexts": 0,
+  "audioStates": [],
+  "soundStarts": 0,
+  "decoded": 0,
+  "decodeErrors": 0,
+  "startErrors": [],
+  "canvas": [],
+  "liveAudioStates": [],
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "cssLayers": true,
+  "webgl2": true
+ }
+}

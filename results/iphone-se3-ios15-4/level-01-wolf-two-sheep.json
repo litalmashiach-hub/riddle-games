@@ -1,0 +1,230 @@
+{
+ "level": 1,
+ "id": "wolf-two-sheep",
+ "title": "Wolf and Two Sheep",
+ "device": "iphone-se3-ios15-4",
+ "size": "667x375",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 7,
+ "touches": 12,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 58.877,
+  "rulesCard": 50.661,
+  "drawn": 58.877,
+  "play": 64.84,
+  "total": 166.335
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone-se3-ios15-4-L01-loading-mark.png",
+  "iphone-se3-ios15-4-L01-rules-card.png",
+  "iphone-se3-ios15-4-L01-in-play.png",
+  "iphone-se3-ios15-4-L01-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 158.5599831732418,
+    "y": 150.3450824859579
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4e999d82-9079-4237-9904-740b68fac588",
+    "world": [
+     -4.1,
+     0.35,
+     -0.3
+    ],
+    "distance": 11.279563320376989
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.578125,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "the sheep",
+   "kind": "tap",
+   "at": {
+    "x": 143.73592557539484,
+    "y": 195.445473619663
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "f636eccb-be66-4f7b-b48a-b32ca695bc0f",
+    "world": [
+     -3.9,
+     0.3500000000000001,
+     1.4
+    ],
+    "distance": 9.699136559901774
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.59375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 510.72035599195624,
+    "y": 152.06045181906933
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4e999d82-9079-4237-9904-740b68fac588",
+    "world": [
+     4.1,
+     0.3500000000000001,
+     -0.3
+    ],
+    "distance": 10.834470507949948
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.609375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "the sheep",
+   "kind": "tap",
+   "at": {
+    "x": 101.9750511918721,
+    "y": 180.37698152348614
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "732dbfba-9c29-4f1a-b71b-994cf0777bfb",
+    "world": [
+     -5,
+     0.3447741717310768,
+     0.8
+    ],
+    "distance": 10.611502732580398
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.59375,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.546875,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 7,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 156.93880927131386,
+    "y": 151.17231323453814
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "4e999d82-9079-4237-9904-740b68fac588",
+    "world": [
+     -4.1,
+     0.3500000000000001,
+     -0.3
+    ],
+    "distance": 10.843060166124284
+   }
+  },
+  {
+   "step": 7,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 333.578125,
+    "y": 264.25
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 16.7,
+ "probe": {
+  "audioContexts": 1,
+  "audioStates": [
+   "running"
+  ],
+  "soundStarts": 15,
+  "decoded": 0,
+  "decodeErrors": 0,
+  "startErrors": [],
+  "canvas": [
+   "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+  ],
+  "liveAudioStates": [
+   "running"
+  ],
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "cssLayers": true,
+  "webgl2": true
+ }
+}

@@ -1,0 +1,220 @@
+[
+ {
+  "level": 1,
+  "id": "wolf-two-sheep",
+  "title": "Wolf and Two Sheep",
+  "device": "iphone-se3-ios15-4",
+  "size": "667x375",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 58.877,
+   "rulesCard": 50.661,
+   "drawn": 58.877,
+   "play": 64.84,
+   "total": 166.335
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone-se3-ios15-4-L01-loading-mark.png",
+   "iphone-se3-ios15-4-L01-rules-card.png",
+   "iphone-se3-ios15-4-L01-in-play.png",
+   "iphone-se3-ios15-4-L01-win-card.png"
+  ],
+  "fps": 16.7,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 15,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 2,
+  "id": "wolf-goat-cabbage",
+  "title": "Wolf, Goat and Cabbage",
+  "device": "iphone-se3-ios15-4",
+  "size": "667x375",
+  "quality": null,
+  "openedBy": "\"Next level\" on the win card",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 8.57,
+   "rulesCard": 2.014,
+   "drawn": 8.57,
+   "play": 75.046,
+   "total": 92.554
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone-se3-ios15-4-L02-loading-mark.png",
+   "iphone-se3-ios15-4-L02-rules-card.png",
+   "iphone-se3-ios15-4-L02-in-play.png",
+   "iphone-se3-ios15-4-L02-win-card.png"
+  ],
+  "fps": 16.5,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 31,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)",
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 5,
+  "id": "bridge-and-torch",
+  "title": "Bridge and Torch",
+  "device": "iphone-se3-ios15-4",
+  "size": "667x375",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 5,
+  "moves": 5,
+  "touches": 13,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 10.998,
+   "rulesCard": 3.349,
+   "drawn": 10.998,
+   "play": 39.021,
+   "total": 66.812
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone-se3-ios15-4-L05-loading-mark.png",
+   "iphone-se3-ios15-4-L05-rules-card.png",
+   "iphone-se3-ios15-4-L05-in-play.png",
+   "iphone-se3-ios15-4-L05-win-card.png"
+  ],
+  "fps": 17,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 18,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 11,
+  "id": "family-crossing",
+  "title": "Family Crossing",
+  "device": "iphone-se3-ios15-4",
+  "size": "667x375",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "not won: button \"Cast off\" not found",
+  "wonByTaps": false,
+  "won": false,
+  "finishedByHook": false,
+  "movesByTaps": 1,
+  "moves": 17,
+  "touches": 3,
+  "stars": null,
+  "savedStars": null,
+  "fault": null,
+  "error": "button \"Cast off\" not found",
+  "seconds": {
+   "open": 11.818,
+   "rulesCard": 2.722,
+   "drawn": 11.818,
+   "play": null,
+   "total": 53.485
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone-se3-ios15-4-L11-loading-mark.png",
+   "iphone-se3-ios15-4-L11-rules-card.png",
+   "iphone-se3-ios15-4-L11-error.png"
+  ],
+  "fps": 0,
+  "probe": {
+   "audioContexts": 0,
+   "audioStates": [],
+   "soundStarts": 0,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [],
+   "liveAudioStates": [],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ }
+]
