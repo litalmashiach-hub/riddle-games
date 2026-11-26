@@ -1,0 +1,6 @@
+21:17:26 device iPhone 17 Pro: 6478AFFB-AE17-412A-A1E5-51BCFFD300B6
+21:20:39 booted; Reduce Motion reads at first: 0
+21:20:43 Reduce Motion set to false; the simulator's accessibility settings now read: 0
+21:21:56 simulator restarted; Reduce Motion reads: 0
+21:22:45 installed the test build
+21:23:01 pass off

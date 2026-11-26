@@ -1,0 +1,89 @@
+2026-11-26 21:22:57:347 [Appium] Welcome to Appium v3.9.0 (REV 4ca653a567dd45278bbdfc38bfcb83ca30843586)
+2026-11-26 21:22:57:348 [Appium] Non-default server args:
+2026-11-26 21:22:57:349 [Appium] { address: '127.0.0.1',
+  loglevel: 'info:debug',
+  logNoColors: true,
+  logTimestamp: true }
+2026-11-26 21:22:57:350 [Appium] The APPIUM_HOME environment variable: /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium
+2026-11-26 21:22:57:355 [Appium] Attempting to load driver xcuitest...
+2026-11-26 21:22:57:376 [Appium] Requiring driver at /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/index.js
+2026-11-26 21:22:59:923 [Appium] XCUITestDriver has been successfully loaded in 2.564s
+2026-11-26 21:23:00:095 [Appium] Appium REST http interface listener started on http://127.0.0.1:4723
+2026-11-26 21:23:00:102 [Appium] Available drivers:
+2026-11-26 21:23:00:105 [Appium]   - xcuitest@12.22.8 (automationName 'XCUITest')
+2026-11-26 21:23:00:106 [Appium] No plugins have been installed. Use the "appium plugin" command to install the one(s) you want to use.
+2026-11-26 21:23:00:245 [HTTP] --> GET /status 
+2026-11-26 21:23:00:246 [AppiumDriver@2bcf] Calling AppiumDriver.getStatus() with args: []
+2026-11-26 21:23:00:248 [AppiumDriver@2bcf] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"3.9.0","git-sha":"4ca653a567dd45278bbdfc38bfcb83ca30843586"}}
+2026-11-26 21:23:00:254 [HTTP] <-- GET /status 200 7 ms - 163
+2026-11-26 21:23:08:989 [HTTP] --> POST /session {"capabilities":{"alwaysMatch":{"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"6478AFFB-AE17-412A-A1E5-51BCFFD300B6","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true},"firstMatch":[{}]}}
+2026-11-26 21:23:08:992 [AppiumDriver@2bcf] Calling AppiumDriver.createSession() with args: [{"alwaysMatch":{"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"6478AFFB-AE17-412A-A1E5-51BCFFD300B6","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true},"firstMatch":[{}]},{"alwaysMatch":{"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"6478AFFB-AE17-412A-A1E5-51BCFFD300B6","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appi…
+2026-11-26 21:23:08:996 [AppiumDriver@2bcf] Event 'newSessionRequested' logged at 1795728188995 (21:23:08 GMT+0000 (Coordinated Universal Time))
+2026-11-26 21:23:09:002 [Appium] Attempting to find matching driver for automationName 'XCUITest' and platformName 'iOS'
+2026-11-26 21:23:09:003 [Appium] The 'xcuitest' driver was installed and matched caps.
+2026-11-26 21:23:09:003 [Appium] Will require it at /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver
+2026-11-26 21:23:09:005 [Appium] Requiring driver at /Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/build/lib/index.js
+2026-11-26 21:23:09:006 [AppiumDriver@2bcf] Appium v3.9.0 creating new XCUITestDriver (v12.22.8) session
+2026-11-26 21:23:09:006 [AppiumDriver@2bcf] Checking BaseDriver versions for Appium and XCUITestDriver
+2026-11-26 21:23:09:006 [AppiumDriver@2bcf] Appium's BaseDriver version is 10.8.2
+2026-11-26 21:23:09:006 [AppiumDriver@2bcf] XCUITestDriver's BaseDriver version is 10.8.2
+2026-11-26 21:23:09:012 [XCUITestDriver@8965] 
+2026-11-26 21:23:09:012 [XCUITestDriver@8965] Creating session with W3C capabilities: {
+  "alwaysMatch": {
+    "platformName": "iOS",
+    "appium:automationName": "XCUITest",
+    "appium:udid": "6478AFFB-AE17-412A-A1E5-51BCFFD300B6",
+    "appium:bundleId": "com.example.riddlegames",
+    "appium:noReset": true,
+    "appium:newCommandTimeout": 3600,
+    "appium:wdaLaunchTimeout": 1800000,
+    "appium:wdaConnectionTimeout": 1800000,
+    "appium:webviewConnectTimeout": 120000,
+    "appium:includeSafariInWebviews": false,
+    "appium:autoWebview": false,
+    "appium:nativeWebScreenshot": true,
+    "appium:showXcodeLog": false,
+    "appium:waitForIdleTimeout": 0,
+    "appium:skipLogCapture": true,
+    "appium:webviewConnectRetries": 20,
+    "appium:additionalWebviewBundleIds": [
+      "*"
+    ],
+    "appium:forceAppLaunch": true
+  },
+  "firstMatch": [
+    {}
+  ]
+}
+2026-11-26 21:23:09:022 [XCUITestDriver@8965] The following provided capabilities were not recognized by this driver:
+2026-11-26 21:23:09:027 [XCUITestDriver@8965]   nativeWebScreenshot
+2026-11-26 21:23:09:027 [XCUITestDriver@8965] 'platformVersion' capability ('undefined') is not a valid version number. Consider fixing it or be ready to experience an inconsistent driver behavior.
+2026-11-26 21:23:09:028 [d34dab44][XCUITestDriver@8965] Session created with session id: d34dab44-ca42-479b-b62f-599392e8150c
+2026-11-26 21:23:09:047 [d34dab44][XCUITest] Current user: 'runner'
+2026-11-26 21:23:09:756 [d34dab44][XCUITest] RemoteXPC devices listing unavailable: Tunnel registry port not found. Please run the tunnel creation script first See https://appium.github.io/appium-xcuitest-driver/latest/guides/remotexpc-tunnels-real-devices/ Falling back to appium-ios-device.
+2026-11-26 21:23:09:756 [d34dab44][XCUITestDriver@8965] Available real devices: 
+2026-11-26 21:23:14:081 [d34dab44][XCUITestDriver@8965] Constructing iOS simulator for Xcode version 26.6 with udid '6478AFFB-AE17-412A-A1E5-51BCFFD300B6'
+2026-11-26 21:23:14:104 [d34dab44][XCUITestDriver@8965] No platformVersion specified. Using device version: '26.5'
+2026-11-26 21:23:14:104 [d34dab44][XCUITestDriver@8965] Determining device to run tests on: udid: '6478AFFB-AE17-412A-A1E5-51BCFFD300B6', real device: false
+2026-11-26 21:23:14:105 [d34dab44][BaseDriver] Initialized new IPC object with max object size of 1048576 bytes and max topics of 1000
+2026-11-26 21:23:14:105 [d34dab44][BaseDriver] Subscribing 8965cc42-478f-4b64-a263-1903c435b5d6 to topic 'xcuitest:sessionUdidClaimed'
+2026-11-26 21:23:14:106 [d34dab44][BaseDriver] Subscribing 8965cc42-478f-4b64-a263-1903c435b5d6 to topic 'xcuitest:sessionUdidContended'
+2026-11-26 21:23:14:106 [d34dab44][BaseDriver] Subscribing 8965cc42-478f-4b64-a263-1903c435b5d6 to topic 'xcuitest:sessionUdidReleased'
+2026-11-26 21:23:14:106 [d34dab44][BaseDriver] 8965cc42-478f-4b64-a263-1903c435b5d6 is publishing a message to topic xcuitest:sessionUdidClaimed
+2026-11-26 21:23:14:121 [d34dab44][BaseDriver] Unsubscribing 8965cc42-478f-4b64-a263-1903c435b5d6 from topic 'xcuitest:sessionUdidContended'
+2026-11-26 21:23:14:121 [d34dab44][BaseDriver] Unsubscribing 8965cc42-478f-4b64-a263-1903c435b5d6 from topic 'xcuitest:sessionUdidReleased'
+2026-11-26 21:23:14:122 [d34dab44][XCUITestDriver@8965] Event 'xcodeDetailsRetrieved' logged at 1795728194122 (21:23:14 GMT+0000 (Coordinated Universal Time))
+2026-11-26 21:23:14:122 [d34dab44][XCUITestDriver@8965] Event 'appConfigured' logged at 1795728194122 (21:23:14 GMT+0000 (Coordinated Universal Time))
+2026-11-26 21:23:14:122 [d34dab44][XCUITestDriver@8965] Event 'resetStarted' logged at 1795728194122 (21:23:14 GMT+0000 (Coordinated Universal Time))
+2026-11-26 21:23:14:122 [d34dab44][XCUITestDriver@8965] Reset: noReset is on. Leaving simulator as is
+2026-11-26 21:23:14:123 [d34dab44][XCUITestDriver@8965] Event 'resetComplete' logged at 1795728194123 (21:23:14 GMT+0000 (Coordinated Universal Time))
+2026-11-26 21:23:14:123 [d34dab44][XCUITestDriver@8965] Using WDA path: '/Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent'
+2026-11-26 21:23:14:123 [d34dab44][XCUITestDriver@8965] Using WDA agent: '/Users/runner/work/riddle-games/riddle-games/e2e/app/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj'
+2026-11-26 21:23:14:127 [d34dab44][XCUITestDriver@8965] 'skipLogCapture' is set. Skipping starting logs such as crash, system, safari console and safari network.
+2026-11-26 21:23:14:127 [d34dab44][XCUITestDriver@8965] Setting up simulator
+2026-11-26 21:23:14:128 [d34dab44][XCUITestDriver@8965] Setting preferences of 6478AFFB-AE17-412A-A1E5-51BCFFD300B6 Simulator to {"ConnectHardwareKeyboard":false}
+2026-11-26 21:23:14:128 [d34dab44][XCUITestDriver@8965] Setting common Simulator preferences to {"RotateWindowWhenSignaledByGuest":true,"StartLastDeviceOnLaunch":false,"DetachOnWindowClose":false,"AttachBootedOnStart":true,"ConnectHardwareKeyboard":false,"PasteboardAutomaticSync":false}
+2026-11-26 21:23:14:213 [d34dab44][XCUITestDriver@8965] Updated 6478AFFB-AE17-412A-A1E5-51BCFFD300B6 Simulator preferences at '/Users/runner/Library/Preferences/com.apple.iphonesimulator.plist' with {"RotateWindowWhenSignaledByGuest":true,"StartLastDeviceOnLaunch":false,"DetachOnWindowClose":false,"AttachBootedOnStart":true,"ConnectHardwareKeyboard":false,"PasteboardAutomaticSync":false,"DevicePreferences":{"6478AFFB-AE17-412A-A1E5-51BCFFD300B6":{"ConnectHardwareKeyboard":false}}}
+2026-11-26 21:23:14:451 [d34dab44][XCUITestDriver@8965] Simulator '6478AFFB-AE17-412A-A1E5-51BCFFD300B6' is booted while its UI is not visible. Trying to restart it with the Simulator window visible
+2026-11-26 21:23:17:632 [d34dab44][XCUITestDriver@8965] Starting UI client: open -Fn /Applications/Xcode_26.6.app/Contents/Developer/Applications/Simulator.app
+2026-11-26 21:23:19:487 [d34dab44][XCUITestDriver@8965] Got UI client PID: 9126
