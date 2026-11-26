@@ -351,7 +351,7 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
       </group>
       {showLabel && !busy && (
         <Html position={[0, h + 0.18, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
-          <div ref={spread.ref(who)} style={LABEL_WRAP}>
+          <div ref={spread.ref(who)} style={LABEL_WRAP} data-reach={hinted ? '' : undefined}>
           <div
             style={{
               fontFamily: 'Fredoka, system-ui, sans-serif',

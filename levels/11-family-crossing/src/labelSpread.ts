@@ -8,7 +8,6 @@
  * Pure numbers, in screen pixels: no DOM, no three.js. `useLabelSpread` feeds it and applies the result.
  * The same two files live in each level that needs them (levels may not share code outside packages).
  */
-
 /** A label's box at the spot it wants, in screen pixels. */
 export interface LabelBox {
   x: number;
@@ -27,6 +26,15 @@ export interface Bounds {
 export interface Offset {
   dx: number;
   dy: number;
+}
+
+/**
+ * A label's box grown by `reach` on each side: room for a band drawn round it outside its own box,
+ * such as Hint's (`hintLabelReach` in @riddle/props). The band takes no room in the page, so the labels
+ * round it are only kept clear of it if its box is grown first. Its middle stays where it is.
+ */
+export function withReach(box: LabelBox, reach: { x: number; y: number }): LabelBox {
+  return { x: box.x - reach.x, y: box.y - reach.y, w: box.w + 2 * reach.x, h: box.h + 2 * reach.y };
 }
 
 /** Clear space kept between two labels. */

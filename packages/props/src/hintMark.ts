@@ -43,6 +43,11 @@ export function haloBands(radius: number): RingBands {
   return { inner: radius - 0.09, outer: radius, edge: 0.035 };
 }
 
+/** The outer dark edge of a hinted label's band lies this many page pixels outside the label. */
+export const HINT_LABEL_BAND = 6.5;
+/** A hinted label swells to this size and back, in the ring's own rhythm. */
+export const HINT_LABEL_SWELL = 1.1;
+
 /**
  * For a name label drawn over the scene (a `<div>` in drei's `<Html>`): spread these over the label's
  * own style while Hint points at its figure. The label gets the ring's look, a gold band with a dark
@@ -51,14 +56,26 @@ export function haloBands(radius: number): RingBands {
  * A filled gold or green label means "picked" in some levels: this is a band round the label, not a fill.
  */
 export const HINT_LABEL_STYLE = {
-  boxShadow: `0 0 0 1.5px ${HINT_EDGE}, 0 0 0 5px ${HINT_GOLD}, 0 0 0 6.5px ${HINT_EDGE}, 0 3px 10px 6px rgba(0,0,0,.3)`,
+  boxShadow: `0 0 0 1.5px ${HINT_EDGE}, 0 0 0 5px ${HINT_GOLD}, 0 0 0 ${HINT_LABEL_BAND}px ${HINT_EDGE}, 0 3px 10px 6px rgba(0,0,0,.3)`,
   animation: 'riddle-hint-label 1.26s ease-in-out infinite',
 } as const;
+
+/**
+ * How far a hinted label's band reaches past the label's own box, in page pixels, at the top of its
+ * swell. The band "takes up no room in the page", so labels that step aside for each other only keep
+ * clear of it if they are told: grow the hinted label's box by this much before spreading the labels.
+ */
+export function hintLabelReach(width: number, height: number): { x: number; y: number } {
+  return {
+    x: HINT_LABEL_BAND * HINT_LABEL_SWELL + (width * (HINT_LABEL_SWELL - 1)) / 2,
+    y: HINT_LABEL_BAND * HINT_LABEL_SWELL + (height * (HINT_LABEL_SWELL - 1)) / 2,
+  };
+}
 
 // The label's swell. Someone who asked their device for less motion gets the band alone.
 if (typeof document !== 'undefined' && !document.getElementById('riddle-hint-label')) {
   const style = document.createElement('style');
   style.id = 'riddle-hint-label';
-  style.textContent = '@media (prefers-reduced-motion: no-preference) { @keyframes riddle-hint-label { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } } }';
+  style.textContent = `@media (prefers-reduced-motion: no-preference) { @keyframes riddle-hint-label { 0%, 100% { transform: scale(1); } 50% { transform: scale(${HINT_LABEL_SWELL}); } } }`;
   document.head.appendChild(style);
 }

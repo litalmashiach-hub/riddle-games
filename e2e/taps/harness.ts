@@ -330,6 +330,85 @@ export const READ_SCENE = () => {
       const p = at(bestCell[0], bestCell[1]);
       return { x: p.x, y: p.y, depth: Math.sqrt(bestD) * step, shown: inn.length * step * step };
     },
+    /**
+     * What Hint's marks make of a touch at a screen point. `crossed`: the marks whose shape a ray from
+     * the point passes through, by three.js's own mesh test. `taken`: the marks that answer the ray in
+     * the game's own picking, which asks each object's own `raycast`. A mark that takes no taps is
+     * crossed and never taken. Marks are found by their name (`HINT_MARK` in @riddle/props).
+     */
+    marksAt: (x: number, y: number) => {
+      const st = three();
+      if (!st) return { crossed: 0, taken: 0, shown: 0 };
+      const rect = st.gl.domElement.getBoundingClientRect();
+      const rc = st.raycaster;
+      const o0 = rc.ray.origin.clone();
+      const d0 = rc.ray.direction.clone();
+      rc.setFromCamera({ x: ((x - rect.left) / rect.width) * 2 - 1, y: -((y - rect.top) / rect.height) * 2 + 1 }, st.camera);
+      let crossed = 0;
+      let taken = 0;
+      let count = 0;
+      st.scene.traverse((o: any) => {
+        if (o.name !== 'hint-mark' || !o.isMesh || !shown(o)) return;
+        count++;
+        o.updateWorldMatrix(true, false);
+        const shape: any[] = [];
+        Object.getPrototypeOf(o).raycast.call(o, rc, shape);
+        if (!shape.length) return;
+        crossed++;
+        const own: any[] = [];
+        o.raycast(rc, own);
+        if (own.length) taken++;
+      });
+      rc.ray.origin.copy(o0);
+      rc.ray.direction.copy(d0);
+      return { crossed, taken, shown: count };
+    },
+    /**
+     * For each of Hint's marks, a screen point on it where nothing that listens lies under it and no page
+     * element lies over it: a touch there lands on the mark and on nothing else. The point nearest the
+     * middle of the mark's box, searched on a grid `step` apart. A mark with no such point is left out.
+     */
+    markPoints: (step: number) => {
+      const st = three();
+      if (!st) return [];
+      const marks: any[] = [];
+      st.scene.traverse((o: any) => {
+        if (o.name === 'hint-mark' && o.isMesh && shown(o)) marks.push(o);
+      });
+      const rect = st.gl.domElement.getBoundingClientRect();
+      const rc = st.raycaster;
+      const o0 = rc.ray.origin.clone();
+      const d0 = rc.ray.direction.clone();
+      const out: { x: number; y: number }[] = [];
+      for (const m of marks) {
+        let best: { x: number; y: number; d: number } | null = null;
+        const b = boxOf(st, m, false);
+        if (!b) continue;
+        const cx = (b.x0 + b.x1) / 2;
+        const cy = (b.y0 + b.y1) / 2;
+        for (let y = Math.max(rect.top + 2, b.y0); y <= Math.min(rect.bottom - 2, b.y1); y += step)
+          for (let x = Math.max(rect.left + 2, b.x0); x <= Math.min(rect.right - 2, b.x1); x += step) {
+            const d = (x - cx) ** 2 + (y - cy) ** 2;
+            if (best && d >= best.d) continue;
+            // Well inside the mark's band, so that its gentle swell cannot take the band off the point.
+            const onBand = [[0, 0], [-3, 0], [3, 0], [0, -3], [0, 3]].every(([dx, dy]) => {
+              rc.setFromCamera({ x: ((x + dx - rect.left) / rect.width) * 2 - 1, y: -((y + dy - rect.top) / rect.height) * 2 + 1 }, st.camera);
+              const shape: any[] = [];
+              Object.getPrototypeOf(m).raycast.call(m, rc, shape);
+              return shape.length > 0;
+            });
+            if (!onBand) continue;
+            rc.setFromCamera({ x: ((x - rect.left) / rect.width) * 2 - 1, y: -((y - rect.top) / rect.height) * 2 + 1 }, st.camera);
+            if (rc.intersectObjects(st.internal.interaction, true).length) continue;
+            if (document.elementFromPoint(x, y) !== st.gl.domElement) continue;
+            best = { x, y, d };
+          }
+        if (best) out.push({ x: best.x, y: best.y });
+      }
+      rc.ray.origin.copy(o0);
+      rc.ray.direction.copy(d0);
+      return out;
+    },
     /** The listening object that a ray from the screen point reaches first: what the game's own picking would report first. */
     firstHit: (x: number, y: number) => {
       const st = three();
@@ -364,6 +443,8 @@ declare global {
       camera(): number[] | null;
       targets(): Target[];
       firstHit(x: number, y: number): TapRecord['firstHit'];
+      marksAt(x: number, y: number): { crossed: number; taken: number; shown: number };
+      markPoints(step: number): Point[];
       clearMiddle(uuid: string, step: number): (Point & { depth: number }) | null;
       visibleMiddle(uuid: string, step: number): (Point & { depth: number; shown: number }) | null;
     };
@@ -625,9 +706,28 @@ export class Taps {
     } catch {
       throw new TapFault('no-response', this.step, `${what} did not show`);
     }
-    const b = await button.boundingBox();
-    this.log.push({ step: this.step, what, kind: 'button', at: b ? { x: b.x + b.width / 2, y: b.y + b.height / 2 } : { x: 0, y: 0 }, onTop: 'button', firstHit: null });
-    await button.tap();
+    // A button that pulses (level 3's hinted move swells and shrinks for ever) never stands still, and
+    // Playwright's own tap() waits for that. A finger needs less: the button's middle stays put while it
+    // swells, so wait for the middle to settle, check the button is what lies there, and touch it.
+    let at: Point | null = null;
+    const end = Date.now() + timeout;
+    for (let last: Point | null = null; Date.now() < end; await this.page.waitForTimeout(80)) {
+      const b = await button.boundingBox();
+      const mid = b ? { x: b.x + b.width / 2, y: b.y + b.height / 2 } : null;
+      if (mid && last && Math.abs(mid.x - last.x) < 0.5 && Math.abs(mid.y - last.y) < 0.5) {
+        at = mid;
+        break;
+      }
+      last = mid;
+    }
+    if (!at) throw new TapFault('no-response', this.step, `${what} did not stand still`);
+    const onTop = await button.evaluate((el, p) => {
+      const top = document.elementFromPoint(p.x, p.y);
+      return top && (top === el || el.contains(top)) ? 'button' : top ? `${top.tagName.toLowerCase()} "${(top.textContent ?? '').trim().slice(0, 40)}"` : 'nothing';
+    }, at);
+    this.log.push({ step: this.step, what, kind: 'button', at, onTop, firstHit: null });
+    if (onTop !== 'button') throw new TapFault('covered', this.step, `${what} at ${fmt(at)} lies under ${onTop}`);
+    await this.page.touchscreen.tap(at.x, at.y);
   }
 
   /** The session as it is now. Read-only. */

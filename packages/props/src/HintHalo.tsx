@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { edgedBandGeometry, noHit, useHintPulse } from './HintRing';
+import { HINT_MARK, edgedBandGeometry, noHit, useHintPulse } from './HintRing';
 import { HINT_GOLD, haloBands } from './hintMark';
 
 /** Drawn after everything else in the scene. */
@@ -33,7 +33,7 @@ export function HintHalo({ position, radius = 0.5, color = HINT_GOLD }: { positi
   });
   return (
     <group ref={turn} position={position}>
-      <mesh ref={ring} geometry={geometry} renderOrder={ON_TOP} raycast={noHit}>
+      <mesh ref={ring} geometry={geometry} renderOrder={ON_TOP} raycast={noHit} name={HINT_MARK}>
         <meshBasicMaterial vertexColors transparent toneMapped={false} depthTest={false} depthWrite={false} fog={false} />
       </mesh>
     </group>
