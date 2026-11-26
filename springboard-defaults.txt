@@ -1,0 +1,101 @@
+{
+    FBLaunchWatchdogExceptions =     {
+        "com.apple.Spotlight" = 120;
+    };
+    SBBottomLeftCornerGestureTouchTypes = 3;
+    SBBottomRightCornerGestureTouchTypes = 3;
+    SBButtonForceFeel = 2;
+    SBDefaultKeyCommandTabPlistRepresentation =     (
+                {
+            bundleID = "com.example.riddlegames";
+            itemType = App;
+            uniqueID = "sceneID:com.example.riddlegames-default";
+        },
+                {
+            bundleID = "com.apple.Preferences";
+            itemType = App;
+            uniqueID = "sceneID:com.apple.Preferences-default";
+        }
+    );
+    SBDefaultKeyDockRecentsPlistRepresentation =     (
+                {
+            bundleID = "com.apple.Preferences";
+            itemType = App;
+            uniqueID = "sceneID:com.apple.Preferences-default";
+        },
+                {
+            bundleID = "com.example.riddlegames";
+            itemType = App;
+            uniqueID = "sceneID:com.example.riddlegames-default";
+        }
+    );
+    SBDisplayIDsWithBadgingEnabled =     (
+        "com.apple.accountnotifications",
+        "com.apple.NDO.FollowUp",
+        "com.apple.appleaccount.notifications",
+        "com.apple.DocumentsApp",
+        "com.apple.MobileSMS",
+        "com.apple.sosd.usernotification",
+        "com.apple.AppleMediaServicesUI.engagement.notifications",
+        "com.apple.gamecenter",
+        "com.apple.asktod",
+        "com.apple.familynotifications",
+        "com.apple.coreaudio.adam.hae",
+        "com.apple.Preferences",
+        "com.apple.safetycheckd.notifications",
+        "com.apple.facetime",
+        "com.apple.iCloud.FollowUp",
+        "com.apple.ThreatNotification.FollowUp",
+        "com.apple.mobilephone",
+        "com.apple.bird.usernotifications",
+        "com.apple.askpermission.notifications",
+        "com.apple.iCloudSettingsNotification",
+        "com.apple.identityservicesd.firewall"
+    );
+    SBFWebClipUtilitiesLastSanitizedBuildVersionUserDefaultsKey = 23F77;
+    "SBGestureRequiresEducation-Corner" = 1;
+    SBHasEverUsedMultiAppConfiguration = 0;
+    SBHomeScreenWallpapers =     {
+        none =         {
+            SBWallpaperHasVideoKey = 0;
+            SBWallpaperMagnifyEnabledKey = 0;
+            SBWallpaperParallaxFactorKey = 1;
+            SBWallpaperPortraitKey = 1;
+            SBWallpaperStillTimeInVideoKey = 0;
+            SBWallpaperSupportsCroppingKey = 0;
+            SBWallpaperZoomScaleKey = 1;
+            kSBProceduralWallpaperHomeUserSetKey = 0;
+        };
+    };
+    SBLastMultitaskingModeSwitchDate = "2026-11-26 05:55:07 +0000";
+    SBLastRestoreIdentifier = "88BC8A94-BECD-458D-8AF5-9FEB0F2B47A3";
+    SBLastRotationLockedOrientationiPad = 0;
+    SBLastSystemVersion = 23F77;
+    SBLockPoster = {length = 1029, bytes = 0x62706c69 73743030 d4010203 04050607 ... 00000000 0000034d };
+    SBLockScreenWallpapers =     {
+        none =         {
+            SBWallpaperHasVideoKey = 0;
+            SBWallpaperMagnifyEnabledKey = 0;
+            SBWallpaperParallaxFactorKey = 1;
+            SBWallpaperPortraitKey = 1;
+            SBWallpaperStillTimeInVideoKey = 0;
+            SBWallpaperSupportsCroppingKey = 0;
+            SBWallpaperZoomScaleKey = 1;
+            kSBProceduralWallpaperHomeUserSetKey = 0;
+        };
+    };
+    SBParentalControlsMCContentRestrictions =     {
+        apps = 1000;
+        countryCode = "";
+        movies = 1000;
+        tvshows = 1000;
+    };
+    SBRecentLocale = "en-US";
+    SBRingerMuted = 0;
+    SBShouldAddDefaultWidgetsToHomeScreen = 0;
+    SBShouldResetDefaultTodayList = 0;
+    SBShouldUpgradeEnableWidgetSuggestions = 0;
+    SBShowBatteryPercentage = 1;
+    SystemVibrationDataMigrationVersion = 3;
+    "last_label_cache_cleanup" = "59B45547-B8F1-440E-8024-5FA75B5D3F4C";
+}

@@ -1,0 +1,121 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj -scheme SidewaysTest -destination id=B93AC885-30EF-40D3-911E-AFBFE471286C -derivedDataPath /Users/runner/work/riddle-games/riddle-games/build/sidewaystest -parallel-testing-enabled NO "-only-testing:SidewaysUITests/SidewaysTests/testTurnInLevel"
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+2026-11-26 06:01:09.657374+0000 SidewaysUITests-Runner[15227:50472] [Default] Running tests...
+2026-11-26 06:01:09.872326+0000 SidewaysUITests-Runner[15227:50472] [UIKit App Config] Update the Info.plist: Launch screens will soon be required.
+    t =      nans Interface orientation changed to Landscape Left
+Test Suite 'Selected tests' started at 2026-11-26 06:01:11.266.
+Test Suite 'SidewaysUITests.xctest' started at 2026-11-26 06:01:11.267.
+Test Suite 'SidewaysTests' started at 2026-11-26 06:01:11.267.
+Test Case '-[SidewaysUITests.SidewaysTests testTurnInLevel]' started.
+    t =     0.00s Start Test at 2026-11-26 06:01:11.268
+    t =     0.26s Set Up
+    t =     0.27s Setting device orientation to Landscape Left
+    t =     0.30s     Device orientation changed to Landscape Left
+    t =     0.77s     Interface orientation changed to Landscape Right
+    t =     1.21s     Wait for com.apple.DocumentManager.DockFolderViewService to idle
+    t =     1.27s     Wait for com.apple.springboard to idle
+objc[15227]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x105c64310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x105d0c398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     6.71s Getting device orientation
+    t =     8.27s Checking existence of `Window (First Match)`
+    t =     9.27s Checking existence of `Window (First Match)` (retry 1)
+    t =    10.29s Checking existence of `Window (First Match)` (retry 2)
+    t =    10.29s Checking existence of `WebView (First Match)`
+    t =    11.30s Checking existence of `WebView (First Match)` (retry 1)
+    t =    12.31s Checking existence of `WebView (First Match)` (retry 2)
+SW turned to sideways-left; device=sideways-left appWindow=none appState=1
+    t =    12.31s Open com.example.riddlegames
+    t =    12.31s     Launch com.example.riddlegames
+    t =    13.66s         Setting up automation session
+    t =    14.01s         Wait for com.example.riddlegames to idle
+    t =    16.37s Waiting 90.0s for Button (First Match) to exist
+    t =    17.40s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    17.41s         Checking existence of `Button (First Match)`
+    t =    17.48s         Capturing element debug description
+    t =    18.45s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    18.45s         Checking existence of `Button (First Match)`
+SW level map shown=true
+    t =    21.64s Tap Button (First Match)
+    t =    21.64s     Wait for com.example.riddlegames to idle
+    t =    21.66s     Find the Button (First Match)
+    t =    21.79s     Check for interrupting elements affecting "Level 1: Wolf and Two Sheep, not solved yet" Button
+    t =    21.97s         Wait for com.apple.springboard to idle
+    t =    22.18s     Synthesize event
+    t =    22.73s     Wait for com.example.riddlegames to idle
+    t =    22.75s Waiting 90.0s for "Let's go!" Button to exist
+    t =    23.80s     Checking `Expect predicate `existsNoRetry == 1` for object "Let's go!" Button`
+    t =    23.80s         Checking existence of `"Let's go!" Button`
+SW rules card shown=true
+    t =    38.54s Checking existence of `"Let's go!" Button`
+    t =    38.64s Tap "Let's go!" Button
+    t =    38.64s     Wait for com.example.riddlegames to idle
+    t =    38.65s     Find the "Let's go!" Button
+    t =    38.85s     Check for interrupting elements affecting "Let's go!" Button
+    t =    39.09s         Wait for com.apple.springboard to idle
+    t =    39.22s     Synthesize event
+    t =    39.65s     Wait for com.example.riddlegames to idle
+    t =    51.56s Added attachment named 'level-device-sideways'
+    t =    52.54s Getting device orientation
+    t =    52.65s Checking existence of `Window (First Match)`
+    t =    52.82s Find the Window (First Match)
+    t =    53.11s Checking existence of `WebView (First Match)`
+    t =    53.17s Find the WebView (First Match)
+SW picture 2-testTurnInLevel-01-level-device-sideways.png size=(1180.0, 820.0) device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    53.23s Setting device orientation to Portrait
+    t =    53.43s     Device orientation changed to Portrait
+    t =    54.65s     Interface orientation changed to Portrait
+    t =    54.67s     Wait for com.example.riddlegames to idle
+    t =    54.72s     Wait for com.apple.springboard to idle
+    t =    58.77s Getting device orientation
+    t =    58.84s Checking existence of `Window (First Match)`
+    t =    58.88s Find the Window (First Match)
+    t =    59.13s Checking existence of `WebView (First Match)`
+    t =    59.15s Find the WebView (First Match)
+SW turned to upright; device=upright appWindow=(0.0, 0.0, 820.0, 1180.0) webView=(0.0, 0.0, 820.0, 1180.0) appState=4
+    t =    61.61s Added attachment named 'level-device-upright'
+    t =    61.70s Getting device orientation
+    t =    61.72s Checking existence of `Window (First Match)`
+    t =    61.74s Find the Window (First Match)
+    t =    61.98s Checking existence of `WebView (First Match)`
+    t =    62.12s Find the WebView (First Match)
+SW picture 2-testTurnInLevel-02-level-device-upright.png size=(820.0, 1180.0) device=upright appWindow=(0.0, 0.0, 820.0, 1180.0) webView=(0.0, 0.0, 820.0, 1180.0) appState=4
+    t =    62.25s Setting device orientation to Landscape Right
+    t =    62.31s     Device orientation changed to Landscape Right
+    t =    63.71s     Interface orientation changed to Landscape Left
+    t =    64.82s     Wait for com.example.riddlegames to idle
+    t =    64.99s     Wait for com.apple.springboard to idle
+    t =    69.22s Getting device orientation
+    t =    69.60s Checking existence of `Window (First Match)`
+    t =    69.87s Find the Window (First Match)
+    t =    70.92s Checking existence of `WebView (First Match)`
+    t =    70.98s Find the WebView (First Match)
+SW turned to sideways-right; device=sideways-right appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    72.19s Added attachment named 'level-device-sideways-right'
+    t =    72.67s Getting device orientation
+    t =    72.76s Checking existence of `Window (First Match)`
+    t =    73.31s Find the Window (First Match)
+    t =    73.68s Checking existence of `WebView (First Match)`
+    t =    74.06s Find the WebView (First Match)
+SW picture 2-testTurnInLevel-03-level-device-sideways-right.png size=(1180.0, 820.0) device=sideways-right appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =   111.22s Terminate com.example.riddlegames:15965
+    t =   112.76s Tear Down
+Test Case '-[SidewaysUITests.SidewaysTests testTurnInLevel]' passed (123.550 seconds).
+Test Suite 'SidewaysTests' passed at 2026-11-26 06:03:14.822.
+	 Executed 1 test, with 0 failures (0 unexpected) in 123.550 (123.555) seconds
+Test Suite 'SidewaysUITests.xctest' passed at 2026-11-26 06:03:14.824.
+	 Executed 1 test, with 0 failures (0 unexpected) in 123.550 (123.558) seconds
+Test Suite 'Selected tests' passed at 2026-11-26 06:03:14.826.
+	 Executed 1 test, with 0 failures (0 unexpected) in 123.550 (123.559) seconds
+2026-11-26 06:03:16.127 xcodebuild[14017:47320] [MT] IDETestOperationsObserverDebug: 141.831 elapsed -- Testing started completed.
+2026-11-26 06:03:16.127 xcodebuild[14017:47320] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-26 06:03:16.127 xcodebuild[14017:47320] [MT] IDETestOperationsObserverDebug: 141.831 sec, +141.831 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/build/sidewaystest/Logs/Test/Test-SidewaysTest-2026.11.26_06-00-47-+0000.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started

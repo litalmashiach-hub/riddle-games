@@ -1,0 +1,11 @@
+  "UISupportedInterfaceOrientations" => [
+    0 => "UIInterfaceOrientationLandscapeLeft"
+    1 => "UIInterfaceOrientationLandscapeRight"
+  ]
+  "UISupportedInterfaceOrientations~ipad" => [
+    0 => "UIInterfaceOrientationPortrait"
+    1 => "UIInterfaceOrientationPortraitUpsideDown"
+    2 => "UIInterfaceOrientationLandscapeLeft"
+    3 => "UIInterfaceOrientationLandscapeRight"
+  ]
+  "UIViewControllerBasedStatusBarAppearance" => true

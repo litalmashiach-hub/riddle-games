@@ -1,0 +1,98 @@
+Attributes: Application, 0x113d50500, pid: 22432, label: 'Riddle Games'
+Element subtree:
+ →Application, 0x113d50500, pid: 22432, label: 'Riddle Games'
+    Window (Main), 0x113d50640, {{0.0, 0.0}, {1180.0, 820.0}}
+      Other, 0x113d50780, {{0.0, 0.0}, {1180.0, 820.0}}
+        Other, 0x113d508c0, {{0.0, 0.0}, {1180.0, 820.0}}
+          Other, 0x113d50a00, {{0.0, 0.0}, {1180.0, 820.0}}
+            WebView, 0x113d50b40, {{0.0, 0.0}, {1180.0, 820.0}}
+              WebView, 0x113d50c80, {{0.0, 0.0}, {1180.0, 820.0}}
+                WebView, 0x113d50dc0, {{0.0, 0.0}, {1180.0, 820.0}}
+                  Other, 0x113d50f00, {{0.0, 0.0}, {1180.0, 820.0}}
+                    Other, 0x113d51040, {{0.0, 0.0}, {1180.0, 820.0}}
+                      Other, 0x113d51180, {{0.0, 0.0}, {1180.0, 820.0}}
+                        Other, 0x113d512c0, {{0.0, 0.0}, {1180.0, 820.0}}, label: 'Riddle Games', Focused
+                          Other, 0x113d51400, {{0.0, 0.0}, {1180.0, 820.0}}, Focused
+                            Other, 0x113d51540, {{0.0, -168.0}, {436.0, 436.0}}, Focused
+                            Other, 0x113d51680, {{674.0, -48.0}, {512.0, 513.0}}, Focused
+                            Other, 0x113d517c0, {{168.0, 293.0}, {476.0, 475.0}}, Focused
+                            Other, 0x113d51900, {{844.0, 467.0}, {395.0, 396.0}}, Focused
+                          Button, 0x113d51a40, {{994.0, 16.0}, {42.0, 42.0}}, label: 'About and settings', Focused
+                          Switch, 0x113d51b80, {{1044.0, 16.0}, {42.0, 42.0}}, label: 'Sound', value: 1, Focused
+                          Other, 0x113d51cc0, {{94.0, 64.0}, {992.0, 230.0}}, label: 'banner', Focused
+                            Other, 0x113d51e00, {{94.0, 64.0}, {992.0, 20.0}}, Focused
+                              StaticText, 0x113d51f40, {{460.0, 65.0}, {27.0, 18.0}}, label: '30', value: 30, Focused
+                              StaticText, 0x113d52080, {{486.0, 65.0}, {234.0, 18.0}}, label: 'LEGENDARY PUZZLES', value:  LEGENDARY PUZZLES, Focused
+                            Other, 0x113d521c0, {{94.0, 84.0}, {992.0, 88.0}}, label: 'Riddle Games', value: 1, Focused
+                              StaticText, 0x113d52300, {{370.0, 84.0}, {440.0, 88.0}}, label: 'Riddle Games', value: Riddle Games, Focused
+                            Other, 0x113d52440, {{366.0, 180.0}, {448.0, 56.0}}, Focused
+                              StaticText, 0x113d52580, {{368.0, 181.0}, {444.0, 54.0}}, label: 'Cross rivers, measure potions and outsmart the scales. Every level is harder than the last.', value: Cross rivers, meas..., Focused
+                            Image, 0x113d526c0, {{539.0, 256.0}, {102.0, 38.0}}, label: '0 of 90 stars', Focused
+                          StaticText, 0x113d52800, {{104.0, 357.0}, {62.0, 18.0}}, label: 'WORLD', value: WORLD , Focused
+                          StaticText, 0x113d52940, {{165.0, 357.0}, {7.0, 18.0}}, label: '1', value: 1, Focused
+                          Other, 0x113d52a80, {{193.0, 341.0}, {192.0, 38.0}}, label: 'Meadow River', value: 2, Focused
+                            StaticText, 0x113d52bc0, {{193.0, 341.0}, {192.0, 38.0}}, label: 'Meadow River', value: Meadow River, Focused
+                          Button, 0x113d52d00, {{94.0, 394.0}, {320.0, 176.0}}, label: 'Level 1: Wolf and Two Sheep, not solved yet', Focused
+                          Button, 0x113d52e40, {{430.0, 394.0}, {320.0, 176.0}}, label: 'Level 2: Wolf, Goat and Cabbage, locked', Focused
+                          Button, 0x113d52f80, {{766.0, 394.0}, {320.0, 176.0}}, label: 'Level 3: Two Jugs, locked', Focused
+                          StaticText, 0x113d530c0, {{104.0, 633.0}, {62.0, 18.0}}, label: 'WORLD', value: WORLD , Focused
+                          StaticText, 0x113d53200, {{165.0, 633.0}, {10.0, 18.0}}, label: '2', value: 2, Focused
+                          Other, 0x113d53340, {{196.0, 617.0}, {212.0, 38.0}}, label: 'Ancient Temple', value: 2, Focused
+                            StaticText, 0x113d53480, {{196.0, 617.0}, {212.0, 38.0}}, label: 'Ancient Temple', value: Ancient Temple, Focused
+                          Button, 0x113d535c0, {{94.0, 670.0}, {320.0, 176.0}}, label: 'Level 4: Tower of Hanoi, locked', Focused
+                          Button, 0x113d53700, {{430.0, 670.0}, {320.0, 176.0}}, label: 'Level 5: Bridge and Torch, locked', Focused
+                          Button, 0x113d53840, {{766.0, 670.0}, {320.0, 176.0}}, label: 'Level 6: Explorers and Guardians, locked', Focused
+                          StaticText, 0x113d53980, {{104.0, 949.0}, {62.0, 18.0}}, label: 'WORLD', value: WORLD , Focused
+                          StaticText, 0x113d53ac0, {{165.0, 949.0}, {10.0, 18.0}}, label: '3', value: 3, Focused
+                          Other, 0x113d53c00, {{196.0, 933.0}, {149.0, 38.0}}, label: 'Sky Islands', value: 2, Focused
+                            StaticText, 0x113d53d40, {{196.0, 933.0}, {149.0, 38.0}}, label: 'Sky Islands', value: Sky Islands, Focused
+                          Button, 0x113d53e80, {{94.0, 986.0}, {320.0, 176.0}}, label: 'Level 7: Three Jealous Couples, locked', Focused
+                          Button, 0x113d58000, {{430.0, 986.0}, {320.0, 176.0}}, label: 'Level 8: Three Jugs, locked', Focused
+                          Button, 0x113d58140, {{766.0, 986.0}, {320.0, 176.0}}, label: 'Level 9: Bridge of Five, locked', Focused
+                          StaticText, 0x113d58280, {{104.0, 1225.0}, {62.0, 18.0}}, label: 'WORLD', value: WORLD , Focused
+                          StaticText, 0x113d583c0, {{165.0, 1225.0}, {10.0, 18.0}}, label: '4', value: 4, Focused
+                          Other, 0x113d58500, {{196.0, 1209.0}, {246.0, 38.0}}, label: 'Clockwork Citadel', value: 2, Focused
+                            StaticText, 0x113d58640, {{196.0, 1209.0}, {246.0, 38.0}}, label: 'Clockwork Citadel', value: Clockwork Citadel, Focused
+                          Button, 0x113d58780, {{94.0, 1262.0}, {320.0, 176.0}}, label: 'Level 10: Four-Pillar Tower, locked', Focused
+                          Button, 0x113d588c0, {{430.0, 1262.0}, {320.0, 176.0}}, label: 'Level 11: Family Crossing, locked', Focused
+                          Button, 0x113d58a00, {{766.0, 1262.0}, {320.0, 176.0}}, label: 'Level 12: The Twelve Coins, locked', Focused
+                          StaticText, 0x113d58b40, {{104.0, 1501.0}, {62.0, 18.0}}, label: 'WORLD', value: WORLD , Focused
+                          StaticText, 0x113d58c80, {{165.0, 1501.0}, {9.0, 18.0}}, label: '5', value: 5, Focused
+                          Other, 0x113d58dc0, {{195.0, 1485.0}, {198.0, 38.0}}, label: 'Firefly Lagoon', value: 2, Focused
+                            StaticText, 0x113d58f00, {{195.0, 1485.0}, {198.0, 38.0}}, label: 'Firefly Lagoon', value: Firefly Lagoon, Focused
+                          Button, 0x113d59040, {{94.0, 1538.0}, {320.0, 176.0}}, label: 'Level 13: Leapfrog Lagoon, locked', Focused
+                          Button, 0x113d59180, {{430.0, 1538.0}, {320.0, 176.0}}, label: 'Level 14: Firefly Lanterns, locked', Focused
+                          Button, 0x113d592c0, {{766.0, 1538.0}, {320.0, 176.0}}, label: 'Level 15: Slippery Pond, locked', Focused
+                          Button, 0x113d59400, {{94.0, 1730.0}, {320.0, 176.0}}, label: 'Level 16: Firefly Jars, locked', Focused
+                          Button, 0x113d59540, {{430.0, 1730.0}, {320.0, 176.0}}, label: 'Level 17: Moonbeam Mirrors, locked', Focused
+                          Button, 0x113d59680, {{766.0, 1730.0}, {320.0, 176.0}}, label: 'Level 18: Log Jam, locked', Focused
+                          Button, 0x113d597c0, {{94.0, 1922.0}, {320.0, 176.0}}, label: 'Level 19: Picture Tiles, locked', Focused
+                          Button, 0x113d59900, {{430.0, 1922.0}, {320.0, 176.0}}, label: 'Level 20: Berry Bridges, locked', Focused
+                          Button, 0x113d59a40, {{766.0, 1922.0}, {320.0, 176.0}}, label: 'Level 21: Cricket Swap, locked', Focused
+                          Button, 0x113d59b80, {{94.0, 2114.0}, {320.0, 176.0}}, label: 'Level 22: Pancake Stack, locked', Focused
+                          Button, 0x113d59cc0, {{430.0, 2114.0}, {320.0, 176.0}}, label: 'Level 23: Frog Parade, locked', Focused
+                          Button, 0x113d59e00, {{766.0, 2114.0}, {320.0, 176.0}}, label: 'Level 24: Frosty Maze, locked', Focused
+                          Button, 0x113d59f40, {{94.0, 2306.0}, {320.0, 176.0}}, label: 'Level 25: Firefly Rainbow, locked', Focused
+                          Button, 0x113d5a080, {{430.0, 2306.0}, {320.0, 176.0}}, label: 'Level 26: Moonbeam Maze, locked', Focused
+                          Button, 0x113d5a1c0, {{766.0, 2306.0}, {320.0, 176.0}}, label: 'Level 27: Timber Tangle, locked', Focused
+                          Button, 0x113d5a300, {{94.0, 2498.0}, {320.0, 176.0}}, label: 'Level 28: Family Portrait, locked', Focused
+                          Button, 0x113d5a440, {{430.0, 2498.0}, {320.0, 176.0}}, label: 'Level 29: Cricket Crossing, locked', Focused
+                          Button, 0x113d5a580, {{766.0, 2498.0}, {320.0, 176.0}}, label: 'Level 30: Moonlit Tower, locked', Focused
+                Other, 0x113d5a6c0, {{1147.0, 18.0}, {30.0, 784.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                  Other, 0x113d5a800, {{1174.0, 799.0}, {3.0, 7.0}}
+                Other, 0x113d5a940, {{18.0, 787.0}, {1144.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                  Other, 0x113d5aa80, {{1160.5, 814.0}, {7.0, 3.0}}
+                Other, 0x113d5abc0, {{1147.0, 18.0}, {30.0, 784.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                  Other, 0x113d5ad00, {{1174.0, 799.0}, {3.0, 7.0}}
+                Other, 0x113d5ae40, {{18.0, 787.0}, {1144.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                  Other, 0x113d5af80, {{1160.5, 814.0}, {7.0, 3.0}}
+    Window, 0x113d5b0c0, {{0.0, 0.0}, {1180.0, 820.0}}
+      Other, 0x113d5b200, {{0.0, 0.0}, {1180.0, 820.0}}
+        Other, 0x113d5b340, {{0.0, 0.0}, {1180.0, 820.0}}
+Path to element:
+ →Application, 0x113d50500, pid: 22432, label: 'Riddle Games'
+Query chain:
+ →Find: Application 'com.example.riddlegames'
+  Output: {
+    Application, 0x113d5b480, pid: 22432, label: 'Riddle Games'
+  }

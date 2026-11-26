@@ -1,0 +1,142 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj -scheme SidewaysTest -destination id=B93AC885-30EF-40D3-911E-AFBFE471286C -derivedDataPath /Users/runner/work/riddle-games/riddle-games/build/sidewaystest -parallel-testing-enabled NO "-only-testing:SidewaysUITests/SidewaysTests/testShareScreen"
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+2026-11-26 06:05:56.305550+0000 SidewaysUITests-Runner[21596:68762] [Default] Running tests...
+2026-11-26 06:05:56.344240+0000 SidewaysUITests-Runner[21596:68762] [UIKit App Config] Update the Info.plist: Launch screens will soon be required.
+    t =      nans Interface orientation changed to Landscape Right
+Test Suite 'Selected tests' started at 2026-11-26 06:05:57.064.
+Test Suite 'SidewaysUITests.xctest' started at 2026-11-26 06:05:57.065.
+Test Suite 'SidewaysTests' started at 2026-11-26 06:05:57.065.
+Test Case '-[SidewaysUITests.SidewaysTests testShareScreen]' started.
+    t =     0.00s Start Test at 2026-11-26 06:05:57.066
+    t =     0.02s Set Up
+    t =     0.03s Setting device orientation to Landscape Left
+    t =     0.03s     Wait for com.apple.DocumentManager.DockFolderViewService to idle
+    t =     0.04s     Wait for com.apple.springboard to idle
+    t =     4.05s Getting device orientation
+    t =     4.06s Checking existence of `Window (First Match)`
+objc[21596]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x103798310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1036fc398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     5.06s Checking existence of `Window (First Match)` (retry 1)
+    t =     6.07s Checking existence of `Window (First Match)` (retry 2)
+    t =     6.07s Checking existence of `WebView (First Match)`
+    t =     7.07s Checking existence of `WebView (First Match)` (retry 1)
+    t =     8.08s Checking existence of `WebView (First Match)` (retry 2)
+SW turned to sideways-left; device=sideways-left appWindow=none appState=1
+    t =     8.08s Open com.example.riddlegames
+    t =     8.08s     Launch com.example.riddlegames
+    t =     8.78s         Setting up automation session
+    t =     9.92s         Wait for com.example.riddlegames to idle
+    t =    11.56s Waiting 90.0s for Button (First Match) to exist
+    t =    12.65s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    12.66s         Checking existence of `Button (First Match)`
+SW level map shown=true
+    t =    16.38s Added attachment named 'before'
+    t =    16.43s Getting device orientation
+    t =    16.44s Checking existence of `Window (First Match)`
+    t =    16.45s Find the Window (First Match)
+    t =    16.47s Checking existence of `WebView (First Match)`
+    t =    16.48s Find the WebView (First Match)
+SW picture 5-testShareScreen-01-before.png size=(1180.0, 820.0) device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    16.50s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    16.79s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    16.85s Requesting snapshot of accessibility hierarchy for app with pid 22432
+    t =    18.31s Requesting snapshot of accessibility hierarchy for app with pid 22432
+    t =    18.56s Press Application 'com.apple.springboard'[0.99, 0.99] for 0.6 seconds, then drag to Application 'com.apple.springboard'[0.55, 0.55] with velocity of 500.00 pixels per second, and then hold for 0.0 seconds 
+    t =    18.56s     Wait for com.apple.springboard to idle
+    t =    18.57s     Find the Application 'com.apple.springboard'
+    t =    18.63s     Check for interrupting elements affecting " " Application
+    t =    18.66s         Wait for com.example.riddlegames to idle
+    t =    18.81s     Synthesize event
+    t =    18.82s         Find the Application 'com.apple.springboard'
+    t =    18.91s         Find the Application 'com.apple.springboard'
+    t =    19.04s         Find the Application 'com.apple.springboard'
+    t =    19.10s         Find the Application 'com.apple.springboard'
+    t =    19.23s         Find the Application 'com.apple.springboard'
+    t =    21.44s     Wait for com.apple.springboard to idle
+    t =    25.89s Added attachment named 'after-corner-drag'
+    t =    25.92s Getting device orientation
+    t =    25.92s Checking existence of `Window (First Match)`
+    t =    25.94s Find the Window (First Match)
+    t =    25.96s Checking existence of `WebView (First Match)`
+    t =    25.97s Find the WebView (First Match)
+SW picture 5-testShareScreen-02-after-corner-drag.png size=(1180.0, 820.0) device=sideways-left appWindow=(-365.0, 0.0, 1180.0, 820.0) webView=(-365.0, 0.0, 1180.0, 820.0) appState=4
+    t =    26.05s Tap Application 'com.apple.springboard'[0.50, 0.01]
+    t =    26.05s     Wait for com.apple.springboard to idle
+    t =    26.06s     Find the Application 'com.apple.springboard'
+    t =    26.21s Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    26.23s Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    26.26s     Check for interrupting elements affecting " " Application
+    t =    26.28s         Wait for com.example.riddlegames to idle
+    t =    26.48s Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    26.49s Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    26.50s     Synthesize event
+    t =    26.51s         Find the Application 'com.apple.springboard'
+    t =    26.56s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    26.58s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    26.59s         Find the Application 'com.apple.springboard'
+    t =    26.68s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    26.69s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    26.82s         Find the Application 'com.apple.springboard'
+    t =    26.87s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    26.88s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    27.20s     Wait for com.apple.springboard to idle
+    t =    29.66s Added attachment named 'after-top-tap'
+    t =    29.67s Getting device orientation
+    t =    29.67s Checking existence of `Window (First Match)`
+    t =    29.68s Find the Window (First Match)
+    t =    29.70s Checking existence of `WebView (First Match)`
+    t =    29.71s Find the WebView (First Match)
+SW picture 5-testShareScreen-03-after-top-tap.png size=(1180.0, 820.0) device=sideways-left appWindow=(-365.0, 0.0, 1180.0, 820.0) webView=(-365.0, 0.0, 1180.0, 820.0) appState=4
+    t =    29.78s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    30.92s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    31.21s Press Application 'com.apple.springboard'[0.03, 0.02] for 1.2 seconds
+    t =    31.21s     Wait for com.apple.springboard to idle
+    t =    31.23s     Find the Application 'com.apple.springboard'
+    t =    31.28s Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    31.29s Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    31.31s     Check for interrupting elements affecting " " Application
+    t =    31.32s         Wait for com.example.riddlegames to idle
+    t =    31.74s Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    31.75s Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    31.76s     Synthesize event
+    t =    32.55s         Find the Application 'com.apple.springboard'
+    t =    32.60s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    32.60s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    32.60s         Find the Application 'com.apple.springboard'
+    t =    32.66s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    32.67s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    32.69s         Find the Application 'com.apple.springboard'
+    t =    32.73s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    32.73s             Ignoring failure to get hierarchy for remote element in process 22452 (Error getting main window kAXErrorServerNotFound)
+    t =    34.75s     Wait for com.apple.springboard to idle
+    t =    37.21s Added attachment named 'after-top-left-press'
+    t =    37.22s Getting device orientation
+    t =    37.22s Checking existence of `Window (First Match)`
+    t =    37.23s Find the Window (First Match)
+    t =    37.25s Checking existence of `WebView (First Match)`
+    t =    37.26s Find the WebView (First Match)
+SW picture 5-testShareScreen-04-after-top-left-press.png size=(1180.0, 820.0) device=sideways-left appWindow=(-365.0, 0.0, 1180.0, 820.0) webView=(-365.0, 0.0, 1180.0, 820.0) appState=4
+    t =    37.27s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    37.68s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    37.76s Terminate com.example.riddlegames:22432
+    t =    38.81s Tear Down
+Test Case '-[SidewaysUITests.SidewaysTests testShareScreen]' passed (40.059 seconds).
+Test Suite 'SidewaysTests' passed at 2026-11-26 06:06:37.125.
+	 Executed 1 test, with 0 failures (0 unexpected) in 40.059 (40.060) seconds
+Test Suite 'SidewaysUITests.xctest' passed at 2026-11-26 06:06:37.127.
+	 Executed 1 test, with 0 failures (0 unexpected) in 40.059 (40.062) seconds
+Test Suite 'Selected tests' passed at 2026-11-26 06:06:37.127.
+	 Executed 1 test, with 0 failures (0 unexpected) in 40.059 (40.063) seconds
+2026-11-26 06:06:37.762 xcodebuild[21313:67836] [MT] IDETestOperationsObserverDebug: 45.113 elapsed -- Testing started completed.
+2026-11-26 06:06:37.762 xcodebuild[21313:67836] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-26 06:06:37.762 xcodebuild[21313:67836] [MT] IDETestOperationsObserverDebug: 45.113 sec, +45.113 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/build/sidewaystest/Logs/Test/Test-SidewaysTest-2026.11.26_06-05-50-+0000.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started

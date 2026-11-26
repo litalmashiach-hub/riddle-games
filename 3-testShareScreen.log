@@ -1,0 +1,126 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj -scheme SidewaysTest -destination id=B93AC885-30EF-40D3-911E-AFBFE471286C -derivedDataPath /Users/runner/work/riddle-games/riddle-games/build/sidewaystest -parallel-testing-enabled NO "-only-testing:SidewaysUITests/SidewaysTests/testShareScreen"
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+2026-11-26 06:03:33.708307+0000 SidewaysUITests-Runner[18097:58950] [Default] Running tests...
+2026-11-26 06:03:33.790920+0000 SidewaysUITests-Runner[18097:58950] [UIKit App Config] Update the Info.plist: Launch screens will soon be required.
+2026-11-26 06:03:33.795993+0000 SidewaysUITests-Runner[18097:59008] [General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+    t =      nans Interface orientation changed to Landscape Left
+2026-11-26 06:03:35.164516+0000 SidewaysUITests-Runner[18097:59012] [General] Failed to send CA Event for app launch measurements for ca_event_type: 1 event_name: com.apple.app_launch_measurement.ExtendedLaunchMetrics
+Test Suite 'Selected tests' started at 2026-11-26 06:03:35.258.
+Test Suite 'SidewaysUITests.xctest' started at 2026-11-26 06:03:35.259.
+Test Suite 'SidewaysTests' started at 2026-11-26 06:03:35.259.
+Test Case '-[SidewaysUITests.SidewaysTests testShareScreen]' started.
+    t =     0.00s Start Test at 2026-11-26 06:03:35.260
+    t =     0.07s Set Up
+    t =     0.07s Setting device orientation to Landscape Left
+    t =     0.08s     Device orientation changed to Landscape Left
+    t =     0.29s     Interface orientation changed to Landscape Right
+    t =     1.18s     Wait for com.apple.DocumentManager.DockFolderViewService to idle
+    t =     1.27s     Wait for com.apple.springboard to idle
+objc[18097]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x107124310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1068c8398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     6.57s Getting device orientation
+    t =     6.62s Checking existence of `Window (First Match)`
+    t =     7.63s Checking existence of `Window (First Match)` (retry 1)
+    t =     8.64s Checking existence of `Window (First Match)` (retry 2)
+    t =     8.64s Checking existence of `WebView (First Match)`
+    t =     9.65s Checking existence of `WebView (First Match)` (retry 1)
+    t =    10.66s Checking existence of `WebView (First Match)` (retry 2)
+SW turned to sideways-left; device=sideways-left appWindow=none appState=1
+    t =    10.66s Open com.example.riddlegames
+    t =    10.66s     Launch com.example.riddlegames
+    t =    11.54s         Setting up automation session
+    t =    12.21s         Wait for com.example.riddlegames to idle
+    t =    14.93s Waiting 90.0s for Button (First Match) to exist
+    t =    15.94s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    15.94s         Checking existence of `Button (First Match)`
+SW level map shown=true
+    t =    19.95s Added attachment named 'before'
+    t =    20.26s Getting device orientation
+    t =    20.28s Checking existence of `Window (First Match)`
+    t =    20.30s Find the Window (First Match)
+    t =    20.57s Checking existence of `WebView (First Match)`
+    t =    20.58s Find the WebView (First Match)
+SW picture 3-testShareScreen-01-before.png size=(1180.0, 820.0) device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    20.62s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    22.55s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    22.87s Requesting snapshot of accessibility hierarchy for app with pid 18740
+    t =    24.99s Requesting snapshot of accessibility hierarchy for app with pid 18740
+    t =    25.11s Press Application 'com.apple.springboard'[0.99, 0.99] for 0.6 seconds, then drag to Application 'com.apple.springboard'[0.55, 0.55] with velocity of 500.00 pixels per second, and then hold for 0.0 seconds 
+    t =    25.11s     Wait for com.apple.springboard to idle
+    t =    25.11s     Find the Application 'com.apple.springboard'
+    t =    25.14s     Check for interrupting elements affecting " " Application
+    t =    25.15s         Wait for com.example.riddlegames to idle
+    t =    25.20s     Synthesize event
+    t =    25.21s         Find the Application 'com.apple.springboard'
+    t =    25.25s         Find the Application 'com.apple.springboard'
+    t =    25.32s         Find the Application 'com.apple.springboard'
+    t =    25.39s         Find the Application 'com.apple.springboard'
+    t =    25.43s         Find the Application 'com.apple.springboard'
+    t =    27.86s     Wait for com.apple.springboard to idle
+    t =    32.51s Added attachment named 'after-corner-drag'
+    t =    32.52s Getting device orientation
+    t =    32.52s Checking existence of `Window (First Match)`
+    t =    32.53s Find the Window (First Match)
+    t =    32.55s Checking existence of `WebView (First Match)`
+    t =    32.56s Find the WebView (First Match)
+SW picture 3-testShareScreen-02-after-corner-drag.png size=(1180.0, 820.0) device=sideways-left appWindow=(-365.0, 0.0, 1180.0, 820.0) webView=(-365.0, 0.0, 1180.0, 820.0) appState=4
+    t =    32.57s Tap Application 'com.apple.springboard'[0.50, 0.01]
+    t =    32.57s     Wait for com.apple.springboard to idle
+    t =    32.58s     Find the Application 'com.apple.springboard'
+    t =    32.67s     Check for interrupting elements affecting " " Application
+    t =    32.72s         Wait for com.example.riddlegames to idle
+    t =    33.09s     Synthesize event
+    t =    33.10s         Find the Application 'com.apple.springboard'
+    t =    33.15s         Find the Application 'com.apple.springboard'
+    t =    36.28s         Find the Application 'com.apple.springboard'
+    t =    36.65s     Wait for com.apple.springboard to idle
+    t =    39.22s Added attachment named 'after-top-tap'
+    t =    39.23s Getting device orientation
+    t =    39.23s Checking existence of `Window (First Match)`
+    t =    39.24s Find the Window (First Match)
+    t =    39.26s Checking existence of `WebView (First Match)`
+    t =    39.28s Find the WebView (First Match)
+SW picture 3-testShareScreen-03-after-top-tap.png size=(1180.0, 820.0) device=sideways-left appWindow=(-365.0, 0.0, 1180.0, 820.0) webView=(-365.0, 0.0, 1180.0, 820.0) appState=4
+    t =    39.31s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    40.45s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    40.60s Press Application 'com.apple.springboard'[0.03, 0.02] for 1.2 seconds
+    t =    40.60s     Wait for com.apple.springboard to idle
+    t =    40.69s     Find the Application 'com.apple.springboard'
+    t =    40.83s     Check for interrupting elements affecting " " Application
+    t =    40.95s         Wait for com.example.riddlegames to idle
+    t =    41.17s     Synthesize event
+    t =    41.19s         Find the Application 'com.apple.springboard'
+    t =    41.25s         Find the Application 'com.apple.springboard'
+    t =    41.32s         Find the Application 'com.apple.springboard'
+    t =    42.83s     Wait for com.apple.springboard to idle
+    t =    45.36s Added attachment named 'after-top-left-press'
+    t =    45.36s Getting device orientation
+    t =    45.37s Checking existence of `Window (First Match)`
+    t =    45.38s Find the Window (First Match)
+    t =    45.40s Checking existence of `WebView (First Match)`
+    t =    45.41s Find the WebView (First Match)
+SW picture 3-testShareScreen-04-after-top-left-press.png size=(1180.0, 820.0) device=sideways-left appWindow=(-365.0, 0.0, 1180.0, 820.0) webView=(-365.0, 0.0, 1180.0, 820.0) appState=4
+    t =    45.44s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    46.42s Requesting snapshot of accessibility hierarchy for app with pid 8114
+    t =    46.58s Terminate com.example.riddlegames:18740
+    t =    61.57s Tear Down
+Test Case '-[SidewaysUITests.SidewaysTests testShareScreen]' passed (62.754 seconds).
+Test Suite 'SidewaysTests' passed at 2026-11-26 06:04:38.015.
+	 Executed 1 test, with 0 failures (0 unexpected) in 62.754 (62.756) seconds
+Test Suite 'SidewaysUITests.xctest' passed at 2026-11-26 06:04:38.016.
+	 Executed 1 test, with 0 failures (0 unexpected) in 62.754 (62.757) seconds
+Test Suite 'Selected tests' passed at 2026-11-26 06:04:38.016.
+	 Executed 1 test, with 0 failures (0 unexpected) in 62.754 (62.758) seconds
+2026-11-26 06:04:38.748 xcodebuild[17369:57140] [MT] IDETestOperationsObserverDebug: 69.719 elapsed -- Testing started completed.
+2026-11-26 06:04:38.748 xcodebuild[17369:57140] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-26 06:04:38.748 xcodebuild[17369:57140] [MT] IDETestOperationsObserverDebug: 69.719 sec, +69.719 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/build/sidewaystest/Logs/Test/Test-SidewaysTest-2026.11.26_06-03-24-+0000.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started
