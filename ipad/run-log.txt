@@ -1,0 +1,34 @@
+15:24:43 [shell] device iPad Pro 13-inch (M5) (com.apple.CoreSimulator.SimDeviceType.iPad-Pro-13-inch-M5-12GB) on com.apple.CoreSimulator.SimRuntime.iOS-26-5: 92DA752D-E013-4BCA-9341-80CEF556FC4D (made new for this run)
+15:26:30 [shell] booted
+15:26:31 [shell] (the device is turned by the test driver once the session starts)
+15:27:42 [shell] app installed fresh
+com.example.riddlegames: 4171
+15:28:29 [shell] cold launch filmed
+15:36:16 [review] page in WEBVIEW_14799.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+15:36:19 [review] web view found 453 s after the session was asked for: 1376 by 1032
+15:36:31 [review] turned LANDSCAPE: 1376 by 1032
+15:36:41 [review] calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+15:36:43 [review] --- first-launch
+15:37:27 [review] page in WEBVIEW_14799.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+15:37:28 [review] frames capped at 6 a second by the test
+15:37:28 [review] --- browser-gestures-map
+15:38:53 [review] --- sd-first
+15:39:00 [review] --- level-1
+15:40:59 [review] --- level-2
+15:41:48 [review] --- level-3
+15:42:45 [review] --- level-4
+15:43:54 [review] --- level-5
+15:44:57 [review] --- back-to-map
+15:45:06 [review] --- about
+15:46:39 [review] --- turned-upright
+15:47:17 [review] calibration again: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+15:47:21 [review] --- open-hard-levels
+15:47:26 [review] page in WEBVIEW_14799.1: {"ok":true,"href":"capacitor://localhost#/","hooks":"function","scene":"object"}
+15:47:35 [review] --- level-12
+15:49:01 [review] page in WEBVIEW_14799.1: {"ok":true,"href":"capacitor://localhost#/level/twelve-coins","hooks":"function","scene":"object"}
+15:49:14 [review] --- level-18
+15:50:12 [review] --- level-30
+15:51:55 [review] --- end
+15:52:45 [shell] session ended with status 0
+15:56:31 [shell] app state: 1 process(es)
+      10 /Users/runner/work/riddle-games/riddle-games/out/ipad/device-log-faults.txt

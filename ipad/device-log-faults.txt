@@ -1,0 +1,10 @@
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+2026-11-26 15:28:07.288 F  App[4171:46f9] [com.apple.runtime-issues:UIKit App Config] Update the Info.plist: 1) `UIRequiresFullScreen` will soon be ignored. 2) Support for all orientations will soon be required.
+2026-11-26 15:28:08.221 F  App[4171:46f9] [com.apple.WebKit:Process] Networking process (0x11208c190) took 1.783372 seconds to launch
+2026-11-26 15:28:08.223 F  App[4171:46f9] [com.apple.WebKit:Process] WebContent process (0x1120e80c0) took 1.324176 seconds to launch
+2026-11-26 15:28:08.229 F  App[4171:46f9] [com.apple.WebKit:Process] GPU process (0x1121241e0) took 1.190517 seconds to launch
+2026-11-26 15:35:29.211 F  App[14799:bf3f] [com.apple.runtime-issues:UIKit App Config] Update the Info.plist: 1) `UIRequiresFullScreen` will soon be ignored. 2) Support for all orientations will soon be required.
+2026-11-26 15:35:29.877 F  App[14799:bf3f] [com.apple.WebKit:Process] Networking process (0x111094190) took 1.030929 seconds to launch
+2026-11-26 15:35:30.010 F  App[14799:bf3f] [com.apple.WebKit:Process] WebContent process (0x1111080c0) took 1.035290 seconds to launch
+2026-11-26 15:35:31.603 F  App[14799:bf3f] [com.apple.WebKit:Process] GPU process (0x1111401e0) took 2.583051 seconds to launch
