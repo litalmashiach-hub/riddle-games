@@ -909,6 +909,12 @@ interface ControlsProps {
  * A phone held sideways is short: both panels lift up under the top bar, and the ledger slims down so that it
  * stays left of the left pan and above the shell's undo buttons. On a small one the controls stay a (narrower)
  * column on the right, which leaves the bottom middle free for the shell's hint sentence and the coins in view.
+ *
+ * Touch areas: Apple asks for 44 by 44 points, and the buttons are drawn 37 high ("Clues" 32). Each carries an
+ * unseen pad (its ::before) that is as wide as the button and 44 high about its middle, so a touch just above
+ * or below the drawing still reaches it. One above the other, the buttons therefore stand 44 points apart
+ * from middle to middle or more: a gap of 8 between two of them, and 11 above the smaller "Clues" (the browser
+ * rounds each pad to whole points, so one point is spare). Side by side on an upright phone, the rows are 11 apart.
  */
 const CONTROLS_CSS = `
 .tc-ledger{left:12px;top:84px;padding:10px 12px;width:min(250px,calc(100vw - 24px))}
@@ -916,11 +922,14 @@ const CONTROLS_CSS = `
 .tc-chips{display:flex;flex-wrap:wrap;gap:2px;max-width:92px}
 .tc-chip{width:20px;height:20px;font-size:11px}
 .tc-controls{position:absolute;left:0;right:0;bottom:92px;display:flex;justify-content:center;padding:0 12px}
-.tc-buttons{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tc-buttons{display:flex;flex-wrap:wrap;gap:11px 8px;justify-content:center}
+.tc-buttons button{position:relative}
+.tc-buttons button::before{content:'';position:absolute;left:0;right:0;top:min(0px,50% - 22px);bottom:min(0px,50% - 22px)}
 @media (min-width:760px){
   .tc-controls{left:auto;right:12px;bottom:auto;top:84px;width:220px;padding:0}
   .tc-controls>div{width:100%}
-  .tc-buttons{flex-direction:column;align-items:stretch}
+  .tc-buttons{flex-direction:column;align-items:stretch;gap:8px}
+  .tc-buttons .tc-small{margin-top:3px}
 }
 @media (max-height:500px){
   .tc-ledger{top:60px;left:max(12px,env(safe-area-inset-left));padding:8px;width:196px}
@@ -934,7 +943,8 @@ const CONTROLS_CSS = `
 @media (max-height:500px) and (max-width:759px){
   .tc-controls{left:auto;right:max(12px,env(safe-area-inset-right));bottom:auto;top:60px;width:172px;padding:0}
   .tc-controls>div{width:100%}
-  .tc-buttons{flex-direction:column;align-items:stretch;gap:6px}
+  .tc-buttons{flex-direction:column;align-items:stretch;gap:8px}
+  .tc-buttons .tc-small{margin-top:3px}
 }`;
 
 function Controls(p: ControlsProps) {
@@ -974,7 +984,7 @@ function Controls(p: ControlsProps) {
           </button>
         )}
         <button style={btn(left === 0 ? 'gold' : 'plain')} onClick={p.onAccuse}><span aria-hidden="true">🔍</span> Name the fake</button>
-        <button style={{ ...btn('plain'), fontSize: 12, padding: '6px 10px' }} onClick={p.onClues} title="Show what the weighings prove about each coin">
+        <button className="tc-small" style={{ ...btn('plain'), fontSize: 12, padding: '6px 10px' }} onClick={p.onClues} title="Show what the weighings prove about each coin">
           Clues {p.clues ? 'on' : 'off'}
         </button>
       </>

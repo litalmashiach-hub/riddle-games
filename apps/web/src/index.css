@@ -257,3 +257,22 @@ html.app-shell svg {
   width: 44px;
   height: 44px;
 }
+
+/*
+ * The About screen's tabs. Where they stand one above the other (from 640 points of width) their text
+ * starts at the left, so the pad of `touch-44` would start there too, 44 points wide. Here the pad is
+ * pulled back over the tab's left padding (`sm:!px-4`, 1rem) and made as wide as the tab: the tabs fill
+ * their column, which is 10rem wide (`sm:w-40`), or 9rem on a phone held sideways (`short:w-36`). Change
+ * these with AboutScreen.tsx. The tab itself is still not positioned, for the reason given above.
+ */
+@media (min-width: 40rem) {
+  .touch-44-tab::before {
+    width: 10rem;
+    margin-left: -1rem;
+  }
+}
+@media (min-width: 40rem) and (max-height: 500px) {
+  .touch-44-tab::before {
+    width: 9rem;
+  }
+}

@@ -225,12 +225,13 @@ function ActionMenu({ jug, state, hint, onAct }: { jug: JugId; state: State; hin
   const top = row ? Math.max(DIMS.small.h, DIMS.big.h) : DIMS[jug].h;
   return (
     <Overlay position={[home[0], home[1] + top + 0.62, home[2]]} zIndex={6} interactive anchor="bottom" keepOnScreen>
-      <style>{`@keyframes jugs-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@keyframes jugs-pop{from{transform:scale(0)}to{transform:scale(1)}}`}</style>
+      {/* The buttons are drawn 40.5 points high. Each carries an unseen pad (its ::before), as wide as the button and 44 high about its middle, so that it takes touches over the 44 points Apple asks for. */}
+      <style>{`@keyframes jugs-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@keyframes jugs-pop{from{transform:scale(0)}to{transform:scale(1)}}.jugs-act{position:relative}.jugs-act::before{content:'';position:absolute;left:0;right:0;top:min(0px,50% - 22px);bottom:min(0px,50% - 22px)}`}</style>
       <div style={{ display: 'flex', flexDirection: row ? 'row' : 'column', gap: row ? 8 : 6, alignItems: 'center', animation: 'jugs-pop .3s cubic-bezier(.34,1.56,.64,1)' }}>
         {items.map(({ m, label, say }) => {
           const on = canDo(state, m);
           return (
-            <button key={m.kind} aria-label={say} aria-disabled={!on} style={btn(on, sameMove(hint, m))} onClick={() => onAct(m)}>
+            <button key={m.kind} className="jugs-act" aria-label={say} aria-disabled={!on} style={btn(on, sameMove(hint, m))} onClick={() => onAct(m)}>
               {label}
             </button>
           );
