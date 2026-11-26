@@ -1,0 +1,103 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj -scheme SidewaysTest -destination id=953D23D0-9EA1-49C6-824F-69EF8FB1CDA6 -derivedDataPath /Users/runner/work/riddle-games/riddle-games/build/sidewaystest -parallel-testing-enabled NO "-only-testing:SidewaysUITests/SidewaysTests/testWindowedSetting"
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:953D23D0-9EA1-49C6-824F-69EF8FB1CDA6, OS:26.5, name:iPad Air 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:953D23D0-9EA1-49C6-824F-69EF8FB1CDA6, OS:26.5, name:iPad Air 11-inch (M4) }
+2026-11-26 06:03:19.281000+0000 SidewaysUITests-Runner[17396:55430] [Default] Running tests...
+2026-11-26 06:03:19.579643+0000 SidewaysUITests-Runner[17396:55430] [UIKit App Config] Update the Info.plist: Launch screens will soon be required.
+    t =      nans Interface orientation changed to Landscape Right
+Test Suite 'Selected tests' started at 2026-11-26 06:03:20.991.
+Test Suite 'SidewaysUITests.xctest' started at 2026-11-26 06:03:20.992.
+Test Suite 'SidewaysTests' started at 2026-11-26 06:03:20.992.
+Test Case '-[SidewaysUITests.SidewaysTests testWindowedSetting]' started.
+    t =     0.00s Start Test at 2026-11-26 06:03:20.993
+    t =     0.07s Set Up
+    t =     0.07s Setting device orientation to Landscape Left
+    t =     0.09s     Wait for com.apple.DocumentManager.DockFolderViewService to idle
+    t =     0.11s     Wait for com.apple.springboard to idle
+    t =     4.12s Getting device orientation
+    t =     4.17s Checking existence of `Window (First Match)`
+objc[17396]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x10b12c310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x10abf8398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     5.17s Checking existence of `Window (First Match)` (retry 1)
+    t =     6.18s Checking existence of `Window (First Match)` (retry 2)
+    t =     6.18s Checking existence of `WebView (First Match)`
+    t =     7.19s Checking existence of `WebView (First Match)` (retry 1)
+    t =     8.19s Checking existence of `WebView (First Match)` (retry 2)
+SW turned to sideways-left; device=sideways-left appWindow=none appState=1
+    t =     8.19s Open com.apple.Preferences
+    t =     8.20s     Launch com.apple.Preferences
+    t =     9.53s         Setting up automation session
+    t =    12.12s         Wait for com.apple.Preferences to idle
+    t =    22.51s Added attachment named 'settings'
+    t =    22.62s Getting device orientation
+    t =    22.62s Checking existence of `Window (First Match)`
+    t =    23.63s Checking existence of `Window (First Match)` (retry 1)
+    t =    24.64s Checking existence of `Window (First Match)` (retry 2)
+    t =    24.64s Checking existence of `WebView (First Match)`
+    t =    25.65s Checking existence of `WebView (First Match)` (retry 1)
+    t =    26.66s Checking existence of `WebView (First Match)` (retry 2)
+SW picture 4-testWindowedSetting-01-settings.png size=(1180.0, 820.0) device=sideways-left appWindow=none appState=1
+    t =    26.66s Requesting snapshot of accessibility hierarchy for app with pid 18065
+    t =    28.13s Requesting snapshot of accessibility hierarchy for app with pid 18065
+    t =    28.33s Checking existence of `"Multitasking & Gestures" StaticText`
+    t =    28.50s Find the "Multitasking & Gestures" StaticText
+    t =    28.74s Tap "Multitasking & Gestures" StaticText
+    t =    28.74s     Wait for com.apple.Preferences to idle
+    t =    28.74s     Find the "Multitasking & Gestures" StaticText
+    t =    28.91s     Check for interrupting elements affecting "Multitasking & Gestures" StaticText
+    t =    29.01s         Wait for com.apple.springboard to idle
+    t =    29.04s     Synthesize event
+    t =    29.39s     Wait for com.apple.Preferences to idle
+SW opened settings page Multitasking & Gestures
+    t =    36.77s Added attachment named 'settings-multitasking'
+    t =    36.78s Getting device orientation
+    t =    36.78s Checking existence of `Window (First Match)`
+    t =    37.79s Checking existence of `Window (First Match)` (retry 1)
+    t =    38.80s Checking existence of `Window (First Match)` (retry 2)
+    t =    38.80s Checking existence of `WebView (First Match)`
+    t =    39.81s Checking existence of `WebView (First Match)` (retry 1)
+    t =    40.83s Checking existence of `WebView (First Match)` (retry 2)
+SW picture 4-testWindowedSetting-02-settings-multitasking.png size=(1180.0, 820.0) device=sideways-left appWindow=none appState=1
+    t =    40.83s Requesting snapshot of accessibility hierarchy for app with pid 18065
+    t =    42.49s Requesting snapshot of accessibility hierarchy for app with pid 18065
+    t =    42.74s Checking existence of `"Windowed Apps" StaticText`
+    t =    42.99s Find the "Windowed Apps" StaticText
+    t =    43.21s Tap "Windowed Apps" StaticText
+    t =    43.21s     Wait for com.apple.Preferences to idle
+    t =    43.21s     Find the "Windowed Apps" StaticText
+    t =    43.35s     Check for interrupting elements affecting "Windowed Apps" StaticText
+    t =    43.55s         Wait for com.apple.springboard to idle
+    t =    43.62s     Synthesize event
+    t =    44.01s     Wait for com.apple.Preferences to idle
+SW chose Windowed Apps
+    t =    47.64s Added attachment named 'settings-after-choice'
+    t =    47.64s Getting device orientation
+    t =    47.65s Checking existence of `Window (First Match)`
+    t =    48.67s Checking existence of `Window (First Match)` (retry 1)
+    t =    49.69s Checking existence of `Window (First Match)` (retry 2)
+    t =    49.69s Checking existence of `WebView (First Match)`
+    t =    50.70s Checking existence of `WebView (First Match)` (retry 1)
+    t =    51.72s Checking existence of `WebView (First Match)` (retry 2)
+SW picture 4-testWindowedSetting-03-settings-after-choice.png size=(1180.0, 820.0) device=sideways-left appWindow=none appState=1
+    t =    51.73s Requesting snapshot of accessibility hierarchy for app with pid 18065
+    t =    53.48s Requesting snapshot of accessibility hierarchy for app with pid 18065
+    t =    53.77s Terminate com.apple.Preferences:18065
+    t =    54.84s Tear Down
+Test Case '-[SidewaysUITests.SidewaysTests testWindowedSetting]' passed (56.370 seconds).
+Test Suite 'SidewaysTests' passed at 2026-11-26 06:04:17.363.
+	 Executed 1 test, with 0 failures (0 unexpected) in 56.370 (56.371) seconds
+Test Suite 'SidewaysUITests.xctest' passed at 2026-11-26 06:04:17.364.
+	 Executed 1 test, with 0 failures (0 unexpected) in 56.370 (56.372) seconds
+Test Suite 'Selected tests' passed at 2026-11-26 06:04:17.364.
+	 Executed 1 test, with 0 failures (0 unexpected) in 56.370 (56.373) seconds
+2026-11-26 06:04:18.246 xcodebuild[17072:54498] [MT] IDETestOperationsObserverDebug: 63.773 elapsed -- Testing started completed.
+2026-11-26 06:04:18.246 xcodebuild[17072:54498] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-26 06:04:18.246 xcodebuild[17072:54498] [MT] IDETestOperationsObserverDebug: 63.773 sec, +63.773 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/build/sidewaystest/Logs/Test/Test-SidewaysTest-2026.11.26_06-03-11-+0000.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started
