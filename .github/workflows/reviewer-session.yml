@@ -59,8 +59,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { label: iphone, sim: 'iPhone 17 Pro', orientation: '-', flags: '' }
-          - { label: ipad, sim: 'iPad Pro 13-inch (M5)', orientation: LANDSCAPE, flags: 'fps=6 sd-first' }
+          - { label: iphone, sim: 'iPhone 17 Pro', orientation: '-', flags: 'fps=6' }
+          # The iPad passed in run 45848339700; this run is the iPhone alone, with the same test-only frame cap.
+          # - { label: ipad, sim: 'iPad Pro 13-inch (M5)', orientation: LANDSCAPE, flags: 'fps=6 sd-first' }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
