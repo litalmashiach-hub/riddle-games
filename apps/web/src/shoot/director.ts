@@ -62,7 +62,16 @@ function signal(text: string) {
   console.log('SHOOT ' + text);
 }
 
-const key = (k: string) => window.dispatchEvent(new KeyboardEvent('keydown', { key: k }));
+/**
+ * A player taps; the director presses keys. A key press puts the browser in keyboard mode, so the button that the
+ * closing rules card hands the focus to (Rules) shows a focus ring that a tapping player never sees. Drop that
+ * focus after every key, so the shot shows what a tap leaves.
+ */
+const key = (k: string) => {
+  window.dispatchEvent(new KeyboardEvent('keydown', { key: k }));
+  setTimeout(() => (document.activeElement as HTMLElement | null)?.blur?.(), 900);
+};
+const unfocus = () => (document.activeElement as HTMLElement | null)?.blur?.();
 const session = () => (window as any).__riddle as { getState(): any } | undefined;
 
 async function setUp(shot: Shot) {
@@ -104,6 +113,7 @@ export async function runShots(only?: string[], defaultHold = 600_000) {
   for (const shot of SHOTS) {
     if (only && !only.includes(shot.name)) continue;
     await setUp(shot);
+    unfocus();
     acked = false;
     signal(`shoot-${shot.name}`);
     // Held until the UI test taps the marker, or for the longest wait.
@@ -130,6 +140,7 @@ export async function runShots(only?: string[], defaultHold = 600_000) {
     if (shot.hint) key('h');
     while (!over()) {
       await sleep(500);
+      unfocus();
       // The hint toast leaves after 5 s; ask again so it stays up while the pictures are taken.
       if (shot.hint && !document.body.innerText.includes('💡')) key('h');
     }
