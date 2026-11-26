@@ -6,6 +6,9 @@ import { HINT_EDGE, HINT_GOLD, RING_OPACITY, ringBands } from './hintMark';
 /** A mark is looked at, never tapped: no ray hits it, so it takes no touch from what it marks. */
 export const noHit = () => null;
 
+/** The name every hint mark's mesh carries, so a test can find the marks without asking how they pick. */
+export const HINT_MARK = 'hint-mark';
+
 /** Flat bands round the middle, one colour each, as one mesh: the dark edges can never be drawn over the band. */
 function bandsGeometry(bands: { from: number; to: number; color: string }[], segments: number, thetaStart = 0) {
   const positions: number[] = [];
@@ -89,7 +92,7 @@ export function HintRing({
   }, [radius, color]);
   if (!visible) return null;
   return (
-    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} renderOrder={renderOrder} raycast={noHit}>
+    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} renderOrder={renderOrder} raycast={noHit} name={HINT_MARK}>
       {/* No fog: a world's haze would fade the mark towards the colour of the ground it lies on. */}
       <meshBasicMaterial vertexColors transparent toneMapped={false} depthWrite={false} fog={false} />
     </mesh>

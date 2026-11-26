@@ -1,6 +1,7 @@
 import { useFrame, useThree } from '@react-three/fiber';
+import { hintLabelReach } from '@riddle/props';
 import { useMemo, type CSSProperties } from 'react';
-import { spreadLabels, type LabelBox, type Offset } from './labelSpread';
+import { spreadLabels, withReach, type LabelBox, type Offset } from './labelSpread';
 
 /** Space kept free at the screen's edges. */
 const EDGE = 6;
@@ -28,7 +29,8 @@ export interface LabelSpread {
  * Wrap each label's content in `<div ref={spread.ref(id)}>` and put a `<LabelStem />` inside it.
  * Every frame the labels' boxes are read from the page; when some overlap they slide apart (see
  * `spreadLabels`), and a label that had to move away from its character points back at them.
- * Mark a label that is hidden with `data-off` so that it takes up no room.
+ * Mark a label that is hidden with `data-off` so that it takes up no room, and one that wears Hint's
+ * band with `data-reach`, so that the others keep clear of the band as well as of the label.
  */
 export function useLabelSpread(): LabelSpread {
   const canvas = useThree((s) => s.gl.domElement);
@@ -49,8 +51,9 @@ export function useLabelSpread(): LabelSpread {
       }
       const r = el.getBoundingClientRect();
       if (r.width === 0 || r.height === 0) continue;
-      // The box as it would be without our own shift.
-      const box = { x: r.left - e.now.dx, y: r.top - e.now.dy, w: r.width, h: r.height };
+      // The box as it would be without our own shift, grown by any band drawn round it (`data-reach`).
+      const own = { x: r.left - e.now.dx, y: r.top - e.now.dy, w: r.width, h: r.height };
+      const box = el.dataset.reach != null ? withReach(own, hintLabelReach(own.w, own.h)) : own;
       live.push(e);
       boxes.push(box);
       key += `${Math.round(box.x)},${Math.round(box.y)},${Math.round(box.w)},${Math.round(box.h)};`;
