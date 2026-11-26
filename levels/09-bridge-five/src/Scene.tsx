@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, Shake, easeInOut, sfx, useSettings, type Vec3 } from '@riddle/fx';
-import { Bubble, HintRing } from '@riddle/props';
+import { Burst, Clickable, ComicWord, Shake, easeInOut, sfx, useSettings, tapPadRaycast, type Vec3 } from '@riddle/fx';
+import { Bubble, HINT_LABEL_STYLE, HintRing } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
@@ -12,6 +12,9 @@ import { Lantern, LanternPost, SPUTTER_S } from './Lantern';
 import { LANTERN_MINUTES, MINUTES, NAMES, TRAVELLERS, crossingMinutes, type Move, type Side, type State, type Traveller } from './rules';
 import { SkyIslands } from './SkyIslands';
 import { LABEL_WRAP, LabelStem, useLabelSpread, type LabelSpread } from './useLabelSpread';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const folkPad = tapPadRaycast();
 
 const WALK_ON_MS = 420;
 /** Ignore a second tap on the same traveller this soon after the first. */
@@ -381,6 +384,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const crossButton = (
     <button
       onClick={cross}
+      // VoiceOver reads this label in place of the text, so it never says "right arrow" or "warning sign".
+      aria-label={
+        full || picked.length === 0
+          ? undefined
+          : `${goingRight ? 'Cross' : 'Cross back'}, ${pickMinutes} ${pickMinutes === 1 ? 'minute' : 'minutes'}${state.time + pickMinutes > LANTERN_MINUTES ? ', more than the lantern has left' : ''}`
+      }
       style={{
         fontFamily: 'Fredoka, system-ui, sans-serif',
         fontWeight: 700,
@@ -439,6 +448,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             crossing={crossing}
             busy={busy}
             pickedIndex={picked.indexOf(t)}
+            hinted={!!hint && !busy && !over && hinted.includes(t) && !picked.includes(t)}
             stepKey={stepKey}
             mood={won && !busy ? 'happy' : dark && crossing?.walkers.includes(t) ? 'scared' : 'idle'}
             bubble={blackout && crossing ? walkerLine(crossing.walkers, t) : null}
@@ -485,6 +495,8 @@ interface ActorProps {
   /** Only a move that is still animating counts as a crossing (taps after it must not replay it). */
   busy: boolean;
   pickedIndex: number;
+  /** Hint points at this traveller: their badge wears the hint's gold band. */
+  hinted: boolean;
   stepKey: string;
   mood: FolkMood;
   bubble: string | null;
@@ -498,7 +510,7 @@ interface ActorProps {
   spread: LabelSpread;
 }
 
-function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick, register, spread }: ActorProps) {
+function Actor({ kind, seed, side, crossing, busy, pickedIndex, hinted, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick, register, spread }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   useEffect(() => {
     if (ref.current) register(ref.current);
@@ -551,7 +563,7 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
         <Clickable onClick={onClick} disabled={disabled}>
           <Folk kind={kind} mood={mood} motion={motion} seed={seed} />
           {/* bigger invisible hit area, easier to tap on phones */}
-          <mesh position-y={0.45} visible={false}>
+          <mesh position-y={0.45} visible={false} raycast={folkPad}>
             <sphereGeometry args={[0.5, 8, 8]} />
           </mesh>
         </Clickable>
@@ -576,6 +588,8 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, stepKey, mood, b
             boxShadow: '0 3px 8px rgba(0,0,0,.25)',
             transition: 'background .2s, opacity .2s',
             opacity: bubble || hideBadge ? 0 : 1,
+            // The thin ring at a traveller's feet is easy to miss, and the gate on the far island wears a gold ring of its own.
+            ...(hinted ? { background: '#ffffff', ...HINT_LABEL_STYLE } : null),
           }}
         >
           ⏱ {MINUTES[kind]} min

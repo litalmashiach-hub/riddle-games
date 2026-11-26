@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, easeInOut, sfx, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, easeInOut, sfx, tapPadRaycast, tapBackdropRaycast, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -13,6 +13,12 @@ import { Blackout, DarkEyes } from './LightsOut';
 import { Torch, type Flame } from './Torch';
 import { LABEL_WRAP, LabelStem, useLabelSpread } from './useLabelSpread';
 import { crossingMinutes, EXPLORERS, MINUTES, NAMES, TORCH_MINUTES, type Explorer, type Move, type Side, type State } from './rules';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const walkerPad = tapPadRaycast();
+/** The bridge is a backdrop for taps (see tapBackdropRaycast in @riddle/fx): a tap beside an explorer on it still picks them, not the bridge. */
+const bridgeHits = tapBackdropRaycast();
+const bridgePad = tapPadRaycast({ rank: 1 });
 
 /** Walk to the bridge, cross it, step off to a waiting spot. */
 const PREP_MS = 450;
@@ -79,6 +85,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const clockText = useRef<HTMLSpanElement>(null);
   const clockBar = useRef<HTMLDivElement>(null);
   const lastCount = useRef(moveCount);
+  // The sound that follows the torch's splash when it burns out. An undo, a restart or leaving the level cancels it.
+  const fizzle = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(fizzle.current), []);
   // The name labels step aside for each other when explorers stand close together.
   const spread = useLabelSpread();
   // drei's <Html> can come up empty if it mounts before the canvas has wired up its events,
@@ -97,6 +106,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     setDark(false);
     flame.outAt = null;
     cross.current = null;
+    // The torch's last fizzle, if it is still to come, belongs to the crossing that just ended.
+    clearTimeout(fizzle.current);
     if (!forward || !lastMove || !previous) return;
     const minutes = crossingMinutes(lastMove);
     const walk = walkMs(minutes);
@@ -230,7 +241,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         if (!c.played.out) {
           c.played.out = true;
           sfx.splash();
-          setTimeout(() => sfx.deselect(), 350);
+          fizzle.current = setTimeout(() => sfx.deselect(), 350);
         }
       }
       if (!c.played.arrive && c.outAt == null && el > PREP_MS + c.walk) {
@@ -313,7 +324,13 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     <group>
       <Chasm won={won && !busy} />
       <Clickable onClick={go} disabled={busy || over || picked.length === 0} hoverScale={1}>
-        <RopeBridge walkers={onBridge} />
+        <group raycast={bridgeHits}>
+          <RopeBridge walkers={onBridge} />
+        </group>
+        {/* The rope bridge is a thin target on a phone: an invisible padding along it, behind every explorer's. */}
+        <mesh position-y={-0.05} visible={false} raycast={bridgePad}>
+          <boxGeometry args={[BRIDGE_HALF * 2, 1.0, 1.3]} />
+        </mesh>
       </Clickable>
       <Torch ref={torch} flame={flame} />
       <Blackout flame={flame} />
@@ -325,7 +342,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <group key={e} ref={(g) => void (groups.current[e] = g ?? undefined)}>
             <Clickable onClick={() => toggle(e)} disabled={busy || over}>
               <ExplorerBody kind={e} mood={mood} motion={motions[e]} seed={i} />
-              <mesh position-y={0.5} visible={false}>
+              <mesh position-y={0.5} visible={false} raycast={walkerPad}>
                 <sphereGeometry args={[0.5, 8, 8]} />
               </mesh>
             </Clickable>
@@ -377,6 +394,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         <Html calculatePosition={(_el, _cam, size) => [size.width / 2, size.height - 62 - size.height * 0.13]} zIndexRange={[5, 0]}>
           <button
             onClick={go}
+            // VoiceOver reads this label in place of the text, so it never says "right arrow".
+            aria-label={picked.length ? `${state.torch === 'L' ? 'Cross' : 'Cross back'}, ${pickedMinutes} ${pickedMinutes === 1 ? 'minute' : 'minutes'}` : undefined}
             style={{
               transform: 'translate(-50%, -50%)',
               fontFamily: FONT,

@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { useFrame } from '@react-three/fiber';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, tapPadRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
 import * as THREE from 'three';
@@ -9,6 +9,9 @@ import { Frog, type FrogMood, type FrogTeam } from './Frog';
 import { Lagoon, PAD_TOP, padX } from './Lagoon';
 import { noseToNose, target, type Move, type State } from './rules';
 import { frogSfx } from './sounds';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const frogPad = tapPadRaycast();
 
 const HOP_MS = 520;
 const LEAP_MS = 760;
@@ -27,14 +30,12 @@ export const FAIL_MS = 550 + 750 + 900 + 900;
 const YAW: Record<FrogTeam, number> = { G: Math.PI / 2 - 0.6, O: -Math.PI / 2 + 0.6 };
 const DIR: Record<FrogTeam, number> = { G: 1, O: -1 };
 
-const FROGS: { team: FrogTeam; rank: number }[] = [
-  { team: 'G', rank: 0 },
-  { team: 'G', rank: 1 },
-  { team: 'G', rank: 2 },
-  { team: 'O', rank: 0 },
-  { team: 'O', rank: 1 },
-  { team: 'O', rank: 2 },
-];
+/** Every frog in the row, named by its team and its place in that team counted from the left. */
+function frogsOf(s: State): { team: FrogTeam; rank: number }[] {
+  const out: { team: FrogTeam; rank: number }[] = [];
+  for (const team of ['G', 'O'] as FrogTeam[]) for (let rank = 0; rank < s.split(team).length - 1; rank++) out.push({ team, rank });
+  return out;
+}
 
 /** Frogs never pass a frog of their own colour, so "the k-th green from the left" is always the same frog. */
 function padOf(s: State, team: FrogTeam, rank: number) {
@@ -50,6 +51,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     dir.current = { count: moveCount, reset: resetCount, forward: resetCount === dir.current.reset && moveCount > dir.current.count };
   }
   const forward = dir.current.forward;
+  const pads = state.length;
+  const frogs = useMemo(() => frogsOf(state), [pads]); // eslint-disable-line react-hooks/exhaustive-deps
   const over = status.kind !== 'playing';
   const won = status.kind === 'won';
   const lost = status.kind === 'lost';
@@ -82,30 +85,35 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const [bonkAt, setBonkAt] = useState(0);
   const [splashAt, setSplashAt] = useState(0);
   useEffect(() => {
+    // Each beat's late sound waits on a timer. An undo, a restart or leaving the level ends the fail scene,
+    // and with it the sounds still to come.
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const at = (ms: number, f: () => void) => timers.push(setTimeout(f, ms));
     if (phase === 'windup') {
       failStart.current = performance.now();
       sfx.squeak();
     } else if (phase === 'bonk') {
-      setTimeout(() => {
+      at(180, () => {
         frogSfx.bonk();
         sfx.boing();
         setBonkAt(performance.now());
         setShake((s) => s + 1);
-      }, 180);
+      });
     } else if (phase === 'tumble') {
       frogSfx.whistle();
-      setTimeout(() => {
+      at(720, () => {
         sfx.splash();
         setSplashAt(performance.now());
         setShake((s) => s + 1);
-      }, 720);
+      });
     } else if (phase === 'after') {
-      setTimeout(() => frogSfx.glub(), 150);
+      at(150, () => frogSfx.glub());
     } else if (phase === null) failStart.current = 0;
+    return () => timers.forEach(clearTimeout);
   }, [phase]);
 
-  const bonkPos: Vec3 = pair >= 0 ? [(padX(pair) + padX(pair + 1)) / 2, 0.55, 0] : [0, 0.5, 0];
-  const splashPos: Vec3 = pair >= 0 ? [padX(pair) - 0.68, 0, 0.85] : [0, 0, 0];
+  const bonkPos: Vec3 = pair >= 0 ? [(padX(pair, pads) + padX(pair + 1, pads)) / 2, 0.55, 0] : [0, 0.5, 0];
+  const splashPos: Vec3 = pair >= 0 ? [padX(pair, pads) - 0.68, 0, 0.85] : [0, 0, 0];
 
   const tap = (pad: number) => {
     if (busy || over) return;
@@ -119,9 +127,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
   return (
     <Shake trigger={shake} intensity={0.14}>
-      <Lagoon dips={dips} />
+      <Lagoon dips={dips} pads={pads} />
 
-      {FROGS.map((f, i) => (
+      {frogs.map((f, i) => (
         <FrogActor
           key={`${f.team}${f.rank}`}
           team={f.team}
@@ -143,8 +151,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         />
       ))}
 
-      {hint && !busy && !over && <HintRing position={[padX(hint.from), PAD_TOP + 0.04, 0]} radius={0.68} />}
-      {nope && <Bubble position={[padX(nope.pad), 1.25, 0]} tone="white">Can't hop!</Bubble>}
+      {hint && !busy && !over && <HintRing position={[padX(hint.from, pads), PAD_TOP + 0.04, 0]} radius={0.68} />}
+      {nope && <Bubble position={[padX(nope.pad, pads), 1.25, 0]} tone="white">Can't hop!</Bubble>}
 
       <Bonk at={bonkAt} position={bonkPos} />
       <Splash at={splashAt} position={splashPos} big />
@@ -192,7 +200,7 @@ function FrogActor({ team, rank, seed, state, previous, lastMove, forward, animK
     jumpedOver = state[landed] === mover && previous[landed] === '.' && pad === lastMove.from + DIR[mover];
   }
 
-  const home: Vec3 = [padX(pad), PAD_TOP, 0];
+  const home: Vec3 = [padX(pad, state.length), PAD_TOP, 0];
   const segs = useMemo<PathSegment[]>(() => {
     if (moved) {
       return [
@@ -323,7 +331,7 @@ function FrogActor({ team, rank, seed, state, previous, lastMove, forward, animK
             <Clickable onClick={() => onTap(pad)} disabled={disabled}>
               <Frog team={team} mood={mood} seed={seed} />
               {/* bigger invisible tap target */}
-              <mesh position-y={0.35} visible={false}>
+              <mesh position-y={0.35} visible={false} raycast={frogPad}>
                 <sphereGeometry args={[0.62, 8, 8]} />
               </mesh>
             </Clickable>

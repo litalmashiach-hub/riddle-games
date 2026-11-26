@@ -1,5 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Sparkles } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
 import { Burst, sfx, type Vec3 } from '@riddle/fx';
 import { Farmer, HintRing, RiverValley, Sheep, groundHeight } from '@riddle/props';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
@@ -206,23 +207,31 @@ const btn = (on: boolean, glow: boolean): CSSProperties => ({
   animation: glow ? 'jugs-pulse 1s ease-in-out infinite' : undefined,
 });
 
-/** Floating buttons above the held jug: fill, empty, pour. */
+/**
+ * Floating buttons above the held jug: fill, empty, pour. On a phone held sideways there is no room
+ * for three of them one above the other between the top edge and the jug's own label, so they stand in a row.
+ */
 function ActionMenu({ jug, state, hint, onAct }: { jug: JugId; state: State; hint: Move | null; onAct(m: Move): void }) {
+  const row = useThree((s) => s.size.width > s.size.height && s.size.height <= 500);
   const to = otherJug(jug);
-  const items: { m: Move; label: string }[] = [
-    { m: { kind: 'fill', jug }, label: '💧 Fill at pump' },
-    { m: { kind: 'pour', jug }, label: `Pour into ${CAPACITY[to]} L ${to === 'big' ? '➜' : '⬅'}` },
-    { m: { kind: 'empty', jug }, label: '🌊 Empty in river' },
+  // `say` is what VoiceOver reads in place of the label, so it never says "droplet" or "right arrow".
+  const items: { m: Move; label: string; say: string }[] = [
+    { m: { kind: 'fill', jug }, label: '💧 Fill at pump', say: 'Fill at pump' },
+    { m: { kind: 'pour', jug }, label: `Pour into ${CAPACITY[to]} L ${to === 'big' ? '➜' : '⬅'}`, say: `Pour into the ${CAPACITY[to]} litre jug` },
+    { m: { kind: 'empty', jug }, label: '🌊 Empty in river', say: 'Empty in river' },
   ];
   const home = HOME[jug];
+  // A row is wide enough to reach over the other jug, so it clears the taller jug's label.
+  const top = row ? Math.max(DIMS.small.h, DIMS.big.h) : DIMS[jug].h;
   return (
-    <Overlay position={[home[0], home[1] + DIMS[jug].h + 0.62, home[2]]} zIndex={6} interactive anchor="bottom">
-      <style>{`@keyframes jugs-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@keyframes jugs-pop{from{transform:scale(0)}to{transform:scale(1)}}`}</style>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center', animation: 'jugs-pop .3s cubic-bezier(.34,1.56,.64,1)' }}>
-        {items.map(({ m, label }) => {
+    <Overlay position={[home[0], home[1] + top + 0.62, home[2]]} zIndex={6} interactive anchor="bottom" keepOnScreen>
+      {/* The buttons are drawn 40.5 points high. Each carries an unseen pad (its ::before), as wide as the button and 44 high about its middle, so that it takes touches over the 44 points Apple asks for. */}
+      <style>{`@keyframes jugs-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@keyframes jugs-pop{from{transform:scale(0)}to{transform:scale(1)}}.jugs-act{position:relative}.jugs-act::before{content:'';position:absolute;left:0;right:0;top:min(0px,50% - 22px);bottom:min(0px,50% - 22px)}`}</style>
+      <div style={{ display: 'flex', flexDirection: row ? 'row' : 'column', gap: row ? 8 : 6, alignItems: 'center', animation: 'jugs-pop .3s cubic-bezier(.34,1.56,.64,1)' }}>
+        {items.map(({ m, label, say }) => {
           const on = canDo(state, m);
           return (
-            <button key={m.kind} aria-disabled={!on} style={btn(on, sameMove(hint, m))} onClick={() => onAct(m)}>
+            <button key={m.kind} className="jugs-act" aria-label={say} aria-disabled={!on} style={btn(on, sameMove(hint, m))} onClick={() => onAct(m)}>
               {label}
             </button>
           );

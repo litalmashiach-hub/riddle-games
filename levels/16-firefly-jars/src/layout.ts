@@ -15,18 +15,21 @@ export const JAR_TOP = JAR_BASE_Y + JAR_H;
 export const HOVER_Y = JAR_TOP + 0.55;
 
 /** Jars stand in a gentle smile-shaped arc on the raft, facing the camera. */
-export const JAR_POS: Vec3[] = Array.from({ length: JAR_COUNT }, (_, i) => {
-  const t = i - (JAR_COUNT - 1) / 2; // -2.5..2.5
-  return [t * 1.36, JAR_BASE_Y, -Math.abs(t) * Math.abs(t) * 0.09 + 0.25] as Vec3;
-});
+export const jarRow = (count: number): Vec3[] =>
+  Array.from({ length: count }, (_, i) => {
+    // A longer row closes up, so its end jars stand where the six-jar row's do.
+    const t = (i - (count - 1) / 2) * (count > JAR_COUNT ? (JAR_COUNT - 1) / (count - 1) : 1); // -2.5..2.5
+    return [t * 1.36, JAR_BASE_Y, -Math.abs(t) * Math.abs(t) * 0.09 + 0.25] as Vec3;
+  });
+export const JAR_POS: Vec3[] = jarRow(JAR_COUNT);
 
-export const slotPos = (jar: number, slot: number): Vec3 => {
-  const [x, , z] = JAR_POS[jar];
+export const slotPos = (jar: number, slot: number, row: Vec3[] = JAR_POS): Vec3 => {
+  const [x, , z] = row[jar];
   return [x, JAR_BASE_Y + 0.08 + SLOT_H * (slot + 0.5), z];
 };
 
-export const hoverPos = (jar: number): Vec3 => {
-  const [x, , z] = JAR_POS[jar];
+export const hoverPos = (jar: number, row: Vec3[] = JAR_POS): Vec3 => {
+  const [x, , z] = row[jar];
   return [x, HOVER_Y, z];
 };
 
@@ -36,5 +39,6 @@ export const GLOW: Record<Color, string> = {
   pink: '#ff5fa8',
   mint: '#4dff9a',
   sky: '#46c8ff',
+  violet: '#b07cff',
 };
-export const EMOJI: Record<Color, string> = { gold: '💛', pink: '💗', mint: '💚', sky: '💙' };
+export const EMOJI: Record<Color, string> = { gold: '💛', pink: '💗', mint: '💚', sky: '💙', violet: '💜' };

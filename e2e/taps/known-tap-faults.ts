@@ -1,0 +1,38 @@
+import type { TapFaultKind } from './harness';
+
+/**
+ * Steps that a finger cannot make today, found by the real-tap run. This run mends no level: a level
+ * listed here is expected to stop at one of the steps named, in exactly this way, at the sizes named.
+ * Its test then ends as an expected failure. Once the level is mended the test turns red
+ * ("expected to fail, but passed"), and the entry is to be removed. A fault at another step, or of
+ * another kind, fails the test like any other.
+ *
+ * Key: the level's id. `sizes` are the run's project names. In every entry the touch is aimed at the
+ * middle of the thing as it is drawn, with the scene on top at that point.
+ */
+export interface KnownTapFault {
+  sizes: string[];
+  /**
+   * The move's number, from 1. More than one where the same kind of touch is lost in some runs and not
+   * in others: a run that gets past the first such step stops at a later one. Every step listed was seen
+   * in a run of the whole level.
+   */
+  steps: number[];
+  kind: TapFaultKind;
+  /**
+   * True where the fault comes only in some runs (a few in thirty), and the level is won in the others.
+   * Then a win passes as usual, and only a fault at a listed step, of the listed kind, is expected.
+   * Without it, a win fails the test ("expected to fail, but passed").
+   */
+  sometimes?: boolean;
+  /** What happens, in one or two sentences. */
+  reason: string;
+}
+
+/**
+ * No level is listed today: every level is won by taps at every size. Levels 18 and 27 (Log Jam and Timber
+ * Tangle) were the last two, until a tap on a log's ring stopped being lost to a log in front of it.
+ * A new entry names its sizes by the run's project names: 'iphone-landscape', 'iphone-small-landscape',
+ * 'iphone-large-landscape'.
+ */
+export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {};

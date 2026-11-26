@@ -33,29 +33,6 @@ export interface Move {
   dir: Dir;
 }
 
-export const cellAt = (x: number, y: number): Cell => {
-  const c = BOARD[y][x];
-  return (c === 'O' ? '.' : c) as Cell;
-};
-
-function find(ch: string): State {
-  for (let y = 0; y < SIZE; y++) {
-    const x = BOARD[y].indexOf(ch);
-    if (x >= 0) return { x, y };
-  }
-  throw new Error(`no ${ch} on the board`);
-}
-
-export const START = find('O');
-export const BASKET = find('G');
-
-/** Every cell of a given kind, for the scene. */
-export function cellsOf(kind: Cell): State[] {
-  const out: State[] = [];
-  for (let y = 0; y < SIZE; y++) for (let x = 0; x < SIZE; x++) if (cellAt(x, y) === kind) out.push({ x, y });
-  return out;
-}
-
 /** What stopped a slide. */
 export type Stopper = 'rock' | 'edge' | 'snow' | 'hole' | 'basket';
 
@@ -66,39 +43,84 @@ export interface Slide {
   stopper: Stopper;
 }
 
-/** Where the otter ends up if it slides from `s` in direction `dir`. */
-export function slide(s: State, dir: Dir): Slide {
-  const [dx, dy] = STEP[dir];
-  let x = s.x;
-  let y = s.y;
-  let steps = 0;
-  for (;;) {
-    const nx = x + dx;
-    const ny = y + dy;
-    if (nx < 0 || ny < 0 || nx >= SIZE || ny >= SIZE) return { to: { x, y }, steps, stopper: 'edge' };
-    const c = cellAt(nx, ny);
-    if (c === 'R') return { to: { x, y }, steps, stopper: 'rock' };
-    x = nx;
-    y = ny;
-    steps++;
-    if (c === 'S') return { to: { x, y }, steps, stopper: 'snow' };
-    if (c === 'H') return { to: { x, y }, steps, stopper: 'hole' };
-    if (c === 'G') return { to: { x, y }, steps, stopper: 'basket' };
-  }
-}
-
 const ARROW: Record<Dir, string> = { up: '⬆', down: '⬇', left: '⬅', right: '➡' };
 
-export const rules: RiddleRules<State, Move> = {
-  initialState: START,
-  legalMoves: (s) => DIRS.filter((dir) => slide(s, dir).steps > 0).map((dir) => ({ dir })),
-  apply: (s, m) => slide(s, m.dir).to,
-  status: (s) => {
-    const c = cellAt(s.x, s.y);
-    if (c === 'H') return { kind: 'lost', reason: 'Splash! The otter slid straight into an ice hole. Brrr!' };
-    if (c === 'G') return { kind: 'won' };
-    return { kind: 'playing' };
-  },
-  key: (s) => `${s.x},${s.y}`,
-  describeMove: (m) => `Slide ${m.dir} ${ARROW[m.dir]}`,
-};
+/** One pond: its board, where things are on it, and its rules. */
+export interface PondPuzzle {
+  board: string[];
+  start: State;
+  basket: State;
+  cellAt(x: number, y: number): Cell;
+  /** Every cell of a given kind, for the scene. */
+  cellsOf(kind: Cell): State[];
+  /** Where the otter ends up if it slides from `s` in direction `dir`. */
+  slide(s: State, dir: Dir): Slide;
+  rules: RiddleRules<State, Move>;
+}
+
+/** Builds a pond from a board drawn like `BOARD` above. Every pond is SIZE by SIZE, so the scene fits them all. */
+export function makePond(board: string[]): PondPuzzle {
+  if (board.length !== SIZE || board.some((row) => row.length !== SIZE)) throw new Error(`a pond is ${SIZE} by ${SIZE}`);
+
+  const cellAt = (x: number, y: number): Cell => {
+    const c = board[y][x];
+    return (c === 'O' ? '.' : c) as Cell;
+  };
+
+  function find(ch: string): State {
+    for (let y = 0; y < SIZE; y++) {
+      const x = board[y].indexOf(ch);
+      if (x >= 0) return { x, y };
+    }
+    throw new Error(`no ${ch} on the board`);
+  }
+
+  function cellsOf(kind: Cell): State[] {
+    const out: State[] = [];
+    for (let y = 0; y < SIZE; y++) for (let x = 0; x < SIZE; x++) if (cellAt(x, y) === kind) out.push({ x, y });
+    return out;
+  }
+
+  function slide(s: State, dir: Dir): Slide {
+    const [dx, dy] = STEP[dir];
+    let x = s.x;
+    let y = s.y;
+    let steps = 0;
+    for (;;) {
+      const nx = x + dx;
+      const ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= SIZE || ny >= SIZE) return { to: { x, y }, steps, stopper: 'edge' };
+      const c = cellAt(nx, ny);
+      if (c === 'R') return { to: { x, y }, steps, stopper: 'rock' };
+      x = nx;
+      y = ny;
+      steps++;
+      if (c === 'S') return { to: { x, y }, steps, stopper: 'snow' };
+      if (c === 'H') return { to: { x, y }, steps, stopper: 'hole' };
+      if (c === 'G') return { to: { x, y }, steps, stopper: 'basket' };
+    }
+  }
+
+  const start = find('O');
+  const rules: RiddleRules<State, Move> = {
+    initialState: start,
+    legalMoves: (s) => DIRS.filter((dir) => slide(s, dir).steps > 0).map((dir) => ({ dir })),
+    apply: (s, m) => slide(s, m.dir).to,
+    status: (s) => {
+      const c = cellAt(s.x, s.y);
+      if (c === 'H') return { kind: 'lost', reason: 'Splash! The otter slid straight into an ice hole. Brrr!' };
+      if (c === 'G') return { kind: 'won' };
+      return { kind: 'playing' };
+    },
+    key: (s) => `${s.x},${s.y}`,
+    describeMove: (m) => `Slide ${m.dir} ${ARROW[m.dir]}`,
+  };
+
+  return { board, start, basket: find('G'), cellAt, cellsOf, slide, rules };
+}
+
+/** Level 15's own pond. */
+export const POND = makePond(BOARD);
+export const { cellAt, cellsOf, slide, rules } = POND;
+export const START = POND.start;
+export const BASKET = POND.basket;

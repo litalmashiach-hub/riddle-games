@@ -4,14 +4,15 @@ import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import { Burst, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
 import { HintRing, toon } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 import { pond } from './audio';
 import { Dottie, Duckling, type DuckMood } from './Duck';
 import { EXIT_Z, FLOAT_Y, HALF, LAGOON, LOG_R, MOVE_MS, RAFT_HOME, SAIL_MS, SLIDE_MS, cellX, cellZ, pieceCenter } from './layout';
 import { Frog, LogFlowers, LogModel, LogMushrooms, RaftModel, Snail } from './Logs';
 import { Pond } from './Pond';
-import { EXIT_ROW, PATIENCE, PIECES, SIZE, grid, reach, type Move, type State } from './rules';
+import { useJam } from './context';
+import { EXIT_ROW, SIZE, type Move, type Piece, type State } from './rules';
 
 export { MOVE_MS };
 
@@ -23,10 +24,13 @@ const PHASES: [Phase, number][] = [
   ['splash', 1300],
   ['after', 60000],
 ];
+/** Dottie's hops along the logs share this much of the 'hop' beat, each after a short crouch. */
+const HOPS_MS = 1400;
+const hopMs = (hops: number) => HOPS_MS / Math.max(1, hops);
+const HOP_CROUCH = 0.15;
 
 /** The grid cell a piece's leading end moves into when it slides to `to`. */
-function leadCell(i: number, from: number, to: number): [number, number] {
-  const pc = PIECES[i];
+function leadCell(pc: Piece, from: number, to: number): [number, number] {
   const k = to > from ? to + pc.len - 1 : to;
   return pc.axis === 'h' ? [pc.line, k] : [k, pc.line];
 }
@@ -43,6 +47,7 @@ const DUCKLING_PARTY: Vec3[] = [
 ];
 
 export function Scene({ state, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
+  const { pieces: PIECES, patience: PATIENCE, grid, reach } = useJam();
   const [selected, setSelected] = useState<number | null>(null);
   const [snap, setSnap] = useState(0);
   const [burst, setBurst] = useState(0);
@@ -62,7 +67,14 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const lost = status.kind === 'lost';
   const over = won || lost;
   const locked = busy || over;
-  const phase = usePhases(lost && !busy, PHASES);
+  // The fail scene lives only while the loss stands. An undo or a restart ends it in the very draw that takes
+  // the loss back, not one draw later when the timed phase has caught up, and with it the sounds still to come.
+  const failing = lost && !busy;
+  const timedPhase = usePhases(failing, PHASES);
+  const phase = failing ? timedPhase : null;
+  // What the splash asks at the moment it is due: does the loss still stand? Set as the scene is drawn.
+  const stillFailing = useRef(failing);
+  stillFailing.current = failing;
 
   useEffect(() => {
     if (!won) return;
@@ -78,8 +90,11 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [won]);
 
-  // The fail beats: sounds and the screen shake.
-  useEffect(() => {
+  // The fail beats: sounds and the screen shake. (The boing of each hop comes from FailDuck, with the hop.)
+  // A layout effect, so that an undo, a restart or leaving the level takes the splash back in the same step
+  // that takes the fail scene away. A plain effect's cleanup waits for the next drawn frame, and on a slow
+  // device a sound that falls due during that frame would still play.
+  useLayoutEffect(() => {
     if (phase === 'huff') {
       pond.quack(0, 0.8);
       pond.quack(0.18, 0.75);
@@ -87,6 +102,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     } else if (phase === 'slip') sfx.squeak();
     else if (phase === 'splash') {
       const t = setTimeout(() => {
+        if (!stillFailing.current) return;
         pond.bigSplash();
         setSplashBurst((b) => b + 1);
         setShake((s) => s + 1);
@@ -105,7 +121,17 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const camera = useThree((s) => s.camera);
   const gl = useThree((s) => s.gl);
   const pieceRefs = useMemo(() => PIECES.map(() => ({ current: null as THREE.Group | null })), []);
-  const drag = useRef<{ i: number; start: THREE.Vector3; base: number; min: number; max: number; off: number; moved: boolean } | null>(null);
+  const drag = useRef<{
+    i: number;
+    start: THREE.Vector3;
+    base: number;
+    min: number;
+    max: number;
+    off: number;
+    moved: boolean;
+    /** The touch began on this log's unseen box over a glowing ring: a tap there is the ring's, a drag the log's. */
+    ring: boolean;
+  } | null>(null);
   const stateRef = useRef(state);
   stateRef.current = state;
 
@@ -119,7 +145,16 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   };
 
   const onPieceDown = (i: number, e: ThreeEvent<PointerEvent>) => {
-    e.stopPropagation();
+    // A glowing ring beats a log's invisible padding and its glow (both marked `pad`). Seen from the camera,
+    // those of a log (often the picked one) reach over the ring next to it, and would take the tap meant
+    // for the ring. Only where the log itself is drawn in front of the ring is the touch the log's.
+    // Where bark is drawn over a ring's unseen box, the touch is the log's (see barkWins). Where the ring wins,
+    // the ring still gets the touch (no stopPropagation), but the log keeps the drag: a finger that slides
+    // from there slides the log, as it always did, and the camera stays put.
+    const ringTakes = !!ringUnder(e) && !barkWins(e, e.eventObject);
+    if (!ringTakes) e.stopPropagation();
+    // Another log's box nearer the eye, also over that ring, already holds this touch's drag.
+    else if (drag.current) return;
     if (locked) {
       if (!over) sfx.denied();
       return;
@@ -129,7 +164,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     const s = stateRef.current;
     const r = reach(s.pos, i);
     const base = s.pos[i];
-    drag.current = { i, start, base, min: Math.min(base, ...r), max: Math.max(base, ...r), off: 0, moved: false };
+    drag.current = { i, start, base, min: Math.min(base, ...r), max: Math.max(base, ...r), off: 0, moved: false, ring: ringTakes };
     if (controls) controls.enabled = false;
 
     const move = (ev: PointerEvent) => {
@@ -138,7 +173,10 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       const p = groundHit(ev.clientX, ev.clientY);
       if (!p) return;
       const delta = PIECES[d.i].axis === 'h' ? p.x - d.start.x : p.z - d.start.z;
-      if (Math.abs(delta) > 0.18) d.moved = true;
+      if (Math.abs(delta) > 0.18) {
+        d.moved = true;
+        if (d.ring) touch.slid = true;
+      }
       if (!d.moved) return;
       // A little rubber band past the ends, so a blocked log still feels alive.
       let at = d.base + delta;
@@ -146,7 +184,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       if (at > d.max) at = d.max + Math.min(0.12, (at - d.max) * 0.25);
       d.off = at - d.base;
       const g = pieceRefs[d.i].current;
-      if (g) g.position.set(...pieceCenter(d.i, at));
+      if (g) g.position.set(...pieceCenter(d.i, at, PIECES));
     };
     const up = () => {
       window.removeEventListener('pointermove', move);
@@ -157,6 +195,8 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       drag.current = null;
       if (!d) return;
       if (!d.moved) {
+        // A tap over a glowing ring is the ring's: its click slides the log there.
+        if (d.ring) return;
         // A tap: pick this log (or drop it).
         if (selected === d.i) {
           sfx.deselect();
@@ -192,7 +232,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const targets = useMemo(() => {
     if (selected === null || locked) return [];
     const from = state.pos[selected];
-    return reach(state.pos, selected).map((to) => ({ to, cell: leadCell(selected, from, to) }));
+    return reach(state.pos, selected).map((to) => ({ to, cell: leadCell(PIECES[selected], from, to) }));
   }, [selected, locked, state.pos]);
 
   const left = PATIENCE - state.moves;
@@ -201,7 +241,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   // ---- The fail: Dottie hops along her row towards the gap, slips, and splashes. ----
   const failPlan = useMemo(() => {
     const g = grid(state.pos);
-    const raft = pieceCenter(0, state.pos[0]);
+    const raft = pieceCenter(0, state.pos[0], PIECES);
     const start: Vec3 = [raft[0] + 0.15, FLOAT_Y + 0.12, raft[2]];
     const hops: Vec3[] = [];
     let splash: Vec3 | null = null;
@@ -222,7 +262,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   }, [state.pos]);
 
   const raftHidden = phase !== null && phase !== 'huff';
-  const hintTarget = hint && !busy ? leadCell(hint.piece, state.pos[hint.piece], hint.to) : null;
+  const hintTarget = hint && !busy ? leadCell(PIECES[hint.piece], state.pos[hint.piece], hint.to) : null;
 
   return (
     <Shake trigger={shake} intensity={0.18}>
@@ -312,6 +352,7 @@ interface ActorProps {
 }
 
 function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selected, hinted, disabled, onDown, children }: ActorProps) {
+  const { pieces: PIECES } = useJam();
   const pc = PIECES[index];
   const inner = useRef<THREE.Group>(null);
   const ripple = useRef<THREE.Mesh>(null);
@@ -319,7 +360,7 @@ function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selecte
   const [hover, setHover] = useState(false);
   useCursor(hover && !disabled);
 
-  const target = pieceCenter(index, to);
+  const target = pieceCenter(index, to, PIECES);
   const segs: PathSegment[] = useMemo(() => {
     if (moved) {
       const slide: PathSegment = {
@@ -364,6 +405,7 @@ function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selecte
     <group ref={groupRef}>
       <group
         ref={inner}
+        userData={PIECE}
         onPointerDown={onDown}
         onPointerOver={(e) => {
           e.stopPropagation();
@@ -374,7 +416,7 @@ function PieceActor({ index, groupRef, to, moved, forward, animKey, won, selecte
       >
         {index === 0 ? <RaftModel glow={glow} /> : <LogModel piece={pc} seed={index} glow={glow} />}
         {/* A generous invisible hit box, so logs are easy to grab on phones. */}
-        <mesh visible={false}>
+        <mesh visible={false} userData={{ pad: true }}>
           <boxGeometry args={[pc.len - 0.05, 0.9, 0.95]} />
         </mesh>
         {children}
@@ -402,9 +444,53 @@ function FrogRider({ index, moveCount, lastMove, forward }: { index: number; mov
   return <Frog excited={at} />;
 }
 
+/** Marks a log's (or the raft's) group, whose meshes but the `pad` ones are drawn wood. */
+const PIECE = { piece: true };
+
+/** How far a ring reaches as drawn, from its middle, at its largest pulse with the finger over it (0.34 x 1.19). */
+const RING_DRAWN_R = 0.41;
+
+/** Set when a touch that a ring took turned into a log's drag (see onPieceDown); cleared by every new touch. */
+const touch = { slid: false };
+if (typeof window !== 'undefined') window.addEventListener('pointerdown', () => (touch.slid = false), true);
+
+/** The glowing ring whose unseen hit box is under the touch, if any. */
+const ringUnder = (e: ThreeEvent<PointerEvent>) => e.intersections.find((h) => h.object.userData.ring);
+
+/**
+ * Does a log's bark (not its unseen grab box or its glow) win this touch from the ring under it? `owner`: only that
+ * log's bark counts; else any log's. A ring's hit box is tall and wide, so that it is easy to hit; seen from the
+ * slanted camera it reaches over the bark of a log right beside it. The eye sees the bark there, so the touch is
+ * the log's, where the bark is drawn in front of the ring (nearer than the ring's flat plane on the water) or where
+ * the touch meets that plane outside the ring as drawn.
+ */
+function barkWins(e: ThreeEvent<PointerEvent>, owner?: THREE.Object3D): boolean {
+  const ring = ringUnder(e);
+  if (!ring?.object.parent) return false;
+  const c = ring.object.parent.getWorldPosition(new THREE.Vector3());
+  const { origin, direction } = e.ray;
+  const t = direction.y < 0 ? (c.y - origin.y) / direction.y : Infinity;
+  const off = Number.isFinite(t) ? Math.hypot(origin.x + direction.x * t - c.x, origin.z + direction.z * t - c.z) : Infinity;
+  return e.intersections.some(
+    (h) =>
+      (owner ? h.eventObject === owner : h.eventObject.userData.piece) &&
+      !h.object.userData.pad &&
+      (h.distance <= t || off > RING_DRAWN_R),
+  );
+}
+
 /** A glowing lily ring on a cell the picked log can slide to. Tap it to slide there. */
 function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }) {
   const ring = useRef<THREE.Mesh>(null);
+  // Set when this ring took a touch's pointer-down. A click counts only then: the scene's event system sends a
+  // click to everything that lay under the touch when it began, also when a log in front took that touch.
+  const took = useRef(false);
+  useEffect(() => {
+    // Every new touch starts untaken; the ring's own pointer-down, which comes after this, may take it.
+    const reset = () => (took.current = false);
+    window.addEventListener('pointerdown', reset, true);
+    return () => window.removeEventListener('pointerdown', reset, true);
+  }, []);
   const [hover, setHover] = useState(false);
   useCursor(hover);
   useFrame(({ clock }) => {
@@ -425,12 +511,23 @@ function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }
       <mesh
         position-y={0.2}
         visible={false}
+        userData={{ ring: true }}
         onPointerOver={(e) => {
           e.stopPropagation();
           setHover(true);
         }}
         onPointerOut={() => setHover(false)}
+        // Swallow the touch: a log behind the ring must not see it, or it would take the tap as its own
+        // and drop the picked log before the ring's click arrives. But bark the eye sees over the ring's unseen
+        // box keeps the touch (see barkWins), and so does a log drawn in front of the ring (see onPieceDown).
+        onPointerDown={(e) => {
+          took.current = !barkWins(e);
+          if (took.current) e.stopPropagation();
+        }}
         onClick={(e) => {
+          if (!took.current) return;
+          took.current = false;
+          if (touch.slid) return; // the finger slid the log instead (a mouse sends a click after a drag)
           e.stopPropagation();
           onClick();
         }}
@@ -478,12 +575,16 @@ function DucklingActor({ seed, home, party, won, giggle }: { seed: number; home:
 function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Vec3[]; perch: Vec3; splash: Vec3 } }) {
   const ref = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
+  const [hopsBegun, setHopsBegun] = useState(0);
   const segs = useMemo<PathSegment[]>(() => {
     if (phase === 'huff') return [{ to: plan.start, durationMs: 10 }];
     if (phase === 'hop') {
-      const d = 1400 / Math.max(1, plan.hops.length);
+      // Each hop starts in a drawn frame, and its boing goes with it: one a hop, one at a time, however slow the
+      // device. The frame does not play it. It counts the hop (below), and React plays the boing with that count.
+      const d = hopMs(plan.hops.length);
+      const boing = () => setHopsBegun((n) => n + 1);
       return plan.hops.length
-        ? plan.hops.map((h) => ({ to: h, durationMs: d * 0.85, delayMs: d * 0.15, height: 0.55, onStart: sfx.boing }))
+        ? plan.hops.map((h) => ({ to: h, durationMs: d * (1 - HOP_CROUCH), delayMs: d * HOP_CROUCH, height: 0.55, onStart: boing }))
         : [{ to: plan.start, durationMs: 10 }];
     }
     if (phase === 'slip') return [{ to: [plan.perch[0] + 0.12, plan.perch[1] + 0.1, plan.perch[2]], durationMs: 600, height: 0.15 }];
@@ -491,6 +592,13 @@ function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Ve
     return [{ to: [plan.splash[0], -0.13, plan.splash[2]], durationMs: 300 }];
   }, [phase, plan]);
   usePath(ref, segs, phase, { face: false });
+  // The boing of a hop that has begun. It goes through React's own queue, behind any redraw of the scene that is
+  // already waiting there. So when the player has taken the loss back, this duck is gone before its boing would
+  // play, even if a frame was drawn in between and began a hop: no boing follows an undo or a restart. A timer
+  // or the frame itself would not know of the undo until the scene's next redraw.
+  useLayoutEffect(() => {
+    if (hopsBegun > 0) sfx.boing();
+  }, [hopsBegun]);
 
   useFrame(({ clock }) => {
     const s = spin.current;

@@ -11,6 +11,11 @@ Never copy characters, art or levels from existing games.
   (roughness 0.7 to 1). Metal only for coins, gears, scales.
 - **Color:** saturated but soft. Each world has a palette in `packages/fx/src/worlds.ts`. Glowing details
   (eyes, potions, torches, crystals) use `emissive` with intensity 2 to 4, which the bloom pass picks up.
+- **Never colour alone:** where the riddle asks the player to tell kinds apart (teams, sorts, the two sides of
+  a hint), give each kind a second cue that shows in a grey picture at a small iPhone's size: a shape, a
+  pattern or a mark, and the same mark on whatever belongs to it. Name that cue in the rules, the refusals
+  and `describeMove`, beside the colour. Levels 16 and 21 show how (a shape for each firefly colour; striped
+  and spotted crickets with matching toadstools).
 - **Light:** `WorldStage` gives the sun, sky, fog, soft reflections, bloom, vignette and filmic tone mapping.
   Characters and props should `castShadow`; ground should `receiveShadow`.
 
@@ -30,7 +35,7 @@ Never copy characters, art or levels from existing games.
 | Ancient Temple | 4 to 6 | Warm sunset, sandstone, jade, torches, an underground lake |
 | Sky Islands | 7 to 9 | Floating islands above clouds, balloons, crystal bridges, potions |
 | Clockwork Citadel | 10 to 12 | Dusk, brass gears, steam, canals, a golden vault |
-| Firefly Lagoon | 13 to 22 | Violet twilight, still water, lily pads, fireflies, lanterns, glowing mushrooms. A different kind of puzzle in every level |
+| Firefly Lagoon | 13 to 30 | Violet twilight, still water, lily pads, fireflies, lanterns, glowing mushrooms. A different kind of puzzle in every level up to 22; levels 23 to 30 are second helpings of earlier riddles in their own scenes (level 30 is the temple's tower by night) |
 
 ## Performance
 

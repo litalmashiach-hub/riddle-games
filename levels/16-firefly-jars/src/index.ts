@@ -7,11 +7,11 @@ const level: RiddleLevel<State, Move> = {
   number: 16,
   title: 'Firefly Jars',
   world: 'lagoon',
-  tagline: 'One colour of firefly in every jar.',
+  tagline: 'One kind of firefly in every jar.',
   instructions: [
-    'Sort the fireflies so each jar glows with just one colour.',
+    'Sort the fireflies so each jar glows with just one kind: gold stars, pink hearts, green diamonds or blue bubbles.',
     'Only the top firefly in a jar can fly out.',
-    'It may land in an empty jar or on top of a firefly of the same colour. A jar holds four.',
+    'It may land in an empty jar or on top of a firefly of the same kind. A jar holds four.',
     `The fireflies get grumpy: solve it within ${PATIENCE} moves or they buzz off!`,
   ],
   controls: ['Tap a jar to lift out its top firefly.', 'Tap another jar to send it there, or the same jar to put it back.'],
@@ -25,3 +25,9 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For a longer sort in the same scene (see levels/25-firefly-rainbow).
+export { JarsContext, type JarsPuzzle } from './context';
+export { jarRow } from './layout';
+export { CAPACITY, SHAPES, kindName, makeRules, type Color, type Jar, type Move, type State } from './rules';
+export { FAIL_MS, MOVE_MS, Scene } from './Scene';

@@ -26,3 +26,9 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For another pond in the same scene (see levels/24-frosty-maze).
+export { PondContext } from './context';
+export { FAIL_MS } from './layout';
+export { makePond, type Move, type PondPuzzle, type State } from './rules';
+export { MOVE_MS, Scene } from './Scene';

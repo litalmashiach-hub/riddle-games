@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { boing, chime, giggle } from './audio';
 import { Guardian, type GuardianMood } from './Guardian';
-import { DISCS, PEGS, canMove, top, type Move, type Peg, type State } from './rules';
+import { PEGS, canMove, top, type Move, type Peg, type State } from './rules';
 import { DiscFace, DustPuff, type FaceMood } from './Slapstick';
 import { Temple } from './Temple';
 
@@ -48,7 +48,8 @@ interface Bonk {
 }
 
 const discRadius = (size: number) => 0.42 + size * 0.15;
-const JADE = ['', '#c8fde3', '#86ecc0', '#45cc9a', '#1fa077'];
+/** One shade per disc size. The fifth is only seen in a taller tower that reuses this scene (level 4 has four discs). */
+const JADE = ['', '#c8fde3', '#86ecc0', '#45cc9a', '#1fa077', '#0f7458'];
 
 function where(s: State, size: number): [Peg, number] {
   for (const p of PEGS) {
@@ -60,6 +61,8 @@ function where(s: State, size: number): [Peg, number] {
 const restPos = (p: Peg, i: number): Vec3 => [PEG_X[p], BASE_Y + i * DISC_H, 0];
 
 export function Scene({ state, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
+  /** How tall the tower is: every disc is always on some pillar. */
+  const discs = state.pegs[0].length + state.pegs[1].length + state.pegs[2].length;
   /** The pillar whose top disc the player has lifted (UI only, not a move yet). */
   const [selected, setSelected] = useState<Peg | null>(null);
   const [bonk, setBonk] = useState<Bonk | null>(null);
@@ -172,7 +175,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
         />
       ))}
 
-      {Array.from({ length: DISCS }, (_, i) => i + 1).map((size) => (
+      {Array.from({ length: discs }, (_, i) => i + 1).map((size) => (
         <Disc
           key={size}
           size={size}
@@ -367,6 +370,7 @@ function Disc({ size, state, lastMove, forward, selected, animKey, bonk, face, p
   const ref = useRef<THREE.Group>(null);
   const inner = useRef<THREE.Group>(null);
   const squash = useRef<THREE.Group>(null);
+  const discs = state.pegs[0].length + state.pegs[1].length + state.pegs[2].length;
   const [peg, idx] = where(state, size);
   const bouncer = bonk != null && bonk.size === size;
   const bonkAt = bonk?.at ?? 0;
@@ -429,7 +433,7 @@ function Disc({ size, state, lastMove, forward, selected, animKey, bonk, face, p
     q.scale.set(sxz, sy, sxz);
     q.rotation.z = bouncer && since > 0 && since < 1.6 ? Math.sin(since * 14) * 0.2 * (1 - since / 1.6) : 0;
     // Win: a golden glow rises up the tower, one disc after another.
-    const wave = party ? 2.5 + Math.max(0, Math.sin(t * 4 - (DISCS - size) * 0.9)) * 4 : 0;
+    const wave = party ? 2.5 + Math.max(0, Math.sin(t * 4 - (discs - size) * 0.9)) * 4 : 0;
     const want = selected ? 3.5 : party ? wave : 1.2;
     inlay.emissiveIntensity = THREE.MathUtils.lerp(inlay.emissiveIntensity, want, Math.min(1, dt * 8));
   });

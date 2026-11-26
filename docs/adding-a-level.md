@@ -35,13 +35,19 @@ The shell gives the scene `state`, `previous`, `lastMove`, `status`, `play(move)
 - Call `play(move)` for each player move. Input is locked (`busy`) for `moveDurationMs`.
 - `moveCount` going up means animate the new move; going down (undo) or `resetCount` changing means move back
   quickly. Use `usePath` / `useHopTo` from `@riddle/fx` so nothing ever teleports.
-- Show the `hint` move with `<HintRing>` from `@riddle/props`.
+- Show the `hint` move with `<HintRing>` from `@riddle/props`: a gold ring with a dark edge on the ground. Then press
+  Hint at a small iPhone's size (667 by 375) and look: the mark must catch the eye at once. Where the ring is hidden
+  or lost, add to it. A figure in a crowd, whose feet are behind the figures in front, gets a `<HintHalo>` round its
+  body as well (levels 6 and 7). A figure or thing with a name label gets the hint's band round the label
+  (`HINT_LABEL_STYLE`, levels 9 and 11; level 8 draws the same band round a plaque in the scene). Where a glow is
+  drawn over the ground late, give the ring a `renderOrder` above the glow's (level 14). A hint mark takes no taps
+  (`raycast={noHit}`), and a fill of gold or green stays free to mean "picked".
 - On a loss, play a short, funny, kid-friendly fail scene (cartoon slapstick, never gore). See
   [Fail scenes](#fail-scenes) below and level 1. Set `endDelayMs` so it plays before the "Oh no!" screen.
 - On a win, fire `<Burst>` confetti and make the characters celebrate (`mood="happy"`).
 - Do not add lights, sky, fog or post-processing: `WorldStage` does that per world. Add only local lights
   (torches, glowing potions).
-- Make tap targets big (add an invisible hit sphere) so it works on phones.
+- Make tap targets big (add an invisible hit sphere) so it works on phones. Give that invisible mesh `raycast={pad}`, with `const pad = tapPadRaycast()` from `@riddle/fx` made once outside the component: the padding then never takes a tap from a figure drawn behind it. A big thing that others stand on (a boat, a bridge) goes in a `<group raycast={tapBackdropRaycast()}>`, so a tap beside a passenger still picks the passenger.
 - UI that belongs to the level (like the "Row across" button) can be drawn with drei's `<Html>`.
 
 ## 4. Register it
@@ -55,7 +61,11 @@ The shell gives the scene `state`, `previous`, `lastMove`, `status`, `play(move)
 ```bash
 pnpm install && pnpm typecheck && pnpm test && pnpm build
 pnpm dev   # open http://localhost:5173/?all#/level/<id>
+pnpm test:e2e   # plays every level, yours included, to a win in a phone-sized browser
 ```
+
+The play-through tests find a new level by its folder and play it with the solver's moves: see
+[play-through-tests.md](play-through-tests.md).
 
 For scripted checks: `?debug&quality=low#/level/<id>` exposes `window.__riddle`, so
 `window.__riddle.getState().play(move)` plays a move. Headless Chromium renders slowly, so use

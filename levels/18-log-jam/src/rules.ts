@@ -58,69 +58,91 @@ export function cells(piece: Piece, p: number): [number, number][] {
   return out;
 }
 
-/** Grid of piece indexes (-1 = open water). */
-export function grid(pos: number[]): number[] {
-  const g = new Array(SIZE * SIZE).fill(-1);
-  PIECES.forEach((pc, i) => cells(pc, pos[i]).forEach(([r, c]) => (g[r * SIZE + c] = i)));
-  return g;
+/** One jam: its pieces, where they start, Dottie's patience and the rules that follow. */
+export interface Jam {
+  pieces: Piece[];
+  start: number[];
+  patience: number;
+  /** Grid of piece indexes (-1 = open water). */
+  grid(pos: number[]): number[];
+  /** Every position piece `i` can slide to from here (not counting where it is). */
+  reach(pos: number[], i: number): number[];
+  /** The raft is home when it touches the gap at the right edge. */
+  isFree(pos: number[]): boolean;
+  rules: RiddleRules<State, Move>;
 }
 
-/** Every position piece `i` can slide to from here (not counting where it is). */
-export function reach(pos: number[], i: number): number[] {
-  const g = grid(pos);
-  const pc = PIECES[i];
-  const out: number[] = [];
-  for (const d of [-1, 1]) {
-    let p = pos[i];
-    for (;;) {
-      const np = p + d;
-      if (np < 0 || np + pc.len > SIZE) break;
-      const lead = d < 0 ? np : np + pc.len - 1;
-      const [r, c] = pc.axis === 'h' ? [pc.line, lead] : [lead, pc.line];
-      if (g[r * SIZE + c] !== -1) break;
-      p = np;
-      out.push(p);
-    }
+/** Builds a jam. Piece 0 is always the raft, a two-cell piece lying in EXIT_ROW, so the scene's gap fits every jam. */
+export function makeJam(pieces: Piece[], start: number[], patience: number): Jam {
+  if (pieces[0].axis !== 'h' || pieces[0].line !== EXIT_ROW || pieces[0].len !== 2) throw new Error('piece 0 must be the raft in the exit row');
+
+  function grid(pos: number[]): number[] {
+    const g = new Array(SIZE * SIZE).fill(-1);
+    pieces.forEach((pc, i) => cells(pc, pos[i]).forEach(([r, c]) => (g[r * SIZE + c] = i)));
+    return g;
   }
-  return out;
+
+  function reach(pos: number[], i: number): number[] {
+    const g = grid(pos);
+    const pc = pieces[i];
+    const out: number[] = [];
+    for (const d of [-1, 1]) {
+      let p = pos[i];
+      for (;;) {
+        const np = p + d;
+        if (np < 0 || np + pc.len > SIZE) break;
+        const lead = d < 0 ? np : np + pc.len - 1;
+        const [r, c] = pc.axis === 'h' ? [pc.line, lead] : [lead, pc.line];
+        if (g[r * SIZE + c] !== -1) break;
+        p = np;
+        out.push(p);
+      }
+    }
+    return out;
+  }
+
+  const isFree = (pos: number[]) => pos[0] === SIZE - pieces[0].len;
+
+  const name = (i: number) => (i === 0 ? 'the duck raft' : pieces[i].len === 3 ? 'the long log' : 'the log');
+
+  const rules: RiddleRules<State, Move> = {
+    initialState: { pos: start, moves: 0 },
+
+    legalMoves(s) {
+      const out: Move[] = [];
+      pieces.forEach((_, i) => reach(s.pos, i).forEach((to) => out.push({ piece: i, to })));
+      return out;
+    },
+
+    apply(s, m) {
+      const pos = s.pos.slice();
+      pos[m.piece] = m.to;
+      return { pos, moves: s.moves + 1 };
+    },
+
+    status(s) {
+      if (isFree(s.pos)) return { kind: 'won' };
+      if (s.moves >= patience) return { kind: 'lost', reason: `Dottie ran out of patience after ${patience} slides and tried to hop home over the logs. Splash!` };
+      return { kind: 'playing' };
+    },
+
+    // The move counter is left out: the solver only cares where the logs are.
+    key: (s) => s.pos.join(','),
+
+    describeMove(m, s) {
+      const pc = pieces[m.piece];
+      const d = m.to - s.pos[m.piece];
+      const steps = Math.abs(d);
+      const dir = pc.axis === 'h' ? (d > 0 ? 'right' : 'left') : d > 0 ? 'down' : 'up';
+      const where = pc.axis === 'h' ? `in row ${pc.line + 1}` : `in column ${pc.line + 1}`;
+      const what = m.piece === 0 ? 'the duck raft' : `${name(m.piece)} ${where}`;
+      return `Slide ${what} ${dir} ${steps} space${steps > 1 ? 's' : ''}`;
+    },
+  };
+
+  return { pieces, start, patience, grid, reach, isFree, rules };
 }
 
-/** The raft is home when it touches the gap at the right edge. */
-export const isFree = (pos: number[]) => pos[0] === SIZE - PIECES[0].len;
-
-export const NAMES = (i: number) => (i === 0 ? 'the duck raft' : PIECES[i].len === 3 ? 'the long log' : 'the log');
-
-export const rules: RiddleRules<State, Move> = {
-  initialState: { pos: START, moves: 0 },
-
-  legalMoves(s) {
-    const out: Move[] = [];
-    PIECES.forEach((_, i) => reach(s.pos, i).forEach((to) => out.push({ piece: i, to })));
-    return out;
-  },
-
-  apply(s, m) {
-    const pos = s.pos.slice();
-    pos[m.piece] = m.to;
-    return { pos, moves: s.moves + 1 };
-  },
-
-  status(s) {
-    if (isFree(s.pos)) return { kind: 'won' };
-    if (s.moves >= PATIENCE) return { kind: 'lost', reason: `Dottie ran out of patience after ${PATIENCE} slides and tried to hop home over the logs. Splash!` };
-    return { kind: 'playing' };
-  },
-
-  // The move counter is left out: the solver only cares where the logs are.
-  key: (s) => s.pos.join(','),
-
-  describeMove(m, s) {
-    const pc = PIECES[m.piece];
-    const d = m.to - s.pos[m.piece];
-    const steps = Math.abs(d);
-    const dir = pc.axis === 'h' ? (d > 0 ? 'right' : 'left') : d > 0 ? 'down' : 'up';
-    const where = pc.axis === 'h' ? `in row ${pc.line + 1}` : `in column ${pc.line + 1}`;
-    const what = m.piece === 0 ? 'the duck raft' : `${NAMES(m.piece)} ${where}`;
-    return `Slide ${what} ${dir} ${steps} space${steps > 1 ? 's' : ''}`;
-  },
-};
+/** Level 18's own jam. */
+export const JAM = makeJam(PIECES, START, PATIENCE);
+export const { grid, reach, isFree, rules } = JAM;

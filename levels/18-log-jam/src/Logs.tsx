@@ -7,6 +7,8 @@ import { LOG_R } from './layout';
 import type { Piece } from './rules';
 
 const BARK = ['#b57a48', '#a86d3f', '#c08552', '#a97447'];
+/** The glow is a halo around a log, not the log: a tap on it alone must not beat a target ring (see the scene's onPieceDown). */
+const GLOW = { pad: true };
 const glowBack = (color: string, opacity: number) =>
   new THREE.MeshBasicMaterial({ color, side: THREE.BackSide, transparent: true, opacity, toneMapped: false, depthWrite: false });
 
@@ -36,7 +38,7 @@ export function LogModel({ piece, seed, glow, children }: { piece: Piece; seed: 
         <cylinderGeometry args={[LOG_R, LOG_R * 1.04, L, 11, 1]} />
       </mesh>
       {outline && (
-        <mesh rotation-z={Math.PI / 2} material={outline} scale={[1.13, 1.04, 1.13]}>
+        <mesh rotation-z={Math.PI / 2} material={outline} scale={[1.13, 1.04, 1.13]} userData={GLOW}>
           <cylinderGeometry args={[LOG_R, LOG_R, L + 0.06, 14, 1]} />
         </mesh>
       )}
@@ -96,7 +98,7 @@ export const RaftModel = forwardRef<THREE.Group, { glow: string | null; children
         </mesh>
       ))}
       {outline && (
-        <mesh position={[0, 0.15, 0]} material={outline}>
+        <mesh position={[0, 0.15, 0]} material={outline} userData={GLOW}>
           <boxGeometry args={[1.92, 0.3, 0.84]} />
         </mesh>
       )}

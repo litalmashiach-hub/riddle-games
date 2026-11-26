@@ -6,9 +6,10 @@ import { Fireflies, type Phase } from './Fireflies';
 import { Frog } from './Frog';
 import { JarRow, Raft } from './Jars';
 import { Lagoon } from './Lagoon';
-import { EMOJI, GLOW, HOVER_Y, JAR_COUNT, JAR_POS, JAR_R, MOVE_MS } from './layout';
+import { useJars } from './context';
+import { EMOJI, GLOW, HOVER_Y, JAR_R, MOVE_MS } from './layout';
 import { Overlay, Pill } from './Overlay';
-import { CAPACITY, PATIENCE, canMove, type Color, type Move, type State } from './rules';
+import { CAPACITY, SHAPES, canMove, type Color, type Move, type State } from './rules';
 import { flySound, grumbleSound, jarDoneSound, landSound, liftSound, swarmSound } from './audio';
 
 export { MOVE_MS };
@@ -27,6 +28,7 @@ const SWARM: Vec3 = [0, 3.5, 0.4];
 const FROG_POS: Vec3 = [4.0, 0.52, 0.8];
 
 export function Scene({ state, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
+  const { patience: PATIENCE, row: JAR_POS } = useJars();
   /** The jar whose top firefly is lifted out (UI only, not a move). */
   const [selected, setSelected] = useState<number | null>(null);
   const [nope, setNope] = useState<{ n: number; jar: number; text: string }>({ n: 0, jar: 0, text: '' });
@@ -104,7 +106,7 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
     if (!canMove(state, m)) {
       const full = state.jars[j].length >= CAPACITY;
       grumbleSound();
-      return refuse(j, full ? 'Jar is full!' : 'Same colours only!');
+      return refuse(j, full ? 'Jar is full!' : 'Same kind only!');
     }
     flySound();
     play(m);
@@ -120,7 +122,7 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
   }, [nope.n]);
 
   // Where may the lifted firefly go?
-  const targets = Array.from({ length: JAR_COUNT }, (_, j) => (selected === null || selected === j || locked ? null : canMove(state, { from: selected, to: j })));
+  const targets = state.jars.map((_, j) => (selected === null || selected === j || locked ? null : canMove(state, { from: selected, to: j })));
 
   // Hint: ring the jar to lift from, then the jar to drop on.
   let hintJar: number | null = null;
@@ -161,7 +163,7 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
         {/* Patience meter: the fireflies get grumpier with every move. */}
         {!over && (
           <Overlay position={[0, 0.2, 1.75]} shrink>
-            <PatienceMeter left={left} />
+            <PatienceMeter left={left} of={PATIENCE} />
           </Overlay>
         )}
 
@@ -171,7 +173,7 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
           </Overlay>
         )}
 
-        {done.n > 0 && !over && <JarDonePop key={done.n} jar={done.jar} color={done.color} />}
+        {done.n > 0 && !over && <JarDonePop key={done.n} at={JAR_POS[done.jar]} color={done.color} />}
         <Burst trigger={done.n} position={jp(done.jar, 1.4)} count={70} colors={[GLOW[done.color], '#ffffff', '#fff3b0']} power={0.55} size={0.7} />
 
         {/* Fail scene */}
@@ -193,23 +195,23 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
   );
 }
 
-function JarDonePop({ jar, color }: { jar: number; color: Color }) {
+function JarDonePop({ at, color }: { at: Vec3; color: Color }) {
   const [on, setOn] = useState(true);
   useEffect(() => {
     const t = setTimeout(() => setOn(false), 1400);
     return () => clearTimeout(t);
   }, []);
   if (!on) return null;
-  const [x, y, z] = JAR_POS[jar];
+  const [x, y, z] = at;
   return (
     <Overlay position={[x, y + 2.75, z]}>
-      <Pill tone="gold">{EMOJI[color]} Full jar!</Pill>
+      <Pill tone="gold">{EMOJI[color]} Full jar of {SHAPES[color]}s!</Pill>
     </Overlay>
   );
 }
 
-function PatienceMeter({ left }: { left: number }) {
-  const k = Math.max(0, left) / PATIENCE;
+function PatienceMeter({ left, of }: { left: number; of: number }) {
+  const k = Math.max(0, left) / of;
   const face = k > 0.66 ? '😊' : k > 0.4 ? '😐' : k > 0.2 ? '😠' : '😡';
   const color = k > 0.66 ? '#6ee7a8' : k > 0.4 ? '#ffd166' : k > 0.2 ? '#ff9f5a' : '#ff5c7a';
   return (

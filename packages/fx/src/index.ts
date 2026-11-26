@@ -1,5 +1,6 @@
 export * from './settings';
 export * from './sfx';
+export * from './soundLife';
 export * from './worlds';
 export * from './Water';
 export * from './WorldStage';
@@ -7,4 +8,6 @@ export * from './PostFX';
 export * from './motion';
 export * from './Burst';
 export * from './Clickable';
+export * from './tapPad';
+export * from './pressOnLift';
 export * from './cartoon';

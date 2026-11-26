@@ -2,7 +2,8 @@ import { useSettings } from '@riddle/fx';
 
 /** Each disc rings its own note when it lands (bigger disc, lower note), plus a soft stone knock. */
 let ac: AudioContext | null = null;
-const NOTES = [0, 880, 698.5, 587.3, 440];
+// The fifth note is only heard in a taller tower that reuses this scene (level 4 has four discs).
+const NOTES = [0, 880, 698.5, 587.3, 440, 349.2];
 
 function ctx() {
   if (!ac) {

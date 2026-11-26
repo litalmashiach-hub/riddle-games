@@ -2,7 +2,7 @@ import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, DizzyStars, Shake, easeInOut, sfx, useSettings } from '@riddle/fx';
-import { Bubble, HintRing, toon } from '@riddle/props';
+import { Bubble, HINT_EDGE, HINT_GOLD, HintRing, noHit, toon } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
 import * as THREE from 'three';
 import { Alchemist, type AlchemistMood } from './Alchemist';
@@ -158,11 +158,13 @@ interface FlaskProps {
   selected: boolean;
   gags: MutableRefObject<{ kind: GagKind; t0: number }[]>;
   winBlend: MutableRefObject<number>;
+  /** Hint points at this flask: its plaque wears the hint's gold band. */
+  hinted: boolean;
   disabled: boolean;
   onTap(): void;
 }
 
-function FlaskActor({ f, anim, shown, selected, gags, winBlend, disabled, onTap }: FlaskProps) {
+function FlaskActor({ f, anim, shown, selected, gags, winBlend, hinted, disabled, onTap }: FlaskProps) {
   const high = useSettings((s) => s.quality) === 'high';
   const mover = useRef<THREE.Group>(null);
   const tilter = useRef<THREE.Group>(null);
@@ -279,7 +281,7 @@ function FlaskActor({ f, anim, shown, selected, gags, winBlend, disabled, onTap 
         <mesh position={[0, PEDESTAL * 0.5, 0.56]} rotation-x={-0.08} material={toon('#7df9ff', { emissive: '#38e1ff', emissiveIntensity: 2.5 })}>
           <octahedronGeometry args={[0.06, 0]} />
         </mesh>
-        <Plaque f={f} shown={shown} />
+        <Plaque f={f} shown={shown} hinted={hinted} />
       </group>
 
       {/* the flask: pivot is the mouth, so tipping pours from the lip */}
@@ -342,7 +344,40 @@ function FlaskActor({ f, anim, shown, selected, gags, winBlend, disabled, onTap 
 }
 
 /** A little floating plaque in front of each pedestal: "5 / 8 L". Drawn to a canvas, redrawn when the number changes. */
-function Plaque({ f, shown }: { f: Flask; shown: MutableRefObject<number[]> }) {
+/** A pill as wide and high as the plaque's own, larger by `grow` all round. */
+const pillGeometry = (grow: number) => {
+  const hw = 0.548 + grow;
+  const hh = 0.179 + grow;
+  const s = new THREE.Shape();
+  s.absarc(hw - hh, 0, hh, -Math.PI / 2, Math.PI / 2, false);
+  s.absarc(-hw + hh, 0, hh, Math.PI / 2, (Math.PI * 3) / 2, false);
+  return new THREE.ShapeGeometry(s, 10);
+};
+
+/**
+ * Hint's band round a flask's plaque: gold with a dark edge inside and outside, like the ring. The ring
+ * on the pale table runs behind the plaque, and every flask stands on a gold base, so the plaque of the
+ * flask to tap is marked too. A plaque filled with gold means "4 litres": this is a band, not a fill.
+ */
+function PlaqueBand() {
+  const ref = useRef<THREE.Group>(null);
+  const layers = useMemo(() => [{ grow: 0.105, color: HINT_EDGE }, { grow: 0.08, color: HINT_GOLD }, { grow: 0.022, color: HINT_EDGE }].map((l) => ({ ...l, geometry: pillGeometry(l.grow) })), []);
+  useFrame(({ clock }) => {
+    const s = 1 + Math.sin(clock.elapsedTime * 5) * 0.03;
+    ref.current?.scale.set(s, s, s);
+  });
+  return (
+    <group ref={ref} position-y={0.018}>
+      {layers.map((l, i) => (
+        <mesh key={i} geometry={l.geometry} renderOrder={1 + i} raycast={noHit}>
+          <meshBasicMaterial color={l.color} transparent toneMapped={false} depthWrite={false} fog={false} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function Plaque({ f, shown, hinted }: { f: Flask; shown: MutableRefObject<number[]>; hinted: boolean }) {
   const ref = useRef<THREE.Group>(null);
   const { canvas, tex } = useMemo(() => {
     const c = document.createElement('canvas');
@@ -404,6 +439,7 @@ function Plaque({ f, shown }: { f: Flask; shown: MutableRefObject<number[]> }) {
   });
   return (
     <group ref={ref} position={[0, 0.22, 0.98]} rotation-x={-0.45}>
+      {hinted && <PlaqueBand />}
       <mesh renderOrder={4}>
         <planeGeometry args={[1.15, 0.43]} />
         <meshBasicMaterial map={tex} transparent toneMapped={false} depthWrite={false} />
@@ -616,6 +652,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           selected={selected === f}
           gags={gags}
           winBlend={winBlend}
+          hinted={hintFlask === f && !busy && !over}
           disabled={busy || over}
           onTap={() => tap(f)}
         />

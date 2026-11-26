@@ -1,7 +1,7 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings } from '@riddle/fx';
-import { Bubble, HintRing, toon } from '@riddle/props';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
+import { Bubble, HintRing, edgedBandGeometry, noHit, toon, useHintPulse } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import * as THREE from 'three';
@@ -9,6 +9,9 @@ import { coinFaceTexture, vaultSfx } from './art';
 import { Balance, PIVOT_Y, SCALE_POS, panCentre, type Beam } from './Balance';
 import { COINS, MAX_WEIGHINGS, coinName, revealFake, type Know, type Move, type State, type Tilt, type Weighing } from './rules';
 import { DOOR_POS, TABLE_Y, TABLE_Z, Vault } from './Vault';
+
+/** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
+const coinPad = tapPadRaycast();
 
 export const MOVE_MS = 3000;
 /** Weighing timeline (ms after Weigh is pressed). */
@@ -348,11 +351,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   });
 
   // ---- Hint rings ----
-  const hintRings: { coin: number; color: string }[] = [];
+  // The two groups of a weighing differ in shape as well as in colour: round rings for one pan, squares for the other.
+  const hintRings: { coin: number; color: string; square?: boolean }[] = [];
   if (hint && !busy && !pending) {
     if (hint.kind === 'weigh') {
       hint.left.forEach((c) => hintRings.push({ coin: c, color: '#ffd166' }));
-      hint.right.forEach((c) => hintRings.push({ coin: c, color: '#7dd3fc' }));
+      hint.right.forEach((c) => hintRings.push({ coin: c, color: '#7dd3fc', square: true }));
     } else hintRings.push({ coin: hint.coin, color: '#ff7b9c' });
   }
 
@@ -372,7 +376,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           <group ref={(g) => void (tilt.current[i] = g)}>
             <Clickable onClick={() => onCoin(i)} disabled={!canAct} hoverScale={1.12}>
               <mesh geometry={coinGeo} material={[edge, faces[i], faces[i]]} rotation-y={Math.PI / 2} castShadow receiveShadow />
-              <mesh visible={false}>
+              <mesh visible={false} raycast={coinPad}>
                 <cylinderGeometry args={[0.4, 0.4, 0.34, 10]} />
               </mesh>
             </Clickable>
@@ -383,9 +387,13 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         </group>
       ))}
 
-      {hintRings.map(({ coin, color }) => {
+      {hintRings.map(({ coin, color, square }) => {
         const p = traySlot(coin);
-        return <HintRing key={`${coin}${color}`} position={[p.x, TABLE_Y + 0.012, p.z]} radius={0.4} color={color} />;
+        return square ? (
+          <HintSquare key={`${coin}${color}`} position={[p.x, TABLE_Y + 0.012, p.z]} color={color} />
+        ) : (
+          <HintRing key={`${coin}${color}`} position={[p.x, TABLE_Y + 0.012, p.z]} radius={0.4} color={color} />
+        );
       })}
       {accusing && picked != null && (
         <HintRing position={[traySlot(picked).x, TABLE_Y + 0.012, traySlot(picked).z]} radius={0.42} color="#ff7b9c" />
@@ -405,6 +413,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
       {!over && (
         <Overlay>
+          <style>{CONTROLS_CSS}</style>
           <Ledger log={shown.log} />
           {canAct && (
             <Controls
@@ -680,6 +689,19 @@ function Marker({ heavy, seed }: { heavy: boolean; seed: number }) {
   );
 }
 
+/** A hint mark like the shared HintRing, but a square: it marks the coins for the other pan, so the two groups differ in shape. */
+function HintSquare({ position, color }: { position: [number, number, number]; color: string }) {
+  const ref = useRef<THREE.Mesh>(null);
+  useHintPulse(ref);
+  // Four corners make a square; turned an eighth so its sides run along the rows of coins. It wears the ring's dark edge.
+  const geometry = useMemo(() => edgedBandGeometry(0.43, 0.56, 0.035, color, 4, Math.PI / 4), [color]);
+  return (
+    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} raycast={noHit}>
+      <meshBasicMaterial vertexColors transparent toneMapped={false} depthWrite={false} fog={false} />
+    </mesh>
+  );
+}
+
 /** Gold coins pouring out of the vault on a win. */
 function CoinRain({ trigger, count }: { trigger: number; count: number }) {
   const ref = useRef<THREE.InstancedMesh>(null);
@@ -789,13 +811,11 @@ const panel: CSSProperties = {
 function Chip({ n, tone }: { n: number; tone: 'L' | 'R' }) {
   return (
     <span
+      className="tc-chip"
       style={{
         display: 'inline-grid',
         placeItems: 'center',
-        width: 20,
-        height: 20,
         borderRadius: 999,
-        fontSize: 11,
         fontWeight: 700,
         color: '#4a2a05',
         background: tone === 'L' ? 'radial-gradient(circle at 35% 30%, #fff1b8, #e9b343)' : 'radial-gradient(circle at 35% 30%, #fff1b8, #d9a03a)',
@@ -809,22 +829,22 @@ function Chip({ n, tone }: { n: number; tone: 'L' | 'R' }) {
 
 function Ledger({ log }: { log: Weighing[] }) {
   return (
-    <div style={{ ...panel, position: 'absolute', left: 12, top: 84, padding: '10px 12px', width: 'min(250px, calc(100vw - 24px))', pointerEvents: 'none' }}>
+    <div className="tc-ledger" style={{ ...panel, position: 'absolute', pointerEvents: 'none' }}>
       <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#ffd27a' }}>Weighing ledger</div>
       {Array.from({ length: MAX_WEIGHINGS }, (_, i) => {
         const w = log[i];
         return (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 7, opacity: w ? 1 : 0.45, fontSize: 13 }}>
+          <div key={i} className="tc-row" style={{ display: 'flex', alignItems: 'center', opacity: w ? 1 : 0.45, fontSize: 13 }}>
             <span style={{ width: 9, height: 9, borderRadius: 99, flexShrink: 0, background: w ? '#4a3a34' : '#ffb84a', boxShadow: w ? 'none' : '0 0 8px #ffae2b' }} />
             {w ? (
               <>
-                <span style={{ display: 'flex', flexWrap: 'wrap', gap: 2, maxWidth: 92 }}>
+                <span className="tc-chips">
                   {[...w.left].sort((a, b) => a - b).map((c) => (
                     <Chip key={c} n={c} tone="L" />
                   ))}
                 </span>
                 <span style={{ fontWeight: 700, fontSize: 15, color: '#ffd27a', minWidth: 14, textAlign: 'center' }}>{w.tilt === 'left' ? '>' : w.tilt === 'right' ? '<' : '='}</span>
-                <span style={{ display: 'flex', flexWrap: 'wrap', gap: 2, maxWidth: 92 }}>
+                <span className="tc-chips">
                   {[...w.right].sort((a, b) => a - b).map((c) => (
                     <Chip key={c} n={c} tone="R" />
                   ))}
@@ -878,14 +898,47 @@ interface ControlsProps {
   onClues(): void;
 }
 
-/** Centred above the shell's bar on phones; a column on the right on wider screens, clear of the coins. */
+/**
+ * Centred above the shell's bar on upright phones; a column on the right on wider screens, clear of the coins.
+ * A phone held sideways is short: both panels lift up under the top bar, and the ledger slims down so that it
+ * stays left of the left pan and above the shell's undo buttons. On a small one the controls stay a (narrower)
+ * column on the right, which leaves the bottom middle free for the shell's hint sentence and the coins in view.
+ *
+ * Touch areas: Apple asks for 44 by 44 points, and the buttons are drawn 37 high ("Clues" 32). Each carries an
+ * unseen pad (its ::before) that is as wide as the button and 44 high about its middle, so a touch just above
+ * or below the drawing still reaches it. One above the other, the buttons therefore stand 44 points apart
+ * from middle to middle or more: a gap of 8 between two of them, and 11 above the smaller "Clues" (the browser
+ * rounds each pad to whole points, so one point is spare). Side by side on an upright phone, the rows are 11 apart.
+ */
 const CONTROLS_CSS = `
+.tc-ledger{left:12px;top:84px;padding:10px 12px;width:min(250px,calc(100vw - 24px))}
+.tc-row{gap:6px;margin-top:7px}
+.tc-chips{display:flex;flex-wrap:wrap;gap:2px;max-width:92px}
+.tc-chip{width:20px;height:20px;font-size:11px}
 .tc-controls{position:absolute;left:0;right:0;bottom:92px;display:flex;justify-content:center;padding:0 12px}
-.tc-buttons{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tc-buttons{display:flex;flex-wrap:wrap;gap:11px 8px;justify-content:center}
+.tc-buttons button{position:relative}
+.tc-buttons button::before{content:'';position:absolute;left:0;right:0;top:min(0px,50% - 22px);bottom:min(0px,50% - 22px)}
 @media (min-width:760px){
   .tc-controls{left:auto;right:12px;bottom:auto;top:84px;width:220px;padding:0}
   .tc-controls>div{width:100%}
-  .tc-buttons{flex-direction:column;align-items:stretch}
+  .tc-buttons{flex-direction:column;align-items:stretch;gap:8px}
+  .tc-buttons .tc-small{margin-top:3px}
+}
+@media (max-height:500px){
+  .tc-ledger{top:60px;left:max(12px,env(safe-area-inset-left));padding:8px;width:196px}
+  .tc-row{gap:4px;margin-top:5px}
+  .tc-chips{max-width:70px}
+  .tc-chip{width:16px;height:16px;font-size:10px}
+}
+@media (max-height:500px) and (min-width:760px){
+  .tc-controls{top:60px;right:max(12px,env(safe-area-inset-right))}
+}
+@media (max-height:500px) and (max-width:759px){
+  .tc-controls{left:auto;right:max(12px,env(safe-area-inset-right));bottom:auto;top:60px;width:172px;padding:0}
+  .tc-controls>div{width:100%}
+  .tc-buttons{flex-direction:column;align-items:stretch;gap:8px}
+  .tc-buttons .tc-small{margin-top:3px}
 }`;
 
 function Controls(p: ControlsProps) {
@@ -898,8 +951,8 @@ function Controls(p: ControlsProps) {
       <>
         {p.picked != null && (
           <>
-            <button style={btn('red')} onClick={() => p.onVerdict(true)}>⬆ Heavier</button>
-            <button style={btn('blue')} onClick={() => p.onVerdict(false)}>⬇ Lighter</button>
+            <button style={btn('red')} onClick={() => p.onVerdict(true)}><span aria-hidden="true">⬆</span> Heavier</button>
+            <button style={btn('blue')} onClick={() => p.onVerdict(false)}><span aria-hidden="true">⬇</span> Lighter</button>
           </>
         )}
         <button style={btn('plain')} onClick={p.onCancel}>Back</button>
@@ -921,11 +974,11 @@ function Controls(p: ControlsProps) {
         )}
         {left > 0 && (
           <button style={btn('gold', !p.canWeigh)} onClick={p.onWeigh} disabled={!p.canWeigh}>
-            ⚖ Weigh <span style={{ opacity: 0.7, fontSize: 12 }}>({left} left)</span>
+            <span aria-hidden="true">⚖</span> Weigh <span style={{ opacity: 0.7, fontSize: 12 }}>({left} left)</span>
           </button>
         )}
-        <button style={btn(left === 0 ? 'gold' : 'plain')} onClick={p.onAccuse}>🔍 Name the fake</button>
-        <button style={{ ...btn('plain'), fontSize: 12, padding: '6px 10px' }} onClick={p.onClues} title="Show what the weighings prove about each coin">
+        <button style={btn(left === 0 ? 'gold' : 'plain')} onClick={p.onAccuse}><span aria-hidden="true">🔍</span> Name the fake</button>
+        <button className="tc-small" style={{ ...btn('plain'), fontSize: 12, padding: '6px 10px' }} onClick={p.onClues} title="Show what the weighings prove about each coin">
           Clues {p.clues ? 'on' : 'off'}
         </button>
       </>
@@ -933,7 +986,6 @@ function Controls(p: ControlsProps) {
   }
   return (
     <div className="tc-controls">
-      <style>{CONTROLS_CSS}</style>
       <div style={{ ...panel, padding: '8px 10px', maxWidth: 560 }}>
         <div style={{ textAlign: 'center', fontSize: 13, marginBottom: 6, color: '#ffe6b0' }}>{message}</div>
         <div className="tc-buttons">{buttons}</div>

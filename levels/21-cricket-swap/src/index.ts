@@ -7,9 +7,9 @@ const level: RiddleLevel<State, Move> = {
   number: 21,
   title: 'Cricket Swap',
   world: 'lagoon',
-  tagline: 'Two amber crickets, two blue ones, and every leap is an L.',
+  tagline: 'Two striped crickets, two spotted ones, and every leap is an L.',
   instructions: [
-    'Make the crickets swap sides: blue crickets onto the blue toadstools at the back, amber crickets onto the amber ones at the front.',
+    'Make the crickets swap sides: the spotted blue crickets onto the spotted blue toadstools at the back, the striped amber crickets onto the striped amber ones at the front.',
     'A cricket leaps in an L: two toadstools straight, then one to the side. It may fly over anything on the way.',
     'It can only land on an empty toadstool. Nobody can land on the firefly jar in the middle.',
   ],
@@ -23,3 +23,8 @@ const level: RiddleLevel<State, Move> = {
 };
 
 export default level;
+
+// For the same swap on a bigger patch (see levels/29-cricket-crossing).
+export { BoardContext } from './context';
+export { leaps, makeRules, type Board, type Move, type State } from './rules';
+export { MOVE_MS, Scene } from './Scene';

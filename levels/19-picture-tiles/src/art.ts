@@ -9,33 +9,38 @@ import * as THREE from 'three';
 const S = 768;
 const BLOCK = 16; // 48 tesserae across, 16 per tile
 
-let cached: THREE.CanvasTexture | null = null;
+/** Paints a picture on a square canvas `size` pixels wide, before it is cut into little stones. */
+export type Painter = (g: CanvasRenderingContext2D, size: number) => void;
 
-export function mosaicTexture(): THREE.CanvasTexture {
-  if (cached) return cached;
+const cached = new Map<Painter, THREE.CanvasTexture>();
+
+/** The mosaic of a picture. Level 19 paints Shelly; a level that reuses this scene can paint its own. */
+export function mosaicTexture(painter: Painter = paint): THREE.CanvasTexture {
+  const had = cached.get(painter);
+  if (had) return had;
   const canvas = document.createElement('canvas');
   canvas.width = canvas.height = S;
   const g = canvas.getContext('2d')!;
-  paint(g);
+  painter(g, S);
   tesserae(g);
   numbers(g);
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = 4;
-  cached = tex;
+  cached.set(painter, tex);
   return tex;
 }
 
 const P = (v: number) => v * S;
 
-function ellipse(g: CanvasRenderingContext2D, x: number, y: number, rx: number, ry: number, rot: number, fill: string) {
+export function ellipse(g: CanvasRenderingContext2D, x: number, y: number, rx: number, ry: number, rot: number, fill: string) {
   g.beginPath();
   g.ellipse(P(x), P(y), P(rx), P(ry), rot, 0, Math.PI * 2);
   g.fillStyle = fill;
   g.fill();
 }
 
-function glow(g: CanvasRenderingContext2D, x: number, y: number, r: number, color: string) {
+export function glow(g: CanvasRenderingContext2D, x: number, y: number, r: number, color: string) {
   const grad = g.createRadialGradient(P(x), P(y), 0, P(x), P(y), P(r));
   grad.addColorStop(0, color);
   grad.addColorStop(1, 'rgba(0,0,0,0)');
@@ -43,7 +48,13 @@ function glow(g: CanvasRenderingContext2D, x: number, y: number, r: number, colo
   g.fillRect(P(x - r), P(y - r), P(r * 2), P(r * 2));
 }
 
+/** Level 19's picture: the lagoon, then Shelly on top. */
 function paint(g: CanvasRenderingContext2D) {
+  paintLagoon(g);
+  paintShelly(g);
+}
+
+function paintLagoon(g: CanvasRenderingContext2D) {
   // Twilight lagoon water, lighter where the moon shines.
   const bg = g.createLinearGradient(0, 0, 0, S);
   bg.addColorStop(0, '#3a2f7a');
@@ -108,7 +119,10 @@ function paint(g: CanvasRenderingContext2D) {
     ellipse(g, x, y, 0.012, 0.012, 0, '#fffbd0');
   }
 
-  // ---- Shelly, swimming up the picture ----
+}
+
+/** Shelly seen from above, swimming up the picture. She fills most of it: scale and move the canvas to place her elsewhere. */
+export function paintShelly(g: CanvasRenderingContext2D) {
   const skin = '#8fd46a';
   const skinDark = '#5fae4a';
   // flippers

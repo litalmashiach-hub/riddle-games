@@ -15,7 +15,8 @@ import type { RiddleRules } from '@riddle/engine';
 export const SIZE = 3;
 export const CELLS = SIZE * SIZE;
 export type Colour = 'A' | 'B';
-export const COLOUR_NAME: Record<Colour, string> = { A: 'amber', B: 'blue' };
+/** Each team is named by its mark and its colour: the marks tell the teams apart for a player who cannot tell the colours apart. */
+export const COLOUR_NAME: Record<Colour, string> = { A: 'striped amber', B: 'spotted blue' };
 
 export interface State {
   /** One character per cell: 'A' amber cricket, 'B' blue cricket, '.' empty. */
@@ -30,40 +31,57 @@ export interface Move {
 export const START = 'A.A...B.B';
 export const GOAL = 'B.B...A.A';
 
+/** A patch of toadstools and who sits where. Level 21 uses `BOARD`; a level that reuses this scene brings its own. */
+export interface Board {
+  cols: number;
+  rows: number;
+  start: string;
+  goal: string;
+  /** Toadstools nobody can land on (they hold a firefly jar). */
+  jars: number[];
+}
+export const BOARD: Board = { cols: SIZE, rows: SIZE, start: START, goal: GOAL, jars: [4] };
+
 /** The cells a cricket on `cell` could leap to, like a chess knight. */
-export function leaps(cell: number): number[] {
-  const r = Math.floor(cell / SIZE);
-  const c = cell % SIZE;
+export function leaps(cell: number, board: Board = BOARD): number[] {
+  const r = Math.floor(cell / board.cols);
+  const c = cell % board.cols;
   const out: number[] = [];
-  for (let to = 0; to < CELLS; to++) {
-    const dr = Math.abs(Math.floor(to / SIZE) - r);
-    const dc = Math.abs((to % SIZE) - c);
-    if (dr * dc === 2) out.push(to);
+  for (let to = 0; to < board.cols * board.rows; to++) {
+    const dr = Math.abs(Math.floor(to / board.cols) - r);
+    const dc = Math.abs((to % board.cols) - c);
+    if (dr * dc === 2 && !board.jars.includes(to)) out.push(to);
   }
   return out;
 }
 
 /** Empty toadstools the cricket on `cell` can leap to right now. */
-export const freeLeaps = (s: State, cell: number) => (s.board[cell] === '.' ? [] : leaps(cell).filter((to) => s.board[to] === '.'));
+export const freeLeaps = (s: State, cell: number, board: Board = BOARD) => (s.board[cell] === '.' ? [] : leaps(cell, board).filter((to) => s.board[to] === '.'));
 
 const ROW = ['back', 'middle', 'front'];
+const ROW4 = ['back', 'second', 'third', 'front'];
 const COL = ['left', 'middle', 'right'];
-export const cellName = (cell: number) => `${ROW[Math.floor(cell / SIZE)]} ${COL[cell % SIZE]}`;
+export const cellName = (cell: number, board: Board = BOARD) => `${(board.rows === 4 ? ROW4 : ROW)[Math.floor(cell / board.cols)]} ${COL[cell % board.cols]}`;
 
-export const rules: RiddleRules<State, Move> = {
-  initialState: { board: START },
-  legalMoves: (s) => {
-    const out: Move[] = [];
-    for (let from = 0; from < CELLS; from++) for (const to of freeLeaps(s, from)) out.push({ from, to });
-    return out;
-  },
-  apply: (s, m) => {
-    const b = s.board.split('');
-    b[m.to] = b[m.from];
-    b[m.from] = '.';
-    return { board: b.join('') };
-  },
-  status: (s) => (s.board === GOAL ? { kind: 'won' } : { kind: 'playing' }),
-  key: (s) => s.board,
-  describeMove: (m, s) => `Leap the ${COLOUR_NAME[s.board[m.from] as Colour]} cricket from the ${cellName(m.from)} toadstool to the ${cellName(m.to)} one`,
-};
+/** The swap on any board. */
+export function makeRules(board: Board): RiddleRules<State, Move> {
+  return {
+    initialState: { board: board.start },
+    legalMoves: (s) => {
+      const out: Move[] = [];
+      for (let from = 0; from < board.cols * board.rows; from++) for (const to of freeLeaps(s, from, board)) out.push({ from, to });
+      return out;
+    },
+    apply: (s, m) => {
+      const b = s.board.split('');
+      b[m.to] = b[m.from];
+      b[m.from] = '.';
+      return { board: b.join('') };
+    },
+    status: (s) => (s.board === board.goal ? { kind: 'won' } : { kind: 'playing' }),
+    key: (s) => s.board,
+    describeMove: (m, s) => `Leap the ${COLOUR_NAME[s.board[m.from] as Colour]} cricket from the ${cellName(m.from, board)} toadstool to the ${cellName(m.to, board)} one`,
+  };
+}
+
+export const rules = makeRules(BOARD);
