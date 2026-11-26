@@ -1,0 +1,14 @@
+{
+ "name": "app-play-runner",
+ "private": true,
+ "type": "module",
+ "description": "TEST ONLY: plays every level inside the built iOS app in a simulator, by Appium. Not part of the pnpm workspace.",
+ "dependencies": {
+  "tsx": "4.20.6",
+  "webdriverio": "9.20.0",
+  "playwright-core": "1.63.0",
+  "appium": "3.9.0",
+  "pngjs": "7.0.0",
+  "@types/pngjs": "6.0.5"
+ }
+}
