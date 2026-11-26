@@ -72,8 +72,8 @@ export function AboutScreen({ progress, onBack, onReset }: { progress: Progress;
                 aria-controls={`${tabs}-page`}
                 tone={page === p.id ? 'gold' : 'readout'}
                 onClick={() => setPage(p.id)}
-                // `before:hidden`: no touch pad here (see `.touch-44` in index.css). On a wide screen a tab's text is not centred, and the pad would not be either.
-                className="!px-2 !py-2.5 text-sm before:hidden sm:!justify-start sm:!px-4 sm:text-base short:!py-2"
+                // On a phone a tab is drawn 40 to 42 points high, so it carries the unseen pad of `touch-44` (index.css). On a wide screen a tab's text is not centred, and the pad would not be either: `touch-44-tab` puts it right. Its sizes follow `sm:!px-4` here and the column's `sm:w-40 short:w-36` above.
+                className="touch-44 touch-44-tab !px-2 !py-2.5 text-sm sm:!justify-start sm:!px-4 sm:text-base short:!py-2"
               >
                 {p.label}
               </Button>
@@ -158,7 +158,7 @@ function SettingsPage({ progress, onReset }: { progress: Progress; onReset: () =
             )}
           </span>
         </div>
-        <Button tone="red" disabled={stars === 0} onClick={() => setAsking(true)} className="shrink-0 !py-2">
+        <Button tone="red" disabled={stars === 0} onClick={() => setAsking(true)} className="shrink-0">
           Reset progress
         </Button>
       </div>
