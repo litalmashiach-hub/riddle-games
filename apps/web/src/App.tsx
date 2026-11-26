@@ -1,6 +1,8 @@
 import { hasSeenGuide, loadProgress, markGuideSeen, recordStars, saveProgress, type Progress } from '@riddle/engine';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCallback, useEffect, useState } from 'react';
+import { finaleLine } from './hint';
+import { finishesGame } from './journey';
 import { LEVELS } from './levels';
 import { AboutScreen } from './screens/AboutScreen';
 import { LevelMap } from './screens/LevelMap';
@@ -53,6 +55,8 @@ export function App() {
 
   const entry = LEVELS.find((l) => l.id === playing);
   const nextBuilt = entry ? LEVELS.find((l) => l.number > entry.number && l.level) : undefined;
+  // The last level, with every other one solved: its win finishes the game, and its card says so.
+  const finale = entry && finishesGame(LEVELS, entry.id, progress) ? finaleLine(LEVELS.filter((l) => l.level).length) : undefined;
 
   return (
     <AnimatePresence mode="wait">
@@ -62,6 +66,7 @@ export function App() {
             level={entry.level}
             onExit={() => open(null)}
             onNext={nextBuilt ? () => open(nextBuilt.id) : undefined}
+            finale={finale}
             onSolved={(stars) => setProgress((p) => recordStars(p, entry.id, stars))}
             guideSeen={hasSeenGuide(progress, entry.id)}
             onGuideSeen={() => setProgress((p) => markGuideSeen(p, entry.id))}

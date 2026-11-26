@@ -4,8 +4,10 @@
 <!--
 	The app's privacy manifest. See docs/ios-app.md, "The privacy manifest".
 	Everything here is a statement to Apple about the app's own code, so keep it true:
-	the app tracks nobody, contacts no domain, collects no data, and its own Swift code
-	calls none of Apple's "required reason" APIs. Add an entry the day that changes.
+	the app tracks nobody, contacts no domain and collects no data. Of Apple's "required reason"
+	APIs it uses one: UserDefaults, through the Capacitor Preferences plugin, which keeps a second
+	copy of the game's stars and two settings on the device, read only by the app itself (CA92.1).
+	The plugin ships no manifest of its own, so the entry is here. Add an entry the day that changes.
 -->
 <dict>
 	<key>NSPrivacyTracking</key>
@@ -15,6 +17,15 @@
 	<key>NSPrivacyCollectedDataTypes</key>
 	<array/>
 	<key>NSPrivacyAccessedAPITypes</key>
-	<array/>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

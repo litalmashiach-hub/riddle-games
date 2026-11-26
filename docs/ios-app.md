@@ -103,9 +103,10 @@ resources, so it is copied to the top of the built `App.app`. It declares:
 
 - no tracking (`NSPrivacyTracking` = false) and no tracking domains;
 - no collected data types;
-- no "required reason" API.
+- one "required reason" API: `UserDefaults`, with reason `CA92.1` (data the app reads and writes for itself
+  alone), for the Preferences plugin (below).
 
-The last list is empty because it is true, not because it was skipped. Apple names five groups of such APIs:
+Before the Preferences plugin the last list was empty, because that was true, not because it was skipped. Apple names five groups of such APIs:
 file timestamps, system boot time, disk space, active keyboards and `UserDefaults`. Apple asks an app to declare
 what its own code calls, and an SDK to declare its own calls in its own manifest. The app's three Swift files call
 none of them. Capacitor and Cordova 8.6.2 carry their own manifests inside their frameworks, also with nothing
@@ -118,11 +119,34 @@ and must bring its own manifest, and Swift code of ours that reads `UserDefaults
 or the system uptime needs an entry with one of Apple's reason codes here. If the app ever talks to a server or
 collects anything, this file and the store's privacy answers change together.
 
-One plugin is installed: `@capacitor/haptics` 8.0.2. Its two Swift files (`Haptics.swift`, `HapticsPlugin.swift`)
+Two plugins are installed. `@capacitor/haptics` 8.0.2. Its two Swift files (`Haptics.swift`, `HapticsPlugin.swift`)
 call UIKit's feedback generators, AudioToolbox and CoreHaptics and none of the five groups above, it stores and
 sends nothing, and it ships no manifest of its own because it has nothing to declare. So the app's manifest is
-unchanged by it. `cap sync` writes the plugin into `ios/App/CapApp-SPM/Package.swift`; that file is generated,
-and committed so that the Xcode project opens as it is.
+unchanged by it. `@capacitor/preferences` 8.0.1 keeps the second copy of the stars and settings (below) in
+`UserDefaults.standard`, under keys that start `CapacitorStorage.`. That is a required-reason API, and the plugin
+ships no manifest of its own, so the app's manifest declares it, with `CA92.1`: the app alone reads what it
+wrote. It stores nothing else and sends nothing. `cap sync` writes the plugins into
+`ios/App/CapApp-SPM/Package.swift`; that file is generated, and committed so that the Xcode project opens as it is.
+
+## Keeping progress safe
+
+The game keeps its stars and its two settings in the web page's `localStorage` (`riddle-games:progress:v1`
+and `riddle-games:settings:v1`). In the app that is the web view's storage, and Capacitor's storage guide says
+iOS may reclaim it when the device runs low on space. A player would lose every star. So the app keeps a second
+copy of the same two entries in Capacitor's Preferences store, which iOS keeps until the app is deleted:
+
+- Every save writes both (`packages/engine/src/backup.ts`, called by `progress.ts` and `fx/src/settings.ts`).
+  Reset progress saves the empty progress, so the stars are gone from both. The game itself reads only
+  `localStorage`.
+- At start (`apps/web/src/backup.ts`, from `main.tsx`), an entry missing from `localStorage` is put back from the
+  copy before the first screen is drawn, and an entry the copy lacks or holds differently is copied to it.
+  The start waits for the copy only when an entry is missing, which on a usual start it isn't; the launch
+  picture stays up meanwhile.
+- The website build holds none of it: no plugin is loaded, and its storage is as before.
+
+`packages/engine/src/backup.test.ts` checks the logic. In the built app on a simulator: win a level, end the
+app, delete the web view's `localStorage` file (`Library/WebKit/<bundle id>/WebsiteData/Default/…/LocalStorage`),
+start it again, and the stars are back.
 
 ## Still open before a store upload
 
