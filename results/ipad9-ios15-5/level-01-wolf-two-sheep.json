@@ -1,0 +1,230 @@
+{
+ "level": 1,
+ "id": "wolf-two-sheep",
+ "title": "Wolf and Two Sheep",
+ "device": "ipad9-ios15-5",
+ "size": "1080x810",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won by taps",
+ "wonByTaps": true,
+ "won": true,
+ "finishedByHook": false,
+ "movesByTaps": 7,
+ "moves": 7,
+ "touches": 12,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": null,
+ "error": null,
+ "seconds": {
+  "open": 14.619,
+  "rulesCard": 7.266,
+  "drawn": 14.619,
+  "play": 53.067,
+  "total": 217.764
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "ipad9-ios15-5-L01-loading-mark.png",
+  "ipad9-ios15-5-L01-rules-card.png",
+  "ipad9-ios15-5-L01-in-play.png",
+  "ipad9-ios15-5-L01-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 219.37513866257945,
+    "y": 336.3260911800039
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a3c3f5e8-d093-4457-b69f-6044fccdfad5",
+    "world": [
+     -4.1,
+     0.35,
+     -0.3
+    ],
+    "distance": 10.531773801212777
+   }
+  },
+  {
+   "step": 1,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 540.078125,
+    "y": 642.7000122070312
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 2,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 540.046875,
+    "y": 642.7000122070312
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 3,
+   "what": "the sheep",
+   "kind": "tap",
+   "at": {
+    "x": 189.0050526413677,
+    "y": 422.19638433039074
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "44262ede-019b-4b13-8a9a-a596a6433ab8",
+    "world": [
+     -3.9,
+     0.3500000000000001,
+     1.4
+    ],
+    "distance": 8.970366885037787
+   }
+  },
+  {
+   "step": 3,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 540.09375,
+    "y": 642.7000122070312
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 4,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 857.4522711049094,
+    "y": 339.9846986808649
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a3c3f5e8-d093-4457-b69f-6044fccdfad5",
+    "world": [
+     4.1,
+     0.3500000000000001,
+     -0.3
+    ],
+    "distance": 10.024863977466111
+   }
+  },
+  {
+   "step": 4,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 540.109375,
+    "y": 642.7000122070312
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 5,
+   "what": "the sheep",
+   "kind": "tap",
+   "at": {
+    "x": 113.50874827451084,
+    "y": 393.8775782278591
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "10a84f66-ac7e-4e23-93b4-3920527021a5",
+    "world": [
+     -5,
+     0.3447741717310768,
+     0.8
+    ],
+    "distance": 9.921802421906161
+   }
+  },
+  {
+   "step": 5,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 540.09375,
+    "y": 642.7000122070312
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 6,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 540.046875,
+    "y": 642.7000122070312
+   },
+   "onTop": "button",
+   "firstHit": null
+  },
+  {
+   "step": 7,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 221.91180524563256,
+    "y": 341.8816667638064
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "a3c3f5e8-d093-4457-b69f-6044fccdfad5",
+    "world": [
+     -4.1,
+     0.3500000000000001,
+     -0.3
+    ],
+    "distance": 10.090337263529406
+   }
+  },
+  {
+   "step": 7,
+   "what": "the Row button",
+   "kind": "button",
+   "at": {
+    "x": 540.078125,
+    "y": 642.7000122070312
+   },
+   "onTop": "button",
+   "firstHit": null
+  }
+ ],
+ "fps": 5.9,
+ "probe": {
+  "audioContexts": 1,
+  "audioStates": [
+   "running"
+  ],
+  "soundStarts": 15,
+  "decoded": 0,
+  "decodeErrors": 0,
+  "startErrors": [],
+  "canvas": [
+   "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+  ],
+  "liveAudioStates": [
+   "running"
+  ],
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko)",
+  "cssLayers": true,
+  "webgl2": true
+ }
+}

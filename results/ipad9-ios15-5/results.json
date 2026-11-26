@@ -1,0 +1,226 @@
+[
+ {
+  "level": 1,
+  "id": "wolf-two-sheep",
+  "title": "Wolf and Two Sheep",
+  "device": "ipad9-ios15-5",
+  "size": "1080x810",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 14.619,
+   "rulesCard": 7.266,
+   "drawn": 14.619,
+   "play": 53.067,
+   "total": 217.764
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "ipad9-ios15-5-L01-loading-mark.png",
+   "ipad9-ios15-5-L01-rules-card.png",
+   "ipad9-ios15-5-L01-in-play.png",
+   "ipad9-ios15-5-L01-win-card.png"
+  ],
+  "fps": 5.9,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 15,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko)",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 2,
+  "id": "wolf-goat-cabbage",
+  "title": "Wolf, Goat and Cabbage",
+  "device": "ipad9-ios15-5",
+  "size": "1080x810",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 11.632,
+   "rulesCard": 4.791,
+   "drawn": 11.632,
+   "play": 37.401,
+   "total": 73.057
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "ipad9-ios15-5-L02-loading-mark.png",
+   "ipad9-ios15-5-L02-rules-card.png",
+   "ipad9-ios15-5-L02-in-play.png",
+   "ipad9-ios15-5-L02-win-card.png"
+  ],
+  "fps": 6,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 15,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko)",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 5,
+  "id": "bridge-and-torch",
+  "title": "Bridge and Torch",
+  "device": "ipad9-ios15-5",
+  "size": "1080x810",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 5,
+  "moves": 5,
+  "touches": 13,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 9.48,
+   "rulesCard": 2.408,
+   "drawn": 9.48,
+   "play": 36.991,
+   "total": 60.682
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "ipad9-ios15-5-L05-loading-mark.png",
+   "ipad9-ios15-5-L05-rules-card.png",
+   "ipad9-ios15-5-L05-in-play.png",
+   "ipad9-ios15-5-L05-win-card.png"
+  ],
+  "fps": 5.6,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 18,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko)",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 11,
+  "id": "family-crossing",
+  "title": "Family Crossing",
+  "device": "ipad9-ios15-5",
+  "size": "1080x810",
+  "quality": null,
+  "openedBy": "its card on the level map (scrolled into view by the run)",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 17,
+  "moves": 17,
+  "touches": 45,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 12,
+   "rulesCard": 5.835,
+   "drawn": 12,
+   "play": 102.318,
+   "total": 128.91
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "ipad9-ios15-5-L11-loading-mark.png",
+   "ipad9-ios15-5-L11-rules-card.png",
+   "ipad9-ios15-5-L11-in-play.png",
+   "ipad9-ios15-5-L11-win-card.png"
+  ],
+  "fps": 6.3,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 61,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko)",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ }
+]
