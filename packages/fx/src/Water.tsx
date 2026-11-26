@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { ambientDt } from './reducedMotion';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -132,7 +133,7 @@ export function Water({
     [],
   );
   useFrame((_, dt) => {
-    if (mat.current) mat.current.uniforms.uTime.value += dt;
+    if (mat.current) mat.current.uniforms.uTime.value += ambientDt(dt);
   });
   return (
     <mesh position={position} rotation-x={-Math.PI / 2} receiveShadow>

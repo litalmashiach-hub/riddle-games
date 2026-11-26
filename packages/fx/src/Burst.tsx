@@ -1,6 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { reducedMotion } from './reducedMotion';
 
 const COLORS = ['#ffd166', '#ef476f', '#06d6a0', '#118ab2', '#ffffff', '#f78c6b'];
 
@@ -8,6 +9,7 @@ const COLORS = ['#ffd166', '#ef476f', '#06d6a0', '#118ab2', '#ffffff', '#f78c6b'
  * Confetti burst. Increase `trigger` to fire it again.
  * Pass `colors` (e.g. whites for flying wool, greens for cabbage leaves) and a smaller `power`
  * to reuse it for fail scenes.
+ * With Reduce Motion on it is not thrown: the win and loss cards say what happened.
  */
 export function Burst({
   trigger,
@@ -39,7 +41,7 @@ export function Burst({
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
   useEffect(() => {
-    if (!trigger || !mesh.current) return;
+    if (!trigger || !mesh.current || reducedMotion()) return;
     parts.forEach((pt, i) => {
       pt.p.set(...position);
       const a = Math.random() * Math.PI * 2;

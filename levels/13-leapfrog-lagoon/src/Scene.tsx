@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { useFrame } from '@react-three/fiber';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, tapPadRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, reducedMotion, sfx, usePath, usePhases, useFaceYaw, tapPadRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
 import * as THREE from 'three';
@@ -271,6 +271,8 @@ function FrogActor({ team, rank, seed, state, previous, lastMove, forward, animK
     const off = new THREE.Vector3();
     let roll = 0;
     let lean = 0;
+    // With Reduce Motion on, the fail scene still plays its moves, but without the back-flip and the wobbling.
+    const calm = reducedMotion();
     if (ft >= 0 && r !== 'none') {
       if (r === 'faller' || r === 'bonker') {
         // windup 0..0.55: lean back. bonk 0.55..1.3: lunge and recoil.
@@ -288,21 +290,22 @@ function FrogActor({ team, rank, seed, state, previous, lastMove, forward, animK
         off.x += -d * (0.5 * ease(tt) + 0.18 * (1 - tt));
         off.y += Math.sin(Math.PI * tt) * 0.9 - (PAD_TOP + 0.36) * ease(tt);
         off.z += 0.85 * ease(tt);
-        roll = d * tt * Math.PI * 2.2;
-        if (ft > 2.05) {
+        roll = calm ? 0 : d * tt * Math.PI * 2.2;
+        if (ft > 2.05 && !calm) {
           off.y += Math.sin((ft - 2.05) * 3) * 0.05;
           roll = d * Math.PI * 2 + Math.sin(ft * 2.2) * 0.25;
         }
       }
-      if (r === 'bonker' && ft > 1.3) lean = -0.25 + Math.sin(ft * 4) * 0.15;
+      if (r === 'bonker' && ft > 1.3) lean = -0.25 + (calm ? 0 : Math.sin(ft * 4) * 0.15);
       if (r === 'watcher' && ft > 0.75) {
         // Startled jump when the heads bonk, then shaking with giggles.
         const w = ft - 0.75;
-        off.y += w < 0.45 ? Math.sin((w / 0.45) * Math.PI) * 0.35 : Math.abs(Math.sin(ft * 14)) * 0.02;
+        off.y += w < 0.45 ? Math.sin((w / 0.45) * Math.PI) * 0.35 : calm ? 0 : Math.abs(Math.sin(ft * 14)) * 0.02;
       }
     }
     // ---- Win: everyone bounces ----
-    if (wonRef.current) {
+    // With Reduce Motion on, the frogs stay on their pads (the held clock would leave them hanging mid-bounce).
+    if (wonRef.current && !calm) {
       const t = clock.elapsedTime * 5 + seed * 0.9;
       off.y += Math.abs(Math.sin(t)) * 0.32;
       sy *= 1 + Math.cos(t) * 0.06;

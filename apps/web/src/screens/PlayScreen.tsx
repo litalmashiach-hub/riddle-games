@@ -1,5 +1,5 @@
 import { createSession, guideStepFor, starsFor, type RiddleLevel } from '@riddle/engine';
-import { WORLDS, WorldStage, sfx, useSettings } from '@riddle/fx';
+import { WORLDS, WorldStage, reducedMotion, sfx, steadyClock, useSettings } from '@riddle/fx';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { AnimatePresence, motion, useIsPresent } from 'motion/react';
@@ -134,7 +134,9 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         camera={{ position: cam.position, fov: cam.fov ?? 42, near: 0.1, far: 500 }}
         {...sceneTaps}
         // The scene itself is drawn, not made of controls: the canvas gets a name, so VoiceOver says where the player is.
-        onCreated={({ gl }) => {
+        onCreated={({ gl, clock }) => {
+          // Reduce Motion holds the scene's clock, so every level's ambient loops stand still (see reducedMotion.ts).
+          steadyClock(clock);
           gl.domElement.setAttribute('role', 'img');
           gl.domElement.setAttribute('aria-label', `Level ${level.number}: ${level.title}, the riddle's scene`);
         }}
@@ -427,7 +429,10 @@ export function fitFor(width: number, height: number, designAspect = DESIGN_ASPE
   return { zoom, pull: need * zoom * short, tilt };
 }
 
-/** Orbit within a small range around the target, with a short fly-in on start. Refits when the screen turns. */
+/**
+ * Orbit within a small range around the target, with a short fly-in on start. Refits when the screen turns.
+ * With Reduce Motion on there is no fly-in: the camera starts where the fly-in would end, and the loading curtain's fade is the only change.
+ */
 function CameraRig({ position, target, fitAspect }: { position: [number, number, number]; target: [number, number, number]; fitAspect?: number }) {
   const controls = useRef<any>(null);
   const camera = useThree((st) => st.camera);
@@ -464,7 +469,7 @@ function CameraRig({ position, target, fitAspect }: { position: [number, number,
 
   useFrame(() => {
     if (flown.current) return;
-    const t = Math.min((performance.now() - start.current) / 2200, 1);
+    const t = reducedMotion() ? 1 : Math.min((performance.now() - start.current) / 2200, 1);
     const e = 1 - Math.pow(1 - t, 3);
     // On the last frame t is exactly 1, so the camera always lands on its end pose, even at low fps.
     camera.position.lerpVectors(from, end, e);

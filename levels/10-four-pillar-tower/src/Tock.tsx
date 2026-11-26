@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { ambientDt, reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useRef } from 'react';
 import * as THREE from 'three';
@@ -48,7 +49,8 @@ export function Tock({
 
     // Seconds since the last BONK, or -1.
     const raw = surprisedAt ? (performance.now() - surprisedAt) / 1000 : -1;
-    const sp = raw >= 0 && raw < 1.4 ? raw : -1;
+    // With Reduce Motion on, Tock skips the startled hop, head spin and flailing arms.
+    const sp = raw >= 0 && raw < 1.4 && !reducedMotion() ? raw : -1;
     if (sp >= 0 && sp < 0.42) {
       // Startled hop, with a squash on landing.
       g.position.y = Math.sin((Math.PI * sp) / 0.42) * 0.45;
@@ -57,7 +59,8 @@ export function Tock({
       g.scale.set(1 + k * 0.12, 1 - k * 0.18, 1 + k * 0.12);
     }
 
-    if (key.current) key.current.rotation.y += dt * (sp >= 0 ? 28 : mood === 'happy' ? 12 : 1.6);
+    // With Reduce Motion on, his wind-up key does not turn.
+    if (key.current) key.current.rotation.y += ambientDt(dt) * (sp >= 0 ? 28 : mood === 'happy' ? 12 : 1.6);
     eyes.current.forEach((e) => e?.scale.setScalar(sp >= 0 ? 1 + 0.9 * Math.exp(-2.5 * sp) : 1));
 
     const h = head.current;

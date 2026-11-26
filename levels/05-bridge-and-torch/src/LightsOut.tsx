@@ -1,5 +1,6 @@
 import { Billboard } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
+import { reducedMotion } from '@riddle/fx';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import type { Flame } from './Torch';
@@ -68,7 +69,8 @@ export function DarkEyes({ flame, height, seed }: { flame: Flame; height: number
     // Pop in, then blink every ~1.3 s (quick squash), out of sync per explorer.
     const pop = Math.min(1, (d - 0.35) / 0.4);
     const cycle = (t * 0.75) % 1;
-    const blink = cycle > 0.9 ? Math.abs(Math.cos(((cycle - 0.9) / 0.1) * Math.PI)) : 1;
+    // With Reduce Motion on, the eyes stay open (the held clock could freeze them mid-blink).
+    const blink = !reducedMotion() && cycle > 0.9 ? Math.abs(Math.cos(((cycle - 0.9) / 0.1) * Math.PI)) : 1;
     lids.current.forEach((l) => l && l.scale.set(pop, pop * Math.max(0.08, blink), pop));
     // Nervous glances left and right.
     const look = Math.sin(t * 2.3) > 0.3 ? 1 : Math.sin(t * 2.3) < -0.3 ? -1 : 0;

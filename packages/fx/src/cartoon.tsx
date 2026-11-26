@@ -2,12 +2,17 @@ import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import * as THREE from 'three';
+import { reducedMotion } from './reducedMotion';
 import { finishGlide, glideBack, heldView, holdView, isZooming, zoomEnded, zoomStarted } from './focusView';
 
 /*
  * Cartoon "fail scene" kit. Kid-friendly slapstick, never scary:
  * a fight cloud with limbs and stars poking out, comic words, dizzy stars,
  * a screen shake and a dramatic camera zoom. Mix them in a level's lose moment.
+ *
+ * With Reduce Motion on: the cloud stands still (no spin, jitter or boiling, every limb out), the stars
+ * stop circling (the scene's clock is held), the shake and the zoom do nothing, and a comic word pops in
+ * without its endless wobble (index.css).
  */
 
 type V3 = [number, number, number];
@@ -71,10 +76,24 @@ export function FightCloud({
   useFrame(({ clock }, dt) => {
     const g = root.current;
     if (!g) return;
-    grow.current = THREE.MathUtils.damp(grow.current, active ? 1 : 0, active ? 14 : 8, dt);
+    grow.current = reducedMotion() ? (active ? 1 : 0) : THREE.MathUtils.damp(grow.current, active ? 1 : 0, active ? 14 : 8, dt);
     const s = grow.current * scale;
     g.visible = s > 0.01;
     g.scale.setScalar(s);
+    if (reducedMotion()) {
+      g.rotation.y = 0;
+      g.position.set(...position);
+      puffs.current?.children.forEach((c, i) => {
+        const l = layout[i];
+        c.position.set(l.x, l.y, l.z);
+        c.scale.setScalar(l.r);
+      });
+      extras.current?.children.forEach((c) => {
+        c.scale.setScalar((c.userData.base ??= c.scale.x) as number);
+        c.rotation.z = 0;
+      });
+      return;
+    }
     const t = clock.elapsedTime;
     g.rotation.y = t * 3;
     g.position.set(position[0] + Math.sin(t * 23) * 0.08, position[1] + Math.abs(Math.sin(t * 17)) * 0.1, position[2] + Math.cos(t * 19) * 0.08);
@@ -198,7 +217,7 @@ export function Shake({ trigger, intensity = 0.12, durationMs = 500, children }:
   useFrame(() => {
     const o = g.current;
     if (!o) return;
-    const e = start.current < 0 ? 1 : (performance.now() - start.current) / durationMs;
+    const e = start.current < 0 || reducedMotion() ? 1 : (performance.now() - start.current) / durationMs;
     if (e >= 1) {
       o.position.set(0, 0, 0);
       return;
@@ -222,7 +241,7 @@ export function FocusCam({ target, active, closer = 0.55, speed = 3 }: { target:
   const focus = useMemo(() => new THREE.Vector3(...target), [target[0], target[1], target[2]]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!controls || !active) return;
+    if (!controls || !active || reducedMotion()) return;
     holdView(controls, camera);
     zoomStarted(controls);
     return () => zoomEnded(controls);

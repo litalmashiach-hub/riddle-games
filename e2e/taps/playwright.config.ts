@@ -36,6 +36,8 @@ export default defineConfig({
     { name: 'iphone-landscape', use: { viewport: { width: 852, height: 393 } } },
     { name: 'iphone-small-landscape', use: { viewport: { width: 667, height: 375 } } },
     { name: 'iphone-large-landscape', use: { viewport: { width: 956, height: 440 } } },
+    // Every level won by taps with the device's Reduce Motion on (see e2e/tests/reduced-motion.spec.ts).
+    { name: 'iphone-landscape-reduce-motion', testMatch: /levels-by-taps\.spec\.ts$/, use: { viewport: { width: 852, height: 393 }, reducedMotion: 'reduce' } },
   ],
   webServer: {
     command: `pnpm --filter @riddle/web exec vite preview --host 127.0.0.1 --port ${PORT} --strictPort`,

@@ -1,5 +1,5 @@
 import { hasSeenGuide, loadProgress, markGuideSeen, recordStars, saveProgress, type Progress } from '@riddle/engine';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 import { useCallback, useEffect, useState } from 'react';
 import { LEVELS } from './levels';
 import { AboutScreen } from './screens/AboutScreen';
@@ -54,7 +54,9 @@ export function App() {
   const entry = LEVELS.find((l) => l.id === playing);
   const nextBuilt = entry ? LEVELS.find((l) => l.number > entry.number && l.level) : undefined;
 
+  // Reduce Motion on the device: Motion's moves, swells and spins on the page are left out, its fades kept.
   return (
+    <MotionConfig reducedMotion="user">
     <AnimatePresence mode="wait">
       {entry?.level ? (
         <motion.div key={entry.id} className="h-full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
@@ -77,5 +79,6 @@ export function App() {
         </motion.div>
       )}
     </AnimatePresence>
+    </MotionConfig>
   );
 }
