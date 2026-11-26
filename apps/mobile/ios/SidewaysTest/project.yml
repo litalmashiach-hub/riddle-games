@@ -1,0 +1,30 @@
+# TEST ONLY, never merged. A tiny Xcode project (made by XcodeGen) with one UI test bundle that turns the
+# simulated iPad, opens the app and tries to resize its window. It does not touch App.xcodeproj.
+name: SidewaysTest
+options:
+  bundleIdPrefix: test.riddlegames
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  SidewaysUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: test.riddlegames.sidewaystest
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: "5.0"
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        DEVELOPMENT_TEAM: ""
+schemes:
+  SidewaysTest:
+    build:
+      targets:
+        SidewaysUITests: [test]
+    test:
+      targets:
+        - SidewaysUITests
