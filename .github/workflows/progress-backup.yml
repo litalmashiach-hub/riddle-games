@@ -1,18 +1,19 @@
-name: Quit and relaunch (test only)
+name: Progress backup in the simulator (test only)
 
-# TEST ONLY, not for merging. Builds the iPhone/iPad app unsigned for the simulator on a hosted Mac,
-# wins levels 1 and 2 inside it by real touches, then ends the app fully and starts it again, to see
-# what it kept (e2e/app/quit.ts and ios-quit.sh). No signing, no secrets.
+# TEST ONLY, not for merging. Builds the iPhone app unsigned for the simulator on a hosted Mac, wins
+# levels 1 and 2 inside it by real touches, ends it, deletes the web view's localStorage files, starts it
+# again and reads what came back; then Reset progress, the same wipe, and a last start
+# (e2e/app/quit.ts and ios-wipe.sh). No signing, no secrets.
 
 on:
   push:
-    branches: ['quit-relaunch-mac-test']
+    branches: ['progress-backup-mac-test']
 
 permissions:
   contents: read
 
 concurrency:
-  group: quit-relaunch-${{ github.ref }}
+  group: progress-backup-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -63,7 +64,6 @@ jobs:
       matrix:
         include:
           - { label: iphone, sim: 'iPhone 17 Pro Max', orientation: '-', flags: 'fps=6' }
-          - { label: ipad, sim: 'iPad Pro 11-inch (M5)', orientation: LANDSCAPE, flags: 'fps=6 settings-first' }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -82,29 +82,29 @@ jobs:
           npm --prefix e2e/app install --no-audit --no-fund
           export APPIUM_HOME="$PWD/e2e/app/.appium"
           e2e/app/node_modules/.bin/appium driver install xcuitest@12.22.8
-      - name: Play, quit and relaunch in the simulator
+      - name: Play, wipe the web storage and relaunch in the simulator
         timeout-minutes: 95
-        run: e2e/app/ios-quit.sh "${{ matrix.label }}" "${{ matrix.sim }}" "${{ matrix.orientation }}" "${{ matrix.flags }}"
+        run: e2e/app/ios-wipe.sh "${{ matrix.label }}" "${{ matrix.sim }}" "${{ matrix.orientation }}" "${{ matrix.flags }}"
       - name: The run's log and what the app's folder held
         if: always()
         run: |
           cat out/*/run-log.txt || true
           cat out/*/app-folder.txt || true
-      - name: Keep the results on the branch quit-relaunch-out-${{ matrix.label }}-mac-test (test only, overwritten each run)
+      - name: Keep the results on the branch progress-backup-out-${{ matrix.label }}-mac-test (test only, overwritten each run)
         if: always()
         run: |
           cd out
           rm -rf */shots
           git init -q -b results
-          git config user.name "quit-relaunch run"
+          git config user.name "progress-backup run"
           git config user.email "actions@users.noreply.github.com"
           echo "Run ${{ github.run_id }}, job ${{ matrix.label }}, commit ${{ github.sha }}" > RUN.txt
           git add -A
-          git commit -q -m "TEST ONLY: quit-and-relaunch results of run ${{ github.run_id }}, ${{ matrix.label }}"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "results:refs/heads/quit-relaunch-out-${{ matrix.label }}-mac-test"
+          git commit -q -m "TEST ONLY: progress-backup results of run ${{ github.run_id }}, ${{ matrix.label }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "results:refs/heads/progress-backup-out-${{ matrix.label }}-mac-test"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: quit-relaunch-${{ matrix.label }}
+          name: progress-backup-${{ matrix.label }}
           path: out/
           if-no-files-found: warn

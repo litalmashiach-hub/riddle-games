@@ -107,6 +107,8 @@ const READ = () => {
   const storage: Record<string, string | null> = {};
   for (let i = 0; i < localStorage.length; i++) {
     const k = localStorage.key(i)!;
+    // TEST ONLY: the run's own key (the frame cap) is not the game's, and a wipe takes it too.
+    if (k.startsWith('app-test:')) continue;
     storage[k] = localStorage.getItem(k);
   }
   const cards = Array.from(document.querySelectorAll('button[aria-label^="Level "]')).slice(0, 4).map((b) => b.getAttribute('aria-label'));

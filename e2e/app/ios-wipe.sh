@@ -1,8 +1,9 @@
 #!/bin/bash
-# TEST ONLY (branch quit-relaunch-mac-test). One simulator: plays levels 1 and 2 in the built app, then
-# ends the app fully, starts it again, and reads what it kept; the same after the simulated device is
-# shut down and booted, after the app is installed again over itself, and after Reset progress.
-#   ios-quit.sh <label> <device name> <orientation LANDSCAPE|PORTRAIT|-> "<flags>"
+# TEST ONLY (branch progress-backup-mac-test). One simulator: plays levels 1 and 2 in the built app and
+# turns both settings, ends the app, deletes the web view's localStorage files (what iOS may do when the
+# device is low on space), starts it again and reads what came back. Then Reset progress, the same wipe,
+# and one more start: the stars must stay gone. Between lives it prints the app's UserDefaults.
+#   ios-wipe.sh <label> <device name> <orientation LANDSCAPE|PORTRAIT|-> "<flags>"
 set -u
 LABEL="$1"; NAME="$2"; ORIENT="$3"; FLAGS="${4:-}"
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -85,51 +86,44 @@ store() {
   } >> "$OUT/app-folder.txt"
 }
 
+# The app's own settings store (UserDefaults), read through the simulator's preferences daemon.
+prefs() {
+  { echo "== $(date -u +%H:%M:%S) UserDefaults of $BUNDLE: $1"; xcrun simctl spawn "$UDID" defaults read "$BUNDLE" 2>&1 | grep -i -A1 "CapacitorStorage" || echo "(no CapacitorStorage entries)"; } | tee -a "$OUT/userdefaults.txt"
+}
+# What iOS may do under low space: the web view's localStorage for the app is gone. The app is not running.
+wipe() {
+  local D; D=$(xcrun simctl get_app_container "$UDID" "$BUNDLE" data 2> /dev/null)
+  say "app processes before the wipe: $(alive)"
+  ( cd "$D" && find . -type d -name LocalStorage -path '*WebKit*' ) | tee -a "$OUT/run-log.txt" | while read -r L; do rm -rf "$D/$L"; done
+  say "localstorage files left after the wipe: $( (cd "$D" && find . -name 'localstorage.sqlite3*') | wc -l | tr -d ' ')"
+}
+
 FAIL=0
 life 1-play play || FAIL=1
-store "after play, the app still running"
 quit_app
-store "after the quit"
-life 2-after-quit check --expect 1-play.json --locked 4 || FAIL=1
-life 3-quick-save quick || FAIL=1
-sleep 3
-say "app processes after the quick end: $(alive)"
-store "after the quick end"
-life 4-after-quick-end check --locked 4 || FAIL=1
+store "after play and a quit"
+prefs "after play"
+wipe
+store "after the wipe, before the next start"
+life 2-after-wipe check --expect 1-play.json --locked 4 || FAIL=1
 quit_app
+store "after the start that followed the wipe"
+prefs "after the start that followed the wipe"
 
-say "shutting the simulated device down"
-kill $USEPID 2> /dev/null
-xcrun simctl shutdown "$UDID" 2>&1 | tee -a "$OUT/run-log.txt"
-sleep 5
-xcrun simctl list devices | grep "$UDID" | tee -a "$OUT/run-log.txt"
-T0=$(date +%s)
-xcrun simctl boot "$UDID" 2>&1 | tee -a "$OUT/run-log.txt"
-xcrun simctl bootstatus "$UDID" -b > /dev/null
-say "device booted again in $(( $(date +%s) - T0 )) s"
-"$ROOT/e2e/app/watch-usage.sh" "$OUT" "$UDID" "$BUNDLE" &
-USEPID=$!
-store "after the device was shut down and booted"
-life 5-after-device-restart check --expect 4-after-quick-end.json --locked 4 || FAIL=1
-quit_app
-
-say "installing the same app again over itself, as an update does"
-xcrun simctl install "$UDID" "$APP" 2>&1 | tee -a "$OUT/run-log.txt"
-store "after installing over itself"
-life 6-after-install-over check --expect 4-after-quick-end.json --locked 4 || FAIL=1
-quit_app
-
-life 7-reset reset || FAIL=1
+life 3-reset reset || FAIL=1
 quit_app
 store "after reset and quit"
-life 8-after-reset-and-quit check --expect 7-reset.json --expect-progress-line "No stars yet." --locked 2 || FAIL=1
+prefs "after reset"
+wipe
+life 4-after-reset-and-wipe check --expect 3-reset.json --expect-progress-line "No stars yet." --locked 2 || FAIL=1
 quit_app
+store "after the last start"
+prefs "after the last start"
 
 kill $APPIUMPID $USEPID 2> /dev/null
 mkdir -p "$OUT/crashes"
 find ~/Library/Logs/DiagnosticReports -newer "$OUT/device.txt" \( -name 'App*' -o -name '*WebKit*' -o -name '*WebContent*' \) -exec cp {} "$OUT/crashes/" \; 2> /dev/null
 ls "$OUT/crashes" | tee "$OUT/crashes.txt"
-# Small pictures for the report; the full ones stay in the artifact.
 mkdir -p "$OUT/small"
 for f in "$OUT"/shots/*.png; do sips -s format jpeg -s formatOptions 70 -Z 1400 "$f" --out "$OUT/small/$(basename "${f%.png}").jpg" > /dev/null 2>&1; done
 gzip -f "$OUT/appium.txt" 2> /dev/null
