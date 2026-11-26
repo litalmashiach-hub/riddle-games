@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 import { levelCardName, starTotal } from './spoken';
 
 describe('spoken names', () => {
-  const built = { number: 7, title: 'Three Jealous Couples', level: {} };
+  const built = { number: 7, title: 'Three Jealous Couples', load: () => {} };
   it('a level card says its stars, or why it has none', () => {
     expect(levelCardName(built, 2, true)).toBe('Level 7: Three Jealous Couples, 2 of 3 stars');
     expect(levelCardName(built, 1, true)).toBe('Level 7: Three Jealous Couples, 1 of 3 stars');

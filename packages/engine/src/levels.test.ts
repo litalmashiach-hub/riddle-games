@@ -41,7 +41,9 @@ function expectSearchable(level: object | undefined, limit = SOLVER_LIMIT) {
 }
 
 const FOLDERS = Object.keys(import.meta.glob('../../../levels/*/package.json'));
-const BUILT = LEVELS.filter((entry) => entry.level);
+const BUILT = LEVELS.filter((entry) => entry.load);
+// The game loads a level's code only when it opens; here every level is loaded up front.
+const LOADED = await Promise.all(BUILT.map((entry) => entry.load!()));
 
 describe('every level', () => {
   it('is found: the game lists as many levels as there are level folders', () => {
@@ -50,11 +52,15 @@ describe('every level', () => {
     expect(new Set(BUILT.map((entry) => entry.id)).size).toBe(BUILT.length);
   });
 
-  for (const entry of BUILT) {
+  it('loads, for each card on the map, the level of that number, id, title and world', () => {
+    expect(LOADED.map((l) => [l.number, l.id, l.title, l.world])).toEqual(BUILT.map((e) => [e.number, e.id, e.title, e.world]));
+  });
+
+  BUILT.forEach((entry, i) => {
     it(`${entry.number} ${entry.id}: the solver can search it to the end, so "no hint" means "no win left"`, () => {
-      expectSearchable(entry.level);
+      expectSearchable(LOADED[i]);
     }, 60_000);
-  }
+  });
 });
 
 describe('the guard itself', () => {
@@ -78,11 +84,11 @@ describe('the guard itself', () => {
     expectSearchable({ rules: counter(99) }, 100);
     expect(() => expectSearchable({ rules: counter(99) }, 99)).toThrow(/expected 100 to be less than or equal to 99/);
     // A real level too: level 1 has more than ten positions.
-    expect(() => expectSearchable(BUILT[0].level, 10)).toThrow(/expected 11 to be less than or equal to 10/);
+    expect(() => expectSearchable(LOADED[0], 10)).toThrow(/expected 11 to be less than or equal to 10/);
   });
 
   it('fails a registered level that has no rules it can count', () => {
-    const { rules, ...noRules } = BUILT[0].level!;
+    const { rules, ...noRules } = LOADED[0];
     expect(() => expectSearchable(noRules)).toThrow(/no rules that can be counted/);
     expect(() => expectSearchable({ rules: { ...rules, legalMoves: undefined } })).toThrow(/no rules that can be counted/);
     expect(() => expectSearchable(undefined)).toThrow(/no rules that can be counted/);

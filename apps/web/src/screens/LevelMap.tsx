@@ -13,7 +13,7 @@ import { levelCardName, starTotal } from '../spoken';
 /** A built level is open when every built level before it is solved. `?all` opens everything (website only). */
 function isUnlocked(entry: LevelEntry, progress: Progress) {
   if (hasTestFlag('all') || import.meta.env.DEV) return true;
-  return LEVELS.filter((l) => l.level && l.number < entry.number).every((l) => (progress.stars[l.id] ?? 0) > 0);
+  return LEVELS.filter((l) => l.load && l.number < entry.number).every((l) => (progress.stars[l.id] ?? 0) > 0);
 }
 
 /** Same test as the `short` style variant: a phone held sideways. */
@@ -51,7 +51,7 @@ export function LevelMap(props: { progress: Progress; onPlay: (id: string) => vo
 function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (id: string) => void; onAbout: () => void }) {
   const totalStars = Object.values(progress.stars).reduce((a, b) => a + b, 0);
   const { sound, toggleSound } = useSettings();
-  const current = LEVELS.find((l) => l.level && isUnlocked(l, progress) && !(progress.stars[l.id] ?? 0)) ?? LEVELS[0];
+  const current = LEVELS.find((l) => l.load && isUnlocked(l, progress) && !(progress.stars[l.id] ?? 0)) ?? LEVELS[0];
   const currentCard = useRef<HTMLDivElement>(null);
   useEffect(() => {
     currentCard.current?.scrollIntoView({ inline: 'center', block: 'nearest' });
@@ -156,10 +156,10 @@ function TallMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (i
 
 function LevelCard({ entry, stars, unlocked, onPlay, compact, current }: { entry: LevelEntry; stars: number; unlocked: boolean; onPlay: (id: string) => void; compact?: boolean; current?: boolean }) {
   const look = WORLDS[entry.world];
-  const playable = !!entry.level && unlocked;
+  const playable = !!entry.load && unlocked;
   // The lock sits on a dark disc: white on the card's pale corner would not show.
   const lock = <span className="grid h-6 w-6 place-items-center rounded-full bg-black/45 [&>svg]:h-4 [&>svg]:w-4"><LockIcon /></span>;
-  const badge = entry.level ? (unlocked ? <Stars count={stars} size={18} /> : lock) : <span className="rounded-full bg-white/25 px-2.5 py-0.5 text-xs font-bold">Coming soon</span>;
+  const badge = entry.load ? (unlocked ? <Stars count={stars} size={18} /> : lock) : <span className="rounded-full bg-white/25 px-2.5 py-0.5 text-xs font-bold">Coming soon</span>;
   return (
     <motion.button
       whileHover={playable ? { y: compact ? -3 : -6, rotate: -0.6 } : undefined}

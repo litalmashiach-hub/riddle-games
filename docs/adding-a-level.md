@@ -53,7 +53,8 @@ The shell gives the scene `state`, `previous`, `lastMove`, `status`, `play(move)
 ## 4. Register it
 
 1. Add `"@riddle/level-NN-name": "workspace:*"` to `apps/web/package.json`.
-2. In `apps/web/src/levels.ts`, import it and add it to `BUILT`. The `PLAN` entry already exists.
+2. In `apps/web/src/levels.ts`, add its line to `BUILT`: `NN: () => import('@riddle/level-NN-name'),`. The `PLAN` entry already exists.
+   Keep it a dynamic `import()`, never a plain import at the top: a level's code is loaded only when it opens, so the level map starts without it.
 3. Update the status column in `README.md`.
 
 ## 5. Check it
@@ -73,7 +74,7 @@ For scripted checks: `?debug&quality=low#/level/<id>` exposes `window.__riddle`,
 
 ## Rules for parallel work
 
-- Only change files in your own `levels/NN-name/` folder, plus the one import line in `levels.ts`,
+- Only change files in your own `levels/NN-name/` folder, plus the one `BUILT` line in `levels.ts`,
   your line in `apps/web/package.json`, and your README row.
 - New reusable models (e.g. a jug, a rope bridge) can live in your level first. If another level needs it,
   move it to `packages/props` in a separate, small pull request.

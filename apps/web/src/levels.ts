@@ -1,43 +1,45 @@
 import type { RiddleLevel, WorldId } from '@riddle/engine';
-import wolfTwoSheep from '@riddle/level-01-wolf-two-sheep';
-import towerOfHanoi from '@riddle/level-04-tower-of-hanoi';
-import wolfGoatCabbage from '@riddle/level-02-wolf-goat-cabbage';
-import twoJugs from '@riddle/level-03-two-jugs';
-import bridgeAndTorch from '@riddle/level-05-bridge-and-torch';
-import explorersGuardians from '@riddle/level-06-explorers-guardians';
-import bridgeFive from '@riddle/level-09-bridge-five';
-import fourPillarTower from '@riddle/level-10-four-pillar-tower';
-import familyCrossing from '@riddle/level-11-family-crossing';
-import twelveCoins from '@riddle/level-12-twelve-coins';
-import leapfrogLagoon from '@riddle/level-13-leapfrog-lagoon';
-import fireflyLanterns from '@riddle/level-14-firefly-lanterns';
-import pictureTiles from '@riddle/level-19-picture-tiles';
-import jealousCouples from '@riddle/level-07-jealous-couples';
-import moonbeamMirrors from '@riddle/level-17-moonbeam-mirrors';
-import threeJugs from '@riddle/level-08-three-jugs';
-import logJam from '@riddle/level-18-log-jam';
-import slipperyPond from '@riddle/level-15-slippery-pond';
 
-import fireflyJars from '@riddle/level-16-firefly-jars';
-import berryBridges from '@riddle/level-20-berry-bridges';
-import cricketSwap from '@riddle/level-21-cricket-swap';
-import pancakeStack from '@riddle/level-22-pancake-stack';
-import frogParade from '@riddle/level-23-frog-parade';
-import frostyMaze from '@riddle/level-24-frosty-maze';
-import fireflyRainbow from '@riddle/level-25-firefly-rainbow';
-import moonbeamMaze from '@riddle/level-26-moonbeam-maze';
-import timberTangle from '@riddle/level-27-timber-tangle';
-import familyPortrait from '@riddle/level-28-family-portrait';
-import cricketCrossing from '@riddle/level-29-cricket-crossing';
-import moonlitTower from '@riddle/level-30-moonlit-tower';
 /**
- * Every level in the game, in order. A level that is built is listed with its package;
- * the rest show as "coming soon" cards.
+ * Every built level, by number. Each level's code (its rules and 3D scene) is loaded only when that level
+ * opens, so the level map does not wait for 30 scenes and three.js to be read first. The files are part of
+ * the build (and of the app), so no network is needed. A level without a line here shows as a "coming soon" card.
  *
  * To add a level: create levels/NN-name (see docs/adding-a-level.md),
- * add it to apps/web/package.json, import it here and put it in BUILT.
+ * add it to apps/web/package.json and add its line here.
  */
-const BUILT: RiddleLevel[] = [wolfTwoSheep, wolfGoatCabbage, twoJugs, towerOfHanoi, bridgeAndTorch, explorersGuardians, jealousCouples, bridgeFive, fourPillarTower, familyCrossing, twelveCoins, threeJugs, leapfrogLagoon, fireflyLanterns, slipperyPond, fireflyJars, moonbeamMirrors, logJam, pictureTiles, berryBridges, cricketSwap, pancakeStack, frogParade, frostyMaze, fireflyRainbow, moonbeamMaze, timberTangle, familyPortrait, cricketCrossing, moonlitTower];
+const BUILT: Record<number, () => Promise<{ default: RiddleLevel }>> = {
+  1: () => import('@riddle/level-01-wolf-two-sheep'),
+  2: () => import('@riddle/level-02-wolf-goat-cabbage'),
+  3: () => import('@riddle/level-03-two-jugs'),
+  4: () => import('@riddle/level-04-tower-of-hanoi'),
+  5: () => import('@riddle/level-05-bridge-and-torch'),
+  6: () => import('@riddle/level-06-explorers-guardians'),
+  7: () => import('@riddle/level-07-jealous-couples'),
+  8: () => import('@riddle/level-08-three-jugs'),
+  9: () => import('@riddle/level-09-bridge-five'),
+  10: () => import('@riddle/level-10-four-pillar-tower'),
+  11: () => import('@riddle/level-11-family-crossing'),
+  12: () => import('@riddle/level-12-twelve-coins'),
+  13: () => import('@riddle/level-13-leapfrog-lagoon'),
+  14: () => import('@riddle/level-14-firefly-lanterns'),
+  15: () => import('@riddle/level-15-slippery-pond'),
+  16: () => import('@riddle/level-16-firefly-jars'),
+  17: () => import('@riddle/level-17-moonbeam-mirrors'),
+  18: () => import('@riddle/level-18-log-jam'),
+  19: () => import('@riddle/level-19-picture-tiles'),
+  20: () => import('@riddle/level-20-berry-bridges'),
+  21: () => import('@riddle/level-21-cricket-swap'),
+  22: () => import('@riddle/level-22-pancake-stack'),
+  23: () => import('@riddle/level-23-frog-parade'),
+  24: () => import('@riddle/level-24-frosty-maze'),
+  25: () => import('@riddle/level-25-firefly-rainbow'),
+  26: () => import('@riddle/level-26-moonbeam-maze'),
+  27: () => import('@riddle/level-27-timber-tangle'),
+  28: () => import('@riddle/level-28-family-portrait'),
+  29: () => import('@riddle/level-29-cricket-crossing'),
+  30: () => import('@riddle/level-30-moonlit-tower'),
+};
 
 export interface LevelEntry {
   number: number;
@@ -45,10 +47,11 @@ export interface LevelEntry {
   title: string;
   world: WorldId;
   tagline: string;
-  level?: RiddleLevel;
+  /** Loads the level's code; only on a level that is built. */
+  load?: () => Promise<RiddleLevel>;
 }
 
-const PLAN: Omit<LevelEntry, 'level'>[] = [
+const PLAN: Omit<LevelEntry, 'load'>[] = [
   { number: 1, id: 'wolf-two-sheep', title: 'Wolf and Two Sheep', world: 'meadow', tagline: 'Never leave the wolf with a lonely sheep.' },
   { number: 2, id: 'wolf-goat-cabbage', title: 'Wolf, Goat and Cabbage', world: 'meadow', tagline: 'Everyone wants to eat someone.' },
   { number: 3, id: 'two-jugs', title: 'Two Jugs', world: 'meadow', tagline: 'Measure exactly 4 litres with a 3 and a 5.' },
@@ -81,6 +84,9 @@ const PLAN: Omit<LevelEntry, 'level'>[] = [
   { number: 30, id: 'moonlit-tower', title: 'Moonlit Tower', world: 'lagoon', tagline: 'The jade tower again, by night, and one disc taller.' },
 ];
 
-export const LEVELS: LevelEntry[] = PLAN.map((p) => ({ ...p, level: BUILT.find((b) => b.number === p.number) }));
+export const LEVELS: LevelEntry[] = PLAN.map((p) => {
+  const load = BUILT[p.number];
+  return load ? { ...p, load: () => load().then((m) => m.default) } : p;
+});
 
 export const WORLD_ORDER: WorldId[] = ['meadow', 'temple', 'sky', 'citadel', 'lagoon'];

@@ -1,4 +1,3 @@
-import { events as createPointerEvents, type RootStore } from '@react-three/fiber';
 import { onLiftTap, useSettings } from '@riddle/fx';
 import type { StoreApi } from 'zustand';
 import { APP_SHELL } from './appShell';
@@ -60,7 +59,7 @@ export function startHaptics() {
   // A tap on the scene that a Clickable takes when the finger lifts: its click is held off, so it ticks here.
   // Asked before the tap acts, as the scene's click below is, so that the move it starts doesn't count as busy.
   onLiftTap(() => {
-    if (playing && !playing.getState().busy) tapFeedback();
+    if (sceneTakesTaps()) tapFeedback();
   });
 }
 
@@ -84,37 +83,7 @@ export function watchMoves(session: Session) {
   };
 }
 
-let missed = false;
-
-/**
- * For the level's <Canvas>: its usual pointer events, plus a tick when a tap lands on something in the scene
- * that listens for taps. A tap on plain scenery, a drag of the camera, and a tap while the scene is busy with
- * an animation (when it takes none) give no tick. On the website this is empty and the canvas is as it was.
- */
-export const sceneTaps: { events?: typeof createPointerEvents; onPointerMissed?: () => void } = APP_SHELL
-  ? {
-      onPointerMissed: () => {
-        missed = true;
-      },
-      events: (store: RootStore) => {
-        const manager = createPointerEvents(store);
-        const click = manager.handlers!.onClick;
-        return {
-          ...manager,
-          handlers: {
-            ...manager.handlers!,
-            onClick: (event: Event) => {
-              const e = event as MouseEvent;
-              // The same test as the 3D layer's own: a finger that moved was turning the camera, not tapping.
-              const [x, y] = store.getState().internal.initialClick;
-              const still = Math.hypot(e.offsetX - x, e.offsetY - y) <= 2;
-              const open = !!playing && !playing.getState().busy;
-              missed = false;
-              click(event);
-              if (still && open && !missed) tapFeedback();
-            },
-          },
-        };
-      },
-    }
-  : {};
+/** True while a level is open and not busy with an animation, so a tap in its scene can play a move. */
+export function sceneTakesTaps() {
+  return !!playing && !playing.getState().busy;
+}
