@@ -58,13 +58,16 @@ jobs:
     name: ${{ matrix.label }}
     runs-on: macos-26
     timeout-minutes: 120
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       max-parallel: 4
       matrix:
         include:
-          - { label: iphone-se2-ios15-0, ios: '15.0', sim: 'iPhone SE (2nd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
-          - { label: ipad9-ios15-0, ios: '15.0', sim: 'iPad (9th generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'quality=low relaunch-each fps=6 level-minutes=25 open-seconds=600 card-seconds=90' }
+          - { label: iphone-se2-ios15-2, ios: '15.2', sim: 'iPhone SE (2nd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
+          - { label: iphone-se3-ios15-4, ios: '15.4', sim: 'iPhone SE (3rd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
+          - { label: ipad9-ios15-4, ios: '15.4', sim: 'iPad (9th generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'quality=low relaunch-each fps=6 level-minutes=25 open-seconds=600 card-seconds=90' }
           - { label: iphone-se3-ios15-5, ios: '15.5', sim: 'iPhone SE (3rd generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'level-minutes=25' }
           - { label: ipad9-ios15-5, ios: '15.5', sim: 'iPad (9th generation)', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'quality=low relaunch-each fps=6 level-minutes=25 open-seconds=600 card-seconds=90' }
     steps:
@@ -73,7 +76,8 @@ jobs:
         timeout-minutes: 30
         run: |
           T0=$(date +%s); sudo xcodes runtimes install "iOS ${{ matrix.ios }}" 2>&1 | tail -n 10; echo "took $(( $(date +%s) - T0 )) s"
-          xcrun simctl list runtimes
+          mkdir -p "out/${{ matrix.label }}"
+          xcrun simctl list runtimes | tee "out/${{ matrix.label }}/runtimes.txt"
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -101,6 +105,21 @@ jobs:
         if: always()
         run: |
           gzcat out/*/appium.txt.gz 2> /dev/null | grep -iE "webview|web view|remote ?debugger|inspector|context|error|socket" | head -n 150 || true
+      - name: Keep the pictures and logs on this branch, under results/ (test only; the mission cannot read artifacts)
+        if: always()
+        run: |
+          find out -name '*.gz' -size +20M -delete
+          git config user.name "app-play run"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch -q --depth 5 origin "$GITHUB_REF_NAME" && git reset -q --hard FETCH_HEAD
+            rm -rf "results/${{ matrix.label }}"; mkdir -p results; cp -R "out/${{ matrix.label }}" "results/${{ matrix.label }}"
+            echo "Run ${{ github.run_id }}, job ${{ matrix.label }}, commit ${{ github.sha }}" > "results/${{ matrix.label }}/RUN.txt"
+            git add -A results
+            git commit -q -m "TEST ONLY: results of run ${{ github.run_id }}, ${{ matrix.label }}"
+            git push -q origin "HEAD:$GITHUB_REF_NAME" && break
+            sleep $(( i * 7 ))
+          done
       - uses: actions/upload-artifact@v4
         if: always()
         with:
