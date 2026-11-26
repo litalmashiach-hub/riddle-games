@@ -120,6 +120,31 @@ final class SidewaysTests: XCTestCase {
         app.terminate()
     }
 
+    /// With windowed apps on: tries to drag the app's window into a tall, narrow shape, then a small one.
+    func testPortraitWindow() {
+        turn(.landscapeLeft)
+        app.launch()
+        _ = waitForMap()
+        shot("before")
+        let screen = springboard.frame
+        print("SW screen=\(screen)")
+        for (i, target) in [(0.30, 0.95), (0.25, 0.40)].enumerated() {
+            let f = app.windows.firstMatch.frame
+            print("SW window before drag \(i + 1): \(f)")
+            // The window's bottom-right corner, a little inside it, in screen points.
+            let from = springboard.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: f.maxX - 4, dy: f.maxY - 4))
+            let to = springboard.coordinate(withNormalizedOffset: .zero)
+                .withOffset(CGVector(dx: f.minX + screen.width * target.0, dy: f.minY + screen.height * target.1))
+            from.press(forDuration: 0.6, thenDragTo: to)
+            sleep(4)
+            shot(i == 0 ? "after-drag-tall-narrow" : "after-drag-small")
+        }
+        turn(.portrait)
+        shot("window-device-upright")
+        turn(.landscapeLeft)
+        app.terminate()
+    }
+
     /// Looks at the Settings page for multitasking, and turns on windowed apps where the page offers it.
     func testWindowedSetting() {
         turn(.landscapeLeft)
