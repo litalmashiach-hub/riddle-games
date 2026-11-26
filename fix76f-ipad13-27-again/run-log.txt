@@ -1,0 +1,19 @@
+    0.0s device fix76f-ipad13-27-again; levels 27 (1); players missing: none; broken players: 0
+    0.0s starting the Appium session: {"platformName":"iOS","appium:automationName":"XCUITest","appium:udid":"2A020491-3EBC-4783-8622-F8314CC00294","appium:bundleId":"com.example.riddlegames","appium:noReset":true,"appium:newCommandTimeout":3600,"appium:wdaLaunchTimeout":1800000,"appium:wdaConnectionTimeout":1800000,"appium:webviewConnectTimeout":120000,"appium:includeSafariInWebviews":false,"appium:autoWebview":false,"appium:nativeWebScreenshot":true,"appium:showXcodeLog":false,"appium:waitForIdleTimeout":0,"appium:skipLogCapture":true,"appium:webviewConnectRetries":20,"appium:additionalWebviewBundleIds":["*"],"appium:forceAppLaunch":true}
+  403.7s page in WEBVIEW_12975.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  408.6s web view found: WEBVIEW_12975.1, 1032 by 1376
+  445.5s turned LANDSCAPE: 1376 by 1032
+  601.6s calibration: touched [{"x":413,"y":413},{"x":963,"y":774}], the page saw [{"x":413,"y":413},{"x":963,"y":774}]: same (error 0.0 pt)
+  611.7s page in WEBVIEW_12975.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  614.3s graphics quality set to SD by the player's setting
+  622.1s page in WEBVIEW_12975.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  623.4s frames capped at 6 a second by the test (page says 6)
+  632.0s page in WEBVIEW_12975.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  638.7s L27 timber-tangle: opened by its card on the level map (scrolled into view by the run)
+  651.7s L27: before touch 1 on "Let's go!": {"there":true,"box":[489,692,398,52],"screen":[1376,1032],"onTop":"BUTTON (the button)","disabled":false,"touches":[{"x":1024,"y":656,"t":1795651119089,"kind":"touch","on":"H3"}],"now":1795651133301}
+  652.3s L27: touch 1 on "Let's go!" sent (537 ms)
+  653.7s L27: rules card closed 2.0 s after touch 1
+  697.8s L27: tap fault at step 9 (no-move, known): no move followed the touches for {"piece":3,"to":1}. Last touch: the ring on row 2, column 6 at (791, 406); the first listening object under it has its origin at [2.5, 0.2, 0.5]
+  762.7s L27 timber-tangle: won, finished by the debug hook after a known tap fault at step 9 (no-move); stars 3 (saved 3); open 14.633s, play 64.727s, total 139.142s; page errors 0, console errors 0; frames per second 6.6
+  762.7s script calls: 434, median 9 ms, 90th 49 ms
+  763.0s done: 1 of 1 levels won, 0 by taps alone
