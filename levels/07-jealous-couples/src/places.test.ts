@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
-import { CAMERA, DOCK_X, seat, slot } from './places';
+import { CAMERA, DOCK_X, HALO_R, hintMark, seat, slot } from './places';
 import { BIRDS, nameOf, type Bird, type Side } from './rules';
 
 /**
@@ -69,4 +69,48 @@ describe('where the birds stand', () => {
       expect(Math.abs(l[0])).toBeGreaterThan(DOCK_X + 1);
     }
   });
+});
+
+describe("where Hint's halo is drawn", () => {
+  /** A point of the scene on the 667 by 375 screen, and how many points one unit is there. */
+  const seen = ([x, y, z]: [number, number, number]) => {
+    const p = new THREE.Vector3(x, y, z).project(camera);
+    const up = new THREE.Vector3(x, y + 1, z).project(camera);
+    return { x: ((p.x + 1) / 2) * W, y: ((1 - p.y) / 2) * H, unit: ((p.y - up.y) / -2) * H };
+  };
+
+  for (const side of ['L', 'R'] as Side[]) {
+    it(`round the bird itself on island ${side}, not on the ground at its feet`, () => {
+      for (const b of BIRDS) {
+        const feet = slot(b, side);
+        const mark = hintMark(b, side);
+        // On the ground, the whole ring at the Corals was behind the Teals. The halo is upright, round the body.
+        expect([mark[0], mark[2]], nameOf(b)).toEqual([feet[0], feet[2]]);
+        expect(mark[1], nameOf(b)).toBeGreaterThanOrEqual(BODY_Y);
+        expect(mark[1] - HALO_R, `${nameOf(b)}: the halo's lowest point is above the ground`).toBeGreaterThanOrEqual(0);
+        // Wider than the body, so the body does not hide it.
+        expect(HALO_R, nameOf(b)).toBeGreaterThan(BODY_HALF * 1.3);
+      }
+    });
+
+    it(`with all six on island ${side}, each halo holds its own bird and the middle of no other`, () => {
+      for (const b of BIRDS) {
+        const halo = seen(hintMark(b, side));
+        const r = HALO_R * halo.unit;
+        const own = onScreen(b, side);
+        expect(Math.hypot(own.x - halo.x, own.y - halo.y), nameOf(b)).toBeLessThan(r / 2);
+        for (const other of BIRDS) {
+          if (other === b) continue;
+          const q = onScreen(other, side);
+          expect(Math.hypot(q.x - halo.x, q.y - halo.y), `${nameOf(other)} inside the halo of ${nameOf(b)}, in points on a 667 by 375 screen`).toBeGreaterThan(r);
+        }
+        // Large enough to see on a small iPhone, whole on the screen and clear of the corner buttons.
+        expect(2 * r, nameOf(b)).toBeGreaterThan(28);
+        expect(halo.x - r, nameOf(b)).toBeGreaterThan(75);
+        expect(halo.x + r, nameOf(b)).toBeLessThan(W - 75);
+        expect(halo.y - r, nameOf(b)).toBeGreaterThan(60);
+        expect(halo.y + r, nameOf(b)).toBeLessThan(H - 110);
+      }
+    });
+  }
 });

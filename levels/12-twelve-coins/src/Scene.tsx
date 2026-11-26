@@ -1,7 +1,7 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
-import { Bubble, HintRing, toon } from '@riddle/props';
+import { Bubble, HintRing, edgedBandGeometry, noHit, toon, useHintPulse } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import * as THREE from 'three';
@@ -692,18 +692,12 @@ function Marker({ heavy, seed }: { heavy: boolean; seed: number }) {
 /** A hint mark like the shared HintRing, but a square: it marks the coins for the other pan, so the two groups differ in shape. */
 function HintSquare({ position, color }: { position: [number, number, number]; color: string }) {
   const ref = useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
-    const m = ref.current;
-    if (!m) return;
-    const s = 1 + Math.sin(clock.elapsedTime * 5) * 0.08;
-    m.scale.set(s, s, s);
-    (m.material as THREE.MeshBasicMaterial).opacity = 0.65 + Math.sin(clock.elapsedTime * 5) * 0.25;
-  });
+  useHintPulse(ref);
+  // Four corners make a square; turned an eighth so its sides run along the rows of coins. It wears the ring's dark edge.
+  const geometry = useMemo(() => edgedBandGeometry(0.43, 0.56, 0.035, color, 4, Math.PI / 4), [color]);
   return (
-    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2}>
-      {/* four corners make a square; turned an eighth so its sides run along the rows of coins */}
-      <ringGeometry args={[0.43, 0.56, 4, 1, Math.PI / 4]} />
-      <meshBasicMaterial color={color} transparent toneMapped={false} depthWrite={false} />
+    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} raycast={noHit}>
+      <meshBasicMaterial vertexColors transparent toneMapped={false} depthWrite={false} fog={false} />
     </mesh>
   );
 }
