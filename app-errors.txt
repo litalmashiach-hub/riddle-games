@@ -1,0 +1,25 @@
+2026-11-26 06:27:22.652 E  App[17980:dd84] [com.apple.RemoteTextInput:RTILog] -[RTIInputSystemClient remoteTextInputSessionWithID:textSuggestionsChanged:]  Can only set suggestions for an active session. sessionID = 4B283E39-ECED-42CF-8DC0-6B31E2C5B77E
+2026-11-26 06:27:22.830 E  App[17980:dd84] [com.apple.WebKit:ResourceLoadStatistics] Failed to request allowed query parameters from WebPrivacy.
+2026-11-26 06:27:22.865 E  App[17980:dd84] [com.apple.WebKit:ResourceLoadStatistics] Failed to request restricted opener domains from WebPrivacy
+2026-11-26 06:27:22.952 E  App[17980:e8ac] [com.apple.TextInputUI:CandidateGeneration] Result accumulator timeout: 0.250000, exceeded.
+2026-11-26 06:27:23.253 E  App[17980:dd84] [com.apple.dt.xctest:Default] Automation type mismatch; legacy system derived element type 58 from class WKScrollView:UIScrollView, traits 8589934592, but AXAutomationType returned 46 which maps to 46
+2026-11-26 06:27:23.255 E  App[17980:dd84] [com.apple.dt.xctest:Default] Automation type mismatch; legacy system derived element type 52 from class WKContentView:UIView, traits 140883519602688, but AXAutomationType returned 0 which maps to 1
+2026-11-26 06:27:24.221 E  App[17980:dd84] [com.apple.dt.xctest:Default] Automation type mismatch; legacy system derived element type 58 from class WKScrollView:UIScrollView, traits 8589934592, but AXAutomationType returned 46 which maps to 46
+2026-11-26 06:27:24.224 E  App[17980:dd84] [com.apple.dt.xctest:Default] Automation type mismatch; legacy system derived element type 52 from class WKContentView:UIView, traits 140883519602688, but AXAutomationType returned 0 which maps to 1
+2026-11-26 06:27:25.736 E  App[17980:dd84] [com.apple.dt.xctest:Default] Automation type mismatch; legacy system derived element type 58 from class WKScrollView:UIScrollView, traits 8589934592, but AXAutomationType returned 46 which maps to 46
+2026-11-26 06:27:25.740 E  App[17980:dd84] [com.apple.dt.xctest:Default] Automation type mismatch; legacy system derived element type 52 from class WKContentView:UIView, traits 140883519602688, but AXAutomationType returned 0 which maps to 1
+2026-11-26 06:29:58.071 E  App[22171:10d0d] [com.apple.extensionkit:default] Failed to resolve host network app id to config: bundleID: com.apple.WebKit.Networking instance ID: Optional([_EXExtensionInstanceIdentifier: 3C571960-431E-4AE4-A55B-EA0CB3CCE32A])
+2026-11-26 06:29:58.467 F  App[22171:10cfe] [com.apple.runtime-issues:UIKit App Config] Update the Info.plist: Support for all orientations will soon be required.
+2026-11-26 06:29:59.054 E  App[22171:10cfe] [com.apple.UIKit:UIFocus] UIKeyboardLayoutStar implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+2026-11-26 06:29:59.708 F  App[22171:10cfe] [com.apple.WebKit:Process] Networking process (0x10f090190) took 1.647667 seconds to launch
+2026-11-26 06:29:59.759 F  App[22171:10cfe] [com.apple.WebKit:Process] WebContent process (0x10f1080c0) took 1.573321 seconds to launch
+2026-11-26 06:29:59.763 F  App[22171:10cfe] [com.apple.WebKit:Process] GPU process (0x10f1401e0) took 1.524890 seconds to launch
+2026-11-26 06:29:59.880 E  App[22171:10cfe] [com.apple.RemoteTextInput:RTILog] -[RTIInputSystemClient remoteTextInputSessionWithID:performInputOperation:]  Can only perform input operation for an active session. sessionID = 15DD8679-99DF-4CF3-BCEC-2114B9ED7AC6
+2026-11-26 06:29:59.943 E  App[22171:10cfe] [com.apple.RemoteTextInput:RTILog] -[RTIInputSystemClient remoteTextInputSessionWithID:textSuggestionsChanged:]  Can only set suggestions for an active session. sessionID = 15DD8679-99DF-4CF3-BCEC-2114B9ED7AC6
+2026-11-26 06:29:59.946 E  App[22171:10cfe] [com.apple.RemoteTextInput:RTILog] -[RTIInputSystemClient remoteTextInputSessionWithID:performInputOperation:]  Can only perform input operation for an active session. sessionID = 15DD8679-99DF-4CF3-BCEC-2114B9ED7AC6
+2026-11-26 06:30:00.009 E  App[22171:10d0d] [com.apple.TextInputUI:CandidateGeneration] Result accumulator timeout: 0.250000, exceeded.
+2026-11-26 06:30:00.224 E  App[22171:10d07] [com.apple.TextInputUI:CandidateGeneration] Attempted to update accumulator from source type: 0, after completion has already been called for token:[E9DABB96]. This is an error and will be ignored.
+2026-11-26 06:30:01.006 E  App[22171:10d85] [com.apple.WebKit:ResourceLoadStatistics] WebContent[22181] Unable to hide query parameters from script (missing data)
+2026-11-26 06:30:01.080 E  App[22171:10d85] [com.apple.Accessibility:AXRuntimeCommon] WebContent[22181] Could not register system wide server: -25204
+2026-11-26 06:30:01.080 E  App[22171:10d85] [com.apple.Accessibility:AXRuntimeCommon] WebContent[22181] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x100d05cd0>
+2026-11-26 06:30:01.105 E  App[22171:10cfe] [com.apple.RemoteTextInput:RTILog] -[RTIInputSystemClient remoteTextInputSessionWithID:textSuggestionsChanged:]  Can only set suggestions for an active session. sessionID = 15DD8679-99DF-4CF3-BCEC-2114B9ED7AC6

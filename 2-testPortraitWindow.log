@@ -1,0 +1,218 @@
+Command line invocation:
+    /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/riddle-games/riddle-games/apps/mobile/ios/SidewaysTest/SidewaysTest.xcodeproj -scheme SidewaysTest -destination id=B93AC885-30EF-40D3-911E-AFBFE471286C -derivedDataPath /Users/runner/work/riddle-games/riddle-games/build/sidewaystest -parallel-testing-enabled NO "-only-testing:SidewaysUITests/SidewaysTests/testPortraitWindow"
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:B93AC885-30EF-40D3-911E-AFBFE471286C, OS:26.5, name:iPad Air 11-inch (M4) }
+2026-11-26 06:26:37.968596+0000 SidewaysUITests-Runner[17315:55155] [Default] Running tests...
+2026-11-26 06:26:38.149440+0000 SidewaysUITests-Runner[17315:55155] [UIKit App Config] Update the Info.plist: Launch screens will soon be required.
+2026-11-26 06:26:38.159240+0000 SidewaysUITests-Runner[17315:55475] [General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+2026-11-26 06:26:38.203119+0000 SidewaysUITests-Runner[17315:55478] [General] Failed to send CA Event for app launch measurements for ca_event_type: 1 event_name: com.apple.app_launch_measurement.ExtendedLaunchMetrics
+    t =      nans Interface orientation changed to Landscape Right
+Test Suite 'Selected tests' started at 2026-11-26 06:26:39.941.
+Test Suite 'SidewaysUITests.xctest' started at 2026-11-26 06:26:39.946.
+Test Suite 'SidewaysTests' started at 2026-11-26 06:26:39.947.
+Test Case '-[SidewaysUITests.SidewaysTests testPortraitWindow]' started.
+    t =     0.01s Start Test at 2026-11-26 06:26:39.953
+    t =     0.24s Set Up
+    t =     0.24s Setting device orientation to Landscape Left
+    t =     0.29s     Wait for com.apple.DocumentManager.DockFolderViewService to idle
+    t =     0.35s     Wait for com.apple.springboard to idle
+objc[17315]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x106688310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x106730398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     4.42s Getting device orientation
+    t =     4.86s Checking existence of `Window (First Match)`
+    t =     5.86s Checking existence of `Window (First Match)` (retry 1)
+    t =     6.87s Checking existence of `Window (First Match)` (retry 2)
+    t =     6.88s Checking existence of `WebView (First Match)`
+    t =     7.89s Checking existence of `WebView (First Match)` (retry 1)
+    t =     8.89s Checking existence of `WebView (First Match)` (retry 2)
+SW turned to sideways-left; device=sideways-left appWindow=none appState=1
+    t =     8.91s Open com.example.riddlegames
+    t =     8.91s     Launch com.example.riddlegames
+    t =    11.18s         Setting up automation session
+    t =    11.34s         Wait for com.example.riddlegames to idle
+    t =    13.90s Waiting 90.0s for Button (First Match) to exist
+    t =    14.90s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    14.90s         Checking existence of `Button (First Match)`
+    t =    18.79s         Capturing element debug description
+    t =    18.91s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    18.91s         Checking existence of `Button (First Match)`
+    t =    19.84s         Capturing element debug description
+    t =    19.92s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    19.92s         Checking existence of `Button (First Match)`
+    t =    21.31s         Capturing element debug description
+    t =    21.94s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    21.94s         Checking existence of `Button (First Match)`
+    t =    21.96s         Capturing element debug description
+    t =    22.90s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    22.90s         Checking existence of `Button (First Match)`
+    t =    22.92s         Capturing element debug description
+    t =    23.91s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    23.91s         Checking existence of `Button (First Match)`
+    t =    23.93s         Capturing element debug description
+    t =    24.98s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    24.98s         Checking existence of `Button (First Match)`
+    t =    25.01s         Capturing element debug description
+    t =    25.94s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    25.94s         Checking existence of `Button (First Match)`
+    t =    25.96s         Capturing element debug description
+    t =    26.91s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    26.91s         Checking existence of `Button (First Match)`
+    t =    26.93s         Capturing element debug description
+    t =    27.91s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    27.91s         Checking existence of `Button (First Match)`
+    t =    27.92s         Capturing element debug description
+    t =    28.94s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    28.94s         Checking existence of `Button (First Match)`
+    t =    28.96s         Capturing element debug description
+    t =    29.91s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    29.91s         Checking existence of `Button (First Match)`
+    t =    29.92s         Capturing element debug description
+    t =    30.96s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    30.96s         Checking existence of `Button (First Match)`
+    t =    30.99s         Capturing element debug description
+    t =    31.95s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    31.95s         Checking existence of `Button (First Match)`
+    t =    31.98s         Capturing element debug description
+    t =    32.92s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    32.93s         Checking existence of `Button (First Match)`
+    t =    32.95s         Capturing element debug description
+    t =    33.90s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    33.90s         Checking existence of `Button (First Match)`
+    t =    33.92s         Capturing element debug description
+    t =    34.91s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    34.91s         Checking existence of `Button (First Match)`
+    t =    34.95s         Capturing element debug description
+    t =    35.92s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    35.92s         Checking existence of `Button (First Match)`
+    t =    35.94s         Capturing element debug description
+    t =    36.99s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    36.99s         Checking existence of `Button (First Match)`
+    t =    37.02s         Capturing element debug description
+    t =    37.95s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    37.95s         Checking existence of `Button (First Match)`
+    t =    37.98s         Capturing element debug description
+    t =    38.93s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    38.94s         Checking existence of `Button (First Match)`
+    t =    38.98s         Capturing element debug description
+    t =    39.95s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    39.95s         Checking existence of `Button (First Match)`
+    t =    40.05s         Capturing element debug description
+    t =    40.94s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    41.02s         Checking existence of `Button (First Match)`
+    t =    41.49s         Capturing element debug description
+    t =    42.23s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    42.31s         Checking existence of `Button (First Match)`
+    t =    42.67s         Capturing element debug description
+    t =    43.24s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    43.24s         Checking existence of `Button (First Match)`
+    t =    43.64s         Capturing element debug description
+    t =    44.16s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    44.17s         Checking existence of `Button (First Match)`
+    t =    44.59s         Capturing element debug description
+    t =    45.75s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    45.76s         Checking existence of `Button (First Match)`
+    t =    46.80s         Capturing element debug description
+    t =    47.01s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    47.01s         Checking existence of `Button (First Match)`
+SW level map shown=true
+    t =    56.92s Added attachment named 'before'
+    t =    58.72s Getting device orientation
+    t =    58.83s Checking existence of `Window (First Match)`
+    t =    59.00s Find the Window (First Match)
+    t =    59.33s Checking existence of `WebView (First Match)`
+    t =    59.38s Find the WebView (First Match)
+SW picture 2-testPortraitWindow-01-before.png size=(1180.0, 820.0) device=sideways-left appWindow=(0.0, 0.0, 1180.0, 820.0) webView=(0.0, 0.0, 1180.0, 820.0) appState=4
+    t =    59.42s Find the Application 'com.apple.springboard'
+SW screen=(0.0, 0.0, 820.0, 1180.0)
+    t =    59.73s Find the Window (First Match)
+SW window before drag 1: (0.0, 0.0, 1180.0, 820.0)
+    t =    59.80s Press Application 'com.apple.springboard'[0.00, 0.00] -> (1176.0, 816.0) for 0.6 seconds, then drag to Application 'com.apple.springboard'[0.00, 0.00] -> (246.0, 1121.0) with velocity of 500.00 pixels per second, and then hold for 0.0 seconds 
+    t =    59.80s     Wait for com.apple.springboard to idle
+    t =    59.90s     Find the Application 'com.apple.springboard'
+    t =    60.01s     Check for interrupting elements affecting " " Application
+    t =    60.22s         Wait for com.example.riddlegames to idle
+    t =    60.46s     Synthesize event
+    t =    60.47s         Find the Application 'com.apple.springboard'
+    t =    60.59s         Find the Application 'com.apple.springboard'
+    t =    60.71s         Find the Application 'com.apple.springboard'
+    t =    60.77s         Find the Application 'com.apple.springboard'
+    t =    60.95s         Find the Application 'com.apple.springboard'
+    t =    63.97s     Wait for com.apple.springboard to idle
+    t =    70.81s Added attachment named 'after-drag-tall-narrow'
+    t =    70.83s Getting device orientation
+    t =    70.84s Checking existence of `Window (First Match)`
+    t =    70.86s Find the Window (First Match)
+    t =    70.99s Checking existence of `WebView (First Match)`
+    t =    71.28s Find the WebView (First Match)
+SW picture 2-testPortraitWindow-02-after-drag-tall-narrow.png size=(1180.0, 820.0) device=sideways-left appWindow=(83.0, 0.17796610169489213, 1014.0, 704.6440677966102) webView=(83.0, 0.17796610169489213, 1014.0, 704.6440677966102) appState=4
+    t =    71.41s Find the Window (First Match)
+SW window before drag 2: (83.0, 0.17796610169489213, 1014.0, 704.6440677966102)
+    t =    71.53s Press Application 'com.apple.springboard'[0.00, 0.00] -> (1093.0, 700.8) for 0.6 seconds, then drag to Application 'com.apple.springboard'[0.00, 0.00] -> (288.0, 472.2) with velocity of 500.00 pixels per second, and then hold for 0.0 seconds 
+    t =    71.54s     Wait for com.apple.springboard to idle
+    t =    71.59s     Find the Application 'com.apple.springboard'
+    t =    71.74s     Check for interrupting elements affecting " " Application
+    t =    71.79s         Wait for com.example.riddlegames to idle
+    t =    72.08s     Synthesize event
+    t =    72.42s         Find the Application 'com.apple.springboard'
+    t =    72.48s         Find the Application 'com.apple.springboard'
+    t =    72.56s         Find the Application 'com.apple.springboard'
+    t =    72.64s         Find the Application 'com.apple.springboard'
+    t =    72.71s         Find the Application 'com.apple.springboard'
+    t =    75.39s     Wait for com.apple.springboard to idle
+    t =    81.26s Added attachment named 'after-drag-small'
+    t =    81.31s Getting device orientation
+    t =    81.32s Checking existence of `Window (First Match)`
+    t =    81.37s Find the Window (First Match)
+    t =    81.54s Checking existence of `WebView (First Match)`
+    t =    81.58s Find the WebView (First Match)
+SW picture 2-testPortraitWindow-03-after-drag-small.png size=(1180.0, 820.0) device=sideways-left appWindow=(83.0, 0.17796610169489213, 1014.0, 704.6440677966102) webView=(83.0, 0.17796610169489213, 1014.0, 704.6440677966102) appState=4
+    t =    81.67s Setting device orientation to Portrait
+    t =    81.71s     Device orientation changed to Portrait
+    t =    82.75s     Interface orientation changed to Portrait
+    t =    83.09s     Wait for com.example.riddlegames to idle
+    t =    83.10s     Wait for com.apple.springboard to idle
+    t =    88.28s Getting device orientation
+    t =    88.28s Checking existence of `Window (First Match)`
+    t =    88.30s Find the Window (First Match)
+    t =    88.33s Checking existence of `WebView (First Match)`
+    t =    88.36s Find the WebView (First Match)
+SW turned to upright; device=upright appWindow=(0.597560975609781, 223.0, 818.8048780487804, 569.0) webView=(0.597560975609781, 223.0, 818.8048780487804, 569.0) appState=4
+    t =    89.01s Added attachment named 'window-device-upright'
+    t =    89.03s Getting device orientation
+    t =    89.03s Checking existence of `Window (First Match)`
+    t =    89.04s Find the Window (First Match)
+    t =    89.06s Checking existence of `WebView (First Match)`
+    t =    89.09s Find the WebView (First Match)
+SW picture 2-testPortraitWindow-04-window-device-upright.png size=(820.0, 1180.0) device=upright appWindow=(0.597560975609781, 223.0, 818.8048780487804, 569.0) webView=(0.597560975609781, 223.0, 818.8048780487804, 569.0) appState=4
+    t =    89.13s Setting device orientation to Landscape Left
+    t =    89.15s     Device orientation changed to Landscape Left
+    t =    89.63s     Interface orientation changed to Landscape Right
+    t =    89.87s     Wait for com.apple.DocumentManager.DockFolderViewService to idle
+    t =    89.87s     Wait for com.example.riddlegames to idle
+    t =    89.87s     Wait for com.apple.springboard to idle
+    t =    94.55s Getting device orientation
+    t =    94.55s Checking existence of `Window (First Match)`
+    t =    94.58s Find the Window (First Match)
+    t =    94.61s Checking existence of `WebView (First Match)`
+    t =    94.66s Find the WebView (First Match)
+SW turned to sideways-left; device=sideways-left appWindow=(83.0, 0.17796610169489213, 1014.0, 704.6440677966102) webView=(83.0, 0.17796610169489213, 1014.0, 704.6440677966102) appState=4
+    t =    94.72s Terminate com.example.riddlegames:17980
+    t =   100.79s Tear Down
+Test Case '-[SidewaysUITests.SidewaysTests testPortraitWindow]' passed (108.345 seconds).
+Test Suite 'SidewaysTests' passed at 2026-11-26 06:28:28.306.
+	 Executed 1 test, with 0 failures (0 unexpected) in 108.345 (108.359) seconds
+Test Suite 'SidewaysUITests.xctest' passed at 2026-11-26 06:28:28.310.
+	 Executed 1 test, with 0 failures (0 unexpected) in 108.345 (108.364) seconds
+Test Suite 'Selected tests' passed at 2026-11-26 06:28:28.311.
+	 Executed 1 test, with 0 failures (0 unexpected) in 108.345 (108.370) seconds
+2026-11-26 06:28:45.827 xcodebuild[16519:52972] [MT] IDETestOperationsObserverDebug: 147.134 elapsed -- Testing started completed.
+2026-11-26 06:28:45.827 xcodebuild[16519:52972] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-26 06:28:45.827 xcodebuild[16519:52972] [MT] IDETestOperationsObserverDebug: 147.134 sec, +147.134 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/build/sidewaystest/Logs/Test/Test-SidewaysTest-2026.11.26_06-26-12-+0000.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started
