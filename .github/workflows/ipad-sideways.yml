@@ -1,0 +1,88 @@
+name: iPad sideways (test only)
+
+# TEST ONLY, never merged. Builds the app unsigned for the simulator on a hosted Mac in a few variants of the
+# shell's orientation settings, turns a simulated iPad and tries to resize the app's window. No signing, no
+# secrets. The pictures and logs go to a branch of their own, test/ipad-sideways-out/<label>.
+
+on:
+  push:
+    branches: [ipad-sideways-mac-test]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ipad-sideways-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT: apps/mobile/ios/App/App.xcodeproj
+  DERIVED: build/ios
+
+jobs:
+  look:
+    name: ${{ matrix.variant }} on ${{ matrix.slot }}
+    runs-on: macos-26
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [main, key, nokey]
+        slot: [newest, older]
+    env:
+      LABEL: ${{ matrix.variant }}-${{ matrix.slot }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Xcode, SDKs and simulators on this runner
+        run: |
+          mkdir -p "out/$LABEL"
+          {
+            sw_vers; xcodebuild -version; echo "---- Xcodes installed"; ls /Applications | grep -i xcode
+            echo "---- SDKs"; xcodebuild -showsdks
+            echo "---- simulator runtimes"; xcrun simctl list runtimes
+            echo "---- iPad simulators"; xcrun simctl list devices available | grep -E "^--|iPad"
+            git rev-parse HEAD
+          } 2>&1 | tee "out/$LABEL/runner.txt"
+
+      - name: The variant of the shell's settings
+        run: apps/mobile/ios/SidewaysTest/variant.sh "${{ matrix.variant }}" | tee "out/$LABEL/variant.txt"
+
+      - name: Build the app content and sync Capacitor
+        run: pnpm ios:sync
+
+      - name: Build the app for the simulator (Release)
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$DERIVED" CODE_SIGNING_ALLOWED=NO build > build.log 2>&1 || { tail -n 80 build.log; exit 1; }
+          { grep -E "warning:|error:" build.log | sort | uniq -c | cut -c1-400 | head -n 60 || true; tail -n 3 build.log; } | tee "out/$LABEL/build-warnings.txt"
+          APP="$DERIVED/Build/Products/Release-iphonesimulator/App.app"
+          plutil -p "$APP/Info.plist" | tee "out/$LABEL/built-Info.plist.txt"
+
+      - name: Build the UI test (made with XcodeGen)
+        run: |
+          set -o pipefail
+          which xcodegen || brew install xcodegen
+          cd apps/mobile/ios/SidewaysTest
+          xcodegen generate
+          xcodebuild build-for-testing -project SidewaysTest.xcodeproj -scheme SidewaysTest \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$GITHUB_WORKSPACE/build/sidewaystest" 2>&1 | tail -n 8
+
+      - name: Turn the iPad, try to share the screen
+        timeout-minutes: 30
+        run: apps/mobile/ios/SidewaysTest/run.sh "${{ matrix.slot }}" "$LABEL" testTurnOnMap testTurnInLevel testShareScreen testWindowedSetting testShareScreen
+
+      - name: Carry the pictures and logs to a branch of their own
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: apps/mobile/ios/SidewaysTest/carry.sh "$LABEL"
