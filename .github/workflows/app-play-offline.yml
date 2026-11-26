@@ -71,7 +71,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { label: iphone17pro-offline, sim: 'iPhone 17 Pro', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'fps=6 level-minutes=20 open-seconds=600 card-seconds=90', steps: 'stars-over-restart,launch,about,background-mid-level,loss-and-undo,net-probe' }
+          - { label: iphone17pro-cut, sim: 'iPhone 17 Pro', orientation: LANDSCAPE, levels: '1,2,5,11', flags: 'fps=6 level-minutes=20 open-seconds=600 card-seconds=90', steps: 'stars-over-restart,launch,about,background-mid-level,loss-and-undo,net-probe' }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

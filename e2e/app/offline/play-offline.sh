@@ -45,7 +45,7 @@ sleep 60
 xcrun simctl spawn "$UDID" log stream --style compact --level info --predicate 'subsystem == "com.apple.network" OR subsystem == "com.apple.CFNetwork" OR process == "App" OR process CONTAINS "WebKit" OR process CONTAINS "WebContent"' > "$OUT/sim-network-log.txt" 2>&1 &
 LOGPID=$!
 
-"$ROOT/e2e/app/offline/cut.sh" "$OUT"
+"$ROOT/e2e/app/offline/cut.sh" "$OUT" || { say "the cut failed"; exit 3; }
 proof() {
   say "proof ($1): a request from the Mac to https://example.com"
   curl -sS -m 15 -o /dev/null -w 'HTTP %{http_code}\n' https://example.com/ >> "$OUT/net/proof-$1.txt" 2>&1; echo "exit $?" >> "$OUT/net/proof-$1.txt"
@@ -53,6 +53,8 @@ proof() {
   cat "$OUT/net/proof-$1.txt" | tee -a "$OUT/offline-log.txt"
 }
 proof before
+# A cut that lets the Mac reach the web is no cut: stop here (run 45871836919 played with the network on).
+if grep -q 'HTTP 200' "$OUT/net/proof-before.txt"; then say "the network is NOT cut: stopping"; "$ROOT/e2e/app/offline/restore.sh" "$OUT"; exit 4; fi
 say "proof (before): Safari in the simulator opens https://example.com"
 xcrun simctl openurl "$UDID" "https://example.com/" ; sleep 30; pic "00-safari-example-com-network-cut"
 xcrun simctl terminate "$UDID" com.apple.mobilesafari || true

@@ -201,9 +201,13 @@ export async function extras(c: Ctx) {
   });
 
   /** Opens level 1 from the map by touch and passes its rules card. */
-  const openLevel1 = async () => {
+  const openLevel1 = () => openLevel(1);
+  /** Opens a level from the map by touch and passes its rules card. */
+  const openLevel = async (n: number) => {
     await toMap();
-    const card = c.page.getByRole('button', { name: 'Level 1: Wolf and Two Sheep', exact: true });
+    // The card's spoken name ends with its state (", 3 of 3 stars"), so it is matched from its start.
+    const card = c.page.getByRole('button', { name: new RegExp(`^Level ${n}: `) });
+    await card.waitFor({ state: 'attached', timeout: 30_000 });
     const b = await card.boundingBox();
     const { width, height } = c.backend.size();
     if (!b || b.x < 0 || b.y < 0 || b.x + b.width > width || b.y + b.height > height) {
@@ -218,6 +222,12 @@ export async function extras(c: Ctx) {
         const to = sideways ? { x: width / 2 + (left ? 1 : -1) * width * 0.35, y: height / 2 } : { x: width / 2, y: height / 2 + (up ? 1 : -1) * height * 0.3 };
         await c.backend.drag(from, to, { steps: 10, stepMs: 25, holdMs: 80 });
         await sleep(900);
+      }
+      const now = await card.boundingBox();
+      if (!now || now.x < 0 || now.y < 0 || now.x + now.width > width || now.y + now.height > height) {
+        c.log(`extras: level ${n}'s card still off the screen after the swipes; scrolled into view by the run`);
+        await c.page.evaluate((spec) => (window as any).__appScrollTo(spec, 0), { steps: (card as any).steps });
+        await sleep(800);
       }
     }
     await card.tap();
@@ -294,17 +304,8 @@ export async function extras(c: Ctx) {
     const rules = await levelRules(level.dir);
     const path = lossPath(rules)!;
     c.log(`extras: loss path for level 2: ${JSON.stringify(path)}`);
-    await toMap();
-    const card = c.page.getByRole('button', { name: /^Level 2: / });
-    await card.waitFor({ state: 'attached', timeout: 30_000 });
-    await card.tap();
-    const go = c.page.getByRole('button', { name: "Let's go!" });
-    await go.waitFor({ state: 'visible', timeout: 600_000 });
-    await sleep(1500);
-    await go.tap();
-    await go.waitFor({ state: 'hidden', timeout: 90_000 });
-    await c.page.waitForFunction(() => (window as any).__taps?.ready(), undefined, { timeout: 120_000 });
-    await sleep(3000);
+    await openLevel(2);
+    await sleep(1000);
     const taps = c.tapsFor?.(level);
     const player = c.players?.[level.id];
     let by = 'real touches';
@@ -337,13 +338,15 @@ export async function extras(c: Ctx) {
   await step('net-probe', async () => {
     // The test's own request, made last, from inside the app's web view: it must fail if the network is cut.
     const t0 = Date.now();
+    // "no-cors": with the network on, the request then ends with an opaque answer, not a refusal for want of
+    // CORS headers (run 45871836919 got "Load failed" with the network on). So only a cut network fails it.
     // Script calls into the page are not awaited, so the request is started, then its result read until it comes.
     await c.page.evaluate(() => {
       const w = window as any;
       w.__netProbe = { done: false };
       const ctl = new AbortController();
       const timer = setTimeout(() => ctl.abort(), 20_000);
-      fetch('https://example.com/?offline-probe', { cache: 'no-store', signal: ctl.signal })
+      fetch('https://example.com/?offline-probe', { cache: 'no-store', mode: 'no-cors', signal: ctl.signal })
         .then((res) => (w.__netProbe = { done: true, ok: true, status: res.status }))
         .catch((e) => (w.__netProbe = { done: true, ok: false, error: String(e) }))
         .finally(() => clearTimeout(timer));

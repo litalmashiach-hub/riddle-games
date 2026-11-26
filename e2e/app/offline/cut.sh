@@ -46,25 +46,28 @@ sort -u -o "$N/keep.txt" "$N/keep.txt"
 echo "kept addresses: $(wc -l < "$N/keep.txt")" | tee -a "$N/cut-log.txt"
 cat > "$N/pf.conf" <<PF
 set skip on lo0
-table <keep> persist file "$N/keep.txt"
+table <ghrun> persist file "$N/keep.txt"
 block return log all
 pass quick inet6 proto ipv6-icmp all
 pass out quick proto udp from any port 68 to any port 67
 pass out log quick proto { tcp udp } from any to any port 53 keep state
-pass out log quick proto tcp to <keep> flags any keep state
-pass out log quick proto udp to <keep> keep state
-pass in quick proto tcp from <keep> flags any keep state
-pass in quick proto udp from <keep> keep state
+pass out log quick proto tcp to <ghrun> flags any keep state
+pass out log quick proto udp to <ghrun> keep state
+pass in quick proto tcp from <ghrun> flags any keep state
+pass in quick proto udp from <ghrun> keep state
 PF
+# ("keep" is a word of pf's own, so the table is named ghrun: run 45871836919's rules did not load.)
+sudo pfctl -nf "$N/pf.conf" >> "$N/cut-log.txt" 2>&1 || { echo "the rules do not parse; no cut" | tee -a "$N/cut-log.txt"; exit 3; }
 sudo pfctl -E 2>&1 | tee "$N/pf-token.txt"
 sudo pfctl -f "$N/pf.conf" 2>&1 | tee -a "$N/cut-log.txt"
+sudo pfctl -s Tables 2>&1 | tee -a "$N/cut-log.txt"
 sudo pfctl -sr > "$N/pf-rules-in-force.txt" 2>&1
 sudo ifconfig pflog0 create 2> /dev/null || true
 sudo tcpdump -n -e -s 0 -i pflog0 -w "$N/pflog.pcap" > /dev/null 2> "$N/tcpdump-err.txt" &
 echo $! > "$N/tcpdump.pid"
 ( while :; do echo "== $(date -u +%H:%M:%S)"; sudo lsof -nP -i 2> /dev/null | grep -v -E '127\.0\.0\.1|\[::1\]|localhost' ; sleep 2; done ) > "$N/sockets.txt" 2>&1 &
 echo $! > "$N/sockets.pid"
-( while :; do sleep 20; for ip in $(resolve); do sudo pfctl -t keep -T add "$ip" > /dev/null 2>&1; done; done ) &
+( while :; do sleep 20; for ip in $(resolve); do sudo pfctl -t ghrun -T add "$ip" > /dev/null 2>&1; done; done ) &
 echo $! > "$N/refresh.pid"
 # A safety: whatever happens to the run, the network comes back after 110 minutes.
 ( sleep 6600; sudo pfctl -d ) > /dev/null 2>&1 &
