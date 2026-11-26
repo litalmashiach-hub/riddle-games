@@ -1,0 +1,232 @@
+{
+ "stars-over-restart": {
+  "before": "33 / 90",
+  "after": "33 / 90",
+  "savedSame": true,
+  "shots": [
+   "iphone17pro-offline-extra-map-before-restart.png",
+   "iphone17pro-offline-extra-map-after-restart.png"
+  ]
+ },
+ "stars-over-restart:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "launch": {
+  "mapAfter": 47.602,
+  "shots": [
+   {
+    "at": 3.519,
+    "file": "iphone17pro-offline-extra-launch-00.png"
+   },
+   {
+    "at": 5.278,
+    "file": "iphone17pro-offline-extra-launch-01.png"
+   },
+   {
+    "at": 8.09,
+    "file": "iphone17pro-offline-extra-launch-02.png"
+   },
+   {
+    "at": 10.074,
+    "file": "iphone17pro-offline-extra-launch-03.png"
+   },
+   {
+    "at": 12.606,
+    "file": "iphone17pro-offline-extra-launch-04.png"
+   },
+   {
+    "at": 14.471,
+    "file": "iphone17pro-offline-extra-launch-05.png"
+   },
+   {
+    "at": 16.804,
+    "file": "iphone17pro-offline-extra-launch-06.png"
+   },
+   {
+    "at": 22.933,
+    "file": "iphone17pro-offline-extra-launch-07.png"
+   },
+   {
+    "at": 32.671,
+    "file": "iphone17pro-offline-extra-launch-08.png"
+   },
+   {
+    "at": 39.125,
+    "file": "iphone17pro-offline-extra-launch-09.png"
+   }
+  ]
+ },
+ "launch:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "about": {
+  "Settings": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 812,
+     "y1": 382
+    },
+    "screen": {
+     "w": 874,
+     "h": 402
+    },
+    "scrollTop": 0,
+    "scrollHeight": 324,
+    "clientHeight": 324,
+    "offScreen": []
+   },
+   "scrolled": "nothing to scroll",
+   "shot": "iphone17pro-offline-extra-about-settings.png"
+  },
+  "Privacy": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 812,
+     "y1": 382
+    },
+    "screen": {
+     "w": 874,
+     "h": 402
+    },
+    "scrollTop": 0,
+    "scrollHeight": 1620,
+    "clientHeight": 324,
+    "offScreen": []
+   },
+   "scrolled": {
+    "before": 0,
+    "after": 416,
+    "of": 1296
+   },
+   "shot": "iphone17pro-offline-extra-about-privacy.png"
+  },
+  "Contact": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 812,
+     "y1": 382
+    },
+    "screen": {
+     "w": 874,
+     "h": 402
+    },
+    "scrollTop": 0,
+    "scrollHeight": 324,
+    "clientHeight": 324,
+    "offScreen": []
+   },
+   "scrolled": "nothing to scroll",
+   "shot": "iphone17pro-offline-extra-about-contact.png",
+   "emailTap": "no \"Write an email\" button on this build"
+  },
+  "Credits": {
+   "measure": {
+    "panel": {
+     "x0": 222,
+     "y0": 56,
+     "x1": 812,
+     "y1": 382
+    },
+    "screen": {
+     "w": 874,
+     "h": 402
+    },
+    "scrollTop": 0,
+    "scrollHeight": 2784,
+    "clientHeight": 324,
+    "offScreen": [
+     {
+      "what": "MIT LicenseRead",
+      "x0": 251,
+      "y0": 2549,
+      "x1": 783,
+      "y1": 2597
+     },
+     {
+      "what": "zlib LicenseRead",
+      "x0": 251,
+      "y0": 2605,
+      "x1": 783,
+      "y1": 2653
+     },
+     {
+      "what": "SIL Open Font License 1.1Read",
+      "x0": 251,
+      "y0": 2661,
+      "x1": 783,
+      "y1": 2709
+     },
+     {
+      "what": "Apache License 2.0Read",
+      "x0": 251,
+      "y0": 2717,
+      "x1": 783,
+      "y1": 2765
+     },
+     {
+      "what": "CC0 1.0 UniversalRead",
+      "x0": 251,
+      "y0": 2773,
+      "x1": 783,
+      "y1": 2821
+     }
+    ]
+   },
+   "scrolled": {
+    "before": 0,
+    "after": 427,
+    "of": 2460
+   },
+   "shot": "iphone17pro-offline-extra-about-credits.png"
+  }
+ },
+ "about:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "background-mid-level": {
+  "error": "timed out waiting for button \"Level 1: Wolf and Two Sheep\" to be visible"
+ },
+ "background-mid-level:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "loss-and-undo": {
+  "error": "button \"^Level 2: \" is at (-1399, 235), outside the 874 by 402 screen"
+ },
+ "loss-and-undo:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": []
+ },
+ "net-probe": {
+  "request": "https://example.com/?offline-probe (the test's own)",
+  "result": {
+   "done": true,
+   "ok": false,
+   "error": "TypeError: Load failed"
+  },
+  "seconds": 1,
+  "origin": "capacitor://localhost",
+  "outsideResourcesThisPage": []
+ },
+ "net-probe:faults": {
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [
+   "https://example.com/?offline-probe"
+  ]
+ }
+}

@@ -1,0 +1,20 @@
+runner logs: /Users/runner/actions-runner/cached/_diag
+kept addresses:       23
+pfctl: Use of -f option, could result in flushing of rules
+present in the main ruleset added by the system at startup.
+See /etc/pf.conf for further details.
+
+No ALTQ support in kernel
+ALTQ related functions disabled
+/Users/runner/work/riddle-games/riddle-games/out/iphone17pro-offline/net/pf.conf:2: syntax error
+/Users/runner/work/riddle-games/riddle-games/out/iphone17pro-offline/net/pf.conf:7: syntax error
+/Users/runner/work/riddle-games/riddle-games/out/iphone17pro-offline/net/pf.conf:8: syntax error
+/Users/runner/work/riddle-games/riddle-games/out/iphone17pro-offline/net/pf.conf:9: syntax error
+/Users/runner/work/riddle-games/riddle-games/out/iphone17pro-offline/net/pf.conf:10: syntax error
+pfctl: Syntax error in config file: pf rules not loaded
+network cut at 2026-11-26T18:16:10Z
+kept addresses at the end:       35
+No ALTQ support in kernel
+ALTQ related functions disabled
+pf disabled
+network back at 2026-11-26T18:44:38Z

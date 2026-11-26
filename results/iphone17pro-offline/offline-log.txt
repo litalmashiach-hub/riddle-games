@@ -1,0 +1,34 @@
+18:11:04 device iPhone 17 Pro: 6478AFFB-AE17-412A-A1E5-51BCFFD300B6
+18:13:18 booted
+18:15:04 installed the shipping build
+18:16:10 proof (before): a request from the Mac to https://example.com
+HTTP 200
+exit 0
+HTTP 200
+exit 0
+18:16:11 proof (before): Safari in the simulator opens https://example.com
+18:17:25 picture 00-safari-example-com-network-cut
+18:17:32 shipping build: cold open by the system
+com.example.riddlegames: 7979
+18:17:57 picture 01-ship-cold-open-3s
+18:18:23 picture 01-ship-cold-open-8s
+18:18:55 picture 01-ship-cold-open-20s
+18:20:13 picture 01-ship-cold-open-60s
+18:21:23 picture 01-ship-cold-open-120s
+18:21:24 shipping build: to the background (Settings opened over it) for 10 s, and back
+18:22:02 picture 02-ship-settings-over-app
+18:22:15 picture 03-ship-back-5s
+18:22:40 picture 03-ship-back-20s
+18:22:41 shipping build: quit and relaunch
+18:23:15 picture 04-ship-relaunch-20s
+18:24:02 picture 04-ship-relaunch-60s
+18:24:10 installed the test build (same app, plus read-only hooks and an open web view)
+18:25:24 picture 05-test-build-cold-open-60s
+18:25:33 test build: play by Appium
+18:43:33 play ended with status 0
+18:44:33 picture 06-end-of-play
+18:44:33 proof (after): a request from the Mac to https://example.com
+HTTP 200
+exit 0
+HTTP 200
+exit 0

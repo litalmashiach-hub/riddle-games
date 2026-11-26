@@ -1,0 +1,40 @@
+Connections pf refused while the network was cut (direction, address, port: packets; processes seen with that address):
+  none
+
+Names looked up while the network was cut (lookups are let through so the runner can find its hosts):
+  none
+
+Addresses pf let through that are not loopback, lookups or the runner's kept ones:
+  none
+
+The runner's kept addresses that were used (outward): 0
+Processes seen holding a non-loopback socket at any time during the cut:
+  apsd: 22 addresses
+  amsengage: 12 addresses
+  nsurlsess: 7 addresses
+  NewsToday: 7 addresses
+  com.apple: 7 addresses
+  hosted-co: 6 addresses
+  timed: 5 addresses
+  provjobd2: 4 addresses
+  trustd: 4 addresses
+  amsaccoun: 3 addresses
+  mobileass: 3 addresses
+  promotedc: 3 addresses
+  Runner.Wo: 2 addresses
+  cloudd: 2 addresses
+  assistant: 2 addresses
+  webprivac: 2 addresses
+  newsd: 2 addresses
+  translati: 2 addresses
+  geod: 2 addresses
+  itunessto: 2 addresses
+  Runner.Li: 1 addresses
+  maild: 1 addresses
+  kbd: 1 addresses
+  appstored: 1 addresses
+  jetpackas: 1 addresses
+  parsecd: 1 addresses
+  MobileSaf: 1 addresses
+  gamed: 1 addresses
+  curl: 1 addresses

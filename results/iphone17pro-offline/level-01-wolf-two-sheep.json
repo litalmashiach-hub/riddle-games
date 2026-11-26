@@ -1,0 +1,82 @@
+{
+ "level": 1,
+ "id": "wolf-two-sheep",
+ "title": "Wolf and Two Sheep",
+ "device": "iphone17pro-offline",
+ "size": "874x402",
+ "quality": null,
+ "openedBy": "its card on the level map",
+ "state": "won, finished by the debug hook after a NEW tap fault at step 1 (no-response)",
+ "wonByTaps": false,
+ "won": true,
+ "finishedByHook": true,
+ "movesByTaps": 0,
+ "moves": 7,
+ "touches": 1,
+ "stars": 3,
+ "savedStars": 3,
+ "fault": {
+  "kind": "no-response",
+  "step": 1,
+  "detail": "the tap did not put wolf in the boat (the Row button reads \"Row across ➜alone\"): the wolf at (248, 162); the first listening object under it has its origin at [-4.1, 0.4, -0.3]",
+  "known": false
+ },
+ "error": null,
+ "seconds": {
+  "open": 48.299,
+  "rulesCard": 2.903,
+  "drawn": 48.299,
+  "play": 68.417,
+  "total": 138.879
+ },
+ "pageErrors": [],
+ "consoleErrors": [],
+ "outsideRequests": [],
+ "shots": [
+  "iphone17pro-offline-L01-loading-mark.png",
+  "iphone17pro-offline-L01-rules-card.png",
+  "iphone17pro-offline-L01-fault-step-1.png",
+  "iphone17pro-offline-L01-win-card.png"
+ ],
+ "log": [
+  {
+   "step": 1,
+   "what": "the wolf",
+   "kind": "tap",
+   "at": {
+    "x": 247.54408489439408,
+    "y": 161.51539177157576
+   },
+   "onTop": "CANVAS",
+   "firstHit": {
+    "uuid": "2fd4f652-ef16-4a5c-bfaa-99f013d2413b",
+    "world": [
+     -4.1,
+     0.35,
+     -0.3
+    ],
+    "distance": 11.297872773641407
+   }
+  }
+ ],
+ "fps": 5.8,
+ "probe": {
+  "audioContexts": 1,
+  "audioStates": [
+   "running"
+  ],
+  "soundStarts": 12,
+  "decoded": 0,
+  "decodeErrors": 0,
+  "startErrors": [],
+  "canvas": [
+   "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+  ],
+  "liveAudioStates": [
+   "running"
+  ],
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "cssLayers": true,
+  "webgl2": true
+ }
+}

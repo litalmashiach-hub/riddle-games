@@ -1,0 +1,5 @@
+140.82.112.24 # /opt/hca/hosted-compute-agent
+20.85.130.105 # /Users/runner/actions-runner/cached/bin/Runner.Listener
+20.85.130.105 # /Users/runner/actions-runner/cached/bin/Runner.Listener
+140.82.112.22 # /Users/runner/actions-runner/cached/bin/Runner.Worker
+20.85.130.105 # /Users/runner/actions-runner/cached/bin/Runner.Worker

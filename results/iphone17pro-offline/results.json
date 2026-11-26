@@ -1,0 +1,232 @@
+[
+ {
+  "level": 1,
+  "id": "wolf-two-sheep",
+  "title": "Wolf and Two Sheep",
+  "device": "iphone17pro-offline",
+  "size": "874x402",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won, finished by the debug hook after a NEW tap fault at step 1 (no-response)",
+  "wonByTaps": false,
+  "won": true,
+  "finishedByHook": true,
+  "movesByTaps": 0,
+  "moves": 7,
+  "touches": 1,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": {
+   "kind": "no-response",
+   "step": 1,
+   "detail": "the tap did not put wolf in the boat (the Row button reads \"Row across ➜alone\"): the wolf at (248, 162); the first listening object under it has its origin at [-4.1, 0.4, -0.3]",
+   "known": false
+  },
+  "error": null,
+  "seconds": {
+   "open": 48.299,
+   "rulesCard": 2.903,
+   "drawn": 48.299,
+   "play": 68.417,
+   "total": 138.879
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone17pro-offline-L01-loading-mark.png",
+   "iphone17pro-offline-L01-rules-card.png",
+   "iphone17pro-offline-L01-fault-step-1.png",
+   "iphone17pro-offline-L01-win-card.png"
+  ],
+  "fps": 5.8,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 12,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 2,
+  "id": "wolf-goat-cabbage",
+  "title": "Wolf, Goat and Cabbage",
+  "device": "iphone17pro-offline",
+  "size": "874x402",
+  "quality": null,
+  "openedBy": "\"Next level\" on the win card",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 7,
+  "moves": 7,
+  "touches": 12,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 4.981,
+   "rulesCard": 2.844,
+   "drawn": 4.981,
+   "play": 31.463,
+   "total": 46.152
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone17pro-offline-L02-loading-mark.png",
+   "iphone17pro-offline-L02-rules-card.png",
+   "iphone17pro-offline-L02-in-play.png",
+   "iphone17pro-offline-L02-win-card.png"
+  ],
+  "fps": 6.9,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 28,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)",
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 5,
+  "id": "bridge-and-torch",
+  "title": "Bridge and Torch",
+  "device": "iphone17pro-offline",
+  "size": "874x402",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 5,
+  "moves": 5,
+  "touches": 13,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 16.614,
+   "rulesCard": 7.862,
+   "drawn": 16.614,
+   "play": 35.654,
+   "total": 68.077
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone17pro-offline-L05-loading-mark.png",
+   "iphone17pro-offline-L05-rules-card.png",
+   "iphone17pro-offline-L05-in-play.png",
+   "iphone17pro-offline-L05-win-card.png"
+  ],
+  "fps": 6,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 18,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ },
+ {
+  "level": 11,
+  "id": "family-crossing",
+  "title": "Family Crossing",
+  "device": "iphone17pro-offline",
+  "size": "874x402",
+  "quality": null,
+  "openedBy": "its card on the level map",
+  "state": "won by taps",
+  "wonByTaps": true,
+  "won": true,
+  "finishedByHook": false,
+  "movesByTaps": 17,
+  "moves": 17,
+  "touches": 45,
+  "stars": 3,
+  "savedStars": 3,
+  "fault": null,
+  "error": null,
+  "seconds": {
+   "open": 13.106,
+   "rulesCard": 4.171,
+   "drawn": 13.106,
+   "play": 106.579,
+   "total": 134.06
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "outsideRequests": [],
+  "shots": [
+   "iphone17pro-offline-L11-loading-mark.png",
+   "iphone17pro-offline-L11-rules-card.png",
+   "iphone17pro-offline-L11-in-play.png",
+   "iphone17pro-offline-L11-win-card.png"
+  ],
+  "fps": 6.3,
+  "probe": {
+   "audioContexts": 1,
+   "audioStates": [
+    "running"
+   ],
+   "soundStarts": 61,
+   "decoded": 0,
+   "decodeErrors": 0,
+   "startErrors": [],
+   "canvas": [
+    "webgl2: ok (WebGL 2.0; WebGL GLSL ES 3.00; max texture 8192)"
+   ],
+   "liveAudioStates": [
+    "running"
+   ],
+   "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+   "cssLayers": true,
+   "webgl2": true
+  }
+ }
+]
