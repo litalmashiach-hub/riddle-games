@@ -52,8 +52,12 @@ team's workspace, so this run is how a change to the iOS project is proven.
 
 ## What the shell sets
 
-- iPhone: sideways only, both directions. iPad: turns freely and can be resized, since Apple has deprecated
-  the setting that lets an iPad app refuse to (`Info.plist`, and `GameViewController.swift`).
+- Sideways only, both directions, on iPhone and on iPad (`Info.plist`, and `GameViewController.swift`). The
+  iPad side also sets `UIRequiresFullScreen`, which Apple has deprecated since iPadOS 26 (technote TN3192) but
+  which is still what lets an iPad app list fewer than four orientations. On iPadOS 26 the key itself no longer
+  stops resizing: an iPad held upright shows the game sideways and smaller, with dark bars above and below,
+  and a window that is resized keeps its sideways shape. `apps/mobile/src/shellSettings.test.ts` checks these
+  settings. Before building with the iOS 27 SDK, read TN3192 again: there the key gives "discrete resizing".
 - No status bar; the page keeps clear of the notch and home bar with CSS safe-area insets.
 - No page scroll, bounce or pinch zoom of the page (`GameViewController.swift`, `capacitor.config.ts`);
   text selection and long-press menus are already off in the game's CSS.
