@@ -1,0 +1,6 @@
+2026-11-26 20:18:14.287 App[17236:52383] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/runner/Library/Developer/CoreSimulator/Devices/F90353E4-F95D-488C-9F4E-B43F74E385F2/data/Containers/Data/Application/707C2587-FC02-4AD5-9BF0-A677BB415FBD/Library/Cookies/com.example.riddlegames.before.binarycookies
+⚡️  Loading app at capacitor://localhost...
+⚡️  [log] - STARTPROBE html 1795724302857 5074
+⚡️  WebView loaded
+⚡️  [log] - STARTPROBE map 1795724327040 29251
+com.example.riddlegames.before: 17236
