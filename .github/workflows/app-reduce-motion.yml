@@ -1,0 +1,68 @@
+name: App Reduce Motion check (test only)
+
+# TEST ONLY, not for merging. Builds the iOS app from main with read-only test hooks, boots an iPhone
+# simulator, and plays the levels with the most motion twice: with the simulator's Reduce Motion off,
+# then on (e2e/app/reduce-motion). Results are committed to this branch under results/, because the
+# mission cannot read the run's artifacts.
+
+on:
+  push:
+    branches: ['test/app-reduce-motion']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-reduce-motion-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  play:
+    name: iphone17pro-reduce-motion
+    runs-on: macos-26
+    timeout-minutes: 170
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode and Mac
+        run: xcodebuild -version; sw_vers; xcrun simctl list runtimes
+      - name: The test build (the app from main plus read-only hooks and an open web view)
+        run: |
+          set -o pipefail
+          VITE_APP_TEST_HOOKS=1 pnpm build:app
+          npm --prefix e2e/app install --no-audit --no-fund
+          e2e/app/node_modules/.bin/tsx e2e/app/prepare-app-build.ts
+          CAP_TEST_INSPECTABLE=1 pnpm --filter @riddle/mobile exec cap sync ios
+          xcodebuild -project apps/mobile/ios/App/App.xcodeproj -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build | tail -n 5
+      - name: Appium and its iOS driver
+        run: |
+          export APPIUM_HOME="$PWD/e2e/app/.appium"
+          e2e/app/node_modules/.bin/appium driver install xcuitest@12.22.8
+      - name: Play with Reduce Motion off, then on
+        timeout-minutes: 130
+        run: e2e/app/reduce-motion/play-rm.sh iphone17pro-reduce-motion 'iPhone 17 Pro' '1,2,4,7,12,22'
+      - name: Keep the pictures and logs on this branch, under results/ (test only)
+        if: always()
+        run: |
+          L=iphone17pro-reduce-motion
+          find out -type f -size +40M -delete
+          git config user.name "app-play run"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch -q --depth 5 origin "$GITHUB_REF_NAME" && git reset -q --hard FETCH_HEAD
+            rm -rf "results/$L"; mkdir -p results; cp -R "out/$L" "results/$L"
+            echo "Run ${{ github.run_id }}, commit ${{ github.sha }}" > "results/$L/RUN.txt"
+            git add -A results
+            git commit -q -m "TEST ONLY: results of run ${{ github.run_id }}, $L"
+            git push -q origin "HEAD:$GITHUB_REF_NAME" && break
+            sleep $(( i * 7 ))
+          done
