@@ -1,6 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { reducedMotion } from '@riddle/fx';
 import { HINT_EDGE, HINT_GOLD, RING_OPACITY, ringBands } from './hintMark';
 
 /** A mark is looked at, never tapped: no ray hits it, so it takes no touch from what it marks. */
@@ -53,12 +54,15 @@ export function edgedBandGeometry(inner: number, outer: number, edge: number, co
   );
 }
 
-/** The gentle pulse every hint mark shares: a little larger and smaller, and never fainter than RING_OPACITY.low. */
+/**
+ * The gentle pulse every hint mark shares: a little larger and smaller, and never fainter than RING_OPACITY.low.
+ * With Reduce Motion on, the mark holds still at its full size and its strongest (RING_OPACITY.high).
+ */
 export function useHintPulse(ref: React.RefObject<THREE.Mesh | null>) {
   useFrame(({ clock }) => {
     const m = ref.current;
     if (!m) return;
-    const wave = Math.sin(clock.elapsedTime * 5);
+    const wave = reducedMotion() ? 1 : Math.sin(clock.elapsedTime * 5);
     const s = 1 + wave * 0.08;
     m.scale.set(s, s, s);
     (m.material as THREE.MeshBasicMaterial).opacity = (RING_OPACITY.low + RING_OPACITY.high) / 2 + (wave * (RING_OPACITY.high - RING_OPACITY.low)) / 2;

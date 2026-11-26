@@ -1,4 +1,4 @@
-import { seeded, useSettings } from '@riddle/fx';
+import { ambientDt, reducedMotion, seeded, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { forwardRef, useImperativeHandle, useLayoutEffect, useMemo, useRef } from 'react';
@@ -112,7 +112,8 @@ function useIceMaterial() {
     };
     return m;
   }, [uniforms, HOLES]);
-  useFrame((_, dt) => (uniforms.uTime.value += dt));
+  // With Reduce Motion on, the shader's time stands still.
+  useFrame((_, dt) => (uniforms.uTime.value += ambientDt(dt)));
   return mat;
 }
 
@@ -231,10 +232,12 @@ export const LagoonWater = forwardRef<WaterHandle>(function LagoonWater(_, ref) 
   );
   useImperativeHandle(ref, () => ({
     splash(x, z) {
-      (uniforms.uSplash.value as THREE.Vector4).set(x, z, uniforms.uTime.value, 1);
+      // With Reduce Motion on, the water's time is held, so the ripple ring would stand still: it is left out.
+      (uniforms.uSplash.value as THREE.Vector4).set(x, z, uniforms.uTime.value, reducedMotion() ? 0 : 1);
     },
   }));
-  useFrame((_, dt) => (uniforms.uTime.value += dt));
+  // With Reduce Motion on, the shader's time stands still.
+  useFrame((_, dt) => (uniforms.uTime.value += ambientDt(dt)));
   return (
     <mesh position-y={WATER_Y} rotation-x={-Math.PI / 2}>
       <planeGeometry args={[90, 90, 1, 1]} />

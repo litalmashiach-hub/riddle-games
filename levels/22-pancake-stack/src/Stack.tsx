@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { easeInOut } from '@riddle/fx';
+import { easeInOut, reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -77,10 +77,14 @@ export function Stack({ stack, before, flip, hintCount, gag, party }: { stack: n
       let z = 0;
       let rz = 0;
       let speed = 14;
+      const still = reducedMotion();
       if (gag === 'wobble') {
-        x = Math.sin(ge * 9) * 0.045 * height * Math.min(1, ge * 1.5);
+        // With Reduce Motion on, the tower leans to one side and holds there instead of wobbling.
+        x = still ? 0.03 * height : Math.sin(ge * 9) * 0.045 * height * Math.min(1, ge * 1.5);
       } else if (gag === 'topple' || gag === 'flopped') {
+        // With Reduce Motion on, the pancakes are at once in their toppled places instead of sailing there.
         speed = 6;
+        if (still) speed = 0;
         if (pos === 0) {
           // The top pancake sails over and lands on the chef's hat.
           [x, y, z] = CHEF_HAT;
@@ -92,13 +96,14 @@ export function Stack({ stack, before, flip, hintCount, gag, party }: { stack: n
           y = slotY(pos) - height * 0.05;
           rz = -0.1 * height;
         }
-      } else if (party) {
+      } else if (party && !still) {
+        // (With Reduce Motion on, the pancakes stay neatly stacked: a held hop would leave them floating apart.)
         y += Math.abs(Math.sin(t * 6 - height * 0.5)) * 0.1;
       } else if (pos < hintCount) {
         x = Math.sin(t * 8) * 0.03;
         rz = Math.sin(t * 8) * 0.02;
       }
-      const k = 1 - Math.exp(-speed * dt);
+      const k = speed === 0 ? 1 : 1 - Math.exp(-speed * dt);
       g.position.x += (x - g.position.x) * k;
       g.position.y += (y - g.position.y) * k;
       g.position.z += (z - g.position.z) * k;

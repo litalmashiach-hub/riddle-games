@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
@@ -45,11 +46,13 @@ export function Hedgehog({ mood, nope }: { mood: Mood; nope: number }) {
       ry = t * 4;
       sy = 1 + hop * 0.1;
     } else if (mood === 'puzzled') {
-      ry = Math.sin(e * 6) * 1.1;
+      // With Reduce Motion on, he holds one glance to the side instead of looking back and forth.
+      ry = reducedMotion() ? 0.6 : Math.sin(e * 6) * 1.1;
     } else if (mood === 'curl') {
-      // Rolls up into a ball and spins on the spot.
-      y = 0.12 + Math.abs(Math.sin(e * 9)) * 0.12;
-      rx = e * 14;
+      // Rolls up into a ball and spins on the spot (with Reduce Motion on, he curls up and keeps still).
+      const calm = reducedMotion();
+      y = 0.12 + (calm ? 0 : Math.abs(Math.sin(e * 9)) * 0.12);
+      rx = calm ? 0 : e * 14;
       sy = 0.92;
     } else if (mood === 'dizzy') {
       // Flopped on his back, feet in the air, wobbling.

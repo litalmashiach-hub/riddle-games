@@ -1,7 +1,7 @@
 import type { SceneProps } from '@riddle/engine';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
-import { Burst, ComicWord, DizzyStars, FocusCam, LiftPress, PRESS_SLOP, Shake, clickGuard, liftTapped, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, ComicWord, DizzyStars, FocusCam, LiftPress, PRESS_SLOP, Shake, clickGuard, liftTapped, reducedMotion, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
 import { HintRing, toon } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
@@ -632,7 +632,9 @@ function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Ve
       // Feet windmill on the rolling log.
       s.rotation.set(Math.sin(t * 22) * 0.5, Math.PI / 2, Math.sin(t * 11) * 0.3);
     } else if (phase === 'splash') {
-      s.rotation.set(s.rotation.x + 0.25, Math.PI / 2, s.rotation.z + 0.12);
+      // With Reduce Motion on, Dottie falls in without tumbling head over heels.
+      if (reducedMotion()) s.rotation.set(0, Math.PI / 2, 0);
+      else s.rotation.set(s.rotation.x + 0.25, Math.PI / 2, s.rotation.z + 0.12);
     } else if (phase === 'after') {
       s.rotation.set(0, Math.PI / 2 + Math.sin(t * 0.8) * 0.5, Math.sin(t * 1.6) * 0.12);
     } else s.rotation.set(0, Math.PI / 2, 0);

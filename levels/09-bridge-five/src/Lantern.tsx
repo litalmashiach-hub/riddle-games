@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useSettings } from '@riddle/fx';
+import { reducedMotion, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useEffect, useMemo, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
@@ -38,7 +38,8 @@ export function Lantern({ minutes, out, moving }: { minutes: RefObject<number>; 
     const left = Math.max(0, 1 - (minutes.current ?? 0) / LANTERN_MINUTES);
     // When it goes out, it sputters a few times first, then dies with a spark and a puff.
     const since = outAt.current == null ? -1 : (performance.now() - outAt.current) / 1000;
-    const sputter = out && since >= 0 && since < SPUTTER_S;
+    // With Reduce Motion on, it does not sputter (no flicker): the light just fades out.
+    const sputter = out && since >= 0 && since < SPUTTER_S && !reducedMotion();
     const lit = !out || (sputter && Math.floor(since * 15) % 3 !== 1);
     if (swing.current) {
       const m = Math.min(1, moving.current ?? 0);

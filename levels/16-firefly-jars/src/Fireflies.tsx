@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useSettings } from '@riddle/fx';
+import { reducedMotion, useSettings } from '@riddle/fx';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { GLOW, HOVER_Y, hoverPos, slotPos } from './layout';
@@ -260,6 +260,9 @@ export function Fireflies({
     const won = P.phase === 'won';
     const k = lost ? now - lostAt.current : 0;
     if (lost) swarmCenter(k, tmp.sw);
+    // With Reduce Motion on, the swarm gathers and leaves without buzzing round, and nobody spins.
+    const calm = reducedMotion();
+    const kb = calm ? 0 : k;
 
     for (let i = 0; i < N; i++) {
       const b = bugs[i];
@@ -272,12 +275,12 @@ export function Fireflies({
         // Out of patience: zoom up into a buzzing, squabbling swarm, then storm off.
         const blend = smooth(0, 0.8, k - (i % 5) * 0.05);
         const w = 5 + (i % 4) * 1.3;
-        const r = 0.55 + 0.35 * Math.sin(i * 2.1 + k * 1.7);
-        tmp.v.set(Math.sin(w * k + b.seed * 3) * r, Math.sin(w * 1.3 * k + i) * 0.45, Math.cos(w * k + b.seed * 3) * r * 0.7).add(tmp.sw);
+        const r = 0.55 + 0.35 * Math.sin(i * 2.1 + kb * 1.7);
+        tmp.v.set(Math.sin(w * kb + b.seed * 3) * r, Math.sin(w * 1.3 * kb + i) * 0.45, Math.cos(w * kb + b.seed * 3) * r * 0.7).add(tmp.sw);
         b.pos.lerpVectors(lostFrom[i], tmp.v, blend);
         flapSpeed = 46;
-        tilt = Math.sin(k * 9 + i) * 0.5;
-        extraYaw = w * k;
+        tilt = Math.sin(kb * 9 + i) * 0.5;
+        extraYaw = w * kb;
       } else if (b.flying) {
         const u = Math.min(1, (now - b.start) / b.dur);
         flightPoint(b.from, b.to, u, b.pos);
@@ -303,7 +306,7 @@ export function Fireflies({
       const bob = Math.sin(t * 2.2 + b.seed * 2) * 0.03;
       const sinceCheer = now - b.cheer;
       if (sinceCheer < 0.9) {
-        extraYaw += ease(sinceCheer / 0.9) * Math.PI * 2;
+        if (!calm) extraYaw += ease(sinceCheer / 0.9) * Math.PI * 2;
         hop = Math.sin((sinceCheer / 0.9) * Math.PI) * 0.12;
       }
       let dx = 0;

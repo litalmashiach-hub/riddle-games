@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { reducedMotion } from '@riddle/fx';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -95,7 +96,8 @@ export function Bonk({ at, position }: { at: number; position: [number, number, 
     if (flash.current) {
       const s = 0.2 + t * 2.2;
       flash.current.scale.setScalar(s);
-      (flash.current.material as THREE.MeshBasicMaterial).opacity = Math.max(0, 0.9 - t * 2.5);
+      // With Reduce Motion on, the stars fly out without the white flash.
+      (flash.current.material as THREE.MeshBasicMaterial).opacity = reducedMotion() ? 0 : Math.max(0, 0.9 - t * 2.5);
     }
     stars.current.forEach((m, i) => {
       if (!m) return;

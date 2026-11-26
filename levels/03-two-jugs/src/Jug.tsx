@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { Clickable, tapPadRaycast, type Vec3 } from '@riddle/fx';
+import { Clickable, ambientDt, reducedMotion, tapPadRaycast, type Vec3 } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useMemo, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
@@ -236,8 +236,10 @@ export function Jug({ id, anim, state, selected, glow, disabled, oops, onClick }
         const k = phase(el, 0, SPILL_MS);
         c.dir = 1;
         c.pos = lerp3(s0.pos, home, k);
-        c.pos[1] += Math.sin(Math.PI * k) * 0.7;
-        c.tilt = lerp(s0.tilt, 0, k) + k * Math.PI * 2;
+        // With Reduce Motion on, the jug glides home without the hop and backflip.
+        const calm = reducedMotion();
+        if (!calm) c.pos[1] += Math.sin(Math.PI * k) * 0.7;
+        c.tilt = lerp(s0.tilt, 0, k) + (calm ? 0 : k * Math.PI * 2);
         c.litres = lerp(s0.litres, a.next[id], phase(el, 60, SPILL_MS * 0.45));
         if (spray.current.id !== a.id && el > 60) {
           spray.current.id = a.id;
@@ -295,7 +297,8 @@ export function Jug({ id, anim, state, selected, glow, disabled, oops, onClick }
     if (!g || !p || !b) return;
     // "Nuh-uh" head shake for a move that would do nothing.
     const since = performance.now() - oops;
-    const shake = since >= 0 && since < 650 ? 1 - since / 650 : 0;
+    // With Reduce Motion on, the jug does not shake; the message still says why.
+    const shake = since >= 0 && since < 650 && !reducedMotion() ? 1 - since / 650 : 0;
     g.position.set(c.pos[0], c.pos[1] + c.lift + Math.abs(Math.sin(since * 0.025)) * 0.08 * shake, c.pos[2]);
     g.rotation.z = Math.sin(since * 0.05) * 0.22 * shake;
 
@@ -334,7 +337,8 @@ export function Jug({ id, anim, state, selected, glow, disabled, oops, onClick }
     u.uLevel.value = frac < 0.004 ? -10 : level;
     u.uBottom.value = -5;
     u.uCenter.value.copy(center);
-    u.uTime.value += dt;
+    // With Reduce Motion on, the water's ripples and shimmer stand still.
+    u.uTime.value += ambientDt(dt);
     u.uGlow.value += ((glow ? 1 : 0) - u.uGlow.value) * Math.min(1, dt * 3);
 
     // Slosh: a damped spring pushed by the jug's acceleration.
@@ -352,7 +356,8 @@ export function Jug({ id, anim, state, selected, glow, disabled, oops, onClick }
     sl.vz = vz;
     sl.x = (sl.x - ax) * Math.exp(-dt * 2.5);
     sl.z = (sl.z - az) * Math.exp(-dt * 2.5);
-    const wob = Math.sin(performance.now() * 0.011);
+    // With Reduce Motion on, the slosh leans the water without rocking it back and forth.
+    const wob = reducedMotion() ? 1 : Math.sin(performance.now() * 0.011);
     u.uSlosh.value.set(THREE.MathUtils.clamp(sl.x * wob, -0.35, 0.35), THREE.MathUtils.clamp(sl.z * wob, -0.35, 0.35));
 
     if (label.current) {

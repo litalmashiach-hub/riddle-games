@@ -1,4 +1,4 @@
-import { seeded } from '@riddle/fx';
+import { reducedMotion, seeded } from '@riddle/fx';
 import { useFrame } from '@react-three/fiber';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -52,7 +52,8 @@ export function LanternFireflies({ glows, party, sleepy }: { glows: Glows; party
       if (pe >= 0) {
         // spiral up in a big shared swirl above the pond
         const k = Math.min(1, pe / 2.5);
-        const ang = a * 0.6 + pe * 2 + i;
+        // With Reduce Motion on, they rise into place without swirling round.
+        const ang = a * 0.6 + (reducedMotion() ? 0 : pe * 2) + i;
         const rad = THREE.MathUtils.lerp(f.r, 1.5 + (i % 7) * 0.35, k);
         goal.set(THREE.MathUtils.lerp(x, 0, k) + Math.cos(ang) * rad, f.h + 0.4 + k * (2.2 + (i % 5) * 0.4), THREE.MathUtils.lerp(z, 0, k) + Math.sin(ang) * rad);
       } else if (sleepy) {
