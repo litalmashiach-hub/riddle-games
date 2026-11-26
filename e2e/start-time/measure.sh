@@ -14,6 +14,12 @@ d=json.load(sys.stdin)['devices']
 for rt in sorted(d, reverse=True):
   for x in d[rt]:
     if x['name']=='$NAME': print(x['udid']); sys.exit()")
+if [ -z "$UDID" ]; then
+  TYPE=$(xcrun simctl list devicetypes -j | python3 -c "import json,sys; print([t['identifier'] for t in json.load(sys.stdin)['devicetypes'] if t['name']=='$NAME'][0])")
+  RT=$(xcrun simctl list runtimes -j | python3 -c "import json,sys; r=[x for x in json.load(sys.stdin)['runtimes'] if x['isAvailable'] and x['platform']=='iOS']; print(sorted(r,key=lambda x:[int(n) for n in x['version'].split('.')])[-1]['identifier'])")
+  echo "making $NAME ($TYPE) on $RT"
+  UDID=$(xcrun simctl create "$NAME" "$TYPE" "$RT")
+fi
 [ -z "$UDID" ] && { echo "no simulator $NAME"; exit 1; }
 xcrun simctl list devices | grep "$UDID" | tee "$OUT/device.txt"
 xcrun simctl boot "$UDID" || true
