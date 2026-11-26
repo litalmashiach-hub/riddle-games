@@ -1,0 +1,23 @@
+{
+ "device": "ipad9-ios15-4",
+ "size": {
+  "width": 1080,
+  "height": 810
+ },
+ "calibration": "touched [{\"x\":324,\"y\":324},{\"x\":756,\"y\":608}], the page saw [{\"x\":324,\"y\":324},{\"x\":756,\"y\":608}]: same (error 0.0 pt)",
+ "args": {
+  "backend": "appium",
+  "device": "ipad9-ios15-4",
+  "levels": "1,2,5,11",
+  "out": "/Users/runner/work/riddle-games/riddle-games/out/ipad9-ios15-4",
+  "caps": "{\"platformName\": \"iOS\", \"appium:automationName\": \"XCUITest\", \"appium:udid\": \"571C311B-040C-4849-929A-2AF56DC316BA\", \"appium:bundleId\": \"com.example.riddlegames\", \"appium:noReset\": true, \"appium:newCommandTimeout\": 3600, \"appium:wdaLaunchTimeout\": 1800000, \"appium:wdaConnectionTimeout\": 1800000, \"appium:webviewConnectTimeout\": 120000, \"appium:includeSafariInWebviews\": false, \"appium:autoWebview\": false, \"appium:nativeWebScreenshot\": true, \"appium:showXcodeLog\": false, \"appium:waitForIdleTimeout\": 0, \"appium:skipLogCapture\": true, \"appium:webviewConnectRetries\": 20, \"appium:additionalWebviewBundleIds\": [\"*\"], \"appium:forceAppLaunch\": true}",
+  "bundle-id": "com.example.riddlegames",
+  "level-minutes": "25",
+  "orientation": "LANDSCAPE",
+  "quality": "low",
+  "relaunch-each": "true",
+  "fps": "6",
+  "open-seconds": "600",
+  "card-seconds": "90"
+ }
+}
