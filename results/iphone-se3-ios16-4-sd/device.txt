@@ -1,0 +1,8 @@
+device iPhone SE (3rd generation): 8AADAF25-BE43-43F5-BA37-C051075A85A1
+    iPhone SE (3rd generation) (com.apple.CoreSimulator.SimRuntime.iOS-16-4) (8AADAF25-BE43-43F5-BA37-C051075A85A1) (Shutdown) 
+booted in 52 s
+com.example.riddlegames: 9000
+system picture at 20 s
+system picture at 60 s
+system picture at 120 s
+run ended with status 1

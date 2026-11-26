@@ -1,0 +1,754 @@
+== 18:32:50 swapouts 0 (+0) load { 503.24 390.32 208.36 }
+Pages free:                                    26943.
+Pages stored in compressor:                   322275.
+Pages occupied by compressor:                 119820.
+PID   COMMAND         MEM  CMPRS
+7503  SpringBoard     100M 49M  
+960   Runner.Worker   97M  64M  
+7472  SimRenderServer 84M  12M  
+957   Runner.Listener 78M  48M  
+467   Spotlight       73M  39M  
+340   mds_stores      67M  11M  
+8075  NewsTag         66M  60M  
+8100  Spotlight       63M  57M  
+== 18:33:12 swapouts 0 (+0) load { 448.31 385.36 210.82 }
+Pages free:                                   108710.
+Pages stored in compressor:                   150950.
+Pages occupied by compressor:                  53158.
+PID    COMMAND         MEM  CMPRS
+21423  node            203M 0B   
+20986  node            147M 0B   
+960    Runner.Worker   97M  68M  
+340    mds_stores      80M  37M  
+957    Runner.Listener 78M  50M  
+467    Spotlight       74M  39M  
+164    WindowServer    62M  36M  
+4241   diskimagesiod   47M  13M  
+== 18:34:00 swapouts 0 (+0) load { 380.27 373.71 216.29 }
+Pages free:                                     5528.
+Pages stored in compressor:                   229211.
+Pages occupied by compressor:                  83246.
+PID    COMMAND         MEM  CMPRS
+20986  node            112M 36M  
+22047  SpringBoard     102M 36M  
+960    Runner.Worker   97M  89M  
+21423  node            90M  21M  
+340    mds_stores      85M  79M  
+957    Runner.Listener 78M  56M  
+467    Spotlight       75M  64M  
+164    WindowServer    68M  37M  
+== 18:34:30 swapouts 0 (+0) load { 378.43 374.30 221.98 }
+Pages free:                                     6595.
+Pages stored in compressor:                   271549.
+Pages occupied by compressor:                  97944.
+PID    COMMAND         MEM  CMPRS
+20986  node            114M 36M  
+22047  SpringBoard     101M 84M  
+960    Runner.Worker   97M  89M  
+21423  node            92M  43M  
+957    Runner.Listener 78M  57M  
+340    mds_stores      77M  55M  
+467    Spotlight       75M  50M  
+23395  xcodebuild      73M  0B   
+== 18:34:51 swapouts 0 (+0) load { 376.41 374.05 225.43 }
+Pages free:                                     4037.
+Pages stored in compressor:                   301391.
+Pages occupied by compressor:                 109783.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 127M 14M  
+20986  node            114M 35M  
+22047  SpringBoard     101M 85M  
+960    Runner.Worker   97M  90M  
+340    mds_stores      90M  58M  
+21423  node            89M  38M  
+957    Runner.Listener 78M  69M  
+467    Spotlight       76M  26M  
+== 18:35:13 swapouts 0 (+0) load { 380.83 375.23 229.31 }
+Pages free:                                     3509.
+Pages stored in compressor:                   345774.
+Pages occupied by compressor:                 122623.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 153M 25M  
+25006  clang           150M 0B   
+25005  clang           135M 0B   
+20986  node            115M 69M  
+22047  SpringBoard     101M 84M  
+960    Runner.Worker   97M  87M  
+340    mds_stores      93M  74M  
+21423  node            90M  49M  
+== 18:35:34 swapouts 0 (+0) load { 384.34 376.39 233.11 }
+Pages free:                                    16607.
+Pages stored in compressor:                   346795.
+Pages occupied by compressor:                 123694.
+PID    COMMAND         MEM  CMPRS
+25006  clang           277M 0B   
+23572  SWBBuildService 154M 19M  
+20986  node            115M 68M  
+22047  SpringBoard     101M 84M  
+960    Runner.Worker   97M  79M  
+340    mds_stores      93M  74M  
+21423  node            90M  46M  
+26263  clang           83M  0B   
+== 18:35:55 swapouts 0 (+0) load { 384.90 377.25 237.57 }
+Pages free:                                    16263.
+Pages stored in compressor:                   343008.
+Pages occupied by compressor:                 122600.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 154M 19M  
+27100  clang           144M 0B   
+20986  node            116M 66M  
+27325  clang           107M 0B   
+22047  SpringBoard     101M 84M  
+960    Runner.Worker   97M  79M  
+340    mds_stores      93M  73M  
+21423  node            91M  46M  
+== 18:36:15 swapouts 0 (+0) load { 383.66 377.43 240.88 }
+Pages free:                                    20552.
+Pages stored in compressor:                   341002.
+Pages occupied by compressor:                 121974.
+PID    COMMAND         MEM  CMPRS
+27980  clang           190M 0B   
+23572  SWBBuildService 146M 15M  
+20986  node            116M 64M  
+22047  SpringBoard     101M 83M  
+960    Runner.Worker   97M  79M  
+340    mds_stores      93M  72M  
+21423  node            91M  46M  
+957    Runner.Listener 79M  42M  
+== 18:36:36 swapouts 0 (+0) load { 388.35 378.88 244.57 }
+Pages free:                                    17334.
+Pages stored in compressor:                   339878.
+Pages occupied by compressor:                 121707.
+PID    COMMAND         MEM  CMPRS
+28027  clang           190M 0B   
+23572  SWBBuildService 148M 15M  
+20986  node            116M 63M  
+22047  SpringBoard     101M 83M  
+960    Runner.Worker   97M  78M  
+340    mds_stores      94M  72M  
+21423  node            92M  45M  
+957    Runner.Listener 79M  42M  
+== 18:36:57 swapouts 0 (+0) load { 383.65 378.55 247.58 }
+Pages free:                                     6940.
+Pages stored in compressor:                   332810.
+Pages occupied by compressor:                 120407.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 141M 11M  
+23395  xcodebuild      117M 21M  
+20986  node            116M 63M  
+22047  SpringBoard     101M 81M  
+960    Runner.Worker   97M  78M  
+21423  node            93M  46M  
+957    Runner.Listener 79M  42M  
+467    Spotlight       76M  48M  
+== 18:37:18 swapouts 0 (+0) load { 361.68 373.92 248.97 }
+Pages free:                                     4314.
+Pages stored in compressor:                   331048.
+Pages occupied by compressor:                 120410.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 141M 11M  
+23395  xcodebuild      117M 21M  
+20986  node            117M 63M  
+22047  SpringBoard     101M 81M  
+960    Runner.Worker   97M  78M  
+21423  node            93M  46M  
+957    Runner.Listener 79M  41M  
+467    Spotlight       76M  48M  
+== 18:37:38 swapouts 0 (+0) load { 321.21 364.04 248.33 }
+Pages free:                                     4501.
+Pages stored in compressor:                   336170.
+Pages occupied by compressor:                 123684.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 141M 28M  
+23395  xcodebuild      117M 56M  
+20986  node            117M 62M  
+22047  SpringBoard     101M 73M  
+960    Runner.Worker   97M  78M  
+21423  node            94M  51M  
+467    Spotlight       83M  35M  
+957    Runner.Listener 79M  42M  
+== 18:37:59 swapouts 0 (+0) load { 298.12 355.99 248.13 }
+Pages free:                                     4237.
+Pages stored in compressor:                   339705.
+Pages occupied by compressor:                 124824.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 141M 51M  
+20986  node            118M 62M  
+23395  xcodebuild      117M 99M  
+22047  SpringBoard     101M 73M  
+960    Runner.Worker   97M  78M  
+21423  node            95M  55M  
+957    Runner.Listener 79M  42M  
+467    Spotlight       78M  35M  
+== 18:38:20 swapouts 0 (+0) load { 271.27 345.29 247.41 }
+Pages free:                                     4287.
+Pages stored in compressor:                   341586.
+Pages occupied by compressor:                 126433.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 141M 63M  
+20986  node            118M 68M  
+23395  xcodebuild      117M 99M  
+22047  SpringBoard     102M 73M  
+960    Runner.Worker   97M  80M  
+21423  node            95M  61M  
+957    Runner.Listener 80M  52M  
+467    Spotlight       77M  41M  
+== 18:38:41 swapouts 0 (+0) load { 233.13 331.89 244.89 }
+Pages free:                                     3770.
+Pages stored in compressor:                   348766.
+Pages occupied by compressor:                 131030.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 144M 137M 
+20986  node            118M 76M  
+23395  xcodebuild      117M 105M 
+22047  SpringBoard     101M 57M  
+960    Runner.Worker   97M  88M  
+21423  node            96M  64M  
+957    Runner.Listener 80M  59M  
+467    Spotlight       77M  38M  
+== 18:39:01 swapouts 0 (+0) load { 189.12 315.48 241.02 }
+Pages free:                                     3778.
+Pages stored in compressor:                   385514.
+Pages occupied by compressor:                 145424.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 144M 142M 
+20986  node            119M 83M  
+23395  xcodebuild      118M 108M 
+22047  SpringBoard     101M 76M  
+960    Runner.Worker   97M  91M  
+21423  node            97M  69M  
+957    Runner.Listener 80M  60M  
+467    Spotlight       77M  73M  
+== 18:39:22 swapouts 0 (+0) load { 158.19 300.38 237.34 }
+Pages free:                                     4464.
+Pages stored in compressor:                   403235.
+Pages occupied by compressor:                 154381.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 144M 143M 
+20986  node            119M 84M  
+23395  xcodebuild      118M 114M 
+22047  SpringBoard     103M 74M  
+21423  node            97M  70M  
+960    Runner.Worker   97M  91M  
+957    Runner.Listener 80M  77M  
+467    Spotlight       77M  76M  
+== 18:39:42 swapouts 0 (+0) load { 118.24 282.03 232.22 }
+Pages free:                                    27704.
+Pages stored in compressor:                   416939.
+Pages occupied by compressor:                 159868.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 144M 143M 
+20986  node            119M 41M  
+23395  xcodebuild      118M 114M 
+22047  SpringBoard     102M 70M  
+21423  node            98M  68M  
+960    Runner.Worker   97M  90M  
+957    Runner.Listener 80M  77M  
+467    Spotlight       77M  76M  
+== 18:40:03 swapouts 0 (+0) load { 85.74 264.00 226.91 }
+Pages free:                                     3681.
+Pages stored in compressor:                   413849.
+Pages occupied by compressor:                 159316.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 123M 121M 
+20986  node            119M 41M  
+23395  xcodebuild      118M 114M 
+22047  SpringBoard     102M 70M  
+21423  node            98M  69M  
+960    Runner.Worker   97M  87M  
+957    Runner.Listener 80M  60M  
+22473  healthappd      79M  47M  
+== 18:40:23 swapouts 0 (+0) load { 63.42 247.35 221.80 }
+Pages free:                                     3398.
+Pages stored in compressor:                   431454.
+Pages occupied by compressor:                 166311.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 123M 123M 
+20986  node            119M 80M  
+23395  xcodebuild      118M 114M 
+22047  SpringBoard     103M 85M  
+21423  node            99M  70M  
+960    Runner.Worker   97M  89M  
+957    Runner.Listener 80M  58M  
+22473  healthappd      79M  72M  
+== 18:40:44 swapouts 0 (+0) load { 46.32 231.55 216.73 }
+Pages free:                                     4318.
+Pages stored in compressor:                   427351.
+Pages occupied by compressor:                 165170.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 123M 123M 
+20986  node            119M 78M  
+23395  xcodebuild      118M 114M 
+22047  SpringBoard     103M 84M  
+21423  node            99M  69M  
+960    Runner.Worker   97M  87M  
+957    Runner.Listener 80M  58M  
+22473  healthappd      79M  70M  
+== 18:41:04 swapouts 0 (+0) load { 33.54 216.64 211.72 }
+Pages free:                                     3728.
+Pages stored in compressor:                   423034.
+Pages occupied by compressor:                 163942.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 123M 121M 
+20986  node            119M 77M  
+23395  xcodebuild      118M 114M 
+22047  SpringBoard     103M 82M  
+21423  node            100M 53M  
+960    Runner.Worker   97M  90M  
+957    Runner.Listener 80M  57M  
+22473  healthappd      79M  74M  
+== 18:41:25 swapouts 0 (+0) load { 24.72 202.77 206.86 }
+Pages free:                                     4273.
+Pages stored in compressor:                   420381.
+Pages occupied by compressor:                 163002.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 123M 121M 
+20986  node            119M 76M  
+23395  xcodebuild      118M 113M 
+22047  SpringBoard     103M 82M  
+21423  node            100M 51M  
+960    Runner.Worker   97M  90M  
+957    Runner.Listener 80M  57M  
+22473  healthappd      79M  77M  
+== 18:41:46 swapouts 0 (+0) load { 21.28 187.77 201.34 }
+Pages free:                                     3969.
+Pages stored in compressor:                   417002.
+Pages occupied by compressor:                 163059.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 123M 121M 
+20986  node            119M 76M  
+23395  xcodebuild      118M 113M 
+22047  SpringBoard     103M 83M  
+21423  node            100M 51M  
+960    Runner.Worker   97M  90M  
+957    Runner.Listener 80M  60M  
+22473  healthappd      79M  77M  
+== 18:42:06 swapouts 0 (+0) load { 15.59 175.69 196.69 }
+Pages free:                                     4464.
+Pages stored in compressor:                   413471.
+Pages occupied by compressor:                 161978.
+PID    COMMAND         MEM  CMPRS
+23572  SWBBuildService 123M 121M 
+20986  node            119M 75M  
+23395  xcodebuild      118M 113M 
+22047  SpringBoard     103M 83M  
+21423  node            100M 51M  
+960    Runner.Worker   97M  90M  
+957    Runner.Listener 80M  58M  
+22473  healthappd      79M  77M  
+== 18:42:27 swapouts 0 (+0) load { 12.70 164.64 192.24 }
+Pages free:                                     4261.
+Pages stored in compressor:                   413114.
+Pages occupied by compressor:                 161854.
+PID    COMMAND         MEM  CMPRS
+20986  node            120M 74M  
+23395  xcodebuild      118M 113M 
+23572  SWBBuildService 107M 105M 
+22047  SpringBoard     103M 82M  
+21423  node            100M 51M  
+960    Runner.Worker   97M  89M  
+957    Runner.Listener 80M  58M  
+22473  healthappd      79M  77M  
+== 18:42:47 swapouts 0 (+0) load { 12.44 154.79 188.07 }
+Pages free:                                     5490.
+Pages stored in compressor:                   428686.
+Pages occupied by compressor:                 168128.
+PID    COMMAND         MEM  CMPRS
+20986  node            120M 75M  
+23395  xcodebuild      118M 113M 
+23572  SWBBuildService 107M 107M 
+22047  SpringBoard     103M 99M  
+21423  node            100M 70M  
+960    Runner.Worker   97M  93M  
+957    Runner.Listener 80M  67M  
+22473  healthappd      79M  77M  
+== 18:43:08 swapouts 0 (+0) load { 9.90 144.99 183.78 }
+Pages free:                                     3781.
+Pages stored in compressor:                   423913.
+Pages occupied by compressor:                 166674.
+PID    COMMAND         MEM  CMPRS
+20986  node            120M 60M  
+23395  xcodebuild      118M 114M 
+23572  SWBBuildService 107M 105M 
+22047  SpringBoard     103M 85M  
+21423  node            101M 61M  
+960    Runner.Worker   97M  84M  
+957    Runner.Listener 80M  62M  
+22473  healthappd      79M  77M  
+== 18:43:28 swapouts 0 (+0) load { 7.97 135.80 179.58 }
+Pages free:                                     4140.
+Pages stored in compressor:                   419371.
+Pages occupied by compressor:                 163100.
+PID    COMMAND         MEM  CMPRS
+20986  node            120M 62M  
+23395  xcodebuild      118M 115M 
+23572  SWBBuildService 107M 105M 
+22047  SpringBoard     103M 85M  
+21423  node            101M 60M  
+960    Runner.Worker   97M  84M  
+957    Runner.Listener 80M  63M  
+22473  healthappd      79M  77M  
+== 18:43:48 swapouts 0 (+0) load { 6.74 127.25 175.50 }
+Pages free:                                     4278.
+Pages stored in compressor:                   415320.
+Pages occupied by compressor:                 161840.
+PID    COMMAND         MEM  CMPRS
+20986  node            120M 61M  
+23395  xcodebuild      118M 115M 
+23572  SWBBuildService 107M 105M 
+22047  SpringBoard     103M 85M  
+21423  node            101M 59M  
+960    Runner.Worker   97M  80M  
+957    Runner.Listener 80M  63M  
+22473  healthappd      79M  77M  
+== 18:44:09 swapouts 0 (+0) load { 5.32 119.12 171.46 }
+Pages free:                                     4644.
+Pages stored in compressor:                   412199.
+Pages occupied by compressor:                 160803.
+PID    COMMAND         MEM  CMPRS
+20986  node            120M 59M  
+23395  xcodebuild      118M 114M 
+23572  SWBBuildService 107M 105M 
+22047  SpringBoard     103M 85M  
+21423  node            101M 58M  
+960    Runner.Worker   97M  80M  
+957    Runner.Listener 80M  62M  
+22473  healthappd      79M  77M  
+== 18:44:29 swapouts 0 (+0) load { 4.04 111.45 167.49 }
+Pages free:                                     4946.
+Pages stored in compressor:                   407763.
+Pages occupied by compressor:                 158617.
+PID    COMMAND         MEM  CMPRS
+20986  node            120M 35M  
+23395  xcodebuild      118M 114M 
+22047  SpringBoard     103M 85M  
+21423  node            101M 58M  
+960    Runner.Worker   97M  80M  
+23572  SWBBuildService 89M  87M  
+957    Runner.Listener 80M  62M  
+22473  healthappd      79M  77M  
+== 18:44:50 swapouts 0 (+0) load { 3.69 104.41 163.66 }
+Pages free:                                    39396.
+Pages stored in compressor:                   453529.
+Pages occupied by compressor:                 169470.
+PID    COMMAND         MEM  CMPRS
+20986  node            118M 80M  
+23395  xcodebuild      110M 107M 
+22047  SpringBoard     103M 100M 
+960    Runner.Worker   97M  94M  
+21423  node            83M  54M  
+957    Runner.Listener 79M  76M  
+22473  healthappd      79M  77M  
+467    Spotlight       77M  76M  
+== 18:45:10 swapouts 0 (+0) load { 5.56 98.30 160.09 }
+Pages free:                                     4043.
+Pages stored in compressor:                   433733.
+Pages occupied by compressor:                 164373.
+PID    COMMAND         MEM  CMPRS
+20986  node            107M 69M  
+23395  xcodebuild      105M 102M 
+22047  SpringBoard     103M 89M  
+960    Runner.Worker   93M  84M  
+21423  node            83M  63M  
+22473  healthappd      79M  78M  
+467    Spotlight       78M  53M  
+957    Runner.Listener 75M  59M  
+== 18:45:31 swapouts 0 (+0) load { 5.13 92.19 156.47 }
+Pages free:                                     4086.
+Pages stored in compressor:                   417246.
+Pages occupied by compressor:                 156637.
+PID    COMMAND         MEM  CMPRS
+23395  xcodebuild      109M 88M  
+20986  node            109M 67M  
+22047  SpringBoard     103M 79M  
+960    Runner.Worker   93M  87M  
+21423  node            83M  51M  
+22473  healthappd      79M  77M  
+467    Spotlight       78M  53M  
+957    Runner.Listener 75M  56M  
+== 18:45:52 swapouts 0 (+0) load { 5.54 86.65 152.99 }
+Pages free:                                    12231.
+Pages stored in compressor:                   405863.
+Pages occupied by compressor:                 153312.
+PID    COMMAND         MEM  CMPRS
+23395  xcodebuild      165M 65M  
+20986  node            109M 65M  
+22047  SpringBoard     103M 90M  
+960    Runner.Worker   93M  87M  
+21423  node            83M  50M  
+22473  healthappd      79M  77M  
+467    Spotlight       77M  71M  
+957    Runner.Listener 75M  56M  
+== 18:46:13 swapouts 0 (+0) load { 8.08 80.72 148.93 }
+Pages free:                                     4248.
+Pages stored in compressor:                   379424.
+Pages occupied by compressor:                 143917.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 53M  
+22047  SpringBoard     103M 79M  
+960    Runner.Worker   93M  87M  
+21423  node            83M  34M  
+22473  healthappd      79M  77M  
+467    Spotlight       78M  68M  
+58996  xcodebuild      77M  0B   
+957    Runner.Listener 75M  54M  
+== 18:46:34 swapouts 0 (+0) load { 15.77 77.83 146.31 }
+Pages free:                                     3771.
+Pages stored in compressor:                   372292.
+Pages occupied by compressor:                 141192.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 52M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  86M  
+21423  node            84M  34M  
+22473  healthappd      79M  69M  
+467    Spotlight       78M  46M  
+957    Runner.Listener 75M  55M  
+== 18:46:54 swapouts 0 (+0) load { 12.30 73.03 142.99 }
+Pages free:                                     4104.
+Pages stored in compressor:                   369078.
+Pages occupied by compressor:                 140411.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 52M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  86M  
+21423  node            84M  33M  
+22473  healthappd      79M  69M  
+467    Spotlight       78M  46M  
+957    Runner.Listener 75M  55M  
+== 18:47:15 swapouts 0 (+0) load { 10.01 68.56 139.76 }
+Pages free:                                     3890.
+Pages stored in compressor:                   371972.
+Pages occupied by compressor:                 141141.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 51M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  86M  
+21423  node            84M  32M  
+22473  healthappd      79M  68M  
+467    Spotlight       78M  46M  
+957    Runner.Listener 76M  53M  
+== 18:47:35 swapouts 0 (+0) load { 7.85 64.28 136.57 }
+Pages free:                                     3887.
+Pages stored in compressor:                   371470.
+Pages occupied by compressor:                 141265.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 50M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  86M  
+21423  node            84M  32M  
+22473  healthappd      79M  69M  
+467    Spotlight       78M  46M  
+957    Runner.Listener 76M  53M  
+== 18:47:56 swapouts 0 (+0) load { 6.17 60.24 133.44 }
+Pages free:                                     4608.
+Pages stored in compressor:                   370316.
+Pages occupied by compressor:                 140954.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 49M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  86M  
+21423  node            84M  32M  
+22473  healthappd      79M  69M  
+467    Spotlight       78M  46M  
+957    Runner.Listener 76M  53M  
+== 18:48:16 swapouts 0 (+0) load { 4.93 56.45 130.38 }
+Pages free:                                     3759.
+Pages stored in compressor:                   369580.
+Pages occupied by compressor:                 140806.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 48M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  86M  
+21423  node            84M  32M  
+22473  healthappd      79M  69M  
+467    Spotlight       78M  46M  
+957    Runner.Listener 76M  52M  
+== 18:48:37 swapouts 0 (+0) load { 4.75 53.08 127.46 }
+Pages free:                                     4206.
+Pages stored in compressor:                   369403.
+Pages occupied by compressor:                 141350.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 49M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  86M  
+21423  node            84M  32M  
+22473  healthappd      79M  69M  
+467    Spotlight       78M  46M  
+957    Runner.Listener 76M  52M  
+== 18:48:57 swapouts 0 (+0) load { 3.85 49.76 124.54 }
+Pages free:                                     4141.
+Pages stored in compressor:                   368208.
+Pages occupied by compressor:                 141013.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 48M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  85M  
+21423  node            84M  32M  
+22473  healthappd      79M  69M  
+467    Spotlight       78M  46M  
+957    Runner.Listener 76M  52M  
+== 18:49:17 swapouts 0 (+0) load { 3.16 46.63 121.68 }
+Pages free:                                     4195.
+Pages stored in compressor:                   366544.
+Pages occupied by compressor:                 140538.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 48M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  85M  
+21423  node            84M  31M  
+22473  healthappd      79M  69M  
+957    Runner.Listener 79M  50M  
+467    Spotlight       78M  46M  
+== 18:49:38 swapouts 0 (+0) load { 2.48 43.66 118.87 }
+Pages free:                                     4052.
+Pages stored in compressor:                   367544.
+Pages occupied by compressor:                 141133.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 47M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  85M  
+21423  node            84M  30M  
+22473  healthappd      79M  69M  
+957    Runner.Listener 79M  50M  
+467    Spotlight       78M  46M  
+== 18:49:58 swapouts 0 (+0) load { 2.76 41.05 116.19 }
+Pages free:                                     3785.
+Pages stored in compressor:                   371762.
+Pages occupied by compressor:                 144037.
+PID    COMMAND         MEM  CMPRS
+20986  node            109M 48M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  81M  
+21423  node            84M  30M  
+467    Spotlight       80M  37M  
+22473  healthappd      79M  69M  
+957    Runner.Listener 79M  50M  
+== 18:50:19 swapouts 0 (+0) load { 3.15 38.65 113.58 }
+Pages free:                                     3843.
+Pages stored in compressor:                   370948.
+Pages occupied by compressor:                 143802.
+PID    COMMAND         MEM  CMPRS
+20986  node            110M 48M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  81M  
+21423  node            84M  30M  
+467    Spotlight       80M  37M  
+957    Runner.Listener 79M  49M  
+22473  healthappd      79M  69M  
+== 18:50:39 swapouts 0 (+0) load { 3.13 36.35 111.01 }
+Pages free:                                     4196.
+Pages stored in compressor:                   368511.
+Pages occupied by compressor:                 142702.
+PID    COMMAND         MEM  CMPRS
+20986  node            110M 24M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  81M  
+21423  node            84M  29M  
+467    Spotlight       80M  37M  
+957    Runner.Listener 79M  49M  
+22473  healthappd      79M  69M  
+== 18:51:00 swapouts 0 (+0) load { 3.95 33.89 107.96 }
+Pages free:                                     4978.
+Pages stored in compressor:                   368188.
+Pages occupied by compressor:                 142586.
+PID    COMMAND         MEM  CMPRS
+20986  node            110M 24M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  81M  
+21423  node            84M  29M  
+467    Spotlight       80M  37M  
+957    Runner.Listener 79M  49M  
+22473  healthappd      79M  69M  
+== 18:51:20 swapouts 0 (+0) load { 3.26 31.79 105.49 }
+Pages free:                                     4262.
+Pages stored in compressor:                   368041.
+Pages occupied by compressor:                 142511.
+PID    COMMAND         MEM  CMPRS
+20986  node            110M 24M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  81M  
+21423  node            84M  28M  
+467    Spotlight       80M  37M  
+957    Runner.Listener 79M  49M  
+22473  healthappd      79M  69M  
+== 18:51:40 swapouts 0 (+0) load { 3.09 29.91 103.10 }
+Pages free:                                     4226.
+Pages stored in compressor:                   369168.
+Pages occupied by compressor:                 142622.
+PID    COMMAND         MEM  CMPRS
+20986  node            110M 24M  
+58996  xcodebuild      107M 65M  
+22047  SpringBoard     103M 70M  
+960    Runner.Worker   93M  81M  
+21423  node            85M  28M  
+467    Spotlight       80M  37M  
+957    Runner.Listener 79M  48M  
+22473  healthappd      79M  69M  
+== 18:52:01 swapouts 0 (+0) load { 3.76 28.31 100.82 }
+Pages free:                                     4188.
+Pages stored in compressor:                   463673.
+Pages occupied by compressor:                 173984.
+PID    COMMAND         MEM  CMPRS
+20986  node            110M 74M  
+58996  xcodebuild      107M 103M 
+22047  SpringBoard     103M 88M  
+960    Runner.Worker   93M  89M  
+21423  node            85M  56M  
+467    Spotlight       80M  80M  
+957    Runner.Listener 79M  65M  
+22473  healthappd      79M  77M  
+== 18:52:22 swapouts 0 (+0) load { 5.63 27.18 98.74 }
+Pages free:                                     3973.
+Pages stored in compressor:                   403203.
+Pages occupied by compressor:                 151677.
+PID    COMMAND         MEM  CMPRS
+58996  xcodebuild      119M 85M  
+20986  node            110M 69M  
+22047  SpringBoard     103M 80M  
+960    Runner.Worker   93M  87M  
+21423  node            85M  53M  
+467    Spotlight       80M  50M  
+957    Runner.Listener 79M  59M  
+22473  healthappd      79M  77M  
+== 18:52:43 swapouts 0 (+0) load { 5.42 25.74 96.56 }
+Pages free:                                    28709.
+Pages stored in compressor:                   385910.
+Pages occupied by compressor:                 145767.
+PID    COMMAND         MEM  CMPRS
+20986  node            110M 66M  
+22047  SpringBoard     103M 80M  
+960    Runner.Worker   93M  87M  
+21423  node            85M  37M  
+467    Spotlight       80M  56M  
+22473  healthappd      79M  77M  
+957    Runner.Listener 77M  58M  
+35479  KonaSynthesizer 67M  65M  
+== 18:53:06 swapouts 0 (+0) load { 17.11 26.62 94.81 }
+Pages free:                                     3897.
+Pages stored in compressor:                   365659.
+Pages occupied by compressor:                 140333.
+PID    COMMAND         MEM  CMPRS
+22047  SpringBoard     147M 42M  
+20986  node            110M 64M  
+81324  xcodebuild      102M 89M  
+21423  node            100M 23M  
+22116  PosterBoard     99M  25M  
+960    Runner.Worker   93M  83M  
+467    Spotlight       85M  50M  
+957    Runner.Listener 83M  58M  
