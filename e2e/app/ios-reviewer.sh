@@ -57,7 +57,7 @@ EXTRA=()
 for F in $FLAGS; do case "$F" in *=*) EXTRA+=("--${F%%=*}" "${F#*=}");; *) EXTRA+=("--$F");; esac; done
 A=(--device "$LABEL" --out "$OUT" --caps "$CAPS" --bundle-id "$BUNDLE")
 [ "$ORIENT" != "-" ] && A+=(--orientation "$ORIENT")
-"$ROOT/e2e/app/node_modules/.bin/tsx" "$ROOT/e2e/app/reviewer.ts" "${A[@]}" "${EXTRA[@]}"
+"$ROOT/e2e/app/node_modules/.bin/tsx" "$ROOT/e2e/app/reviewer.ts" "${A[@]}" ${EXTRA[@]+"${EXTRA[@]}"}
 S=$?
 say "session ended with status $S"
 say "app state: $(xcrun simctl spawn "$UDID" launchctl list 2> /dev/null | grep -c "$BUNDLE") process(es)"

@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: reviewer-session-${{ github.ref }}
+  group: reviewer-session-${{ github.sha }}
   cancel-in-progress: true
 
 jobs:
@@ -60,7 +60,8 @@ jobs:
       matrix:
         include:
           - { label: iphone, sim: 'iPhone 17 Pro', orientation: '-', flags: '' }
-          - { label: ipad, sim: 'iPad Pro 13-inch (M5)', orientation: LANDSCAPE, flags: 'fps=6 sd-first' }
+          # The iPad job of run 45836619755 is still going on the first commit; this run is the iPhone again.
+          # - { label: ipad, sim: 'iPad Pro 13-inch (M5)', orientation: LANDSCAPE, flags: 'fps=6 sd-first' }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
