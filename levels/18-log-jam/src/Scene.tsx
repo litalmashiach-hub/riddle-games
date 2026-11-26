@@ -601,7 +601,12 @@ function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Ve
       // Each hop starts in a drawn frame, and its boing goes with it: one a hop, one at a time, however slow the
       // device. The frame does not play it. It counts the hop (below), and React plays the boing with that count.
       const d = hopMs(plan.hops.length);
-      const boing = () => setHopsBegun((n) => n + 1);
+      const boing = () => {
+        // For the play-through tests only: a test page that set this list hears of each hop as it begins, so it can
+        // tell a hop with no boing from one the scene never began. A page without the list (every player's) skips it.
+        (window as { __hopsBegun?: number[] }).__hopsBegun?.push(performance.now());
+        setHopsBegun((n) => n + 1);
+      };
       return plan.hops.length
         ? plan.hops.map((h) => ({ to: h, durationMs: d * (1 - HOP_CROUCH), delayMs: d * HOP_CROUCH, height: 0.55, onStart: boing }))
         : [{ to: plan.start, durationMs: 10 }];
