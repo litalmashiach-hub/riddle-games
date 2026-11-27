@@ -1,6 +1,6 @@
 import type { FirstPlayGuide, SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, DizzyStars, FightCloud, FocusCam, Shake, sfx, usePath, usePhases, useFaceYaw, tapPadRaycast, tapBackdropRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
-import { Boat, Bubble, Farmer, HintRing, RiverValley, Sheep, Wolf, groundHeight, type Mood } from '@riddle/props';
+import { Boat, Bubble, Farmer, HintRing, RefusalMark, RiverValley, Sheep, Wolf, groundHeight, type Mood, useRefusal } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
@@ -141,6 +141,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     : [{ to: [boatX(state.farmer), 0, 0], durationMs: 400, height: 0 }];
   usePath(boat, boatSegs, `${moveCount}|${resetCount}`, { face: false });
 
+  const nope = useRefusal();
   const toggle = (a: Animal) => {
     if (busy || over) return;
     // The last crossing has finished. Stop treating its riders as riding, or the new selection would
@@ -148,6 +149,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     dir.current.forward = false;
     if (state[a] !== state.farmer) {
       sfx.denied();
+      const at = slot(a, state[a]);
+      nope.refuse([at[0], at[1] + 1.6, at[2]], 'The boat is on the other side');
       return;
     }
     if (loaded === a) {
@@ -235,6 +238,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         />
       ))}
 
+      <RefusalMark refusal={nope.refusal} />
       {hintTarget && !busy && <HintRing position={[hintTarget[0], hintTarget[1] + 0.03, hintTarget[2]]} radius={hint?.passenger && hint.passenger !== loaded ? 0.6 : 1.4} />}
       <Burst trigger={burst} position={[4.3, 1.2, 0.6]} />
 

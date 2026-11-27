@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, Shake, easeInOut, sfx, useSettings, tapPadRaycast, type Vec3 } from '@riddle/fx';
-import { Bubble, HINT_LABEL_STYLE, HintRing } from '@riddle/props';
+import { Bubble, HINT_LABEL_STYLE, HintRing, RefusalMark, useRefusal } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
@@ -302,6 +302,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // doesn't pick them and then send them straight back.
   const lastToggle = useRef<Partial<Record<Traveller, number>>>({});
   const [full, setFull] = useState(0);
+  const nope = useRefusal();
   useEffect(() => {
     if (!full) return;
     const t = setTimeout(() => setFull(0), 1400);
@@ -348,6 +349,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     if (busy || over) return;
     if (state.pos[t] !== state.lantern) {
       sfx.denied();
+      const p = slot(t, state.pos[t]);
+      nope.refuse([p[0], p[1] + FOLK_HEIGHT[t] + 1.05, p[2]], 'The lantern is on the other side');
       return;
     }
     const now = performance.now();
@@ -368,7 +371,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   };
   const cross = () => {
     if (busy || over || picked.length === 0) {
-      if (picked.length === 0) sfx.denied();
+      if (picked.length === 0) {
+        sfx.denied();
+        nope.refuse([0, 1.5, 0], 'Pick who crosses first');
+      }
       return;
     }
     sfx.hop();
@@ -423,6 +429,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   return (
     <Shake trigger={shake} intensity={0.08}>
       <group>
+        <RefusalMark refusal={nope.refusal} />
         <SkyIslands goalGlow={won && !busy ? 1 : 0} />
         <LanternPost position={lanternPost('L')} hookY={LANTERN_HOOK_Y} />
         <LanternPost position={lanternPost('R')} hookY={LANTERN_HOOK_Y} />

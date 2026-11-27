@@ -1,7 +1,7 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, ambientDt, easeInOut, reducedMotion, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
-import { Bubble, HINT_MARK, HintRing, edgedBandGeometry, noHit, toon, useHintPulse } from '@riddle/props';
+import { Bubble, HINT_MARK, HintRing, RefusalMark, edgedBandGeometry, noHit, toon, useHintPulse, useRefusal } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import * as THREE from 'three';
@@ -169,6 +169,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
   // ---- Coin input ----
   const canAct = !busy && !over && !pending;
+  const nope = useRefusal();
+  const refuseCoin = (i: number, say: string) => {
+    sfx.denied();
+    const p = outer.current[i]?.getWorldPosition(new THREE.Vector3()) ?? traySlot(i);
+    nope.refuse([p.x, p.y + 0.75, p.z], say);
+  };
   const onCoin = (i: number) => {
     if (!canAct) return;
     if (accusing) {
@@ -177,7 +183,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       return;
     }
     if (used >= MAX_WEIGHINGS) {
-      sfx.denied();
+      refuseCoin(i, 'No weighings left');
       return;
     }
     if (left.includes(i)) {
@@ -193,7 +199,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     } else if (right.length < 6) {
       setRight([...right, i]);
       sfx.hop();
-    } else sfx.denied();
+    } else refuseCoin(i, 'Both pans are full');
   };
   const canWeigh = canAct && used < MAX_WEIGHINGS && left.length > 0 && left.length === right.length;
   const weigh = () => {
@@ -372,6 +378,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     <Shake trigger={shake}>
       <Vault high={high} doorOpen={doorOpen} blast={blast} />
       <Balance beam={beam} used={used} high={high} />
+      <RefusalMark refusal={nope.refusal} />
       <pointLight ref={alarm} position={[0, 4.5, -1]} color="#ff3b3b" intensity={0} distance={14} decay={1.4} />
 
       {Array.from({ length: COINS }, (_, i) => (
