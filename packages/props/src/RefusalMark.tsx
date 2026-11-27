@@ -2,7 +2,9 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useReducedMotion, type Vec3 } from '@riddle/fx';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { HINT_MARK } from './HintRing';
 import { ringBands } from './hintMark';
+import { CLEAR, EDGE, grow, noteBox, overlap, pick, spots, type Box, type Spot } from './refusalPlace';
 
 /*
  * The seen twin of the "that won't work" blip (sfx.denied). A tap that the rules refuse plays the blip,
@@ -10,8 +12,11 @@ import { ringBands } from './hintMark';
  * the sound off, or who can't hear it, still gets an answer to the tap.
  *
  * - It takes no touch (pointer-events: none) and changes nothing in the play: it only shows.
- * - It sits above the piece. Where that would cover a Hint ring that the scene names in `avoid`, it moves to
- *   the side or below instead, so the gold mark always stays in view.
+ * - It sits above the piece. Where that would cover one of Hint's marks (any mesh named HINT_MARK, and any
+ *   ring the scene names in `avoid`) or a button of the scene or the HUD, it moves to the side, below, or just
+ *   clear of what it would cover (refusalPlace.ts), so the gold mark and every button always stay in view.
+ * - Its words grow with the player's text size setting, as the shell's do (`--text-grow`, apps/web/src/textSize.ts,
+ *   docs/larger-text.md). Grown, they may take two lines, so the note stays narrow enough to step aside.
  * - Its words are spoken through one live region (role "status", polite) that lasts as long as the scene,
  *   so it is in the page before the tap and VoiceOver reads each new note. The cross is hidden from it.
  * - It gives a short shake as it comes up. With Reduce Motion on it does not move at all: it is just there,
@@ -26,9 +31,6 @@ import { ringBands } from './hintMark';
 
 /** How long the mark stays up, in milliseconds. */
 export const REFUSAL_MS = 1400;
-
-/** The least gap, in pixels, between the mark and the screen's edge. */
-const EDGE = 8;
 
 /** The colours of the mark, for anything that shows a refusal in the page's own HTML. */
 export const REFUSAL_RED = '#c8243f';
@@ -97,20 +99,8 @@ export function RefusalMark({ refusal, avoid }: { refusal: Refusal | null; avoid
   return <RefusalPill key={refusal.n} region={region} at={refusal.at} say={refusal.say} avoid={avoid} />;
 }
 
-interface Box {
-  l: number;
-  t: number;
-  r: number;
-  b: number;
-}
-
-const overlap = (a: Box, b: Box) => Math.max(0, Math.min(a.r, b.r) - Math.max(a.l, b.l)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.t, b.t));
-
 const KEYFRAMES =
   '@keyframes riddle-refuse{0%{transform:translateX(0) scale(.6)}20%{transform:translateX(-7px) scale(1.06)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(2px)}100%{transform:translateX(0) scale(1)}}';
-
-/** The gap, in pixels, kept between the note and a ring it steps aside from. */
-const CLEAR = 4;
 
 const KEYFRAMES_ID = 'riddle-refuse-keyframes';
 
@@ -120,7 +110,11 @@ function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: V
   const invalidate = useThree((s) => s.invalidate);
   const still = useReducedMotion();
   const el = useRef<HTMLDivElement | null>(null);
+  const scene = useThree((s) => s.scene);
   const v = useMemo(() => new THREE.Vector3(), []);
+  const ray = useMemo(() => new THREE.Raycaster(), []);
+  const ndc = useMemo(() => new THREE.Vector2(), []);
+  const hits = useMemo<THREE.Intersection[]>(() => [], []);
 
   const toScreen = (p: Vec3) => {
     v.set(p[0], p[1], p[2]).project(camera);
@@ -139,43 +133,108 @@ function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: V
     return { l: Math.min(...pts.map((p) => p.x)) - CLEAR, r: Math.max(...pts.map((p) => p.x)) + CLEAR, t: Math.min(...pts.map((p) => p.y)) - CLEAR, b: Math.max(...pts.map((p) => p.y)) + CLEAR };
   };
 
+  /** The page's buttons (the scene's own and the HUD's) as boxes in the canvas's pixels, grown by the clearance. */
+  const buttonBoxes = (): Box[] => {
+    const origin = region.getBoundingClientRect();
+    const out: Box[] = [];
+    for (const b of document.querySelectorAll<HTMLElement>('button, [role="button"], a[href], input, select')) {
+      if (region.contains(b)) continue;
+      const r = b.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1) continue;
+      if (getComputedStyle(b).visibility === 'hidden') continue;
+      const box = { l: r.left - origin.left, t: r.top - origin.top, r: r.right - origin.left, b: r.bottom - origin.top };
+      if (box.r <= 0 || box.b <= 0 || box.l >= size.width || box.t >= size.height) continue;
+      out.push(grow(box, CLEAR));
+    }
+    return out;
+  };
+
+  /** Hint's marks now in view (every one carries the name HINT_MARK), with their screen boxes. */
+  const hintMarks = () => {
+    const out: { mesh: THREE.Mesh; box: Box }[] = [];
+    scene.traverse((o) => {
+      if (o.name !== HINT_MARK || !(o as THREE.Mesh).isMesh) return;
+      for (let n: THREE.Object3D | null = o; n; n = n.parent) if (!n.visible) return;
+      const mesh = o as THREE.Mesh;
+      if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
+      const bb = mesh.geometry.boundingBox!;
+      mesh.updateWorldMatrix(true, false);
+      const box = { l: Infinity, t: Infinity, r: -Infinity, b: -Infinity };
+      for (const x of [bb.min.x, bb.max.x])
+        for (const y of [bb.min.y, bb.max.y])
+          for (const z of [bb.min.z, bb.max.z]) {
+            v.set(x, y, z).applyMatrix4(mesh.matrixWorld).project(camera);
+            const sx = ((v.x + 1) / 2) * size.width;
+            const sy = ((1 - v.y) / 2) * size.height;
+            box.l = Math.min(box.l, sx);
+            box.r = Math.max(box.r, sx);
+            box.t = Math.min(box.t, sy);
+            box.b = Math.max(box.b, sy);
+          }
+      // The pulse swells a mark a little past its resting size.
+      out.push({ mesh, box: grow(box, CLEAR + 0.06 * Math.max(box.r - box.l, box.b - box.t)) });
+    });
+    return out;
+  };
+
+  /** How much of Hint's marks lies under a note box: points of the band itself, 3 pixels apart, by three.js's own mesh test. */
+  const markCover = (box: Box, marks: { mesh: THREE.Mesh; box: Box }[]) => {
+    const STEP = 3;
+    const near = grow(box, CLEAR);
+    let points = 0;
+    for (const m of marks) {
+      const l = Math.max(near.l, m.box.l);
+      const r = Math.min(near.r, m.box.r);
+      const t = Math.max(near.t, m.box.t);
+      const b = Math.min(near.b, m.box.b);
+      if (l >= r || t >= b) continue;
+      for (let y = t; y <= b; y += STEP)
+        for (let x = l; x <= r; x += STEP) {
+          ray.setFromCamera(ndc.set((x / size.width) * 2 - 1, -(y / size.height) * 2 + 1), camera);
+          hits.length = 0;
+          // The marks take no taps (their own raycast answers nothing), so ask the plain mesh test.
+          THREE.Mesh.prototype.raycast.call(m.mesh, ray, hits);
+          if (hits.length) points++;
+        }
+    }
+    return points * STEP * STEP;
+  };
+
+  const chosen = useRef<{ at: Spot; spot: Spot; when: number; w: number; h: number } | null>(null);
+
   const place = () => {
     const div = el.current;
     if (!div) return;
     const p = toScreen(at);
     div.style.visibility = p.behind ? 'hidden' : 'visible';
-    const w = (div.firstElementChild as HTMLElement | null)?.offsetWidth ?? 0;
-    const h = (div.firstElementChild as HTMLElement | null)?.offsetHeight ?? 0;
-    // Kept wholly on the screen: a figure near the edge (a small phone held sideways) still gets all its words.
-    // (x, y) is the note's bottom middle.
-    const fit = (x: number, y: number) => ({
-      x: Math.min(Math.max(x, EDGE + w / 2), size.width - EDGE - w / 2),
-      y: Math.min(Math.max(y, EDGE + h), size.height - EDGE),
-    });
-    // Above the piece first; where that covers a Hint ring, beside it, then below it (under the toadstool's
-    // foot), whichever covers no ring. If every place covers one, the one that covers least.
+    const pill = (div.firstElementChild as HTMLElement | null) ?? null;
+    const w = pill?.offsetWidth ?? 0;
+    const h = pill?.offsetHeight ?? 0;
+    const now = performance.now();
+    const last = chosen.current;
+    // Placed again only when the piece has moved on the screen, the note's size changed, or a moment has
+    // passed (a mark or a button may have come up): the note does not hop about while it is read.
+    if (last && Math.abs(last.at.x - p.x) < 1.5 && Math.abs(last.at.y - p.y) < 1.5 && last.w === w && last.h === h && now - last.when < 300) return;
     const ground = toScreen([at[0], 0, at[2]]);
-    const gap = 10;
-    const tries = [
-      fit(p.x, p.y),
-      fit(p.x + gap + w / 2, p.y + h / 2),
-      fit(p.x - gap - w / 2, p.y + h / 2),
-      fit(p.x, ground.y + h + gap),
-    ];
     const rings = (avoid ?? []).map(ringBox);
-    let best = tries[0];
-    let least = Infinity;
-    for (const t of tries) {
-      const box = { l: t.x - w / 2, r: t.x + w / 2, t: t.y - h, b: t.y };
-      const covered = rings.reduce((sum, ring) => sum + overlap(box, ring), 0);
-      if (covered < least) {
-        least = covered;
-        best = t;
-      }
-      if (covered === 0) break;
-    }
-    div.style.transform = `translate3d(${best.x}px,${best.y}px,0)`;
-    div.dataset.refusalPlace = String(tries.indexOf(best));
+    const buttons = buttonBoxes();
+    const marks = hintMarks();
+    const things = [...rings, ...buttons, ...marks.map((m) => m.box)];
+    const list = spots(p, ground.y, w, h, size.width, size.height, things);
+    const cost = (s: Spot) => {
+      const box = noteBox(s, w, h);
+      return rings.reduce((sum, ring) => sum + overlap(box, ring), 0) + buttons.reduce((sum, b) => sum + overlap(box, b), 0) + markCover(box, marks);
+    };
+    // Kept where it is while that still covers nothing and the piece has not moved.
+    let spot: Spot;
+    let index: number;
+    if (last && last.w === w && last.h === h && Math.abs(last.at.x - p.x) < 1.5 && Math.abs(last.at.y - p.y) < 1.5 && cost(last.spot) === 0) {
+      spot = last.spot;
+      index = Number(div.dataset.refusalPlace ?? 0);
+    } else ({ spot, index } = pick(list, cost));
+    chosen.current = { at: { x: p.x, y: p.y }, spot, when: now, w, h };
+    div.style.transform = `translate3d(${spot.x}px,${spot.y}px,0)`;
+    div.dataset.refusalPlace = String(index);
   };
 
   // Plain page elements laid over the canvas, made in an effect (no drei <Html>, which can come up
@@ -187,6 +246,7 @@ function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: V
     lift.style.transform = 'translate(-50%,-100%)';
     const pill = document.createElement('div');
     pill.dataset.refusal = say;
+    const grown = (Number(document.documentElement.dataset.textGrow ?? 1) || 1) > 1;
     Object.assign(pill.style, {
       display: 'flex',
       alignItems: 'center',
@@ -195,13 +255,20 @@ function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: V
       color: '#ffffff',
       border: '2.5px solid #ffffff',
       padding: '3px 12px 3px 8px',
-      borderRadius: '999px',
       fontFamily: 'Fredoka, system-ui, sans-serif',
       fontWeight: '700',
-      fontSize: `${Math.round(Math.max(14, Math.min(18, size.width / 48)))}px`,
+      // The game's own size for the screen, grown with the player's text size setting the way the shell's
+      // words are (--text-grow, set on <html> by the app; 1 at the standard size and on the website).
+      fontSize: `calc(${Math.round(Math.max(14, Math.min(18, size.width / 48)))}px * var(--text-grow, 1))`,
       lineHeight: '1.2',
       boxShadow: '0 4px 12px rgba(0,0,0,.35)',
-      whiteSpace: 'nowrap',
+      // At the standard size, one line. Grown, the words may take two lines, so the note stays narrow
+      // enough to step aside from a mark or a button.
+      whiteSpace: grown ? 'normal' : 'nowrap',
+      width: 'max-content',
+      maxWidth: grown ? `${Math.round(Math.min(size.width - 2 * EDGE, Math.max(240, size.width * 0.5)))}px` : 'none',
+      textAlign: 'center',
+      borderRadius: grown ? '0.9em' : '999px',
       animation: still ? 'none' : 'riddle-refuse .42s ease-out',
     } satisfies Partial<CSSStyleDeclaration>);
     const cross = document.createElement('span');
@@ -210,6 +277,8 @@ function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: V
     const words = document.createElement('span');
     words.textContent = say;
     pill.append(cross, words);
+    // Grown words that take two lines share them evenly.
+    if (grown) pill.style.setProperty('text-wrap', 'balance');
     // The shake's keyframes go in the page's head, once, and not in the live region, where a screen
     // reader could take the style's text for part of the note.
     if (!document.getElementById(KEYFRAMES_ID)) {

@@ -1,6 +1,7 @@
 import { LEVELS } from '../../levels';
 import { SETTINGS_KEY, expect, passRulesCard, playMove, seedProgress, test, waitForSession } from '../../tests/fixtures';
 import { READ_SCENE, Taps, snapshot, waitCameraStill, waitIdle, type Vec3 } from '../harness';
+import { setSystemBodySize, SYSTEM_BODY } from '../../textFit';
 import { slot as torchSlot } from '../../../levels/05-bridge-and-torch/src/layout';
 import { slot as lanternSlot } from '../../../levels/09-bridge-five/src/layout';
 import { cellPos } from '../../../levels/15-slippery-pond/src/layout';
@@ -102,6 +103,13 @@ interface Seen {
   /** Points of Hint's marks under the note, on a 2-point grid, and how many marks were shown then. */
   ringPoints: number;
   marksShown: number;
+  /** The words' size, in pixels, and the growth then in force on <html>. */
+  fontSize: number;
+  growth: number;
+  /** The words are shown whole: nothing of them is cut off inside the pill. */
+  wordsWhole: boolean;
+  /** Buttons of the scene or the HUD that the note covers, with the square pixels covered. */
+  buttonsCovered: { name: string; px: number }[];
 }
 
 /** Records every refusal mark as it comes up and goes, in `window.__refusals`. */
@@ -141,7 +149,20 @@ const WATCH_REFUSALS = () => {
                   marksShown = m.shown;
                   if (m.crossed) ringPoints++;
                 }
+            const covered: { name: string; px: number }[] = [];
+            for (const el of document.querySelectorAll<HTMLElement>('button, [role="button"], a[href], input, select')) {
+              if (region?.contains(el)) continue;
+              const r = el.getBoundingClientRect();
+              if (r.width < 1 || r.height < 1 || getComputedStyle(el).visibility === 'hidden') continue;
+              const px = Math.max(0, Math.min(r.right, b.right) - Math.max(r.left, b.left)) * Math.max(0, Math.min(r.bottom, b.bottom) - Math.max(r.top, b.top));
+              if (px > 0) covered.push({ name: (el.getAttribute('aria-label') || el.textContent || el.tagName).trim().slice(0, 40), px: Math.round(px) });
+            }
+            const words = pill.lastElementChild as HTMLElement | null;
             return {
+              fontSize: parseFloat(cs.fontSize),
+              growth: Number(document.documentElement.dataset.textGrow ?? 1) || 1,
+              wordsWhole: pill.scrollWidth <= pill.clientWidth + 1 && pill.scrollHeight <= pill.clientHeight + 1 && (!words || words.scrollWidth <= words.clientWidth + 1),
+              buttonsCovered: covered,
               inRegion: !!region && region.hasAttribute('data-refusal-spoken'),
               sameRegion: !!region && region === w.__spokenBefore,
               ownRole: pill.getAttribute('role'),
@@ -382,4 +403,69 @@ for (const motion of ['no-preference', 'reduce'] as const) {
       expect((await snapshot(page)).moves.length, 'no move was made').toBe(0);
     });
   }
+}
+
+/**
+ * Larger Text (docs/larger-text.md): every refused tap of every case above, at the standard text size and the
+ * largest, with Hint's marks up. The note's words grow with the setting (twice at the largest), show whole, and
+ * the note covers no point of a Hint mark and no button of the scene or the HUD, on the iPhone sizes and the iPad.
+ * The website build follows the setting with `?debug` (textSize.ts), as the app does.
+ */
+const NOTE_SIZE = (width: number) => Math.round(Math.max(14, Math.min(18, width / 48)));
+for (const text of [
+  { name: 'the standard text size', body: SYSTEM_BODY.standard, grow: 1 },
+  { name: 'the largest text size', body: SYSTEM_BODY.ax5, grow: 2 },
+] as const) {
+  test.describe(`at ${text.name}, with Hint up`, () => {
+    test.use({ reducedMotion: 'reduce' });
+    for (const c of CASES) {
+      const level = LEVELS.find((l) => l.id === c.level)!;
+      const nn = String(level?.number).padStart(2, '0');
+      test(`level ${nn} ${c.level}: "${c.say}" grows with the words and covers no mark or button`, async ({ page }) => {
+        const view = page.viewportSize()!;
+        const taps = new Taps(page, level, view);
+        await setSystemBodySize(page, text.body);
+        await page.addInitScript(READ_SCENE);
+        await page.addInitScript(WATCH_REFUSALS);
+        await page.addInitScript((key) => localStorage.setItem(key, JSON.stringify({ quality: 'low', sound: false })), SETTINGS_KEY);
+        await seedProgress(page, Object.fromEntries(LEVELS.filter((l) => l.number < level.number).map((l) => [l.id, 3])));
+        await page.goto(`?debug&quality=low#/level/${level.id}`);
+        await waitForSession(page, level.id);
+        await passRulesCard(page, level.title);
+        await page.waitForFunction(() => window.__taps.ready());
+        await expect(page.locator('html')).toHaveAttribute('data-text-grow', String(text.grow));
+        for (const [i, m] of (c.setup ?? []).entries()) await playMove(page, m, i + 1);
+        await waitCameraStill(page);
+        await waitIdle(page);
+
+        await page.getByRole('button', { name: 'Hint' }).filter({ visible: true }).tap();
+        // Most levels draw a mark for the next move; a few answer in words only. Either way Hint is up.
+        const marked = await expect
+          .poll(() => page.evaluate(() => window.__taps.markPoints(4, 0, false).length), { timeout: 4_000 })
+          .toBeGreaterThan(0)
+          .then(() => true, () => false);
+        test.info().annotations.push({ type: 'hint marks', description: marked ? 'shown' : 'none for this state' });
+
+        const before = await snapshot(page);
+        await c.tap(taps, before.state);
+        await expect.poll(() => page.evaluate(() => (window as any).__refusals.length), { message: 'the note came up' }).toBe(1);
+        await page.screenshot({ path: test.info().outputPath(`${nn}-${c.level}-text-${text.grow}.png`) });
+        const look = await page.evaluate(() => {
+          const { node: _node, ...r } = (window as any).__refusals[0];
+          return r as Seen;
+        });
+        test.info().annotations.push({ type: 'note', description: JSON.stringify({ rect: look.rect, fontSize: look.fontSize, marks: look.marksShown }) });
+        expect(look.say).toBe(c.say);
+        expect(look.growth, 'the text size in force').toBe(text.grow);
+        expect(look.fontSize, 'the words grow with the text size').toBeCloseTo(NOTE_SIZE(view.width) * text.grow, 0);
+        expect(look.wordsWhole, `every word shows whole (${JSON.stringify(look.rect)})`).toBe(true);
+        expect(look.inView, `the note lies in the screen (${JSON.stringify(look.rect)})`).toBe(true);
+        expect(look.ringPoints, `points of a Hint mark under the note (at ${JSON.stringify(look.rect)})`).toBe(0);
+        expect(look.buttonsCovered, `buttons under the note (at ${JSON.stringify(look.rect)})`).toEqual([]);
+        expect(look.pointer, 'the note takes no touch').toBe('none');
+        expect((await snapshot(page)).moves.length, 'the refused tap made no move').toBe(before.moves.length);
+        await expect(page.locator('[data-refusal]'), 'the note clears by itself').toHaveCount(0, { timeout: 5_000 });
+      });
+    }
+  });
 }

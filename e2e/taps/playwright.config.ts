@@ -36,6 +36,8 @@ export default defineConfig({
     { name: 'iphone-landscape', use: { viewport: { width: 852, height: 393 } } },
     { name: 'iphone-small-landscape', use: { viewport: { width: 667, height: 375 } } },
     { name: 'iphone-large-landscape', use: { viewport: { width: 956, height: 440 } } },
+    // The refused-tap notes on an iPad held sideways, at the standard text size and the largest.
+    { name: 'ipad-landscape', testMatch: /silent-refusals\.spec\.ts$/, use: { viewport: { width: 1024, height: 768 } } },
     // Every level won by taps with the device's Reduce Motion on (see e2e/tests/reduced-motion.spec.ts).
     { name: 'iphone-landscape-reduce-motion', testMatch: /levels-by-taps\.spec\.ts$/, use: { viewport: { width: 852, height: 393 }, reducedMotion: 'reduce' } },
   ],
