@@ -1,0 +1,15 @@
+2026-11-27T15:35:47.066Z [light] window 402x874
+2026-11-27T15:36:18.076Z [light] pressed Edit
+2026-11-27T15:36:31.199Z [light] pressed Customize
+2026-11-27T15:36:41.058Z [light] pressed Default
+2026-11-27T15:37:04.926Z [light] app icon on screen: true {"y":188,"x":197,"width":101,"height":92}
+2026-11-27T15:37:43.696Z [dark] window 402x874
+2026-11-27T15:37:56.666Z [dark] pressed Edit
+2026-11-27T15:38:14.096Z [dark] pressed Customize
+2026-11-27T15:38:21.283Z [dark] pressed Dark
+2026-11-27T15:38:41.809Z [dark] app icon on screen: true {"y":188,"x":197,"width":101,"height":92}
+2026-11-27T15:39:06.017Z [tinted] window 402x874
+2026-11-27T15:39:19.378Z [tinted] pressed Edit
+2026-11-27T15:39:29.449Z [tinted] pressed Customize
+2026-11-27T15:39:36.025Z [tinted] pressed Tinted
+2026-11-27T15:40:02.133Z [tinted] app icon on screen: true {"y":188,"x":197,"width":101,"height":92}

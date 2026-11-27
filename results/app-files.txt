@@ -1,0 +1,15 @@
+total 7456
+drwxr-xr-x  14 runner  staff      448 Nov 27 15:21 .
+drwxr-xr-x@ 14 runner  staff      448 Nov 27 15:21 ..
+-rwxr-xr-x   1 runner  staff   330192 Nov 27 15:21 App
+-rw-r--r--   1 runner  staff    18194 Nov 27 15:21 AppIcon60x60@2x.png
+-rw-r--r--   1 runner  staff    25518 Nov 27 15:21 AppIcon76x76@2x~ipad.png
+-rw-r--r--   1 runner  staff  3412152 Nov 27 15:21 Assets.car
+drwxr-xr-x   4 runner  staff      128 Nov 27 15:21 Base.lproj
+-rw-r--r--   1 runner  staff      270 Nov 27 15:21 capacitor.config.json
+-rw-r--r--   1 runner  staff      185 Nov 27 15:21 config.xml
+drwxr-xr-x   4 runner  staff      128 Nov 27 15:21 Frameworks
+-rw-r--r--   1 runner  staff     1751 Nov 27 15:21 Info.plist
+-rw-r--r--   1 runner  staff        8 Nov 27 15:21 PkgInfo
+-rw-r--r--   1 runner  staff      707 Nov 27 15:21 PrivacyInfo.xcprivacy
+drwxr-xr-x   7 runner  staff      224 Nov 27 15:21 public
