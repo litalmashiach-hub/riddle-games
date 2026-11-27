@@ -52,6 +52,11 @@ need another layout then. At the standard size every one of them is as before.
 - **About, the reset question:** the card widens, so its two buttons can stay side by side.
 - **Hint and first-play guide, on taller screens:** they keep their gap to the bottom and top bars, which grow
   with the words.
+- **Hint, over a scene's own button:** grown, the toast is taller and can reach a button a level pins just above
+  the bottom bar (levels 1 and 2's "Row across" on an iPad). While it is up it then steps up over that button,
+  with an 8-point gap, and never higher than under the top bar (`apps/web/src/hintPlace.ts`). Where it covers no
+  button it stays where it was, so at the standard size nothing moves.
+- **Hint, sideways on a phone:** the toast keeps clear of the grown Hint button in the right corner.
 
 ## What does not grow
 
@@ -68,6 +73,7 @@ need another layout then. At the standard size every one of them is as before.
 - `e2e/tests/larger-text.spec.ts` runs it at the first accessibility size and the largest, on the map and every
   About page (app build) and on the rules, win and loss cards and the play screen (website with `?debug`), at
   the iPhone sizes of the play-through config. It also checks that the standard size changes nothing and that
-  the website ignores the setting.
+  the website ignores the setting. On an iPad (1024 by 768 and 1366 by 1024) it checks that the hint covers no
+  scene button of levels 1 and 2 when grown, and is not moved at the standard size.
 - On a device: see the owner's how-to, or set Settings, Accessibility, Display & Text Size, Larger Text, turn on
   Larger Accessibility Sizes, drag the slider to the end, and come back to the game.
