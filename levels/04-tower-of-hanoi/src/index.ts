@@ -9,7 +9,7 @@ const level: RiddleLevel<State, Move> = {
   world: 'temple',
   tagline: 'Move the jade tower, one disc at a time.',
   instructions: [
-    'Move the whole jade tower from the left pillar to the golden sun pillar on the right.',
+    'Move the whole jade tower from the left pillar to the right-hand pillar, under the golden sun.',
     'Only the top disc of a pillar can move, one disc at a time.',
     'Never put a bigger disc on top of a smaller one.',
   ],

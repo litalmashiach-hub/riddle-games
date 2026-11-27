@@ -108,6 +108,11 @@ export interface RiddleLevel<S = any, M = any> {
   bestMoves: number;
   /** Label for a move in the HUD, e.g. "crossings", "pours". */
   moveNoun: string;
+  /**
+   * The rules card's line on how to earn three stars, when "Solve it in {bestMoves} {moveNoun} for three stars."
+   * would point at the wrong goal (in level 5 every win takes the same number of crossings).
+   */
+  starLine?: string;
   /** How long a move animates, in ms. Input is locked for this long. */
   moveDurationMs: number;
   /** Extra delay before the win/lose screen, so a fail animation can play. */

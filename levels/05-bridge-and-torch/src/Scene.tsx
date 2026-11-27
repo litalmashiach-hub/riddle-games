@@ -313,6 +313,28 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       setPicked(EXPLORERS.filter((x) => next.includes(x)));
     }
   };
+  // A tap on a name label picks that explorer, the same as a tap on the body: the label is what people aim at,
+  // and from the phone's camera Bram stands behind Juno. Each label takes touches over 44 points high; where two
+  // labels' touch areas meet, the label nearest the finger takes the tap.
+  const labelEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
+  const tapLabel = (e: Explorer, x: number, y: number) => {
+    let best = e;
+    let bestD = Infinity;
+    for (const k of EXPLORERS) {
+      const el = labelEls.current[k];
+      if (!el || !el.isConnected) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width === 0) continue;
+      const dx = Math.max(r.left - x, 0, x - r.right);
+      const dy = Math.max(r.top - y, 0, y - r.bottom);
+      const d = Math.hypot(dx, dy);
+      if (d < bestD) {
+        bestD = d;
+        best = k;
+      }
+    }
+    toggle(best);
+  };
   const go = () => {
     if (busy || over) return;
     if (picked.length === 0) {
@@ -358,7 +380,37 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             </Clickable>
             {ready && !dark && <Html position={[0, e === 'pip' ? 1.0 : e === 'bram' ? 1.3 : 1.18, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
               <div ref={spread.ref(e)} style={LABEL_WRAP}>
+              <button
+                type="button"
+                aria-label={`${NAMES[e]}, ${MINUTES[e]} ${MINUTES[e] === 1 ? 'minute' : 'minutes'}`}
+                aria-pressed={picked.includes(e)}
+                disabled={busy || over}
+                // The scene's own tap handling listens on the canvas's parent: a tap here is the label's alone.
+                onPointerDown={(ev) => ev.stopPropagation()}
+                onPointerUp={(ev) => ev.stopPropagation()}
+                onClick={(ev) => {
+                  ev.stopPropagation();
+                  tapLabel(e, ev.clientX, ev.clientY);
+                }}
+                style={{
+                  position: 'relative',
+                  display: 'block',
+                  margin: 0,
+                  padding: 0,
+                  border: 0,
+                  background: 'none',
+                  font: 'inherit',
+                  color: 'inherit',
+                  pointerEvents: busy || over ? 'none' : 'auto',
+                  cursor: active ? 'pointer' : 'default',
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                }}
+              >
+              {/* The touch area: 44 points high (and wide) around the drawn label, without moving it. */}
+              <span aria-hidden style={{ position: 'absolute', left: '50%', top: '50%', width: 'max(100%, 44px)', height: 44, transform: 'translate(-50%, -50%)' }} />
               <div
+                ref={(el) => void (labelEls.current[e] = el ?? undefined)}
                 style={{
                   fontFamily: FONT,
                   fontWeight: 700,
@@ -375,6 +427,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
               >
                 {NAMES[e]} · {MINUTES[e]} min
               </div>
+              </button>
               <LabelStem />
               </div>
             </Html>}
