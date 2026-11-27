@@ -1,0 +1,5 @@
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+2026-11-27 16:13:27.780 F  App[3724:4163] [com.apple.WebKit:Process] Networking process (0x10e09c190) took 1.075505 seconds to launch
+2026-11-27 16:22:51.685 F  App[16941:d1ba] [com.apple.WebKit:Process] WebContent process (0x10e1080c0) took 1.622888 seconds to launch
+2026-11-27 16:22:51.881 F  App[16941:d1ba] [com.apple.WebKit:Process] GPU process (0x10e1341e0) took 1.707480 seconds to launch
