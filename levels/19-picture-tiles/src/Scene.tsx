@@ -220,7 +220,7 @@ function Portrait({ won }: { won: boolean }) {
       {/* a little plaque */}
       <RoundedBox args={[0.9, 0.22, 0.06]} radius={0.04} smoothness={2} position={[0, 0.3, 0.18]} material={toon('#d29a3c', { metal: 0.4, rough: 0.5 })} />
       <Html position={[0, 0.3, 0.22]} center transform scale={0.18} zIndexRange={[1, 0]} style={{ pointerEvents: 'none' }}>
-        <div style={{ fontFamily: 'Fredoka, system-ui, sans-serif', fontWeight: 700, fontSize: 40, color: '#3b2610', whiteSpace: 'nowrap' }}>{plaque}</div>
+        <div style={{ fontFamily: 'Fredoka, system-ui, sans-serif', fontWeight: 700, fontSize: 40, color: '#ffd27a', whiteSpace: 'nowrap' }}>{plaque}</div>
       </Html>
     </group>
   );

@@ -432,7 +432,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             transform: 'translateX(-50%)',
             fontFamily: FONT,
             color: '#fff',
-            background: 'rgba(30,14,24,.55)',
+            background: 'rgba(30,14,24,.8)',
             border: '1.5px solid rgba(255,210,150,.35)',
             borderRadius: 18,
             padding: '6px 14px 8px',
@@ -442,10 +442,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             boxShadow: '0 8px 24px rgba(0,0,0,.3)',
           }}
         >
-          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', opacity: 0.8 }}>🔥 Torch time</div>
+          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase' }}>🔥 Torch time</div>
           <div style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.1 }}>
             <span ref={clockText}>0</span>
-            <span style={{ opacity: 0.7, fontSize: 15 }}> / {TORCH_MINUTES} min</span>
+            <span style={{ opacity: 0.85, fontSize: 15 }}> / {TORCH_MINUTES} min</span>
           </div>
           <div style={{ marginTop: 4, height: 7, borderRadius: 9, background: 'rgba(255,255,255,.18)', overflow: 'hidden' }}>
             <div ref={clockBar} style={{ height: '100%', width: '100%', borderRadius: 9 }} />

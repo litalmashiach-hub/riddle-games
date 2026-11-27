@@ -327,7 +327,7 @@ const pill = (hot: boolean): React.CSSProperties => ({
   fontSize: 14,
   padding: '4px 12px',
   borderRadius: 999,
-  background: hot ? '#ff5d73' : 'rgba(255,255,255,.92)',
+  background: hot ? '#c8203f' : 'rgba(255,255,255,.92)',
   color: hot ? '#fff' : '#3b2a55',
   boxShadow: '0 4px 12px rgba(0,0,0,.35)',
   whiteSpace: 'nowrap',

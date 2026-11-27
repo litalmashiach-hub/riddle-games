@@ -672,7 +672,7 @@ function BottomBar({
       >
         <div style={{ fontWeight: 700, fontSize: 15, whiteSpace: 'nowrap' }}>
           🕯️ <span ref={num} style={{ fontSize: 22 }} />
-          <span style={{ opacity: 0.6 }}> / {LANTERN_MINUTES} min</span>
+          <span style={{ opacity: 0.8 }}> / {LANTERN_MINUTES} min</span>
         </div>
         <div style={{ height: 8, borderRadius: 99, background: 'rgba(30,27,75,.15)', overflow: 'hidden', marginTop: 4 }}>
           <div ref={bar} style={{ height: '100%', width: '100%', borderRadius: 99, background: 'linear-gradient(90deg,#ffb547,#fff1a8)' }} />

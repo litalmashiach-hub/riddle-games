@@ -244,10 +244,11 @@ export function MoonFlower({ c, r, index, lit, closed, party }: { c: number; r: 
   const pollen = useRef<THREE.Group>(null);
   const light = useRef<THREE.PointLight>(null);
   const open = useRef(0);
-  const petalMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#5b4f8a', emissive: new THREE.Color('#b8a6ff'), emissiveIntensity: 0.15, roughness: 0.6, flatShading: true }), []);
-  const innerMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#6b5fa0', emissive: new THREE.Color('#e9d5ff'), emissiveIntensity: 0.15, roughness: 0.6, flatShading: true }), []);
+  const petalMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#8a7cc8', emissive: new THREE.Color('#b8a6ff'), emissiveIntensity: 0.15, roughness: 0.6, flatShading: true }), []);
+  const innerMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#8a7cc8', emissive: new THREE.Color('#e9d5ff'), emissiveIntensity: 0.15, roughness: 0.6, flatShading: true }), []);
   const heartMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#ffe8a3', emissive: new THREE.Color('#ffd166'), emissiveIntensity: 0.4, roughness: 0.4, flatShading: true }), []);
-  const dim = useMemo(() => new THREE.Color('#5b4f8a'), []);
+  // The closed bud, a little lighter than its green pad so it stands out in grey too.
+  const dim = useMemo(() => new THREE.Color('#8a7cc8'), []);
   const bright = useMemo(() => new THREE.Color('#f5f0ff'), []);
   const OUTER = 7;
   const INNER = 5;
