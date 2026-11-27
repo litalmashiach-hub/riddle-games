@@ -1,0 +1,10 @@
+{
+ "name": "icon-variants-runner",
+ "private": true,
+ "type": "module",
+ "description": "TEST ONLY: photographs the app's home screen icon in Light, Dark and Tinted on iOS simulators. Not part of the pnpm workspace.",
+ "dependencies": {
+  "webdriverio": "9.20.0",
+  "appium": "3.9.0"
+ }
+}

@@ -1,0 +1,84 @@
+name: App icon variants on the home screen (test only)
+
+# TEST ONLY, not for merging. Builds the iOS app from feat/app-icon-dark-tinted, reads what the built
+# asset catalog holds, and photographs the home screen of iPhone simulators with the icons set to
+# Light, Dark and Tinted. Results are committed to this branch under results/, because the mission
+# cannot read the run's artifacts.
+
+on:
+  push:
+    branches: ['test/app-icon-variants']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-icon-variants-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  shoot:
+    runs-on: macos-26
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Xcode and Mac
+        run: |
+          mkdir -p out
+          { xcodebuild -version; sw_vers; xcrun simctl list runtimes; } | tee out/xcode.txt
+      - name: Build the app (unsigned, for the simulator)
+        run: |
+          set -o pipefail
+          pnpm ios:sync
+          xcodebuild -project apps/mobile/ios/App/App.xcodeproj -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build > out/xcodebuild.txt 2>&1
+          tail -n 5 out/xcodebuild.txt
+          grep -n -i -E "appicon|actool|warning:.*icon|error:" out/xcodebuild.txt > out/xcodebuild-icon-lines.txt || true
+      - name: What the built app holds
+        run: |
+          A=build/ios/Build/Products/Release-iphonesimulator/App.app
+          ls -la "$A" | tee out/app-files.txt
+          plutil -p "$A/Info.plist" | grep -i -A8 icon | tee out/info-plist-icons.txt || true
+          xcrun --sdk iphonesimulator assetutil --info "$A/Assets.car" > out/assets-car.json
+          python3 -c "
+          import json
+          for x in json.load(open('out/assets-car.json')):
+            if 'AppIcon' in json.dumps(x):
+              print(x.get('Name'), x.get('RenditionName'), x.get('Appearance'), x.get('PixelWidth'), x.get('PixelHeight'), x.get('Colorspace'))
+          " | tee out/assets-car-appicon.txt
+      - name: Appium and its iOS driver
+        run: |
+          npm --prefix e2e/icon-variants install --no-audit --no-fund
+          export APPIUM_HOME="$PWD/e2e/icon-variants/.appium"
+          e2e/icon-variants/node_modules/.bin/appium driver install xcuitest@12.22.8
+      - name: iOS 18 iPhone
+        timeout-minutes: 45
+        run: e2e/icon-variants/shoot.sh ios18 iOS-18 'light dark tinted'
+      - name: iOS 26 iPhone
+        if: always()
+        timeout-minutes: 45
+        run: e2e/icon-variants/shoot.sh ios26 iOS-26 'light dark tinted'
+      - name: Keep the pictures and logs on this branch, under results/ (test only)
+        if: always()
+        run: |
+          find out -type f -size +40M -delete
+          git config user.name "icon-variants run"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch -q --depth 5 origin "$GITHUB_REF_NAME" && git reset -q --hard FETCH_HEAD
+            rm -rf results; cp -R out results
+            echo "Run ${{ github.run_id }}, commit ${{ github.sha }}" > results/RUN.txt
+            git add -A results
+            git commit -q -m "TEST ONLY: results of run ${{ github.run_id }}"
+            git push -q origin "HEAD:$GITHUB_REF_NAME" && break
+            sleep $(( i * 7 ))
+          done
