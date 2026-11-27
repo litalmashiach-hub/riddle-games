@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { ambientDt } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { forwardRef, useRef, type ReactNode } from 'react';
 import * as THREE from 'three';
@@ -49,7 +50,8 @@ export const Raft = forwardRef<THREE.Group, { moving?: boolean; /** +1 when head
   useFrame(({ clock }, dt) => {
     const t = clock.elapsedTime;
     speed.current += ((moving ? 7 : 0.4) - speed.current) * Math.min(1, dt * 3);
-    spin.current -= speed.current * dt * dir;
+    // With Reduce Motion on, the paddle wheels only turn while the raft crosses, not while it idles.
+    spin.current -= speed.current * (moving ? dt : ambientDt(dt)) * dir;
     if (bob.current) {
       bob.current.position.y = Math.sin(t * 1.5) * 0.025;
       bob.current.rotation.z = Math.sin(t * 1.1) * 0.02 + (moving ? Math.sin(t * 8) * 0.006 : 0);

@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { reducedMotion } from '@riddle/fx';
 import { toon, type Mood } from '@riddle/props';
 import { useRef, type ReactNode } from 'react';
 import * as THREE from 'three';
@@ -114,7 +115,8 @@ function Humanoid({ mood, seed, skin = '#f1c19a', top, bottom, shoes = '#3b2f2b'
       headRef.current.rotation.y += (headY - headRef.current.rotation.y) * 0.2;
     }
     if (eyes.current) {
-      const blink = (t * 0.5) % 4 < 0.08 ? 0.1 : mood === 'scared' ? 1.35 : 1;
+      // With Reduce Motion on, the clock is held (often at 0, inside the blink), so nobody blinks.
+      const blink = !reducedMotion() && (t * 0.5) % 4 < 0.08 ? 0.1 : mood === 'scared' ? 1.35 : 1;
       eyes.current.scale.set(mood === 'scared' ? 1.25 : 1, blink, 1);
     }
   });

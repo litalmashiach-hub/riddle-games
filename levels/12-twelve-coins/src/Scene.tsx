@@ -1,6 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, ambientDt, easeInOut, reducedMotion, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
 import { Bubble, HINT_MARK, HintRing, edgedBandGeometry, noHit, toon, useHintPulse } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
@@ -245,7 +245,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     doorOpen.current = a?.kind === 'win' ? doorTarget : Math.max(0, doorOpen.current - dt * 1.5);
     const blastTarget = a?.kind === 'lose' && el > T_FAKE && el < T_FAKE + 1800 ? 1 : 0;
     blast.current = THREE.MathUtils.lerp(blast.current, blastTarget, dt * 4);
-    if (alarm.current) alarm.current.intensity = a?.kind === 'lose' && el > T_DROP ? (0.5 + 0.5 * Math.sin(clock.elapsedTime * 9)) * 14 : 0;
+    // With Reduce Motion on, the alarm light glows a steady red instead of flashing.
+    const alarmOn = a?.kind === 'lose' && el > T_DROP;
+    if (alarm.current) alarm.current.intensity = !alarmOn ? 0 : reducedMotion() ? 5 : (0.5 + 0.5 * Math.sin(clock.elapsedTime * 9)) * 14;
 
     for (let i = 0; i < COINS; i++) {
       const g = outer.current[i];
@@ -336,7 +338,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         roll = Math.sin(ct * 6) * 0.28;
       } else if (a?.kind === 'lose' && i === a.coin && el > T_DROP) roll = Math.sin(clock.elapsedTime * 4) * 0.18;
       g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, roll, Math.min(1, dt * 10));
-      if (spin) g.rotation.y += dt * 2.6;
+      // With Reduce Motion on, the showcased coin does not spin.
+      if (spin) g.rotation.y += ambientDt(dt) * 2.6;
       else g.rotation.y = THREE.MathUtils.lerp(Math.atan2(Math.sin(g.rotation.y), Math.cos(g.rotation.y)), 0, Math.min(1, dt * 8));
 
       // Glow and dimming.
@@ -586,7 +589,8 @@ function Cuckoo({ anim }: { anim: AnimRef }) {
     }
     // Beak opens on each "cuck-oo".
     const since = el - T_CUCKOO - 150;
-    const call = since > 0 && since % 600 < 420 ? Math.abs(Math.sin((since % 600) / 420 * Math.PI * 2)) : 0;
+    // With Reduce Motion on, the beak stays shut instead of clacking.
+    const call = !reducedMotion() && since > 0 && since % 600 < 420 ? Math.abs(Math.sin((since % 600) / 420 * Math.PI * 2)) : 0;
     if (beak.current) beak.current.rotation.x = call * 0.6;
     wings.current.forEach((w, k) => w && (w.rotation.z = (k ? -1 : 1) * (0.3 + Math.abs(Math.sin(t * 16)) * 0.7)));
     if (coils.current)
@@ -713,7 +717,8 @@ function CoinRain({ trigger, count }: { trigger: number; count: number }) {
   useEffect(() => {
     const rnd = seeded(trigger * 31 + 7);
     parts.forEach((pt) => {
-      pt.on = trigger > 0;
+      // With Reduce Motion on, the coins are not thrown (like the shared confetti).
+      pt.on = trigger > 0 && !reducedMotion();
       // Burst out of the vault door towards the player, in a fan.
       pt.p.set((rnd() - 0.5) * 2.4, 2.3 + rnd() * 1.2, -6 + rnd() * 0.4);
       pt.v.set((rnd() - 0.5) * 6, 3 + rnd() * 4, 4 + rnd() * 4.5);

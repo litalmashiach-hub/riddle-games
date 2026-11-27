@@ -1,4 +1,5 @@
 export * from './settings';
+export * from './reducedMotion';
 export * from './sfx';
 export * from './soundLife';
 export * from './worlds';

@@ -1,5 +1,7 @@
+import { readFileSync } from 'node:fs';
 import type { Plugin } from 'vite';
-import { APP_ONLY_WORDS, releaseAsked, releaseBlockers } from './src/about/appInfo';
+import { APP_INFO, APP_ONLY_WORDS, releaseAsked, releaseBlockers } from './src/about/appInfo';
+import { identityBlockers } from './src/about/identity';
 import { missingNotices, packageOf } from './src/about/notices';
 import { policyPhrases } from './src/about/privacyPolicy';
 
@@ -9,7 +11,9 @@ import { policyPhrases } from './src/about/privacyPolicy';
  * 1. Open-source notices. Every npm package whose code or fonts end up in the built files must have a
  *    notice in src/about/notices.ts. A package without one fails the build, by name.
  * 2. Release placeholders. While the contact email, the publisher's name or the policy's date is still a
- *    placeholder in src/about/appInfo.ts, a build with RELEASE=1 in the environment fails. Without
+ *    placeholder in src/about/appInfo.ts, or while the name under the icon, the version or the bundle
+ *    identifier in apps/mobile/ios/AppIdentity.xcconfig does not fit it (src/about/identity.ts), a build
+ *    with RELEASE=1 in the environment fails. Without
  *    RELEASE=1 (unset, empty, 0 or false) the build only warns, so that everyday builds and the
  *    repository's checks stay green.
  * 3. What each build may say. The website build (which every merge to main publishes) must not hold the
@@ -25,7 +29,7 @@ export function releaseChecks(): Plugin {
       appBuild = config.mode === 'app';
     },
     buildStart() {
-      const blockers = releaseBlockers();
+      const blockers = [...releaseBlockers(), ...identityBlockers(readFileSync(new URL('../mobile/ios/AppIdentity.xcconfig', import.meta.url), 'utf8'), APP_INFO)];
       if (blockers.length === 0) return;
       const list = blockers.map((b) => `  - ${b}`).join('\n');
       if (releaseAsked(process.env.RELEASE)) this.error(`NOT READY FOR RELEASE (RELEASE=${process.env.RELEASE}):\n${list}`);

@@ -238,6 +238,21 @@ html.app-shell svg {
 }
 
 /*
+ * Reduce Motion, everywhere on the page: every CSS animation, in the shell and in the levels' labels drawn
+ * over the scene, runs once and at once, so it shows its end at once (a pop-in is simply there) and an
+ * endless one (a wobble, a throb, a pulse, a bob) stands still. Short fades by `transition` are kept.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/*
  * Apple asks that a control take touches over at least 44 by 44 points. Some buttons are drawn smaller
  * than that (the play screen's round ones are 46 by 42, its SD/HD switch 40.6 by 38), and the drawing
  * must stay as it is. So such a button carries an unseen pad of 44 by 44 points about its middle, and a

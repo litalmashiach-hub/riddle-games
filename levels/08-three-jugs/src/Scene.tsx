@@ -1,7 +1,7 @@
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, DizzyStars, Shake, easeInOut, sfx, useSettings } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, Shake, easeInOut, reducedMotion, sfx, useSettings } from '@riddle/fx';
 import { Bubble, HINT_EDGE, HINT_GOLD, HINT_MARK, HintRing, noHit, toon } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
 import * as THREE from 'three';
@@ -214,8 +214,9 @@ function FlaskActor({ f, anim, shown, selected, gags, winBlend, hinted, disabled
       tl.rotation.z += (0 - tl.rotation.z) * k;
     }
     // Gags: a full flask burps (squash and stretch), an empty one flips over and shakes.
+    // With Reduce Motion on, the flask stays still; the note and the alchemist still say what happened.
     const gag = gags.current[f];
-    const gt = now - gag.t0;
+    const gt = reducedMotion() ? Infinity : now - gag.t0;
     let sy = 1;
     if (gag.kind === 'burp' && gt < BURP_MS) {
       const u = gt / BURP_MS;

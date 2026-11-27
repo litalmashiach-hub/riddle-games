@@ -1,3 +1,4 @@
+import { reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useFrame } from '@react-three/fiber';
 import { forwardRef, useEffect, useRef } from 'react';
@@ -84,7 +85,8 @@ export const Frog = forwardRef<THREE.Group, { happy: boolean; gag: FrogGag }>(fu
     }
 
     // Blink every few seconds.
-    const blink = (t % 3.7) < 0.12 ? 1 : 0;
+    // With Reduce Motion on, the clock is held (often at 0, inside the blink), so the frog does not blink.
+    const blink = !reducedMotion() && (t % 3.7) < 0.12 ? 1 : 0;
     lid = Math.max(lid, blink);
 
     b.scale.set(sxz, sy, sxz);

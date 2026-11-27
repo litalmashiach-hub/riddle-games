@@ -1,6 +1,6 @@
 import { Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { seeded, useSettings } from '@riddle/fx';
+import { reducedMotion, seeded, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -301,7 +301,8 @@ function Brazier({ position, light, seed }: { position: [number, number, number]
     const f = 1 + Math.sin(t) * 0.08 + Math.sin(t * 2.7) * 0.06;
     if (flame.current) {
       flame.current.scale.set(1 / f, f * 1.05, 1 / f);
-      flame.current.rotation.y += 0.05;
+      // With Reduce Motion on, the flame does not turn.
+      if (!reducedMotion()) flame.current.rotation.y += 0.05;
     }
     if (lamp.current) lamp.current.intensity = 7 * f;
   });

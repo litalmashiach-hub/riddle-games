@@ -1,4 +1,4 @@
-import { seeded, useSettings } from '@riddle/fx';
+import { ambientDt, seeded, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { Stars } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -157,7 +157,8 @@ function Pond({ glows, ripples }: { glows: Glows; ripples: Ripple[] }) {
   useFrame((_, dt) => {
     const m = mat.current;
     if (!m) return;
-    m.uniforms.uTime.value += dt;
+    // With Reduce Motion on, the water stands still.
+    m.uniforms.uTime.value += ambientDt(dt);
     const lights = m.uniforms.uLights.value as THREE.Vector3[];
     for (let i = 0; i < CELLS; i++) lights[i].z = glows[i];
     const rs = m.uniforms.uRipples.value as THREE.Vector4[];

@@ -1,3 +1,4 @@
+import { reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
@@ -66,6 +67,8 @@ export function Shelly({ mode, since, path, yaw }: { mode: ShellyMode; since: nu
     const h = head.current;
     if (!r || !sp || !rl || !b || !h) return;
     const age = (performance.now() - since) / 1000;
+    // With Reduce Motion on, Shelly does not hop, twirl or spin like a top; she still rolls over and slides to the water.
+    const calm = reducedMotion();
     const blink = Math.sin(t * 0.9) > 0.985 ? 0.1 : 1;
     let lid = 1 - blink; // 0 open, 1 closed
     let mouthOpen = 0;
@@ -86,9 +89,9 @@ export function Shelly({ mode, since, path, yaw }: { mode: ShellyMode; since: nu
       headTilt = Math.sin(t * 1.5) * 0.25;
       lid = Math.max(lid, 0.35);
     } else if (mode === 'happy') {
-      const hop = Math.abs(Math.sin(age * 5));
+      const hop = calm ? 0 : Math.abs(Math.sin(age * 5));
       y += hop * 0.45;
-      spinY = age > 0.6 && age < 1.6 ? (age - 0.6) * Math.PI * 2 : 0;
+      spinY = !calm && age > 0.6 && age < 1.6 ? (age - 0.6) * Math.PI * 2 : 0;
       paddle = Math.sin(t * 16) * 0.6;
       headPitch = -0.25;
       mouthOpen = 0.6;
@@ -114,12 +117,12 @@ export function Shelly({ mode, since, path, yaw }: { mode: ShellyMode; since: nu
           // Spin on her shell like a top, skidding off to the water.
           const k = (age - T.flip) / (T.spinEnd - T.flip);
           rollZ = Math.PI;
-          spinAngle.current += 0.4 * (1 - k * 0.5);
+          if (!calm) spinAngle.current += 0.4 * (1 - k * 0.5);
           spinY = spinAngle.current;
           const e = ease(k);
           x = lerp(path.home[0], path.edge[0], e);
           z = lerp(path.home[2], path.edge[2], e);
-          y = lerp(path.home[1], path.edge[1], e) + 0.25 + Math.abs(Math.sin(k * 12)) * 0.08;
+          y = lerp(path.home[1], path.edge[1], e) + 0.25 + (calm ? 0 : Math.abs(Math.sin(k * 12)) * 0.08);
           if (k > 0.7) {
             const f = (k - 0.7) / 0.3;
             x = lerp(path.edge[0], path.splash[0], f);
@@ -130,12 +133,12 @@ export function Shelly({ mode, since, path, yaw }: { mode: ShellyMode; since: nu
         } else {
           // Plop! Sink, then bob back up, floating belly-up and fast asleep under a lily pad.
           rollZ = Math.PI;
-          spinY = spinAngle.current + Math.sin(age * 0.8) * 0.2;
+          spinY = spinAngle.current + (calm ? 0 : Math.sin(age * 0.8) * 0.2);
           x = path.splash[0];
           z = path.splash[2];
           const sinkK = ease((age - T.spinEnd) / (T.sink - T.spinEnd));
           const upK = ease((age - T.sink) / (T.float - T.sink));
-          y = path.splash[1] + 0.4 - sinkK * 0.9 + upK * 0.65 + Math.sin(age * 2.2) * 0.04;
+          y = path.splash[1] + 0.4 - sinkK * 0.9 + upK * 0.65 + (calm ? 0 : Math.sin(age * 2.2) * 0.04);
           paddle = Math.sin(t * 3) * 0.35;
           hatOn = age > T.spinEnd + 0.05;
           breathe = 1 + Math.sin(t * 1.6) * 0.05;

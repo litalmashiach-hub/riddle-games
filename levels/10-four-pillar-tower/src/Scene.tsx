@@ -1,7 +1,7 @@
 import type { SceneProps } from '@riddle/engine';
 import { Html, useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
-import { Burst, Shake, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Shake, ambientDt, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -448,7 +448,8 @@ function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, rese
     const dir = c % 2 === 0 ? 1 : -1;
     const target = (celebrate ? 5 : held ? 2.2 : 0.22) / r;
     speed.current += (target - speed.current) * Math.min(1, dt * 3);
-    s.rotation.y += dir * speed.current * dt;
+    // With Reduce Motion on, the cogs do not spin.
+    s.rotation.y += dir * speed.current * ambientDt(dt);
     // Squash and stretch: squashed flat by a bigger cog, or squishing on impact itself.
     const now = performance.now();
     const sy = squashAt ? wobble((now - squashAt) / 1000, 0.5) : bonk ? wobble((now - bonk.at - BONK_IMPACT) / 1000, 0.28) : 1;

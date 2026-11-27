@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { sfx, usePath, type Vec3 } from '@riddle/fx';
+import { reducedMotion, sfx, usePath, type Vec3 } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
@@ -70,7 +70,10 @@ export function Cricket({ colour, spot, slow, chosen, nope, happy, seed }: { col
     let y = 0;
     let ry = 0;
     let sy = 1 + Math.sin(t * 2.6) * 0.03 - squash;
-    if (happy) {
+    // With Reduce Motion on, a happy cricket stays put on its toadstool, facing the player, instead of a frozen mid-dance pose.
+    if (happy && reducedMotion()) {
+      sy += 0.04;
+    } else if (happy) {
       const hop = Math.abs(Math.sin(t * 6.5));
       y = hop * 0.45;
       ry = t * 5;

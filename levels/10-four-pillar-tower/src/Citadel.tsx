@@ -1,6 +1,6 @@
 import { Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Water, seeded, useSettings } from '@riddle/fx';
+import { Water, ambientDt, seeded, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
@@ -212,7 +212,8 @@ function WallGears({ celebrate }: { celebrate: boolean }) {
   const ra = 2.2, rb = 1.3, rc = 0.9;
   useFrame((_, dt) => {
     speed.current += ((celebrate ? 6 : 1) - speed.current) * Math.min(1, dt * 2);
-    angle.current += dt * 0.18 * speed.current;
+    // With Reduce Motion on, the wall gears stand still.
+    angle.current += ambientDt(dt) * 0.18 * speed.current;
     if (a.current) a.current.rotation.z = angle.current;
     if (b.current) b.current.rotation.z = -angle.current * (ra / rb) + 0.12;
     if (c.current) c.current.rotation.z = angle.current * (ra / rc) + 0.3;
@@ -249,7 +250,8 @@ function Clock({ celebrate }: { celebrate: boolean }) {
   const minute = useRef<THREE.Group>(null);
   const t = useRef(2.3);
   useFrame((_, dt) => {
-    t.current += dt * (celebrate ? 2.4 : 0.05);
+    // With Reduce Motion on, the hands do not turn (nor race on a win).
+    t.current += ambientDt(dt) * (celebrate ? 2.4 : 0.05);
     if (minute.current) minute.current.rotation.z = -t.current * 12;
     if (hour.current) hour.current.rotation.z = -t.current;
   });
@@ -346,7 +348,8 @@ function SteamPipe({ position, celebrate, seed, high }: { position: [number, num
     if (!m) return;
     const rate = celebrate ? 2.6 : 1;
     puffs.forEach((p, i) => {
-      p.t += dt * rate;
+      // With Reduce Motion on, the steam stands still.
+      p.t += ambientDt(dt) * rate;
       if (p.t > 3) p.t -= 3;
       const k = p.t / 3;
       o.position.set(p.dx * k * 2, top + k * 3.2, p.dz * k * 2);

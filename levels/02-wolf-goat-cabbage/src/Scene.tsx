@@ -94,7 +94,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     return () => clearTimeout(t);
   }, [won]);
 
-  const phase = usePhases<FailPhase>(danger != null && !busy, FAIL_PHASES);
+  // The fail gag lives only while the loss stands. An undo or a restart ends it in the very draw that takes the
+  // loss back, not one draw later when the timed phase has caught up: else the beat's sounds below would play
+  // once more for that draw (the 'after' beat's poof, or the windup's squeak), after the undo.
+  const failing = danger != null && !busy;
+  const timedPhase = usePhases<FailPhase>(failing, FAIL_PHASES);
+  const phase = failing ? timedPhase : null;
   const [bites, setBites] = useState(0);
   const [bits, setBits] = useState(0);
   const [shake, setShake] = useState(0);

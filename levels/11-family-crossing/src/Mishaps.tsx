@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { Burst, ComicWord, FightCloud, sfx, useSettings, type Vec3 } from '@riddle/fx';
+import { Burst, ComicWord, FightCloud, reducedMotion, sceneSeconds, sfx, useSettings, type Vec3 } from '@riddle/fx';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Steam } from './Canal';
@@ -41,12 +41,16 @@ const MOM_HEAD = 0.92;
 
 const o = new THREE.Object3D();
 
-/** Seconds since this component mounted, so effects can ramp in. */
+/**
+ * Seconds since this component mounted, so effects can ramp in. With Reduce Motion on, the scene's
+ * clock is held, so the age is taken from `sceneSeconds()`, which always runs.
+ */
 function useAge() {
   const born = useRef<number | null>(null);
-  return (clock: THREE.Clock) => {
-    if (born.current == null) born.current = clock.elapsedTime;
-    return clock.elapsedTime - born.current;
+  return (_clock: THREE.Clock) => {
+    const now = sceneSeconds();
+    if (born.current == null) born.current = now;
+    return now - born.current;
   };
 }
 
@@ -105,7 +109,8 @@ function Rimshot({ position }: { position: Vec3 }) {
     const g = cym.current;
     if (!g) return;
     const hit = Math.max(0, 1 - ((a % 1.4) / 0.25));
-    g.rotation.z = Math.sin(a * 40) * 0.25 * hit;
+    // With Reduce Motion on, the cymbal pops in but does not rattle.
+    g.rotation.z = reducedMotion() ? 0 : Math.sin(a * 40) * 0.25 * hit;
     g.scale.setScalar(Math.min(1, a * 4));
   });
   return (

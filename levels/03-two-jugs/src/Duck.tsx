@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
@@ -69,13 +70,15 @@ export function Duck({ anim }: { anim: RefObject<Anim> }) {
     b.position.y = 0;
     b.rotation.set(0, 0, 0);
     let flap = Math.sin(t * 3) * 0.1;
-    if (since < 0.7) {
+    // With Reduce Motion on, the soaked duck skips the jump, spin and dry-off shake (it still quacks and sulks off).
+    const calm = reducedMotion();
+    if (!calm && since < 0.7) {
       const k = since / 0.7;
       b.position.y = Math.sin(Math.PI * k) * 0.55;
       b.rotation.y = k * Math.PI * 2;
       b.rotation.x = -Math.sin(Math.PI * k) * 0.4;
       flap = Math.sin(since * 60) * 1.1;
-    } else if (since < 1.6) {
+    } else if (!calm && since < 1.6) {
       const k = (since - 0.7) / 0.9;
       b.rotation.z = Math.sin(since * 55) * 0.35 * (1 - k);
       flap = Math.sin(since * 50) * 0.6 * (1 - k);

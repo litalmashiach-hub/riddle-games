@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { ambientDt } from '@riddle/fx';
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -163,7 +164,8 @@ export const BioWater = forwardRef<BioWaterHandle, { low?: boolean }>(function B
     const m = mat.current;
     if (!m) return;
     const u = m.uniforms;
-    u.uTime.value += dt;
+    // With Reduce Motion on, the water's waves and shimmer stand still.
+    u.uTime.value += ambientDt(dt);
     u.uBoat.value.copy(handle.boat);
     u.uWake.value += (handle.wake - u.uWake.value) * Math.min(1, dt * 4);
     u.uJoy.value += (handle.joy - u.uJoy.value) * Math.min(1, dt * 1.5);

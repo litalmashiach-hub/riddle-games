@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, ComicWord, DizzyStars, FocusCam, Shake, sfx, type Vec3 } from '@riddle/fx';
+import { Burst, ComicWord, DizzyStars, FocusCam, Shake, reducedMotion, sfx, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
@@ -445,7 +445,8 @@ function OtterActor({
       }
       once('popup', () => events.popup(at));
       const u = clamp01((k - TEETER_MS - DROP_MS - UNDER_MS) / 450);
-      const bob = Math.sin(now / 320) * 0.03;
+      // With Reduce Motion on, the otter keeps still in the water instead of bobbing.
+      const bob = reducedMotion() ? 0 : Math.sin(now / 320) * 0.03;
       // Spring up with a little overshoot.
       const spring = 1 - Math.cos(u * Math.PI * 2.5) * Math.exp(-u * 4);
       m.position.set(r.to.x, -1.3 + 0.68 * spring + bob, r.to.z);

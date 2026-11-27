@@ -1,5 +1,6 @@
 import { Billboard } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import { reducedMotion, sceneSeconds } from '@riddle/fx';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import type { Traveller } from './rules';
@@ -54,11 +55,14 @@ export function GlowEyes({ kind, seed }: { kind: Traveller; seed: number }) {
   const born = useRef<number | null>(null);
   useFrame(({ clock }) => {
     const t = clock.elapsedTime + seed * 0.77;
-    if (born.current == null) born.current = clock.elapsedTime;
-    const age = clock.elapsedTime - born.current;
+    // The eyes' age runs on sceneSeconds, so they still pop open while Reduce Motion holds the scene's clock.
+    const now = sceneSeconds();
+    if (born.current == null) born.current = now;
+    const age = now - born.current;
     // Pop open, then blink every so often (sometimes a double blink).
+    // With Reduce Motion on, they stay open (the held clock could freeze them mid-blink).
     const ph = (t * 0.8) % 2.2;
-    const blink = ph > 2.05 || (seed % 2 === 0 && ph > 1.75 && ph < 1.85) ? 0.08 : 1;
+    const blink = reducedMotion() ? 1 : ph > 2.05 || (seed % 2 === 0 && ph > 1.75 && ph < 1.85) ? 0.08 : 1;
     if (lids.current) lids.current.scale.y = Math.min(1, age * 5) * blink;
     // Pupils dart left, right, up: quick snaps with pauses, like someone peering into the dark.
     const look = Math.floor(t * 1.6 + seed);
@@ -117,8 +121,10 @@ export function Fireflies({ count = 9 }: { count?: number }) {
   useFrame(({ clock }) => {
     const g = group.current;
     if (!g) return;
-    if (born.current == null) born.current = clock.elapsedTime;
-    const age = clock.elapsedTime - born.current;
+    // Their age runs on sceneSeconds, so they still fly in while Reduce Motion holds the scene's clock.
+    const now = sceneSeconds();
+    if (born.current == null) born.current = now;
+    const age = now - born.current;
     const t = clock.elapsedTime;
     g.children.forEach((c, i) => {
       const f = flies[i];

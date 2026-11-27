@@ -1,6 +1,6 @@
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Clickable, DizzyStars, useSettings, tapPadRaycast } from '@riddle/fx';
+import { Clickable, DizzyStars, reducedMotion, useSettings, tapPadRaycast } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
@@ -508,7 +508,8 @@ export function Toad({ c, r, mode, facing, fly }: { c: number; r: number; mode: 
       pos.x += fly[0] * dist * k;
       pos.z += fly[1] * dist * k;
       pos.y += Math.sin(Math.PI * k) * 1.7 - k * 0.32;
-      tumble = mode === 'fly' ? k * Math.PI * 4 : 0;
+      // With Reduce Motion on, the toad flies to the water without somersaulting.
+      tumble = mode === 'fly' && !reducedMotion() ? k * Math.PI * 4 : 0;
       if (mode === 'after') {
         // Bobbing in the water, only the head up, a bit dazed.
         pos.y = -0.12 + Math.sin(t * 2.2) * 0.05;
@@ -550,7 +551,9 @@ export function Toad({ c, r, mode, facing, fly }: { c: number; r: number; mode: 
         if (mode === 'fly') {
           cp.position.lerpVectors(home.clone().setY(0.95), target, k);
           cp.position.y += Math.sin(Math.PI * k) * 1.4;
-          cp.rotation.set(k * 6, k * 3, 0);
+          // With Reduce Motion on, the cap does not tumble on its way.
+          if (reducedMotion()) cp.rotation.set(Math.PI / 2.4, 0, 0);
+          else cp.rotation.set(k * 6, k * 3, 0);
         } else {
           cp.position.copy(target);
           cp.rotation.set(Math.PI / 2.4, t * 0.3, 0);
