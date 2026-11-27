@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Sparkles } from '@react-three/drei';
+import { Sparkles } from '@riddle/fx';
 import { useThree } from '@react-three/fiber';
 import { Burst, sfx, type Vec3 } from '@riddle/fx';
 import { Farmer, HintRing, RiverValley, Sheep, groundHeight } from '@riddle/props';

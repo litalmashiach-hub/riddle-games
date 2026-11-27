@@ -12,7 +12,8 @@ import type * as THREE from 'three';
  *
  * While the dots drift, such a frame is one flash. With Reduce Motion on, the scene's clock is held and the
  * dots stand still, so a dot that lands on a pixel centre blanks the scene for as long as nothing moves
- * (the river levels, 1 to 3, in about one opening in four in the play-through tests' software renderer).
+ * (levels 1 to 3 and 22 were seen blank at rest in the play-through tests' software renderer). Every level
+ * takes its sparkles from here, never from drei itself: Sparkles.test.ts checks that.
  *
  * The cure keeps the look: the distance is never below a thousandth of the dot, so the middle pixel is very
  * bright, as it was, but finite.
