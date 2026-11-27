@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Burst, ComicWord, DizzyStars, FocusCam, Shake, reducedMotion, sfx, type Vec3 } from '@riddle/fx';
-import { Bubble, HintRing } from '@riddle/props';
+import { Bubble, HintRing, RefusalMark, useRefusal } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -145,6 +145,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const legal = useMemo(() => new Set(rules.legalMoves(state).map((m) => m.dir)), [state]);
   const canPlay = !busy && !over;
   const [nope, setNope] = useState(0);
+  const refusal = useRefusal();
   const go = (d: Dir) => {
     if (!canPlay) return;
     if (!legal.has(d)) {
@@ -200,7 +201,11 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     if (c.x === state.x && c.y === state.y) return;
     if (c.x === state.x) go(c.y < state.y ? 'up' : 'down');
     else if (c.y === state.y) go(c.x < state.x ? 'left' : 'right');
-    else sfx.denied();
+    else {
+      // Not in line with the otter, so no way to slide there: the otter's head shake is for a blocked way, so say this one.
+      sfx.denied();
+      refusal.refuse([e.point.x, e.point.y + 0.7, e.point.z], 'Tap in line with the otter');
+    }
   };
 
   const here = cellPos(state.x, state.y);
@@ -210,6 +215,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     <Shake trigger={shake} intensity={0.1}>
       <Pond onPick={onPick} water={water} drifts={drifts} eaten={ate} />
       <Particles ref={particles} />
+      <RefusalMark refusal={refusal.refusal} />
 
       <OtterActor
         state={state}

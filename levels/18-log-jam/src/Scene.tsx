@@ -2,7 +2,7 @@ import type { SceneProps } from '@riddle/engine';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import { Burst, ComicWord, DizzyStars, FocusCam, LiftPress, PRESS_SLOP, Shake, clickGuard, liftTapped, reducedMotion, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
-import { HintRing, toon } from '@riddle/props';
+import { HintRing, RefusalMark, toon, useRefusal } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
@@ -144,6 +144,13 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     return ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), -FLOAT_Y), hit) ? hit : null;
   };
 
+  const nope = useRefusal();
+  /** A log that has nowhere to slide: the blip, and the mark over the log. */
+  const stuck = (i: number, at: number) => {
+    sfx.denied();
+    const c = pieceCenter(i, at, PIECES);
+    nope.refuse([c[0], c[1] + 0.85, c[2]], "This log can't move");
+  };
   const onPieceDown = (i: number, e: ThreeEvent<PointerEvent>) => {
     // A glowing ring beats a log's invisible padding and its glow (both marked `pad`). Seen from the camera,
     // those of a log (often the picked one) reach over the ring next to it, and would take the tap meant
@@ -202,7 +209,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
           sfx.deselect();
           setSelected(null);
         } else {
-          if (d.min === d.max) sfx.denied();
+          if (d.min === d.max) stuck(d.i, d.base);
           else pond.select();
           setSelected(d.i);
         }
@@ -212,7 +219,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       setSelected(null);
       if (to !== d.base) play({ piece: d.i, to });
       else {
-        if (d.min === d.max) sfx.denied();
+        if (d.min === d.max) stuck(d.i, d.base);
         setSnap((n) => n + 1);
       }
     };
@@ -267,6 +274,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   return (
     <Shake trigger={shake} intensity={0.18}>
       <Pond />
+      <RefusalMark refusal={nope.refusal} />
 
       {PIECES.map((pc, i) => (
         <PieceActor

@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Burst, ComicWord, DizzyStars, Shake, ambientDt, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
-import { Bubble, HintRing, toon } from '@riddle/props';
+import { Bubble, HintRing, RefusalMark, toon, useRefusal } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -123,10 +123,14 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     setBoingBubble(false);
   }, [moveCount, resetCount]);
 
+  const nope = useRefusal();
   const tapPeg = (p: Peg) => {
     if (busy || over || bouncing) return;
     if (selected === null) {
-      if (state.pegs[p].length === 0) return void sfx.denied();
+      if (state.pegs[p].length === 0) {
+        sfx.denied();
+        return void nope.refuse([PEG_X[p], BASE_Y + ROD_H * 0.55, 0.3], 'No disc on this pillar');
+      }
       sfx.select();
       setSelected(p);
     } else if (selected === p) {
@@ -161,6 +165,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   return (
     <Shake trigger={shake} intensity={0.06} durationMs={350}>
       <Temple />
+      <RefusalMark refusal={nope.refusal} />
 
       {PEGS.map((p) => (
         <Pillar

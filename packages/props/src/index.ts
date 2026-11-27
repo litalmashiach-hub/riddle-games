@@ -6,3 +6,4 @@ export * from './HintRing';
 export * from './Bubble';
 export * from './HintHalo';
 export * from './hintMark';
+export * from './RefusalMark';
