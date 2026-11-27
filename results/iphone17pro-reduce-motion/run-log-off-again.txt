@@ -1,0 +1,6 @@
+   87.0s [off-again] page in WEBVIEW_58597.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+   92.1s [off-again] web view WEBVIEW_58597.1, 874 by 402
+   97.6s [off-again] calibration: touched [{"x":262,"y":161},{"x":612,"y":302}], the page saw [{"x":262,"y":161},{"x":612,"y":302}]: same (error 0.0 pt)
+   98.0s [off-again] the device's setting as the web view reports it: {"reduce":false,"noPreference":true,"userAgent":"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148","href":"capacitor://localhost"}
+  104.3s [off-again] page in WEBVIEW_58597.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  104.3s [off-again] after a reload: {"reduce":false,"noPreference":true,"userAgent":"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148","href":"capacitor://localhost"}

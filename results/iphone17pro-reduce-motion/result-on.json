@@ -1,0 +1,422 @@
+{
+ "pass": "on",
+ "setting": {
+  "reduce": true,
+  "noPreference": false,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "href": "capacitor://localhost"
+ },
+ "size": {
+  "width": 874,
+  "height": 402
+ },
+ "levels": [
+  {
+   "level": 1,
+   "id": "wolf-two-sheep",
+   "title": "Wolf and Two Sheep",
+   "frames": {
+    "rulesCard": "L01-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L01-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 1.07
+     },
+     {
+      "file": "L01-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 5.37
+     }
+    ],
+    "still": [
+     "L01-2-still-a-reduce-motion-on.png",
+     "L01-2-still-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 2,
+    "first": {
+     "t": 1244,
+     "p": "0.000,5.400,8.600"
+    },
+    "last": {
+     "t": 1766,
+     "p": "0.000,5.808,9.264"
+    },
+    "sample": [
+     {
+      "t": 1244,
+      "p": "0.000,5.400,8.600"
+     },
+     {
+      "t": 1766,
+      "p": "0.000,5.808,9.264"
+     }
+    ]
+   },
+   "stillChanged": 0,
+   "stillGapS": 2.63,
+   "loss": {
+    "moveTaken": true,
+    "status": {
+     "kind": "lost",
+     "reason": "The wolf was left alone with one sheep. Now the sheep has no wool, and the wolf has a fluffy beard!"
+    },
+    "before": "L01-4-loss-0-before-reduce-motion-on.png",
+    "frames": [
+     {
+      "file": "L01-4-loss-1-reduce-motion-on.png",
+      "sAfterMove": 0.04
+     },
+     {
+      "file": "L01-4-loss-2-reduce-motion-on.png",
+      "sAfterMove": 2.18
+     },
+     {
+      "file": "L01-4-loss-3-reduce-motion-on.png",
+      "sAfterMove": 2.72
+     },
+     {
+      "file": "L01-4-loss-4-reduce-motion-on.png",
+      "sAfterMove": 3.42
+     },
+     {
+      "file": "L01-4-loss-5-reduce-motion-on.png",
+      "sAfterMove": 4.67
+     },
+     {
+      "file": "L01-4-loss-6-reduce-motion-on.png",
+      "sAfterMove": 6.32
+     }
+    ],
+    "card": "L01-4-loss-card-reduce-motion-on.png",
+    "clip": "L01-loss-reduce-motion-on.mp4",
+    "cameraPositions": 1,
+    "camera": [
+     {
+      "t": 41,
+      "p": "0.000,5.808,9.264"
+     }
+    ]
+   },
+   "win": {
+    "moveTaken": true,
+    "status": {
+     "kind": "won"
+    },
+    "before": "L01-4-win-0-before-reduce-motion-on.png",
+    "frames": [
+     {
+      "file": "L01-4-win-1-reduce-motion-on.png",
+      "sAfterMove": 1.16
+     }
+    ],
+    "card": "L01-4-win-card-reduce-motion-on.png",
+    "clip": "L01-win-reduce-motion-on.mp4",
+    "cameraPositions": 1,
+    "camera": [
+     {
+      "t": 42,
+      "p": "0.000,5.808,9.264"
+     }
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "id": "wolf-goat-cabbage",
+   "title": "Wolf, Goat and Cabbage",
+   "frames": {
+    "rulesCard": "L02-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L02-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 0.9
+     },
+     {
+      "file": "L02-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 2.27
+     },
+     {
+      "file": "L02-1-open-3-reduce-motion-on.png",
+      "sAfterTap": 3.08
+     },
+     {
+      "file": "L02-1-open-4-reduce-motion-on.png",
+      "sAfterTap": 3.67
+     },
+     {
+      "file": "L02-1-open-5-reduce-motion-on.png",
+      "sAfterTap": 4.29
+     },
+     {
+      "file": "L02-1-open-6-reduce-motion-on.png",
+      "sAfterTap": 5.62
+     }
+    ],
+    "still": [
+     "L02-2-still-a-reduce-motion-on.png",
+     "L02-2-still-b-reduce-motion-on.png"
+    ],
+    "hint": [
+     "L02-3-hint-a-reduce-motion-on.png",
+     "L02-3-hint-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 3,
+    "first": {
+     "t": 41,
+     "p": "0.000,5.808,9.264"
+    },
+    "last": {
+     "t": 1313,
+     "p": "0.000,5.808,9.264"
+    },
+    "sample": [
+     {
+      "t": 41,
+      "p": "0.000,5.808,9.264"
+     },
+     {
+      "t": 726,
+      "p": "0.000,5.400,8.600"
+     },
+     {
+      "t": 1313,
+      "p": "0.000,5.808,9.264"
+     }
+    ]
+   },
+   "stillChanged": 0,
+   "stillGapS": 2.368,
+   "hintChanged": 0.027401765644191958,
+   "hintSpoken": ""
+  },
+  {
+   "level": 3,
+   "id": "two-jugs",
+   "title": "Two Jugs",
+   "frames": {
+    "rulesCard": "L03-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L03-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 0.76
+     },
+     {
+      "file": "L03-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 2.14
+     },
+     {
+      "file": "L03-1-open-3-reduce-motion-on.png",
+      "sAfterTap": 2.7
+     },
+     {
+      "file": "L03-1-open-4-reduce-motion-on.png",
+      "sAfterTap": 3.21
+     },
+     {
+      "file": "L03-1-open-5-reduce-motion-on.png",
+      "sAfterTap": 4.08
+     },
+     {
+      "file": "L03-1-open-6-reduce-motion-on.png",
+      "sAfterTap": 4.68
+     },
+     {
+      "file": "L03-1-open-7-reduce-motion-on.png",
+      "sAfterTap": 5.17
+     },
+     {
+      "file": "L03-1-open-8-reduce-motion-on.png",
+      "sAfterTap": 5.7
+     }
+    ],
+    "still": [
+     "L03-2-still-a-reduce-motion-on.png",
+     "L03-2-still-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 3,
+    "first": {
+     "t": 42,
+     "p": "0.000,5.808,9.264"
+    },
+    "last": {
+     "t": 1679,
+     "p": "3.878,3.380,5.324"
+    },
+    "sample": [
+     {
+      "t": 42,
+      "p": "0.000,5.808,9.264"
+     },
+     {
+      "t": 713,
+      "p": "3.950,3.200,4.900"
+     },
+     {
+      "t": 1679,
+      "p": "3.878,3.380,5.324"
+     }
+    ]
+   },
+   "stillChanged": 0.0006467155703809961,
+   "stillGapS": 2.631
+  },
+  {
+   "level": 5,
+   "id": "bridge-and-torch",
+   "title": "Bridge and Torch",
+   "frames": {
+    "rulesCard": "L05-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L05-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 2.61
+     },
+     {
+      "file": "L05-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 4.49
+     },
+     {
+      "file": "L05-1-open-3-reduce-motion-on.png",
+      "sAfterTap": 5
+     },
+     {
+      "file": "L05-1-open-4-reduce-motion-on.png",
+      "sAfterTap": 5.59
+     }
+    ],
+    "still": [
+     "L05-2-still-a-reduce-motion-on.png",
+     "L05-2-still-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 3,
+    "first": {
+     "t": 41,
+     "p": "3.878,3.380,5.324"
+    },
+    "last": {
+     "t": 1289,
+     "p": "0.000,4.976,10.152"
+    },
+    "sample": [
+     {
+      "t": 41,
+      "p": "3.878,3.380,5.324"
+     },
+     {
+      "t": 780,
+      "p": "0.000,4.600,9.400"
+     },
+     {
+      "t": 1289,
+      "p": "0.000,4.976,10.152"
+     }
+    ]
+   },
+   "stillChanged": 0.000043641441913240814,
+   "stillGapS": 1.751
+  },
+  {
+   "level": 16,
+   "id": "firefly-jars",
+   "title": "Firefly Jars",
+   "frames": {
+    "rulesCard": "L16-0-rules-card-reduce-motion-on.png",
+    "opening": [
+     {
+      "file": "L16-1-open-1-reduce-motion-on.png",
+      "sAfterTap": 0.82
+     },
+     {
+      "file": "L16-1-open-2-reduce-motion-on.png",
+      "sAfterTap": 1.75
+     },
+     {
+      "file": "L16-1-open-3-reduce-motion-on.png",
+      "sAfterTap": 2.57
+     },
+     {
+      "file": "L16-1-open-4-reduce-motion-on.png",
+      "sAfterTap": 3.19
+     },
+     {
+      "file": "L16-1-open-5-reduce-motion-on.png",
+      "sAfterTap": 3.72
+     },
+     {
+      "file": "L16-1-open-6-reduce-motion-on.png",
+      "sAfterTap": 4.27
+     },
+     {
+      "file": "L16-1-open-7-reduce-motion-on.png",
+      "sAfterTap": 4.68
+     },
+     {
+      "file": "L16-1-open-8-reduce-motion-on.png",
+      "sAfterTap": 5.3
+     },
+     {
+      "file": "L16-1-open-9-reduce-motion-on.png",
+      "sAfterTap": 5.91
+     }
+    ],
+    "still": [
+     "L16-2-still-a-reduce-motion-on.png",
+     "L16-2-still-b-reduce-motion-on.png"
+    ]
+   },
+   "cameraWhileOpening": {
+    "positions": 3,
+    "first": {
+     "t": 42,
+     "p": "0.000,4.976,10.152"
+    },
+    "last": {
+     "t": 1234,
+     "p": "0.000,4.108,8.208"
+    },
+    "sample": [
+     {
+      "t": 42,
+      "p": "0.000,4.976,10.152"
+     },
+     {
+      "t": 727,
+      "p": "0.000,3.900,7.600"
+     },
+     {
+      "t": 1234,
+      "p": "0.000,4.108,8.208"
+     }
+    ]
+   },
+   "stillChanged": 0,
+   "stillGapS": 2.246
+  }
+ ],
+ "settingAfterReload": {
+  "reduce": true,
+  "noPreference": false,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "href": "capacitor://localhost/"
+ },
+ "map": {
+  "frames": [
+   "L00-map-a-reduce-motion-on.png",
+   "L00-map-b-reduce-motion-on.png"
+  ],
+  "changed": 0
+ },
+ "settingAtEnd": {
+  "reduce": true,
+  "noPreference": false,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+  "href": "capacitor://localhost/#/"
+ }
+}

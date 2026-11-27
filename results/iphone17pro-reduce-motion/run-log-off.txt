@@ -1,0 +1,27 @@
+  513.9s [off] WEBVIEW_19855.1: not the game page yet ({"ok":false,"href":"about:blank","hooks":"undefined","scene":"undefined"})
+  516.7s [off] page in WEBVIEW_19855.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+  542.5s [off] web view WEBVIEW_19855.1, 874 by 402
+  580.3s [off] calibration: touched [{"x":262,"y":161},{"x":612,"y":302}], the page saw [{"x":262,"y":161},{"x":612,"y":302}]: same (error 0.0 pt)
+  582.1s [off] the device's setting as the web view reports it: {"reduce":false,"noPreference":true,"userAgent":"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148","href":"capacitor://localhost"}
+  601.6s [off] page in WEBVIEW_19855.1: {"ok":true,"href":"capacitor://localhost/","hooks":"function","scene":"object"}
+  601.7s [off] after a reload: {"reduce":false,"noPreference":true,"userAgent":"Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148","href":"capacitor://localhost/"}
+  651.9s [off] level map: {"frames":["L00-map-a-reduce-motion-off.png","L00-map-b-reduce-motion-off.png"],"changed":0.15835581816318864}
+  651.9s [off] level 01 wolf-two-sheep: opening
+  697.6s [off] level 01: camera positions from the hash change until settled: 2
+  727.7s [off] level 01: share of the screen that changed in 13.574 s once settled: 0.13678745858806654
+  752.6s [off] level 01 loss: {"moveTaken":true,"status":"lost","cameraPositions":69,"frames":4}
+  796.5s [off] level 01 win: {"moveTaken":true,"status":"won","cameraPositions":1,"frames":4}
+  799.7s [off] level 02 wolf-goat-cabbage: opening
+  812.0s [off] level 02: camera positions from the hash change until settled: 9
+  818.8s [off] level 02: share of the screen that changed in 2.246 s once settled: 0.14103016572363203
+  826.6s [off] level 02: hint "", changed 0.17568969290339556
+  829.8s [off] level 03 two-jugs: opening
+  857.5s [off] level 03: camera positions from the hash change until settled: 4
+  868.0s [off] level 03: share of the screen that changed in 4.181 s once settled: 0.15711994312697888
+  871.3s [off] level 05 bridge-and-torch: opening
+  903.6s [off] level 05: camera positions from the hash change until settled: 4
+  913.1s [off] level 05: share of the screen that changed in 3.875 s once settled: 0.04460376733166104
+  916.9s [off] level 16 firefly-jars: opening
+  931.5s [off] level 16: camera positions from the hash change until settled: 4
+  941.9s [off] level 16: share of the screen that changed in 4.263 s once settled: 0.2520226859599789
+  946.3s [off] pass done

@@ -1,0 +1,18 @@
+06:45:20 device iPhone 17 Pro: 6478AFFB-AE17-412A-A1E5-51BCFFD300B6
+06:48:23 booted; Reduce Motion reads at first: 0
+06:48:30 Reduce Motion set to false; the simulator's accessibility settings now read: 0
+06:49:22 simulator restarted; Reduce Motion reads: 0
+06:50:21 installed the test build
+06:50:37 pass off
+exit 0
+07:06:37 switching Reduce Motion on while the app runs
+07:08:00 Reduce Motion set to true; the simulator's accessibility settings now read: 1
+exit 0
+07:12:39 simulator restarted; Reduce Motion reads: 1
+07:13:09 pass on
+exit 0
+07:18:24 Reduce Motion set to false; the simulator's accessibility settings now read: 0
+07:20:16 simulator restarted; Reduce Motion reads: 0
+07:20:46 after switching it off again
+exit 0
+07:22:44 done
