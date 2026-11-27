@@ -1,0 +1,80 @@
+    t =   181.65s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   181.65s         Checking existence of `Any (First Match)`
+    t =   181.78s         Capturing element debug description
+    t =   182.64s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   182.64s         Checking existence of `Any (First Match)`
+    t =   182.87s         Capturing element debug description
+    t =   183.73s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   183.73s         Checking existence of `Any (First Match)`
+    t =   183.86s         Capturing element debug description
+    t =   184.73s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   184.73s         Checking existence of `Any (First Match)`
+    t =   184.89s         Capturing element debug description
+    t =   185.68s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   185.68s         Checking existence of `Any (First Match)`
+    t =   185.83s         Capturing element debug description
+    t =   186.72s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   186.72s         Checking existence of `Any (First Match)`
+    t =   186.82s         Capturing element debug description
+    t =   187.71s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   187.72s         Checking existence of `Any (First Match)`
+    t =   187.87s         Capturing element debug description
+    t =   188.64s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   188.66s         Checking existence of `Any (First Match)`
+    t =   189.03s         Capturing element debug description
+    t =   189.65s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   189.66s         Checking existence of `Any (First Match)`
+    t =   189.84s         Capturing element debug description
+    t =   190.64s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   190.65s         Checking existence of `Any (First Match)`
+    t =   190.77s         Capturing element debug description
+    t =   191.71s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   191.71s         Checking existence of `Any (First Match)`
+    t =   191.86s         Capturing element debug description
+    t =   192.64s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   192.64s         Checking existence of `Any (First Match)`
+    t =   192.78s         Capturing element debug description
+    t =   193.64s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   193.69s         Checking existence of `Any (First Match)`
+    t =   193.88s         Capturing element debug description
+    t =   194.64s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   194.64s         Checking existence of `Any (First Match)`
+    t =   194.73s         Capturing element debug description
+    t =   195.71s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   195.71s         Checking existence of `Any (First Match)`
+    t =   195.78s         Capturing element debug description
+    t =   196.65s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   196.65s         Checking existence of `Any (First Match)`
+    t =   196.78s         Capturing element debug description
+    t =   197.67s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   197.67s         Checking existence of `Any (First Match)`
+    t =   197.83s         Capturing element debug description
+    t =   198.64s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   198.64s         Checking existence of `Any (First Match)`
+    t =   198.96s         Capturing element debug description
+    t =   199.69s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   199.70s         Checking existence of `Any (First Match)`
+    t =   199.89s         Capturing element debug description
+    t =   200.70s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =   200.70s         Checking existence of `Any (First Match)`
+SHOTLOG 1795811694.898735 done marker: true
+    t =   202.20s Terminate com.example.riddlegames:8805
+    t =   203.26s Tear Down
+    t =   203.61s     Interface orientation changed to Portrait
+Test Case '-[StoreShotsUITests.StoreShots testShoot]' passed (209.025 seconds).
+Test Suite 'StoreShots' passed at 2026-11-27 20:35:01.774.
+	 Executed 1 test, with 0 failures (0 unexpected) in 209.025 (209.033) seconds
+Test Suite 'StoreShotsUITests.xctest' passed at 2026-11-27 20:35:01.775.
+	 Executed 1 test, with 0 failures (0 unexpected) in 209.025 (209.034) seconds
+Test Suite 'All tests' passed at 2026-11-27 20:35:01.775.
+	 Executed 1 test, with 0 failures (0 unexpected) in 209.025 (209.036) seconds
+2026-11-27 20:35:03.879 xcodebuild[5672:23092] [MT] IDETestOperationsObserverDebug: 276.870 elapsed -- Testing started completed.
+2026-11-27 20:35:03.879 xcodebuild[5672:23092] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-27 20:35:03.879 xcodebuild[5672:23092] [MT] IDETestOperationsObserverDebug: 276.870 sec, +276.870 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/riddle-games/riddle-games/out/iphone-69-s7/result.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started
