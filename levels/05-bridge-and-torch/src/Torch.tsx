@@ -1,6 +1,6 @@
 import { useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
-import { Sparkles } from '@react-three/drei';
+import { Sparkles } from '@riddle/fx';
 import { useFrame } from '@react-three/fiber';
 import { forwardRef, useMemo, useRef } from 'react';
 import * as THREE from 'three';

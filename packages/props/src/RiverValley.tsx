@@ -1,6 +1,5 @@
-import { Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Water, ambientDt, seeded } from '@riddle/fx';
+import { Sparkles, Water, ambientDt, seeded } from '@riddle/fx';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { toon } from './materials';

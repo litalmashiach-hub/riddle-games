@@ -1,4 +1,5 @@
-import { Sparkles, Stars } from '@react-three/drei';
+import { Stars } from '@react-three/drei';
+import { Sparkles } from '@riddle/fx';
 import { useFrame } from '@react-three/fiber';
 import { Water, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
