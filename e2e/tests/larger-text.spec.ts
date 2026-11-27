@@ -81,6 +81,8 @@ test.describe('at the standard size', () => {
     for (const size of IPADS) {
       await page.setViewportSize(size);
       const one = LEVELS[0];
+      // A fresh page each time: the same address again would only be a jump within the page, with no rules card.
+      await page.goto('about:blank');
       await page.goto(`?all&debug&quality=low#/level/${one.id}`);
       await waitForSession(page, one.id);
       await page.getByRole('button', { name: "Let's go!" }).tap();
@@ -132,6 +134,7 @@ for (const size of GROWN) {
       for (const { size, levels } of runs) {
         await page.setViewportSize(size);
         for (const level of LEVELS.filter((l) => levels.includes(l.number))) {
+          await page.goto('about:blank');
           await page.goto(`?all&debug&quality=low#/level/${level.id}`);
           await waitForSession(page, level.id);
           await page.getByRole('button', { name: "Let's go!" }).tap();
@@ -179,6 +182,8 @@ for (const size of GROWN) {
 
       // A win, with the first-play guide and a hint on the way.
       const one = LEVELS[0];
+      // A fresh page each time: the same address again would only be a jump within the page, with no rules card.
+      await page.goto('about:blank');
       await page.goto(`?all&debug&quality=low#/level/${one.id}`);
       await waitForSession(page, one.id);
       await page.getByRole('button', { name: "Let's go!" }).tap();
