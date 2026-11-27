@@ -12,7 +12,11 @@ APP="$ROOT/build/ios/Build/Products/Release-iphonesimulator/App.app"
 BUNDLE=$(sed -n 's/^APP_BUNDLE_ID *= *//p' "$ROOT/apps/mobile/ios/AppIdentity.xcconfig" | tr -d ' ')
 say() { echo "$(date -u +%H:%M:%S) [shell] $*" | tee -a "$OUT/run-log.txt"; }
 
-TYPE=$(xcrun simctl list devicetypes -j | python3 -c "import json,sys; print([t['identifier'] for t in json.load(sys.stdin)['devicetypes'] if t['name']=='$NAME'][0])")
+# NAME may list fall-backs, "A|B": the first device type the Mac has is used.
+xcrun simctl list devicetypes > "$OUT/devicetypes.txt" 2>&1
+TYPE=$(xcrun simctl list devicetypes -j | python3 -c "import json,sys; ts={t['name']:t['identifier'] for t in json.load(sys.stdin)['devicetypes']}; print(next((ts[n] for n in '$NAME'.split('|') if n in ts), ''))")
+[ -z "$TYPE" ] && { say "no device type among $NAME"; cat "$OUT/devicetypes.txt"; exit 1; }
+NAME=$(xcrun simctl list devicetypes -j | python3 -c "import json,sys; print([t['name'] for t in json.load(sys.stdin)['devicetypes'] if t['identifier']=='$TYPE'][0])")
 RT=$(xcrun simctl list runtimes -j | python3 -c "import json,sys; r=[x for x in json.load(sys.stdin)['runtimes'] if x['isAvailable'] and x['platform']=='iOS']; print(sorted(r,key=lambda x:[int(n) for n in x['version'].split('.')])[-1]['identifier'])")
 UDID=$(xcrun simctl create "review-$LABEL" "$TYPE" "$RT")
 [ -z "$UDID" ] && { say "no simulator for $NAME"; exit 1; }

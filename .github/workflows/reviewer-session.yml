@@ -5,7 +5,7 @@ name: Reviewer session (test only)
 
 on:
   push:
-    branches: ['test/reviewer-session-mac-test']
+    branches: ['test/reviewer-iphone-main-6769790']
 
 permissions:
   contents: read
@@ -59,9 +59,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { label: iphone, sim: 'iPhone 17 Pro', orientation: '-', flags: 'fps=6' }
-          # The iPad passed in run 45848339700; this run is the iPhone alone, with the same test-only frame cap.
-          # - { label: ipad, sim: 'iPad Pro 13-inch (M5)', orientation: LANDSCAPE, flags: 'fps=6 sd-first' }
+          # Main at 6769790 plus this branch's test-only runner. The frame cap of 6 a second is the test's,
+          # not the app's: without it a hosted Mac's simulator grew to 7.7 GB in level 1 (run 45848339700).
+          - { label: iphone-large, sim: 'iPhone 17 Pro Max', orientation: '-', flags: 'fps=6 hard=12,18,26,27,28,29,30' }
+          - { label: iphone-small, sim: 'iPhone SE (3rd generation)|iPhone SE (2nd generation)|iPhone 16e', orientation: '-', flags: 'fps=6 hard=12,18,26,27,28,29,30' }
+          # Evidence only: levels 26 to 30 on main with no cap at all, to tell the game from the test Mac.
+          - { label: iphone-large-nocap, sim: 'iPhone 17 Pro Max', orientation: '-', flags: 'hard-only hard=26,27,28,29,30' }
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -86,7 +89,7 @@ jobs:
       - name: The run's log
         if: always()
         run: cat out/*/run-log.txt || true
-      - name: Keep the results on the branch test/reviewer-session-out/${{ matrix.label }} (test only, overwritten each run)
+      - name: Keep the results on the branch test/reviewer-iphone-out/${{ matrix.label }} (test only, overwritten each run)
         if: always()
         run: |
           cd out
@@ -97,7 +100,7 @@ jobs:
           echo "Run ${{ github.run_id }}, job ${{ matrix.label }}, commit ${{ github.sha }}" > RUN.txt
           git add -A
           git commit -q -m "TEST ONLY: reviewer-session results of run ${{ github.run_id }}, ${{ matrix.label }}"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "results:refs/heads/test/reviewer-session-out/${{ matrix.label }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "results:refs/heads/test/reviewer-iphone-out/${{ matrix.label }}"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

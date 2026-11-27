@@ -245,6 +245,8 @@ async function main() {
     log(`frames capped at ${args.fps} a second by the test`);
   }
 
+  // TEST ONLY: --hard-only skips steps 2 to 5 (gestures, levels 1 to 5, About, the turn), for a run of hard levels alone.
+  if (!args['hard-only']) {
   // 2. Gestures a browser would answer, on the level map, by real touches.
   await step('browser-gestures-map', async () => {
     const sz = appium.size();
@@ -409,6 +411,8 @@ async function main() {
     log(`calibration again: ${await appium.calibrate()}`);
     return { ...r, back: appium.size(), shotBack: await shot('turned-back') };
   });
+
+  }
 
   // 6. Harder levels. SHORTCUT, TEST ONLY: the run writes 3 stars for levels 1 to 29 into the game's own
   // saved progress, as a reviewer would have after solving them, then starts the page again.
