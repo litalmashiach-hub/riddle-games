@@ -50,6 +50,10 @@ need another layout then. At the standard size every one of them is as before.
   first-play guide sits below the top bar, not beside it.
 - **About, sideways:** the page tabs scroll if they no longer fit above the version line.
 - **About, the reset question:** the card widens, so its two buttons can stay side by side.
+- **Refused-tap notes** (`RefusalMark` in `packages/props`): the red "✕" note over a piece grows with the words,
+  though it is laid over the 3D scene, as it is the only answer to a refused tap for a player who can't hear the
+  blip. Grown, its words may take two lines. At any size it steps aside from Hint's marks and from every button
+  of the scene and the HUD (`refusalPlace.ts`).
 - **Hint and first-play guide, on taller screens:** they keep their gap to the bottom and top bars, which grow
   with the words.
 
@@ -65,6 +69,9 @@ need another layout then. At the standard size every one of them is as before.
 
 - `e2e/textFit.ts` reads every line of text as the browser laid it out against every box that clips it, finds
   words cut short, clipped or drawn over each other, and buttons out of reach.
+- `e2e/taps/tests/silent-refusals.spec.ts` makes every refused tap of all 13 levels that have one, by real
+  touches, at the standard size and the largest, with Hint's marks up, and checks the note's words grow and
+  that it covers no point of a Hint mark and no button, at the iPhone sizes and on the iPad.
 - `e2e/tests/larger-text.spec.ts` runs it at the first accessibility size and the largest, on the map and every
   About page (app build) and on the rules, win and loss cards and the play screen (website with `?debug`), at
   the iPhone sizes of the play-through config. It also checks that the standard size changes nothing and that
