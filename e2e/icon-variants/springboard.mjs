@@ -35,10 +35,14 @@ try {
   const { width, height } = await d.getWindowSize();
   log(`window ${width}x${height}`);
   // An empty spot of the first page, below the apps and above the dock.
-  await d.execute('mobile: touchAndHold', { x: Math.round(width * 0.5), y: Math.round(height * 0.66), duration: 2.0 });
-  await sleep(1500);
-  await dump('1-held');
-  const edit = await find(['Edit', 'edit']);
+  let edit = null;
+  for (let i = 1; i <= 4 && !edit; i++) {
+    await d.execute('mobile: touchAndHold', { x: Math.round(width * 0.5), y: Math.round(height * (0.62 + 0.03 * i)), duration: 2.5 });
+    await sleep(1500);
+    await dump(`1-held-${i}`);
+    edit = await find(['Edit', 'edit'], 6000);
+    if (!edit) log(`long press ${i} gave no Edit button`);
+  }
   if (!edit) throw new Error('no Edit button after the long press');
   await edit.el.click(); log(`pressed ${edit.n}`);
   await sleep(1200);
@@ -60,7 +64,16 @@ try {
   const done = await find(['Done'], 3000);
   if (done) { await done.el.click(); log('pressed Done'); }
   await d.execute('mobile: pressButton', { name: 'home' });
-  await sleep(3000);
+  await sleep(2000);
+  // The app lands on the second page of the home screen: show that page.
+  for (let i = 0; i < 2; i++) {
+    const app = await d.$('~Riddle Games');
+    if (await app.isExisting() && await app.isDisplayed()) break;
+    await d.execute('mobile: swipe', { direction: 'left' });
+    await sleep(2000);
+  }
+  const app = await d.$('~Riddle Games');
+  log(`app icon on screen: ${await app.isDisplayed().catch(() => false)} ${JSON.stringify(await app.getElementRect(await app.elementId).catch(() => null))}`);
   await dump('5-home');
   ok = true;
 } catch (e) {

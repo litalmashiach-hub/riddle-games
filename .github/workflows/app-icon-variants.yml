@@ -60,12 +60,8 @@ jobs:
           npm --prefix e2e/icon-variants install --no-audit --no-fund
           export APPIUM_HOME="$PWD/e2e/icon-variants/.appium"
           e2e/icon-variants/node_modules/.bin/appium driver install xcuitest@12.22.8
-      - name: iOS 18 iPhone
-        timeout-minutes: 45
-        run: e2e/icon-variants/shoot.sh ios18 iOS-18 'light dark tinted'
       - name: iOS 26 iPhone
-        if: always()
-        timeout-minutes: 45
+        timeout-minutes: 50
         run: e2e/icon-variants/shoot.sh ios26 iOS-26 'light dark tinted'
       - name: Keep the pictures and logs on this branch, under results/ (test only)
         if: always()

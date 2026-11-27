@@ -1,8 +1,0 @@
-15:04:08 booted
-15:06:53 installed
-15:14:24 light: springboard exit 0
-15:14:35 picture home-light.png
-15:15:47 dark: springboard exit 1
-15:15:56 picture home-dark.png
-15:17:18 tinted: springboard exit 0
-15:17:26 picture home-tinted.png

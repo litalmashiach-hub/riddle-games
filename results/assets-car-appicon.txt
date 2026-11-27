@@ -1,8 +1,0 @@
-AppIcon AppIcon-1024.png None 1024 1024 srgb
-AppIcon AppIcon-1024.png None 1024 1024 srgb
-AppIcon AppIcon-Dark-1024.png UIAppearanceDark 1024 1024 srgb
-AppIcon AppIcon-Dark-1024.png UIAppearanceDark 1024 1024 srgb
-AppIcon AppIcon-Tinted-1024.png ISAppearanceTintable 1024 1024 gray gamma 22
-AppIcon AppIcon-Tinted-1024.png ISAppearanceTintable 1024 1024 gray gamma 22
-AppIcon None None None None None
-AppIcon None None None None None
