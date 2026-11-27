@@ -76,8 +76,13 @@ team's workspace, so this run is how a change to the iOS project is proven.
 - Launch screen: `Base.lproj/LaunchScreen.storyboard` showing the `Splash` image on the game's dark blue.
   `GameViewController.swift` keeps the same picture over the web view until the game has drawn its first screen, then fades it
   out, so the launch screen goes straight into the game with no empty frame between.
-- Icon: one opaque 1024 pixel PNG. Icon and launch image are rendered from `apps/web/public/icons/icon.svg` and
-  `apps/mobile/art/launch.svg` by `apps/mobile/scripts/render-art.mjs`; run it only when the art changes.
+- Icon: one opaque 1024 pixel PNG, plus a dark and a tinted version for players who set their home screen
+  icons to Dark or Tinted (iOS 18 and later; older iOS ignores them). The dark one is the same art without the
+  sky, on a transparent background that iOS fills with its own dark backdrop; the tinted one is the same art in
+  greys on black, which iOS colours with the player's tint. `apps/mobile/src/appIcon.test.ts` checks the
+  asset catalog. The icons and launch image are rendered from `apps/web/public/icons/icon.svg`,
+  `apps/mobile/art/icon-dark.svg`, `apps/mobile/art/icon-tinted.svg` and `apps/mobile/art/launch.svg` by
+  `apps/mobile/scripts/render-art.mjs`; run it only when the art changes, and change all three icons together.
 
 ## Feeling like an app
 
