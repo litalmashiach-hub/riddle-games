@@ -2,6 +2,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useReducedMotion, type Vec3 } from '@riddle/fx';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { ringBands } from './hintMark';
 
 /*
  * The seen twin of the "that won't work" blip (sfx.denied). A tap that the rules refuse plays the blip,
@@ -9,7 +10,10 @@ import * as THREE from 'three';
  * the sound off, or who can't hear it, still gets an answer to the tap.
  *
  * - It takes no touch (pointer-events: none) and changes nothing in the play: it only shows.
- * - It sits above the piece, so it never covers a Hint ring on the ground.
+ * - It sits above the piece. Where that would cover a Hint ring that the scene names in `avoid`, it moves to
+ *   the side or below instead, so the gold mark always stays in view.
+ * - Its words are spoken through one live region (role "status", polite) that lasts as long as the scene,
+ *   so it is in the page before the tap and VoiceOver reads each new note. The cross is hidden from it.
  * - It gives a short shake as it comes up. With Reduce Motion on it does not move at all: it is just there,
  *   and then it is gone.
  * - White words on #c8243f read at 5.6 to 1; the white rim keeps the pill apart from any scene behind it.
@@ -55,17 +59,62 @@ export function useRefusal() {
   return { refusal, refuse, clear };
 }
 
-/** The mark itself. Put it anywhere inside the scene's Canvas. */
-export function RefusalMark({ refusal }: { refusal: Refusal | null }) {
-  if (!refusal) return null;
-  return <RefusalPill key={refusal.n} at={refusal.at} say={refusal.say} />;
+/** A Hint ring on the ground that the note must not cover: its middle and the radius given to its HintRing. */
+export interface AvoidRing {
+  at: Vec3;
+  radius: number;
 }
+
+/** How far from its middle a HintRing of this radius is drawn, dark edge and pulse included. */
+export const ringReach = (radius: number) => {
+  const b = ringBands(radius);
+  return (b.outer + b.edge) * 1.08;
+};
+
+/**
+ * The mark itself. Put it anywhere inside the scene's Canvas, and keep it there while the scene lives:
+ * it holds the lasting live region the notes are spoken through, so that region is in the page before any tap.
+ */
+export function RefusalMark({ refusal, avoid }: { refusal: Refusal | null; avoid?: AvoidRing[] }) {
+  const gl = useThree((s) => s.gl);
+  const [region, setRegion] = useState<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const parent = gl.domElement.parentNode as HTMLElement | null;
+    if (!parent) return;
+    const div = document.createElement('div');
+    div.dataset.refusalSpoken = '';
+    div.setAttribute('role', 'status');
+    div.setAttribute('aria-live', 'polite');
+    div.style.cssText = 'position:absolute;top:0;left:0;width:0;height:0;z-index:6;pointer-events:none;';
+    parent.appendChild(div);
+    setRegion(div);
+    return () => {
+      div.remove();
+      setRegion(null);
+    };
+  }, [gl]);
+  if (!refusal || !region) return null;
+  return <RefusalPill key={refusal.n} region={region} at={refusal.at} say={refusal.say} avoid={avoid} />;
+}
+
+interface Box {
+  l: number;
+  t: number;
+  r: number;
+  b: number;
+}
+
+const overlap = (a: Box, b: Box) => Math.max(0, Math.min(a.r, b.r) - Math.max(a.l, b.l)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.t, b.t));
 
 const KEYFRAMES =
   '@keyframes riddle-refuse{0%{transform:translateX(0) scale(.6)}20%{transform:translateX(-7px) scale(1.06)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(2px)}100%{transform:translateX(0) scale(1)}}';
 
-function RefusalPill({ at, say }: { at: Vec3; say: string }) {
-  const gl = useThree((s) => s.gl);
+/** The gap, in pixels, kept between the note and a ring it steps aside from. */
+const CLEAR = 4;
+
+const KEYFRAMES_ID = 'riddle-refuse-keyframes';
+
+function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: Vec3; say: string; avoid?: AvoidRing[] }) {
   const camera = useThree((s) => s.camera);
   const size = useThree((s) => s.size);
   const invalidate = useThree((s) => s.invalidate);
@@ -73,31 +122,71 @@ function RefusalPill({ at, say }: { at: Vec3; say: string }) {
   const el = useRef<HTMLDivElement | null>(null);
   const v = useMemo(() => new THREE.Vector3(), []);
 
+  const toScreen = (p: Vec3) => {
+    v.set(p[0], p[1], p[2]).project(camera);
+    return { x: ((v.x + 1) / 2) * size.width, y: ((1 - v.y) / 2) * size.height, behind: v.z > 1 };
+  };
+
+  /** A ring's box on the screen, from the four points of its rim. */
+  const ringBox = ({ at: c, radius }: AvoidRing): Box => {
+    const r = ringReach(radius);
+    const pts = [
+      [c[0] - r, c[2]],
+      [c[0] + r, c[2]],
+      [c[0], c[2] - r],
+      [c[0], c[2] + r],
+    ].map(([x, z]) => toScreen([x, c[1], z]));
+    return { l: Math.min(...pts.map((p) => p.x)) - CLEAR, r: Math.max(...pts.map((p) => p.x)) + CLEAR, t: Math.min(...pts.map((p) => p.y)) - CLEAR, b: Math.max(...pts.map((p) => p.y)) + CLEAR };
+  };
+
   const place = () => {
     const div = el.current;
     if (!div) return;
-    v.set(at[0], at[1], at[2]).project(camera);
-    div.style.visibility = v.z > 1 ? 'hidden' : 'visible';
-    // Kept wholly on the screen: a figure near the edge (a small phone held sideways) still gets all its words.
+    const p = toScreen(at);
+    div.style.visibility = p.behind ? 'hidden' : 'visible';
     const w = (div.firstElementChild as HTMLElement | null)?.offsetWidth ?? 0;
     const h = (div.firstElementChild as HTMLElement | null)?.offsetHeight ?? 0;
-    const x = Math.min(Math.max(((v.x + 1) / 2) * size.width, EDGE + w / 2), size.width - EDGE - w / 2);
-    const y = Math.min(Math.max(((1 - v.y) / 2) * size.height, EDGE + h), size.height - EDGE);
-    div.style.transform = `translate3d(${x}px,${y}px,0)`;
+    // Kept wholly on the screen: a figure near the edge (a small phone held sideways) still gets all its words.
+    // (x, y) is the note's bottom middle.
+    const fit = (x: number, y: number) => ({
+      x: Math.min(Math.max(x, EDGE + w / 2), size.width - EDGE - w / 2),
+      y: Math.min(Math.max(y, EDGE + h), size.height - EDGE),
+    });
+    // Above the piece first; where that covers a Hint ring, beside it, then below it (under the toadstool's
+    // foot), whichever covers no ring. If every place covers one, the one that covers least.
+    const ground = toScreen([at[0], 0, at[2]]);
+    const gap = 10;
+    const tries = [
+      fit(p.x, p.y),
+      fit(p.x + gap + w / 2, p.y + h / 2),
+      fit(p.x - gap - w / 2, p.y + h / 2),
+      fit(p.x, ground.y + h + gap),
+    ];
+    const rings = (avoid ?? []).map(ringBox);
+    let best = tries[0];
+    let least = Infinity;
+    for (const t of tries) {
+      const box = { l: t.x - w / 2, r: t.x + w / 2, t: t.y - h, b: t.y };
+      const covered = rings.reduce((sum, ring) => sum + overlap(box, ring), 0);
+      if (covered < least) {
+        least = covered;
+        best = t;
+      }
+      if (covered === 0) break;
+    }
+    div.style.transform = `translate3d(${best.x}px,${best.y}px,0)`;
+    div.dataset.refusalPlace = String(tries.indexOf(best));
   };
 
   // Plain page elements laid over the canvas, made in an effect (no drei <Html>, which can come up
   // blank when it mounts and unmounts often, and no React root of its own).
   useEffect(() => {
-    const parent = gl.domElement.parentNode as HTMLElement | null;
-    if (!parent) return;
     const div = document.createElement('div');
-    div.style.cssText = 'position:absolute;top:0;left:0;z-index:6;pointer-events:none;visibility:hidden;';
+    div.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;visibility:hidden;';
     const lift = document.createElement('div');
     lift.style.transform = 'translate(-50%,-100%)';
     const pill = document.createElement('div');
     pill.dataset.refusal = say;
-    pill.setAttribute('role', 'status');
     Object.assign(pill.style, {
       display: 'flex',
       alignItems: 'center',
@@ -121,11 +210,18 @@ function RefusalPill({ at, say }: { at: Vec3; say: string }) {
     const words = document.createElement('span');
     words.textContent = say;
     pill.append(cross, words);
-    const style = document.createElement('style');
-    style.textContent = KEYFRAMES;
-    lift.append(pill, style);
+    // The shake's keyframes go in the page's head, once, and not in the live region, where a screen
+    // reader could take the style's text for part of the note.
+    if (!document.getElementById(KEYFRAMES_ID)) {
+      const style = document.createElement('style');
+      style.id = KEYFRAMES_ID;
+      style.textContent = KEYFRAMES;
+      document.head.appendChild(style);
+    }
+    lift.append(pill);
     div.append(lift);
-    parent.appendChild(div);
+    // Into the lasting live region, so VoiceOver speaks the words as they are added.
+    region.appendChild(div);
     el.current = div;
     place();
     invalidate();
@@ -136,7 +232,7 @@ function RefusalPill({ at, say }: { at: Vec3; say: string }) {
     };
     // Made once per refusal (the mark is keyed by its count); the words, place and setting are read then.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gl]);
+  }, [region]);
 
   useFrame(place);
   return null;

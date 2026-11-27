@@ -109,7 +109,8 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
     <group>
       <Backdrop />
       <Patch party={won} />
-      <RefusalMark refusal={refusal.refusal} />
+      {/* The note steps aside from the Hint rings, so it never hides which cricket the hint means. */}
+      <RefusalMark refusal={refusal.refusal} avoid={showHint ? [{ at: ring(showHint.from), radius: 0.62 }, { at: ring(showHint.to), radius: 0.46 }] : undefined} />
 
       {Array.from({ length: CELLS }, (_, cell) => {
         if (board.jars.includes(cell)) return null;

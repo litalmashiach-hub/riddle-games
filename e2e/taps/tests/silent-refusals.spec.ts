@@ -91,6 +91,17 @@ interface Seen {
   rect: { x: number; y: number; width: number; height: number };
   inView: boolean;
   removedAfterMs: number | null;
+  /** The note was added inside the lasting live region, the very one that was in the page before the tap. */
+  inRegion: boolean;
+  sameRegion: boolean;
+  /** The note's own role (none: it speaks through the region). */
+  ownRole: string | null;
+  /** What a screen reader hears from the region: the words, not the hidden cross. */
+  spoken: string | null;
+  crossHidden: string | null;
+  /** Points of Hint's marks under the note, on a 2-point grid, and how many marks were shown then. */
+  ringPoints: number;
+  marksShown: number;
 }
 
 /** Records every refusal mark as it comes up and goes, in `window.__refusals`. */
@@ -104,7 +115,8 @@ const WATCH_REFUSALS = () => {
         if (!pill) continue;
         const holder = n as HTMLElement;
         const cs = getComputedStyle(pill);
-        const b = pill.getBoundingClientRect();
+        // The box at full size: the pill itself starts its shake drawn at 60%, its holder never moves.
+        const b = (pill.parentElement ?? pill).getBoundingClientRect();
         const entry = {
           say: pill.dataset.refusal,
           text: pill.textContent,
@@ -116,6 +128,29 @@ const WATCH_REFUSALS = () => {
           rect: { x: Math.round(b.x), y: Math.round(b.y), width: Math.round(b.width), height: Math.round(b.height) },
           inView: b.left >= 0 && b.top >= 0 && b.right <= innerWidth && b.bottom <= innerHeight && b.width > 0,
           removedAfterMs: null as number | null,
+          ...(() => {
+            const region = holder.parentElement;
+            const spokenText = (el: Element): string =>
+              [...el.childNodes].map((c) => (c.nodeType === 3 ? c.textContent : c instanceof Element && c.getAttribute('aria-hidden') !== 'true' ? spokenText(c) : '')).join('');
+            let ringPoints = 0;
+            let marksShown = 0;
+            if (w.__taps?.marksAt)
+              for (let y = b.top; y <= b.bottom; y += 2)
+                for (let x = b.left; x <= b.right; x += 2) {
+                  const m = w.__taps.marksAt(x, y);
+                  marksShown = m.shown;
+                  if (m.crossed) ringPoints++;
+                }
+            return {
+              inRegion: !!region && region.hasAttribute('data-refusal-spoken'),
+              sameRegion: !!region && region === w.__spokenBefore,
+              ownRole: pill.getAttribute('role'),
+              spoken: region ? spokenText(region).trim() : null,
+              crossHidden: pill.firstElementChild?.getAttribute('aria-hidden') ?? null,
+              ringPoints,
+              marksShown,
+            };
+          })(),
           at: performance.now(),
           node: holder,
         };
@@ -239,6 +274,15 @@ for (const motion of ['no-preference', 'reduce'] as const) {
         await waitCameraStill(page);
         await waitIdle(page);
 
+        // The live region the notes are spoken through is in the page before the tap (VoiceOver reads
+        // changes to a live region that already exists, not one that appears with its words in it).
+        const spoken = page.locator('[data-refusal-spoken]');
+        await expect(spoken, 'one lasting live region for the notes').toHaveCount(1);
+        await expect(spoken).toHaveAttribute('aria-live', 'polite');
+        await expect(spoken).toHaveAttribute('role', 'status');
+        await expect(spoken).toHaveText('');
+        await spoken.evaluate((el) => ((window as any).__spokenBefore = el));
+
         const before = await snapshot(page);
         await c.tap(taps, before.state);
 
@@ -249,6 +293,11 @@ for (const motion of ['no-preference', 'reduce'] as const) {
         const seen = await page.evaluate(() => ((window as any).__refusals as (Seen & { node: unknown })[]).map(({ node: _node, ...r }) => r) as Seen[]);
         expect(seen.map((r) => r.say), 'one mark came up, with these words').toEqual([c.say]);
         const [look] = seen;
+        expect(look.sameRegion, 'the note speaks through the region that was there before the tap').toBe(true);
+        expect(look.inRegion, 'the note lies inside that live region').toBe(true);
+        expect(look.ownRole, 'the note is no live region of its own').toBeNull();
+        expect(look.spoken, 'VoiceOver hears the words, not the cross').toBe(c.say);
+        expect(look.crossHidden, 'the cross stays hidden from VoiceOver').toBe('true');
         expect(look.text).toBe(`\u2715${c.say}`);
         expect(look.pointer, 'the mark takes no touch').toBe('none');
         expect(look.visibility).toBe('visible');
@@ -263,9 +312,74 @@ for (const motion of ['no-preference', 'reduce'] as const) {
         expect(after.state).toEqual(before.state);
 
         await expect(mark, 'the mark clears by itself').toHaveCount(0, { timeout: 5_000 });
+        await expect(page.locator('[data-refusal-spoken]'), 'the live region stays, empty, for the next note').toHaveText('');
         const gone = await page.evaluate(() => ((window as any).__refusals as (Seen & { node: unknown })[]).map(({ node: _node, ...r }) => r) as Seen[]);
         expect(gone[0].removedAfterMs, 'the mark stays up long enough to read').toBeGreaterThan(1000);
       });
     }
   });
+}
+
+/**
+ * Level 29 (and 21, which shares its scene): with Hint's rings up, an "Out of reach" note never covers
+ * a gold ring. Every empty toadstool the picked cricket can't reach is tapped in turn, and the note's box
+ * is searched on a 2-point grid for any point where a ray meets one of Hint's marks.
+ */
+for (const motion of ['no-preference', 'reduce'] as const) {
+  for (const [id, board] of [
+    ['cricket-crossing', BOARD_29],
+    ['cricket-swap', BOARD_21],
+  ] as const) {
+    test(`level ${id}: "Out of reach" leaves the Hint rings in view (Reduce Motion ${motion === 'reduce' ? 'on' : 'off'})`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: motion });
+      const level = LEVELS.find((l) => l.id === id)!;
+      const taps = new Taps(page, level, page.viewportSize()!);
+      await page.addInitScript(READ_SCENE);
+      await page.addInitScript(WATCH_REFUSALS);
+      await page.addInitScript((key) => localStorage.setItem(key, JSON.stringify({ quality: 'low', sound: false })), SETTINGS_KEY);
+      await seedProgress(page, Object.fromEntries(LEVELS.filter((l) => l.number < level.number).map((l) => [l.id, 3])));
+      await page.goto(`?debug&quality=low#/level/${level.id}`);
+      await waitForSession(page, level.id);
+      await passRulesCard(page, level.title);
+      await page.waitForFunction(() => window.__taps.ready());
+      await waitCameraStill(page);
+      await waitIdle(page);
+
+      await page.getByRole('button', { name: 'Hint' }).filter({ visible: true }).tap();
+      await expect.poll(() => page.evaluate(() => window.__taps.markPoints(4, 0, false).length), { message: "Hint's rings are up" }).toBeGreaterThan(0);
+
+      const s = (await snapshot<CricketState>(page)).state;
+      const GAP = 1.55;
+      const CAP_TOP = 0.62;
+      const cap = (c: number): Vec3 => [((c % board.cols) - (board.cols - 1) / 2) * GAP, CAP_TOP, (Math.floor(c / board.cols) - (board.rows - 1) / 2) * GAP - 0.15];
+      const cells = [...s.board].map((_, c) => c);
+      let tried = 0;
+      for (const from of cells.filter((c) => s.board[c] !== '.' && freeLeaps(s, c, board).length >= 2)) {
+        for (const to of cells.filter((c) => s.board[c] === '.' && !board.jars.includes(c) && !freeLeaps(s, from, board).includes(c))) {
+          const [x, y, z] = cap(from);
+          await taps.tapWorld([x, y + 0.25, z], `the cricket on toadstool ${from}`);
+          await page.waitForTimeout(400);
+          await taps.tapWorld(cap(to), `toadstool ${to}, out of reach`);
+          const mark = page.locator('[data-refusal="Out of reach"]');
+          await expect.poll(() => page.evaluate(() => (window as any).__refusals.length), { message: 'the note came up' }).toBe(tried + 1);
+          if (tried === 0) await page.screenshot({ path: test.info().outputPath(`${id}-hint-${motion}.png`) });
+          // Measured by the page the moment the note came up: in the screen, and over no point of a Hint ring.
+          const look = await page.evaluate((i) => {
+            const { node: _node, ...r } = (window as any).__refusals[i];
+            return r as Seen;
+          }, tried);
+          expect(look.inView, `the note lies in the screen (${JSON.stringify(look.rect)})`).toBe(true);
+          expect(look.marksShown, "Hint's rings are up while the note shows").toBeGreaterThan(0);
+          expect(look.ringPoints, `points of a Hint ring under the note (cricket ${from}, toadstool ${to}, at ${JSON.stringify(look.rect)})`).toBe(0);
+          tried++;
+          await expect(mark).toHaveCount(0, { timeout: 5_000 });
+          // Put the cricket down again, so the next pick starts clean.
+          await taps.tapWorld([x, y + 0.25, z], `the cricket on toadstool ${from} again`);
+          await page.waitForTimeout(300);
+        }
+      }
+      expect(tried, 'some toadstool was out of reach').toBeGreaterThan(0);
+      expect((await snapshot(page)).moves.length, 'no move was made').toBe(0);
+    });
+  }
 }
