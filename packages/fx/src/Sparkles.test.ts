@@ -3,7 +3,8 @@ import { createRequire } from 'node:module';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { guardSparkleShader } from './Sparkles';
+import * as THREE from 'three';
+import { guardSparkleShader, guardSparklesWithin } from './Sparkles';
 
 /** drei's own Sparkles source, as installed. */
 function dreiSparkles(): string {
@@ -24,6 +25,38 @@ describe('guardSparkleShader', () => {
 
   it('leaves any other shader as it is', () => {
     expect(guardSparkleShader('void main() { gl_FragColor = vec4(1.0); }')).toBe('void main() { gl_FragColor = vec4(1.0); }');
+  });
+});
+
+describe('guardSparklesWithin', () => {
+  const sparkleMaterial = () => new THREE.ShaderMaterial({ fragmentShader: 'void main() { float s = 0.05 / distanceToCenter; }' });
+
+  it('guards the points under it, and only once', () => {
+    const group = new THREE.Group();
+    const first = new THREE.Points(new THREE.BufferGeometry(), sparkleMaterial());
+    group.add(first);
+    expect(guardSparklesWithin(group)).toBe(1);
+    expect((first.material as THREE.ShaderMaterial).fragmentShader).toContain('max(distanceToCenter, 0.001)');
+    expect(guardSparklesWithin(group)).toBe(0);
+  });
+
+  it('guards new points that take the place of the first, as drei makes them when the HD/SD button changes the count', () => {
+    const group = new THREE.Group();
+    const first = new THREE.Points(new THREE.BufferGeometry(), sparkleMaterial());
+    group.add(first);
+    guardSparklesWithin(group);
+    group.remove(first);
+    const next = new THREE.Points(new THREE.BufferGeometry(), sparkleMaterial());
+    group.add(next);
+    expect(guardSparklesWithin(group)).toBe(1);
+    expect((next.material as THREE.ShaderMaterial).fragmentShader).not.toContain('0.05 / distanceToCenter');
+  });
+
+  it('passes over nothing and over materials with no shader of their own', () => {
+    expect(guardSparklesWithin(null)).toBe(0);
+    const group = new THREE.Group();
+    group.add(new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshBasicMaterial()));
+    expect(guardSparklesWithin(group)).toBe(0);
   });
 });
 

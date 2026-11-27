@@ -1,4 +1,5 @@
 import { Sparkles as DreiSparkles } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 import { useLayoutEffect, useRef, type ComponentProps } from 'react';
 import type * as THREE from 'three';
 
@@ -26,15 +27,44 @@ export function guardSparkleShader(fragmentShader: string): string {
   return fragmentShader.replace(DIVIDE, '0.05 / max(distanceToCenter, 0.001)');
 }
 
-export function Sparkles(props: Omit<ComponentProps<typeof DreiSparkles>, 'ref'>) {
-  const points = useRef<THREE.Points>(null);
-  // No dependencies: drei makes new points, with a new material, when the count or the scale changes.
-  useLayoutEffect(() => {
-    const material = points.current?.material as THREE.ShaderMaterial | undefined;
-    if (!material?.fragmentShader || material.userData.guarded) return;
-    material.fragmentShader = guardSparkleShader(material.fragmentShader);
-    material.userData.guarded = true;
-    material.needsUpdate = true;
+/** Guards every sparkle material under `root` that is not guarded yet. Returns how many it guarded. */
+export function guardSparklesWithin(root: THREE.Object3D | null): number {
+  let fresh = 0;
+  root?.traverse((object) => {
+    const materials = (object as THREE.Points).material;
+    for (const material of Array.isArray(materials) ? materials : materials ? [materials] : []) {
+      const shader = material as THREE.ShaderMaterial;
+      if (!shader.fragmentShader || shader.userData.guarded) continue;
+      shader.fragmentShader = guardSparkleShader(shader.fragmentShader);
+      shader.userData.guarded = true;
+      shader.needsUpdate = true;
+      fresh++;
+    }
   });
-  return <DreiSparkles {...props} ref={points} />;
+  return fresh;
+}
+
+export function Sparkles(props: Omit<ComponentProps<typeof DreiSparkles>, 'ref'>) {
+  /*
+   * The guard looks for the sparkle material under a group of its own, never through drei's ref. drei
+   * builds new points, with a new material, whenever the count or the scale changes (the HD/SD button
+   * changes the count), but it hands out its points with useImperativeHandle and no dependencies, so its
+   * ref keeps pointing at the first points. The group always holds the points of now.
+   *
+   * It looks twice: after every render of this component, when new points have just been made, and before
+   * every frame is drawn, so that no material, however it came to be, reaches the graphics card unguarded.
+   * A material is compiled at its first draw, which comes after the frame's useFrame callbacks.
+   */
+  const group = useRef<THREE.Group>(null);
+  useLayoutEffect(() => {
+    guardSparklesWithin(group.current);
+  });
+  useFrame(() => {
+    guardSparklesWithin(group.current);
+  });
+  return (
+    <group ref={group}>
+      <DreiSparkles {...props} />
+    </group>
+  );
 }
