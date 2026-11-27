@@ -25,9 +25,10 @@ export function GuideOverlay({ step, ring, onSkip }: { step: GuideStep; ring: Re
         <span className="guide-ripple" />
         <span className="guide-arrow" />
       </div>
-      <div className="absolute inset-x-0 top-[calc(max(0.75rem,env(safe-area-inset-top))+4.75rem)] flex justify-center px-4 short:top-[max(0.5rem,env(safe-area-inset-top))]">
+      {/* Below the top bar, which grows with the words; sideways on a phone, beside it, or below it once the words have grown. */}
+      <div className="absolute inset-x-0 top-[calc(max(0.75rem,env(safe-area-inset-top))+2.25rem+2.5rem*var(--text-grow))] flex justify-center px-4 short:top-[max(0.5rem,env(safe-area-inset-top))] grown:short:top-[calc(max(0.5rem,env(safe-area-inset-top))+3.5rem)]">
         {/* Darker than the game's glass, so the words read over bright water and mist alike. */}
-        <div className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/35 bg-slate-900/60 py-1 pl-4 pr-1 font-display text-base font-semibold shadow-lg backdrop-blur-md short:text-[15px]">
+        <div className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/35 bg-slate-900/60 py-1 pl-4 pr-1 font-display text-base font-semibold shadow-lg backdrop-blur-md short:text-15">
           <span data-testid="first-play-guide-say" className="whitespace-nowrap">{step.say}</span>
           <button onClick={onSkip} className="touch-44 inline-flex min-h-[2.5rem] items-center justify-center rounded-full px-3.5 text-sm font-bold text-white/80 active:bg-white/20" aria-label="Skip the guide">
             Skip
