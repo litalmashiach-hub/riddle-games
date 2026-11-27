@@ -366,10 +366,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                   padding: '1px 8px',
                   borderRadius: 999,
                   whiteSpace: 'nowrap',
-                  background: picked.includes(e) ? '#ffd166' : 'rgba(20,12,28,.62)',
+                  background: picked.includes(e) ? '#ffd166' : 'rgba(20,12,28,.8)',
                   color: picked.includes(e) ? '#3b2300' : '#fff',
                   border: '1.5px solid rgba(255,255,255,.35)',
-                  opacity: active || picked.includes(e) || over ? 1 : 0.7,
+                  opacity: active || picked.includes(e) || over ? 1 : 0.82,
                   transition: 'background .2s, opacity .2s',
                 }}
               >
