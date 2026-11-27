@@ -21,15 +21,15 @@ export interface Box {
 /** The gap kept between the toast and a button it steps over, in CSS pixels. */
 export const CLEAR_GAP = 8;
 
-const overlaps = (a: Box, b: Box, gap: number) =>
-  Math.min(a.right, b.right) - Math.max(a.left, b.left) > -gap && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > -gap;
+/** True when `a` lies over some of `b`. Only touching, or near, is no cover: then the toast keeps its place. */
+const overlaps = (a: Box, b: Box) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 0 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 0;
 
 const covered = (a: Box, buttons: Box[]) =>
   buttons.reduce((sum, b) => sum + Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top)), 0);
 
 /**
  * How far to lift the toast (pixels, upwards) from its own place `toast` so that it covers none of `buttons`.
- * It goes up past each button in its way, in turn. It never goes above `highest` (the top of the room it may
+ * It goes up past each button it covers, in turn, to `gap` above it; a toast that only comes near a button stays put. It never goes above `highest` (the top of the room it may
  * use, under the top bar): if clearing every button would take it there, it takes the place it reached on the
  * way, its own place included, that covers the least of them.
  */
@@ -39,7 +39,7 @@ export function liftClear(toast: Box, buttons: Box[], highest: number, gap = CLE
   let lift = 0;
   // Each pass clears at least one more button, so this ends.
   for (let pass = 0; pass <= buttons.length; pass++) {
-    const hit = buttons.filter((b) => overlaps(at(lift), b, gap));
+    const hit = buttons.filter((b) => overlaps(at(lift), b));
     if (!hit.length) return lift;
     const next = lift + Math.max(...hit.map((b) => at(lift).bottom - b.top + gap));
     if (toast.top - next < highest) break;

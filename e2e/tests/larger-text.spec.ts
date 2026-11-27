@@ -122,30 +122,33 @@ for (const size of GROWN) {
       }
     });
 
-    test('on an iPad the hint toast covers no scene button, and stays under the top bar', async ({ page }) => {
+    test('the hint toast covers no scene button, on this iPhone and on an iPad, and stays under the top bar', async ({ page }) => {
       test.skip(appBuild(), 'website build with ?debug');
-      test.skip(test.info().project.name !== 'iphone-landscape', 'sets its own iPad size; once is enough');
-      // Levels 1 and 2 pin their Row button just above the bottom bar, where the grown toast reached.
-      for (const size of IPADS) {
+      // The levels that pin a button of their own just above the bottom bar ("Row across", "Cross", "Sail across"):
+      // the grown toast reached it. On an iPad (set here, once) levels 1 and 2, where it was first seen.
+      const pinned = [1, 2, 5, 6, 7, 9, 11];
+      const runs = [{ size: page.viewportSize()!, levels: pinned }];
+      if (test.info().project.name === 'iphone-landscape') for (const size of IPADS) runs.push({ size, levels: [1, 2] });
+      for (const { size, levels } of runs) {
         await page.setViewportSize(size);
-        for (const level of LEVELS.slice(0, 2)) {
+        for (const level of LEVELS.filter((l) => levels.includes(l.number))) {
           await page.goto(`?all&debug&quality=low#/level/${level.id}`);
           await waitForSession(page, level.id);
           await page.getByRole('button', { name: "Let's go!" }).tap();
           await expect(page.getByRole('status', { name: 'Loading level' })).toHaveCount(0, { timeout: 120_000 });
-          const row = page.getByRole('button', { name: /^Row across/ });
-          await expect(row).toBeVisible();
+          await page.waitForTimeout(1500);
           await page.keyboard.press('h');
           const where = `level ${level.number} at ${size.width} by ${size.height}`;
           const seen = await hintOverSceneButtons(page);
           expect(seen.names, `scene buttons under the hint, ${where}`).toEqual([]);
-          const rowBox = (await row.boundingBox())!;
-          expect(seen.bottom, `the hint sits above "Row across", ${where}`).toBeLessThanOrEqual(rowBox.y);
           const bar = (await page.getByRole('button', { name: 'Rules' }).boundingBox())!;
           expect(seen.top, `the hint stays under the top bar, ${where}`).toBeGreaterThan(bar.y + bar.height);
-          // The button is still the thing a touch at its middle meets.
-          const top = await page.evaluate(([x, y]) => document.elementFromPoint(x, y)?.closest('button')?.getAttribute('aria-label') ?? 'not a button', [rowBox.x + rowBox.width / 2, rowBox.y + rowBox.height / 2]);
-          expect(top, where).toMatch(/^Row across/);
+          if (level.number <= 2) {
+            // "Row across" is still the thing a touch at its middle meets.
+            const row = (await page.getByRole('button', { name: /^Row across/ }).boundingBox())!;
+            const top = await page.evaluate(([x, y]) => document.elementFromPoint(x, y)?.closest('button')?.getAttribute('aria-label') ?? 'not a button', [row.x + row.width / 2, row.y + row.height / 2]);
+            expect(top, where).toMatch(/^Row across/);
+          }
         }
       }
     });

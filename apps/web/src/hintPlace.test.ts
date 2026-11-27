@@ -19,10 +19,10 @@ describe('liftClear', () => {
     expect(toast.bottom - lift).toBeLessThanOrEqual(row.top - CLEAR_GAP);
   });
 
-  it('keeps the gap from a button just beside or under it too', () => {
-    expect(liftClear(box(0, 100, 100, 140), [box(104, 100, 200, 140)], 0)).toBeGreaterThan(0);
-    expect(liftClear(box(0, 100, 100, 140), [box(0, 144, 100, 180)], 0)).toBeGreaterThan(0);
-    expect(liftClear(box(0, 100, 100, 140), [box(0, 150, 100, 180)], 0)).toBe(0);
+  it('does not move for a button it only comes near', () => {
+    expect(liftClear(box(0, 100, 100, 140), [box(104, 100, 200, 140)], 0)).toBe(0);
+    expect(liftClear(box(0, 100, 100, 140), [box(0, 140, 100, 180)], 0)).toBe(0);
+    expect(liftClear(box(0, 100, 100, 140), [box(0, 139, 100, 180)], 0)).toBe(1 + CLEAR_GAP);
   });
 
   it('steps over a second button that the first lift runs into', () => {
