@@ -14,8 +14,10 @@
  *
  * - Hidden: what is sounding or still to sound is cut off, the engines are suspended, and from then on
  *   a sound that is asked for is not heard.
- * - Shown again: the engines that ran are resumed. Sounds stay unheard until the game has caught up (two
- *   frames drawn and a short moment), or until the player touches the screen.
+ * - Shown again: the engines that ran, or that the system left "interrupted", are resumed. Sounds stay
+ *   unheard until the game has caught up (two frames drawn and a short moment), or until the player touches
+ *   the screen. A win or a loss that lands in that moment is not dropped with the rest: the game asks for it
+ *   through playWhenHeard, which keeps it until the moment is over.
  * - Any touch or key: an engine that is not running is resumed. A touch counts as the player's own act,
  *   which iOS may ask for before it lets an engine start again.
  * - While an engine is "interrupted" with the page still shown (a call comes in), what it was playing is cut
@@ -39,6 +41,8 @@ const wakingUntil = new WeakMap<BaseAudioContext, number>();
 const toResume = new Set<AudioContext>();
 /** True while the page is hidden, and for a moment after it is shown again. */
 let quiet = false;
+/** The end-of-level sound asked for while sounds were unheard: played when they are heard again. */
+let held: (() => void) | null = null;
 /** Counts the returns, so that an older return's wait ends nothing after the page was hidden again. */
 let visit = 0;
 let started = false;
@@ -81,16 +85,28 @@ function onHidden() {
   }
 }
 
+/** The quiet spell is over: from here on every sound is wanted, and a held one is played now. */
+function endQuiet() {
+  quiet = false;
+  const play = held;
+  held = null;
+  play?.();
+}
+
 function onShown() {
   for (const c of toResume) wake(c);
   toResume.clear();
+  // The usual order on an iPhone: the system interrupts the sound as the app goes, before the page hears
+  // that it is hidden. Such an engine was not running when this suspended the rest, and stays "interrupted"
+  // until the page asks it to resume.
+  for (const c of contexts) if (stateOf(c) === 'interrupted') wake(c);
   if (!quiet) return;
   const mine = ++visit;
   const since = performance.now();
   let frames = 0;
   const step = () => {
     if (mine !== visit) return;
-    if (++frames > 2 && performance.now() - since >= SOUND_SETTLE_MS) quiet = false;
+    if (++frames > 2 && performance.now() - since >= SOUND_SETTLE_MS) endQuiet();
     else requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
@@ -98,12 +114,22 @@ function onShown() {
 
 function onTouch() {
   if (document.visibilityState === 'hidden') return;
+  for (const c of contexts) wake(c);
   if (quiet) {
     // The player is back and playing: from here on every sound is wanted.
-    quiet = false;
     visit++;
+    endQuiet();
   }
-  for (const c of contexts) wake(c);
+}
+
+/**
+ * Plays a sound that must not be lost: the end of a level, whose card stays on the screen. While sounds are
+ * unheard after a return (the burst of late sounds is dropped), it is kept and played when that moment ends;
+ * if several are asked for, the last one. At any other time it is played at once.
+ */
+export function playWhenHeard(play: () => void) {
+  if (quiet) held = play;
+  else play();
 }
 
 /** Call once, before the first sound. Safe to call again, and where there is no sound engine at all. */

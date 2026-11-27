@@ -4,8 +4,9 @@ import { lossCases } from '../loss-paths';
 import { expect, passRulesCard, playMove, test, waitForSession } from './fixtures';
 
 /**
- * Leaving the game and coming back: another app, the lock screen, a call. Every level is left three times,
- * at rest, in the middle of a move and in the middle of a loss, and then a call comes in during a loss.
+ * Leaving the game and coming back: another app, the lock screen, a call. Every level is left five times:
+ * at rest in both orders of leaving (below), in the middle of a move, in the middle of a loss, and in the
+ * middle of the winning move; and then a call comes in during a loss.
  *
  * There is no iPhone here, and a test browser's page cannot really be sent away. So the test stands in for
  * the system, inside the page, and does to the game what a hidden app has done to it (`phone`, below):
@@ -16,6 +17,10 @@ import { expect, passRulesCard, playMove, test, waitForSession } from './fixture
  *   sees a clock that jumped, and the page is told that it is shown. Nobody resumes the sound engines but
  *   the game: after an interruption WebKit leaves an engine "suspended", or, in the other variant played
  *   here, still "interrupted" until the page asks it to resume.
+ * - the order of leaving is played both ways. "Hidden first": the page hears that it is hidden, and the sound
+ *   stops a moment later. "Interrupted first", the usual order on an iPhone: the system interrupts the sound
+ *   as the app goes, then the page is hidden. Only that order leaves an engine "interrupted" that the game
+ *   had not suspended itself, so only it shows whether the game wakes such an engine.
  *
  * Nobody listens. The test watches the browser's own function that starts a sound, and whether that sound
  * is still connected to anything: one that is not is never heard. After each return:
@@ -25,7 +30,12 @@ import { expect, passRulesCard, playMove, test, waitForSession } from './fixture
  *    was sounding or waiting when the engine stopped may still be waiting to go on;
  * 2. the level must not be stuck: the scene is drawn again, the move is finished and kept, a loss shows its
  *    card, Undo works by touch;
- * 3. the next tap must sound, on an engine that is running, with its clock going.
+ * 3. the next tap must sound, on an engine that is running, with its clock going;
+ * 4. a win that comes in the first moment after the return is heard: its card comes, and its fanfare is
+ *    played once the game has caught up, not dropped with the late sounds.
+ *
+ * Every move here is played through the game's own store, and every tap with Playwright's touch (a real
+ * touch event from the browser, not a click made by script in the page).
  *
  * What this cannot show is in docs/play-through-tests.md: how iOS itself stops and restarts sound.
  */
@@ -46,6 +56,8 @@ interface Sound {
   catchingUp: boolean;
   /** The engine's state when the sound was asked for, as the game sees it. */
   state: string;
+  /** Asked for by a timer of the game's (setTimeout), as a scene's own copy of the fanfare is. */
+  timer: boolean;
 }
 interface Phone {
   sounds: (Sound & { node: AudioNode & { __outs?: number; __over?: boolean }; context: BaseAudioContext })[];
@@ -54,6 +66,8 @@ interface Phone {
   hide(): void;
   /** The system stops everything: timers, frames and sound. */
   stop(sound: SoundState): void;
+  /** The system stops timers and frames, and leaves the sound as it is. */
+  freeze(): void;
   /** Everything starts again. `eventFirst`: the page hears that it is shown before its late timers run. */
   comeBack(eventFirst: boolean): void;
   /** A call comes in: the sound engines are interrupted, and the page stays shown and running. */
@@ -65,6 +79,13 @@ interface Phone {
   heardSince(from: number): { name: string; state: string; clock: number } | null;
   /** The engines' true states. */
   engines(): string[];
+  /** How many engines are still "interrupted": none, once the game has asked them to resume. */
+  stillInterrupted(): number;
+  /**
+   * The usual order on an iPhone, all in one step, so that no timer of the game can run in between: the sound
+   * is interrupted, the page is hidden, and timers and frames stop. Says whether the level had already ended.
+   */
+  leaveAtOnce(): { ended: boolean };
 }
 declare global {
   interface Window {
@@ -84,6 +105,7 @@ function phone() {
   let stopped = false;
   let hidden = false;
   let lateTimer = false;
+  let inTimer = false;
   let framesSinceBack = 99;
   const waitingTimers: { due: number; fn: () => void }[] = [];
   const waitingFrames: FrameRequestCallback[] = [];
@@ -94,7 +116,15 @@ function phone() {
   window.setTimeout = function (fn: TimerHandler, ms?: number, ...args: unknown[]) {
     if (typeof fn !== 'function') return realSetTimeout(fn as unknown as () => void, ms);
     const due = performance.now() + (ms ?? 0);
-    return realSetTimeout(() => (stopped ? void waitingTimers.push({ due, fn: () => fn(...args) }) : fn(...args)), ms);
+    const run = () => {
+      inTimer = true;
+      try {
+        fn(...args);
+      } finally {
+        inTimer = false;
+      }
+    };
+    return realSetTimeout(() => (stopped ? void waitingTimers.push({ due, fn: run }) : run()), ms);
   } as typeof window.setTimeout;
   window.setInterval = function (fn: TimerHandler, ms?: number, ...args: unknown[]) {
     if (typeof fn !== 'function') return realSetInterval(fn as unknown as () => void, ms);
@@ -179,7 +209,7 @@ function phone() {
         .slice(0, 2)
         .join('<');
       this.addEventListener('ended', () => (this.__over = true), { once: true });
-      P.sounds.push({ at: performance.now(), name: name || '?', hidden, late: lateTimer, catchingUp: framesSinceBack < 1, state: this.context.state, node: this, context: this.context });
+      P.sounds.push({ at: performance.now(), name: name || '?', hidden, late: lateTimer, catchingUp: framesSinceBack < 1, state: this.context.state, timer: inTimer, node: this, context: this.context });
       return start.apply(this, args);
     };
   }
@@ -196,6 +226,9 @@ function phone() {
     stop(sound) {
       stopped = true;
       systemStopsSound(sound);
+    },
+    freeze() {
+      stopped = true;
     },
     comeBack(eventFirst) {
       const show = () => {
@@ -245,6 +278,14 @@ function phone() {
       return s ? { name: s.name, state: realState.call(s.context), clock: s.context.currentTime } : null;
     },
     engines: () => contexts.map((c) => realState.call(c)),
+    stillInterrupted: () => contexts.filter((c) => interrupted.has(c)).length,
+    leaveAtOnce() {
+      const ended = !!(window as any).__riddle?.getState().ended;
+      P.interrupt();
+      P.hide();
+      P.freeze();
+      return { ended };
+    },
   });
 }
 
@@ -286,12 +327,23 @@ async function expectSceneDrawn(page: Page, what: string) {
     .toBeGreaterThan(8);
 }
 
-/** Away and back. */
-async function awayAndBack(page: Page, sound: SoundState, eventFirst: boolean) {
-  await page.evaluate(() => window.__phone.hide());
-  // The system gives a hidden app a moment before it stops it.
-  await page.waitForTimeout(150);
-  await page.evaluate((s) => window.__phone.stop(s), sound);
+type Order = 'hidden first' | 'interrupted first';
+
+/** Away and back. "Interrupted first" always leaves the engines "interrupted", whatever `sound` says. */
+async function awayAndBack(page: Page, sound: SoundState, eventFirst: boolean, order: Order = 'hidden first') {
+  if (order === 'interrupted first') {
+    // The app goes: its sound is interrupted, then the page hears that it is hidden.
+    const at = await page.evaluate(() => (window.__phone.interrupt(), window.__phone.awayAt));
+    await page.waitForTimeout(100);
+    await page.evaluate((t) => (window.__phone.hide(), (window.__phone.awayAt = t)), at);
+    await page.waitForTimeout(150);
+    await page.evaluate(() => window.__phone.freeze());
+  } else {
+    await page.evaluate(() => window.__phone.hide());
+    // The system gives a hidden app a moment before it stops it.
+    await page.waitForTimeout(150);
+    await page.evaluate((s) => window.__phone.stop(s), sound);
+  }
   await page.waitForTimeout(AWAY_MS);
   await page.evaluate((first) => window.__phone.comeBack(first), eventFirst);
 }
@@ -361,6 +413,23 @@ for (const level of LEVELS) {
     await expect.poll(async () => (await state(page)).moves, { message: 'at rest: Undo works' }).toBe(0);
     await page.waitForTimeout(moveMs + 500);
 
+    // ---- At rest again, in the usual order on an iPhone: the sound is interrupted first, then the page is hidden. ----
+    await playMove(page, first, 1);
+    await page.waitForTimeout(1500);
+    await awayAndBack(page, 'interrupted', true, 'interrupted first');
+    // The game itself wakes an engine that the system left "interrupted", before any touch: else a sound that
+    // it plays without a touch (a held win) would go to a sleeping engine. The tap below would hide that.
+    await expect
+      .configure({ soft: true })
+      .poll(() => page.evaluate(() => window.__phone.stillInterrupted()), { message: 'interrupted first: the game wakes the interrupted engines when shown, before any touch', timeout: 5000 })
+      .toBe(0);
+    await page.waitForTimeout(1500);
+    expect(await state(page), 'interrupted first: the position is kept').toEqual({ moves: 1, kind: 'playing', busy: false, ended: false });
+    await expectSceneDrawn(page, 'interrupted first');
+    await expectCleanSound(page, 'interrupted first', barUndo, log);
+    await expect.poll(async () => (await state(page)).moves, { message: 'interrupted first: Undo works' }).toBe(0);
+    await page.waitForTimeout(moveMs + 500);
+
     // ---- In the middle of a move. The engines come back "suspended", and the late timers run first. ----
     await page.evaluate((m) => window.__riddle!.getState().play(m), first);
     await page.waitForTimeout(Math.round(moveMs * 0.4));
@@ -418,6 +487,47 @@ for (const level of LEVELS) {
       await expect.poll(() => state(page), { message: 'after a call: Undo takes the loss back' }).toEqual({ moves: before.length, kind: 'playing', busy: false, ended: false });
       await page.waitForTimeout(moveMs + 1500);
     }
+
+    // ---- A win in the first moment after a return: away 40% into the winning move, interrupted first. ----
+    await page.evaluate(() => window.__riddle!.getState().restart());
+    await page.waitForTimeout(moveMs + 500);
+    await page.evaluate((moves) => {
+      const store = window.__riddle as any;
+      const rules = store.getState().level.rules;
+      const history = [rules.initialState];
+      for (const m of moves) history.push(rules.apply(history[history.length - 1], m));
+      store.setState({ history, moves, future: [], status: rules.status(history[history.length - 1]), hint: null });
+    }, level.moves.slice(0, -1));
+    await page.waitForTimeout(1500);
+    await page.evaluate((m) => window.__riddle!.getState().play(m), level.moves[level.moves.length - 1]);
+    await page.waitForTimeout(Math.round(moveMs * 0.4));
+    // Interrupted, hidden and stopped in one step (not with waits in between, as at rest above): on a busy
+    // machine a short level's end could otherwise come while the page is still shown, and the test would not
+    // play a win after a return at all.
+    const left = await page.evaluate(() => window.__phone.leaveAtOnce());
+    expect(left.ended, 'a win after a return: the level must not have ended before the page was hidden (the test, not the game, is at fault)').toBe(false);
+    await page.waitForTimeout(AWAY_MS);
+    await page.evaluate(() => window.__phone.comeBack(false));
+    await expect(page.getByRole('dialog', { name: 'Solved!' }), 'a win after a return: the card comes').toBeVisible({ timeout: 15_000 });
+    // Only the play screen's fanfare counts, and only notes of it that reach a speaker. Levels 16 and 19 (and
+    // 25 and 28, which use their scenes) also play a copy of their own from the scene, on a timer, a while
+    // after the win: after a return that copy is sometimes late and rightly dropped (asked for, not heard),
+    // and sometimes heard as in a normal win. It is left out (asked for from a timer); the play screen asks
+    // for its fanfare from no timer, and only its first fanfare counts (four notes asked at one instant).
+    const fanfare = () =>
+      page.evaluate(() => {
+        const P = window.__phone;
+        const notes = P.sounds.filter((s) => s.at >= P.awayAt && /(^|<)win$/.test(s.name));
+        const heard = notes.filter((s) => !s.timer && (s.node.__outs ?? 0) > 0 && !s.hidden && !s.late && !s.catchingUp && s.state !== 'interrupted');
+        const first = heard.filter((s) => s.at - heard[0].at < 50);
+        return { asked: notes.length, heard: heard.length, first: first.length };
+      });
+    await expect.poll(async () => (await fanfare()).first, { message: 'a win after a return: its four notes are heard', timeout: 10_000 }).toBe(4);
+    await page.waitForTimeout(1500);
+    const won = await page.evaluate(([from, to]) => window.__phone.report(from, to), await page.evaluate(() => [window.__phone.awayAt, performance.now()]));
+    log['a win after a return'] = { ...won, fanfare: await fanfare() };
+    expect.soft(won.heardLate, 'a win after a return: sounds heard that the game asked for while away or while catching up').toEqual([]);
+    expect.soft(won.leftover, 'a win after a return: sounds cut short or still to come when the engine stopped').toEqual([]);
 
     // ---- The level goes on: from a fresh start, a move is played to its end. ----
     await page.evaluate(() => window.__riddle!.getState().restart());

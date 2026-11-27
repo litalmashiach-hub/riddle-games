@@ -1,5 +1,5 @@
 import { createSession, guideStepFor, starsFor, type RiddleLevel } from '@riddle/engine';
-import { WORLDS, WorldStage, reducedMotion, sfx, steadyClock, useSettings } from '@riddle/fx';
+import { WORLDS, WorldStage, playWhenHeard, reducedMotion, sfx, steadyClock, useSettings } from '@riddle/fx';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { AnimatePresence, motion, useIsPresent } from 'motion/react';
@@ -7,7 +7,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useStore } from 'zustand';
 import * as THREE from 'three';
 import { sceneTaps, watchMoves } from '../haptics';
-import { hasTestFlag } from '../appShell';
+import { APP_SHELL, hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
 import { GuideOverlay, GuideTracker } from '../components/FirstPlayGuide';
 import { SceneGuard, sceneWaitMs } from '../components/SceneGuard';
@@ -66,16 +66,18 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
   useEffect(() => {
     if (!s.ended) return;
     if (s.status.kind === 'won') {
-      sfx.win();
+      // Kept, not dropped, when the level ends in the first moment after the player comes back to the game.
+      playWhenHeard(sfx.win);
       onSolved(stars);
-    } else if (s.status.kind === 'lost') sfx.lose();
+    } else if (s.status.kind === 'lost') playWhenHeard(sfx.lose);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [s.ended]);
 
   // Upright phones show the whole scene but small: suggest turning sideways, once per visit.
   const [rotateTip, setRotateTip] = useState(false);
   useEffect(() => {
-    if (showRules || !window.matchMedia('(orientation: portrait) and (max-width: 600px)').matches) return;
+    // Not in the app: it holds an iPhone sideways, so an upright window there is an iPad, which the words do not fit.
+    if (APP_SHELL || showRules || !window.matchMedia('(orientation: portrait) and (max-width: 600px)').matches) return;
     try {
       if (sessionStorage.getItem('riddle-rotate-tip')) return;
       sessionStorage.setItem('riddle-rotate-tip', '1');
