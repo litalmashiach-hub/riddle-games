@@ -62,6 +62,81 @@ every pull request: builds the app content, syncs Capacitor, builds the app unsi
 in a simulator and uploads screenshots as the run's `ios-simulator-screenshots` artifact. There is no Mac in the
 team's workspace, so this run is how a change to the iOS project is proven.
 
+## Upload to TestFlight
+
+`.github/workflows/testflight.yml` builds the store version on a hosted Mac, signs it with the owner's Apple
+Distribution certificate and App Store provisioning profile, and uploads it to App Store Connect, where it shows
+under TestFlight. It is run by hand (Actions, "TestFlight upload", Run workflow). The owner's own steps, from joining
+Apple's program to Submit for Review, are in `docs/launch-steps.md`.
+
+### Why manual signing
+
+Every run gets a new Mac. Automatic signing through an App Store Connect key (`-allowProvisioningUpdates`) makes
+Xcode create an Apple Development certificate on each new Mac, whose private key is lost when the Mac is; Apple's
+developer forum reports that later runs then fail with "private key is not installed in your keychain". So the
+workflow signs by hand, the way GitHub documents for its Macs ("Installing an Apple certificate on macOS runners for
+Xcode development"): the owner makes one distribution certificate and one App Store profile, once, adds them as
+secrets, and every run imports them into a keychain that exists only for that run. A run creates nothing in the
+owner's Apple account. The API key is used only for the upload, so its role can be Developer, the smallest that
+Apple lists as able to upload builds.
+
+The owner has no Mac, so `apps/mobile/scripts/make-signing-files.sh` makes the private key and the certificate
+request with openssl (in a GitHub codespace, Git Bash on Windows, or Linux), and after Apple has issued the
+certificate and profile, checks that they belong together and writes the three secrets as text files. It sends
+nothing anywhere. The `.p12` uses PBE-SHA1-3DES, which macOS's `security import` reads whatever openssl made it.
+
+### What it needs
+
+All added by the owner in the repository's settings (Settings, Secrets and variables, Actions); nothing is committed:
+
+| Name | Kind | What it is |
+| --- | --- | --- |
+| `APP_BUNDLE_ID` | variable | The bundle identifier of the app's record in App Store Connect. Not needed once `AppIdentity.xcconfig` holds the real one. |
+| `APPLE_TEAM_ID` | variable (or secret) | The Apple team ID, 10 characters. |
+| `APP_STORE_CONNECT_KEY_ID` | secret | The API key's Key ID. |
+| `APP_STORE_CONNECT_ISSUER_ID` | secret | The Issuer ID shown above the team's keys. |
+| `APP_STORE_CONNECT_KEY` | secret | The whole text of the key's `.p8` file. |
+| `APPLE_DISTRIBUTION_CERTIFICATE` | secret | The Apple Distribution certificate with its private key, a `.p12` as base64 text. |
+| `APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD` | secret | The `.p12`'s password. |
+| `APPSTORE_PROVISIONING_PROFILE` | secret | The App Store profile for the app's identifier and that certificate, as base64 text. |
+| `BUILD_NUMBER_OFFSET` | variable, optional | Added to the run number, if builds were ever uploaded some other way with higher numbers. |
+
+Secrets are given to a step only on a run by hand (each is written `github.event_name == 'workflow_dispatch' &&
+secrets.X`), so a pull request from a branch of this repository, which GitHub would otherwise give them to, gets
+empty values. The actions are pinned to full commit hashes, with the tag beside each.
+
+### What a run does, in order
+
+1. `apps/mobile/scripts/testflight-preflight.sh` checks that each of the above is set and well formed, that the
+   bundle identifier is not the `com.example` placeholder, and that the profile is not a development or ad hoc one.
+   If not, the run stops there, before anything is built, and lists what to add where. It prints only whether each
+   value is set, never a value.
+2. Sets the bundle identifier and the build number in the runner's copy of `AppIdentity.xcconfig`. The build
+   number is `BUILD_NUMBER_OFFSET + the run number`, so it goes up with every run. Nothing is committed.
+3. `pnpm test` and `pnpm ios:sync` with `RELEASE=1`, so the About screen's placeholder check fails the run while the
+   contact, publisher or policy date is still empty.
+4. `apps/mobile/scripts/testflight-signing.sh` makes a keychain for the run, imports the certificate (and refuses
+   one that isn't Apple Distribution, or isn't valid now), and checks the profile: App Store type, the team, the
+   app identifier, not expired, and holding the imported certificate. Each refusal says which file to make again.
+   It then sets manual signing (`CODE_SIGN_STYLE`, `DEVELOPMENT_TEAM`, `CODE_SIGN_IDENTITY`,
+   `PROVISIONING_PROFILE_SPECIFIER`) on the app target's Release configuration only, in the runner's copy of the
+   project: given on the command line they would reach the Swift package targets too, which refuse a profile.
+5. `xcodebuild archive`, signed; the archive's signature and embedded profile are checked.
+6. `xcodebuild -exportArchive` with `method` app-store-connect, `destination` export and manual signing: the `.ipa`.
+7. `xcrun altool --upload-app` with the API key: the upload.
+8. Removes the key file, the keychain and the profile, whatever happened.
+
+On a pull request that changes the workflow or its scripts, and by hand with "Check mode" ticked, it runs steps 1
+to 3, reports what is missing without failing, archives the app unsigned and checks the archive's identifier,
+build number and privacy manifest. Then it runs step 4: with the owner's files when they are set (on a run by
+hand), else with a throwaway certificate made on the runner by `make-signing-files.sh` itself and a stand-in
+profile UUID, and checks the app target's resulting signing settings and that this Xcode's `altool` has the upload
+options used. It stops before signing. A pull request never signs or uploads.
+
+What only the owner's first real run can show: that Apple's certificate and profile sign the archive (step 5), and
+that Apple accepts the upload (step 7). If a run fails there, its log and the `testflight-export-logs` artifact say
+why.
+
 ## What the shell sets
 
 - Sideways only, both directions, on iPhone and on iPad (`Info.plist`, and `GameViewController.swift`). The
@@ -143,7 +218,8 @@ and committed so that the Xcode project opens as it is.
 ## Still open before a store upload
 
 - Final name and bundle identifier, in `AppIdentity.xcconfig`.
-- Signing with the owner's Apple developer account.
+- Signing with the owner's Apple developer account: `.github/workflows/testflight.yml` does it once the owner
+  has made their certificate and profile and added them, the key and the team (above).
 - `Info.plist` declares that the app uses no non-exempt encryption (`ITSAppUsesNonExemptEncryption` = NO). That
   is true of the code today: the game makes no network calls and has no encryption of its own. It is the owner's
   declaration to Apple when a build is uploaded, so the owner should confirm it, and it must be revisited if the
