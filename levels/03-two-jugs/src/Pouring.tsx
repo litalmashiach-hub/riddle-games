@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useSettings } from '@riddle/fx';
+import { ambientDt, useSettings } from '@riddle/fx';
 import { useEffect, useMemo, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { pourSound } from './audio';
@@ -82,7 +82,8 @@ export function Pouring({ anim }: { anim: RefObject<Anim> }) {
   useFrame((_, dt) => {
     const a = anim.current;
     const el = performance.now() - a.start;
-    mat.uniforms.uTime.value += dt;
+    // With Reduce Motion on, the stream's wobble and streaks stand still (it still flows in and out).
+    mat.uniforms.uTime.value += ambientDt(dt);
     const active = a.forward && a.move;
 
     // Rebuild the stream curve once per move.

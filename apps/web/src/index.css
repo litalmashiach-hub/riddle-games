@@ -2,10 +2,53 @@
 
 /* Phones held sideways: very little height, so the HUD gets more compact. */
 @custom-variant short (@media (max-height: 500px));
+/* Everything taller: iPads, and phones held upright in a browser. */
+@custom-variant tall (@media (min-height: 501px));
+
+/* The words have grown with the player's text size setting (textSize.ts): for the few layouts that change then. */
+@custom-variant grown (&:where(html[data-text-grow]:not([data-text-grow='1']) *));
 
 @theme {
   --font-display: 'Fredoka', ui-rounded, system-ui, sans-serif;
   --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+
+  /*
+   * Larger Text (textSize.ts, docs/larger-text.md): every text size grows with the player's text size setting
+   * in the app. `--text-grow` is 1 at the standard size and on the website, so these are Tailwind's own sizes
+   * there. Reading sizes grow fully, up to twice; titles (2xl and up) grow half as much, as iOS's own titles do.
+   * Line heights stay ratios, so they grow with the words.
+   */
+  --text-xs: calc(0.75rem * var(--text-grow));
+  --text-sm: calc(0.875rem * var(--text-grow));
+  --text-base: calc(1rem * var(--text-grow));
+  --text-lg: calc(1.125rem * var(--text-grow));
+  --text-xl: calc(1.25rem * var(--text-grow));
+  --text-2xl: calc(1.5rem * var(--text-grow-title));
+  --text-3xl: calc(1.875rem * var(--text-grow-title));
+  --text-4xl: calc(2.25rem * var(--text-grow-title));
+  --text-5xl: calc(3rem * var(--text-grow-title));
+  --text-6xl: calc(3.75rem * var(--text-grow-title));
+  --text-7xl: calc(4.5rem * var(--text-grow-title));
+}
+
+/* Set on <html> by textSize.ts: how much the words grow (1 to 2). Titles take half the growth. */
+:root {
+  --text-grow: 1;
+  --text-grow-title: calc(1 + (var(--text-grow) - 1) / 2);
+}
+
+/* The game's own in-between sizes, growing the same way. */
+@utility text-2xs {
+  font-size: calc(11px * var(--text-grow));
+}
+@utility text-15 {
+  font-size: calc(15px * var(--text-grow));
+}
+@utility text-card-title {
+  font-size: calc(1.05rem * var(--text-grow));
+}
+@utility text-map-title {
+  font-size: calc(2rem * var(--text-grow-title));
 }
 
 html,
@@ -18,6 +61,10 @@ body,
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
+}
+/* Words with no size of their own take the body's, which grows with the text size setting too. */
+body {
+  font-size: calc(1rem * var(--text-grow));
 }
 
 /* Touch devices: no tap flash, no long-press menus, no page zoom (pinch or double-tap). Scrolling still works. */
@@ -238,6 +285,21 @@ html.app-shell svg {
 }
 
 /*
+ * Reduce Motion, everywhere on the page: every CSS animation, in the shell and in the levels' labels drawn
+ * over the scene, runs once and at once, so it shows its end at once (a pop-in is simply there) and an
+ * endless one (a wobble, a throb, a pulse, a bob) stands still. Short fades by `transition` are kept.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/*
  * Apple asks that a control take touches over at least 44 by 44 points. Some buttons are drawn smaller
  * than that (the play screen's round ones are 46 by 42, its SD/HD switch 40.6 by 38), and the drawing
  * must stay as it is. So such a button carries an unseen pad of 44 by 44 points about its middle, and a
@@ -256,4 +318,23 @@ html.app-shell svg {
   position: absolute;
   width: 44px;
   height: 44px;
+}
+
+/*
+ * The About screen's tabs. Where they stand one above the other (from 640 points of width) their text
+ * starts at the left, so the pad of `touch-44` would start there too, 44 points wide. Here the pad is
+ * pulled back over the tab's left padding (`sm:!px-4`, 1rem) and made as wide as the tab: the tabs fill
+ * their column, which is 10rem wide (`sm:w-40`), or 9rem on a phone held sideways (`short:w-36`). Change
+ * these with AboutScreen.tsx. The tab itself is still not positioned, for the reason given above.
+ */
+@media (min-width: 40rem) {
+  .touch-44-tab::before {
+    width: 10rem;
+    margin-left: -1rem;
+  }
+}
+@media (min-width: 40rem) and (max-height: 500px) {
+  .touch-44-tab::before {
+    width: 9rem;
+  }
 }

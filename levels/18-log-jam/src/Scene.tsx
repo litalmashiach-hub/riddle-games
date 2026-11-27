@@ -1,10 +1,10 @@
 import type { SceneProps } from '@riddle/engine';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
-import { Burst, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
-import { HintRing, toon } from '@riddle/props';
+import { Burst, ComicWord, DizzyStars, FocusCam, LiftPress, PRESS_SLOP, Shake, clickGuard, liftTapped, reducedMotion, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
+import { HintRing, RefusalMark, toon, useRefusal } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 import { pond } from './audio';
 import { Dottie, Duckling, type DuckMood } from './Duck';
@@ -24,6 +24,10 @@ const PHASES: [Phase, number][] = [
   ['splash', 1300],
   ['after', 60000],
 ];
+/** Dottie's hops along the logs share this much of the 'hop' beat, each after a short crouch. */
+const HOPS_MS = 1400;
+const hopMs = (hops: number) => HOPS_MS / Math.max(1, hops);
+const HOP_CROUCH = 0.15;
 
 /** The grid cell a piece's leading end moves into when it slides to `to`. */
 function leadCell(pc: Piece, from: number, to: number): [number, number] {
@@ -63,7 +67,14 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   const lost = status.kind === 'lost';
   const over = won || lost;
   const locked = busy || over;
-  const phase = usePhases(lost && !busy, PHASES);
+  // The fail scene lives only while the loss stands. An undo or a restart ends it in the very draw that takes
+  // the loss back, not one draw later when the timed phase has caught up, and with it the sounds still to come.
+  const failing = lost && !busy;
+  const timedPhase = usePhases(failing, PHASES);
+  const phase = failing ? timedPhase : null;
+  // What the splash asks at the moment it is due: does the loss still stand? Set as the scene is drawn.
+  const stillFailing = useRef(failing);
+  stillFailing.current = failing;
 
   useEffect(() => {
     if (!won) return;
@@ -79,8 +90,11 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [won]);
 
-  // The fail beats: sounds and the screen shake.
-  useEffect(() => {
+  // The fail beats: sounds and the screen shake. (The boing of each hop comes from FailDuck, with the hop.)
+  // A layout effect, so that an undo, a restart or leaving the level takes the splash back in the same step
+  // that takes the fail scene away. A plain effect's cleanup waits for the next drawn frame, and on a slow
+  // device a sound that falls due during that frame would still play.
+  useLayoutEffect(() => {
     if (phase === 'huff') {
       pond.quack(0, 0.8);
       pond.quack(0.18, 0.75);
@@ -88,6 +102,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     } else if (phase === 'slip') sfx.squeak();
     else if (phase === 'splash') {
       const t = setTimeout(() => {
+        if (!stillFailing.current) return;
         pond.bigSplash();
         setSplashBurst((b) => b + 1);
         setShake((s) => s + 1);
@@ -129,6 +144,13 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     return ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), -FLOAT_Y), hit) ? hit : null;
   };
 
+  const nope = useRefusal();
+  /** A log that has nowhere to slide: the blip, and the mark over the log. */
+  const stuck = (i: number, at: number) => {
+    sfx.denied();
+    const c = pieceCenter(i, at, PIECES);
+    nope.refuse([c[0], c[1] + 0.85, c[2]], "This log can't move");
+  };
   const onPieceDown = (i: number, e: ThreeEvent<PointerEvent>) => {
     // A glowing ring beats a log's invisible padding and its glow (both marked `pad`). Seen from the camera,
     // those of a log (often the picked one) reach over the ring next to it, and would take the tap meant
@@ -187,7 +209,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
           sfx.deselect();
           setSelected(null);
         } else {
-          if (d.min === d.max) sfx.denied();
+          if (d.min === d.max) stuck(d.i, d.base);
           else pond.select();
           setSelected(d.i);
         }
@@ -197,7 +219,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       setSelected(null);
       if (to !== d.base) play({ piece: d.i, to });
       else {
-        if (d.min === d.max) sfx.denied();
+        if (d.min === d.max) stuck(d.i, d.base);
         setSnap((n) => n + 1);
       }
     };
@@ -252,6 +274,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   return (
     <Shake trigger={shake} intensity={0.18}>
       <Pond />
+      <RefusalMark refusal={nope.refusal} />
 
       {PIECES.map((pc, i) => (
         <PieceActor
@@ -470,6 +493,9 @@ function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }
   // Set when this ring took a touch's pointer-down. A click counts only then: the scene's event system sends a
   // click to everything that lay under the touch when it began, also when a log in front took that touch.
   const took = useRef(false);
+  // The tap counts when the finger lifts, as a Clickable's does (see pressOnLift.ts): iOS sends no click for a
+  // press held a little long. The click that may still follow for the same touch is then held off.
+  const [press] = useState(() => new LiftPress());
   useEffect(() => {
     // Every new touch starts untaken; the ring's own pointer-down, which comes after this, may take it.
     const reset = () => (took.current = false);
@@ -507,14 +533,30 @@ function TargetMarker({ position, onClick }: { position: Vec3; onClick(): void }
         // box keeps the touch (see barkWins), and so does a log drawn in front of the ring (see onPieceDown).
         onPointerDown={(e) => {
           took.current = !barkWins(e);
-          if (took.current) e.stopPropagation();
+          if (!took.current) return;
+          e.stopPropagation();
+          press.press(e.nativeEvent);
+          clickGuard().watch(press);
         }}
+        onPointerUp={(e) => {
+          const lift = e.nativeEvent;
+          const was = press.lift(lift);
+          if (was === 'none' || !took.current) return;
+          took.current = false;
+          e.stopPropagation();
+          // This touch's click, if the browser sends one, is not a second tap; nor is the click after a drag.
+          clickGuard().holdOffClick(lift);
+          if (was !== 'tap' || touch.slid) return; // the finger slid the log instead
+          liftTapped();
+          onClick();
+        }}
+        // A click with no lift seen here (none came to this ring) still counts, as before.
         onClick={(e) => {
           if (!took.current) return;
           took.current = false;
           if (touch.slid) return; // the finger slid the log instead (a mouse sends a click after a drag)
           e.stopPropagation();
-          onClick();
+          if (e.delta <= PRESS_SLOP) onClick();
         }}
       >
         <boxGeometry args={[0.96, 0.4, 0.96]} />
@@ -560,12 +602,21 @@ function DucklingActor({ seed, home, party, won, giggle }: { seed: number; home:
 function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Vec3[]; perch: Vec3; splash: Vec3 } }) {
   const ref = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
+  const [hopsBegun, setHopsBegun] = useState(0);
   const segs = useMemo<PathSegment[]>(() => {
     if (phase === 'huff') return [{ to: plan.start, durationMs: 10 }];
     if (phase === 'hop') {
-      const d = 1400 / Math.max(1, plan.hops.length);
+      // Each hop starts in a drawn frame, and its boing goes with it: one a hop, one at a time, however slow the
+      // device. The frame does not play it. It counts the hop (below), and React plays the boing with that count.
+      const d = hopMs(plan.hops.length);
+      const boing = () => {
+        // For the play-through tests only: a test page that set this list hears of each hop as it begins, so it can
+        // tell a hop with no boing from one the scene never began. A page without the list (every player's) skips it.
+        (window as { __hopsBegun?: number[] }).__hopsBegun?.push(performance.now());
+        setHopsBegun((n) => n + 1);
+      };
       return plan.hops.length
-        ? plan.hops.map((h) => ({ to: h, durationMs: d * 0.85, delayMs: d * 0.15, height: 0.55, onStart: sfx.boing }))
+        ? plan.hops.map((h) => ({ to: h, durationMs: d * (1 - HOP_CROUCH), delayMs: d * HOP_CROUCH, height: 0.55, onStart: boing }))
         : [{ to: plan.start, durationMs: 10 }];
     }
     if (phase === 'slip') return [{ to: [plan.perch[0] + 0.12, plan.perch[1] + 0.1, plan.perch[2]], durationMs: 600, height: 0.15 }];
@@ -573,6 +624,13 @@ function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Ve
     return [{ to: [plan.splash[0], -0.13, plan.splash[2]], durationMs: 300 }];
   }, [phase, plan]);
   usePath(ref, segs, phase, { face: false });
+  // The boing of a hop that has begun. It goes through React's own queue, behind any redraw of the scene that is
+  // already waiting there. So when the player has taken the loss back, this duck is gone before its boing would
+  // play, even if a frame was drawn in between and began a hop: no boing follows an undo or a restart. A timer
+  // or the frame itself would not know of the undo until the scene's next redraw.
+  useLayoutEffect(() => {
+    if (hopsBegun > 0) sfx.boing();
+  }, [hopsBegun]);
 
   useFrame(({ clock }) => {
     const s = spin.current;
@@ -582,7 +640,9 @@ function FailDuck({ phase, plan }: { phase: Phase; plan: { start: Vec3; hops: Ve
       // Feet windmill on the rolling log.
       s.rotation.set(Math.sin(t * 22) * 0.5, Math.PI / 2, Math.sin(t * 11) * 0.3);
     } else if (phase === 'splash') {
-      s.rotation.set(s.rotation.x + 0.25, Math.PI / 2, s.rotation.z + 0.12);
+      // With Reduce Motion on, Dottie falls in without tumbling head over heels.
+      if (reducedMotion()) s.rotation.set(0, Math.PI / 2, 0);
+      else s.rotation.set(s.rotation.x + 0.25, Math.PI / 2, s.rotation.z + 0.12);
     } else if (phase === 'after') {
       s.rotation.set(0, Math.PI / 2 + Math.sin(t * 0.8) * 0.5, Math.sin(t * 1.6) * 0.12);
     } else s.rotation.set(0, Math.PI / 2, 0);

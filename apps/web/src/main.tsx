@@ -4,6 +4,7 @@ import '@fontsource/fredoka/latin-700.css';
 import '@fontsource/nunito/latin-500.css';
 import '@fontsource/nunito/latin-700.css';
 import '@fontsource/nunito/latin-800.css';
+import { startSoundLife } from '@riddle/fx';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { reloadSettings } from '@riddle/fx';
@@ -12,10 +13,13 @@ import { restoreBackup } from './backup';
 import './index.css';
 import { startNativeFeel } from './nativeFeel';
 import { lockZoom, registerPwa } from './pwa/register';
+import { startTextSize } from './textSize';
 
 lockZoom();
 registerPwa();
 startNativeFeel();
+startTextSize();
+startSoundLife();
 
 const draw = () =>
   createRoot(document.getElementById('root')!).render(

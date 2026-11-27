@@ -1,6 +1,6 @@
-import { Sparkles } from '@react-three/drei';
+import { Sparkles } from '@riddle/fx';
 import { useFrame } from '@react-three/fiber';
-import { seeded, useSettings } from '@riddle/fx';
+import { ambientDt, seeded, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -193,7 +193,8 @@ function PuffTree({ position, scale = 1, color = '#7bc96f', seed = 0 }: { positi
 function Windmill({ position }: { position: [number, number, number] }) {
   const blades = useRef<THREE.Group>(null);
   useFrame((_, dt) => {
-    if (blades.current) blades.current.rotation.z += dt * 0.9;
+    // With Reduce Motion on, the windmill stands still.
+    if (blades.current) blades.current.rotation.z += ambientDt(dt) * 0.9;
   });
   const wall = toon('#fff4e0');
   const roof = toon('#ff7f6e');
@@ -285,7 +286,8 @@ function Waterfall({ position, rotationY, height = 4.5 }: { position: [number, n
   const mat = useRef<THREE.ShaderMaterial>(null);
   const uniforms = useMemo(() => THREE.UniformsUtils.merge([THREE.UniformsLib.fog, { uTime: { value: 0 } }]), []);
   useFrame((_, dt) => {
-    if (mat.current) mat.current.uniforms.uTime.value += dt;
+    // With Reduce Motion on, the falling water stands still.
+    if (mat.current) mat.current.uniforms.uTime.value += ambientDt(dt);
   });
   return (
     <group position={position} rotation-y={rotationY}>
@@ -426,7 +428,8 @@ function SkyCloud({ position, scale = 1, speed = 0.12 }: { position: [number, nu
   useFrame((_, dt) => {
     const g = ref.current;
     if (!g) return;
-    g.position.x += dt * speed;
+    // With Reduce Motion on, the cloud does not drift.
+    g.position.x += ambientDt(dt) * speed;
     if (g.position.x > 45) g.position.x = -45;
   });
   const m = toon('#ffffff', { emissive: '#ffffff', emissiveIntensity: 0.3 });

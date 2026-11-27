@@ -1,5 +1,5 @@
 import { hasSeenGuide, loadProgress, markGuideSeen, recordStars, saveProgress, type Progress } from '@riddle/engine';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 import { useCallback, useEffect, useState } from 'react';
 import { finaleLine } from './hint';
 import { finishesGame } from './journey';
@@ -58,7 +58,9 @@ export function App() {
   // The last level, with every other one solved: its win finishes the game, and its card says so.
   const finale = entry && finishesGame(LEVELS, entry.id, progress) ? finaleLine(LEVELS.filter((l) => l.level).length) : undefined;
 
+  // Reduce Motion on the device: Motion's moves, swells and spins on the page are left out, its fades kept.
   return (
+    <MotionConfig reducedMotion="user">
     <AnimatePresence mode="wait">
       {entry?.level ? (
         <motion.div key={entry.id} className="h-full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
@@ -82,5 +84,6 @@ export function App() {
         </motion.div>
       )}
     </AnimatePresence>
+    </MotionConfig>
   );
 }

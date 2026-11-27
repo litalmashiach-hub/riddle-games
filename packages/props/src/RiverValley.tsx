@@ -1,6 +1,5 @@
-import { Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Water, seeded } from '@riddle/fx';
+import { Sparkles, Water, ambientDt, seeded } from '@riddle/fx';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { toon } from './materials';
@@ -142,7 +141,7 @@ function Cloud({ position, scale = 1, speed = 0.15 }: { position: [number, numbe
   useFrame((_, dt) => {
     const g = ref.current;
     if (!g) return;
-    g.position.x += dt * speed;
+    g.position.x += ambientDt(dt) * speed;
     if (g.position.x > 40) g.position.x = -40;
   });
   const m = toon('#ffffff', { emissive: '#ffffff', emissiveIntensity: 0.35 });

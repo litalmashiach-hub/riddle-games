@@ -1,6 +1,6 @@
-import { Sparkles } from '@react-three/drei';
+import { Sparkles } from '@riddle/fx';
 import { useFrame } from '@react-three/fiber';
-import { seeded, useSettings } from '@riddle/fx';
+import { ambientDt, seeded, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -322,7 +322,8 @@ function CloudSea({ count }: { count: number }) {
     const m = ref.current;
     if (!m) return;
     puffs.forEach((p, i) => {
-      p.x += p.sp * dt;
+      // With Reduce Motion on, the clouds do not drift.
+      p.x += p.sp * ambientDt(dt);
       if (p.x > 35) p.x = -35;
       o.position.set(p.x, p.y, p.z);
       o.scale.set(p.s * 1.4, p.s * 0.7, p.s);

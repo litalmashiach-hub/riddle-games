@@ -1,5 +1,7 @@
 export * from './settings';
+export * from './reducedMotion';
 export * from './sfx';
+export * from './soundLife';
 export * from './worlds';
 export * from './Water';
 export * from './WorldStage';
@@ -10,3 +12,4 @@ export * from './Clickable';
 export * from './tapPad';
 export * from './pressOnLift';
 export * from './cartoon';
+export * from './Sparkles';

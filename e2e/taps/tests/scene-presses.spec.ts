@@ -4,6 +4,8 @@ import { LEVELS, type LevelCase } from '../../levels';
 import { expect, expectClean, passRulesCard, seedProgress, test, waitForSession } from '../../tests/fixtures';
 import { ALLOW_FAKE_POINTER, FAKE_POINTER, READ_SCENE, Taps, pressWithoutClick, waitCameraStill, waitIdle, type Point, type Vec3 } from '../harness';
 import { PLAYERS } from '../players';
+import { JAM as JAM_18, type Jam, type Move as JamMove, type State as JamState } from '../../../levels/18-log-jam/src/rules';
+import { jam as JAM_27 } from '../../../levels/27-timber-tangle/src/rules';
 
 /**
  * The shared Clickable (packages/fx) takes every press on the scene, however it is made, and each once.
@@ -19,6 +21,9 @@ import { PLAYERS } from '../players';
  *    nothing in the boat, nor do two fingers held still.
  * 3. A key on a button of the page right after a scene press with no click gets through: only the scene's
  *    own click is held off.
+ * 4. Levels 18 and 27 (Log Jam's scene, which has taps of its own: a log, then a glowing ring): a ring takes
+ *    a tap, a press held long and a touch held long, each once; a drag that begins on a ring takes nothing.
+ *    Both levels are also won by presses held long, with no click.
  */
 
 async function open(page: Page, level: LevelCase) {
@@ -33,12 +38,15 @@ async function open(page: Page, level: LevelCase) {
   await waitIdle(page);
 }
 
-// Levels whose every scene tap is a Clickable's, with a short solution, and no known tap fault.
+// Levels whose every scene tap counts on the lift (a Clickable's, or Log Jam's logs and rings), with a short
+// solution, and no known tap fault.
 const WON_BY_PRESSES: { id: string; holds: number[] }[] = [
   { id: 'wolf-goat-cabbage', holds: [60, 900] },
   { id: 'two-jugs', holds: [900] },
   { id: 'firefly-jars', holds: [900] },
   { id: 'pancake-stack', holds: [900] },
+  { id: 'log-jam', holds: [900] },
+  { id: 'timber-tangle', holds: [900] },
 ];
 
 for (const { id, holds } of WON_BY_PRESSES) {
@@ -240,3 +248,97 @@ test.describe('level 2: one tap on the goat, once; a drag, never', () => {
     expectClean(faults);
   });
 });
+
+for (const [id, jam] of [['log-jam', JAM_18], ['timber-tangle', JAM_27]] as [string, Jam][]) {
+  test.describe(`level ${id === 'log-jam' ? 18 : 27} ${id}: a ring takes a long press once; a drag, never`, () => {
+    const level = LEVELS.find((l) => l.id === id)!;
+    // The pond's grid, as in the real-tap player (e2e/taps/players/18-log-jam.ts).
+    const HALF = 3;
+    const cell = (k: number) => k - HALF + 0.5;
+    const move = level.moves[0] as JamMove;
+    const moves = (page: Page) => page.evaluate(() => window.__riddle!.getState().moves.length);
+
+    /** The level opened, the first log of its solution picked by a tap, and the middle of the ring it is to go to. */
+    async function ring(page: Page) {
+      await open(page, level);
+      const taps = new Taps(page, level, page.viewportSize()!);
+      const state = (await taps.snapshot()).state as JamState;
+      const pc = jam.pieces[move.piece];
+      const from = state.pos[move.piece];
+      const along = from + pc.len / 2 - HALF;
+      const top: Vec3 = pc.axis === 'h' ? [along, 0.1 + 0.34, cell(pc.line)] : [cell(pc.line), 0.1 + 0.34, along];
+      await taps.tapWorld(top, 'the log');
+      const k = move.to > from ? move.to + pc.len - 1 : move.to;
+      const [r, c] = pc.axis === 'h' ? [pc.line, k] : [k, pc.line];
+      const world: Vec3 = [cell(c), 0.03, cell(r)];
+      await expect
+        .poll(async () => !!(await taps.targetNear([world[0], 0.23, world[2]], { handler: 'onClick', within: 0.3, visibleOnly: false })), { message: 'the tap on the log lit its rings', timeout: 10_000 })
+        .toBe(true);
+      await waitIdle(page);
+      return { at: await taps.screenOf(world), from };
+    }
+
+    /** One move, the ring's, and no second one a moment later. */
+    async function slidOnce(page: Page, from: number) {
+      await page.waitForFunction(() => window.__riddle!.getState().moves.length >= 1, undefined, { timeout: 12_000 });
+      await page.waitForTimeout(1500);
+      const s = await page.evaluate(() => {
+        const st = window.__riddle!.getState();
+        return { count: st.moves.length, last: st.moves[st.moves.length - 1] };
+      });
+      expect(s, `the ring slid the log from ${from}, once`).toEqual({ count: 1, last: move });
+    }
+
+    /** A real finger, put down and lifted through the browser's own touch input. */
+    async function finger(page: Page) {
+      const cdp = await page.context().newCDPSession(page);
+      const send = (type: 'touchStart' | 'touchMove' | 'touchEnd', at?: Point) =>
+        cdp.send('Input.dispatchTouchEvent', { type, touchPoints: at ? [{ x: Math.round(at.x), y: Math.round(at.y), id: 1 }] : [] });
+      return { send, done: () => cdp.detach() };
+    }
+
+    test('a touch tap', async ({ page, faults }) => {
+      const { at, from } = await ring(page);
+      await page.touchscreen.tap(at.x, at.y);
+      await slidOnce(page, from);
+      expectClean(faults);
+    });
+
+    for (const holdMs of [500, 900]) {
+      test(`a touch held still for ${holdMs} ms`, async ({ page, faults }) => {
+        const { at, from } = await ring(page);
+        const f = await finger(page);
+        await f.send('touchStart', at);
+        await page.waitForTimeout(holdMs);
+        await f.send('touchEnd');
+        await f.done();
+        await slidOnce(page, from);
+        expectClean(faults);
+      });
+    }
+
+    test('a press held 900 ms with no click', async ({ page, faults }) => {
+      const { at, from } = await ring(page);
+      await pressWithoutClick(page, at, 900);
+      await slidOnce(page, from);
+      expectClean(faults);
+    });
+
+    // Out and back to the ring: the finger slid on the way, so it is no tap, though it lifts where it went down.
+    test('a drag that begins on the ring, goes 40 px out and comes back to it', async ({ page, faults }) => {
+      const { at } = await ring(page);
+      const f = await finger(page);
+      await f.send('touchStart', at);
+      await page.waitForTimeout(80);
+      for (const k of [0.25, 0.5, 0.75, 1, 0.75, 0.5, 0.25, 0]) {
+        await f.send('touchMove', { x: at.x, y: at.y - 40 * k });
+        await page.waitForTimeout(40);
+      }
+      await f.send('touchEnd');
+      await f.done();
+      await page.waitForTimeout(2500);
+      expect(await moves(page), 'no move was made').toBe(0);
+      expectClean(faults);
+    });
+  });
+}

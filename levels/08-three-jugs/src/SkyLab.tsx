@@ -1,6 +1,6 @@
-import { Sparkles } from '@react-three/drei';
+import { Sparkles } from '@riddle/fx';
 import { useFrame } from '@react-three/fiber';
-import { seeded, useSettings } from '@riddle/fx';
+import { ambientDt, seeded, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -260,7 +260,8 @@ function AlchemyCircle() {
   const runes = useRef<THREE.Group>(null);
   const glow = useRef<THREE.MeshStandardMaterial>(null);
   useFrame(({ clock }, dt) => {
-    if (runes.current) runes.current.rotation.y += dt * 0.12;
+    // With Reduce Motion on, the rune stones do not orbit.
+    if (runes.current) runes.current.rotation.y += ambientDt(dt) * 0.12;
     if (glow.current) glow.current.emissiveIntensity = 2.2 + Math.sin(clock.elapsedTime * 1.6) * 0.6;
   });
   const ring = (r: number, w: number) => <ringGeometry args={[r - w, r, 72]} />;

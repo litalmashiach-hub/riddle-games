@@ -1,7 +1,7 @@
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, sfx, usePath, useFaceYaw, useSettings, tapPadRaycast, tapBackdropRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, sceneSeconds, sfx, usePath, useFaceYaw, useSettings, tapPadRaycast, tapBackdropRaycast, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintHalo, HintRing } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -393,9 +393,11 @@ function Splash() {
     [],
   );
   const dummy = useMemo(() => new THREE.Object3D(), []);
-  useFrame(({ clock }) => {
-    if (start.current == null) start.current = clock.elapsedTime;
-    const t = clock.elapsedTime - start.current;
+  // Timed with sceneSeconds, so the splash still plays while Reduce Motion holds the scene's clock.
+  useFrame(() => {
+    const now = sceneSeconds();
+    if (start.current == null) start.current = now;
+    const t = now - start.current;
     const m = drops.current;
     if (m) {
       parts.forEach((p, i) => {

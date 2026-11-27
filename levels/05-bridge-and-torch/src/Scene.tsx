@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, easeInOut, sfx, tapPadRaycast, tapBackdropRaycast, type Vec3 } from '@riddle/fx';
-import { Bubble, HintRing, type Mood } from '@riddle/props';
+import { Bubble, HintRing, RefusalMark, useRefusal, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -282,10 +282,16 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
   // ---- Input ----
   const lastToggle = useRef<Partial<Record<Explorer, number>>>({});
+  const nope = useRefusal();
+  const above = (e: Explorer, say: string) => {
+    const p = slot(e, state[e]);
+    nope.refuse([p[0], p[1] + EYE_HEIGHT[e] + 0.75, p[2]], say);
+  };
   const toggle = (e: Explorer) => {
     if (busy || over) return;
     if (state[e] !== state.torch) {
       sfx.denied();
+      above(e, 'The torch is on the other side');
       return;
     }
     // Ignore a second tap on the same explorer right after the first, so a double tap doesn't pick
@@ -299,6 +305,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     } else if (picked.length >= 2) {
       // The bridge only holds two: refuse instead of quietly sending the first one back.
       sfx.denied();
+      above(e, 'Only two fit on the bridge');
     } else {
       lastToggle.current[e] = now;
       sfx.select();
@@ -310,6 +317,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     if (busy || over) return;
     if (picked.length === 0) {
       sfx.denied();
+      // Just over the Cross button, in the open air of the chasm: it covers no explorer and no label.
+      nope.refuse([0, -0.9, 1.4], 'Pick who crosses first');
       return;
     }
     play({ walkers: picked });
@@ -323,6 +332,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   return (
     <group>
       <Chasm won={won && !busy} />
+      <RefusalMark refusal={nope.refusal} />
       <Clickable onClick={go} disabled={busy || over || picked.length === 0} hoverScale={1}>
         <group raycast={bridgeHits}>
           <RopeBridge walkers={onBridge} />
@@ -356,10 +366,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                   padding: '1px 8px',
                   borderRadius: 999,
                   whiteSpace: 'nowrap',
-                  background: picked.includes(e) ? '#ffd166' : 'rgba(20,12,28,.62)',
+                  background: picked.includes(e) ? '#ffd166' : 'rgba(20,12,28,.8)',
                   color: picked.includes(e) ? '#3b2300' : '#fff',
                   border: '1.5px solid rgba(255,255,255,.35)',
-                  opacity: active || picked.includes(e) || over ? 1 : 0.7,
+                  opacity: active || picked.includes(e) || over ? 1 : 0.82,
                   transition: 'background .2s, opacity .2s',
                 }}
               >

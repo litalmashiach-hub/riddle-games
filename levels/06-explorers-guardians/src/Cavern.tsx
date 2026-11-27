@@ -1,6 +1,6 @@
-import { Sparkles } from '@react-three/drei';
+import { Sparkles } from '@riddle/fx';
 import { useFrame } from '@react-three/fiber';
-import { seeded } from '@riddle/fx';
+import { ambientDt, seeded } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { forwardRef, useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -482,7 +482,8 @@ function Waterfall({ low }: { low: boolean }) {
   const foam = useRef<THREE.Group>(null);
   const uniforms = useMemo(() => THREE.UniformsUtils.merge([THREE.UniformsLib.fog, { uTime: { value: 0 } }]), []);
   useFrame(({ clock }, dt) => {
-    if (mat.current) mat.current.uniforms.uTime.value += dt;
+    // With Reduce Motion on, the falling streaks stand still.
+    if (mat.current) mat.current.uniforms.uTime.value += ambientDt(dt);
     foam.current?.children.forEach((c, i) => {
       const t = clock.elapsedTime * 3 + i * 1.7;
       const s = 0.8 + Math.sin(t) * 0.25;
@@ -537,7 +538,8 @@ function LightShafts() {
     [],
   );
   const mats = useRef<(THREE.ShaderMaterial | null)[]>([]);
-  useFrame((_, dt) => mats.current.forEach((m) => m && (m.uniforms.uTime.value += dt)));
+  // With Reduce Motion on, the light shafts hold steady.
+  useFrame((_, dt) => mats.current.forEach((m) => m && (m.uniforms.uTime.value += ambientDt(dt))));
   return (
     <group>
       {shafts.map((s, i) => (

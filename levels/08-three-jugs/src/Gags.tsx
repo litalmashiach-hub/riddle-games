@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useSettings } from '@riddle/fx';
+import { reducedMotion, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useMemo, useRef, type MutableRefObject } from 'react';
 import * as THREE from 'three';
@@ -206,7 +206,8 @@ export function GagFx({ events, potion }: { events: MutableRefObject<GagEvent[]>
     // Dust puff from an empty flask.
     const pm = puffs.current;
     if (pm) {
-      const u = pe ? (now - pe.t0 - EMPTY_DROP_AT) / 1100 : 2;
+      // With Reduce Motion on, no dust is thrown (like the shared dust bursts).
+      const u = pe && !reducedMotion() ? (now - pe.t0 - EMPTY_DROP_AT) / 1100 : 2;
       for (let i = 0; i < PUFF; i++) {
         if (pe && u >= 0 && u < 1) {
           const a = (i / PUFF) * Math.PI * 2 + i;

@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, ComicWord, DizzyStars, Shake, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
-import { Bubble, HintRing, toon } from '@riddle/props';
+import { Burst, ComicWord, DizzyStars, Shake, ambientDt, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Bubble, HintRing, RefusalMark, toon, useRefusal } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -123,10 +123,14 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     setBoingBubble(false);
   }, [moveCount, resetCount]);
 
+  const nope = useRefusal();
   const tapPeg = (p: Peg) => {
     if (busy || over || bouncing) return;
     if (selected === null) {
-      if (state.pegs[p].length === 0) return void sfx.denied();
+      if (state.pegs[p].length === 0) {
+        sfx.denied();
+        return void nope.refuse([PEG_X[p], BASE_Y + ROD_H * 0.55, 0.3], 'No disc on this pillar');
+      }
       sfx.select();
       setSelected(p);
     } else if (selected === p) {
@@ -161,6 +165,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   return (
     <Shake trigger={shake} intensity={0.06} durationMs={350}>
       <Temple />
+      <RefusalMark refusal={nope.refusal} />
 
       {PEGS.map((p) => (
         <Pillar
@@ -258,14 +263,15 @@ function Pillar({
     rune.emissive.set(flash > 0 ? '#ff4d4d' : party ? '#ffc04a' : RUNE_COLOR[mode]);
     orb.emissiveIntensity = (goal ? 2.6 : 2) + Math.sin(t * 2 + peg) * 0.5 + (party ? 2 : 0);
     if (sun.current) {
-      sun.current.rotation.y += dt * (party ? 4 : 0.5);
+      // With Reduce Motion on, the sun emblem and the win beam do not spin.
+      sun.current.rotation.y += ambientDt(dt) * (party ? 4 : 0.5);
       sun.current.position.y = Math.sin(t * 1.5) * 0.06;
     }
     if (beam.current && beamMat.current) {
       const o = THREE.MathUtils.lerp(beamMat.current.opacity, party ? 0.32 : 0, Math.min(1, dt * 2));
       beamMat.current.opacity = o;
       beam.current.visible = o > 0.01;
-      beam.current.rotation.y += dt * 0.6;
+      beam.current.rotation.y += ambientDt(dt) * 0.6;
     }
   });
 
@@ -423,7 +429,8 @@ function Disc({ size, state, lastMove, forward, selected, animKey, bonk, face, p
     const t = clock.elapsedTime;
     // Lifted: hover and slowly spin.
     q.position.y = selected ? Math.sin(t * 3 + size) * 0.06 : 0;
-    g.rotation.y += dt * (selected ? 1.4 : party ? 2.5 : 0);
+    // With Reduce Motion on, a lifted or celebrating disc does not spin.
+    g.rotation.y += ambientDt(dt) * (selected ? 1.4 : party ? 2.5 : 0);
     // Bonk: squash and stretch like jelly at the impact; the bouncer wobbles home dizzy.
     const since = bonk ? (performance.now() - bonk.at - BONK_HIT) / 1000 : -1;
     let sy = 1;

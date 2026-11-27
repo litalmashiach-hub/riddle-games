@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, extname, join, normalize, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Browser, BrowserContext, Page } from '@playwright/test';
+import { APP_NAME } from '../../apps/web/src/about/appInfo';
 import { LEVELS } from '../levels';
 import { expect, passRulesCard, playMove, test, waitForSession } from './fixtures';
 
@@ -295,7 +296,8 @@ test('the app build: a tap that does something gives one light tick, and none wi
 
   await openAppBuild(page);
   await page.goto('app-build/index.html?all&debug&quality=low');
-  await expect(page.getByRole('heading', { name: 'Riddle Games' })).toBeVisible();
+  // The app build's level map carries the app's own name (APP_NAME, as src/about/shown.ts picks it), not the website's.
+  await expect(page.getByRole('heading', { name: APP_NAME })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.className)).toContain('app-shell');
   expect(await page.evaluate(() => [getComputedStyle(document.documentElement).overflow, getComputedStyle(document.body).overflow])).toEqual(['hidden', 'hidden']);
   expect(await page.evaluate(() => !document.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true }))), 'the long-press menu is refused').toBe(true);

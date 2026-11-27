@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -106,7 +107,8 @@ export function DustPuff({ at, position, radius }: { at: number; position: [numb
     const m = ref.current;
     if (!m) return;
     const t = (performance.now() - at) / 1000;
-    const live = at > 0 && t >= 0 && t < 0.9;
+    // With Reduce Motion on, no dust is thrown (like the shared dust bursts).
+    const live = at > 0 && t >= 0 && t < 0.9 && !reducedMotion();
     m.visible = live;
     if (!live) return;
     const e = 1 - Math.pow(1 - t / 0.9, 3);

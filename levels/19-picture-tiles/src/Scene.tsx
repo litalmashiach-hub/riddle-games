@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, sfx, usePath, usePhases, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, reducedMotion, sfx, usePath, usePhases, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { Html, RoundedBox } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -158,7 +158,8 @@ function StoneTable({ won, since }: { won: boolean; since: number }) {
   gems.current = gemMat;
   useFrame(({ clock }) => {
     const age = (performance.now() - since) / 1000;
-    gemMat.emissiveIntensity = won ? 3 + Math.sin(age * 8) * 1.2 : 1.1 + Math.sin(clock.elapsedTime * 1.5) * 0.3;
+    // With Reduce Motion on, the gems glow steadily on a win instead of pulsing.
+    gemMat.emissiveIntensity = won ? 3 + (reducedMotion() ? 0 : Math.sin(age * 8) * 1.2) : 1.1 + Math.sin(clock.elapsedTime * 1.5) * 0.3;
   });
   const W = PITCH * SIZE + 0.34;
   const rim = 0.17;

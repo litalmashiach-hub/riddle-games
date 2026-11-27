@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
@@ -51,7 +52,8 @@ export function Frog({ mood, hop, nope }: { mood: 'idle' | 'happy' | 'dizzy'; ho
       headRef.current.rotation.z = mood === 'dizzy' ? Math.sin(t * 3 + 1) * 0.18 : 0;
     }
     // Blink every few seconds (dizzy frogs keep their eyes half shut).
-    const blink = mood === 'dizzy' ? 0.55 : (t % 3.7) < 0.12 ? 1 : 0.05;
+    // With Reduce Motion on, the clock is held (often at 0, inside the blink), so the frog does not blink.
+    const blink = mood === 'dizzy' ? 0.55 : !reducedMotion() && (t % 3.7) < 0.12 ? 1 : 0.05;
     lids.current.forEach((l) => l && l.scale.set(1, blink, 1));
     const a = 0.3 + armUp * 2.1 + (mood === 'happy' ? Math.sin(t * 10) * 0.3 : 0);
     if (armL.current) armL.current.rotation.z = -a;

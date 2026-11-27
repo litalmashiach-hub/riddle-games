@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { ComicWord, DizzyStars, useSettings } from '@riddle/fx';
+import { ComicWord, DizzyStars, reducedMotion, useSettings } from '@riddle/fx';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 
@@ -70,7 +70,8 @@ export function BonkFx({ at, position, radius }: { at: number; position: [number
 
   useFrame(() => {
     const raw = at ? (performance.now() - at) / 1000 : 99;
-    const t = raw < 0 ? 99 : raw;
+    // With Reduce Motion on, no puffs or stars are thrown (like the shared bursts); the word and dizzy stars still show.
+    const t = raw < 0 || reducedMotion() ? 99 : raw;
     const pm = puffs.current;
     if (pm) {
       for (let i = 0; i < PUFFS; i++) {

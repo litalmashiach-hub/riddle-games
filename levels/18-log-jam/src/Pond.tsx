@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { seeded, useSettings } from '@riddle/fx';
+import { ambientDt, seeded, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -152,7 +152,8 @@ function PondWater() {
     [],
   );
   useFrame((_, dt) => {
-    if (mat.current) mat.current.uniforms.uTime.value += dt;
+    // With Reduce Motion on, the water stands still.
+    if (mat.current) mat.current.uniforms.uTime.value += ambientDt(dt);
   });
   return (
     <mesh position={[2, 0, 0]} rotation-x={-Math.PI / 2} receiveShadow>

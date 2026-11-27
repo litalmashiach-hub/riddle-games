@@ -1,6 +1,6 @@
 import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, sfx, type Vec3 } from '@riddle/fx';
-import { HintRing } from '@riddle/props';
+import { HintRing, RefusalMark, useRefusal } from '@riddle/props';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -63,13 +63,19 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
   const [chosen, setChosen] = useState(-1);
   useEffect(() => setChosen(-1), [moveCount, resetCount]);
   const [nope, setNope] = useState({ cell: -1, n: 0 });
+  const refusal = useRefusal();
 
   const tap = (cell: number) => {
     if (locked) return;
     if (state.board[cell] === '.') {
       // An empty toadstool: leap there if the chosen cricket can.
       if (chosen >= 0 && freeLeaps(state, chosen).includes(cell)) play({ from: chosen, to: cell });
-      else if (chosen >= 0) sfx.denied();
+      else if (chosen >= 0) {
+        // The chosen cricket can't leap to this toadstool: the mark stands on the toadstool tapped.
+        sfx.denied();
+        const [x, , z] = capPos(cell);
+        refusal.refuse([x, CAP_TOP + 0.75, z], 'Out of reach');
+      }
       return;
     }
     if (cell === chosen) {
@@ -103,6 +109,7 @@ export function Scene({ state, status, play, busy, hint, resetCount, moveCount }
     <group>
       <Backdrop />
       <Patch party={won} />
+      <RefusalMark refusal={refusal.refusal} />
 
       {Array.from({ length: CELLS }, (_, cell) => {
         if (board.jars.includes(cell)) return null;

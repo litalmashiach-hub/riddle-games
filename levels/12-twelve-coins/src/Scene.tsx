@@ -1,7 +1,7 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, easeInOut, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
-import { Bubble, HintRing, edgedBandGeometry, noHit, toon, useHintPulse } from '@riddle/props';
+import { Burst, Clickable, ComicWord, DizzyStars, FocusCam, Shake, ambientDt, easeInOut, reducedMotion, seeded, sfx, useSettings, tapPadRaycast } from '@riddle/fx';
+import { Bubble, HINT_MARK, HintRing, RefusalMark, edgedBandGeometry, noHit, toon, useHintPulse, useRefusal } from '@riddle/props';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import * as THREE from 'three';
@@ -169,6 +169,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
   // ---- Coin input ----
   const canAct = !busy && !over && !pending;
+  const nope = useRefusal();
+  const refuseCoin = (i: number, say: string) => {
+    sfx.denied();
+    const p = outer.current[i]?.getWorldPosition(new THREE.Vector3()) ?? traySlot(i);
+    nope.refuse([p.x, p.y + 0.75, p.z], say);
+  };
   const onCoin = (i: number) => {
     if (!canAct) return;
     if (accusing) {
@@ -177,7 +183,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       return;
     }
     if (used >= MAX_WEIGHINGS) {
-      sfx.denied();
+      refuseCoin(i, 'No weighings left');
       return;
     }
     if (left.includes(i)) {
@@ -193,7 +199,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     } else if (right.length < 6) {
       setRight([...right, i]);
       sfx.hop();
-    } else sfx.denied();
+    } else refuseCoin(i, 'Both pans are full');
   };
   const canWeigh = canAct && used < MAX_WEIGHINGS && left.length > 0 && left.length === right.length;
   const weigh = () => {
@@ -245,7 +251,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     doorOpen.current = a?.kind === 'win' ? doorTarget : Math.max(0, doorOpen.current - dt * 1.5);
     const blastTarget = a?.kind === 'lose' && el > T_FAKE && el < T_FAKE + 1800 ? 1 : 0;
     blast.current = THREE.MathUtils.lerp(blast.current, blastTarget, dt * 4);
-    if (alarm.current) alarm.current.intensity = a?.kind === 'lose' && el > T_DROP ? (0.5 + 0.5 * Math.sin(clock.elapsedTime * 9)) * 14 : 0;
+    // With Reduce Motion on, the alarm light glows a steady red instead of flashing.
+    const alarmOn = a?.kind === 'lose' && el > T_DROP;
+    if (alarm.current) alarm.current.intensity = !alarmOn ? 0 : reducedMotion() ? 5 : (0.5 + 0.5 * Math.sin(clock.elapsedTime * 9)) * 14;
 
     for (let i = 0; i < COINS; i++) {
       const g = outer.current[i];
@@ -336,7 +344,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         roll = Math.sin(ct * 6) * 0.28;
       } else if (a?.kind === 'lose' && i === a.coin && el > T_DROP) roll = Math.sin(clock.elapsedTime * 4) * 0.18;
       g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, roll, Math.min(1, dt * 10));
-      if (spin) g.rotation.y += dt * 2.6;
+      // With Reduce Motion on, the showcased coin does not spin.
+      if (spin) g.rotation.y += ambientDt(dt) * 2.6;
       else g.rotation.y = THREE.MathUtils.lerp(Math.atan2(Math.sin(g.rotation.y), Math.cos(g.rotation.y)), 0, Math.min(1, dt * 8));
 
       // Glow and dimming.
@@ -369,6 +378,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     <Shake trigger={shake}>
       <Vault high={high} doorOpen={doorOpen} blast={blast} />
       <Balance beam={beam} used={used} high={high} />
+      <RefusalMark refusal={nope.refusal} />
       <pointLight ref={alarm} position={[0, 4.5, -1]} color="#ff3b3b" intensity={0} distance={14} decay={1.4} />
 
       {Array.from({ length: COINS }, (_, i) => (
@@ -586,7 +596,8 @@ function Cuckoo({ anim }: { anim: AnimRef }) {
     }
     // Beak opens on each "cuck-oo".
     const since = el - T_CUCKOO - 150;
-    const call = since > 0 && since % 600 < 420 ? Math.abs(Math.sin((since % 600) / 420 * Math.PI * 2)) : 0;
+    // With Reduce Motion on, the beak stays shut instead of clacking.
+    const call = !reducedMotion() && since > 0 && since % 600 < 420 ? Math.abs(Math.sin((since % 600) / 420 * Math.PI * 2)) : 0;
     if (beak.current) beak.current.rotation.x = call * 0.6;
     wings.current.forEach((w, k) => w && (w.rotation.z = (k ? -1 : 1) * (0.3 + Math.abs(Math.sin(t * 16)) * 0.7)));
     if (coils.current)
@@ -696,7 +707,7 @@ function HintSquare({ position, color }: { position: [number, number, number]; c
   // Four corners make a square; turned an eighth so its sides run along the rows of coins. It wears the ring's dark edge.
   const geometry = useMemo(() => edgedBandGeometry(0.43, 0.56, 0.035, color, 4, Math.PI / 4), [color]);
   return (
-    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} raycast={noHit}>
+    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} raycast={noHit} name={HINT_MARK}>
       <meshBasicMaterial vertexColors transparent toneMapped={false} depthWrite={false} fog={false} />
     </mesh>
   );
@@ -713,7 +724,8 @@ function CoinRain({ trigger, count }: { trigger: number; count: number }) {
   useEffect(() => {
     const rnd = seeded(trigger * 31 + 7);
     parts.forEach((pt) => {
-      pt.on = trigger > 0;
+      // With Reduce Motion on, the coins are not thrown (like the shared confetti).
+      pt.on = trigger > 0 && !reducedMotion();
       // Burst out of the vault door towards the player, in a fan.
       pt.p.set((rnd() - 0.5) * 2.4, 2.3 + rnd() * 1.2, -6 + rnd() * 0.4);
       pt.v.set((rnd() - 0.5) * 6, 3 + rnd() * 4, 4 + rnd() * 4.5);
@@ -903,6 +915,12 @@ interface ControlsProps {
  * A phone held sideways is short: both panels lift up under the top bar, and the ledger slims down so that it
  * stays left of the left pan and above the shell's undo buttons. On a small one the controls stay a (narrower)
  * column on the right, which leaves the bottom middle free for the shell's hint sentence and the coins in view.
+ *
+ * Touch areas: Apple asks for 44 by 44 points, and the buttons are drawn 37 high ("Clues" 32). Each carries an
+ * unseen pad (its ::before) that is as wide as the button and 44 high about its middle, so a touch just above
+ * or below the drawing still reaches it. One above the other, the buttons therefore stand 44 points apart
+ * from middle to middle or more: a gap of 8 between two of them, and 11 above the smaller "Clues" (the browser
+ * rounds each pad to whole points, so one point is spare). Side by side on an upright phone, the rows are 11 apart.
  */
 const CONTROLS_CSS = `
 .tc-ledger{left:12px;top:84px;padding:10px 12px;width:min(250px,calc(100vw - 24px))}
@@ -910,11 +928,14 @@ const CONTROLS_CSS = `
 .tc-chips{display:flex;flex-wrap:wrap;gap:2px;max-width:92px}
 .tc-chip{width:20px;height:20px;font-size:11px}
 .tc-controls{position:absolute;left:0;right:0;bottom:92px;display:flex;justify-content:center;padding:0 12px}
-.tc-buttons{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tc-buttons{display:flex;flex-wrap:wrap;gap:11px 8px;justify-content:center}
+.tc-buttons button{position:relative}
+.tc-buttons button::before{content:'';position:absolute;left:0;right:0;top:min(0px,50% - 22px);bottom:min(0px,50% - 22px)}
 @media (min-width:760px){
   .tc-controls{left:auto;right:12px;bottom:auto;top:84px;width:220px;padding:0}
   .tc-controls>div{width:100%}
-  .tc-buttons{flex-direction:column;align-items:stretch}
+  .tc-buttons{flex-direction:column;align-items:stretch;gap:8px}
+  .tc-buttons .tc-small{margin-top:3px}
 }
 @media (max-height:500px){
   .tc-ledger{top:60px;left:max(12px,env(safe-area-inset-left));padding:8px;width:196px}
@@ -928,7 +949,8 @@ const CONTROLS_CSS = `
 @media (max-height:500px) and (max-width:759px){
   .tc-controls{left:auto;right:max(12px,env(safe-area-inset-right));bottom:auto;top:60px;width:172px;padding:0}
   .tc-controls>div{width:100%}
-  .tc-buttons{flex-direction:column;align-items:stretch;gap:6px}
+  .tc-buttons{flex-direction:column;align-items:stretch;gap:8px}
+  .tc-buttons .tc-small{margin-top:3px}
 }`;
 
 function Controls(p: ControlsProps) {
@@ -968,7 +990,7 @@ function Controls(p: ControlsProps) {
           </button>
         )}
         <button style={btn(left === 0 ? 'gold' : 'plain')} onClick={p.onAccuse}><span aria-hidden="true">🔍</span> Name the fake</button>
-        <button style={{ ...btn('plain'), fontSize: 12, padding: '6px 10px' }} onClick={p.onClues} title="Show what the weighings prove about each coin">
+        <button className="tc-small" style={{ ...btn('plain'), fontSize: 12, padding: '6px 10px' }} onClick={p.onClues} title="Show what the weighings prove about each coin">
           Clues {p.clues ? 'on' : 'off'}
         </button>
       </>

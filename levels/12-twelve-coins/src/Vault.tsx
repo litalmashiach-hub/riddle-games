@@ -1,6 +1,6 @@
-import { Sparkles } from '@react-three/drei';
+import { Sparkles } from '@riddle/fx';
 import { useFrame } from '@react-three/fiber';
-import { seeded } from '@riddle/fx';
+import { ambientDt, seeded } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -146,7 +146,8 @@ function Gears() {
   useFrame((_, dt) => {
     defs.forEach((d, i) => {
       const m = refs.current[i];
-      if (m) m.rotation.z += d.speed * Math.min(dt, 0.05);
+      // With Reduce Motion on, the wall gears stand still.
+      if (m) m.rotation.z += d.speed * Math.min(ambientDt(dt), 0.05);
     });
   });
   return (

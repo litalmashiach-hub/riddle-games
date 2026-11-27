@@ -14,7 +14,7 @@ vi.mock('@react-three/fiber', () => ({ useFrame: () => {} }));
 
 import { HintHalo } from './HintHalo';
 import { edgedBandGeometry, HintRing } from './HintRing';
-import { HINT_EDGE, HINT_GOLD, HINT_LABEL_STYLE, RING_OPACITY, haloBands, ringBands } from './hintMark';
+import { HINT_EDGE, HINT_GOLD, HINT_LABEL_STYLE, RING_OPACITY, haloBands, hintLabelReach, ringBands } from './hintMark';
 
 interface El {
   type: unknown;
@@ -155,4 +155,19 @@ describe("a hinted name label's band", () => {
     // A shadow and a transform change nothing in the layout, so labels that step aside for each other stay put.
     expect(Object.keys(HINT_LABEL_STYLE).sort()).toEqual(['animation', 'boxShadow']);
   });
+
+  it("a hinted label's reach covers its band at the top of its swell", () => {
+    // The outermost band of the shadow, scaled about the label's middle by the swell.
+    const bands = [...HINT_LABEL_STYLE.boxShadow.matchAll(/0 0 0 ([\d.]+)px/g)].map((m) => Number(m[1]));
+    const outer = Math.max(...bands);
+    const swell = 1.1;
+    for (const [w, h] of [[40, 16], [70, 16], [120, 20]]) {
+      const r = hintLabelReach(w, h);
+      expect(r.x).toBeGreaterThanOrEqual(((w + 2 * outer) * swell - w) / 2 - 1e-9);
+      expect(r.y).toBeGreaterThanOrEqual(((h + 2 * outer) * swell - h) / 2 - 1e-9);
+      // And not much more: a label should not stand far from its neighbours for the band's sake.
+      expect(r.x).toBeLessThan(((w + 2 * outer) * swell - w) / 2 + 1);
+    }
+  });
 });
+

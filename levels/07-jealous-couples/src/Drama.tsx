@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { sfx, useSettings } from '@riddle/fx';
+import { reducedMotion, sceneSeconds, sfx, useSettings } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -31,8 +31,11 @@ export function StormCloud({ position }: { position: [number, number, number] })
 
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
-    if (born.current === null) born.current = t;
-    const age = t - born.current;
+    // The cloud's age runs on sceneSeconds, so it still grows in while Reduce Motion holds the scene's clock.
+    const now = sceneSeconds();
+    if (born.current === null) born.current = now;
+    const age = now - born.current;
+    const calm = reducedMotion();
     const g = root.current;
     if (g) {
       const grow = Math.min(1, age * 3);
@@ -42,15 +45,16 @@ export function StormCloud({ position }: { position: [number, number, number] })
       g.rotation.z = Math.sin(t * 3) * 0.05;
     }
     // Lightning every ~0.9 s, a quick double flicker.
+    // With Reduce Motion on, the bolt shows steadily, there is no flash and it rumbles only once.
     const phase = (age % 0.9) / 0.9;
-    const on = age > 0.35 && (phase < 0.08 || (phase > 0.14 && phase < 0.2));
-    const strike = Math.floor(age / 0.9);
+    const on = age > 0.35 && (calm || phase < 0.08 || (phase > 0.14 && phase < 0.2));
+    const strike = calm ? 0 : Math.floor(age / 0.9);
     if (on && strike !== lastStrike.current && age > 0.35) {
       lastStrike.current = strike;
       sfx.denied();
     }
     if (bolt.current) bolt.current.visible = on;
-    if (flash.current) flash.current.intensity = on ? 8 : 0;
+    if (flash.current) flash.current.intensity = on && !calm ? 8 : 0;
     const m = rain.current;
     if (m) {
       drops.forEach((d, i) => {
@@ -170,11 +174,13 @@ export function FeatherPuff({ color, position = [0, 0.5, 0], delayMs = 0 }: { co
   );
   const start = useRef<number | null>(null);
   const o = useMemo(() => new THREE.Object3D(), []);
-  useFrame(({ clock }) => {
+  // Timed with sceneSeconds, so the puff still plays while Reduce Motion holds the scene's clock.
+  useFrame(() => {
     const m = ref.current;
     if (!m) return;
-    if (start.current === null) start.current = clock.elapsedTime + delayMs / 1000;
-    const age = clock.elapsedTime - start.current;
+    const now = sceneSeconds();
+    if (start.current === null) start.current = now + delayMs / 1000;
+    const age = now - start.current;
     parts.forEach((p, i) => {
       if (age < 0) {
         o.scale.setScalar(0);

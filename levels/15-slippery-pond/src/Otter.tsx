@@ -1,3 +1,4 @@
+import { reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useFrame } from '@react-three/fiber';
 import { useRef, type MutableRefObject } from 'react';
@@ -123,7 +124,8 @@ export function Otter({ rig, seed = 0 }: { rig: MutableRefObject<OtterRig>; seed
 
     // Eyes: wide in panic, happy squints, blink now and then.
     if (eyes.current) {
-      const blink = (t * 0.7) % 4 < 0.12 ? 0.1 : 1;
+      // With Reduce Motion on, the clock is held (often at 0, inside the blink), so the otter does not blink.
+      const blink = !reducedMotion() && (t * 0.7) % 4 < 0.12 ? 0.1 : 1;
       const wide = 1 + r.flail * 0.7;
       const sy = Math.min(blink, lerp(1, 0.2, r.happy)) * wide;
       eyes.current.scale.set(wide, sy, 1);

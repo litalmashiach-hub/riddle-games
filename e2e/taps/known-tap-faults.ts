@@ -29,25 +29,10 @@ export interface KnownTapFault {
   reason: string;
 }
 
-const ALL = ['iphone-landscape', 'iphone-small-landscape', 'iphone-large-landscape'];
-
-export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {
-  'log-jam': [
-    {
-      sizes: ALL,
-      steps: [3, 17, 19],
-      kind: 'no-move',
-      reason:
-        "Level 18: with the log picked, a tap on the middle of its glowing ring is lost to the upright log on the next cell toward the camera, which takes the touch with its unseen grab box (move 3, and in a run that gets past it, move 17 or 19, both on a ring that lies right behind a log). Dragging the log works.",
-    },
-  ],
-  'timber-tangle': [
-    {
-      sizes: ALL,
-      steps: [2, 9],
-      kind: 'no-move',
-      reason:
-        "Level 27: with a log picked, a tap on the middle of its ring is lost to a log's unseen grab box (another log at move 2, the picked log itself at move 9). Which move it stops at changes from run to run. Dragging the log works.",
-    },
-  ],
-};
+/**
+ * No level is listed today: every level is won by taps at every size. Levels 18 and 27 (Log Jam and Timber
+ * Tangle) were the last two, until a tap on a log's ring stopped being lost to a log in front of it.
+ * A new entry names its sizes by the run's project names: 'iphone-landscape', 'iphone-small-landscape',
+ * 'iphone-large-landscape'.
+ */
+export const KNOWN_TAP_FAULTS: Record<string, KnownTapFault[]> = {};

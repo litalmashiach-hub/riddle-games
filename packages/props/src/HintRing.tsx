@@ -1,10 +1,14 @@
 import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { reducedMotion } from '@riddle/fx';
 import { HINT_EDGE, HINT_GOLD, RING_OPACITY, ringBands } from './hintMark';
 
 /** A mark is looked at, never tapped: no ray hits it, so it takes no touch from what it marks. */
 export const noHit = () => null;
+
+/** The name every hint mark's mesh carries, so a test can find the marks without asking how they pick. */
+export const HINT_MARK = 'hint-mark';
 
 /** Flat bands round the middle, one colour each, as one mesh: the dark edges can never be drawn over the band. */
 function bandsGeometry(bands: { from: number; to: number; color: string }[], segments: number, thetaStart = 0) {
@@ -50,12 +54,15 @@ export function edgedBandGeometry(inner: number, outer: number, edge: number, co
   );
 }
 
-/** The gentle pulse every hint mark shares: a little larger and smaller, and never fainter than RING_OPACITY.low. */
+/**
+ * The gentle pulse every hint mark shares: a little larger and smaller, and never fainter than RING_OPACITY.low.
+ * With Reduce Motion on, the mark holds still at its full size and its strongest (RING_OPACITY.high).
+ */
 export function useHintPulse(ref: React.RefObject<THREE.Mesh | null>) {
   useFrame(({ clock }) => {
     const m = ref.current;
     if (!m) return;
-    const wave = Math.sin(clock.elapsedTime * 5);
+    const wave = reducedMotion() ? 1 : Math.sin(clock.elapsedTime * 5);
     const s = 1 + wave * 0.08;
     m.scale.set(s, s, s);
     (m.material as THREE.MeshBasicMaterial).opacity = (RING_OPACITY.low + RING_OPACITY.high) / 2 + (wave * (RING_OPACITY.high - RING_OPACITY.low)) / 2;
@@ -89,7 +96,7 @@ export function HintRing({
   }, [radius, color]);
   if (!visible) return null;
   return (
-    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} renderOrder={renderOrder} raycast={noHit}>
+    <mesh ref={ref} position={position} rotation-x={-Math.PI / 2} geometry={geometry} renderOrder={renderOrder} raycast={noHit} name={HINT_MARK}>
       {/* No fog: a world's haze would fade the mark towards the colour of the ground it lies on. */}
       <meshBasicMaterial vertexColors transparent toneMapped={false} depthWrite={false} fog={false} />
     </mesh>
