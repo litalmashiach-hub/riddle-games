@@ -1,0 +1,75 @@
+16:10:46 [shell] device iPhone 17 Pro Max (com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro-Max) on com.apple.CoreSimulator.SimRuntime.iOS-26-5: B7DA8904-5765-4336-81E5-D30943BE661B (made new for this run)
+16:12:52 [shell] booted
+16:13:58 [shell] app installed fresh
+com.example.riddlegames: 3868
+16:14:54 [shell] cold launch filmed
+16:24:06 [review] page in WEBVIEW_16461.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+16:24:07 [review] web view found 524 s after the session was asked for: 956 by 440
+16:24:12 [review] calibration: touched [{"x":287,"y":176},{"x":669,"y":330}], the page saw [{"x":287,"y":176},{"x":669,"y":330}]: same (error 0.0 pt)
+16:24:14 [review] --- first-launch
+16:24:19 [review] --- open-hard-levels
+16:24:25 [review] page in WEBVIEW_16461.1: {"ok":true,"href":"capacitor://localhost","hooks":"function","scene":"object"}
+16:24:30 [review] --- level-26
+16:34:09 [review] page in WEBVIEW_16461.1: {"ok":true,"href":"capacitor://localhost#/level/moonbeam-maze","hooks":"function","scene":"object"}
+16:35:52 [review] --- level-27
+16:36:30 [review] script link lost (unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try); finding the web view again
+16:39:35 [review] level-27 FAILED: Error: no web view found in 180 s; contexts: NATIVE_APP
+    at AppiumBackend.toWebview (/Users/runner/work/riddle-games/riddle-games/e2e/app/backends.ts:78:35)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async AppiumBackend.exec (/Users/runner/work/riddle-games/riddle-games/e2e/app/backends.ts:103:9)
+    at async AppTaps.targetNear (/Users/runner/work/riddle-games/riddle-games/e2e/taps/harness.ts:586:18)
+    at async shown (/Users/runner/work/riddle-games/riddle-games/e2e/taps/players/18-log-jam.ts:31:34)
+    at async Object.move (/Users/runner/work/riddle-games/riddle-games/e2e/taps/players/18-log-jam.ts:33:14)
+    at async playMoves (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:199:9)
+    at async <anonymous> (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:432:7)
+    at async step (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:121:17)
+    at async main (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:428:5)
+16:40:36 [review] --- level-28
+16:40:36 [review] level-28 FAILED: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"
+    at FetchRequest._request (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/webdriver/build/node.js:1968:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Browser.wrapCommandFn (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@wdio/utils/build/index.js:982:23)
+    at async Browser.wrapCommandFn (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@wdio/utils/build/index.js:982:23)
+    at async AppiumBackend.exec (/Users/runner/work/riddle-games/riddle-games/e2e/app/backends.ts:97:11)
+    at async FakeLocator.one (/Users/runner/work/riddle-games/riddle-games/e2e/app/fake-page.ts:49:17)
+    at async FakeLocator.boundingBox (/Users/runner/work/riddle-games/riddle-games/e2e/app/fake-page.ts:96:15)
+    at async openLevel (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:141:17)
+    at async <anonymous> (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:430:17)
+    at async step (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:121:17)
+16:41:37 [review] --- level-29
+16:41:37 [review] level-29 FAILED: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"
+    at FetchRequest._request (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/webdriver/build/node.js:1968:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Browser.wrapCommandFn (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@wdio/utils/build/index.js:982:23)
+    at async Browser.wrapCommandFn (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@wdio/utils/build/index.js:982:23)
+    at async AppiumBackend.exec (/Users/runner/work/riddle-games/riddle-games/e2e/app/backends.ts:97:11)
+    at async FakeLocator.one (/Users/runner/work/riddle-games/riddle-games/e2e/app/fake-page.ts:49:17)
+    at async FakeLocator.boundingBox (/Users/runner/work/riddle-games/riddle-games/e2e/app/fake-page.ts:96:15)
+    at async openLevel (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:141:17)
+    at async <anonymous> (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:430:17)
+    at async step (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:121:17)
+16:42:38 [review] --- level-30
+16:42:38 [review] level-30 FAILED: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"
+    at FetchRequest._request (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/webdriver/build/node.js:1968:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Browser.wrapCommandFn (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@wdio/utils/build/index.js:982:23)
+    at async Browser.wrapCommandFn (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@wdio/utils/build/index.js:982:23)
+    at async AppiumBackend.exec (/Users/runner/work/riddle-games/riddle-games/e2e/app/backends.ts:97:11)
+    at async FakeLocator.one (/Users/runner/work/riddle-games/riddle-games/e2e/app/fake-page.ts:49:17)
+    at async FakeLocator.boundingBox (/Users/runner/work/riddle-games/riddle-games/e2e/app/fake-page.ts:96:15)
+    at async openLevel (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:141:17)
+    at async <anonymous> (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:430:17)
+    at async step (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:121:17)
+16:43:39 [review] --- end
+16:43:40 [review] end FAILED: unknown error: WebDriverError: Missing parameter: appIdKey when running "execute/sync" with method "POST" and args "var __name = function (f) { return f; }; try { var v = (()=>{const seen=[];const walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);for(let n=walk.nextNode();n;n=walk.nextNode()){const t=n.textContent?.trim();const el=n.parentElement;if(!t||!el)continue;const r=el.getBoundingClientRect();const cs=getComputedStyle(el);if(r.width===0||r.height===0||cs.visibility==="hidden"||Number(cs.opacity)===0)continue;if(r.bottom<0||r.right<0||r.top>innerHeight||r.left>innerWidth)continue;seen.push(t)}const vv=window.visualViewport;return{hash:location.hash,texts:seen,scale:vv?vv.scale:null,scroll:[scrollX,scrollY,document.scrollingElement?.scrollTop??0],selection:String(getSelection()??""),size:[innerWidth,innerHeight]}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }"
+    at FetchRequest._request (file:///Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/webdriver/build/node.js:1968:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Browser.wrapCommandFn (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@wdio/utils/build/index.js:982:23)
+    at async Browser.wrapCommandFn (/Users/runner/work/riddle-games/riddle-games/e2e/app/node_modules/@wdio/utils/build/index.js:982:23)
+    at async AppiumBackend.exec (/Users/runner/work/riddle-games/riddle-games/e2e/app/backends.ts:97:11)
+    at async <anonymous> (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:452:76)
+    at async step (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:121:17)
+    at async main (/Users/runner/work/riddle-games/riddle-games/e2e/app/reviewer.ts:452:3)
+16:44:45 [shell] session ended with status 0
+16:44:47 [shell] app state: 0 process(es)
+       8 /Users/runner/work/riddle-games/riddle-games/out/iphone-large-nocap/device-log-faults.txt

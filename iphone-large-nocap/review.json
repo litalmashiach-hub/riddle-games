@@ -1,0 +1,212 @@
+{
+ "device": "iphone-large-nocap",
+ "startedAt": "2026-11-27T16:24:12.525Z",
+ "steps": {
+  "first-launch": {
+   "ok": true,
+   "seconds": 5,
+   "shot": "iphone-large-nocap-01-map-at-first-launch.png",
+   "screen": {
+    "hash": "",
+    "texts": [
+     "Riddlebrook",
+     "30",
+     "legendary puzzles",
+     "0",
+     "/",
+     "90",
+     "World",
+     "1",
+     "Meadow River",
+     "1",
+     "Wolf and Two Sheep",
+     "Never leave the wolf with a lonely sheep.",
+     "2",
+     "Wolf, Goat and Cabbage",
+     "Everyone wants to eat someone.",
+     "3",
+     "Two Jugs",
+     "Measure exactly 4 litres with a 3 and a 5.",
+     "World",
+     "2",
+     "Ancient Temple",
+     "4",
+     "Tower of Hanoi",
+     "Move the jade tower, one disc at a time.",
+     "5",
+     "Bridge and Torch",
+     "Four explorers, one torch, 17 minutes."
+    ],
+    "scale": 1,
+    "scroll": [
+     0,
+     0,
+     0
+    ],
+    "selection": "",
+    "size": [
+     956,
+     440
+    ]
+   },
+   "stored": {}
+  },
+  "open-hard-levels": {
+   "ok": true,
+   "seconds": 11,
+   "shot": "iphone-large-nocap-02-map-with-29-solved.png",
+   "screen": {
+    "hash": "",
+    "texts": [
+     "Riddlebrook",
+     "30",
+     "legendary puzzles",
+     "87",
+     "/",
+     "90",
+     "26",
+     "Moonbeam Maze",
+     "Five moon-flowers, eleven crystals and one very light sleeper.",
+     "27",
+     "Timber Tangle",
+     "A tighter knot of logs, and Dottie is no more patient than before.",
+     "28",
+     "Family Portrait",
+     "Shelly has a new mosaic of the whole family, and it is in a worse muddle.",
+     "29",
+     "Cricket Crossing",
+     "Three striped crickets, three spotted ones and twelve toadstools to cross.",
+     "30",
+     "Moonlit Tower",
+     "The jade tower again, by night, and one disc taller."
+    ],
+    "scale": 1,
+    "scroll": [
+     0,
+     0,
+     0
+    ],
+    "selection": "",
+    "size": [
+     956,
+     440
+    ]
+   }
+  },
+  "level-26": {
+   "ok": true,
+   "seconds": 682,
+   "openSeconds": 8,
+   "rules": "iphone-large-nocap-03-L26-rules-card.png",
+   "rulesText": [
+    "🌙 14 turns until moonset",
+    "26",
+    "Level",
+    "26",
+    "·",
+    "Firefly Lagoon",
+    "Moonbeam Maze",
+    "1",
+    "A moonbeam shines across the lagoon. Crystal mirrors bounce it to the side.",
+    "2",
+    "Light all five moon-flowers with the beam at the same time to make them bloom.",
+    "3",
+    "Shh! Never let the beam touch the sleeping toad, or he will sneeze everything away. He sleeps right beside the way in, so mind the order of your turns.",
+    "4",
+    "The moon sets after 14 turns.",
+    "Tap a crystal to turn it.",
+    "Watch where the beam goes before you tap the next one.",
+    "Solve it in",
+    "9",
+    "turns",
+    "for three stars.",
+    "Let's go!",
+    "Setting the scene"
+   ],
+   "cantShow": [],
+   "movesByTaps": 9,
+   "inPlayShot": "iphone-large-nocap-04-L26-in-play.png",
+   "backFromBackground": {
+    "movesBefore": 3,
+    "movesAfter": 3,
+    "shot": "iphone-large-nocap-05-L26-back-from-background.png",
+    "screen": {
+     "hash": "#/level/moonbeam-maze",
+     "texts": [
+      "z",
+      "Z",
+      "z",
+      "🌙 11 turns until moonset",
+      "3",
+      "turns",
+      "·",
+      "best",
+      "9",
+      "SD",
+      "Hint"
+     ],
+     "scale": 1,
+     "scroll": [
+      0,
+      0,
+      0
+     ],
+     "selection": "",
+     "size": [
+      956,
+      440
+     ]
+    }
+   },
+   "winShot": "iphone-large-nocap-06-L26-win-card.png",
+   "winText": [
+    "z",
+    "Z",
+    "z",
+    "🌙 5 turns until moonset",
+    "Bloom!",
+    "🎉",
+    "Solved!",
+    "9",
+    "turns",
+    ".",
+    "Perfect, that is the shortest solution!",
+    "Next level",
+    "Play again",
+    "All levels"
+   ]
+  },
+  "level-27": {
+   "ok": false,
+   "seconds": 222,
+   "error": "no web view found in 180 s; contexts: NATIVE_APP",
+   "shot": "iphone-large-nocap-09-level-27-failed.png"
+  },
+  "level-28": {
+   "ok": false,
+   "seconds": 0,
+   "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"",
+   "shot": "iphone-large-nocap-10-level-28-failed.png"
+  },
+  "level-29": {
+   "ok": false,
+   "seconds": 0,
+   "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"",
+   "shot": "iphone-large-nocap-11-level-29-failed.png"
+  },
+  "level-30": {
+   "ok": false,
+   "seconds": 0,
+   "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (spec=>window.__appq(spec))(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"",
+   "shot": "iphone-large-nocap-12-level-30-failed.png"
+  },
+  "end": {
+   "ok": false,
+   "seconds": 1,
+   "error": "WebDriverError: Missing parameter: appIdKey when running \"execute/sync\" with method \"POST\" and args \"var __name = function (f) { return f; }; try { var v = (()=>{const seen=[];const walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);for(let n=walk.nextNode();n;n=walk.nextNode()){const t=n.textContent?.trim();const el=n.parentElement;if(!t||!el)continue;const r=el.getBoundingClientRect();const cs=getComputedStyle(el);if(r.width===0||r.height===0||cs.visibility===\"hidden\"||Number(cs.opacity)===0)continue;if(r.bottom<0||r.right<0||r.top>innerHeight||r.left>innerWidth)continue;seen.push(t)}const vv=window.visualViewport;return{hash:location.hash,texts:seen,scale:vv?vv.scale:null,scroll:[scrollX,scrollY,document.scrollingElement?.scrollTop??0],selection:String(getSelection()??\"\"),size:[innerWidth,innerHeight]}})(arguments[0]); return { ok: true, v: v === undefined ? null : v }; } catch (e) { return { ok: false, e: String(e && e.message ? e.name + ': ' + e.message + ' | ' + e.stack : e) }; }\"",
+   "shot": "iphone-large-nocap-14-end-failed.png"
+  }
+ },
+ "faults": null,
+ "endedAt": "2026-11-27T16:44:41.117Z"
+}
