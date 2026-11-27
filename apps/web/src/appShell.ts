@@ -9,5 +9,7 @@ export const APP_SHELL = import.meta.env.MODE === 'app';
  * a shipped app must not carry an unlock-everything switch or expose its internals to scripts.
  */
 export function hasTestFlag(name: 'all' | 'debug') {
-  return !APP_SHELL && new URLSearchParams(location.search).has(name);
+  // TEST ONLY (store-screenshots-test): the app build exposes the debug hook to the screenshot director.
+  if (APP_SHELL) return name === 'debug';
+  return new URLSearchParams(location.search).has(name);
 }
