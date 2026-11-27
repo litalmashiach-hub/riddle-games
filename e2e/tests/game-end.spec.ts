@@ -1,4 +1,5 @@
 import { LEVELS } from '../levels';
+import { setSystemBodySize, SYSTEM_BODY, textFaults } from '../textFit';
 import { expect, passRulesCard, playMove, seedProgress, test, waitForSession } from './fixtures';
 
 /**
@@ -61,4 +62,34 @@ test('any other win card is as before', async ({ page }) => {
   await expect(card.getByText(/last riddle/)).toHaveCount(0);
   await expect(card).toHaveAccessibleDescription('');
   await expect(card.getByRole('button', { name: 'Next level' })).toBeVisible();
+});
+
+test('at the largest text size the last win card shows every word, and its buttons stay in view', async ({ page }, testInfo) => {
+  // Larger Text at its largest (docs/larger-text.md): the words twice their size, the buttons pinned beside them.
+  await setSystemBodySize(page, SYSTEM_BODY.ax5);
+  await seedProgress(page, allBut);
+  await page.goto(`?debug&quality=low#/level/${last.id}`);
+  await waitForSession(page, last.id);
+  await expect(page.locator('html')).toHaveAttribute('data-text-grow', '2');
+  await passRulesCard(page, last.title);
+  for (const [i, move] of last.moves.entries()) await playMove(page, move, i + 1);
+
+  const card = page.getByRole('dialog', { name: 'Solved!' });
+  await expect(card).toBeVisible({ timeout: 60_000 });
+  await expect(card).toHaveAccessibleDescription(FINALE);
+  await expect(card.getByRole('button', { name: 'Next level' })).toHaveCount(0);
+  // Cards spring in; let it land.
+  await page.waitForTimeout(1200);
+  expect(await textFaults(page), 'last win card').toEqual([]);
+  for (const name of ['Play again', 'All levels']) await expect(card.getByRole('button', { name })).toBeInViewport({ ratio: 1 });
+  // The end line may sit below the fold of the card's words, which scroll; scrolled to, it is wholly in view.
+  await card.getByText(FINALE).scrollIntoViewIfNeeded();
+  await expect(card.getByText(FINALE)).toBeInViewport({ ratio: 1 });
+  await page.screenshot({ path: testInfo.outputPath('last-win-card-largest-text.png') });
+
+  await card.getByRole('button', { name: 'All levels' }).tap();
+  await expect(page.getByText(`${LEVELS.length * 3} / ${LEVELS.length * 3}`)).toBeVisible();
+  await expect(ringed(page)).toHaveCount(0);
+  await page.waitForTimeout(600);
+  expect(await textFaults(page), 'level map at 30 of 30').toEqual([]);
 });
