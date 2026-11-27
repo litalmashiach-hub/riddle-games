@@ -13,8 +13,10 @@ import { CLEAR, EDGE, grow, noteBox, overlap, pick, spots, type Box, type Spot }
  *
  * - It takes no touch (pointer-events: none) and changes nothing in the play: it only shows.
  * - It sits above the piece. Where that would cover one of Hint's marks (any mesh named HINT_MARK, and any
- *   ring the scene names in `avoid`) or a button of the scene or the HUD, it moves to the side, below, or just
- *   clear of what it would cover (refusalPlace.ts), so the gold mark and every button always stay in view.
+ *   ring the scene names in `avoid`), a button of the scene or the HUD, or a page element marked
+ *   `data-refusal-avoid` (the hint's words), it moves to the side, below, or just clear of what it would cover
+ *   (refusalPlace.ts), so the gold mark, every button and the hint always stay in view, and the note is never
+ *   drawn under the hint.
  * - Its words grow with the player's text size setting, as the shell's do (`--text-grow`, apps/web/src/textSize.ts,
  *   docs/larger-text.md). Grown, they may take two lines, so the note stays narrow enough to step aside.
  * - Its words are spoken through one live region (role "status", polite) that lasts as long as the scene,
@@ -31,6 +33,9 @@ import { CLEAR, EDGE, grow, noteBox, overlap, pick, spots, type Box, type Spot }
 
 /** How long the mark stays up, in milliseconds. */
 export const REFUSAL_MS = 1400;
+
+/** The page elements the note steps aside from: every button, and anything marked `data-refusal-avoid`. */
+export const AVOID_SELECTOR = 'button, [role="button"], a[href], input, select, [data-refusal-avoid]';
 
 /** The colours of the mark, for anything that shows a refusal in the page's own HTML. */
 export const REFUSAL_RED = '#c8243f';
@@ -133,11 +138,14 @@ function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: V
     return { l: Math.min(...pts.map((p) => p.x)) - CLEAR, r: Math.max(...pts.map((p) => p.x)) + CLEAR, t: Math.min(...pts.map((p) => p.y)) - CLEAR, b: Math.max(...pts.map((p) => p.y)) + CLEAR };
   };
 
-  /** The page's buttons (the scene's own and the HUD's) as boxes in the canvas's pixels, grown by the clearance. */
+  /**
+   * The page's buttons (the scene's own and the HUD's) and what the page marks `data-refusal-avoid` (the hint's
+   * words, which are drawn above the note and would hide it), as boxes in the canvas's pixels, grown by the clearance.
+   */
   const buttonBoxes = (): Box[] => {
     const origin = region.getBoundingClientRect();
     const out: Box[] = [];
-    for (const b of document.querySelectorAll<HTMLElement>('button, [role="button"], a[href], input, select')) {
+    for (const b of document.querySelectorAll<HTMLElement>(AVOID_SELECTOR)) {
       if (region.contains(b)) continue;
       const r = b.getBoundingClientRect();
       if (r.width < 1 || r.height < 1) continue;

@@ -469,3 +469,107 @@ for (const text of [
     }
   });
 }
+
+/**
+ * The hint's words are drawn above the scene, and so above the note. A refused tap while they show must still
+ * be answered in view: the note steps aside from them (`data-refusal-avoid` on the hint toast) as it does from
+ * a button. Here the hint is held up (its 5-second timer never fires), and the note is followed on every drawn
+ * frame of its life: its box never meets the hint's, it stays in the screen, its words show whole, and it covers
+ * no button of the scene or the HUD. At the standard text size and the largest, each case a test of its own.
+ */
+const HOLD_HINT = () => {
+  const w = window as any;
+  const plain = window.setTimeout.bind(window);
+  // Only the hint's own timer is 5 s long (PlayScreen.tsx): it is kept from firing, so the hint stays up.
+  (window as any).setTimeout = ((fn: TimerHandler, ms?: number, ...rest: unknown[]) => (ms === 5000 ? plain(() => {}, 2 ** 31 - 1) : plain(fn, ms, ...rest))) as typeof setTimeout;
+  w.__underHint = [];
+  new MutationObserver(() => {
+    const pill = document.querySelector<HTMLElement>('[data-refusal]');
+    if (!pill || w.__underHint.some((u: any) => u.el === pill)) return;
+    const box = pill.parentElement!;
+    const life: any = { el: pill, frames: 0, toastFrames: 0, worst: 0, worstAt: null, outOfView: 0 };
+    w.__underHint.push(life);
+    const look = () => {
+      if (!pill.isConnected) return;
+      const b = box.getBoundingClientRect();
+      const toast = document.querySelector<HTMLElement>('[data-testid="hint-toast"]');
+      life.frames++;
+      if (b.left < 0 || b.top < 0 || b.right > innerWidth || b.bottom > innerHeight) life.outOfView++;
+      if (toast) {
+        life.toastFrames++;
+        const q = toast.getBoundingClientRect();
+        const px = Math.max(0, Math.min(q.right, b.right) - Math.max(q.left, b.left)) * Math.max(0, Math.min(q.bottom, b.bottom) - Math.max(q.top, b.top));
+        if (px > life.worst) {
+          life.worst = Math.round(px);
+          life.worstAt = { note: [b.left, b.top, b.right, b.bottom].map(Math.round), hint: [q.left, q.top, q.right, q.bottom].map(Math.round) };
+        }
+      }
+      requestAnimationFrame(look);
+    };
+    look();
+  }).observe(document, { childList: true, subtree: true });
+};
+
+for (const text of [
+  { name: 'the standard text size', body: SYSTEM_BODY.standard, grow: 1 },
+  { name: 'the largest text size', body: SYSTEM_BODY.ax5, grow: 2 },
+] as const) {
+  test.describe(`at ${text.name}, with the hint's words held up`, () => {
+    test.use({ reducedMotion: 'reduce' });
+    for (const c of CASES) {
+      const level = LEVELS.find((l) => l.id === c.level)!;
+      const nn = String(level?.number).padStart(2, '0');
+      test(`level ${nn} ${c.level}: "${c.say}" is never under the hint`, async ({ page }) => {
+        const view = page.viewportSize()!;
+        const taps = new Taps(page, level, view);
+        await setSystemBodySize(page, text.body);
+        await page.addInitScript(READ_SCENE);
+        await page.addInitScript(WATCH_REFUSALS);
+        await page.addInitScript(HOLD_HINT);
+        await page.addInitScript((key) => localStorage.setItem(key, JSON.stringify({ quality: 'low', sound: false })), SETTINGS_KEY);
+        await seedProgress(page, Object.fromEntries(LEVELS.filter((l) => l.number < level.number).map((l) => [l.id, 3])));
+        await page.goto(`?debug&quality=low#/level/${level.id}`);
+        await waitForSession(page, level.id);
+        await passRulesCard(page, level.title);
+        await page.waitForFunction(() => window.__taps.ready());
+        await expect(page.locator('html')).toHaveAttribute('data-text-grow', String(text.grow));
+        for (const [i, m] of (c.setup ?? []).entries()) await playMove(page, m, i + 1);
+        await waitCameraStill(page);
+        await waitIdle(page);
+
+        await page.getByRole('button', { name: 'Hint' }).filter({ visible: true }).tap();
+        const toast = page.getByTestId('hint-toast');
+        await expect(toast).toBeVisible();
+        // Let it spring in and take its place (and any lift over a scene button) before the tap.
+        await page.waitForTimeout(800);
+
+        const before = await snapshot(page);
+        await c.tap(taps, before.state);
+        await expect.poll(() => page.evaluate(() => (window as any).__refusals.length), { message: 'the note came up' }).toBe(1);
+        await page.waitForTimeout(300);
+        await page.screenshot({ path: test.info().outputPath(`${nn}-${c.level}-text-${text.grow}-hint-up.png`) });
+        await expect(page.locator('[data-refusal]'), 'the note clears by itself').toHaveCount(0, { timeout: 5_000 });
+        await expect(toast, 'the hint is still up after the note').toBeVisible();
+
+        const look = await page.evaluate(() => {
+          const { node: _node, ...r } = (window as any).__refusals[0];
+          return r as Seen;
+        });
+        const life = await page.evaluate(() => {
+          const { el: _el, ...r } = (window as any).__underHint[0];
+          return r as { frames: number; toastFrames: number; worst: number; worstAt: unknown; outOfView: number };
+        });
+        test.info().annotations.push({ type: 'note', description: JSON.stringify({ rect: look.rect, life }) });
+        expect(look.say).toBe(c.say);
+        expect(look.growth, 'the text size in force').toBe(text.grow);
+        expect(life.frames, 'the note was followed over its life').toBeGreaterThan(1);
+        expect(life.toastFrames, 'the hint showed on every frame of the note').toBe(life.frames);
+        expect(life.worst, `square pixels of the note under the hint, at worst (${JSON.stringify(life.worstAt)})`).toBe(0);
+        expect(life.outOfView, 'frames with the note partly off the screen').toBe(0);
+        expect(look.wordsWhole, `every word shows whole (${JSON.stringify(look.rect)})`).toBe(true);
+        expect(look.buttonsCovered, `buttons under the note (at ${JSON.stringify(look.rect)})`).toEqual([]);
+        expect((await snapshot(page)).moves.length, 'the refused tap made no move').toBe(before.moves.length);
+      });
+    }
+  });
+}

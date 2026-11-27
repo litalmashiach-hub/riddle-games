@@ -245,12 +245,13 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
       </div>
 
       {/* Hint toast, just above the bottom bar, which grows with the words (2.75rem of padding and 1.5rem of words). Its wrapper is always in the page, a live region, so VoiceOver reads each new hint; it adds no box of its own.
-          Where it would cover a button of the scene (grown words on an iPad), it is lifted over it by its bottom margin; elsewhere the margin is 0. */}
+          Where it would cover a button of the scene (grown words on an iPad), it is lifted over it by its bottom margin; elsewhere the margin is 0.
+          The refused-tap note (RefusalMark) steps aside from the words (data-refusal-avoid), as they are drawn above it. */}
       <div role="status" aria-live="polite" data-testid="hint-spoken">
       <AnimatePresence>
         {hintText && (
           <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+2.75rem+1.5rem*var(--text-grow))] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28 grown:short:pr-36" data-hint-lift="0">
-            <div ref={hintPill} data-testid="hint-toast" className="rounded-2xl bg-amber-300 px-5 py-2 font-display text-lg font-semibold text-amber-950 shadow-xl max-sm:text-base max-sm:leading-snug short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
+            <div ref={hintPill} data-testid="hint-toast" data-refusal-avoid className="rounded-2xl bg-amber-300 px-5 py-2 font-display text-lg font-semibold text-amber-950 shadow-xl max-sm:text-base max-sm:leading-snug short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
           </motion.div>
         )}
       </AnimatePresence>
