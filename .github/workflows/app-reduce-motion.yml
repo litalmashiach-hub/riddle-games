@@ -1,4 +1,4 @@
-name: App Reduce Motion check (test only)
+name: Sparkle fix in the app, Reduce Motion (test only)
 
 # TEST ONLY, not for merging. Builds the iOS app from main with read-only test hooks, boots an iPhone
 # simulator, and plays the levels with the most motion twice: with the simulator's Reduce Motion off,
@@ -7,13 +7,13 @@ name: App Reduce Motion check (test only)
 
 on:
   push:
-    branches: ['test/app-reduce-motion']
+    branches: ['test/sparkle-fix-ios']
 
 permissions:
   contents: read
 
 concurrency:
-  group: app-reduce-motion-${{ github.ref }}
+  group: sparkle-fix-ios-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -49,7 +49,7 @@ jobs:
           e2e/app/node_modules/.bin/appium driver install xcuitest@12.22.8
       - name: Play with Reduce Motion off, then on
         timeout-minutes: 130
-        run: e2e/app/reduce-motion/play-rm.sh iphone17pro-reduce-motion 'iPhone 17 Pro' '1,2,4,7,12,22'
+        run: e2e/app/reduce-motion/play-rm.sh iphone17pro-reduce-motion 'iPhone 17 Pro' '1,2,3,5,16'
       - name: Keep the pictures and logs on this branch, under results/ (test only)
         if: always()
         run: |
