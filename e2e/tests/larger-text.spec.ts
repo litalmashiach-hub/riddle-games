@@ -28,6 +28,35 @@ async function expectFits(page: Page, where: string) {
   expect(await textFaults(page), where).toEqual([]);
 }
 
+/**
+ * The scene buttons (a level's own, laid over its canvas) that the hint toast lies over or touches, with the
+ * toast's lift (hintPlace.ts). Read once the toast has sprung in.
+ */
+async function hintOverSceneButtons(page: Page) {
+  await expect(page.getByTestId('hint-toast')).toBeVisible();
+  await page.waitForTimeout(800);
+  return page.evaluate(() => {
+    const toast = document.querySelector('[data-testid="hint-toast"]')!.getBoundingClientRect();
+    const scene = document.querySelector('canvas')!.parentElement!.parentElement!;
+    const names = [...scene.querySelectorAll('button')].filter((b) => {
+      const r = b.getBoundingClientRect();
+      if (r.width < 2 || getComputedStyle(b).visibility === 'hidden') return false;
+      return Math.min(r.right, toast.right) - Math.max(r.left, toast.left) > 0 && Math.min(r.bottom, toast.bottom) - Math.max(r.top, toast.top) > 0;
+    }).map((b) => b.getAttribute('aria-label') ?? b.textContent);
+    const lift = Number(document.querySelector('[data-hint-lift]')!.getAttribute('data-hint-lift'));
+    return { names, lift, top: toast.top, bottom: toast.bottom };
+  });
+}
+
+/** An iPad held sideways, as the app allows: the smallest window (1024 by 768) and the 13-inch. */
+const IPADS = [
+  { width: 1024, height: 768 },
+  { width: 1366, height: 1024 },
+];
+
+/** The levels that pin a button of their own just above the bottom bar, where the grown hint toast reached it. */
+const PINNED = [1, 2, 5, 6, 7, 9, 11];
+
 test.describe('at the standard size', () => {
   test('the app keeps every size as it was', async ({ page }) => {
     test.skip(!appBuild(), 'app build');
@@ -47,6 +76,26 @@ test.describe('at the standard size', () => {
     await expect(page.locator('[data-text-size-probe]')).toHaveCount(0);
     expect(await page.locator('html').getAttribute('data-text-grow')).toBeNull();
     expect(await fontSizeOf(page, 'body')).toBe(16);
+  });
+
+  test('the hint toast keeps its place on an iPad, where it covers no scene button', async ({ page }) => {
+    test.skip(appBuild(), 'website build with ?debug');
+    test.skip(test.info().project.name !== 'iphone-landscape', 'sets its own iPad size; once is enough');
+    for (const size of IPADS) {
+      await page.setViewportSize(size);
+      const one = LEVELS[0];
+      // A fresh page each time: the same address again would only be a jump within the page, with no rules card.
+      await page.goto('about:blank');
+      await page.goto(`?all&debug&quality=low#/level/${one.id}`);
+      await waitForSession(page, one.id);
+      await page.getByRole('button', { name: "Let's go!" }).tap();
+      await expect(page.getByRole('status', { name: 'Loading level' })).toHaveCount(0, { timeout: 120_000 });
+      await expect(page.getByRole('button', { name: /^Row across/ })).toBeVisible();
+      await page.keyboard.press('h');
+      const seen = await hintOverSceneButtons(page);
+      expect(seen.names, `scene buttons under the hint at ${size.width} by ${size.height}`).toEqual([]);
+      expect(seen.lift, 'not lifted: the standard size is as it was').toBe(0);
+    }
   });
 });
 
@@ -78,6 +127,44 @@ for (const size of GROWN) {
       }
     });
 
+    // The hint toast covers no scene button and stays under the top bar. The levels that pin a button of their own
+    // just above the bottom bar ("Row across", "Cross", "Sail across"): the grown toast reached it. On an iPad (set
+    // in the test, from one project only) levels 1 and 2, where it was first seen. One level and size per test, so
+    // each is one fresh load and keeps well inside the time limit when the test groups run side by side.
+    const hintRuns: { level: number; ipad?: { width: number; height: number } }[] = [
+      ...PINNED.map((level) => ({ level })),
+      ...IPADS.flatMap((ipad) => [1, 2].map((level) => ({ level, ipad }))),
+    ];
+    for (const { level: number, ipad } of hintRuns) {
+      const at = ipad ? `on an iPad at ${ipad.width} by ${ipad.height}` : 'on this iPhone';
+      test(`the hint toast covers no scene button in level ${number}, ${at}, and stays under the top bar`, async ({ page }) => {
+        test.skip(appBuild(), 'website build with ?debug');
+        if (ipad) {
+          test.skip(test.info().project.name !== 'iphone-landscape', 'sets its own iPad size; once is enough');
+          await page.setViewportSize(ipad);
+        }
+        const view = page.viewportSize()!;
+        const level = LEVELS.find((l) => l.number === number)!;
+        await page.goto(`?all&debug&quality=low#/level/${level.id}`);
+        await waitForSession(page, level.id);
+        await page.getByRole('button', { name: "Let's go!" }).tap();
+        await expect(page.getByRole('status', { name: 'Loading level' })).toHaveCount(0, { timeout: 120_000 });
+        await page.waitForTimeout(1500);
+        await page.keyboard.press('h');
+        const where = `level ${level.number} at ${view.width} by ${view.height}`;
+        const seen = await hintOverSceneButtons(page);
+        expect(seen.names, `scene buttons under the hint, ${where}`).toEqual([]);
+        const bar = (await page.getByRole('button', { name: 'Rules' }).boundingBox())!;
+        expect(seen.top, `the hint stays under the top bar, ${where}`).toBeGreaterThan(bar.y + bar.height);
+        if (level.number <= 2) {
+          // "Row across" is still the thing a touch at its middle meets.
+          const row = (await page.getByRole('button', { name: /^Row across/ }).boundingBox())!;
+          const top = await page.evaluate(([x, y]) => document.elementFromPoint(x, y)?.closest('button')?.getAttribute('aria-label') ?? 'not a button', [row.x + row.width / 2, row.y + row.height / 2]);
+          expect(top, where).toMatch(/^Row across/);
+        }
+      });
+    }
+
     test('the rules, win and loss cards fit, and their buttons stay in view', async ({ page }) => {
       test.skip(appBuild(), 'website build with ?debug');
       // The longest rules (level 7), and a level with two columns of words (level 12).
@@ -104,6 +191,8 @@ for (const size of GROWN) {
 
       // A win, with the first-play guide and a hint on the way.
       const one = LEVELS[0];
+      // A fresh page each time: the same address again would only be a jump within the page, with no rules card.
+      await page.goto('about:blank');
       await page.goto(`?all&debug&quality=low#/level/${one.id}`);
       await waitForSession(page, one.id);
       await page.getByRole('button', { name: "Let's go!" }).tap();

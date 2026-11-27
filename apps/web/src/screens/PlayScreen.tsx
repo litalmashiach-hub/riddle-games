@@ -16,6 +16,7 @@ import { Stars } from '../components/Stars';
 import { hintLine, hintOutlived, winLine } from '../hint';
 import { returnFocus } from '../focusReturn';
 import { useTextGrown } from '../textSize';
+import { useLiftClear } from '../hintPlace';
 
 /** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
 const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -50,6 +51,11 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
   // True when the scene's first drawing has taken longer than its wait: the guard then says so, over the curtain.
   const [sceneStuck, setSceneStuck] = useState(false);
   const [hintText, setHintText] = useState<string | null>(null);
+  // The hint toast steps up over any scene button it would cover (hintPlace.ts): grown words make it taller.
+  const playRoot = useRef<HTMLDivElement>(null);
+  const topBar = useRef<HTMLDivElement>(null);
+  const hintPill = useRef<HTMLDivElement>(null);
+  useLiftClear(!!hintText, hintPill, playRoot, topBar);
   const { quality, sound, toggleSound, setQuality } = useSettings();
   const look = WORLDS[level.world];
   const stars = s.status.kind === 'won' ? starsFor(moveCount, level.bestMoves, s.hintsUsed) : 0;
@@ -145,7 +151,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
   const cam: NonNullable<RiddleLevel['camera']> = level.camera ?? { position: [0, 8, 12], target: [0, 0, 0], fov: 42 };
 
   return (
-    <div className="relative h-full w-full select-none overflow-hidden" style={{ background: look.fog }}>
+    <div ref={playRoot} className="relative h-full w-full select-none overflow-hidden" style={{ background: look.fog }}>
       {/* Never a blank level: a scene that can't be drawn, or loses its 3D context, says so and offers two ways out. */}
       <SceneGuard onExit={onExit} onRetry={() => { setSceneReady(false); setSceneStuck(false); }} stuck={sceneStuck && !sceneReady}>
       <Canvas
@@ -198,7 +204,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
 
       {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels.
           The counter, the level name and the round buttons use the tinted readout glass, so they stay readable over a white sky. */}
-      <div className={`safe-top pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3 transition-opacity duration-300 sm:p-4 short:justify-start short:pt-2 ${cardOpen ? 'invisible opacity-0' : ''}`}>
+      <div ref={topBar} className={`safe-top pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3 transition-opacity duration-300 sm:p-4 short:justify-start short:pt-2 ${cardOpen ? 'invisible opacity-0' : ''}`}>
         <div className="pointer-events-auto flex items-center gap-2">
           <Button onClick={onExit} tone="readout" aria-label="Back to levels" className="!px-3">
             <HomeIcon />
@@ -238,12 +244,13 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         </div>
       </div>
 
-      {/* Hint toast, just above the bottom bar, which grows with the words (2.75rem of padding and 1.5rem of words). Its wrapper is always in the page, a live region, so VoiceOver reads each new hint; it adds no box of its own. */}
+      {/* Hint toast, just above the bottom bar, which grows with the words (2.75rem of padding and 1.5rem of words). Its wrapper is always in the page, a live region, so VoiceOver reads each new hint; it adds no box of its own.
+          Where it would cover a button of the scene (grown words on an iPad), it is lifted over it by its bottom margin; elsewhere the margin is 0. */}
       <div role="status" aria-live="polite" data-testid="hint-spoken">
       <AnimatePresence>
         {hintText && (
-          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+2.75rem+1.5rem*var(--text-grow))] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
-            <div className="rounded-2xl bg-amber-300 px-5 py-2 font-display text-lg font-semibold text-amber-950 shadow-xl max-sm:text-base max-sm:leading-snug short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
+          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+2.75rem+1.5rem*var(--text-grow))] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28 grown:short:pr-36" data-hint-lift="0">
+            <div ref={hintPill} data-testid="hint-toast" className="rounded-2xl bg-amber-300 px-5 py-2 font-display text-lg font-semibold text-amber-950 shadow-xl max-sm:text-base max-sm:leading-snug short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
           </motion.div>
         )}
       </AnimatePresence>
