@@ -1,0 +1,20 @@
+File:           out/sound.m4a
+File type ID:   m4af
+Num Tracks:     1
+----
+Data format:     2 ch,  48000 Hz, aac  (0x00000000) 0 bits/channel, 0 bytes/packet, 1024 frames/packet, 0 bytes/frame
+                no channel layout.
+estimated duration: 19.000000 sec
+audio bytes: 609535
+audio packets: 893
+bit rate: 255963 bits per second
+packet size upper bound: 1009
+maximum packet size: 1009
+audio data file offset: 8192
+optimized
+audio 912000 valid frames + 2112 priming + 320 remainder = 914432
+source bit depth: I16
+format list:
+[ 0] format:	  2 ch,  48000 Hz, aac  (0x00000000) 0 bits/channel, 0 bytes/packet, 1024 frames/packet, 0 bytes/frame
+Channel layout: Stereo (L R)
+----
