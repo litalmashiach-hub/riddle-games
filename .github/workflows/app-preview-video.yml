@@ -8,7 +8,7 @@ name: App preview video (test only)
 on:
   push:
     branches: ['test/app-preview-video']
-    paths-ignore: ['results/**']
+    paths-ignore: ['results/**', 'preview-audio/**', '.github/workflows/app-preview-sound.yml', '.github/workflows/app-preview-video.yml']
 
 permissions:
   contents: read

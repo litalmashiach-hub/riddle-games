@@ -1,0 +1,46 @@
+name: App preview sound (test only)
+
+# TEST ONLY, not for merging. Re-encodes the store preview's sound with Apple's own AAC encoder (afconvert)
+# at a constant 256 kbps, as Apple's app preview specification asks, and puts it with the preview's picture
+# unchanged. Input: preview-audio/preview.mp4 and preview-audio/sound.wav. Output committed to
+# results/preview-final/.
+
+on:
+  push:
+    branches: ['test/app-preview-video']
+    paths: ['preview-audio/**']
+
+permissions:
+  contents: read
+
+jobs:
+  sound:
+    runs-on: macos-26
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: ffmpeg
+        run: (which ffmpeg || brew install ffmpeg) && ffmpeg -version | head -1
+      - name: Constant 256 kbps AAC by afconvert, picture copied as it is
+        run: |
+          set -e
+          mkdir -p out
+          afconvert -f m4af -d aac -b 256000 -s 0 preview-audio/sound.wav out/sound.m4a
+          afinfo out/sound.m4a | tee out/afinfo.txt
+          ffmpeg -v error -y -i preview-audio/preview.mp4 -i out/sound.m4a -map 0:v:0 -map 1:a:0 -c copy -shortest -movflags +faststart out/preview.mp4
+          ffprobe -v error -show_entries stream=codec_name,profile,width,height,r_frame_rate,bit_rate,sample_rate,channels,duration:format=duration,size out/preview.mp4 | tee out/ffprobe.txt
+      - name: Keep the result on this branch, under results/ (test only)
+        run: |
+          git config user.name "app-preview run"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch -q --depth 5 origin "$GITHUB_REF_NAME" && git reset -q --hard FETCH_HEAD
+            rm -rf results/preview-final; mkdir -p results/preview-final; cp out/* results/preview-final/
+            echo "Run ${{ github.run_id }}, commit ${{ github.sha }}" > results/preview-final/RUN.txt
+            git add -A results
+            git commit -q -m "TEST ONLY: preview with constant 256 kbps sound, run ${{ github.run_id }}"
+            git push -q origin "HEAD:$GITHUB_REF_NAME" && break
+            sleep $(( i * 7 ))
+          done
