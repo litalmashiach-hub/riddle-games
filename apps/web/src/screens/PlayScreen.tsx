@@ -15,6 +15,7 @@ import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIco
 import { Stars } from '../components/Stars';
 import { hintLine, hintOutlived, winLine } from '../hint';
 import { returnFocus } from '../focusReturn';
+import { useTextGrown } from '../textSize';
 
 /** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
 const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -121,6 +122,25 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guideShown]);
 
+  // With grown words the win and loss cards' buttons are pinned below its words, which scroll if they must.
+  const grown = useTextGrown();
+  const wonButtons = (
+    <div className={`grid gap-2 ${grown ? 'mt-2' : 'mt-5 short:mt-3'}`}>
+      {onNext && <Button tone="gold" className="!py-3 text-lg short:!py-2.5" onClick={onNext}>Next level</Button>}
+      <div className="grid grid-cols-2 gap-2">
+        <Button onClick={s.restart}>Play again</Button>
+        <Button onClick={onExit}>All levels</Button>
+      </div>
+    </div>
+  );
+
+  const lostButtons = (
+    <div className={`grid grid-cols-2 gap-2 ${grown ? 'mt-2' : 'mt-5 short:mt-4'}`}>
+      <Button tone="gold" onClick={s.undo}><UndoIcon />Undo</Button>
+      <Button onClick={s.restart}><RestartIcon />Restart</Button>
+    </div>
+  );
+
   const Scene = level.Scene;
   const cam: NonNullable<RiddleLevel['camera']> = level.camera ?? { position: [0, 8, 12], target: [0, 0, 0], fov: 42 };
 
@@ -184,13 +204,13 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
             <HomeIcon />
           </Button>
           <div className="glass-readout hidden rounded-2xl px-4 py-1.5 sm:block short:hidden">
-            <div className="text-[11px] font-bold uppercase tracking-widest text-white/90">Level {level.number} · {look.name}</div>
+            <div className="text-2xs font-bold uppercase tracking-widest text-white/90">Level {level.number} · {look.name}</div>
             <div className="font-display text-lg font-semibold leading-tight">{level.title}</div>
           </div>
         </div>
         <div role="img" aria-label={`${moveCount} ${level.moveNoun}, best ${level.bestMoves}`} className="glass-readout pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
           <div className="font-display text-2xl font-bold leading-none tabular-nums short:leading-[inherit]">{moveCount}</div>
-          <div className="whitespace-nowrap text-[11px] font-bold uppercase tracking-widest text-white/90 short:leading-[inherit]"><span className="hidden sm:inline">{level.moveNoun} · </span>best {level.bestMoves}</div>
+          <div className="whitespace-nowrap text-2xs font-bold uppercase tracking-widest text-white/90 short:leading-[inherit]"><span className="hidden sm:inline grown:short:!hidden">{level.moveNoun} · </span>best {level.bestMoves}</div>
         </div>
         <div className="pointer-events-auto flex items-center gap-2 short:ml-auto">
           <Button onClick={() => setQuality(quality === 'high' ? 'low' : 'high')} className="!px-3 text-xs" tone="readout" aria-label={quality === 'high' ? 'HD graphics' : 'SD graphics'}>
@@ -218,11 +238,11 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         </div>
       </div>
 
-      {/* Hint toast. Its wrapper is always in the page, a live region, so VoiceOver reads each new hint; it adds no box of its own. */}
+      {/* Hint toast, just above the bottom bar, which grows with the words (2.75rem of padding and 1.5rem of words). Its wrapper is always in the page, a live region, so VoiceOver reads each new hint; it adds no box of its own. */}
       <div role="status" aria-live="polite" data-testid="hint-spoken">
       <AnimatePresence>
         {hintText && (
-          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
+          <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+2.75rem+1.5rem*var(--text-grow))] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28">
             <div className="rounded-2xl bg-amber-300 px-5 py-2 font-display text-lg font-semibold text-amber-950 shadow-xl max-sm:text-base max-sm:leading-snug short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
           </motion.div>
         )}
@@ -247,12 +267,15 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
             wide
             aside={
               <>
-                <div className="rounded-2xl bg-black/25 p-3 text-left text-sm text-white/90">
-                  {level.controls.map((t, i) => (<p key={i}>{t}</p>))}
+                {/* With grown words this part scrolls if it must (on a tall screen from a third of its height), and "Let's go!" stays in view below it. */}
+                <div className="min-h-0 overflow-y-auto overscroll-contain grown:tall:max-h-[30vh]">
+                  <div className="rounded-2xl bg-black/25 p-3 text-left text-sm text-white/90">
+                    {level.controls.map((t, i) => (<p key={i}>{t}</p>))}
+                  </div>
+                  <p className="mt-3 text-sm text-white/75">Solve it in {level.bestMoves} {level.moveNoun} for three stars.</p>
                 </div>
-                <p className="mt-3 text-sm text-white/75">Solve it in {level.bestMoves} {level.moveNoun} for three stars.</p>
                 <Button tone="gold" className="mt-4 w-full !py-3 text-lg short:mt-3" onClick={() => setShowRules(false)}>Let's go!</Button>
-                <div className={`mt-2 flex h-4 items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-white/60 transition-opacity duration-500 ${sceneReady ? 'opacity-0' : ''}`} aria-hidden={sceneReady}>
+                <div className={`mt-2 flex h-4 items-center justify-center gap-2 grown:h-auto text-xs font-bold uppercase tracking-widest text-white/60 transition-opacity duration-500 ${sceneReady ? 'opacity-0' : ''}`} aria-hidden={sceneReady}>
                   <LoadingDots />
                   Setting the scene
                 </div>
@@ -261,7 +284,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
           >
             <div className="text-xs font-bold uppercase tracking-widest" style={{ color: look.accent }}>Level {level.number} · {look.name}</div>
             <h2 className="mt-1 font-display text-3xl font-bold short:text-2xl">{level.title}</h2>
-            <ul className="mt-4 space-y-2 text-left short:mt-3 short:space-y-1.5 short:text-[15px] short:leading-snug">
+            <ul className="mt-4 space-y-2 text-left short:mt-3 short:space-y-1.5 short:text-15 short:leading-snug">
               {level.instructions.map((t, i) => (
                 <li key={i} className="flex gap-3"><span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/20 text-sm font-bold short:mt-0">{i + 1}</span><span>{t}</span></li>
               ))}
@@ -270,30 +293,21 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         )}
 
         {s.ended && s.status.kind === 'won' && (
-          <Modal key="won" label="Solved!">
+          <Modal key="won" label="Solved!" wide={grown} aside={grown ? wonButtons : undefined}>
             <h2 className="font-display text-4xl font-bold short:text-3xl"><span aria-hidden className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
             <div className="mt-3 flex justify-center short:mt-2"><Stars count={stars} size={48} animate /></div>
             <p className="mt-3 text-white/85 short:mt-2">
               {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {winLine(moveCount, level.bestMoves, s.hintsUsed)}
             </p>
-            <div className="mt-5 grid gap-2 short:mt-3">
-              {onNext && <Button tone="gold" className="!py-3 text-lg short:!py-2.5" onClick={onNext}>Next level</Button>}
-              <div className="grid grid-cols-2 gap-2">
-                <Button onClick={s.restart}>Play again</Button>
-                <Button onClick={onExit}>All levels</Button>
-              </div>
-            </div>
+            {!grown && wonButtons}
           </Modal>
         )}
 
         {s.ended && s.status.kind === 'lost' && (
-          <Modal key="lost" tone="red" label="Oh no!" returnTo={['button[aria-label="Undo"]', RULES_BUTTON]}>
+          <Modal key="lost" tone="red" label="Oh no!" returnTo={['button[aria-label="Undo"]', RULES_BUTTON]} aside={grown ? lostButtons : undefined}>
             <h2 className="font-display text-4xl font-bold short:text-3xl"><span aria-hidden className="block text-6xl short:mr-2 short:inline short:text-3xl">😱</span>Oh no!</h2>
             <p className="mt-3 text-lg text-white/90 short:mt-2 short:text-base">{s.status.reason}</p>
-            <div className="mt-5 grid grid-cols-2 gap-2 short:mt-4">
-              <Button tone="gold" onClick={s.undo}><UndoIcon />Undo</Button>
-              <Button onClick={s.restart}><RestartIcon />Restart</Button>
-            </div>
+            {!grown && lostButtons}
           </Modal>
         )}
       </AnimatePresence>
@@ -342,7 +356,7 @@ function Modal({ children, aside, tone, wide, label, returnTo = [RULES_BUTTON] }
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-        className={`panel flex max-h-full w-full max-w-md flex-col outline-none overflow-hidden rounded-[2rem] text-center ${wide ? 'short:max-w-3xl short:flex-row' : ''} ${tone === 'red' ? 'panel-red' : ''}`}
+        className={`panel flex max-h-full w-full max-w-md grown:tall:max-w-xl flex-col outline-none overflow-hidden rounded-[2rem] text-center ${wide ? 'short:max-w-3xl short:flex-row' : ''} ${tone === 'red' ? 'panel-red' : ''}`}
       >
         <div className={`min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6 short:p-4 ${aside ? 'pb-3 sm:pb-3' : ''} ${wide ? 'short:pb-4 short:text-left' : ''}`}>{children}</div>
         {aside && (
@@ -402,7 +416,7 @@ function LoadingCurtain({ gradient, number, quiet }: { gradient: string; number:
   return (
     <motion.div className="pointer-events-none absolute inset-0 z-[6] overflow-hidden" style={{ background: gradient }} initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} role="status" aria-label="Loading level">
       <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_100%_0%,rgb(255_255_255/0.3),transparent_60%)]" />
-      <div className="absolute -bottom-[0.18em] right-[4%] font-display text-[min(70vh,24rem)] font-bold leading-none text-white/15">{number}</div>
+      <div aria-hidden className="absolute -bottom-[0.18em] right-[4%] font-display text-[min(70vh,24rem)] font-bold leading-none text-white/15">{number}</div>
       {/* The rules card carries its own small indicator; without the card, show one here. */}
       {!quiet && (
         <div className="absolute inset-0 grid place-items-center">

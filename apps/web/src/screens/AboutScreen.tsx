@@ -61,7 +61,7 @@ export function AboutScreen({ progress, onBack, onReset }: { progress: Progress;
       </header>
 
       <div className="relative mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col gap-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] sm:flex-row sm:gap-4">
-        <nav className="flex shrink-0 flex-col sm:w-40 short:w-36" aria-label="About and settings">
+        <nav className="flex shrink-0 flex-col sm:w-40 short:w-36 grown:short:relative grown:short:min-h-0 grown:short:overflow-y-auto grown:short:overscroll-contain" aria-label="About and settings">
           <div role="tablist" aria-orientation="horizontal" className={`grid ${APP_SHELL ? 'grid-cols-4' : 'grid-cols-2'} gap-2 sm:grid-cols-1 short:gap-1.5`}>
             {PAGES.map((p) => (
               <Button
@@ -195,9 +195,9 @@ function ConfirmReset({ stars, onKeep, onErase }: { stars: number; onKeep: () =>
   }, [onKeep]);
   return (
     <div className="fixed inset-0 z-20 grid place-items-center bg-black/55 p-[max(1rem,env(safe-area-inset-top))_max(1rem,env(safe-area-inset-right))_max(1rem,env(safe-area-inset-bottom))_max(1rem,env(safe-area-inset-left))]" onClick={onKeep}>
-      <div role="alertdialog" aria-modal="true" aria-labelledby={title} aria-describedby={text} className="panel max-h-full w-full max-w-md overflow-y-auto rounded-3xl p-5 text-center short:p-4" style={{ background: CONFIRM_BACKGROUND }} onClick={(e) => e.stopPropagation()}>
+      <div role="alertdialog" aria-modal="true" aria-labelledby={title} aria-describedby={text} className="panel max-h-full w-full max-w-md overflow-y-auto rounded-3xl p-5 text-center short:p-4 grown:max-w-2xl" style={{ background: CONFIRM_BACKGROUND }} onClick={(e) => e.stopPropagation()}>
         <h3 id={title} className="text-outline font-display text-2xl font-bold">Erase your stars?</h3>
-        <p id={text} className="mx-auto mt-2 max-w-sm text-base leading-snug text-rose-50/95">
+        <p id={text} className="mx-auto mt-2 max-w-sm grown:max-w-xl text-base leading-snug text-rose-50/95">
           {stars === 1 ? 'Your star' : `All ${stars} of your stars`} will be gone, and the riddles after the first lock again. Your sound and graphics choices stay. This can't be undone.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">

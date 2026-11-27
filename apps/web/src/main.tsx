@@ -11,10 +11,12 @@ import { App } from './App';
 import './index.css';
 import { startNativeFeel } from './nativeFeel';
 import { lockZoom, registerPwa } from './pwa/register';
+import { startTextSize } from './textSize';
 
 lockZoom();
 registerPwa();
 startNativeFeel();
+startTextSize();
 startSoundLife();
 
 createRoot(document.getElementById('root')!).render(

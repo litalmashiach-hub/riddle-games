@@ -9,6 +9,7 @@ import { LEVELS, WORLD_ORDER, type LevelEntry } from '../levels';
 import { GearIcon } from './AboutScreen';
 import { SHOWN_NAME } from '../about/shown';
 import { levelCardName, starTotal } from '../spoken';
+import { useTextGrown } from '../textSize';
 
 /** A built level is open when every built level before it is solved. `?all` opens everything (website only). */
 function isUnlocked(entry: LevelEntry, progress: Progress) {
@@ -61,10 +62,10 @@ function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay
       <Backdrop />
       <header className="relative flex shrink-0 items-center justify-between gap-4 pb-1 pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pt-[max(0.625rem,env(safe-area-inset-top))]">
         <div className="flex min-w-0 items-baseline gap-3">
-          <h1 className="title-shadow shrink-0 font-display text-[2rem] font-bold leading-none">
+          <h1 className="title-shadow shrink-0 font-display text-map-title font-bold leading-none">
             <span className="bg-gradient-to-b from-white via-amber-100 to-amber-200 bg-clip-text text-transparent">{SHOWN_NAME}</span>
           </h1>
-          <p className={`truncate px-2 py-1 font-display text-[11px] font-semibold uppercase leading-none tracking-[0.22em] text-amber-200 ${LABEL_PILL}`}>{LEVELS.length} legendary puzzles</p>
+          <p className={`truncate px-2 py-1 grown:hidden font-display text-2xs font-semibold uppercase leading-none tracking-[0.22em] text-amber-200 ${LABEL_PILL}`}>{LEVELS.length} legendary puzzles</p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <div className="glass-readout inline-flex items-center gap-2 rounded-full px-3.5 py-1.5" role="img" aria-label={starTotal(totalStars, LEVELS.length * 3)}>
@@ -84,15 +85,15 @@ function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay
           const look = WORLDS[w];
           return (
             <section key={w} className="flex shrink-0 flex-col" aria-label={look.name}>
-              <div className="sticky left-0 flex h-7 shrink-0 items-start whitespace-nowrap">
-                <div className={`flex h-6 items-baseline gap-2 px-2.5 ${LABEL_PILL}`}>
-                  <span className="font-display text-[11px] font-semibold uppercase tracking-widest" style={{ color: look.accent }}>World {wi + 1}</span>
-                  <h2 className="text-outline font-display text-lg font-semibold leading-6">{look.name}</h2>
+              <div className="sticky left-0 flex h-7 shrink-0 items-start whitespace-nowrap grown:h-auto grown:pb-1">
+                <div className={`flex h-6 items-baseline gap-2 px-2.5 grown:h-auto grown:py-0.5 ${LABEL_PILL}`}>
+                  <span className="font-display text-2xs font-semibold uppercase tracking-widest" style={{ color: look.accent }}>World {wi + 1}</span>
+                  <h2 className="text-outline font-display text-lg font-semibold leading-6 grown:leading-tight">{look.name}</h2>
                 </div>
               </div>
               <div className="flex min-h-0 flex-1 gap-3">
                 {LEVELS.filter((l) => l.world === w).map((entry) => (
-                  <div key={entry.id} ref={entry.id === current.id ? currentCard : undefined} className="h-full w-[10.5rem] shrink-0">
+                  <div key={entry.id} ref={entry.id === current.id ? currentCard : undefined} className="h-full w-[10.5rem] shrink-0 grown:w-[calc(10.5rem*var(--text-grow))]">
                     <LevelCard entry={entry} stars={progress.stars[entry.id] ?? 0} unlocked={isUnlocked(entry, progress)} current={entry.id === current.id} onPlay={onPlay} compact />
                   </div>
                 ))}
@@ -156,6 +157,7 @@ function TallMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (i
 
 function LevelCard({ entry, stars, unlocked, onPlay, compact, current }: { entry: LevelEntry; stars: number; unlocked: boolean; onPlay: (id: string) => void; compact?: boolean; current?: boolean }) {
   const look = WORLDS[entry.world];
+  const grown = useTextGrown();
   const playable = !!entry.level && unlocked;
   // The lock sits on a dark disc: white on the card's pale corner would not show.
   const lock = <span className="grid h-6 w-6 place-items-center rounded-full bg-black/45 [&>svg]:h-4 [&>svg]:w-4"><LockIcon /></span>;
@@ -165,14 +167,26 @@ function LevelCard({ entry, stars, unlocked, onPlay, compact, current }: { entry
       whileHover={playable ? { y: compact ? -3 : -6, rotate: -0.6 } : undefined}
       whileTap={playable ? { scale: 0.97 } : undefined}
       onClick={() => (playable ? onPlay(entry.id) : sfx.denied())}
-      className={`group relative overflow-hidden text-left ${compact ? 'h-full w-full rounded-[1.4rem] shadow-[0_10px_24px_rgb(0_0_0/0.35)]' : 'h-36 rounded-3xl shadow-[0_18px_40px_rgb(0_0_0/0.35)] sm:h-44'} ${current && compact ? 'ring-[3px] ring-amber-200' : ''} ${playable ? 'cursor-pointer' : 'cursor-default'}`}
+      className={`group relative overflow-hidden text-left ${compact ? 'h-full w-full rounded-[1.4rem] shadow-[0_10px_24px_rgb(0_0_0/0.35)]' : 'h-36 rounded-3xl shadow-[0_18px_40px_rgb(0_0_0/0.35)] sm:h-44 grown:h-auto grown:min-h-44'} ${current && compact ? 'ring-[3px] ring-amber-200' : ''} ${playable ? 'cursor-pointer' : 'cursor-default'}`}
       style={{ background: look.uiGradient }}
       aria-label={levelCardName(entry, stars, unlocked)}
     >
       <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_100%_0%,rgb(255_255_255/0.35),transparent_60%)]" />
       {/* A card that can't be played yet is dimmed and greyed by a veil over its colours. Its words stay white, so they stay readable. */}
       {!playable && <div className="absolute inset-0 bg-slate-800/55" />}
-      {compact ? (
+      {compact && grown ? (
+        // Grown words leave no room for the medallion: the number moves to the top row, beside the stars, and the words take the card.
+        <div className="relative isolate flex h-full flex-col p-3 text-left">
+          <div className="flex items-center justify-between gap-2">
+            <span className="rounded-full bg-black/35 px-2.5 font-display text-xl font-bold leading-snug [text-shadow:0_2px_0_rgb(0_0_0/0.25)]">{entry.number}</span>
+            {badge}
+          </div>
+          <div className={`relative mt-auto w-full before:-inset-x-3 before:-bottom-3 before:-top-6 ${CARD_SHADE}`}>
+            <h3 className="text-outline font-display text-card-title font-semibold leading-tight">{entry.title}</h3>
+            <p className="mt-1 text-xs leading-snug text-white/90">{entry.tagline}</p>
+          </div>
+        </div>
+      ) : compact ? (
         // The number is the card's picture: big, centred, like a stamped medallion.
         <div className="relative isolate flex h-full flex-col items-center p-3 text-center">
           <div className="flex h-6 items-center">{badge}</div>
@@ -180,14 +194,14 @@ function LevelCard({ entry, stars, unlocked, onPlay, compact, current }: { entry
             <div className="grid h-[4.5rem] w-[4.5rem] place-items-center rounded-full bg-black/30 font-display text-[2.6rem] font-bold leading-none shadow-[inset_0_2px_0_rgb(255_255_255/0.45),0_6px_14px_rgb(0_0_0/0.25)] [text-shadow:0_2px_0_rgb(0_0_0/0.25)]">{entry.number}</div>
           </div>
           <div className={`relative w-full before:-inset-x-3 before:-bottom-3 before:-top-10 ${CARD_SHADE}`}>
-            <h3 className="text-outline font-display text-[1.05rem] font-semibold leading-tight">{entry.title}</h3>
+            <h3 className="text-outline font-display text-card-title font-semibold leading-tight">{entry.title}</h3>
             <p className="mt-1 line-clamp-2 min-h-[2.1rem] text-xs leading-snug text-white/90">{entry.tagline}</p>
           </div>
         </div>
       ) : (
         <>
           <div aria-hidden className="absolute -bottom-10 -right-6 font-display text-[9rem] font-bold leading-none text-white/15 transition-transform duration-500 group-hover:scale-110">{entry.number}</div>
-          <div className="relative isolate flex h-full flex-col p-5">
+          <div className="relative isolate flex h-full flex-col p-5 grown:min-h-44">
             <div className="flex items-center justify-between">
               <span className="rounded-full bg-black/50 px-2.5 py-0.5 font-display text-xs font-semibold tracking-wider">LEVEL {entry.number}</span>
               {badge}

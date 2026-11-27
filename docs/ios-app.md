@@ -104,7 +104,12 @@ Apple refuses apps that feel like a wrapped website. What the game does about it
   speaks of stars and two settings). A player who wants the sound without the tick has iOS's own switch for
   that: Settings, Sounds & Haptics, System Haptics, which UIKit's feedback generator obeys by itself.
 
-A new screen or level needs to do nothing for the tick or the gestures. For the safe areas, pad anything that
+- **Larger Text.** The words of the map, the cards, the top bar and the About screen follow the device's text
+  size setting, up to twice their size, with no native code: see [larger-text.md](larger-text.md). Words drawn
+  in a 3D scene keep their sizes.
+
+A new screen or level needs to do nothing for the tick or the gestures. A new screen's words grow by themselves
+if they use Tailwind's text sizes or the ones in `index.css`, not a pixel size like `text-[11px]`. For the safe areas, pad anything that
 is fixed to an edge with `max(<its normal gap>, env(safe-area-inset-<edge>))`.
 
 `e2e/tests/native-feel.spec.ts` checks all of this in Chromium: the layout against insets that the test sets
