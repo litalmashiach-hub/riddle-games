@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Dark home screen icon (iOS 18 and later). The same art as apps/web/public/icons/icon.svg, with the
+       sky left out: the background stays transparent and iOS lays its own dark backdrop under it.
+       The hills and water are deepened so they sit quietly on that dark, and the gold question mark,
+       the stars and the sparkles carry the icon, as in the standard one. -->
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.45">
+      <stop offset="0" stop-color="#ffd166" stop-opacity="0.30"/><stop offset="1" stop-color="#ffd166" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff3b0"/><stop offset="0.45" stop-color="#ffd166"/><stop offset="1" stop-color="#f4a12a"/>
+    </linearGradient>
+    <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f8f5c"/><stop offset="1" stop-color="#14553a"/></linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a7fb0"/><stop offset="1" stop-color="#174a86"/></linearGradient>
+  </defs>
+  <circle cx="512" cy="430" r="460" fill="url(#glow)"/>
+  <g fill="#fff">
+    <circle cx="170" cy="170" r="9" opacity="0.8"/><circle cx="860" cy="150" r="11" opacity="0.9"/><circle cx="790" cy="300" r="6" opacity="0.6"/>
+    <circle cx="240" cy="330" r="6" opacity="0.6"/><circle cx="120" cy="470" r="7" opacity="0.5"/><circle cx="900" cy="470" r="7" opacity="0.5"/>
+    <path d="M820 220 l14 34 34 14 -34 14 -14 34 -14 -34 -34 -14 34 -14z" fill="#fff3b0"/>
+    <path d="M200 230 l10 24 24 10 -24 10 -10 24 -10 -24 -24 -10 24 -10z" fill="#fff3b0"/>
+  </g>
+  <path d="M0 790 C 180 690 340 700 520 770 C 700 840 860 720 1024 700 V1024 H0z" fill="url(#hill2)"/>
+  <path d="M0 860 C 220 790 420 800 560 850 C 760 920 900 840 1024 830 V1024 H0z" fill="url(#water)"/>
+  <path d="M120 900 q40 -14 80 0 M640 950 q40 -14 80 0 M380 975 q30 -10 60 0" stroke="#8fd3ef" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <g transform="translate(0,-20)">
+    <path d="M352 360 a160 160 0 1 1 236 140 c-46 26 -66 46 -66 110" fill="none" stroke="#000" stroke-opacity="0.45" stroke-width="128" stroke-linecap="round" transform="translate(0,18)"/>
+    <path d="M352 360 a160 160 0 1 1 236 140 c-46 26 -66 46 -66 110" fill="none" stroke="#fff3b0" stroke-width="150" stroke-linecap="round"/>
+    <path d="M352 360 a160 160 0 1 1 236 140 c-46 26 -66 46 -66 110" fill="none" stroke="url(#gold)" stroke-width="112" stroke-linecap="round"/>
+    <path d="M392 330 a120 120 0 0 1 150 -86" fill="none" stroke="#fff" stroke-opacity="0.6" stroke-width="26" stroke-linecap="round"/>
+    <circle cx="522" cy="760" r="75" fill="#fff3b0"/>
+    <circle cx="522" cy="760" r="56" fill="url(#gold)"/>
+    <circle cx="504" cy="740" r="16" fill="#fff" opacity="0.7"/>
+  </g>
+</svg>
