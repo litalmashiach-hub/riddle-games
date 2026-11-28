@@ -68,4 +68,32 @@ describe('spreadLabels', () => {
     const nudged = [boxes[0], { ...boxes[1], x: 112 }];
     expect(spreadLabels(nudged, BOUNDS, first)[0]).toEqual(first[0]);
   });
+
+  it("keeps a label off another character's figure, but not off its own", () => {
+    const boxes = [
+      { x: 100, y: 100, w: 80, h: 18 },
+      { x: 300, y: 100, w: 80, h: 18 },
+    ];
+    // A figure under label 0's spot, owned by label 1; and label 0's own figure, just below its spot.
+    const obstacles = [
+      { box: { x: 120, y: 95, w: 30, h: 60 }, owner: 1 },
+      { box: { x: 125, y: 110, w: 30, h: 60 }, owner: 0 },
+    ];
+    const out = spreadLabels(boxes, BOUNDS, [], { obstacles });
+    const at = { ...boxes[0], x: boxes[0].x + out[0].dx, y: boxes[0].y + out[0].dy };
+    expect(overlap(at, obstacles[0].box)).toBe(false);
+    expect(Math.hypot(out[0].dx, out[0].dy)).toBeLessThan(40);
+    expect(out[1]).toEqual({ dx: 0, dy: 0 });
+  });
+
+  it('still keeps labels apart when no place clears the figures', () => {
+    const bounds = { left: 0, top: 0, right: 200, bottom: 60 };
+    const boxes = [
+      { x: 20, y: 20, w: 80, h: 18 },
+      { x: 30, y: 24, w: 80, h: 18 },
+    ];
+    const out = spreadLabels(boxes, bounds, [], { obstacles: [{ box: { x: 0, y: 0, w: 200, h: 60 } }] });
+    const after = boxes.map((b, i) => ({ ...b, x: b.x + out[i].dx, y: b.y + out[i].dy }));
+    expect(noneOverlap(after)).toBe(true);
+  });
 });

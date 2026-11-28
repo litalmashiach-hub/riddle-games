@@ -1,8 +1,8 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, easeInOut, sfx, tapPadRaycast, tapBackdropRaycast, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, easeInOut, sfx, TAP_PAD_DEPTH, tapPadRaycast, tapBackdropRaycast, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, RefusalMark, useRefusal, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { RopeBridge } from './Bridge';
@@ -31,6 +31,9 @@ const FONT = 'Fredoka, system-ui, sans-serif';
 
 /** Head height of each explorer, for the eyes that glow in the dark. */
 const EYE_HEIGHT: Record<Explorer, number> = { pip: 0.75, juno: 0.86, bram: 0.97, mo: 0.84 };
+/** A figure's touchable body around its eyes, for keeping name labels' touch areas off it: head over the eyes, half a body across. */
+const HEAD_TOP = 0.12;
+const FIGURE_HALF = 0.22;
 /** Bubble heights differ so two walkers side by side don't overlap. */
 const BUBBLE_LIFT: Record<Explorer, number> = { pip: 0.45, juno: 0.75, bram: 1.0, mo: 0.55 };
 /** What each explorer squeaks when the torch dies. */
@@ -67,6 +70,32 @@ const standY = (x: number, z: number) => (Math.abs(x) < BRIDGE_HALF ? deckY(x) -
 /** The torch bearer (the faster walker) takes the lane nearer the camera, so the flame stays in view. */
 const laneOf = (walkers: Explorer[], e: Explorer) => (walkers.length === 1 ? 0 : walkers.indexOf(e) === 0 ? 1 : -1);
 
+interface ScreenBox {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+}
+
+/** Each standing figure's box on the screen: from the feet to just over the head, a body's width across. */
+function figureBoxes(groups: Partial<Record<Explorer, THREE.Group>>, camera: THREE.Camera, c: DOMRect, point: THREE.Vector3) {
+  const toScreen = (g: THREE.Group, x: number, y: number) => {
+    point.set(x, y, 0);
+    g.localToWorld(point).project(camera);
+    return [c.left + ((point.x + 1) / 2) * c.width, c.top + ((1 - point.y) / 2) * c.height];
+  };
+  const out: Partial<Record<Explorer, ScreenBox>> = {};
+  for (const k of EXPLORERS) {
+    const g = groups[k];
+    if (!g || !g.visible) continue;
+    const pts = [toScreen(g, -FIGURE_HALF, 0), toScreen(g, FIGURE_HALF, 0), toScreen(g, -FIGURE_HALF, EYE_HEIGHT[k] + HEAD_TOP), toScreen(g, FIGURE_HALF, EYE_HEIGHT[k] + HEAD_TOP)];
+    const xs = pts.map((q) => q[0]);
+    const ys = pts.map((q) => q[1]);
+    out[k] = { left: Math.min(...xs), right: Math.max(...xs), top: Math.min(...ys), bottom: Math.max(...ys) };
+  }
+  return out;
+}
+
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
   /** Explorers picked for the next crossing (UI only, not a move yet). */
   const [picked, setPicked] = useState<Explorer[]>([]);
@@ -88,8 +117,15 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // The sound that follows the torch's splash when it burns out. An undo, a restart or leaving the level cancels it.
   const fizzle = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => clearTimeout(fizzle.current), []);
-  // The name labels step aside for each other when explorers stand close together.
-  const spread = useLabelSpread();
+  // The name labels step aside for each other when explorers stand close together, and stand clear of the other
+  // explorers' figures: a label drawn over a figure would take the touches meant for that explorer.
+  const getState = useThree((st) => st.get);
+  const figurePoint = useMemo(() => new THREE.Vector3(), []);
+  const spread = useLabelSpread(() => {
+    const { camera, gl } = getState();
+    const boxes = figureBoxes(groups.current, camera, gl.domElement.getBoundingClientRect(), figurePoint);
+    return Object.entries(boxes).map(([id, f]) => ({ id, box: { x: f.left, y: f.top, w: f.right - f.left, h: f.bottom - f.top } }));
+  });
   // drei's <Html> can come up empty if it mounts before the canvas has wired up its events,
   // so the 3D labels wait one frame.
   const [ready, setReady] = useState(false);
@@ -317,6 +353,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // and from the phone's camera Bram stands behind Juno. Each label takes touches over 44 points high; where two
   // labels' touch areas meet, the label nearest the finger takes the tap, and no touch area covers another label.
   const labelEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
+  const downAt = useRef<{ e: Explorer; x: number; y: number; t: number } | null>(null);
   const tapLabel = (e: Explorer, x: number, y: number) => {
     let best = e;
     let bestD = Infinity;
@@ -333,12 +370,40 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         best = k;
       }
     }
+    // Off every label's drawing, a touch on an explorer's drawn figure picks that explorer. The touch areas are cut
+    // back off the figures, but a browser may still hand a touch beside a label to that label.
+    if (bestD > 0) best = figureAt(x, y) ?? best;
     toggle(best);
   };
+  /** The explorer whose drawn figure (not its invisible tap padding) is nearest under the screen point, if any. */
+  const getThree = useThree((s) => s.get);
+  const figureRay = useMemo(() => new THREE.Raycaster(), []);
+  const figureAt = (x: number, y: number): Explorer | undefined => {
+    const { camera, gl } = getThree();
+    const c = gl.domElement.getBoundingClientRect();
+    figureRay.setFromCamera(new THREE.Vector2(((x - c.left) / c.width) * 2 - 1, -((y - c.top) / c.height) * 2 + 1), camera);
+    let found: Explorer | undefined;
+    let near = TAP_PAD_DEPTH;
+    for (const k of EXPLORERS) {
+      const g = groups.current[k];
+      if (!g || !g.visible) continue;
+      for (const hit of figureRay.intersectObject(g, true)) {
+        if (hit.distance < near) {
+          near = hit.distance;
+          found = k;
+        }
+      }
+    }
+    return found;
+  };
   // Where labels stand close, a label's touch area is cut back so it never covers another label's drawing:
-  // a touch on a label's own drawing always reaches that label.
+  // a touch on a label's own drawing always reaches that label. Nor does it cover an explorer's figure, its
+  // own included (on a small phone a 44-point pad reaches down over Pip's head): a touch on a figure always
+  // reaches the scene.
   const padEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
-  useFrame(() => {
+  useFrame(({ camera, gl }) => {
+    const c = gl.domElement.getBoundingClientRect();
+    const figures = Object.values(figureBoxes(groups.current, camera, c, figurePoint));
     for (const e of EXPLORERS) {
       const pad = padEls.current[e];
       const own = labelEls.current[e];
@@ -348,6 +413,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       // How far each side may be cut: never into the label's own drawing.
       const room = { top: Math.max(0, r.top - p.top), bottom: Math.max(0, p.bottom - r.bottom), left: Math.max(0, r.left - p.left), right: Math.max(0, p.right - r.right) };
       const cut = { top: 0, bottom: 0, left: 0, right: 0 };
+      // A figure is often partly behind the label itself: the pad gives up all it can on the figure's side.
+      for (const o of figures) {
+        if (o.right <= p.left || o.left >= p.right || o.bottom <= p.top || o.top >= p.bottom) continue;
+        if (o.top + o.bottom < r.top + r.bottom) cut.top = Math.max(cut.top, Math.min(room.top, o.bottom - p.top + 1));
+        else cut.bottom = Math.max(cut.bottom, Math.min(room.bottom, p.bottom - o.top + 1));
+      }
       for (const k of EXPLORERS) {
         const other = k === e ? undefined : labelEls.current[k];
         if (!other || !other.isConnected) continue;
@@ -422,11 +493,24 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                 aria-pressed={picked.includes(e)}
                 disabled={busy || over}
                 // The scene's own tap handling listens on the canvas's parent: a tap here is the label's alone.
-                onPointerDown={(ev) => ev.stopPropagation()}
+                onPointerDown={(ev) => {
+                  ev.stopPropagation();
+                  downAt.current = { e, x: ev.clientX, y: ev.clientY, t: performance.now() };
+                }}
                 onPointerUp={(ev) => ev.stopPropagation()}
                 onClick={(ev) => {
                   ev.stopPropagation();
-                  tapLabel(e, ev.clientX, ev.clientY);
+                  // Where the finger came down, not where the browser moved the tap to: a browser may hand a touch
+                  // beside a label to the label (a touch on a figure next to it included), and the click's point with it.
+                  const d = downAt.current;
+                  downAt.current = null;
+                  // A click with no finger or pointer behind it (Enter or Space on the focused label, or an assistive
+                  // tool that clicks the button itself) carries no real point: it picks this label's own explorer.
+                  if (ev.detail === 0 || !d || d.e !== e || performance.now() - d.t >= 1500) {
+                    toggle(e);
+                    return;
+                  }
+                  tapLabel(e, d.x, d.y);
                 }}
                 style={{
                   position: 'relative',

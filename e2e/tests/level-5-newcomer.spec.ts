@@ -100,6 +100,36 @@ test.describe('level 5: the name labels', () => {
     expectClean(faults);
   });
 
+  test('Enter or Space on each focused label picks that explorer, and again puts them back', async ({ page, faults }) => {
+    // A keyboard press (an iPad keyboard, Full Keyboard Access, Switch Control) clicks the label with no finger
+    // position behind it: it must pick that label's own explorer, never the one nearest the screen's corner.
+    await open(page);
+    for (const key of ['Enter', 'Space'] as const) {
+      for (const e of EXPLORERS) {
+        await settledPills(page);
+        await label(page, e).focus();
+        await page.keyboard.press(key);
+        await expect.poll(() => picked(page), { message: `${key} on ${NAMES[e]}'s label picks ${NAMES[e]} alone` }).toEqual([e]);
+        await page.waitForTimeout(500);
+        await label(page, e).focus();
+        await page.keyboard.press(key);
+        await expect.poll(() => picked(page), { message: `${key} again on ${NAMES[e]}'s label puts them back` }).toEqual([]);
+        await page.waitForTimeout(500);
+      }
+    }
+    // A click on the label's middle with no pointer events before it, as an assistive tool may send one.
+    for (const e of EXPLORERS) {
+      await label(page, e).evaluate((b) => {
+        const r = b.getBoundingClientRect();
+        b.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 }));
+      });
+      await expect.poll(() => picked(page), { message: `a bare click on ${NAMES[e]}'s label picks ${NAMES[e]} alone` }).toEqual([e]);
+      await page.waitForTimeout(500);
+      await tapLabel(page, e, [], 'start bank, after a bare click');
+    }
+    expectClean(faults);
+  });
+
   test('the refusal note and the hint cover no label', async ({ page, faults }) => {
     await open(page);
     await playMove(page, { walkers: ['pip', 'juno'] } satisfies Move, 1);
