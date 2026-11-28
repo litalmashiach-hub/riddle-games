@@ -1,12 +1,14 @@
 import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import type { Plugin } from 'vite';
 import { APP_INFO, APP_ONLY_WORDS, releaseAsked, releaseBlockers } from './src/about/appInfo';
 import { identityBlockers } from './src/about/identity';
+import { pageNameProblems } from './src/about/pageName';
 import { missingNotices, packageOf } from './src/about/notices';
 import { policyPhrases } from './src/about/privacyPolicy';
 
 /**
- * Three checks on every build, of the website and of the app alike:
+ * Four checks on every build, of the website and of the app alike:
  *
  * 1. Open-source notices. Every npm package whose code or fonts end up in the built files must have a
  *    notice in src/about/notices.ts. A package without one fails the build, by name.
@@ -19,14 +21,20 @@ import { policyPhrases } from './src/about/privacyPolicy';
  * 3. What each build may say. The website build (which every merge to main publishes) must not hold the
  *    privacy policy, the contact line or the working name anywhere in its built files; the app build must
  *    hold all three. See src/about/shown.ts and docs/about-screen.md.
+ * 4. The page's own name. The built index.html's title and the loading mark's spoken label carry the name
+ *    this build shows, and the app's page holds no other name (src/about/pageName.ts).
  */
 export function releaseChecks(): Plugin {
   let appBuild = false;
+  let mode = '';
+  let outDir = '';
   return {
     name: 'riddle-release-checks',
     apply: 'build',
     configResolved(config) {
       appBuild = config.mode === 'app';
+      mode = config.mode;
+      outDir = join(config.root, config.build.outDir);
     },
     buildStart() {
       const blockers = [...releaseBlockers(), ...identityBlockers(readFileSync(new URL('../mobile/ios/AppIdentity.xcconfig', import.meta.url), 'utf8'), APP_INFO)];
@@ -74,6 +82,12 @@ export function releaseChecks(): Plugin {
       if (appBuild && lost.length > 0) this.error(`The app build has lost ${lost.length} run(s) of words of its privacy policy, the first: "${lost[0]}". It must keep the Privacy page whole: see apps/web/src/about/shown.ts.`);
       this.info(appBuild ? 'app build: holds the privacy policy, the contact line and the working name' : 'website build: holds no privacy policy, no contact line and no working name');
       this.info(`open-source notices cover all ${shipped.size} packages in the bundle`);
+    },
+    // The page itself, as written to disk: its title and the loading mark's spoken label carry this build's name.
+    closeBundle() {
+      const problems = pageNameProblems(readFileSync(join(outDir, 'index.html'), 'utf8'), mode);
+      if (problems.length > 0) this.error(`The built index.html does not carry this build's one name:\n${problems.map((p) => `  - ${p}`).join('\n')}`);
+      this.info(`index.html: title and loading label say the shown name`);
     },
   };
 }
