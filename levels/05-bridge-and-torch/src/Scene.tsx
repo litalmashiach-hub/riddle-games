@@ -70,6 +70,32 @@ const standY = (x: number, z: number) => (Math.abs(x) < BRIDGE_HALF ? deckY(x) -
 /** The torch bearer (the faster walker) takes the lane nearer the camera, so the flame stays in view. */
 const laneOf = (walkers: Explorer[], e: Explorer) => (walkers.length === 1 ? 0 : walkers.indexOf(e) === 0 ? 1 : -1);
 
+interface ScreenBox {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+}
+
+/** Each standing figure's box on the screen: from the feet to just over the head, a body's width across. */
+function figureBoxes(groups: Partial<Record<Explorer, THREE.Group>>, camera: THREE.Camera, c: DOMRect, point: THREE.Vector3) {
+  const toScreen = (g: THREE.Group, x: number, y: number) => {
+    point.set(x, y, 0);
+    g.localToWorld(point).project(camera);
+    return [c.left + ((point.x + 1) / 2) * c.width, c.top + ((1 - point.y) / 2) * c.height];
+  };
+  const out: Partial<Record<Explorer, ScreenBox>> = {};
+  for (const k of EXPLORERS) {
+    const g = groups[k];
+    if (!g || !g.visible) continue;
+    const pts = [toScreen(g, -FIGURE_HALF, 0), toScreen(g, FIGURE_HALF, 0), toScreen(g, -FIGURE_HALF, EYE_HEIGHT[k] + HEAD_TOP), toScreen(g, FIGURE_HALF, EYE_HEIGHT[k] + HEAD_TOP)];
+    const xs = pts.map((q) => q[0]);
+    const ys = pts.map((q) => q[1]);
+    out[k] = { left: Math.min(...xs), right: Math.max(...xs), top: Math.min(...ys), bottom: Math.max(...ys) };
+  }
+  return out;
+}
+
 export function Scene({ state, previous, lastMove, status, play, busy, hint, resetCount, moveCount }: SceneProps<State, Move>) {
   /** Explorers picked for the next crossing (UI only, not a move yet). */
   const [picked, setPicked] = useState<Explorer[]>([]);
@@ -91,8 +117,15 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // The sound that follows the torch's splash when it burns out. An undo, a restart or leaving the level cancels it.
   const fizzle = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => clearTimeout(fizzle.current), []);
-  // The name labels step aside for each other when explorers stand close together.
-  const spread = useLabelSpread();
+  // The name labels step aside for each other when explorers stand close together, and stand clear of the other
+  // explorers' figures: a label drawn over a figure would take the touches meant for that explorer.
+  const getState = useThree((st) => st.get);
+  const figurePoint = useMemo(() => new THREE.Vector3(), []);
+  const spread = useLabelSpread(() => {
+    const { camera, gl } = getState();
+    const boxes = figureBoxes(groups.current, camera, gl.domElement.getBoundingClientRect(), figurePoint);
+    return Object.entries(boxes).map(([id, f]) => ({ id, box: { x: f.left, y: f.top, w: f.right - f.left, h: f.bottom - f.top } }));
+  });
   // drei's <Html> can come up empty if it mounts before the canvas has wired up its events,
   // so the 3D labels wait one frame.
   const [ready, setReady] = useState(false);
@@ -368,25 +401,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // own included (on a small phone a 44-point pad reaches down over Pip's head): a touch on a figure always
   // reaches the scene.
   const padEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
-  const figurePoint = useMemo(() => new THREE.Vector3(), []);
   useFrame(({ camera, gl }) => {
     const c = gl.domElement.getBoundingClientRect();
-    const toScreen = (g: THREE.Group, x: number, y: number) => {
-      figurePoint.set(x, y, 0);
-      g.localToWorld(figurePoint).project(camera);
-      return [c.left + ((figurePoint.x + 1) / 2) * c.width, c.top + ((1 - figurePoint.y) / 2) * c.height];
-    };
-    // Each standing figure's box on the screen: from the feet to just over the head, a body's width across.
-    const figures: { left: number; right: number; top: number; bottom: number }[] = [];
-    for (const k of EXPLORERS) {
-      const g = groups.current[k];
-      if (!g || !g.visible) continue;
-      const pts = [toScreen(g, -FIGURE_HALF, 0), toScreen(g, FIGURE_HALF, 0), toScreen(g, -FIGURE_HALF, EYE_HEIGHT[k] + HEAD_TOP), toScreen(g, FIGURE_HALF, EYE_HEIGHT[k] + HEAD_TOP)];
-      const xs = pts.map((q) => q[0]);
-      const ys = pts.map((q) => q[1]);
-      const [left, right, top, bottom] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
-      figures.push({ left, right, top, bottom });
-    }
+    const figures = Object.values(figureBoxes(groups.current, camera, c, figurePoint));
     for (const e of EXPLORERS) {
       const pad = padEls.current[e];
       const own = labelEls.current[e];

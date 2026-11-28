@@ -17,6 +17,12 @@ interface Entry {
   fresh: boolean;
 }
 
+/** Something on the screen that labels keep off, like a character's body. `id` is the label that may cover it. */
+export interface LabelObstacle {
+  id?: string;
+  box: LabelBox;
+}
+
 export interface LabelSpread {
   /** Ref for the element wrapped around one label. The same function every time for the same id. */
   ref(id: string): (el: HTMLElement | null) => void;
@@ -29,17 +35,21 @@ export interface LabelSpread {
  * Every frame the labels' boxes are read from the page; when some overlap they slide apart (see
  * `spreadLabels`), and a label that had to move away from its character points back at them.
  * Mark a label that is hidden with `data-off` so that it takes up no room.
+ *
+ * `obstacles`, read every frame, are screen boxes that labels keep off where they can (see `spreadLabels`):
+ * a label drawn over another character would take the touches meant for that character.
  */
-export function useLabelSpread(): LabelSpread {
+export function useLabelSpread(obstacles?: () => LabelObstacle[]): LabelSpread {
   const canvas = useThree((s) => s.gl.domElement);
   const entries = useMemo(() => new Map<string, Entry>(), []);
   const memo = useMemo(() => ({ key: '' }), []);
 
   useFrame((_, dtRaw) => {
     const live: Entry[] = [];
+    const ids: string[] = [];
     const boxes: LabelBox[] = [];
     let key = '';
-    for (const e of entries.values()) {
+    for (const [id, e] of entries) {
       const el = e.el;
       if (!el || !el.isConnected || el.dataset.off != null) {
         e.now = { dx: 0, dy: 0 };
@@ -52,9 +62,13 @@ export function useLabelSpread(): LabelSpread {
       // The box as it would be without our own shift.
       const box = { x: r.left - e.now.dx, y: r.top - e.now.dy, w: r.width, h: r.height };
       live.push(e);
+      ids.push(id);
       boxes.push(box);
       key += `${Math.round(box.x)},${Math.round(box.y)},${Math.round(box.w)},${Math.round(box.h)};`;
     }
+
+    const blocks = (obstacles?.() ?? []).map((o) => ({ box: o.box, owner: o.id == null ? undefined : ids.indexOf(o.id) }));
+    for (const { box } of blocks) key += `|${Math.round(box.x)},${Math.round(box.y)},${Math.round(box.w)},${Math.round(box.h)}`;
 
     // Only work the places out again when something moved by a pixel or more.
     if (key !== memo.key) {
@@ -65,6 +79,7 @@ export function useLabelSpread(): LabelSpread {
         boxes,
         bounds,
         live.map((e) => e.target),
+        { obstacles: blocks },
       );
       live.forEach((e, i) => (e.target = { dx: Math.round(out[i].dx), dy: Math.round(out[i].dy) }));
     }
