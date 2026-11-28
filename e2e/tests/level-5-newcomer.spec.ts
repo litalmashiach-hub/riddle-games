@@ -8,7 +8,7 @@ import { expect, expectClean, playMove, seedProgress, test, waitForSession } fro
  * Level 5 (Bridge and Torch) as a newcomer meets it (reports of the newcomer play-test):
  *  - a tap on an explorer's name label picks that explorer, on both banks, as a tap on the body does. From the
  *    phone's camera Bram stands behind Juno and the tent, so the label is what a player can aim at;
- *  - the refusal note and the hint cover no label;
+ *  - the refusal note and the hint cover no label, the hint also at the largest text size after every crossing;
  *  - the rules card points at the torch, not the crossings, and the loss card says how long the walk took,
  *    and both fit, at the standard text size and at the largest, at each iPhone size.
  * Every tap here is a touch on the screen, not a click made by script.
@@ -158,6 +158,41 @@ test.describe('level 5: the name labels', () => {
       height: number;
     };
     for (const e of EXPLORERS) expect(overlaps(hb, now[e]), `the hint covers ${NAMES[e]}'s label`).toBe(false);
+    expectClean(faults);
+  });
+
+  test('at the largest text size, after each crossing, the hint covers no label and no button', async ({ page, faults }) => {
+    // On a phone held sideways the grown toast fits nowhere between the labels on both banks and the "Pick" button:
+    // its words shrink until it does (hintPlace.ts, fitClear).
+    await setSystemBodySize(page, SYSTEM_BODY.ax5);
+    await open(page);
+    const path: Move[] = [{ walkers: ['pip', 'juno'] }, { walkers: ['pip'] }, { walkers: ['bram', 'mo'] }, { walkers: ['juno'] }];
+    for (const [i, move] of path.entries()) {
+      await playMove(page, move, i + 1);
+      // The last hint leaves with the move it spoke of.
+      const toast = page.getByTestId('hint-toast');
+      await expect(toast).toHaveCount(0, { timeout: 10_000 });
+      const pills = await settledPills(page);
+      await page.keyboard.press('h');
+      await expect(toast).toBeVisible();
+      // Once it has sprung in and taken its place.
+      await page.waitForTimeout(1000);
+      const { covered, size } = await toast.evaluate((el) => {
+        const r = el.getBoundingClientRect();
+        const covered = [...document.querySelectorAll('button')]
+          .filter((b) => {
+            const q = b.getBoundingClientRect();
+            return q.width > 1 && Math.min(q.right, r.right) > Math.max(q.left, r.left) && Math.min(q.bottom, r.bottom) > Math.max(q.top, r.top);
+          })
+          .map((b) => b.getAttribute('aria-label') || (b.textContent ?? '').trim());
+        return { covered, size: parseFloat(getComputedStyle(el).fontSize) };
+      });
+      expect(covered, `after crossing ${i + 1}, the hint covers no button`).toEqual([]);
+      const hb = (await toast.boundingBox())!;
+      for (const e of EXPLORERS) expect(overlaps(hb, pills[e]), `after crossing ${i + 1}, the hint covers ${NAMES[e]}'s label`).toBe(false);
+      // It never shrinks below the standard size.
+      expect(size, `after crossing ${i + 1}, the hint's words keep the standard size or more`).toBeGreaterThanOrEqual(16);
+    }
     expectClean(faults);
   });
 });
