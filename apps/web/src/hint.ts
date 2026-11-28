@@ -27,3 +27,11 @@ export function winLine(moves: number, best: number, hintsUsed: number): string 
   if (hintsUsed > 0) return 'That is the shortest solution! Can you do it without a hint?';
   return 'Perfect, that is the shortest solution!';
 }
+
+/**
+ * The extra line on the last level's win card, when that win means every riddle is solved.
+ * `count` is the number of levels in the game.
+ */
+export function finaleLine(count: number): string {
+  return `That was the last riddle, and you have solved all ${count}. Well done, riddle master!`;
+}

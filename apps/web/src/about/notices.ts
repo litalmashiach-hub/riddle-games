@@ -43,9 +43,10 @@ export const NOTICES: Notice[] = [
   { name: 'Fredoka (font)', use: 'titles and buttons', copyright: 'Copyright 2016 The Fredoka Project Authors (https://github.com/hafontia/Fredoka-One)', licence: 'OFL-1.1', packages: ['@fontsource/fredoka'] },
   { name: 'Nunito (font)', use: 'text', copyright: 'Copyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)', licence: 'OFL-1.1', packages: ['@fontsource/nunito'] },
   // The native shell (apps/mobile): linked into the iPhone and iPad app. Its JavaScript (@capacitor/core) and the
-  // haptics plugin's are in the app build's bundle too, where the build check finds them; the website has neither.
+  // two plugins' are in the app build's bundle too, where the build check finds them; the website has none of them.
   { name: 'Capacitor', use: 'the iPhone and iPad app shell', copyright: 'Copyright (c) 2017-present Drifty Co.', licence: 'MIT', packages: ['@capacitor/ios', '@capacitor/core'] },
   { name: 'Capacitor Haptics', use: 'the tap response in the iPhone and iPad app', copyright: 'Copyright 2020-present Ionic (https://ionic.io)', licence: 'MIT', packages: ['@capacitor/haptics'] },
+  { name: 'Capacitor Preferences', use: 'the second copy of your stars and settings in the iPhone and iPad app', copyright: 'Copyright 2020-present Ionic (https://ionic.io)', licence: 'MIT', packages: ['@capacitor/preferences'] },
   { name: 'Apache Cordova (inside Capacitor)', use: 'the iPhone and iPad app shell', copyright: 'Copyright The Apache Software Foundation', licence: 'Apache-2.0', packages: [] },
   // gainmap-js says in its source that its metadata reader is based on libultrahdr.
   { name: 'libultrahdr (basis of parts of gainmap-js)', use: 'image loading', copyright: 'Copyright The Android Open Source Project', licence: 'Apache-2.0', packages: [] },
