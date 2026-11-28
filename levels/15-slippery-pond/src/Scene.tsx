@@ -555,7 +555,13 @@ function ArrowPad({
   useCursor(hover);
   const [dx, dy] = STEP[dir];
   const color = hinted ? '#ffd166' : '#bef264';
-  const mat = useMemo(() => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 1.6, roughness: 0.4 }), [color]);
+  // Drawn over everything else: in the far rows the otter stands between the camera and its up arrow,
+  // which would hide the very move a player needs. Depth test off, and drawn last, so it always shows.
+  const mat = useMemo(
+    () => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 1.6, roughness: 0.4, depthTest: false, depthWrite: false, transparent: true }),
+    [color],
+  );
+  useEffect(() => () => mat.dispose(), [mat]);
   useFrame(({ clock }) => {
     const g = ref.current;
     if (!g) return;
@@ -582,7 +588,7 @@ function ArrowPad({
       <group ref={ref} scale={0.01}>
         {/* Shape points along +y; lay it flat and turn it to face the slide direction. */}
         <group rotation={[0, dirYaw(dir), 0]}>
-          <mesh geometry={arrowGeo} material={mat} rotation-x={Math.PI / 2} scale={(hinted ? 1.25 : 1) * (hover ? 1.06 : 1)} castShadow />
+          <mesh geometry={arrowGeo} material={mat} rotation-x={Math.PI / 2} scale={(hinted ? 1.25 : 1) * (hover ? 1.06 : 1)} renderOrder={ARROW_ON_TOP} castShadow />
         </group>
       </group>
       <mesh visible={false} rotation={[0, dirYaw(dir), 0]}>
@@ -592,6 +598,8 @@ function ArrowPad({
   );
 }
 
+/** Drawn after the otter, the pond and the props, so an arrow behind the otter shows through it. */
+const ARROW_ON_TOP = 10;
 /** Where the arrow's pad sits, out from the otter's middle, and its size: it covers the arrow as it bobs, with room to spare. */
 const PAD_AT = 0.76;
 const PAD_WIDE = 0.7;

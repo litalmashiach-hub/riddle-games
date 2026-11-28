@@ -397,6 +397,14 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         </group>
       ))}
 
+      {/* A coin's place on the table still answers while the coin is on a pan: "tap again" works where the
+          player tapped the first time, as well as on the coin itself. */}
+      {canAct &&
+        !accusing &&
+        Array.from({ length: COINS }, (_, i) => i)
+          .filter((i) => left.includes(i) || right.includes(i))
+          .map((i) => <EmptySpot key={i} coin={i} onTap={() => onCoin(i)} />)}
+
       {hintRings.map(({ coin, color, square }) => {
         const p = traySlot(coin);
         return square ? (
@@ -428,8 +436,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           {canAct && (
             <Controls
               used={used}
-              left={left.length}
-              right={right.length}
+              left={left}
+              right={right}
               accusing={accusing}
               picked={picked}
               clues={clues}
@@ -896,8 +904,8 @@ const btn = (tone: 'gold' | 'plain' | 'red' | 'blue', disabled = false): CSSProp
 
 interface ControlsProps {
   used: number;
-  left: number;
-  right: number;
+  left: number[];
+  right: number[];
   accusing: boolean;
   picked: number | null;
   clues: boolean;
@@ -953,8 +961,35 @@ const CONTROLS_CSS = `
   .tc-buttons .tc-small{margin-top:3px}
 }`;
 
+/** "1, 2, 5" in the order of the numbers, or "none". */
+const panList = (coins: number[]) => (coins.length ? [...coins].sort((a, b) => a - b).map(coinName).join(', ') : 'none');
+
+/**
+ * The empty place on the table of a coin that is on a pan. It answers a tap as the coin does (left pan,
+ * then right pan, then back), and a faint ring shows that it is there.
+ */
+function EmptySpot({ coin, onTap }: { coin: number; onTap(): void }) {
+  const p = traySlot(coin);
+  return (
+    <group position={[p.x, TABLE_Y + 0.014, p.z]}>
+      <Clickable onClick={onTap} hoverScale={1.08}>
+        <mesh rotation-x={-Math.PI / 2} raycast={noHit}>
+          <ringGeometry args={[COIN_R * 0.86, COIN_R, 36]} />
+          <meshBasicMaterial color="#ffe6b0" transparent opacity={0.35} depthWrite={false} />
+        </mesh>
+        <mesh visible={false} raycast={coinPad} position-y={0.12}>
+          <cylinderGeometry args={[0.4, 0.4, 0.34, 10]} />
+        </mesh>
+      </Clickable>
+    </group>
+  );
+}
+
 function Controls(p: ControlsProps) {
   const left = MAX_WEIGHINGS - p.used;
+  const nL = p.left.length;
+  const nR = p.right.length;
+  let pans: string | null = null;
   let message: string;
   let buttons: ReactNode;
   if (p.accusing) {
@@ -974,14 +1009,16 @@ function Controls(p: ControlsProps) {
     message =
       left === 0
         ? 'The balance is spent. Name the fake!'
-        : p.left + p.right === 0
+        : nL + nR === 0
           ? 'Tap coins to load the pans.'
-          : p.left !== p.right
-            ? `Left ${p.left} · Right ${p.right}: the pans need the same number.`
-            : `Left ${p.left} · Right ${p.right}: ready to weigh.`;
+          : nL !== nR
+            ? `${nL} against ${nR}: the pans need the same number.`
+            : `${nL} against ${nR}: ready to weigh.`;
+    // Which coins lie on each pan: on the pans they lie flat in a pile, and their numbers can't be read there.
+    if (left > 0 && nL + nR > 0) pans = `Left: ${panList(p.left)} · Right: ${panList(p.right)}`;
     buttons = (
       <>
-        {p.left + p.right > 0 && (
+        {nL + nR > 0 && (
           <button style={btn('plain')} onClick={p.onClear}>Clear</button>
         )}
         {left > 0 && (
@@ -999,6 +1036,11 @@ function Controls(p: ControlsProps) {
   return (
     <div className="tc-controls">
       <div style={{ ...panel, padding: '8px 10px', maxWidth: 560 }}>
+        {pans && (
+          <div className="tc-pans" style={{ textAlign: 'center', fontSize: 13, fontWeight: 700, marginBottom: 2, color: '#fff3d6' }}>
+            {pans}
+          </div>
+        )}
         <div style={{ textAlign: 'center', fontSize: 13, marginBottom: 6, color: '#ffe6b0' }}>{message}</div>
         <div className="tc-buttons">{buttons}</div>
       </div>
