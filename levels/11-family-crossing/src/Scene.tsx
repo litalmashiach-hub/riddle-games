@@ -166,7 +166,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
 
   // A tap on a name label picks that person, the same as a tap on the body (see labelTaps.tsx): the labels are
   // what people aim at, and on the crowded far bank the label spreader moves them over other people.
-  const labelTaps = useLabelTaps(PEOPLE, toggle);
+  const figures = useRef<Partial<Record<Person, THREE.Object3D>>>({});
+  const labelTaps = useLabelTaps(PEOPLE, toggle, figures);
 
   const castOff = () => {
     if (busy || over) return;
@@ -251,6 +252,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           onClick={() => toggle(p)}
           spread={spread}
           taps={labelTaps}
+          register={(o) => (figures.current[p] = o ?? undefined)}
         />
       ))}
 
@@ -291,9 +293,10 @@ interface ActorProps {
   onClick(): void;
   spread: LabelSpread;
   taps: LabelTaps<Person>;
+  register(o: THREE.Object3D | null): void;
 }
 
-function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, fail, won, busy, disabled, showLabel, hinted, onClick, spread, taps }: ActorProps) {
+function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, fail, won, busy, disabled, showLabel, hinted, onClick, spread, taps, register }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const side = state[who];
   const rideIndex = forward && previous ? (lastMove?.riders.indexOf(who) ?? -1) : -1;
@@ -329,6 +332,10 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
   }, [animKey]);
 
   usePath(ref, segs, animKey, { face: false });
+  useEffect(() => {
+    register(ref.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Facing: toward the river on a bank, toward the far bank on the raft, toward the trouble on a loss.
   const facing = useRef<THREE.Group>(null);

@@ -372,7 +372,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   };
   // A tap on a time label picks that traveller, the same as a tap on the body (see labelTaps.tsx): the labels are
   // what people aim at, and the label spreader often moves one over someone else.
-  const labelTaps = useLabelTaps(TRAVELLERS, toggle);
+  const labelTaps = useLabelTaps(TRAVELLERS, toggle, actors);
   const cross = () => {
     if (busy || over || picked.length === 0) {
       if (picked.length === 0) {
