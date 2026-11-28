@@ -5,7 +5,9 @@
  * The note is first tried above the piece, then beside it and below it. Where each of those covers something
  * the player must still see (a Hint mark, or a button of the scene or the HUD), it is also tried pushed just
  * clear of each thing it covers, and a little further off. The first place that covers nothing wins; if every
- * place covers something, the one that covers least. Every place is kept wholly on the screen.
+ * place covers something, the wider search (`room`) looks over the whole screen for the free place nearest the
+ * piece; only where the screen has none does the near place that covers least stand. Every place is kept wholly
+ * on the screen.
  */
 
 /** A box on the screen, in pixels: left, top, right, bottom. */
@@ -82,4 +84,38 @@ export function pick(list: Spot[], cost: (s: Spot) => number): { spot: Spot; ind
     if (covered === 0) break;
   }
   return best;
+}
+
+/** How far apart, in pixels, the places of the wider search lie (`room`). */
+export const ROOM_STEP = 8;
+
+/**
+ * Where no place near the piece is free (a grown note on a small screen can be half its width), the wider
+ * search: every place on the screen, `ROOM_STEP` pixels apart, whose note box meets none of `things` (each
+ * already grown by its clearance) and leaves the piece itself in view (`piece`, its box from top to foot),
+ * nearest the piece's top first. Empty when the screen has no such room; then the near place that covers
+ * least still stands.
+ */
+export function room(top: Spot, piece: Box, w: number, h: number, width: number, height: number, things: Box[]): Spot[] {
+  const out: (Spot & { d: number })[] = [];
+  const x0 = EDGE + w / 2;
+  const x1 = width - EDGE - w / 2;
+  const y0 = EDGE + h;
+  const y1 = height - EDGE;
+  if (x1 < x0 || y1 < y0) return [];
+  const xs: number[] = [];
+  for (let x = x0; x < x1; x += ROOM_STEP) xs.push(x);
+  xs.push(x1);
+  const ys: number[] = [];
+  for (let y = y0; y < y1; y += ROOM_STEP) ys.push(y);
+  ys.push(y1);
+  const avoid = [piece, ...things];
+  for (const y of ys)
+    for (const x of xs) {
+      const box = noteBox({ x, y }, w, h);
+      if (avoid.some((t) => overlap(box, t) > 0)) continue;
+      out.push({ x, y, d: (x - top.x) ** 2 + (y - top.y) ** 2 });
+    }
+  out.sort((a, b) => a.d - b.d);
+  return out.map(({ x, y }) => ({ x, y }));
 }

@@ -110,6 +110,13 @@ interface Seen {
   wordsWhole: boolean;
   /** Buttons of the scene or the HUD that the note covers, with the square pixels covered. */
   buttonsCovered: { name: string; px: number }[];
+  /** HUD panels that are no button (the score card, the level's name: `data-hud-panel`) that the note meets, with the square pixels. */
+  panelsCovered: { name: string; px: number }[];
+  /**
+   * Whatever of the page is drawn over the note (a HUD panel, a button, the hint's words, a level's label), found
+   * the way the browser stacks it: points of the pill, 4 pixels apart, where another element lies above it.
+   */
+  drawnOver: { name: string; points: number }[];
 }
 
 /** Records every refusal mark as it comes up and goes, in `window.__refusals`. */
@@ -157,8 +164,55 @@ const WATCH_REFUSALS = () => {
               const px = Math.max(0, Math.min(r.right, b.right) - Math.max(r.left, b.left)) * Math.max(0, Math.min(r.bottom, b.bottom) - Math.max(r.top, b.top));
               if (px > 0) covered.push({ name: (el.getAttribute('aria-label') || el.textContent || el.tagName).trim().slice(0, 40), px: Math.round(px) });
             }
+            const panels: { name: string; px: number }[] = [];
+            for (const el of document.querySelectorAll<HTMLElement>('[data-hud-panel]')) {
+              const r = el.getBoundingClientRect();
+              if (r.width < 1 || r.height < 1 || getComputedStyle(el).visibility === 'hidden') continue;
+              const px = Math.max(0, Math.min(r.right, b.right) - Math.max(r.left, b.left)) * Math.max(0, Math.min(r.bottom, b.bottom) - Math.max(r.top, b.top));
+              if (px > 0) panels.push({ name: (el.getAttribute('aria-label') || el.textContent || el.tagName).trim().slice(0, 40), px: Math.round(px) });
+            }
+            // What is stacked above the pill: every element is made to answer the hit test for a moment (the note
+            // and most labels take no touch), then put back before anything is drawn.
+            const over = new Map<string, number>();
+            const force = document.createElement('style');
+            force.textContent = '*{pointer-events:auto!important}';
+            document.head.appendChild(force);
+            const seen = (el: Element) => {
+              for (let e: Element | null = el; e; e = e.parentElement) if (getComputedStyle(e).opacity === '0') return false;
+              return true;
+            };
+            // Only what paints at that point hides the note: a fill, a picture, an image, or its own words there (the
+            // boxes of its text, not its whole line box). A bare layout box (the HUD's full-width bars) is see-through.
+            const paints = (el: Element, x: number, y: number) => {
+              if (/^(img|svg|canvas|video|path|circle|rect|polygon|line|use)$/i.test(el.tagName)) return true;
+              const cs = getComputedStyle(el);
+              if (cs.backgroundImage !== 'none' || !/rgba\(.*, 0\)$|^transparent$/.test(cs.backgroundColor)) return true;
+              const range = document.createRange();
+              return [...el.childNodes].some((c) => {
+                if (c.nodeType !== 3 || (c.textContent ?? '').trim() === '') return false;
+                range.selectNodeContents(c);
+                return [...range.getClientRects()].some((q) => x >= q.left && x <= q.right && y >= q.top && y <= q.bottom);
+              });
+            };
+            const pb = pill.getBoundingClientRect();
+            for (let y = pb.top + 2; y < pb.bottom - 1; y += 4)
+              for (let x = pb.left + 2; x < pb.right - 1; x += 4) {
+                const stack = document.elementsFromPoint(x, y);
+                const at = stack.findIndex((e) => pill.contains(e));
+                // A point outside the pill's rounded ends hits nothing of it: it is not the note's.
+                if (at < 0) continue;
+                for (const e of stack.slice(0, at)) {
+                  if (holder.contains(e) || !paints(e, x, y) || !seen(e)) continue;
+                  const name = `${e.tagName.toLowerCase()} ${(e.getAttribute('aria-label') || e.getAttribute('data-testid') || e.textContent || '').trim().slice(0, 40)}`;
+                  over.set(name, (over.get(name) ?? 0) + 1);
+                  break;
+                }
+              }
+            force.remove();
             const words = pill.lastElementChild as HTMLElement | null;
             return {
+              panelsCovered: panels,
+              drawnOver: [...over].map(([name, points]) => ({ name, points })),
               fontSize: parseFloat(cs.fontSize),
               growth: Number(document.documentElement.dataset.textGrow ?? 1) || 1,
               wordsWhole: pill.scrollWidth <= pill.clientWidth + 1 && pill.scrollHeight <= pill.clientHeight + 1 && (!words || words.scrollWidth <= words.clientWidth + 1),
@@ -408,7 +462,8 @@ for (const motion of ['no-preference', 'reduce'] as const) {
 /**
  * Larger Text (docs/larger-text.md): every refused tap of every case above, at the standard text size and the
  * largest, with Hint's marks up. The note's words grow with the setting (twice at the largest), show whole, and
- * the note covers no point of a Hint mark and no button of the scene or the HUD, on the iPhone sizes and the iPad.
+ * the note covers no point of a Hint mark, no button of the scene or the HUD and no HUD panel (the score card), and
+ * nothing of the page is drawn over it, on the iPhone sizes and the iPad.
  * The website build follows the setting with `?debug` (textSize.ts), as the app does.
  */
 const NOTE_SIZE = (width: number) => Math.round(Math.max(14, Math.min(18, width / 48)));
@@ -462,6 +517,9 @@ for (const text of [
         expect(look.inView, `the note lies in the screen (${JSON.stringify(look.rect)})`).toBe(true);
         expect(look.ringPoints, `points of a Hint mark under the note (at ${JSON.stringify(look.rect)})`).toBe(0);
         expect(look.buttonsCovered, `buttons under the note (at ${JSON.stringify(look.rect)})`).toEqual([]);
+        // No HUD panel either, the score card first: the HUD is drawn over the note, so a panel there hides its words.
+        expect(look.panelsCovered, `HUD panels that meet the note (at ${JSON.stringify(look.rect)})`).toEqual([]);
+        expect(look.drawnOver, `what is drawn over the note (at ${JSON.stringify(look.rect)})`).toEqual([]);
         expect(look.pointer, 'the note takes no touch').toBe('none');
         expect((await snapshot(page)).moves.length, 'the refused tap made no move').toBe(before.moves.length);
         await expect(page.locator('[data-refusal]'), 'the note clears by itself').toHaveCount(0, { timeout: 5_000 });
