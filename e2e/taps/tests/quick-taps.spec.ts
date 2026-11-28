@@ -27,6 +27,20 @@ const crystalAt = (mirror: number): Vec3 => {
  */
 
 const GAP_MS = 400;
+/**
+ * A slow test machine can stretch a touch past a whole move, so that the case this file is about (a touch
+ * while a move animates) does not come up at all. Such a try proves nothing either way: the level is
+ * restarted and tapped again, at most this many times. A try that came up and went wrong fails at once.
+ */
+const TRIES = 3;
+
+/** Back to the level's start, through the game's own Restart button, with the touch count at 0. */
+async function restart(page: import('@playwright/test').Page) {
+  await page.evaluate(() => (document.querySelector('button[aria-label="Restart"]') as HTMLButtonElement).click());
+  await page.waitForFunction(() => window.__riddle!.getState().moves.length === 0);
+  await waitIdle(page);
+  await page.evaluate(() => ((window as any).__busyTouches = 0));
+}
 
 interface Case {
   id: string;
@@ -118,10 +132,15 @@ for (const c of CASES) {
     const moves = level.moves as any[];
     const quick = Math.min(c.quick, moves.length);
     const worlds = moves.slice(0, quick).flatMap((m) => c.touches(m));
-    await tapOnBeat(page, await pointsOf(taps, worlds));
-    await expectSolutionPrefix(page, moves, quick);
-    // A slow machine stretches the beat, so check that some touches really came while a move animated.
-    if (!c.overlapUnsure) expect(await page.evaluate(() => (window as any).__busyTouches), 'touches made while a move animated').toBeGreaterThan(0);
+    for (let tri = 1; ; tri++) {
+      await tapOnBeat(page, await pointsOf(taps, worlds));
+      await expectSolutionPrefix(page, moves, quick);
+      // A slow machine stretches the beat, so check that some touches really came while a move animated.
+      const overlap = await page.evaluate(() => (window as any).__busyTouches);
+      if (c.overlapUnsure || overlap > 0) break;
+      if (tri === TRIES) expect(overlap, `touches made while a move animated, in ${TRIES} tries`).toBeGreaterThan(0);
+      await restart(page);
+    }
     // The rest at a calm pace, so the level is won.
     for (let i = quick; i < moves.length; i++) {
       for (const p of await pointsOf(taps, c.touches(moves[i]))) {
@@ -148,31 +167,40 @@ for (const button of ['Undo', 'Restart']) {
     const taps = new Taps(page, level, page.viewportSize()!);
     const [first, second] = level.moves as any[];
     const points = await pointsOf(taps, [crystalAt(first.mirror), crystalAt(second.mirror)]);
-    await page.evaluate((label) => {
-      const w = window as any;
-      w.__pressed = null;
-      // The first touch that comes down while a move animates: once it is lifted (and the scene has held it), press.
-      const down = () => {
-        if (!w.__riddle.getState().busy) return;
-        document.removeEventListener('pointerdown', down, true);
-        const up = () => {
-          document.removeEventListener('pointerup', up, true);
-          setTimeout(() => {
-            w.__busyAtPress = w.__riddle.getState().busy;
-            (document.querySelector(`button[aria-label="${label}"]`) as HTMLButtonElement).click();
-            w.__pressed = w.__riddle.getState().moves.length;
-          }, 0);
+    for (let tri = 1; ; tri++) {
+      await page.evaluate((label) => {
+        const w = window as any;
+        w.__pressed = null;
+        // The first touch that comes down while a move animates: once it is lifted (and the scene has held it), press.
+        const down = () => {
+          if (!w.__riddle.getState().busy) return;
+          document.removeEventListener('pointerdown', down, true);
+          const up = () => {
+            document.removeEventListener('pointerup', up, true);
+            setTimeout(() => {
+              w.__busyAtPress = w.__riddle.getState().busy;
+              (document.querySelector(`button[aria-label="${label}"]`) as HTMLButtonElement).click();
+              w.__pressed = w.__riddle.getState().moves.length;
+            }, 0);
+          };
+          document.addEventListener('pointerup', up, true);
         };
-        document.addEventListener('pointerup', up, true);
-      };
-      document.addEventListener('pointerdown', down, true);
-    }, button);
-    // The second touch goes down as soon as the first move is seen to start (1.9 s of animation follow).
-    await tapOnBeat(page, points.slice(0, 1));
-    await page.waitForFunction(() => window.__riddle!.getState().busy, undefined, { timeout: 20_000 });
-    await tapOnBeat(page, points.slice(1));
-    await page.waitForFunction(() => (window as any).__pressed !== null, undefined, { timeout: 20_000 });
-    expect(await page.evaluate(() => (window as any).__busyAtPress), `the first move still animated when ${button} was pressed`).toBe(true);
+        document.addEventListener('pointerdown', down, true);
+      }, button);
+      // The second touch goes down as soon as the first move is seen to start (1.9 s of animation follow).
+      await tapOnBeat(page, points.slice(0, 1));
+      await page.waitForFunction(() => window.__riddle!.getState().busy, undefined, { timeout: 20_000 });
+      await tapOnBeat(page, points.slice(1));
+      await page.waitForFunction(() => (window as any).__pressed !== null, undefined, { timeout: 20_000 });
+      // The first move was over before the button was pressed: a slow machine, and the case did not come up.
+      const busyAtPress = await page.evaluate(() => (window as any).__busyAtPress);
+      if (busyAtPress || tri === TRIES) {
+        expect(busyAtPress, `the first move still animated when ${button} was pressed, in ${TRIES} tries`).toBe(true);
+        break;
+      }
+      await page.waitForTimeout(3000);
+      await restart(page);
+    }
     expect(await page.evaluate(() => (window as any).__pressed), `no move left once ${button} was pressed`).toBe(0);
     // Long enough for a held tap to have acted, had it been kept.
     await page.waitForTimeout(3000);
