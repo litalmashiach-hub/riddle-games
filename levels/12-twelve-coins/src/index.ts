@@ -13,9 +13,10 @@ const level: RiddleLevel<State, Move> = {
     'You may use the great balance only 3 times.',
     'Then name the fake coin and say if it is heavier or lighter.',
     'The vault is cunning: a lucky guess never works. Only a plan that covers every case will open it.',
+    'Weighing all 12 at once won’t tell you enough.',
   ],
   controls: [
-    'Tap a coin to put it on the left pan, tap again for the right pan, once more to take it back.',
+    'Tap a coin to put it on the left pan. Tap again, on the coin or on its empty place, for the right pan, and once more to take it back.',
     'Press Weigh when both pans hold the same number of coins.',
     'Press Name the fake, tap a coin, then choose heavier or lighter.',
   ],
