@@ -13,7 +13,7 @@ import { GuideOverlay, GuideTracker } from '../components/FirstPlayGuide';
 import { SceneGuard, sceneWaitMs } from '../components/SceneGuard';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
-import { hintLine, hintOutlived, winLine } from '../hint';
+import { hintLine, hintOutlived, restartLeads, winLine } from '../hint';
 import { returnFocus } from '../focusReturn';
 import { useTextGrown } from '../textSize';
 import { useLiftClear } from '../hintPlace';
@@ -140,10 +140,21 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
     </div>
   );
 
+  // A loss that one Undo can't save leads with Restart, in a level that asks for it.
+  const lostLeadsRestart = useMemo(() => s.ended && restartLeads(s), [s.ended, s.history, s.status, s.level]);
   const lostButtons = (
     <div className={`grid grid-cols-2 gap-2 ${grown ? 'mt-2' : 'mt-5 short:mt-4'}`}>
-      <Button tone="gold" onClick={s.undo}><UndoIcon />Undo</Button>
-      <Button onClick={s.restart}><RestartIcon />Restart</Button>
+      {lostLeadsRestart ? (
+        <>
+          <Button tone="gold" onClick={s.restart}><RestartIcon />Restart</Button>
+          <Button onClick={s.undo}><UndoIcon />Undo</Button>
+        </>
+      ) : (
+        <>
+          <Button tone="gold" onClick={s.undo}><UndoIcon />Undo</Button>
+          <Button onClick={s.restart}><RestartIcon />Restart</Button>
+        </>
+      )}
     </div>
   );
 

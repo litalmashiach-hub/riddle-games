@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { moonSfx, useSoundUnlock } from './audio';
 import { Beam } from './Beam';
+import { TurnPreview } from './Preview';
 import { Fireflies, LagoonShore, NightWater } from './Lagoon';
 import { useLayout } from './context';
 import { PAD_Y, beamPath, cellPos, cellZ, sharedLength, sourcePos, type V3 } from './layout';
@@ -154,6 +155,9 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
   const moonGlow = useRef(1);
   const frac = state.turns / LAYOUT.maxTurns;
 
+  // The would-be beams show once today's beam has reached its end, and hide while anything moves.
+  const [settled, setSettled] = useState(false);
+
   useFrame((_, dt) => {
     const g = grow.current;
     const now = performance.now();
@@ -171,6 +175,8 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
     });
     // The quiet relight ends on the first frame that shows the whole beam, undimmed.
     if (quiet && !dark && rv >= path.total) quietRelight.current = false;
+    const nowSettled = !grow.current && reveal.current >= path.total - 0.01;
+    if (nowSettled !== settled) setSettled(nowSettled);
     path.mirrorAt.forEach((d, i) => {
       const on = rv >= d - 0.01;
       if (on && !litMirrors.current[i] && (grow.current || rv < path.total)) moonSfx.ping();
@@ -213,6 +219,7 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
       <Toad c={LAYOUT.toad.c} r={LAYOUT.toad.r} mode={toadMode} facing={facing} fly={fly} />
 
       <Beam path={path} reveal={reveal} power={power} />
+      <TurnPreview state={state} layout={LAYOUT} path={path} show={settled && !busy && !over} />
 
       {hintCell && !busy && !over && <HintRing position={cellPos(hintCell.c, hintCell.r, PAD_Y + 0.09)} radius={0.66} />}
       <TurnsBadge left={turnsLeft} />

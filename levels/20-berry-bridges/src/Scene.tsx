@@ -2,13 +2,14 @@ import type { SceneProps } from '@riddle/engine';
 import { Burst, Clickable, DizzyStars, FocusCam, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
 import { HintRing, toon } from '@riddle/props';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useRef, useState } from 'react';
+import { Html } from '@react-three/drei';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Backdrop } from './Backdrop';
 import { Hedgehog, type Mood } from './Hedgehog';
 import { Bridges, Islets } from './Islets';
 import { ISLET_XZ, RAFT, SPANS, TOP, standAt } from './layout';
-import { BRIDGES, ON_RAFT, bridgeBetween, reachable, type Move, type State } from './rules';
+import { BRIDGES, ON_RAFT, badStart, bridgeBetween, reachable, type Move, type State } from './rules';
 
 const STEP_MS = 330;
 const START_HOP_MS = 820;
@@ -89,6 +90,9 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
     }
   };
 
+  // A start from which no walk crosses every bridge says so at once, not nine moves later.
+  const doomed = useMemo(() => badStart(state), [state]);
+
   const mood: Mood = won ? 'happy' : fail ?? 'idle';
   const hintIslet = hint && !busy && !over ? hint.to : -1;
 
@@ -121,7 +125,41 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
       <FocusCam target={[here[0], 0.3, here[2]]} active={!!fail} closer={0.62} />
 
       <Burst trigger={burst} position={[0, 1.4, 0]} />
+      {doomed && !busy && !over && <BadStartNote first={moveCount === 1} />}
     </group>
+  );
+}
+
+/**
+ * The plain note after a start that can't win. Pinned to the screen's bottom middle, between the buttons
+ * at the sides and below the islets, so it covers no islet at any size and stays clear of the Hint line at the top.
+ */
+function BadStartNote({ first }: { first: boolean }) {
+  return (
+    <Html fullscreen zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+      <div style={{ position: 'absolute', left: 0, right: 0, bottom: 'max(10px, env(safe-area-inset-bottom))', display: 'flex', justifyContent: 'center', pointerEvents: 'none' }}>
+        <div
+          data-testid="bad-start-note"
+          role="status"
+          style={{
+            fontFamily: 'Fredoka, system-ui, sans-serif',
+            fontWeight: 600,
+            fontSize: 15,
+            lineHeight: 1.25,
+            padding: '6px 14px',
+            borderRadius: 14,
+            maxWidth: 'min(360px, calc(100vw - 230px))',
+            textAlign: 'center',
+            color: '#3b1d0a',
+            background: 'linear-gradient(#fde68a,#fbbf24)',
+            border: '1.5px solid #fff7d6',
+            boxShadow: '0 4px 14px rgba(0,0,0,.35)',
+          }}
+        >
+          {first ? 'From this islet Bramble can never cross every bridge. Undo and start on another one!' : 'Bramble started on an islet where he can never cross every bridge. Restart and pick another!'}
+        </div>
+      </div>
+    </Html>
   );
 }
 

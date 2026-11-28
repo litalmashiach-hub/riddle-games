@@ -1,4 +1,4 @@
-import type { RiddleRules } from '@riddle/engine';
+import { solve, type RiddleRules } from '@riddle/engine';
 
 /**
  * Berry Bridges (an "Euler walk", after the seven bridges of Königsberg).
@@ -73,3 +73,29 @@ export const rules: RiddleRules<State, Move> = {
   key: (s) => `${s.at}|${s.used}`,
   describeMove: (m, s) => (s.at === ON_RAFT ? `Start on the ${ISLAND_NAMES[m.to]} islet` : `Cross the bridge to the ${ISLAND_NAMES[m.to]} islet`),
 };
+
+/**
+ * The islet Bramble started on, worked out from the sunk bridges alone: a walk from A to B leaves A and B
+ * with an odd number of sunk bridges each and every other islet even, and a walk back to its start leaves
+ * all of them even. ON_RAFT before the first move.
+ */
+export function startOf(s: State): number {
+  if (s.at === ON_RAFT) return ON_RAFT;
+  for (let i = 0; i < ISLANDS; i++) {
+    if (i === s.at) continue;
+    const sunk = BRIDGES.filter(([a, b], k) => isUsed(s, k) && (a === i || b === i)).length;
+    if (sunk % 2) return i;
+  }
+  return s.at;
+}
+
+/** True when Bramble is still walking but can no longer cross every bridge, whatever he does next. */
+export function noWinLeft(s: State): boolean {
+  return s.at !== ON_RAFT && rules.status(s).kind === 'playing' && solve(rules, s) === null;
+}
+
+/** True when the start itself was the mistake: from that islet no walk crosses every bridge. */
+export function badStart(s: State): boolean {
+  const start = startOf(s);
+  return start !== ON_RAFT && solve(rules, { at: start, used: 0 }) === null;
+}

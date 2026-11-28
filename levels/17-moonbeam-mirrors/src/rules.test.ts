@@ -1,7 +1,7 @@
 import { solve } from '@riddle/engine';
 import { describe, expect, it } from 'vitest';
 import level from './index';
-import { LAYOUT, rules, trace, type State } from './rules';
+import { LAYOUT, rules, trace, turnPreviews, type State } from './rules';
 
 
 describe('Moonbeam Mirrors', () => {
@@ -55,5 +55,32 @@ describe('Moonbeam Mirrors', () => {
     const st = rules.status(s);
     expect(st.kind).toBe('lost');
     expect(st.kind === 'lost' && st.reason).toMatch(/moon/);
+  });
+
+  it('previews the first tap: the one crystal in the beam would send it into the toad', () => {
+    const p = turnPreviews(rules.initialState);
+    expect(p.map((x) => LAYOUT.mirrors[x.mirror])).toEqual([{ c: 1, r: 2, start: '/' }]);
+    expect(p[0].toad).toBe(true);
+    expect(p[0].trace.end).toBe('toad');
+  });
+
+  it('previews exactly what each turn of a crystal in the beam does, and only those crystals', () => {
+    // Walk the solution and a few decoy turns; at every step the preview must agree with the rules.
+    const sol = solve(rules)!.moves;
+    let s = rules.initialState;
+    const steps = [...sol.slice(0, 3), { mirror: 6 }, { mirror: 6 }, ...sol.slice(3)];
+    for (const m of steps) {
+      if (rules.status(s).kind !== 'playing') break;
+      const inBeam = new Set(trace(s).bounced);
+      const previews = turnPreviews(s);
+      expect(new Set(previews.map((p) => p.mirror))).toEqual(inBeam);
+      for (const p of previews) {
+        const after = rules.apply(s, { mirror: p.mirror });
+        expect(p.trace).toEqual(trace(after));
+        const st = rules.status(after);
+        expect(p.toad).toBe(st.kind === 'lost' && /toad/.test(st.reason));
+      }
+      s = rules.apply(s, m);
+    }
   });
 });

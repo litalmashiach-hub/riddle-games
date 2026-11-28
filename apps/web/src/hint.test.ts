@@ -1,6 +1,6 @@
 import { createSession, type RiddleLevel, type RiddleRules } from '@riddle/engine';
 import { describe, expect, it } from 'vitest';
-import { NO_WIN_LEFT, hintLine, hintOutlived, winLine } from './hint';
+import { NO_WIN_LEFT, hintLine, hintOutlived, restartLeads, winLine } from './hint';
 
 /** Count from 0 to exactly 3 by adding 1 or 2. Past 3 no win is left; 5 or more is lost. */
 const rules: RiddleRules<number, number> = {
@@ -108,5 +108,23 @@ describe('the win card line', () => {
     expect(line).not.toMatch(/Can you do it\?/);
     expect(line).not.toMatch(/The best is/);
     expect(line).toMatch(/without a hint/);
+  });
+});
+
+describe('restartLeads', () => {
+  const lost = { kind: 'lost', reason: 'Too far' } as const;
+  const stuck = { ...level, restartWhenStuck: true } as RiddleLevel<number, number>;
+
+  it('leads with Restart only in a level that asks, and only when one Undo cannot save the game', () => {
+    // 0, 2, 4, 6: from 4 no win is left, so Undo back to it saves nothing.
+    expect(restartLeads({ level: stuck, history: [0, 2, 4, 6], status: lost })).toBe(true);
+    expect(restartLeads({ level, history: [0, 2, 4, 6], status: lost })).toBe(false);
+    // A position before the losing move that still has a win: Undo stays first.
+    expect(restartLeads({ level: stuck, history: [0, 1, 5], status: lost })).toBe(false);
+  });
+
+  it('says nothing while the level is still played or before any move', () => {
+    expect(restartLeads({ level: stuck, history: [0, 2, 4], status: { kind: 'playing' } })).toBe(false);
+    expect(restartLeads({ level: stuck, history: [5], status: lost })).toBe(false);
   });
 });
