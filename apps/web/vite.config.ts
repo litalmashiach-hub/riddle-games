@@ -5,6 +5,7 @@ import { readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node
 import { join, relative } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
 import { releaseChecks } from './releaseChecks';
+import { nameForMode, withShownName } from './src/about/pageName';
 
 /** Lists every built file into dist/sw.js so the installed app works offline. */
 function offlineServiceWorker(): Plugin {
@@ -58,6 +59,17 @@ function stripWebAppParts(): Plugin {
 }
 
 /**
+ * The page title and the loading mark's spoken label carry the name this build shows: the working name in
+ * the app, the website's name on the website (src/about/pageName.ts). In dev too, so the dev server matches.
+ */
+function shownNameInPage(mode: string): Plugin {
+  return {
+    name: 'riddle-shown-name',
+    transformIndexHtml: { order: 'pre', handler: (html) => withShownName(html, nameForMode(mode)) },
+  };
+}
+
+/**
  * Two builds from the same source:
  * - `vite build` (default): the website, into dist/, with the offline service worker. Unchanged.
  * - `vite build --mode app`: the content of the native app, into dist-app/. No service worker,
@@ -68,7 +80,7 @@ export default defineConfig(({ mode }) => {
   return {
     // Relative base so the build works on GitHub Pages, Vercel or any static host.
     base: './',
-    plugins: [react(), tailwindcss(), appShell ? stripWebAppParts() : offlineServiceWorker(), releaseChecks()],
+    plugins: [shownNameInPage(mode), react(), tailwindcss(), appShell ? stripWebAppParts() : offlineServiceWorker(), releaseChecks()],
     build: {
       outDir: appShell ? 'dist-app' : 'dist',
       chunkSizeWarningLimit: 2000,
