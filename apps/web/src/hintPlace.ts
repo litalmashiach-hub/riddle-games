@@ -79,6 +79,37 @@ export function placeClear(toast: Box, buttons: Box[], highest: number, room: { 
   return best ?? { lift, shift: 0 };
 }
 
+/** True when the toast `toast`, placed as `p` says, covers none of `buttons`. */
+export const clearOf = (toast: Box, p: { lift: number; shift: number }, buttons: Box[]) =>
+  !buttons.some((b) => overlaps({ left: toast.left + p.shift, right: toast.right + p.shift, top: toast.top - p.lift, bottom: toast.bottom - p.lift }, b));
+
+/** How far the toast's words may shrink in one step, in CSS pixels, when it fits nowhere at its size. */
+export const FIT_STEP = 2;
+
+/**
+ * Where to put the toast, and at what size of words, so that it covers none of `buttons`. Grown words make the
+ * toast so big on a small phone held sideways that no place clears every button: in level 5 at 667 by 375, the
+ * explorers' name labels above and the "Pick" button below leave no room for it. Then its words shrink, `FIT_STEP`
+ * at a time, from `size` down to no less than `floor`, the standard size, until a place clears them all. `measure`
+ * lays the toast out at a size and gives its own place there. If none clears them all, it keeps the floor, where it
+ * covers least. Nothing changes where the toast fits at its own size.
+ */
+export function fitClear(
+  measure: (size: number) => Box,
+  size: number,
+  floor: number,
+  buttons: Box[],
+  highest: number,
+  room: { left: number; right: number },
+  gap = CLEAR_GAP,
+): { size: number; own: Box; lift: number; shift: number } {
+  for (let s = size; ; s = Math.max(floor, s - FIT_STEP)) {
+    const own = measure(s);
+    const p = placeClear(own, buttons, highest, room, gap);
+    if (clearOf(own, p, buttons) || s <= floor) return { size: s, own, ...p };
+  }
+}
+
 const seen = (e: Element) => {
   const r = e.getBoundingClientRect();
   if (r.width < 2 || r.height < 2) return false;
@@ -106,9 +137,12 @@ function laidOut(el: HTMLElement): Box {
  * inside `root`'s canvas holder. It lifts the pill's holder by its bottom margin, and writes the lift in pixels to
  * the holder's `data-hint-lift` for the tests. Checked when the toast comes up, before it is first drawn, and then
  * once a frame while it is up, since a scene button can follow the camera and the window. Where no lift clears
- * them all, it steps the holder aside (its left and right), and writes that to `data-hint-shift`. The margin is set here,
- * not through React, so each check sees the place the last one gave. The toast rises no higher than just under
- * `topBar`.
+ * them all, it steps the holder aside (its left and right), and writes that to `data-hint-shift`. Where no place
+ * clears them all at the toast's size of words, the words shrink until one does, never below the standard size
+ * (`fitClear`): the pill's font size is set, and `data-hint-fit` on the holder holds it in pixels. While the toast is
+ * up the words only ever shrink, so it does not flicker between two sizes as the camera moves; each new hint starts
+ * at full size. The margin is set here, not through React, so each check sees the place the last one gave. The
+ * toast rises no higher than just under `topBar`.
  */
 export function useLiftClear(shown: boolean, pill: RefObject<HTMLElement | null>, root: RefObject<HTMLElement | null>, topBar: RefObject<HTMLElement | null>) {
   useLayoutEffect(() => {
@@ -121,13 +155,32 @@ export function useLiftClear(shown: boolean, pill: RefObject<HTMLElement | null>
       if (el && holder && scene) {
         const now = Number(holder.dataset.hintLift) || 0;
         const nowShift = Number(holder.dataset.hintShift) || 0;
-        const box = laidOut(el);
         // Its own place: where it would be with no lift and no step aside. The holder's margin and its left and
         // right are all that move it here.
-        const own = { left: box.left - nowShift, right: box.right - nowShift, top: box.top + now, bottom: box.bottom + now };
+        const ownAt = () => {
+          const box = laidOut(el);
+          return { left: box.left - nowShift, right: box.right - nowShift, top: box.top + now, bottom: box.bottom + now };
+        };
         const buttons = [...scene.querySelectorAll('button')].filter(seen).map((b) => b.getBoundingClientRect());
         const highest = (topBar.current?.getBoundingClientRect().bottom ?? 0) + CLEAR_GAP;
-        const placed = placeClear(own, buttons, highest, { left: CLEAR_GAP, right: window.innerWidth - CLEAR_GAP });
+        const room = { left: CLEAR_GAP, right: window.innerWidth - CLEAR_GAP };
+        // The size of its words now, and the standard size they never shrink below.
+        const size = parseFloat(getComputedStyle(el).fontSize);
+        const grow = Number(document.documentElement.dataset.textGrow) || 1;
+        const floor = Math.min(size, Math.round(parseFloat(holder.dataset.hintFull ?? String(size)) / grow));
+        holder.dataset.hintFull ??= String(size);
+        const placed = fitClear(
+          (s) => {
+            el.style.fontSize = s === parseFloat(holder.dataset.hintFull!) ? '' : `${s}px`;
+            return ownAt();
+          },
+          size,
+          floor,
+          buttons,
+          highest,
+          room,
+        );
+        if (placed.size !== parseFloat(holder.dataset.hintFull!)) holder.dataset.hintFit = String(placed.size);
         const want = Math.round(placed.lift);
         const shift = Math.round(placed.shift);
         if (want !== now) {
