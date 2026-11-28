@@ -320,7 +320,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // and from the phone's camera Bram stands behind Juno. Each label takes touches over 44 points high; where two
   // labels' touch areas meet, the label nearest the finger takes the tap, and no touch area covers another label.
   const labelEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
-  const downAt = useRef<{ x: number; y: number; t: number } | null>(null);
+  const downAt = useRef<{ e: Explorer; x: number; y: number; t: number } | null>(null);
   const tapLabel = (e: Explorer, x: number, y: number) => {
     let best = e;
     let bestD = Infinity;
@@ -478,7 +478,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                 // The scene's own tap handling listens on the canvas's parent: a tap here is the label's alone.
                 onPointerDown={(ev) => {
                   ev.stopPropagation();
-                  downAt.current = { x: ev.clientX, y: ev.clientY, t: performance.now() };
+                  downAt.current = { e, x: ev.clientX, y: ev.clientY, t: performance.now() };
                 }}
                 onPointerUp={(ev) => ev.stopPropagation()}
                 onClick={(ev) => {
@@ -486,8 +486,14 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                   // Where the finger came down, not where the browser moved the tap to: a browser may hand a touch
                   // beside a label to the label (a touch on a figure next to it included), and the click's point with it.
                   const d = downAt.current;
-                  const fresh = d && performance.now() - d.t < 1500;
-                  tapLabel(e, fresh ? d.x : ev.clientX, fresh ? d.y : ev.clientY);
+                  downAt.current = null;
+                  // A click with no finger or pointer behind it (Enter or Space on the focused label, or an assistive
+                  // tool that clicks the button itself) carries no real point: it picks this label's own explorer.
+                  if (ev.detail === 0 || !d || d.e !== e || performance.now() - d.t >= 1500) {
+                    toggle(e);
+                    return;
+                  }
+                  tapLabel(e, d.x, d.y);
                 }}
                 style={{
                   position: 'relative',
