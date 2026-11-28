@@ -200,7 +200,8 @@ function useSignTexture() {
     c.width = 512;
     c.height = 256;
     const g = c.getContext('2d')!;
-    g.fillStyle = '#a5713f';
+    // A dark walnut board, so the pale letters read in full sun.
+    g.fillStyle = '#6e4322';
     g.fillRect(0, 0, 512, 256);
     // Wood grain.
     const rnd = seeded(5);
@@ -213,7 +214,7 @@ function useSignTexture() {
       g.bezierCurveTo(170, y + (rnd() - 0.5) * 20, 340, y + (rnd() - 0.5) * 20, 512, y);
       g.stroke();
     }
-    g.strokeStyle = '#6d4223';
+    g.strokeStyle = '#4a2a14';
     g.lineWidth = 14;
     g.strokeRect(7, 7, 498, 242);
     g.textAlign = 'center';
