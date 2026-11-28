@@ -11,7 +11,7 @@ const level: RiddleLevel<State, Move> = {
   instructions: [
     'The 8 L flask is full of potion. The 5 L and 3 L flasks are empty.',
     'Split the potion into two equal halves: 4 L in the 8 L flask and 4 L in the 5 L flask.',
-    'There are no measuring marks to pour by: a pour stops only when one flask is empty or the other is full.',
+    "The gold line shows the goal. A pour can't stop at a line: it stops only when one flask is empty or the other is full.",
   ],
   controls: ['Tap a flask to pick it up, then tap another flask to pour into it.', 'Tap the raised flask again to put it down.'],
   rules,

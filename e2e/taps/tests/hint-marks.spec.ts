@@ -20,12 +20,13 @@ const MARKED = ['wolf-goat-cabbage', 'two-jugs', 'explorers-guardians', 'jealous
 
 /**
  * Levels whose mark lies mostly over things that listen at the start: level 7's halos over a crowd of
- * birds, level 14's ring on a lily pad. The ring swells and the pads bob, so a free point on the mark
+ * birds, level 14's ring on a lily pad, level 11's rings at the feet of a crowd whose name labels (and
+ * their touch pads, 44 points high) cover most of them on a small phone. The ring swells and the pads bob, so a free point on the mark
  * comes and goes: in these levels one is not demanded, and any found are kept well clear of what listens
  * and touched like the others. Then a ray is put through the mark the game's own way, with no touch,
- * where it lies over what listens: the mark must not answer it. That keeps the guard in these two levels.
+ * where it lies over what listens: the mark must not answer it. That keeps the guard in these levels.
  */
-const COVERED = ['jealous-couples', 'firefly-lanterns'];
+const COVERED = ['jealous-couples', 'firefly-lanterns', 'family-crossing'];
 
 /**
  * Every touch on the screen, as the game's picking sees it: how many of Hint's marks its ray passes

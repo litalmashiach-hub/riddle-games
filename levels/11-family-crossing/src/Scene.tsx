@@ -11,6 +11,7 @@ import { sign, slot, thiefGetaway, thiefSpot } from './layout';
 import { FAIL_PHASES, Mishap, gagSpot, type FailPhase } from './Mishaps';
 import { padRaycast } from './tapTargets';
 import { LABEL_WRAP, LabelStem, useLabelSpread, type LabelSpread } from './useLabelSpread';
+import { LabelButton, useLabelTaps, type LabelTaps } from './labelTaps';
 import { PEOPLE, raftProblem, roleOf, trouble, type Move, type Person, type Role, type Side, type State } from './rules';
 
 /** The go button sits in a bar just above the game's own buttons, so on a phone it never covers the boat or anyone on it. */
@@ -34,6 +35,17 @@ const LABEL: Record<Person, string> = {
   sonB: 'Son',
   daughterA: 'Daughter',
   daughterB: 'Daughter',
+  guard: 'Guard',
+  thief: 'Thief',
+};
+/** What VoiceOver says for a name label: the two sons and the two daughters each need a name of their own. */
+const SPOKEN: Record<Person, string> = {
+  father: 'Dad',
+  mother: 'Mom',
+  sonA: 'First son',
+  sonB: 'Second son',
+  daughterA: 'First daughter',
+  daughterB: 'Second daughter',
   guard: 'Guard',
   thief: 'Thief',
 };
@@ -152,6 +164,11 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     setWarning(null);
   };
 
+  // A tap on a name label picks that person, the same as a tap on the body (see labelTaps.tsx): the labels are
+  // what people aim at, and on the crowded far bank the label spreader moves them over other people.
+  const figures = useRef<Partial<Record<Person, THREE.Object3D>>>({});
+  const labelTaps = useLabelTaps(PEOPLE, toggle, figures);
+
   const castOff = () => {
     if (busy || over) return;
     const why = raftProblem(loaded);
@@ -234,6 +251,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
           hinted={!busy && !over && hinted.includes(p) && !loaded.includes(p)}
           onClick={() => toggle(p)}
           spread={spread}
+          taps={labelTaps}
+          register={(o) => (figures.current[p] = o ?? undefined)}
         />
       ))}
 
@@ -273,9 +292,11 @@ interface ActorProps {
   hinted: boolean;
   onClick(): void;
   spread: LabelSpread;
+  taps: LabelTaps<Person>;
+  register(o: THREE.Object3D | null): void;
 }
 
-function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, fail, won, busy, disabled, showLabel, hinted, onClick, spread }: ActorProps) {
+function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, resetCount, moveCount, problem, fail, won, busy, disabled, showLabel, hinted, onClick, spread, taps, register }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   const side = state[who];
   const rideIndex = forward && previous ? (lastMove?.riders.indexOf(who) ?? -1) : -1;
@@ -311,6 +332,10 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
   }, [animKey]);
 
   usePath(ref, segs, animKey, { face: false });
+  useEffect(() => {
+    register(ref.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Facing: toward the river on a bank, toward the far bank on the raft, toward the trouble on a loss.
   const facing = useRef<THREE.Group>(null);
@@ -354,6 +379,7 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
       {showLabel && !busy && (
         <Html position={[0, h + 0.18, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
           <div ref={spread.ref(who)} style={LABEL_WRAP} data-reach={hinted ? '' : undefined}>
+          <LabelButton taps={taps} id={who} name={SPOKEN[who]} pressed={seated} live={!disabled}>
           <div
             style={{
               fontFamily: 'Fredoka, system-ui, sans-serif',
@@ -372,6 +398,7 @@ function Actor({ who, seed, state, previous, lastMove, forward, seatIndex, reset
           >
             {LABEL[who]}
           </div>
+          </LabelButton>
           <LabelStem color="rgba(255,248,235,.95)" />
           </div>
         </Html>

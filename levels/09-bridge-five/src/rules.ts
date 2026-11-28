@@ -56,7 +56,7 @@ export const rules: RiddleRules<State, Move> = {
   },
 
   status(s) {
-    if (s.time > LANTERN_MINUTES) return { kind: 'lost', reason: `The lantern burned out after ${LANTERN_MINUTES} minutes, leaving everyone in the dark!` };
+    if (s.time > LANTERN_MINUTES) return { kind: 'lost', reason: `That took ${s.time} minutes, but the lantern only lasts ${LANTERN_MINUTES}. Try sending the two slowest together.` };
     if (TRAVELLERS.every((t) => s.pos[t] === 'R')) return { kind: 'won' };
     return { kind: 'playing' };
   },
