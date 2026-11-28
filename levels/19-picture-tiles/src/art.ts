@@ -228,24 +228,29 @@ function tesserae(g: CanvasRenderingContext2D) {
   }
 }
 
-/** A small pebble with the piece number in each piece's corner, to help young players. */
+/**
+ * A pebble with the piece number in each piece's corner, to help young players. The same texture covers the
+ * stones and the standing stone's picture, so a number on a stone matches the number where it belongs.
+ * Big enough to read on a phone: about a quarter of a stone's width.
+ */
+const PEBBLE_R = 58;
 function numbers(g: CanvasRenderingContext2D) {
   const third = S / 3;
   for (let p = 0; p < 9; p++) {
-    const x = (p % 3) * third + 30;
-    const y = Math.floor(p / 3) * third + 30;
+    const x = (p % 3) * third + PEBBLE_R + 10;
+    const y = Math.floor(p / 3) * third + PEBBLE_R + 10;
     g.beginPath();
-    g.arc(x, y, 20, 0, Math.PI * 2);
-    g.fillStyle = 'rgba(255,248,225,0.88)';
+    g.arc(x, y, PEBBLE_R, 0, Math.PI * 2);
+    g.fillStyle = 'rgba(255,248,225,0.94)';
     g.fill();
-    g.lineWidth = 3;
-    g.strokeStyle = 'rgba(60,45,30,0.5)';
+    g.lineWidth = 7;
+    g.strokeStyle = 'rgba(60,45,30,0.7)';
     g.stroke();
-    g.fillStyle = '#3b2f2a';
-    g.font = 'bold 26px Fredoka, system-ui, sans-serif';
+    g.fillStyle = '#2a1f1a';
+    g.font = 'bold 84px Fredoka, system-ui, sans-serif';
     g.textAlign = 'center';
     g.textBaseline = 'middle';
-    g.fillText(p === 8 ? '★' : String(p + 1), x, y + 1);
+    g.fillText(p === 8 ? '★' : String(p + 1), x, y + 4);
   }
 }
 
