@@ -3,7 +3,7 @@ import { easeInOut, reducedMotion } from '@riddle/fx';
 import { toon } from '@riddle/props';
 import { useRef, useState } from 'react';
 import * as THREE from 'three';
-import { CHEF_HAT, SLOT, THICK, radiusOf, slotY } from './layout';
+import { BATTER_BOTTOM, BATTER_TOP, CHEF_HAT, CRUST_LIFT, CRUST_THICK, SLOT, THICK, radiusOf, slotY } from './layout';
 import { PANCAKES } from './rules';
 
 export const FLIP_MS = 640;
@@ -119,10 +119,10 @@ export function Stack({ stack, before, flip, hintCount, gag, party }: { stack: n
         return (
           <group key={size} ref={(g) => void (refs.current[i] = g)} position={[0, slotY(first.indexOf(size)), 0]}>
             <mesh rotation-y={i * 0.5} material={toon(BATTER[i], { rough: 0.9, emissive: BATTER[i], emissiveIntensity: 0.42 })} castShadow receiveShadow>
-              <cylinderGeometry args={[r * 0.95, r * 0.95, THICK, 18]} />
+              <cylinderGeometry args={[r * BATTER_TOP, r * BATTER_BOTTOM, THICK, 18]} />
             </mesh>
-            <mesh rotation-y={i * 0.5} material={toon(CRUST[i], { rough: 0.9, emissive: CRUST[i], emissiveIntensity: 0.3 })} castShadow>
-              <cylinderGeometry args={[r, r, THICK * 0.55, 18]} />
+            <mesh position-y={CRUST_LIFT} rotation-y={i * 0.5} material={toon(CRUST[i], { rough: 0.9, emissive: CRUST[i], emissiveIntensity: 0.3 })} castShadow>
+              <cylinderGeometry args={[r, r, CRUST_THICK, 18]} />
             </mesh>
           </group>
         );
