@@ -3,6 +3,9 @@ import { expect, expectClean, passRulesCard, seedProgress, test, waitForSession 
 import { READ_SCENE, Taps, waitCameraStill, waitIdle, type Point, type Vec3 } from '../harness';
 import { padPos } from '../../../levels/14-firefly-lanterns/src/layout';
 import { LAYOUT as MIRRORS } from '../../../levels/17-moonbeam-mirrors/src/rules';
+import { cellPos } from '../../../levels/15-slippery-pond/src/layout';
+import { DIRS, POND, SIZE, type PondPuzzle } from '../../../levels/15-slippery-pond/src/rules';
+import { pond as FROSTY } from '../../../levels/24-frosty-maze/src/rules';
 
 /** Where level 17's crystal of a mirror stands. From e2e/taps/players/17-moonbeam-mirrors.ts. */
 const crystalAt = (mirror: number): Vec3 => {
@@ -175,6 +178,71 @@ for (const button of ['Undo', 'Restart']) {
     await page.waitForTimeout(3000);
     await waitIdle(page);
     expect((await taps.snapshot()).moves.length, `nothing played after ${button}`).toBe(0);
+    expectClean(faults);
+  });
+}
+
+/**
+ * Levels 15 and 24 (the slippery pond scene): a tap on the ice slides the otter towards it, in line with
+ * where the otter is when the tap is taken. A tap held during a slide is measured from where that slide
+ * stopped, and the slide it asks for is made right then, not put behind taps that came after it: once it
+ * was, the next held tap was measured from where the otter stood before, and slid it a way nobody tapped.
+ *
+ * The first tap starts a slide; two more come while it runs (or just after): the first of them is in line
+ * with where the slide stops, and slides on; the second is in line with that stop but not with the next,
+ * so it is refused ("Tap in line with the otter"). Exactly two moves, ending where the second one ends.
+ */
+const PONDS: { id: string; pond: PondPuzzle }[] = [
+  { id: 'slippery-pond', pond: POND },
+  { id: 'frosty-maze', pond: FROSTY },
+];
+
+/** A first slide, a second from where it stops, and a cell in line with the first stop only. From the rules. */
+function pondCase(pond: PondPuzzle) {
+  const plain = (s: { x: number; y: number }) => pond.cellAt(s.x, s.y) === '.';
+  const playing = (s: { x: number; y: number }) => pond.rules.status(s).kind === 'playing';
+  const s0 = pond.start;
+  let best: { p1: { x: number; y: number }; p2: { x: number; y: number }; off: { x: number; y: number }; steps: number } | null = null;
+  for (const d1 of DIRS) {
+    const a = pond.slide(s0, d1);
+    if (a.steps < 2 || !plain(a.to) || !playing(a.to)) continue;
+    for (const d2 of DIRS) {
+      const b = pond.slide(a.to, d2);
+      if (b.steps === 0 || !plain(b.to) || !playing(b.to)) continue;
+      for (let y = 0; y < SIZE; y++)
+        for (let x = 0; x < SIZE; x++) {
+          const c = { x, y };
+          const inLineWithP1 = (x === a.to.x) !== (y === a.to.y);
+          if (!inLineWithP1 || x === b.to.x || y === b.to.y || !plain(c)) continue;
+          if (!best || a.steps > best.steps) best = { p1: a.to, p2: b.to, off: c, steps: a.steps };
+        }
+    }
+  }
+  if (!best) throw new Error('no such case on this pond');
+  return best;
+}
+
+for (const { id, pond } of PONDS) {
+  test(`${id}: a tap held during a slide is measured from where the otter stopped`, async ({ page, faults }) => {
+    const level = await open(page, id);
+    const taps = new Taps(page, level, page.viewportSize()!);
+    const { p1, p2, off } = pondCase(pond);
+    const [first, second, third] = [await taps.screenOf(cellPos(p1.x, p1.y)), await taps.screenOf(cellPos(p2.x, p2.y)), await taps.screenOf(cellPos(off.x, off.y))];
+    await page.touchscreen.tap(first.x, first.y);
+    await page.waitForFunction(() => window.__riddle!.getState().busy, undefined, { timeout: 20_000 });
+    await page.touchscreen.tap(second.x, second.y);
+    await page.touchscreen.tap(third.x, third.y);
+    expect(await page.evaluate(() => (window as any).__busyTouches), 'a touch made while the first slide ran').toBeGreaterThan(0);
+    // Long enough for both slides, and for a third, had one been made.
+    await page.waitForFunction(() => window.__riddle!.getState().moves.length >= 2, undefined, { timeout: 30_000 });
+    await page.waitForTimeout(3000);
+    await waitIdle(page);
+    const at = await page.evaluate(() => {
+      const s = window.__riddle!.getState();
+      return { moves: s.moves.length, at: s.history[s.history.length - 1] };
+    });
+    expect(at.moves, `two slides, to (${p1.x},${p1.y}) then (${p2.x},${p2.y}); the tap on (${off.x},${off.y}) is not in line`).toBe(2);
+    expect(at.at, 'the otter is where the second tap sent it').toEqual(p2);
     expectClean(faults);
   });
 }

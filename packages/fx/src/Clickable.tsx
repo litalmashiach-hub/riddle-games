@@ -21,32 +21,40 @@ export function Clickable({
   disabled,
   children,
   hoverScale = 1.06,
+  passThrough = false,
 }: {
   onClick: () => void;
   disabled?: boolean;
   children: ReactNode;
   hoverScale?: number;
+  /**
+   * For now, no tap target at all: a touch goes on to whatever is behind it, as if this were not there
+   * (level 10's cog while it flies between pillars). Unlike `disabled`, a tap here is not held for later.
+   */
+  passThrough?: boolean;
 }) {
   const [hover, setHover] = useState(false);
   const [press] = useState(() => new LiftPress());
   // A tap while it is disabled and a move is still animating is held, and taken when the move is over (heldTaps.tsx).
   const tap = useHeldTap(onClick, !!disabled);
-  useCursor(hover && !disabled);
+  useCursor(hover && !disabled && !passThrough);
   return (
     <group
-      scale={hover && !disabled ? hoverScale : 1}
+      scale={hover && !disabled && !passThrough ? hoverScale : 1}
       onPointerOver={(e: ThreeEvent<PointerEvent>) => {
+        if (passThrough) return;
         e.stopPropagation();
         setHover(true);
       }}
       onPointerOut={() => setHover(false)}
       onPointerDown={(e: ThreeEvent<PointerEvent>) => {
+        if (passThrough) return;
         press.press(e.nativeEvent);
         clickGuard().watch(press);
       }}
       onPointerUp={(e: ThreeEvent<PointerEvent>) => {
         const lift = e.nativeEvent;
-        if (taken.has(lift)) return;
+        if (passThrough || taken.has(lift)) return;
         const was = press.lift(lift);
         if (was === 'none') return;
         taken.add(lift);
@@ -57,6 +65,7 @@ export function Clickable({
         tap();
       }}
       onClick={(e: ThreeEvent<MouseEvent>) => {
+        if (passThrough) return;
         e.stopPropagation();
         if (e.delta <= PRESS_SLOP) tap();
       }}

@@ -78,3 +78,32 @@ describe('held taps', () => {
     expect(fired).toBe(0);
   });
 });
+
+describe('a tap acted on, and what it calls', () => {
+  it('is firing while a held tap runs, and only then', () => {
+    const q = new TapQueue();
+    const seen: boolean[] = [];
+    q.hold(() => seen.push(q.firing));
+    expect(q.firing).toBe(false);
+    takeHeldTap(q, playing(), false);
+    expect(seen).toEqual([true]);
+    expect(q.firing).toBe(false);
+  });
+
+  it('a nested fire stays inside the outer one, and a throw still ends it', () => {
+    const q = new TapQueue();
+    const seen: boolean[] = [];
+    q.fire(() => {
+      q.fire(() => seen.push(q.firing));
+      seen.push(q.firing);
+    });
+    expect(seen).toEqual([true, true]);
+    expect(q.firing).toBe(false);
+    expect(() =>
+      q.fire(() => {
+        throw new Error('boom');
+      }),
+    ).toThrow('boom');
+    expect(q.firing).toBe(false);
+  });
+});

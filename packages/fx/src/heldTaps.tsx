@@ -38,6 +38,12 @@ export class TapQueue {
   private items: (() => void)[] = [];
   /** True from the moment a tap is taken until the scene has been drawn after it (see `taken`). */
   settling = false;
+  /**
+   * True while a tap is being acted on, held or not. A held tap that a handler calls from inside (level 15's
+   * tap on the ice calls the slide; a Clickable calls the scene's own held handler) is part of that same tap:
+   * it runs at once, with what the scene is now, and is not put at the back of the queue behind later taps.
+   */
+  firing = false;
   /** True while taps must wait: a move animates, or the scene is not yet drawn after the last tap. */
   holding: () => boolean = () => false;
   /** Asks <HeldTaps> to draw again, so that it can clear `settling` and take the next tap. */
@@ -60,8 +66,18 @@ export class TapQueue {
   next(): boolean {
     const fire = this.items.shift();
     if (!fire) return false;
-    fire();
+    this.fire(fire);
     return true;
+  }
+  /** Acts on one tap, so that what it calls is acted on with it (see `firing`). */
+  fire(act: () => void) {
+    if (this.firing) return act();
+    this.firing = true;
+    try {
+      act();
+    } finally {
+      this.firing = false;
+    }
   }
   clear() {
     this.items = [];
@@ -169,9 +185,14 @@ export function useHeldTap<A extends unknown[]>(handler: (...args: A) => void, l
         if (!now.locked) now.handler(...args);
         return;
       }
+      // Called from inside a tap that is being acted on: part of that tap, so at once (see TapQueue.firing).
+      if (queue.firing) {
+        if (!now.locked) now.handler(...args);
+        return;
+      }
       if (!queue.holding()) {
         if (now.locked) return;
-        now.handler(...args);
+        queue.fire(() => now.handler(...args));
         queue.taken();
         return;
       }
