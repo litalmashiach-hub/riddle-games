@@ -15,7 +15,7 @@ const level: RiddleLevel<State, Move> = {
     'Or it can leap over one frog that is looking at it, if the pad just behind that frog is empty. Frogs never leap over their own team.',
     'If nobody can move, the frogs are stuck. Bonk!',
   ],
-  controls: ['Tap a frog to make it hop or leap.', 'Stuck? Use Undo to take back a hop.'],
+  controls: ['Tap a frog to make it hop or leap.', 'Stuck? Undo back to before your frogs bunched up, or Restart.'],
   rules,
   bestMoves: 15,
   moveNoun: 'hops',
