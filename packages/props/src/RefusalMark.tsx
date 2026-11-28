@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { HINT_MARK } from './HintRing';
 import { ringBands } from './hintMark';
-import { CLEAR, EDGE, grow, noteBox, overlap, pick, spots, type Box, type Spot } from './refusalPlace';
+import { CLEAR, EDGE, grow, noteBox, overlap, pick, room, spots, type Box, type Spot } from './refusalPlace';
 
 /*
  * The seen twin of the "that won't work" blip (sfx.denied). A tap that the rules refuse plays the blip,
@@ -231,7 +231,20 @@ function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: V
     if (last && last.w === w && last.h === h && Math.abs(last.at.x - p.x) < 1.5 && Math.abs(last.at.y - p.y) < 1.5 && cost(last.spot) === 0) {
       spot = last.spot;
       index = Number(div.dataset.refusalPlace ?? 0);
-    } else ({ spot, index } = pick(list, cost));
+    } else {
+      let covered: number;
+      ({ spot, index, covered } = pick(list, cost));
+      // Nothing near the piece is free: the nearest free place anywhere on the screen, kept off the piece too.
+      // Its test is by whole boxes (a mark's too), so it covers nothing for sure; -1 says it came from there.
+      if (covered > 0) {
+        const piece = grow({ l: p.x - 12, r: p.x + 12, t: p.y, b: Math.max(p.y, ground.y) }, CLEAR);
+        const free = room(p, piece, w, h, size.width, size.height, things)[0];
+        if (free) {
+          spot = free;
+          index = -1;
+        }
+      }
+    }
     chosen.current = { at: { x: p.x, y: p.y }, spot, when: now, w, h };
     div.style.transform = `translate3d(${spot.x}px,${spot.y}px,0)`;
     div.dataset.refusalPlace = String(index);
