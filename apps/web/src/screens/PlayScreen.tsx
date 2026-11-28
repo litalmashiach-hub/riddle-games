@@ -185,7 +185,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
               onPick={setPicked}
             />
           </WorldStage>
-          <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} />
+          <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} maxPolar={cam.maxPolar} />
           {guideStep && <GuideTracker step={guideStep} ring={guideRing} />}
           <FirstFrames onReady={() => setSceneReady(true)} onStuck={() => setSceneStuck(true)} />
         </Suspense>
@@ -456,7 +456,7 @@ export function fitFor(width: number, height: number, designAspect = DESIGN_ASPE
  * Orbit within a small range around the target, with a short fly-in on start. Refits when the screen turns.
  * With Reduce Motion on there is no fly-in: the camera starts where the fly-in would end, and the loading curtain's fade is the only change.
  */
-function CameraRig({ position, target, fitAspect }: { position: [number, number, number]; target: [number, number, number]; fitAspect?: number }) {
+function CameraRig({ position, target, fitAspect, maxPolar = 1.25 }: { position: [number, number, number]; target: [number, number, number]; fitAspect?: number; maxPolar?: number }) {
   const controls = useRef<any>(null);
   const camera = useThree((st) => st.camera);
   const size = useThree((st) => st.size);
@@ -512,7 +512,7 @@ function CameraRig({ position, target, fitAspect }: { position: [number, number,
       minDistance={dist * 0.55}
       maxDistance={dist * 1.45}
       minPolarAngle={0.35}
-      maxPolarAngle={1.25}
+      maxPolarAngle={maxPolar}
       minAzimuthAngle={-0.7}
       maxAzimuthAngle={0.7}
     />

@@ -19,7 +19,10 @@ const level: RiddleLevel<State, Move> = {
   moveNoun: 'flips',
   moveDurationMs: MOVE_MS,
   endDelayMs: END_DELAY_MS,
-  camera: { position: [0.4, 3.0, 7.62], target: [0.4, 2.13, 0], fov: 24 },
+  // Nearly from the side, so a big pancake's rim hides little of a small one under it (every pancake is a band of
+  // 44 points or more to tap on an iPhone held sideways). The stack stands a little right of the middle, clear of
+  // the flips counter at the top left even on the smallest iPhone at the largest text.
+  camera: { position: [-0.2, 2.98, 8.0], target: [-0.2, 2.07, 0], fov: 24, maxPolar: 1.46 },
   Scene,
 };
 

@@ -121,8 +121,10 @@ export interface RiddleLevel<S = any, M = any> {
   /**
    * `fitAspect`: the narrowest screen shape (width / height) that still shows the whole scene at this framing.
    * On narrower screens, like phones held upright, the shell pulls the camera back to keep that width. Default 1.7.
+   * `maxPolar`: how low the camera may go, as its angle from straight overhead (radians). Default 1.25, about 19 degrees
+   * down onto the target. A level that is meant to be seen nearly from the side sets it at or above its own camera's angle.
    */
-  camera?: { position: [number, number, number]; target: [number, number, number]; fov?: number; fitAspect?: number };
+  camera?: { position: [number, number, number]; target: [number, number, number]; fov?: number; fitAspect?: number; maxPolar?: number };
   /** A first-play guide, shown once ever, on the level's very first play. Level 1 has one. */
   guide?: FirstPlayGuide;
   /** The 3D scene. Rendered inside the shell's <Canvas>. */
