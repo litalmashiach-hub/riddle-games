@@ -1,4 +1,6 @@
-/** Saved progress, kept in the browser's localStorage. */
+import { readStored, writeStored } from './backup';
+
+/** Saved progress, kept in the browser's localStorage (and, in the app, a second copy: see backup.ts). */
 export interface Progress {
   /** Best star count per level id. */
   stars: Record<string, number>;
@@ -13,7 +15,7 @@ const KEY = 'riddle-games:progress:v1';
 
 export function loadProgress(): Progress {
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = readStored(KEY);
     if (raw) return { stars: {}, ...JSON.parse(raw) };
   } catch {
     /* private mode or blocked storage: start fresh */
@@ -22,11 +24,7 @@ export function loadProgress(): Progress {
 }
 
 export function saveProgress(p: Progress): void {
-  try {
-    localStorage.setItem(KEY, JSON.stringify(p));
-  } catch {
-    /* ignore */
-  }
+  writeStored(KEY, JSON.stringify(p));
 }
 
 export function recordStars(p: Progress, levelId: string, stars: number): Progress {

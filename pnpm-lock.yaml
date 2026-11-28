@@ -47,6 +47,9 @@ importers:
       '@capacitor/ios':
         specifier: 8.6.2
         version: 8.6.2(@capacitor/core@8.6.2)
+      '@capacitor/preferences':
+        specifier: 8.0.1
+        version: 8.0.1(@capacitor/core@8.6.2)
 
   apps/web:
     dependencies:
@@ -56,6 +59,9 @@ importers:
       '@capacitor/haptics':
         specifier: 8.0.2
         version: 8.0.2(@capacitor/core@8.6.2)
+      '@capacitor/preferences':
+        specifier: 8.0.1
+        version: 8.0.1(@capacitor/core@8.6.2)
       '@fontsource/fredoka':
         specifier: 5.3.0
         version: 5.3.0
@@ -1148,6 +1154,11 @@ packages:
     resolution: {integrity: sha512-YnVm0lRA1mQWK0SKd2bdJIOG+PXRRDDdndZ1+nGqeiob+QmHZmb4wWo5gVpWhoHO37pGi2qzH5w5WGvfKrs+Gg==}
     peerDependencies:
       '@capacitor/core': ^8.6.0
+
+  '@capacitor/preferences@8.0.1':
+    resolution: {integrity: sha512-T6no3ebi79XJCk91U3Jp/liJUwgBdvHR+s6vhvPkPxSuch7z3zx5Rv1bdWM6sWruNx+pViuEGqZvbfCdyBvcHQ==}
+    peerDependencies:
+      '@capacitor/core': '>=8.0.0'
 
   '@dimforge/rapier3d-compat@0.12.0':
     resolution: {integrity: sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow==}
@@ -2816,6 +2827,10 @@ snapshots:
       '@capacitor/core': 8.6.2
 
   '@capacitor/ios@8.6.2(@capacitor/core@8.6.2)':
+    dependencies:
+      '@capacitor/core': 8.6.2
+
+  '@capacitor/preferences@8.0.1(@capacitor/core@8.6.2)':
     dependencies:
       '@capacitor/core': 8.6.2
 

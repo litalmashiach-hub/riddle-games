@@ -1,3 +1,4 @@
+import { readStored, writeStored } from '@riddle/engine';
 import { create } from 'zustand';
 
 export type Quality = 'high' | 'low';
@@ -14,18 +15,14 @@ const KEY = 'riddle-games:settings:v1';
 /** Remembered choices, so a player's HD/SD and sound picks survive closing the app. */
 const saved = (): Partial<Pick<Settings, 'quality' | 'sound'>> => {
   try {
-    return JSON.parse(localStorage.getItem(KEY) ?? '{}');
+    return JSON.parse(readStored(KEY) ?? '{}');
   } catch {
     return {};
   }
 };
 
 const remember = (s: Pick<Settings, 'quality' | 'sound'>) => {
-  try {
-    localStorage.setItem(KEY, JSON.stringify({ quality: s.quality, sound: s.sound }));
-  } catch {
-    /* ignore */
-  }
+  writeStored(KEY, JSON.stringify({ quality: s.quality, sound: s.sound }));
 };
 
 const guessQuality = (): Quality => {
@@ -52,3 +49,11 @@ export const useSettings = create<Settings>((set, get) => ({
     remember(get());
   },
 }));
+
+/**
+ * Reads the remembered choices again. The app calls it once at start, when it has just put the settings entry
+ * back from its second copy (apps/web/src/backup.ts), since the store above read them before that.
+ */
+export function reloadSettings() {
+  useSettings.setState({ quality: guessQuality(), sound: saved().sound !== false });
+}

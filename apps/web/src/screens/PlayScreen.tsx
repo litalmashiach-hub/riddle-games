@@ -28,13 +28,15 @@ interface Props {
   onExit(): void;
   onNext?: () => void;
   onSolved(stars: number): void;
+  /** For the last level when every other one is solved: the line on its win card that says the game is finished. */
+  finale?: string;
   /** True once this level's first-play guide has been shown on this device. */
   guideSeen?: boolean;
   /** Called the moment the first-play guide shows, so it is never shown again. */
   onGuideSeen?: () => void;
 }
 
-export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false, onGuideSeen }: Props) {
+export function PlayScreen({ level, onExit, onNext, onSolved, finale, guideSeen = false, onGuideSeen }: Props) {
   const session = useMemo(() => createSession(level), [level]);
   // `?debug` exposes the session for automated play-tests: window.__riddle.getState().play(move)
   useEffect(() => {
@@ -309,12 +311,19 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         )}
 
         {s.ended && s.status.kind === 'won' && (
-          <Modal key="won" label="Solved!" wide={grown} aside={grown ? wonButtons : undefined}>
+          <Modal key="won" label="Solved!" describedBy={finale ? FINALE_ID : undefined} wide={grown} aside={grown ? wonButtons : undefined}>
             <h2 className="font-display text-4xl font-bold short:text-3xl"><span aria-hidden className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
             <div className="mt-3 flex justify-center short:mt-2"><Stars count={stars} size={48} animate /></div>
             <p className="mt-3 text-white/85 short:mt-2">
               {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {winLine(moveCount, level.bestMoves, s.hintsUsed)}
             </p>
+            {finale && (
+              // The end of the game. VoiceOver reads it as the card opens, after the card's name.
+              <p id={FINALE_ID} className="mt-3 rounded-2xl bg-amber-300/15 px-3 py-2 font-display text-lg font-semibold leading-snug text-amber-100 ring-1 ring-amber-200/40 short:mt-2 short:py-1.5 short:text-base">
+                <span aria-hidden className="mr-1.5">🏆</span>
+                {finale}
+              </p>
+            )}
             {!grown && wonButtons}
           </Modal>
         )}
@@ -338,7 +347,10 @@ const RULES_BUTTON = 'button[aria-label="Rules"]';
  * A card over the scene. It never grows past the screen: the body scrolls inside the card when it must,
  * and `aside` (the buttons) stays in view. On a phone held sideways a `wide` card puts `aside` in a second column.
  */
-function Modal({ children, aside, tone, wide, label, returnTo = [RULES_BUTTON] }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean; label: string; returnTo?: string[] }) {
+/** The id of the last win card's closing line, which describes the card to VoiceOver. */
+const FINALE_ID = 'finale-line';
+
+function Modal({ children, aside, tone, wide, label, describedBy, returnTo = [RULES_BUTTON] }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean; label: string; describedBy?: string; returnTo?: string[] }) {
   // VoiceOver starts reading at the card when it opens, not at whatever was touched before it.
   const panel = useRef<HTMLDivElement>(null);
   const cover = useRef<HTMLDivElement>(null);
@@ -367,6 +379,7 @@ function Modal({ children, aside, tone, wide, label, returnTo = [RULES_BUTTON] }
         role="dialog"
         aria-modal="true"
         aria-label={label}
+        aria-describedby={describedBy}
         tabIndex={-1}
         initial={{ scale: 0.8, y: 30 }}
         animate={{ scale: 1, y: 0 }}

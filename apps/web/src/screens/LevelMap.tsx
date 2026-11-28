@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { hasTestFlag } from '../appShell';
 import { Stars } from '../components/Stars';
 import { LockIcon, PlayIcon, SoundIcon } from '../components/Icons';
+import { upNext } from '../journey';
 import { LEVELS, WORLD_ORDER, type LevelEntry } from '../levels';
 import { GearIcon } from './AboutScreen';
 import { SHOWN_NAME } from '../about/shown';
@@ -52,7 +53,9 @@ export function LevelMap(props: { progress: Progress; onPlay: (id: string) => vo
 function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay: (id: string) => void; onAbout: () => void }) {
   const totalStars = Object.values(progress.stars).reduce((a, b) => a + b, 0);
   const { sound, toggleSound } = useSettings();
-  const current = LEVELS.find((l) => l.level && isUnlocked(l, progress) && !(progress.stars[l.id] ?? 0)) ?? LEVELS[0];
+  // The level the player is up to: the first open one without a star. With every level solved there is none,
+  // and no card is ringed: the game is finished, and the map opens at its start.
+  const current = upNext(LEVELS, progress, (l) => isUnlocked(l, progress));
   const currentCard = useRef<HTMLDivElement>(null);
   useEffect(() => {
     currentCard.current?.scrollIntoView({ inline: 'center', block: 'nearest' });
@@ -93,8 +96,8 @@ function SidewaysMap({ progress, onPlay, onAbout }: { progress: Progress; onPlay
               </div>
               <div className="flex min-h-0 flex-1 gap-3">
                 {LEVELS.filter((l) => l.world === w).map((entry) => (
-                  <div key={entry.id} ref={entry.id === current.id ? currentCard : undefined} className="h-full w-[10.5rem] shrink-0 grown:w-[calc(10.5rem*var(--text-grow))]">
-                    <LevelCard entry={entry} stars={progress.stars[entry.id] ?? 0} unlocked={isUnlocked(entry, progress)} current={entry.id === current.id} onPlay={onPlay} compact />
+                  <div key={entry.id} ref={entry.id === current?.id ? currentCard : undefined} className="h-full w-[10.5rem] shrink-0 grown:w-[calc(10.5rem*var(--text-grow))]">
+                    <LevelCard entry={entry} stars={progress.stars[entry.id] ?? 0} unlocked={isUnlocked(entry, progress)} current={entry.id === current?.id} onPlay={onPlay} compact />
                   </div>
                 ))}
               </div>
