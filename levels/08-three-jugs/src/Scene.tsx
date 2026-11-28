@@ -379,58 +379,25 @@ function PlaqueBand() {
   );
 }
 
+/**
+ * The flask's "n / 8 L" label. It is page text laid onto the scene (drei's Html), not paint on a texture: the
+ * sky's bloom washed painted letters out to under 3 to 1, and page text stays crisp and is read by VoiceOver too.
+ */
 function Plaque({ f, shown, hinted }: { f: Flask; shown: MutableRefObject<number[]>; hinted: boolean }) {
   const ref = useRef<THREE.Group>(null);
-  const { canvas, tex } = useMemo(() => {
-    const c = document.createElement('canvas');
-    c.width = 256;
-    c.height = 96;
-    const t = new THREE.CanvasTexture(c);
-    t.colorSpace = THREE.SRGBColorSpace;
-    t.anisotropy = 4;
-    return { canvas: c, tex: t };
-  }, []);
+  const pill = useRef<HTMLDivElement>(null);
+  const num = useRef<HTMLSpanElement>(null);
+  const cap = useRef<HTMLSpanElement>(null);
   const drawn = useRef(-1);
   const draw = (n: number) => {
-    const g = canvas.getContext('2d');
-    if (!g) return;
+    if (!pill.current || !num.current || !cap.current) return;
     const goal = n === GOAL && f !== 2;
-    g.clearRect(0, 0, 256, 96);
-    const grad = g.createLinearGradient(0, 0, 0, 96);
-    grad.addColorStop(0, goal ? '#fff3c4' : '#ffffff');
-    grad.addColorStop(1, goal ? '#ffc94a' : '#e0e7ff');
-    g.fillStyle = 'rgba(30,27,75,.28)';
-    g.beginPath();
-    g.roundRect(6, 12, 244, 80, 40);
-    g.fill();
-    g.fillStyle = grad;
-    g.beginPath();
-    g.roundRect(6, 4, 244, 80, 40);
-    g.fill();
-    g.textBaseline = 'middle';
-    g.textAlign = 'right';
-    g.fillStyle = goal ? '#7c2d12' : '#312e81';
-    g.font = '700 54px Fredoka, system-ui, sans-serif';
-    g.fillText(String(n), 112, 46);
-    g.textAlign = 'left';
-    g.globalAlpha = 0.6;
-    g.font = '600 36px Fredoka, system-ui, sans-serif';
-    g.fillText(`/ ${CAPACITY[f]} L`, 124, 48);
-    g.globalAlpha = 1;
-    tex.needsUpdate = true;
+    num.current.textContent = String(n);
+    pill.current.style.background = goal ? 'linear-gradient(#fff3c4,#ffc94a)' : 'linear-gradient(#ffffff,#e0e7ff)';
+    pill.current.style.color = goal ? '#7c2d12' : '#312e81';
+    // Softened on the pale pill, full strength on the gold one, so both read 4.5 to 1 or more.
+    cap.current.style.opacity = goal ? '1' : '0.8';
   };
-  // Fonts may load after the first draw, so draw again once they are ready.
-  useEffect(() => {
-    let alive = true;
-    document.fonts?.ready.then(() => {
-      if (!alive) return;
-      drawn.current = -1;
-    });
-    return () => {
-      alive = false;
-      tex.dispose();
-    };
-  }, [tex]);
   useFrame(({ clock }) => {
     const n = Math.round(Math.max(0, shown.current[f]));
     if (n !== drawn.current) {
@@ -442,10 +409,33 @@ function Plaque({ f, shown, hinted }: { f: Flask; shown: MutableRefObject<number
   return (
     <group ref={ref} position={[0, 0.22, 0.98]} rotation-x={-0.45}>
       {hinted && <PlaqueBand />}
-      <mesh renderOrder={4}>
-        <planeGeometry args={[1.15, 0.43]} />
-        <meshBasicMaterial map={tex} transparent toneMapped={false} depthWrite={false} />
-      </mesh>
+      {/* 244 by 80 page pixels at this scale fill the 1.15 by 0.43 plaque the band was drawn round. */}
+      <Html transform scale={0.18} zIndexRange={[1, 0]} style={{ pointerEvents: 'none' }}>
+        <div
+          ref={pill}
+          style={{
+            width: 244,
+            height: 80,
+            borderRadius: 40,
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'center',
+            gap: 12,
+            paddingTop: 6,
+            boxSizing: 'border-box',
+            fontFamily: 'Fredoka, system-ui, sans-serif',
+            fontWeight: 700,
+            color: '#312e81',
+            background: 'linear-gradient(#ffffff,#e0e7ff)',
+            boxShadow: '0 8px 0 rgba(30,27,75,.28)',
+            whiteSpace: 'nowrap',
+            userSelect: 'none',
+          }}
+        >
+          <span ref={num} style={{ fontSize: 54, lineHeight: 1 }} />
+          <span ref={cap} style={{ fontSize: 36, fontWeight: 600, opacity: 0.8 }}>/ {CAPACITY[f]} L</span>
+        </div>
+      </Html>
     </group>
   );
 }

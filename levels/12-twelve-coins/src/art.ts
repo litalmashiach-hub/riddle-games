@@ -32,13 +32,19 @@ export function coinFaceTexture(label: string) {
     g.arc(mid + Math.cos(a) * (mid - 34), mid + Math.sin(a) * (mid - 34), 3.2, 0, Math.PI * 2);
     g.fill();
   }
-  // Engraved number: dark fill with a light lower edge.
+  // The number names the coin in the puzzle, so it must read in the dim vault: cream on a dark enamel centre,
+  // rather than dark brown engraved on gold, which the low light turned to brown on brown.
+  const enamel = g.createRadialGradient(mid * 0.85, mid * 0.8, 6, mid, mid, mid - 42);
+  enamel.addColorStop(0, '#4a2a08');
+  enamel.addColorStop(1, '#241102');
+  g.fillStyle = enamel;
+  g.beginPath();
+  g.arc(mid, mid, mid - 42, 0, Math.PI * 2);
+  g.fill();
   g.textAlign = 'center';
   g.textBaseline = 'middle';
   g.font = `bold ${label.length > 1 ? 112 : 130}px Georgia, 'Times New Roman', serif`;
   g.fillStyle = '#fff6d0';
-  g.fillText(label, mid + 3, mid + 10);
-  g.fillStyle = '#6b3f07';
   g.fillText(label, mid, mid + 6);
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;

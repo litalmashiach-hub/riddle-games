@@ -216,7 +216,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     () =>
       Array.from({ length: COINS }, (_, i) => {
         const map = coinFaceTexture(coinName(i));
-        return new THREE.MeshStandardMaterial({ map, emissiveMap: map, emissive: '#ffffff', emissiveIntensity: 0, metalness: 0.75, roughness: 0.3 });
+        return new THREE.MeshStandardMaterial({ map, emissiveMap: map, emissive: '#ffffff', emissiveIntensity: 0, metalness: 0.2, roughness: 0.45 });
       }),
     [],
   );
@@ -846,7 +846,7 @@ function Ledger({ log }: { log: Weighing[] }) {
       {Array.from({ length: MAX_WEIGHINGS }, (_, i) => {
         const w = log[i];
         return (
-          <div key={i} className="tc-row" style={{ display: 'flex', alignItems: 'center', opacity: w ? 1 : 0.45, fontSize: 13 }}>
+          <div key={i} className="tc-row" style={{ display: 'flex', alignItems: 'center', opacity: w ? 1 : 0.72, fontSize: 13 }}>
             <span style={{ width: 9, height: 9, borderRadius: 99, flexShrink: 0, background: w ? '#4a3a34' : '#ffb84a', boxShadow: w ? 'none' : '0 0 8px #ffae2b' }} />
             {w ? (
               <>

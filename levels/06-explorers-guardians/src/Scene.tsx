@@ -193,7 +193,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
               }}
             >
               {state.boat === 'L' ? 'Sail across ➜' : '⬅ Sail back'}
-              <span style={{ opacity: 0.7, fontSize: 13, marginLeft: 6 }}>{groupLabel(loaded)}</span>
+              <span style={{ fontSize: 13, marginLeft: 6 }}>{groupLabel(loaded)}</span>
             </button>
           </Html>
         )}
