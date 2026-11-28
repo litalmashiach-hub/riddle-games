@@ -31,6 +31,9 @@ const FONT = 'Fredoka, system-ui, sans-serif';
 
 /** Head height of each explorer, for the eyes that glow in the dark. */
 const EYE_HEIGHT: Record<Explorer, number> = { pip: 0.75, juno: 0.86, bram: 0.97, mo: 0.84 };
+/** A figure's touchable body around its eyes, for keeping name labels' touch areas off it: head over the eyes, half a body across. */
+const HEAD_TOP = 0.12;
+const FIGURE_HALF = 0.22;
 /** Bubble heights differ so two walkers side by side don't overlap. */
 const BUBBLE_LIFT: Record<Explorer, number> = { pip: 0.45, juno: 0.75, bram: 1.0, mo: 0.55 };
 /** What each explorer squeaks when the torch dies. */
@@ -336,9 +339,29 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     toggle(best);
   };
   // Where labels stand close, a label's touch area is cut back so it never covers another label's drawing:
-  // a touch on a label's own drawing always reaches that label.
+  // a touch on a label's own drawing always reaches that label. Nor does it cover an explorer's figure, its
+  // own included (on a small phone a 44-point pad reaches down over Pip's head): a touch on a figure always
+  // reaches the scene.
   const padEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
-  useFrame(() => {
+  const figurePoint = useMemo(() => new THREE.Vector3(), []);
+  useFrame(({ camera, gl }) => {
+    const c = gl.domElement.getBoundingClientRect();
+    const toScreen = (g: THREE.Group, x: number, y: number) => {
+      figurePoint.set(x, y, 0);
+      g.localToWorld(figurePoint).project(camera);
+      return [c.left + ((figurePoint.x + 1) / 2) * c.width, c.top + ((1 - figurePoint.y) / 2) * c.height];
+    };
+    // Each standing figure's box on the screen: from the feet to just over the head, a body's width across.
+    const figures: { left: number; right: number; top: number; bottom: number }[] = [];
+    for (const k of EXPLORERS) {
+      const g = groups.current[k];
+      if (!g || !g.visible) continue;
+      const pts = [toScreen(g, -FIGURE_HALF, 0), toScreen(g, FIGURE_HALF, 0), toScreen(g, -FIGURE_HALF, EYE_HEIGHT[k] + HEAD_TOP), toScreen(g, FIGURE_HALF, EYE_HEIGHT[k] + HEAD_TOP)];
+      const xs = pts.map((q) => q[0]);
+      const ys = pts.map((q) => q[1]);
+      const [left, right, top, bottom] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+      figures.push({ left, right, top, bottom });
+    }
     for (const e of EXPLORERS) {
       const pad = padEls.current[e];
       const own = labelEls.current[e];
@@ -348,6 +371,12 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       // How far each side may be cut: never into the label's own drawing.
       const room = { top: Math.max(0, r.top - p.top), bottom: Math.max(0, p.bottom - r.bottom), left: Math.max(0, r.left - p.left), right: Math.max(0, p.right - r.right) };
       const cut = { top: 0, bottom: 0, left: 0, right: 0 };
+      // A figure is often partly behind the label itself: the pad gives up all it can on the figure's side.
+      for (const o of figures) {
+        if (o.right <= p.left || o.left >= p.right || o.bottom <= p.top || o.top >= p.bottom) continue;
+        if (o.top + o.bottom < r.top + r.bottom) cut.top = Math.max(cut.top, Math.min(room.top, o.bottom - p.top + 1));
+        else cut.bottom = Math.max(cut.bottom, Math.min(room.bottom, p.bottom - o.top + 1));
+      }
       for (const k of EXPLORERS) {
         const other = k === e ? undefined : labelEls.current[k];
         if (!other || !other.isConnected) continue;
