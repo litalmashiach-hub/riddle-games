@@ -1,6 +1,7 @@
 import { useCursor } from '@react-three/drei';
 import type { ThreeEvent } from '@react-three/fiber';
 import { useState, type ReactNode } from 'react';
+import { useHeldTap } from './heldTaps';
 import { clickGuard, LiftPress, liftTapped, PRESS_SLOP } from './pressOnLift';
 
 /** Lifts that a Clickable has already taken: one inside another doesn't take the same lift again. */
@@ -28,6 +29,8 @@ export function Clickable({
 }) {
   const [hover, setHover] = useState(false);
   const [press] = useState(() => new LiftPress());
+  // A tap while it is disabled and a move is still animating is held, and taken when the move is over (heldTaps.tsx).
+  const tap = useHeldTap(onClick, !!disabled);
   useCursor(hover && !disabled);
   return (
     <group
@@ -51,11 +54,11 @@ export function Clickable({
         clickGuard().holdOffClick(lift);
         if (was !== 'tap') return;
         liftTapped();
-        if (!disabled) onClick();
+        tap();
       }}
       onClick={(e: ThreeEvent<MouseEvent>) => {
         e.stopPropagation();
-        if (!disabled && e.delta <= PRESS_SLOP) onClick();
+        if (e.delta <= PRESS_SLOP) tap();
       }}
     >
       {children}

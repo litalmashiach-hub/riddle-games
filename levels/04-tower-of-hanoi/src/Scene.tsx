@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, ComicWord, DizzyStars, Shake, ambientDt, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, ComicWord, DizzyStars, Shake, ambientDt, sfx, useHeldTap, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, RefusalMark, toon, useRefusal } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
@@ -124,7 +124,8 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   }, [moveCount, resetCount]);
 
   const nope = useRefusal();
-  const tapPeg = (p: Peg) => {
+  // A tap while a disc is still moving is held and taken when it has landed (heldTaps.tsx in @riddle/fx).
+  const tapPeg = useHeldTap((p: Peg) => {
     if (busy || over || bouncing) return;
     if (selected === null) {
       if (state.pegs[p].length === 0) {
@@ -146,7 +147,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       setDazed(false);
       setBonk({ from: selected, to: p, at: performance.now(), size: top(state, selected)!, under: top(state, p)! });
     }
-  };
+  }, busy || over || bouncing);
 
   const animKey = `${moveCount}|${resetCount}`;
   const lifted = selected !== null ? top(state, selected) : undefined;
@@ -175,7 +176,8 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
           mode={selected === null ? 'idle' : selected === p ? 'source' : canMove(state, selected, p) ? 'drop' : 'blocked'}
           deniedAt={bonk?.to === p ? bonk.at + BONK_HIT : 0}
           party={party && p === GOAL}
-          disabled={busy || over}
+          // Not while busy: a tap then is held for after the move (see tapPeg).
+          disabled={over}
           onTap={() => tapPeg(p)}
         />
       ))}

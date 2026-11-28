@@ -13,3 +13,4 @@ export * from './tapPad';
 export * from './pressOnLift';
 export * from './cartoon';
 export * from './Sparkles';
+export * from './heldTaps';

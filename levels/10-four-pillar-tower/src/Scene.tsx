@@ -1,7 +1,7 @@
 import type { SceneProps } from '@riddle/engine';
 import { Html, useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
-import { Burst, Shake, ambientDt, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Shake, ambientDt, sfx, useHeldTap, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -127,7 +127,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   }, [bonk]);
   useEffect(() => setBonk(null), [moveCount, resetCount]);
 
-  const onPillar = (p: number) => {
+  // A tap while a cog is still moving is held and taken when it has landed (heldTaps.tsx in @riddle/fx).
+  const onPillar = useHeldTap((p: number) => {
     if (busy || over || performance.now() < lockedUntil.current) return;
     if (held === null) {
       if (topCog(state, p) < 0) return refuse('It is empty!');
@@ -155,12 +156,14 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     }
     lifted.current = heldCog;
     play({ from: held, to: p });
-  };
+  }, busy || over);
 
   // Hint: ring the pillar to lift from, or (if that cog is already lifted) the pillar to drop on.
   const hintPillar = hint && !busy ? (held === hint.from ? hint.to : hint.from) : null;
 
   const movedCog = forward && lastMove && previous ? topCog(previous, lastMove.from) : -1;
+  /** The cog in the air while the last move animates: a tap on it is for the pillar behind it. */
+  const flyingCog = busy && lastMove ? topCog(state, lastMove.to) : -1;
 
   return (
     <group>
@@ -186,6 +189,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             state={state}
             lastMove={c === movedCog ? lastMove : null}
             liftedAtPlay={c === movedCog && lifted.current === c}
+            flying={c === flyingCog}
             forward={forward}
             moveCount={moveCount}
             resetCount={resetCount}
@@ -351,10 +355,12 @@ interface CogProps {
   bonk: Bonk | null;
   /** When this cog gets squashed by a bigger one (performance.now ms), or 0. */
   squashAt: number;
+  /** In the air in the move now animating: it takes no tap, and lets the tap through to what is behind it. */
+  flying: boolean;
   onClick(): void;
 }
 
-function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, resetCount, held, celebrate, bonk, squashAt, onClick }: CogProps) {
+function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, resetCount, held, celebrate, bonk, squashAt, flying, onClick }: CogProps) {
   const ref = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
   const r = radius(c);
@@ -463,6 +469,7 @@ function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, rese
       <group ref={spin}>
         <group
           onClick={(e: ThreeEvent<MouseEvent>) => {
+            if (flying) return;
             e.stopPropagation();
             onClick();
           }}
