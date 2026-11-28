@@ -1,7 +1,7 @@
 import type { SceneProps } from '@riddle/engine';
 import { Html, useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
-import { Burst, Shake, ambientDt, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, Shake, ambientDt, sfx, useHeldTap, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, toon } from '@riddle/props';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -127,7 +127,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   }, [bonk]);
   useEffect(() => setBonk(null), [moveCount, resetCount]);
 
-  const onPillar = (p: number) => {
+  // A tap while a cog is still moving is held and taken when it has landed (heldTaps.tsx in @riddle/fx).
+  const onPillar = useHeldTap((p: number) => {
     if (busy || over || performance.now() < lockedUntil.current) return;
     if (held === null) {
       if (topCog(state, p) < 0) return refuse('It is empty!');
@@ -155,12 +156,14 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     }
     lifted.current = heldCog;
     play({ from: held, to: p });
-  };
+  }, busy || over);
 
   // Hint: ring the pillar to lift from, or (if that cog is already lifted) the pillar to drop on.
   const hintPillar = hint && !busy ? (held === hint.from ? hint.to : hint.from) : null;
 
   const movedCog = forward && lastMove && previous ? topCog(previous, lastMove.from) : -1;
+  /** The cog in the air while the last move animates: a tap on it is for the pillar behind it. */
+  const flyingCog = busy && lastMove ? topCog(state, lastMove.to) : -1;
 
   return (
     <group>
@@ -186,6 +189,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             state={state}
             lastMove={c === movedCog ? lastMove : null}
             liftedAtPlay={c === movedCog && lifted.current === c}
+            flying={c === flyingCog}
             forward={forward}
             moveCount={moveCount}
             resetCount={resetCount}
@@ -268,70 +272,73 @@ function Pillar({
   const iron = toon('#3b3440', { metal: 0.6, rough: 0.55 });
   const brass = toon('#c9973f', { metal: 0.85, rough: 0.35 });
   return (
-    <group
-      position={[x, 0, 0]}
-      onClick={(e: ThreeEvent<MouseEvent>) => {
-        e.stopPropagation();
-        onClick();
-      }}
-      onPointerOver={(e: ThreeEvent<PointerEvent>) => {
-        e.stopPropagation();
-        onHover(true);
-      }}
-      onPointerOut={() => onHover(false)}
-    >
-      {/* socket */}
-      <mesh position-y={0.36} material={iron} castShadow receiveShadow>
-        <cylinderGeometry args={[0.62, 0.72, 0.1, 16]} />
-      </mesh>
-      <mesh position-y={0.43} material={goal ? rod : brass} receiveShadow>
-        <cylinderGeometry args={[0.5, 0.58, 0.05, 16]} />
-      </mesh>
-      {/* rod */}
-      <mesh position-y={(0.45 + ROD_TOP) / 2} material={rod} castShadow>
-        <cylinderGeometry args={[0.085, 0.085, ROD_TOP - 0.45, 10]} />
-      </mesh>
-      <mesh position-y={ROD_TOP} material={iron}>
-        <cylinderGeometry args={[0.13, 0.11, 0.08, 10]} />
-      </mesh>
-      {/* lamp on top */}
-      <mesh position-y={ROD_TOP + 0.13}>
-        <icosahedronGeometry args={[0.12, 1]} />
-        <meshStandardMaterial ref={lamp} color={goal ? '#c9ffd9' : '#ffd38a'} emissive={goal ? '#5dff9a' : '#ffa53a'} emissiveIntensity={2} />
-      </mesh>
-      {goal && (
-        <>
-          <mesh position-y={0.39} rotation-x={-Math.PI / 2}>
-            <ringGeometry args={[0.74, 0.86, 40]} />
-            <meshBasicMaterial color="#ffd166" toneMapped={false} />
+    <group position={[x, 0, 0]}>
+      {/*
+       * A tap counts when the finger lifts (the shared Clickable), not on the browser's click: the browser
+       * sends none for a press held a little long, nor, on a busy device, for a touch made soon after another.
+       */}
+      <Clickable onClick={onClick} hoverScale={1}>
+        <group
+          onPointerOver={(e: ThreeEvent<PointerEvent>) => {
+            e.stopPropagation();
+            onHover(true);
+          }}
+          onPointerOut={() => onHover(false)}
+        >
+          {/* socket */}
+          <mesh position-y={0.36} material={iron} castShadow receiveShadow>
+            <cylinderGeometry args={[0.62, 0.72, 0.1, 16]} />
           </mesh>
-          {labelReady && (
-            <Html position={[0, ROD_TOP + 0.75, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
-              <div
-                style={{
-                  fontFamily: 'Fredoka, system-ui, sans-serif',
-                  fontWeight: 700,
-                  fontSize: 13,
-                  letterSpacing: 1.5,
-                  padding: '3px 10px',
-                  borderRadius: 999,
-                  background: 'linear-gradient(#ffe08a,#f4b03e)',
-                  color: '#4a2a05',
-                  boxShadow: '0 3px 0 rgba(0,0,0,.25), 0 8px 16px rgba(0,0,0,.3)',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                GOAL
-              </div>
-            </Html>
+          <mesh position-y={0.43} material={goal ? rod : brass} receiveShadow>
+            <cylinderGeometry args={[0.5, 0.58, 0.05, 16]} />
+          </mesh>
+          {/* rod */}
+          <mesh position-y={(0.45 + ROD_TOP) / 2} material={rod} castShadow>
+            <cylinderGeometry args={[0.085, 0.085, ROD_TOP - 0.45, 10]} />
+          </mesh>
+          <mesh position-y={ROD_TOP} material={iron}>
+            <cylinderGeometry args={[0.13, 0.11, 0.08, 10]} />
+          </mesh>
+          {/* lamp on top */}
+          <mesh position-y={ROD_TOP + 0.13}>
+            <icosahedronGeometry args={[0.12, 1]} />
+            <meshStandardMaterial ref={lamp} color={goal ? '#c9ffd9' : '#ffd38a'} emissive={goal ? '#5dff9a' : '#ffa53a'} emissiveIntensity={2} />
+          </mesh>
+          {goal && (
+            <>
+              <mesh position-y={0.39} rotation-x={-Math.PI / 2}>
+                <ringGeometry args={[0.74, 0.86, 40]} />
+                <meshBasicMaterial color="#ffd166" toneMapped={false} />
+              </mesh>
+              {labelReady && (
+                <Html position={[0, ROD_TOP + 0.75, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+                  <div
+                    style={{
+                      fontFamily: 'Fredoka, system-ui, sans-serif',
+                      fontWeight: 700,
+                      fontSize: 13,
+                      letterSpacing: 1.5,
+                      padding: '3px 10px',
+                      borderRadius: 999,
+                      background: 'linear-gradient(#ffe08a,#f4b03e)',
+                      color: '#4a2a05',
+                      boxShadow: '0 3px 0 rgba(0,0,0,.25), 0 8px 16px rgba(0,0,0,.3)',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    GOAL
+                  </div>
+                </Html>
+              )}
+            </>
           )}
-        </>
-      )}
-      {hovered && <HintRing position={[0, 0.47, 0]} radius={0.95} color="#ffffff" />}
-      {/* big invisible tap target */}
-      <mesh position-y={1.5} visible={false}>
-        <cylinderGeometry args={[1.15, 1.15, 3.4, 10]} />
-      </mesh>
+          {hovered && <HintRing position={[0, 0.47, 0]} radius={0.95} color="#ffffff" />}
+          {/* big invisible tap target */}
+          <mesh position-y={1.5} visible={false}>
+            <cylinderGeometry args={[1.15, 1.15, 3.4, 10]} />
+          </mesh>
+        </group>
+      </Clickable>
     </group>
   );
 }
@@ -351,10 +358,12 @@ interface CogProps {
   bonk: Bonk | null;
   /** When this cog gets squashed by a bigger one (performance.now ms), or 0. */
   squashAt: number;
+  /** In the air in the move now animating: it takes no tap, and lets the tap through to what is behind it. */
+  flying: boolean;
   onClick(): void;
 }
 
-function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, resetCount, held, celebrate, bonk, squashAt, onClick }: CogProps) {
+function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, resetCount, held, celebrate, bonk, squashAt, flying, onClick }: CogProps) {
   const ref = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
   const r = radius(c);
@@ -461,12 +470,8 @@ function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, rese
   return (
     <group ref={ref}>
       <group ref={spin}>
-        <group
-          onClick={(e: ThreeEvent<MouseEvent>) => {
-            e.stopPropagation();
-            onClick();
-          }}
-        >
+        {/* On the finger's lift, as the pillars. While it flies, a tap goes on to the pillar behind it. */}
+        <Clickable onClick={onClick} passThrough={flying} hoverScale={1}>
           <mesh geometry={geo} material={mat} castShadow receiveShadow />
           {/* brass hub collar */}
           <mesh position-y={T / 2} material={hub} castShadow>
@@ -476,7 +481,7 @@ function Cog({ index: c, state, lastMove, liftedAtPlay, forward, moveCount, rese
           <mesh position-y={T + 0.012} rotation-x={-Math.PI / 2} material={hub}>
             <ringGeometry args={[0.13, 0.2, 12]} />
           </mesh>
-        </group>
+        </Clickable>
       </group>
     </group>
   );

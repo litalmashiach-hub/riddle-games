@@ -1,5 +1,5 @@
 import { createSession, guideStepFor, starsFor, type RiddleLevel } from '@riddle/engine';
-import { WORLDS, WorldStage, playWhenHeard, reducedMotion, sfx, steadyClock, useSettings } from '@riddle/fx';
+import { HeldTaps, WORLDS, WorldStage, playWhenHeard, reducedMotion, sfx, steadyClock, useSettings } from '@riddle/fx';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { AnimatePresence, motion, useIsPresent } from 'motion/react';
@@ -180,19 +180,22 @@ export function PlayScreen({ level, onExit, onNext, onSolved, finale, guideSeen 
         <ReleaseOnLeave>
         <Suspense fallback={null}>
           <WorldStage world={level.world}>
-            <Scene
-              state={state}
-              previous={previous}
-              lastMove={lastMove}
-              status={s.status}
-              play={s.play}
-              // Nothing in the scene takes a tap before it can be seen: not behind the rules card, not behind the loading curtain.
-              busy={s.busy || showRules || !sceneReady}
-              hint={s.hint}
-              resetCount={s.resetCount}
-              moveCount={moveCount}
-              onPick={setPicked}
-            />
+            {/* A tap made while a move still animates is held, and taken when the move is over (heldTaps.tsx). */}
+            <HeldTaps session={session} animating={s.busy} blocked={showRules || !sceneReady} moveCount={moveCount} resetCount={s.resetCount}>
+              <Scene
+                state={state}
+                previous={previous}
+                lastMove={lastMove}
+                status={s.status}
+                play={s.play}
+                // Nothing in the scene takes a tap before it can be seen: not behind the rules card, not behind the loading curtain.
+                busy={s.busy || showRules || !sceneReady}
+                hint={s.hint}
+                resetCount={s.resetCount}
+                moveCount={moveCount}
+                onPick={setPicked}
+              />
+            </HeldTaps>
           </WorldStage>
           <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} />
           {guideStep && <GuideTracker step={guideStep} ring={guideRing} />}
