@@ -371,9 +371,19 @@ export const READ_SCENE = () => {
      * that a thing that bobs or swells can't move under the finger between the search and the touch.
      * With `free` false, what lies under or over the point is not asked: any point well inside the band.
      */
-    markPoints: (step: number, clear = 0, free = true) => {
+    markPoints: (step: number, clear = 0, free = true, swell = 0) => {
       const st = three();
       if (!st) return [];
+      // The sizes the mark takes in its pulse (see HINT_SWELL): the size it has now, and both ends of the swell.
+      const sizes: (number | null)[] = swell > 0 ? [null, 1 - swell, 1 + swell] : [null];
+      const kept = new Map<any, number[]>();
+      const setSize = (m: any, size: number | null) => {
+        if (!kept.has(m)) kept.set(m, [m.scale.x, m.scale.y, m.scale.z]);
+        const [sx, sy, sz] = kept.get(m)!;
+        if (size === null) m.scale.set(sx, sy, sz);
+        else m.scale.setScalar(size);
+        m.updateWorldMatrix(true, false);
+      };
       const marks: any[] = [];
       st.scene.traverse((o: any) => {
         if (o.name === 'hint-mark' && o.isMesh && shown(o)) marks.push(o);
@@ -393,13 +403,22 @@ export const READ_SCENE = () => {
           for (let x = Math.max(rect.left + 2, b.x0); x <= Math.min(rect.right - 2, b.x1); x += step) {
             const d = (x - cx) ** 2 + (y - cy) ** 2;
             if (best && d >= best.d) continue;
-            // Well inside the mark's band, so that its gentle swell cannot take the band off the point.
-            const onBand = [[0, 0], [-3, 0], [3, 0], [0, -3], [0, 3]].every(([dx, dy]) => {
-              rc.setFromCamera({ x: ((x + dx - rect.left) / rect.width) * 2 - 1, y: -((y + dy - rect.top) / rect.height) * 2 + 1 }, st.camera);
-              const shape: any[] = [];
-              Object.getPrototypeOf(m).raycast.call(m, rc, shape);
-              return shape.length > 0;
+            // Well inside the mark's band at every size of its pulse: the touch lands about a second after
+            // this aim, at another moment of the swell, so a point on the band at today's size alone can
+            // lie off it by then (level 6's ring, at its smallest here and at its largest at the touch).
+            // At the size of the moment the point keeps 3 pixels clear of the band's edges; at the two ends
+            // of the swell, a pixel (the band of a halo is too thin to keep more at both ends).
+            const onBand = sizes.every((size) => {
+              setSize(m, size);
+              const r = size === null ? 3 : 1;
+              return [[0, 0], [-r, 0], [r, 0], [0, -r], [0, r]].every(([dx, dy]) => {
+                rc.setFromCamera({ x: ((x + dx - rect.left) / rect.width) * 2 - 1, y: -((y + dy - rect.top) / rect.height) * 2 + 1 }, st.camera);
+                const shape: any[] = [];
+                Object.getPrototypeOf(m).raycast.call(m, rc, shape);
+                return shape.length > 0;
+              });
             });
+            setSize(m, null);
             if (!onBand) continue;
             const around = clear > 0 ? [[0, 0], [-clear, 0], [clear, 0], [0, -clear], [0, clear], [-clear, -clear], [clear, -clear], [-clear, clear], [clear, clear]] : [[0, 0]];
             const listens = free && around.some(([dx, dy]) => {
@@ -451,7 +470,7 @@ declare global {
       targets(): Target[];
       firstHit(x: number, y: number): TapRecord['firstHit'];
       marksAt(x: number, y: number): { crossed: number; taken: number; shown: number };
-      markPoints(step: number, clear?: number, free?: boolean): Point[];
+      markPoints(step: number, clear?: number, free?: boolean, swell?: number): Point[];
       clearMiddle(uuid: string, step: number): (Point & { depth: number }) | null;
       visibleMiddle(uuid: string, step: number): (Point & { depth: number; shown: number }) | null;
     };
