@@ -18,6 +18,7 @@ import { hintLine, hintOutlived, winLine } from '../hint';
 import { returnFocus } from '../focusReturn';
 import { useTextGrown } from '../textSize';
 import { useLiftClear } from '../hintPlace';
+import { DrawOnChange } from '../components/DrawOnChange';
 
 /** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
 const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -156,6 +157,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
       {/* Never a blank level: a scene that can't be drawn, or loses its 3D context, says so and offers two ways out. */}
       <SceneGuard onExit={onExit} onRetry={() => { setSceneReady(false); setSceneStuck(false); }} stuck={sceneStuck && !sceneReady}>
       <Canvas
+        // Drawn only when something changes, and at 30 frames a second at rest (see DrawOnChange).
+        frameloop="demand"
         shadows
         flat
         dpr={quality === 'high' ? [1, TOUCH ? 1.5 : 2] : [1, 1.25]}
@@ -170,6 +173,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
           gl.domElement.setAttribute('aria-label', `Level ${level.number}: ${level.title}, the riddle's scene`);
         }}
       >
+        <DrawOnChange session={session} ready={sceneReady} />
         {/* Outermost, so that it lets go of the level's materials and geometries before the scene is taken down. */}
         <ReleaseOnLeave>
         <Suspense fallback={null}>
