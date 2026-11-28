@@ -1,8 +1,8 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, Clickable, easeInOut, sfx, tapPadRaycast, tapBackdropRaycast, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, easeInOut, sfx, TAP_PAD_DEPTH, tapPadRaycast, tapBackdropRaycast, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, RefusalMark, useRefusal, type Mood } from '@riddle/props';
 import { Html } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { RopeBridge } from './Bridge';
@@ -320,6 +320,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   // and from the phone's camera Bram stands behind Juno. Each label takes touches over 44 points high; where two
   // labels' touch areas meet, the label nearest the finger takes the tap, and no touch area covers another label.
   const labelEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
+  const downAt = useRef<{ x: number; y: number; t: number } | null>(null);
   const tapLabel = (e: Explorer, x: number, y: number) => {
     let best = e;
     let bestD = Infinity;
@@ -336,7 +337,31 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         best = k;
       }
     }
+    // Off every label's drawing, a touch on an explorer's drawn figure picks that explorer. The touch areas are cut
+    // back off the figures, but a browser may still hand a touch beside a label to that label.
+    if (bestD > 0) best = figureAt(x, y) ?? best;
     toggle(best);
+  };
+  /** The explorer whose drawn figure (not its invisible tap padding) is nearest under the screen point, if any. */
+  const getThree = useThree((s) => s.get);
+  const figureRay = useMemo(() => new THREE.Raycaster(), []);
+  const figureAt = (x: number, y: number): Explorer | undefined => {
+    const { camera, gl } = getThree();
+    const c = gl.domElement.getBoundingClientRect();
+    figureRay.setFromCamera(new THREE.Vector2(((x - c.left) / c.width) * 2 - 1, -((y - c.top) / c.height) * 2 + 1), camera);
+    let found: Explorer | undefined;
+    let near = TAP_PAD_DEPTH;
+    for (const k of EXPLORERS) {
+      const g = groups.current[k];
+      if (!g || !g.visible) continue;
+      for (const hit of figureRay.intersectObject(g, true)) {
+        if (hit.distance < near) {
+          near = hit.distance;
+          found = k;
+        }
+      }
+    }
+    return found;
   };
   // Where labels stand close, a label's touch area is cut back so it never covers another label's drawing:
   // a touch on a label's own drawing always reaches that label. Nor does it cover an explorer's figure, its
@@ -451,11 +476,18 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                 aria-pressed={picked.includes(e)}
                 disabled={busy || over}
                 // The scene's own tap handling listens on the canvas's parent: a tap here is the label's alone.
-                onPointerDown={(ev) => ev.stopPropagation()}
+                onPointerDown={(ev) => {
+                  ev.stopPropagation();
+                  downAt.current = { x: ev.clientX, y: ev.clientY, t: performance.now() };
+                }}
                 onPointerUp={(ev) => ev.stopPropagation()}
                 onClick={(ev) => {
                   ev.stopPropagation();
-                  tapLabel(e, ev.clientX, ev.clientY);
+                  // Where the finger came down, not where the browser moved the tap to: a browser may hand a touch
+                  // beside a label to the label (a touch on a figure next to it included), and the click's point with it.
+                  const d = downAt.current;
+                  const fresh = d && performance.now() - d.t < 1500;
+                  tapLabel(e, fresh ? d.x : ev.clientX, fresh ? d.y : ev.clientY);
                 }}
                 style={{
                   position: 'relative',
