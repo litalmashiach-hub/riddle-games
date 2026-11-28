@@ -14,7 +14,10 @@ const level: RiddleLevel<State, Move> = {
     'Shh! Never let the beam touch the sleeping toad, or he will sneeze everything away.',
     `The moon sets after ${LAYOUT.maxTurns} turns.`,
   ],
-  controls: ['Tap a crystal to turn it.', 'Watch where the beam goes before you tap the next one.'],
+  controls: [
+    'Tap a crystal to turn it between / and \\.',
+    'Dots show where the beam would go if you turned a crystal it touches. A red ! means the toad would wake.',
+  ],
   rules,
   bestMoves: 6,
   moveNoun: 'turns',

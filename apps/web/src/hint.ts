@@ -1,4 +1,4 @@
-import type { SessionState } from '@riddle/engine';
+import { solve, type SessionState } from '@riddle/engine';
 
 /** What Hint says when no move from here leads to a win. Shell text, the same in every level. */
 export const NO_WIN_LEFT = "No way to win from here. Undo a step, or restart!";
@@ -26,4 +26,13 @@ export function winLine(moves: number, best: number, hintsUsed: number): string 
   if (moves > best) return `The best is ${best}. Can you do it?`;
   if (hintsUsed > 0) return 'That is the shortest solution! Can you do it without a hint?';
   return 'Perfect, that is the shortest solution!';
+}
+
+/**
+ * True when the loss card should lead with Restart: the level asks for it, and one Undo can't save the game,
+ * as no win is left from the position before the losing move.
+ */
+export function restartLeads(s: Pick<SessionState, 'level' | 'history' | 'status'>): boolean {
+  if (!s.level.restartWhenStuck || s.status.kind !== 'lost' || s.history.length < 2) return false;
+  return solve(s.level.rules, s.history[s.history.length - 2]) === null;
 }
