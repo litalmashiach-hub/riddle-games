@@ -6,7 +6,7 @@ const PLATE_TOP = 0.5;
 const SLOT = 0.53;
 /** The crust ring, the widest part of a pancake, sits this far above the pancake's middle (CRUST_LIFT). */
 const CRUST_LIFT = 0.5 * 0.22;
-const radiusOf = (size: number) => 0.66 + size * 0.075;
+const radiusOf = (size: number) => 0.7 + size * 0.065;
 
 /**
  * Level 22: one tap on a pancake flips it with all the pancakes above it. What listens is an unseen
