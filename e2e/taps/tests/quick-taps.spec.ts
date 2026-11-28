@@ -274,3 +274,73 @@ for (const { id, pond } of PONDS) {
     expectClean(faults);
   });
 }
+
+/**
+ * Level 17 again, the gap just after a move ends: the move is over in the store, but the scene has not yet
+ * been drawn after it, and the held tap is still waiting to be taken. Undo or Restart, touched by finger in
+ * that gap, must let the held tap go before it can act: the player pressed Undo, not another turn. Once, the
+ * queue only learned of Undo from the next render, and the waiting tap acted first (3 of 4 runs here).
+ *
+ * A try counts only if the button's touch came down after the move ended and before the held tap was taken
+ * (one move made, none animating). A slow or quick machine can miss that gap: then the try proves nothing,
+ * and the level is restarted, at most TRIES times.
+ */
+const GAP_TRIES = 6;
+/** How long before the move's end each try puts the finger down on the button. */
+const LEADS_MS = [150, 0, 300, 75, 450, 225];
+for (const button of ['Undo', 'Restart']) {
+  test(`moonbeam-mirrors: ${button} touched just after a move ends lets the held tap go`, async ({ page, faults }) => {
+    const level = await open(page, 'moonbeam-mirrors');
+    const taps = new Taps(page, level, page.viewportSize()!);
+    const [first, second] = level.moves as any[];
+    const [pa, pb] = await pointsOf(taps, [crystalAt(first.mirror), crystalAt(second.mirror)]);
+    const box = (await page.locator(`button[aria-label="${button}"]`).boundingBox())!;
+    for (let tri = 1; ; tri++) {
+      await page.evaluate((label) => {
+        const w = window as any;
+        w.__atButton = null;
+        w.__heldDown = null;
+        const onDown = (e: PointerEvent) => {
+          const st = w.__riddle.getState();
+          const onButton = !!(e.target as Element).closest?.(`button[aria-label="${label}"]`);
+          if (onButton && w.__atButton === null) w.__atButton = { busy: st.busy, moves: st.moves.length };
+          else if (!onButton && st.busy && w.__heldDown === null) w.__heldDown = st.moves.length;
+        };
+        document.addEventListener('pointerdown', onDown, true);
+        // When the move started, by the page's clock, to aim the button's touch at its end.
+        w.__moveStart = null;
+        const stop = w.__riddle.subscribe((now: any, before: any) => {
+          if (now.busy && !before.busy) {
+            w.__moveStart = performance.now();
+            stop();
+          }
+        });
+      }, button);
+      await page.touchscreen.tap(pa.x, pa.y);
+      await page.waitForFunction(() => window.__riddle!.getState().busy, undefined, { timeout: 20_000 });
+      await page.touchscreen.tap(pb.x, pb.y);
+      // The finger goes on the button a little before the move is due to end: a touch takes a while to come
+      // down here, and how long differs from one machine to the next, so each try aims a little earlier.
+      const lead = LEADS_MS[(tri - 1) % LEADS_MS.length];
+      const wait = await page.evaluate((ms) => {
+        const w = window as any;
+        return w.__moveStart + w.__riddle.getState().level.moveDurationMs - ms - performance.now();
+      }, lead);
+      if (wait > 0) await page.waitForTimeout(wait);
+      await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
+      // Long enough for a held tap to have acted, had it been kept.
+      await page.waitForTimeout(3000);
+      await waitIdle(page);
+      const seen = await page.evaluate(() => ({ at: (window as any).__atButton, held: (window as any).__heldDown, moves: window.__riddle!.getState().moves.length }));
+      const inGap = seen.held === 1 && seen.at && !seen.at.busy && seen.at.moves === 1;
+      if (inGap || tri === GAP_TRIES) {
+        expect(inGap, `${button} touched after the move ended, with the held tap not yet taken (${JSON.stringify(seen)}), in ${GAP_TRIES} tries`).toBe(true);
+        expect(seen.moves, `nothing played after ${button}`).toBe(0);
+        break;
+      }
+      await restart(page);
+    }
+    expectClean(faults);
+  });
+}
+

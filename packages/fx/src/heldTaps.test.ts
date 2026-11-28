@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { HELD_TAPS_MAX, TapQueue, takeHeldTap } from './heldTaps';
+import { HELD_TAPS_MAX, TapQueue, letsHeldTapsGo, takeHeldTap } from './heldTaps';
 
 const playing = (busy = false) => ({ busy, status: { kind: 'playing' } });
 
@@ -105,5 +105,24 @@ describe('a tap acted on, and what it calls', () => {
       }),
     ).toThrow('boom');
     expect(q.firing).toBe(false);
+  });
+});
+
+describe('what lets held taps go, seen in the store', () => {
+  const at = (moves: unknown[], future: unknown[] = [], resetCount = 0) => ({ moves, future: future.map((move) => ({ move })), resetCount });
+  const a = { id: 'a' };
+  const b = { id: 'b' };
+
+  it('Undo, Restart and Redo let them go', () => {
+    expect(letsHeldTapsGo(at([a]), at([a, b]))).toBe(true);
+    expect(letsHeldTapsGo(at([], [], 1), at([a]))).toBe(true);
+    expect(letsHeldTapsGo(at([a, b]), at([a], [b]))).toBe(true);
+  });
+
+  it('a move played does not, even right after an Undo', () => {
+    expect(letsHeldTapsGo(at([a]), at([]))).toBe(false);
+    expect(letsHeldTapsGo(at([a, { id: 'c' }]), at([a], [b]))).toBe(false);
+    // The end of a move's animation (busy goes false) changes no move.
+    expect(letsHeldTapsGo(at([a]), at([a]))).toBe(false);
   });
 });

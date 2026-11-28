@@ -31,6 +31,27 @@ export const HELD_TAPS_MAX = 6;
 /** What the holder needs to know of the play session, read live (it is a zustand store). */
 export interface HeldTapsSession {
   getState(): { busy: boolean; status: { kind: string } };
+  /** The store's own subscribe: Undo, Restart and Redo are seen the moment they change it. */
+  subscribe?(listener: (now: SessionMoves, before: SessionMoves) => void): () => void;
+}
+
+/** The parts of the session that tell a move played apart from Undo, Restart and Redo. */
+export interface SessionMoves {
+  moves: readonly unknown[];
+  future: readonly { move: unknown }[];
+  resetCount: number;
+}
+
+/**
+ * Whether this change of the session takes the scene somewhere a held tap was not meant for: Undo (a move
+ * fewer), Restart (a new reset count) or Redo (the move that comes back is the one Undo took). A move
+ * played, held tap or not, is none of these.
+ */
+export function letsHeldTapsGo(now: SessionMoves, before: SessionMoves): boolean {
+  if (now.resetCount !== before.resetCount) return true;
+  if (now.moves.length < before.moves.length) return true;
+  const redone = now.moves.length > before.moves.length && before.future.length > 0 && now.moves[now.moves.length - 1] === before.future[0].move;
+  return redone;
 }
 
 /** The queue of taps that wait. Exported for its tests; scenes use useHeldTap. */
@@ -133,7 +154,17 @@ export function HeldTaps({
     return st.busy || drawn || queue.settling || queue.size > 0;
   };
 
-  // Undo and Restart: what was tapped was meant for a scene that is no longer there.
+  // Undo, Restart and Redo: what was tapped was meant for a scene that is no longer there. Seen in the
+  // store itself, the moment the button changes it: an effect that was already waiting to take the next held
+  // tap (a move has just ended, and the scene not yet drawn) would otherwise read the store after Undo and
+  // act on that tap before any render shows the Undo.
+  useEffect(() => {
+    if (!session.subscribe) return;
+    return session.subscribe((now, before) => {
+      if (letsHeldTapsGo(now, before)) queue.clear();
+    });
+  }, [queue, session]);
+  // The same from what is drawn, for a session without subscribe (a test, a preview).
   // Before the held taps are taken below, in the same commit.
   const last = useRef({ moveCount, resetCount });
   useLayoutEffect(() => {
