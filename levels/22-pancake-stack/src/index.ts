@@ -19,7 +19,7 @@ const level: RiddleLevel<State, Move> = {
   moveNoun: 'flips',
   moveDurationMs: MOVE_MS,
   endDelayMs: END_DELAY_MS,
-  camera: { position: [0.6, 3.3, 6.3], target: [0.6, 1.75, 0], fov: 38 },
+  camera: { position: [0.4, 3.0, 7.62], target: [0.4, 2.13, 0], fov: 24 },
   Scene,
 };
 

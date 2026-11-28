@@ -46,9 +46,28 @@ export function noseToNose(s: State): number[] {
 
 const NAME: Record<'G' | 'O', string> = { G: 'green', O: 'orange' };
 
+/** The loss card's words when nobody can hop at all. */
+export const STUCK = 'The frogs are stuck nose to nose and nobody can hop! BONK!';
+/**
+ * The loss card's words as soon as a hop leaves no way to win, while frogs could still hop for a while.
+ * One Undo always mends it: the row before that hop could still be won.
+ */
+export const NO_WAY = 'Bonk! That hop left no way for the frogs to swap sides. Undo it, or restart!';
+
 /** The frog swap for any starting row, such as 'GGGG.OOOO'. */
 export function makeRules(start: State): RiddleRules<State, Move> {
   const goal = goalOf(start);
+  // Can the frogs still swap sides from this row? Frogs only go forward, so no row comes back: a plain search ends.
+  // Level 23's nine pads reach 195 rows, so every answer is kept.
+  const winnable = new Map<State, boolean>([[goal, true]]);
+  const canWin = (s: State): boolean => {
+    let yes = winnable.get(s);
+    if (yes == null) {
+      yes = rules.legalMoves(s).some((m) => canWin(rules.apply(s, m)));
+      winnable.set(s, yes);
+    }
+    return yes;
+  };
   const rules: RiddleRules<State, Move> = {
     initialState: start,
 
@@ -69,7 +88,10 @@ export function makeRules(start: State): RiddleRules<State, Move> {
 
     status(s) {
       if (s === goal) return { kind: 'won' };
-      if (rules.legalMoves(s).length === 0) return { kind: 'lost', reason: 'The frogs are stuck nose to nose and nobody can hop! BONK!' };
+      if (rules.legalMoves(s).length === 0) return { kind: 'lost', reason: STUCK };
+      // Lost as soon as no win is left, not hops later at the final bonk: most wrong hops doom the row long
+      // before anybody is stuck, and Undo then has to take back exactly one hop.
+      if (!canWin(s)) return { kind: 'lost', reason: NO_WAY };
       return { kind: 'playing' };
     },
 
