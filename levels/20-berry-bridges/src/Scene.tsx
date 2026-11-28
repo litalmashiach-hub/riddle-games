@@ -132,23 +132,44 @@ export function Scene({ state, previous, status, play, busy, hint, resetCount, m
 
 /**
  * The plain note after a start that can't win. Pinned to the screen's bottom middle, between the buttons
- * at the sides and below the islets, so it covers no islet at any size and stays clear of the Hint line at the top.
+ * at the sides and below the islets, and clear of the Hint line at the top. Its words grow with the player's
+ * text size setting, as the shell's do, and the gap it sits in leaves room for the Hint button, which grows too.
  */
+/** Where drei's full-screen Html layer goes: the middle of the canvas, wherever the camera looks. */
+const screenMiddle = (_el: THREE.Object3D, _camera: THREE.Camera, size: { width: number; height: number }) => [size.width / 2, size.height / 2];
+
 function BadStartNote({ first }: { first: boolean }) {
   return (
-    <Html fullscreen zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
-      <div style={{ position: 'absolute', left: 0, right: 0, bottom: 'max(10px, env(safe-area-inset-bottom))', display: 'flex', justifyContent: 'center', pointerEvents: 'none' }}>
+    // Pinned to the screen itself: without calculatePosition the full-screen layer follows where the scene's
+    // origin is drawn, which put the note about 30 points right of the middle.
+    <Html fullscreen calculatePosition={screenMiddle} zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 'max(10px, env(safe-area-inset-bottom))',
+          // Clear of the Undo and Restart column on the left and of the Hint button on the right (wider at larger text).
+          paddingLeft: 'calc(max(12px, env(safe-area-inset-left)) + 66px)',
+          paddingRight: 'calc(max(12px, env(safe-area-inset-right)) + 78px + 30px * var(--text-grow, 1))',
+          display: 'flex',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+        }}
+      >
         <div
           data-testid="bad-start-note"
           role="status"
           style={{
             fontFamily: 'Fredoka, system-ui, sans-serif',
             fontWeight: 600,
-            fontSize: 15,
+            // Grows with the player's text size setting, as the shell's words do (--text-grow, 1 at the standard size and on the website).
+            fontSize: 'calc(15px * var(--text-grow, 1))',
             lineHeight: 1.25,
             padding: '6px 14px',
             borderRadius: 14,
-            maxWidth: 'min(360px, calc(100vw - 230px))',
+            // Wider as the words grow, so larger text wraps onto more lines only where the screen has no more room.
+            maxWidth: 'calc(360px * var(--text-grow, 1))',
             textAlign: 'center',
             color: '#3b1d0a',
             background: 'linear-gradient(#fde68a,#fbbf24)',
