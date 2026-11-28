@@ -13,7 +13,7 @@ const level: RiddleLevel<State, Move> = {
     'The boat holds the farmer and one animal.',
     'Never leave the wolf alone with exactly one sheep. Two sheep together are safe.',
   ],
-  controls: ['Tap an animal to put it in the boat (tap again to take it out).', 'Tap the boat or the Row button to cross.'],
+  controls: ['Tap an animal to put it in the boat (tap again to take it out).', 'Tap the boat or the Row button to cross. You can bring an animal back, too.'],
   rules,
   bestMoves: 7,
   moveNoun: 'crossings',

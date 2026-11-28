@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CLEAR_GAP, liftClear, type Box } from './hintPlace';
+import { CLEAR_GAP, liftClear, placeClear, type Box } from './hintPlace';
 
 const box = (left: number, top: number, right: number, bottom: number): Box => ({ left, top, right, bottom });
 
@@ -42,5 +42,35 @@ describe('liftClear', () => {
 
   it('pays no mind to buttons off to the side', () => {
     expect(liftClear(toast, [box(0, 600, 200, 640), box(800, 600, 1000, 640)], 80)).toBe(0);
+  });
+});
+
+describe('placeClear', () => {
+  // Level 5 at 667 by 375, at the largest text size: the toast's own place, the four name labels on the left,
+  // the Cross button below them on the right, and the top of the room under the top bar.
+  const toast = box(128, 238, 539, 338);
+  const labels = [box(113, 169, 182, 191), box(70, 144, 152, 166), box(55, 119, 138, 141), box(91, 94, 217, 116)];
+  const cross = box(253, 247, 414, 292);
+  const room = { left: CLEAR_GAP, right: 667 - CLEAR_GAP };
+  const at = (p: { lift: number; shift: number }) => box(toast.left + p.shift, toast.top - p.lift, toast.right + p.shift, toast.bottom - p.lift);
+  const over = (a: Box, b: Box) => Math.min(a.right, b.right) > Math.max(a.left, b.left) && Math.min(a.bottom, b.bottom) > Math.max(a.top, b.top);
+
+  it('only lifts, as liftClear does, where a lift clears every button', () => {
+    expect(placeClear(toast, [cross], 66, room)).toEqual({ lift: liftClear(toast, [cross], 66), shift: 0 });
+    expect(placeClear(toast, [], 66, room)).toEqual({ lift: 0, shift: 0 });
+  });
+
+  it('steps aside where no lift clears them all, and then covers none', () => {
+    const p = placeClear(toast, [...labels, cross], 66, room);
+    expect(p.shift).not.toBe(0);
+    for (const b of [...labels, cross]) expect(over(at(p), b)).toBe(false);
+    expect(at(p).left).toBeGreaterThanOrEqual(room.left);
+    expect(at(p).right).toBeLessThanOrEqual(room.right);
+    expect(at(p).top).toBeGreaterThanOrEqual(66);
+  });
+
+  it('stays in the middle when no place clears them all', () => {
+    const wall = box(0, 66, 667, 375);
+    expect(placeClear(toast, [wall], 66, room).shift).toBe(0);
   });
 });

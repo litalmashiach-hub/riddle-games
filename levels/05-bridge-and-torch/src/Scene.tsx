@@ -313,6 +313,64 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       setPicked(EXPLORERS.filter((x) => next.includes(x)));
     }
   };
+  // A tap on a name label picks that explorer, the same as a tap on the body: the label is what people aim at,
+  // and from the phone's camera Bram stands behind Juno. Each label takes touches over 44 points high; where two
+  // labels' touch areas meet, the label nearest the finger takes the tap, and no touch area covers another label.
+  const labelEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
+  const tapLabel = (e: Explorer, x: number, y: number) => {
+    let best = e;
+    let bestD = Infinity;
+    for (const k of EXPLORERS) {
+      const el = labelEls.current[k];
+      if (!el || !el.isConnected) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width === 0) continue;
+      const dx = Math.max(r.left - x, 0, x - r.right);
+      const dy = Math.max(r.top - y, 0, y - r.bottom);
+      const d = Math.hypot(dx, dy);
+      if (d < bestD) {
+        bestD = d;
+        best = k;
+      }
+    }
+    toggle(best);
+  };
+  // Where labels stand close, a label's touch area is cut back so it never covers another label's drawing:
+  // a touch on a label's own drawing always reaches that label.
+  const padEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
+  useFrame(() => {
+    for (const e of EXPLORERS) {
+      const pad = padEls.current[e];
+      const own = labelEls.current[e];
+      if (!pad || !own || !pad.isConnected) continue;
+      const p = pad.getBoundingClientRect();
+      const r = own.getBoundingClientRect();
+      // How far each side may be cut: never into the label's own drawing.
+      const room = { top: Math.max(0, r.top - p.top), bottom: Math.max(0, p.bottom - r.bottom), left: Math.max(0, r.left - p.left), right: Math.max(0, p.right - r.right) };
+      const cut = { top: 0, bottom: 0, left: 0, right: 0 };
+      for (const k of EXPLORERS) {
+        const other = k === e ? undefined : labelEls.current[k];
+        if (!other || !other.isConnected) continue;
+        const o = other.getBoundingClientRect();
+        if (o.width === 0 || o.right <= p.left || o.left >= p.right || o.bottom <= p.top || o.top >= p.bottom) continue;
+        const up = o.top + o.height / 2 < r.top + r.height / 2;
+        const leftOf = o.left + o.width / 2 < r.left + r.width / 2;
+        const v = up ? o.bottom - p.top : p.bottom - o.top;
+        const h = leftOf ? o.right - p.left : p.right - o.left;
+        const vFits = v <= (up ? room.top : room.bottom) + 0.5;
+        const hFits = h <= (leftOf ? room.left : room.right) + 0.5;
+        if (vFits && (!hFits || v * p.width <= h * p.height)) {
+          if (up) cut.top = Math.max(cut.top, v + 1);
+          else cut.bottom = Math.max(cut.bottom, v + 1);
+        } else if (hFits) {
+          if (leftOf) cut.left = Math.max(cut.left, h + 1);
+          else cut.right = Math.max(cut.right, h + 1);
+        }
+      }
+      const clip = cut.top || cut.bottom || cut.left || cut.right ? `inset(${cut.top}px ${cut.right}px ${cut.bottom}px ${cut.left}px)` : '';
+      if (pad.style.clipPath !== clip) pad.style.clipPath = clip;
+    }
+  });
   const go = () => {
     if (busy || over) return;
     if (picked.length === 0) {
@@ -358,7 +416,37 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             </Clickable>
             {ready && !dark && <Html position={[0, e === 'pip' ? 1.0 : e === 'bram' ? 1.3 : 1.18, 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
               <div ref={spread.ref(e)} style={LABEL_WRAP}>
+              <button
+                type="button"
+                aria-label={`${NAMES[e]}, ${MINUTES[e]} ${MINUTES[e] === 1 ? 'minute' : 'minutes'}`}
+                aria-pressed={picked.includes(e)}
+                disabled={busy || over}
+                // The scene's own tap handling listens on the canvas's parent: a tap here is the label's alone.
+                onPointerDown={(ev) => ev.stopPropagation()}
+                onPointerUp={(ev) => ev.stopPropagation()}
+                onClick={(ev) => {
+                  ev.stopPropagation();
+                  tapLabel(e, ev.clientX, ev.clientY);
+                }}
+                style={{
+                  position: 'relative',
+                  display: 'block',
+                  margin: 0,
+                  padding: 0,
+                  border: 0,
+                  background: 'none',
+                  font: 'inherit',
+                  color: 'inherit',
+                  pointerEvents: busy || over ? 'none' : 'auto',
+                  cursor: active ? 'pointer' : 'default',
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                }}
+              >
+              {/* The touch area: 44 points high (and wide) around the drawn label, without moving it. */}
+              <span aria-hidden ref={(el) => void (padEls.current[e] = el ?? undefined)} style={{ position: 'absolute', left: '50%', top: '50%', width: 'max(100%, 44px)', height: 44, transform: 'translate(-50%, -50%)' }} />
               <div
+                ref={(el) => void (labelEls.current[e] = el ?? undefined)}
                 style={{
                   fontFamily: FONT,
                   fontWeight: 700,
@@ -375,6 +463,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
               >
                 {NAMES[e]} · {MINUTES[e]} min
               </div>
+              </button>
               <LabelStem />
               </div>
             </Html>}

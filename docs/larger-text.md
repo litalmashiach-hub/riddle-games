@@ -59,7 +59,9 @@ need another layout then. At the standard size every one of them is as before.
 - **Hint, over a scene's own button:** grown, the toast is taller and can reach a button a level pins just above
   the bottom bar (levels 1, 2, 5, 6, 7, 9 and 11, on an iPad and on a small iPhone held sideways). While it is up it then steps up over that button,
   with an 8-point gap, and never higher than under the top bar (`apps/web/src/hintPlace.ts`). Where it covers no
-  button it stays where it was, so at the standard size nothing moves.
+  button it stays where it was, so at the standard size nothing moves. Where no lift clears every button (level 5
+  on a 667 by 375 phone at the largest sizes, with the Cross button below and the name labels above), it steps aside
+  to the nearest place beside a button that clears them all, inside the window.
 - **Hint, sideways on a phone:** the toast keeps clear of the grown Hint button in the right corner.
 
 ## What does not grow

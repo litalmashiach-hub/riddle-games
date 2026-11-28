@@ -279,7 +279,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
                   <div className="rounded-2xl bg-black/25 p-3 text-left text-sm text-white/90">
                     {level.controls.map((t, i) => (<p key={i}>{t}</p>))}
                   </div>
-                  <p className="mt-3 text-sm text-white/75">Solve it in {level.bestMoves} {level.moveNoun} for three stars.</p>
+                  <p className="mt-3 text-sm text-white/75">{level.starLine ?? `Solve it in ${level.bestMoves} ${level.moveNoun} for three stars.`}</p>
                 </div>
                 <Button tone="gold" className="mt-4 w-full !py-3 text-lg short:mt-3" onClick={() => setShowRules(false)}>Let's go!</Button>
                 <div className={`mt-2 flex h-4 items-center justify-center gap-2 grown:h-auto text-xs font-bold uppercase tracking-widest text-white/60 transition-opacity duration-500 ${sceneReady ? 'opacity-0' : ''}`} aria-hidden={sceneReady}>

@@ -50,6 +50,35 @@ export function liftClear(toast: Box, buttons: Box[], highest: number, gap = CLE
   return tried.reduce((best, l) => (covered(at(l), buttons) < covered(at(best), buttons) ? l : best), 0);
 }
 
+/**
+ * Where to put the toast so that it covers none of `buttons`: `lift` pixels up, as `liftClear` gives, and `shift`
+ * pixels to the side (right is positive). It moves sideways only when no lift alone clears every button, as on a
+ * small phone at the largest text size, where the explorers' labels in level 5 fill the room above its Cross
+ * button. Then it tries each place just beside a button, kept inside `room` (the left and right ends it may use),
+ * and takes the one that clears them all with the shortest step aside, and of equals the smallest lift. If none
+ * does, it stays in the middle, at the lift `liftClear` gives.
+ */
+export function placeClear(toast: Box, buttons: Box[], highest: number, room: { left: number; right: number }, gap = CLEAR_GAP): { lift: number; shift: number } {
+  const at = (shift: number, lift: number) => ({ left: toast.left + shift, right: toast.right + shift, top: toast.top - lift, bottom: toast.bottom - lift });
+  const clears = (shift: number, lift: number) => !buttons.some((b) => overlaps(at(shift, lift), b));
+  const lift = liftClear(toast, buttons, highest, gap);
+  if (clears(0, lift)) return { lift, shift: 0 };
+  const shifts = new Set<number>();
+  for (const b of buttons) {
+    shifts.add(Math.round(b.right + gap - toast.left));
+    shifts.add(Math.round(b.left - gap - toast.right));
+  }
+  let best: { lift: number; shift: number } | null = null;
+  for (const shift of shifts) {
+    if (shift === 0 || toast.left + shift < room.left || toast.right + shift > room.right) continue;
+    const moved = at(shift, 0);
+    const l = liftClear(moved, buttons, highest, gap);
+    if (!clears(shift, l)) continue;
+    if (!best || Math.abs(shift) < Math.abs(best.shift) || (Math.abs(shift) === Math.abs(best.shift) && l < best.lift)) best = { lift: l, shift };
+  }
+  return best ?? { lift, shift: 0 };
+}
+
 const seen = (e: Element) => {
   const r = e.getBoundingClientRect();
   if (r.width < 2 || r.height < 2) return false;
@@ -76,7 +105,8 @@ function laidOut(el: HTMLElement): Box {
  * Keeps the toast `pill` clear of the scene's own buttons: the page elements that a level lays over its canvas,
  * inside `root`'s canvas holder. It lifts the pill's holder by its bottom margin, and writes the lift in pixels to
  * the holder's `data-hint-lift` for the tests. Checked when the toast comes up, before it is first drawn, and then
- * once a frame while it is up, since a scene button can follow the camera and the window. The margin is set here,
+ * once a frame while it is up, since a scene button can follow the camera and the window. Where no lift clears
+ * them all, it steps the holder aside (its left and right), and writes that to `data-hint-shift`. The margin is set here,
  * not through React, so each check sees the place the last one gave. The toast rises no higher than just under
  * `topBar`.
  */
@@ -90,15 +120,24 @@ export function useLiftClear(shown: boolean, pill: RefObject<HTMLElement | null>
       const scene = root.current?.querySelector('canvas')?.parentElement?.parentElement;
       if (el && holder && scene) {
         const now = Number(holder.dataset.hintLift) || 0;
+        const nowShift = Number(holder.dataset.hintShift) || 0;
         const box = laidOut(el);
-        // Its own place: where it would be with no lift. The holder's margin is all that moves it here.
-        const own = { ...box, top: box.top + now, bottom: box.bottom + now };
+        // Its own place: where it would be with no lift and no step aside. The holder's margin and its left and
+        // right are all that move it here.
+        const own = { left: box.left - nowShift, right: box.right - nowShift, top: box.top + now, bottom: box.bottom + now };
         const buttons = [...scene.querySelectorAll('button')].filter(seen).map((b) => b.getBoundingClientRect());
         const highest = (topBar.current?.getBoundingClientRect().bottom ?? 0) + CLEAR_GAP;
-        const want = Math.round(liftClear(own, buttons, highest));
+        const placed = placeClear(own, buttons, highest, { left: CLEAR_GAP, right: window.innerWidth - CLEAR_GAP });
+        const want = Math.round(placed.lift);
+        const shift = Math.round(placed.shift);
         if (want !== now) {
           holder.style.marginBottom = want ? `${want}px` : '';
           holder.dataset.hintLift = String(want);
+        }
+        if (shift !== nowShift) {
+          holder.style.left = shift ? `${shift}px` : '';
+          holder.style.right = shift ? `${-shift}px` : '';
+          holder.dataset.hintShift = String(shift);
         }
       }
       frame = requestAnimationFrame(check);
