@@ -177,3 +177,9 @@ real touch and then makes the hinted move by touches on the scene, with the leve
 halo round a figure (levels 6 and 7), a band round a name label or a plaque (8, 9 and 11), a ring drawn
 over a lantern's glow (14), and the plain ring on the ground (2). The mark must take no touch: the move
 that follows has to be the hinted one. Run it alone with `-g "Hint's mark"`.
+
+Before the move, each mark is touched on its own band, where nothing that listens lies under it. The marks
+pulse (`HINT_SWELL` in `packages/props/src/hintMark.ts`), and the touch lands about a second after the
+point is picked, at another moment of the pulse. So the point is picked where the band lies at both ends
+of the swell, not only at the size the mark has when it is picked. A point picked at the mark's size of the
+moment alone once missed level 6's ring at its rim, when the ring had swelled between the aim and the touch.

@@ -32,6 +32,12 @@ export function ringBands(radius: number): RingBands {
   return { inner, outer: inner + band, edge };
 }
 
+/**
+ * How far a mark's gentle pulse swells and shrinks it: from 1 - HINT_SWELL to 1 + HINT_SWELL of its size,
+ * about once in 1.26 seconds. A test that aims at a mark aims where the band lies at both ends of the swell.
+ */
+export const HINT_SWELL = 0.08;
+
 /** The ring's opacity swings between these, about once in 1.3 seconds: it never fades away. */
 export const RING_OPACITY = { low: 0.82, high: 1 };
 
