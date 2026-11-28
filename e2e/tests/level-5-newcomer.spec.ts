@@ -133,11 +133,30 @@ test.describe('level 5: the name labels', () => {
     expect(await picked(page)).toEqual([]);
     for (const e of EXPLORERS) expect(overlaps(box, before[e]), `the refusal note covers ${NAMES[e]}'s label`).toBe(false);
 
-    await page.keyboard.press('h');
-    const hint = page.getByTestId('hint-toast');
-    await expect(hint).toBeVisible();
-    const hb = (await hint.boundingBox())!;
+    // The hint toast too can come and go between two reads on a busy machine: the page measures it, as above.
     const now = await settledPills(page);
+    await page.evaluate(() => {
+      const w = window as unknown as { __hintBox?: { x: number; y: number; width: number; height: number } };
+      const look = () => {
+        const el = document.querySelector('[data-testid="hint-toast"]');
+        if (el && getComputedStyle(el).visibility !== 'hidden') {
+          const r = el.getBoundingClientRect();
+          if (r.width > 0 && r.height > 0) {
+            w.__hintBox = { x: r.x, y: r.y, width: r.width, height: r.height };
+            return;
+          }
+        }
+        requestAnimationFrame(look);
+      };
+      look();
+    });
+    await page.keyboard.press('h');
+    const hb = (await (await page.waitForFunction(() => (window as unknown as { __hintBox?: unknown }).__hintBox, null, { timeout: 15_000 })).jsonValue()) as {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    };
     for (const e of EXPLORERS) expect(overlaps(hb, now[e]), `the hint covers ${NAMES[e]}'s label`).toBe(false);
     expectClean(faults);
   });

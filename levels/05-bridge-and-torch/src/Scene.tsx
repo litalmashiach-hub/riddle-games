@@ -315,7 +315,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   };
   // A tap on a name label picks that explorer, the same as a tap on the body: the label is what people aim at,
   // and from the phone's camera Bram stands behind Juno. Each label takes touches over 44 points high; where two
-  // labels' touch areas meet, the label nearest the finger takes the tap.
+  // labels' touch areas meet, the label nearest the finger takes the tap, and no touch area covers another label.
   const labelEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
   const tapLabel = (e: Explorer, x: number, y: number) => {
     let best = e;
@@ -335,6 +335,42 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     }
     toggle(best);
   };
+  // Where labels stand close, a label's touch area is cut back so it never covers another label's drawing:
+  // a touch on a label's own drawing always reaches that label.
+  const padEls = useRef<Partial<Record<Explorer, HTMLElement>>>({});
+  useFrame(() => {
+    for (const e of EXPLORERS) {
+      const pad = padEls.current[e];
+      const own = labelEls.current[e];
+      if (!pad || !own || !pad.isConnected) continue;
+      const p = pad.getBoundingClientRect();
+      const r = own.getBoundingClientRect();
+      // How far each side may be cut: never into the label's own drawing.
+      const room = { top: Math.max(0, r.top - p.top), bottom: Math.max(0, p.bottom - r.bottom), left: Math.max(0, r.left - p.left), right: Math.max(0, p.right - r.right) };
+      const cut = { top: 0, bottom: 0, left: 0, right: 0 };
+      for (const k of EXPLORERS) {
+        const other = k === e ? undefined : labelEls.current[k];
+        if (!other || !other.isConnected) continue;
+        const o = other.getBoundingClientRect();
+        if (o.width === 0 || o.right <= p.left || o.left >= p.right || o.bottom <= p.top || o.top >= p.bottom) continue;
+        const up = o.top + o.height / 2 < r.top + r.height / 2;
+        const leftOf = o.left + o.width / 2 < r.left + r.width / 2;
+        const v = up ? o.bottom - p.top : p.bottom - o.top;
+        const h = leftOf ? o.right - p.left : p.right - o.left;
+        const vFits = v <= (up ? room.top : room.bottom) + 0.5;
+        const hFits = h <= (leftOf ? room.left : room.right) + 0.5;
+        if (vFits && (!hFits || v * p.width <= h * p.height)) {
+          if (up) cut.top = Math.max(cut.top, v + 1);
+          else cut.bottom = Math.max(cut.bottom, v + 1);
+        } else if (hFits) {
+          if (leftOf) cut.left = Math.max(cut.left, h + 1);
+          else cut.right = Math.max(cut.right, h + 1);
+        }
+      }
+      const clip = cut.top || cut.bottom || cut.left || cut.right ? `inset(${cut.top}px ${cut.right}px ${cut.bottom}px ${cut.left}px)` : '';
+      if (pad.style.clipPath !== clip) pad.style.clipPath = clip;
+    }
+  });
   const go = () => {
     if (busy || over) return;
     if (picked.length === 0) {
@@ -408,7 +444,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
                 }}
               >
               {/* The touch area: 44 points high (and wide) around the drawn label, without moving it. */}
-              <span aria-hidden style={{ position: 'absolute', left: '50%', top: '50%', width: 'max(100%, 44px)', height: 44, transform: 'translate(-50%, -50%)' }} />
+              <span aria-hidden ref={(el) => void (padEls.current[e] = el ?? undefined)} style={{ position: 'absolute', left: '50%', top: '50%', width: 'max(100%, 44px)', height: 44, transform: 'translate(-50%, -50%)' }} />
               <div
                 ref={(el) => void (labelEls.current[e] = el ?? undefined)}
                 style={{
