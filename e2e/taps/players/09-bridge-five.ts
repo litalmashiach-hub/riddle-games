@@ -31,7 +31,8 @@ const list = (ts: Traveller[]) => ts.map((t) => NAMES[t]).join(', ');
 /**
  * Level 9: tap each traveller who is to walk (they hop to the bridge head and their badge lights up),
  * then the scene's own Cross button in the bottom bar. A traveller is found as the listening figure
- * that stands on its waiting place (layout.ts), and tapped in the middle of what it draws.
+ * that stands on its waiting place (layout.ts), and tapped in the middle of the part of it that shows, clear of the name labels, or on its own
+ * time label where the labels cover all of it (`tapSeenOrLabel`).
  */
 const bridgeFive: TapPlayer<State, Move> = {
   async move(taps, move, state) {
@@ -42,7 +43,7 @@ const bridgeFive: TapPlayer<State, Move> = {
       const fig = await until(() => taps.targetNear(slot(t, state.lantern), { handler: 'onClick', within: 0.1 }));
       if (!fig) return taps.fault('no-response', `no figure that listens came to stand at ${NAMES[t]}'s place`);
       figure[t] = fig.uuid;
-      await taps.tapTarget(fig, NAMES[t]);
+      await taps.tapSeenOrLabel(fig, NAMES[t], taps.page.getByRole('button', { name: `${NAMES[t]}, ${MINUTES[t]} ${MINUTES[t] === 1 ? 'minute' : 'minutes'}`, exact: true }));
       const want = [...picked, t];
       const lit = await until(async () => {
         const now = await pickedNow(taps);

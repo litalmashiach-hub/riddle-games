@@ -39,7 +39,32 @@ describe('Bridge of Five', () => {
       { walkers: ['zip', 'mira'] },
     ]);
     expect(s.time).toBe(32);
-    expect(rules.status(s).kind).toBe('lost');
+    expect(rules.status(s)).toEqual({
+      kind: 'lost',
+      reason: 'That took 32 minutes, but the lantern only lasts 30. Try sending the two slowest together.',
+    });
+  });
+
+  it('says the real time taken when the lantern runs out', () => {
+    // The newcomer's plan: Zip walks each one over. After six crossings 20 minutes are gone, and Tuk still waits.
+    const s = run([
+      { walkers: ['zip', 'mira'] },
+      { walkers: ['zip'] },
+      { walkers: ['zip', 'bo'] },
+      { walkers: ['zip'] },
+      { walkers: ['zip', 'elm'] },
+      { walkers: ['zip'] },
+    ]);
+    expect(s.time).toBe(20);
+    expect(rules.status(s).kind).toBe('playing');
+    const over = rules.apply(s, { walkers: ['zip', 'tuk'] });
+    expect(over.time).toBe(32);
+    const status = rules.status(over);
+    expect(status.kind === 'lost' && status.reason).toMatch(/^That took 32 minutes, but the lantern only lasts 30\./);
+  });
+
+  it('puts the lantern, not the crossings, on the rules card as the way to three stars', () => {
+    expect(level.starLine).toBe('Get everyone over before the lantern burns out for three stars.');
   });
 
   it('only lets people on the lantern side walk, at most two at a time', () => {

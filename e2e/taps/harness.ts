@@ -127,6 +127,8 @@ export const READ_SCENE = () => {
     const h = o.__r3f?.handlers;
     return h ? Object.keys(h).filter((k) => h[k]) : [];
   };
+  /** The page element drawn on top at a screen point, past any label's unseen touch pad (`data-touch-pad`). */
+  const pageTop = (x: number, y: number) => document.elementsFromPoint(x, y).find((e) => !(e as HTMLElement).dataset?.touchPad) ?? null;
   const shown = (o: any) => {
     for (let n = o; n; n = n.parent) if (!n.visible) return false;
     return true;
@@ -258,7 +260,7 @@ export const READ_SCENE = () => {
      * area) do not count, so the point is worked out from what the screen shows, never from where a tap
      * lands. Null if no part of it shows.
      */
-    visibleMiddle: (uuid: string, step: number) => {
+    visibleMiddle: (uuid: string, step: number, pageFree = false) => {
       const st = three();
       if (!st) return null;
       let root: any = null;
@@ -299,7 +301,8 @@ export const READ_SCENE = () => {
                 bestObj = m;
               }
           }
-          seen[j * nx + i] = !!bestObj && mine.has(bestObj);
+          // With `pageFree`, a point that a page element is drawn over (a label, say) is not one the finger can see.
+          seen[j * nx + i] = !!bestObj && mine.has(bestObj) && (!pageFree || pageTop(p.x, p.y) === st.gl.domElement);
         }
       rc.ray.origin.copy(o0);
       rc.ray.direction.copy(d0);
@@ -453,7 +456,7 @@ declare global {
       marksAt(x: number, y: number): { crossed: number; taken: number; shown: number };
       markPoints(step: number, clear?: number, free?: boolean): Point[];
       clearMiddle(uuid: string, step: number): (Point & { depth: number }) | null;
-      visibleMiddle(uuid: string, step: number): (Point & { depth: number; shown: number }) | null;
+      visibleMiddle(uuid: string, step: number, pageFree?: boolean): (Point & { depth: number; shown: number }) | null;
     };
   }
 }
@@ -622,8 +625,8 @@ export class Taps {
    * that the screen shows (see `visibleMiddle` in READ_SCENE). If no part of it shows, that is a fault:
    * `covered`, since a finger cannot aim at what it cannot see.
    */
-  async visibleMiddleOf(t: Target, what: string, step = 2): Promise<Point> {
-    const p = await this.page.evaluate(([u, s]) => window.__taps.visibleMiddle(u, s), [t.uuid, step] as const);
+  async visibleMiddleOf(t: Target, what: string, step = 2, pageFree = false): Promise<Point> {
+    const p = await this.page.evaluate(([u, s, f]) => window.__taps.visibleMiddle(u, s, f), [t.uuid, step, pageFree] as const);
     if (!p) throw new TapFault('covered', this.step, `no part of ${what} shows on the screen: other things are drawn over all of it`);
     return { x: p.x, y: p.y };
   }
@@ -633,13 +636,70 @@ export class Taps {
     return this.tapAt(await this.visibleMiddleOf(t, what), what);
   }
 
+  /**
+   * One tap on the middle of the part of a listening object that the finger can see: shown on the screen, and
+   * with no page element, such as a name label, drawn over it. Where name labels stand close to the figures,
+   * that is where a person taps a figure.
+   */
+  async tapSeen(t: Target, what: string): Promise<TapRecord> {
+    return this.tapAt(await this.visibleMiddleOf(t, what, 2, true), what);
+  }
+
+  /** Waits, up to 5 seconds, until no name label with a touch pad (`data-touch-pad`) has moved for 300 ms. */
+  async labelsAtRest(): Promise<void> {
+    let last = '';
+    for (const end = Date.now() + 5000; Date.now() < end; await this.page.waitForTimeout(150)) {
+      const now = await this.page.evaluate(() =>
+        [...document.querySelectorAll('[data-touch-pad]')]
+          .map((p) => {
+            const r = p.parentElement!.getBoundingClientRect();
+            return `${Math.round(r.x)},${Math.round(r.y)}`;
+          })
+          .join(';'),
+      );
+      if (now === last) {
+        await this.page.waitForTimeout(150);
+        return;
+      }
+      last = now;
+    }
+  }
+
+  /**
+   * `tapSeen`, or, where name labels cover every part of the figure that shows, a tap on the figure's own
+   * name label (`label`), as a person would: the label is what they can see of it.
+   */
+  async tapSeenOrLabel(t: Target, what: string, label: Locator): Promise<void> {
+    // The labels slide apart for a moment after people move: aim once they are at rest, and look again
+    // until the point found is still clear.
+    await this.labelsAtRest();
+    for (let tries = 0; ; tries++) {
+      let at: Point;
+      try {
+        at = await this.visibleMiddleOf(t, what, 2, true);
+      } catch (e) {
+        if (!(e instanceof TapFault) || e.kind !== 'covered') throw e;
+        return this.tapButton(label, `${what}'s name label`);
+      }
+      await this.page.waitForTimeout(250);
+      const seen = await this.look(at, what);
+      if (seen.onTop === 'CANVAS') {
+        await this.tapAt(at, what);
+        return;
+      }
+      // Labels that keep sliding over the figure: tap its own label, as a person would.
+      if (tries >= 8) return this.tapButton(label, `${what}'s name label`);
+    }
+  }
+
   private async look(at: Point, what: string) {
     const { width, height } = this.size;
     if (!(at.x >= 1 && at.y >= 1 && at.x <= width - 1 && at.y <= height - 1)) {
       throw new TapFault('off-screen', this.step, `${what} is drawn at ${fmt(at)}, outside the ${width} by ${height} screen`);
     }
     return this.page.evaluate(({ x, y }) => {
-      const el = document.elementFromPoint(x, y);
+      // A label's unseen touch pad (`data-touch-pad`) is nothing a finger sees: what shows under it counts.
+      const el = document.elementsFromPoint(x, y).find((e) => !(e as HTMLElement).dataset?.touchPad) ?? null;
       const onTop = !el ? 'nothing' : el.tagName === 'CANVAS' ? 'CANVAS' : `${el.tagName.toLowerCase()} "${(el.textContent ?? '').trim().slice(0, 40)}"`;
       return { onTop, firstHit: window.__taps.firstHit(x, y) };
     }, at);

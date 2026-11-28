@@ -33,12 +33,24 @@ const SLOTS: Record<Person, { x: number; z: number }> = {
 const slot = (p: Person, side: Side): Vec3 => [sign(side) * SLOTS[p].x, QUAY_Y, SLOTS[p].z];
 /** The two places on the raft: 0 is nearest the bank it is docked at. */
 const seat = (side: Side, i: number): Vec3 => [sign(side) * RAFT_X + sign(side) * (i === 0 ? 0.5 : -0.38), DECK_Y, 0.12];
+/** The spoken names of the name labels, from SPOKEN in Scene.tsx. */
+const SPOKEN: Record<Person, string> = {
+  father: 'Dad',
+  mother: 'Mom',
+  sonA: 'First son',
+  sonB: 'Second son',
+  daughterA: 'First daughter',
+  daughterB: 'Second daughter',
+  guard: 'Guard',
+  thief: 'Thief',
+};
 const LABEL: Record<Person, string> = { father: 'Dad', mother: 'Mom', sonA: 'Son', sonB: 'Son', daughterA: 'Daughter', daughterB: 'Daughter', guard: 'Guard', thief: 'Thief' };
 
 /**
  * Level 11: tap each rider (it hops onto the raft and the Cast off button names it), then the scene's
  * own Cast off button. A rider is found as the listening figure that stands on its place on the quay
- * and tapped in the middle of what it draws. The sign that the tap took: that same figure comes to
+ * and tapped in the middle of the part of it that shows, clear of the name labels, or on its own
+ * name label where the labels cover all of it (`tapSeenOrLabel`). The sign that the tap took: that same figure comes to
  * stand on its place on the raft.
  */
 const familyCrossing: TapPlayer<State, Move> = {
@@ -49,7 +61,7 @@ const familyCrossing: TapPlayer<State, Move> = {
       const fig = await until(() => taps.targetNear(slot(p, state.raft), { handler: 'onClick', within: 0.1 }));
       if (!fig) return taps.fault('no-response', `no figure that listens came to stand at the place of ${what}`);
       const before = await castOff.textContent();
-      await taps.tapTarget(fig, what);
+      await taps.tapSeenOrLabel(fig, what, taps.page.getByRole('button', { name: SPOKEN[p], exact: true }));
       const seated = await until(async () => {
         const now = (await taps.targets()).find((t) => t.uuid === fig.uuid);
         return !!now && near(now.world, seat(state.raft, i), 0.05);
