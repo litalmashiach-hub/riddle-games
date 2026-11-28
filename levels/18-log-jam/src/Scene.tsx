@@ -1,7 +1,7 @@
 import type { SceneProps } from '@riddle/engine';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
-import { Burst, ComicWord, DizzyStars, FocusCam, LiftPress, PRESS_SLOP, Shake, clickGuard, liftTapped, reducedMotion, sfx, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, ComicWord, DizzyStars, FocusCam, LiftPress, PRESS_SLOP, Shake, clickGuard, liftTapped, reducedMotion, sfx, useHeldTap, usePath, usePhases, type PathSegment, type Vec3 } from '@riddle/fx';
 import { HintRing, RefusalMark, toon, useRefusal } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
@@ -151,6 +151,22 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     const c = pieceCenter(i, at, PIECES);
     nope.refuse([c[0], c[1] + 0.85, c[2]], "This log can't move");
   };
+  // A tap on a log while another is still sliding is held, and picks it once the slide is over
+  // (heldTaps.tsx in @riddle/fx). A drag then still gets the "no" sound: a slide can't wait.
+  const pickLater = useHeldTap((i: number) => {
+    if (locked) return;
+    if (selected === i) {
+      sfx.deselect();
+      setSelected(null);
+      return;
+    }
+    const s = stateRef.current;
+    const r = reach(s.pos, i);
+    const base = s.pos[i];
+    if (Math.min(base, ...r) === Math.max(base, ...r)) stuck(i, base);
+    else pond.select();
+    setSelected(i);
+  }, locked);
   const onPieceDown = (i: number, e: ThreeEvent<PointerEvent>) => {
     // A glowing ring beats a log's invisible padding and its glow (both marked `pad`). Seen from the camera,
     // those of a log (often the picked one) reach over the ring next to it, and would take the tap meant
@@ -163,7 +179,19 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
     // Another log's box nearer the eye, also over that ring, already holds this touch's drag.
     else if (drag.current) return;
     if (locked) {
-      if (!over) sfx.denied();
+      if (over) return;
+      const x = e.nativeEvent.clientX;
+      const y = e.nativeEvent.clientY;
+      const id = e.pointerId;
+      const lift = (ev: PointerEvent) => {
+        if (ev.pointerId !== id) return;
+        window.removeEventListener('pointerup', lift);
+        window.removeEventListener('pointercancel', lift);
+        if (ev.type === 'pointerup' && Math.hypot(ev.clientX - x, ev.clientY - y) <= PRESS_SLOP) pickLater(i);
+        else sfx.denied();
+      };
+      window.addEventListener('pointerup', lift);
+      window.addEventListener('pointercancel', lift);
       return;
     }
     const start = groundHit(e.nativeEvent.clientX, e.nativeEvent.clientY);
