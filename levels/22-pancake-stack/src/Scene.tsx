@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Backdrop } from './Backdrop';
 import { Chef, type ChefMood } from './Chef';
 import { Kitchen } from './Kitchen';
-import { CHEF, CHEF_HAT, SLOT, THICK, radiusOf, slotY } from './layout';
+import { BATTER_BOTTOM, BATTER_TOP, CHEF, CHEF_HAT, CRUST_LIFT, CRUST_THICK, SLOT, THICK, radiusOf, slotY } from './layout';
 import { FLIP_MS, Stack, type StackGag } from './Stack';
 import { PANCAKES, type Move, type State } from './rules';
 
@@ -100,10 +100,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             <Clickable onClick={() => tap(pos)} disabled={locked} hoverScale={1}>
               {/* The pancake's own shape, unseen (the drawn one lives in Stack and turns over there): under the finger, the pancake you see is the one that is picked. */}
               <mesh visible={false} rotation-y={(size - 1) * 0.5}>
-                <cylinderGeometry args={[own * 0.95, own * 0.95, THICK, 18]} />
+                <cylinderGeometry args={[own * BATTER_TOP, own * BATTER_BOTTOM, THICK, 18]} />
               </mesh>
-              <mesh visible={false} rotation-y={(size - 1) * 0.5}>
-                <cylinderGeometry args={[own, own, THICK * 0.55, 18]} />
+              <mesh visible={false} position-y={CRUST_LIFT} rotation-y={(size - 1) * 0.5}>
+                <cylinderGeometry args={[own, own, CRUST_THICK, 18]} />
               </mesh>
               {/* The wider slice is padding: it decides only where no pancake is under the finger. */}
               <mesh visible={false} raycast={slicePad}>
