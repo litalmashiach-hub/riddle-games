@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, ComicWord, DizzyStars, FocusCam, Shake, reducedMotion, sfx, type Vec3 } from '@riddle/fx';
+import { Burst, ComicWord, DizzyStars, FocusCam, Shake, clickGuard, reducedMotion, sfx, useHeldTap, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, RefusalMark, useRefusal } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
@@ -146,7 +146,8 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const canPlay = !busy && !over;
   const [nope, setNope] = useState(0);
   const refusal = useRefusal();
-  const go = (d: Dir) => {
+  // A tap or key while the otter is still sliding is held and taken when it stops (heldTaps.tsx in @riddle/fx).
+  const go = useHeldTap((d: Dir) => {
     if (!canPlay) return;
     if (!legal.has(d)) {
       // Blocked that way (a rock or the rim right beside it): say so, with a sound and a shake of the head.
@@ -156,7 +157,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     }
     pond.hup();
     play({ dir: d });
-  };
+  }, !canPlay);
   const goRef = useRef(go);
   goRef.current = go;
 
@@ -189,6 +190,10 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
     if (!p || p.dir !== d || p.id !== e.pointerId) return;
     if (Math.hypot(e.nativeEvent.clientX - p.x, e.nativeEvent.clientY - p.y) > PRESS_SLOP) return;
     pressedAt.current = performance.now();
+    // The click that may follow for this touch is no tap on the ice: the pad is gone by then, so the click
+    // falls on the ice, and on a slow device it can come later than PRESS_ECHO_MS. Once a tap during a slide
+    // is held, it would then make a second slide. The shared guard knows it by the touch, not by the clock.
+    clickGuard().holdOffClick(e.nativeEvent);
     go(d);
   };
 
@@ -196,17 +201,22 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
   const onPick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
     if (performance.now() - pressedAt.current < PRESS_ECHO_MS) return;
-    if (!canPlay || e.delta > 8) return;
-    const c = posCell(e.point.x, e.point.z);
+    if (e.delta > 8) return;
+    pickIce(e.point.x, e.point.y, e.point.z);
+  };
+  // Where the otter is when the tap is taken: a tap made during a slide is measured from where it stopped.
+  const pickIce = useHeldTap((x: number, y: number, z: number) => {
+    if (!canPlay) return;
+    const c = posCell(x, z);
     if (c.x === state.x && c.y === state.y) return;
     if (c.x === state.x) go(c.y < state.y ? 'up' : 'down');
     else if (c.y === state.y) go(c.x < state.x ? 'left' : 'right');
     else {
       // Not in line with the otter, so no way to slide there: the otter's head shake is for a blocked way, so say this one.
       sfx.denied();
-      refusal.refuse([e.point.x, e.point.y + 0.7, e.point.z], 'Tap in line with the otter');
+      refusal.refuse([x, y + 0.7, z], 'Tap in line with the otter');
     }
-  };
+  }, !canPlay);
 
   const here = cellPos(state.x, state.y);
   const basket = cellPos(BASKET.x, BASKET.y);
@@ -555,7 +565,13 @@ function ArrowPad({
   useCursor(hover);
   const [dx, dy] = STEP[dir];
   const color = hinted ? '#ffd166' : '#bef264';
-  const mat = useMemo(() => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 1.6, roughness: 0.4 }), [color]);
+  // Drawn over everything else: in the far rows the otter stands between the camera and its up arrow,
+  // which would hide the very move a player needs. Depth test off, and drawn last, so it always shows.
+  const mat = useMemo(
+    () => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 1.6, roughness: 0.4, depthTest: false, depthWrite: false, transparent: true }),
+    [color],
+  );
+  useEffect(() => () => mat.dispose(), [mat]);
   useFrame(({ clock }) => {
     const g = ref.current;
     if (!g) return;
@@ -582,7 +598,7 @@ function ArrowPad({
       <group ref={ref} scale={0.01}>
         {/* Shape points along +y; lay it flat and turn it to face the slide direction. */}
         <group rotation={[0, dirYaw(dir), 0]}>
-          <mesh geometry={arrowGeo} material={mat} rotation-x={Math.PI / 2} scale={(hinted ? 1.25 : 1) * (hover ? 1.06 : 1)} castShadow />
+          <mesh geometry={arrowGeo} material={mat} rotation-x={Math.PI / 2} scale={(hinted ? 1.25 : 1) * (hover ? 1.06 : 1)} renderOrder={ARROW_ON_TOP} castShadow />
         </group>
       </group>
       <mesh visible={false} rotation={[0, dirYaw(dir), 0]}>
@@ -592,6 +608,8 @@ function ArrowPad({
   );
 }
 
+/** Drawn after the otter, the pond and the props, so an arrow behind the otter shows through it. */
+const ARROW_ON_TOP = 10;
 /** Where the arrow's pad sits, out from the otter's middle, and its size: it covers the arrow as it bobs, with room to spare. */
 const PAD_AT = 0.76;
 const PAD_WIDE = 0.7;

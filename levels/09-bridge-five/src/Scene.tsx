@@ -12,6 +12,7 @@ import { Lantern, LanternPost, SPUTTER_S } from './Lantern';
 import { LANTERN_MINUTES, MINUTES, NAMES, TRAVELLERS, crossingMinutes, type Move, type Side, type State, type Traveller } from './rules';
 import { SkyIslands } from './SkyIslands';
 import { LABEL_WRAP, LabelStem, useLabelSpread, type LabelSpread } from './useLabelSpread';
+import { LabelButton, useLabelTaps, type LabelTaps } from './labelTaps';
 
 /** Invisible tap padding (see tapPadRaycast in @riddle/fx): a tap goes to what is drawn first, to padding only where nothing tappable is drawn. */
 const folkPad = tapPadRaycast();
@@ -369,6 +370,9 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
       setPicked([...picked, t]);
     }
   };
+  // A tap on a time label picks that traveller, the same as a tap on the body (see labelTaps.tsx): the labels are
+  // what people aim at, and the label spreader often moves one over someone else.
+  const labelTaps = useLabelTaps(TRAVELLERS, toggle, actors);
   const cross = () => {
     if (busy || over || picked.length === 0) {
       if (picked.length === 0) {
@@ -419,7 +423,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
         <>
           {goingRight ? 'Cross ➜' : '⬅ Cross back'}
           <span style={{ opacity: 0.75, fontSize: 13, marginLeft: 6 }}>
-            {pickMinutes} min{state.time + pickMinutes > LANTERN_MINUTES ? ' ⚠' : ''}
+            {pickMinutes} min{state.time + pickMinutes > LANTERN_MINUTES ? ' ⚠ too long' : ''}
           </span>
         </>
       )}
@@ -466,6 +470,7 @@ export function Scene({ state, previous, lastMove, status, play, busy, hint, res
             onClick={() => toggle(nearest(t))}
             register={(o) => (actors.current[t] = o)}
             spread={spread}
+            taps={labelTaps}
           />
         ))}
 
@@ -515,9 +520,10 @@ interface ActorProps {
   onClick(): void;
   register(o: THREE.Object3D): void;
   spread: LabelSpread;
+  taps: LabelTaps<Traveller>;
 }
 
-function Actor({ kind, seed, side, crossing, busy, pickedIndex, hinted, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick, register, spread }: ActorProps) {
+function Actor({ kind, seed, side, crossing, busy, pickedIndex, hinted, stepKey, mood, bubble, blackout, canPick, hideBadge, disabled, onClick, register, spread, taps }: ActorProps) {
   const ref = useRef<THREE.Group>(null);
   useEffect(() => {
     if (ref.current) register(ref.current);
@@ -579,6 +585,13 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, hinted, stepKey,
       {/* Always mounted (hidden with opacity): unmounting a drei <Html> while a Bubble mounts breaks the DOM. */}
       <Html key={heal.key} position={[0, h + 0.18 + (pickedIndex === 1 ? 0.3 : 0), 0]} center zIndexRange={[4, 0]} style={{ pointerEvents: 'none' }}>
         <div ref={spread.ref(kind)} data-off={bubble || hideBadge ? '' : undefined} style={LABEL_WRAP}>
+        <LabelButton
+          taps={taps}
+          id={kind}
+          name={`${NAMES[kind]}, ${MINUTES[kind]} ${MINUTES[kind] === 1 ? 'minute' : 'minutes'}`}
+          pressed={picked}
+          live={!disabled && !bubble && !hideBadge}
+        >
         <div
           ref={heal.watch('badge', true)}
           title={NAMES[kind]}
@@ -601,6 +614,7 @@ function Actor({ kind, seed, side, crossing, busy, pickedIndex, hinted, stepKey,
         >
           ⏱ {MINUTES[kind]} min
         </div>
+        </LabelButton>
         <LabelStem />
         </div>
       </Html>
@@ -679,7 +693,7 @@ function BottomBar({
       >
         <div style={{ fontWeight: 700, fontSize: 15, whiteSpace: 'nowrap' }}>
           🕯️ <span ref={num} style={{ fontSize: 22 }} />
-          <span style={{ opacity: 0.6 }}> / {LANTERN_MINUTES} min</span>
+          <span style={{ opacity: 0.8 }}> / {LANTERN_MINUTES} min</span>
         </div>
         <div style={{ height: 8, borderRadius: 99, background: 'rgba(30,27,75,.15)', overflow: 'hidden', marginTop: 4 }}>
           <div ref={bar} style={{ height: '100%', width: '100%', borderRadius: 99, background: 'linear-gradient(90deg,#ffb547,#fff1a8)' }} />

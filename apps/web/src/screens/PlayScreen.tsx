@@ -1,5 +1,5 @@
 import { createSession, guideStepFor, starsFor, type RiddleLevel } from '@riddle/engine';
-import { WORLDS, WorldStage, playWhenHeard, reducedMotion, sfx, steadyClock, useSettings } from '@riddle/fx';
+import { HeldTaps, WORLDS, WorldStage, playWhenHeard, reducedMotion, sfx, steadyClock, useSettings } from '@riddle/fx';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { AnimatePresence, motion, useIsPresent } from 'motion/react';
@@ -10,13 +10,15 @@ import { sceneTaps, watchMoves } from '../haptics';
 import { APP_SHELL, hasTestFlag } from '../appShell';
 import { Button } from '../components/Button';
 import { GuideOverlay, GuideTracker } from '../components/FirstPlayGuide';
+import { ReleaseOnLeave } from '../components/ReleaseOnLeave';
 import { SceneGuard, sceneWaitMs } from '../components/SceneGuard';
 import { BulbIcon, HomeIcon, InfoIcon, RedoIcon, RestartIcon, SoundIcon, UndoIcon } from '../components/Icons';
 import { Stars } from '../components/Stars';
-import { hintLine, hintOutlived, winLine } from '../hint';
+import { hintLine, hintOutlived, restartLeads, winLine } from '../hint';
 import { returnFocus } from '../focusReturn';
 import { useTextGrown } from '../textSize';
 import { useLiftClear } from '../hintPlace';
+import { DrawOnChange } from '../components/DrawOnChange';
 
 /** Tablets have very sharp screens; 1.5x looks the same to the eye and runs much smoother. */
 const TOUCH = typeof window !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -26,13 +28,15 @@ interface Props {
   onExit(): void;
   onNext?: () => void;
   onSolved(stars: number): void;
+  /** For the last level when every other one is solved: the line on its win card that says the game is finished. */
+  finale?: string;
   /** True once this level's first-play guide has been shown on this device. */
   guideSeen?: boolean;
   /** Called the moment the first-play guide shows, so it is never shown again. */
   onGuideSeen?: () => void;
 }
 
-export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false, onGuideSeen }: Props) {
+export function PlayScreen({ level, onExit, onNext, onSolved, finale, guideSeen = false, onGuideSeen }: Props) {
   const session = useMemo(() => createSession(level), [level]);
   // `?debug` exposes the session for automated play-tests: window.__riddle.getState().play(move)
   useEffect(() => {
@@ -140,10 +144,21 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
     </div>
   );
 
+  // A loss that one Undo can't save leads with Restart, in a level that asks for it.
+  const lostLeadsRestart = useMemo(() => s.ended && restartLeads(s), [s.ended, s.history, s.status, s.level]);
   const lostButtons = (
     <div className={`grid grid-cols-2 gap-2 ${grown ? 'mt-2' : 'mt-5 short:mt-4'}`}>
-      <Button tone="gold" onClick={s.undo}><UndoIcon />Undo</Button>
-      <Button onClick={s.restart}><RestartIcon />Restart</Button>
+      {lostLeadsRestart ? (
+        <>
+          <Button tone="gold" onClick={s.restart}><RestartIcon />Restart</Button>
+          <Button onClick={s.undo}><UndoIcon />Undo</Button>
+        </>
+      ) : (
+        <>
+          <Button tone="gold" onClick={s.undo}><UndoIcon />Undo</Button>
+          <Button onClick={s.restart}><RestartIcon />Restart</Button>
+        </>
+      )}
     </div>
   );
 
@@ -155,6 +170,8 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
       {/* Never a blank level: a scene that can't be drawn, or loses its 3D context, says so and offers two ways out. */}
       <SceneGuard onExit={onExit} onRetry={() => { setSceneReady(false); setSceneStuck(false); }} stuck={sceneStuck && !sceneReady}>
       <Canvas
+        // Drawn only when something changes, and at 30 frames a second at rest (see DrawOnChange).
+        frameloop="demand"
         shadows
         flat
         dpr={quality === 'high' ? [1, TOUCH ? 1.5 : 2] : [1, 1.25]}
@@ -169,26 +186,33 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
           gl.domElement.setAttribute('aria-label', `Level ${level.number}: ${level.title}, the riddle's scene`);
         }}
       >
+        <DrawOnChange session={session} ready={sceneReady} />
+        {/* Outermost, so that it lets go of the level's materials and geometries before the scene is taken down. */}
+        <ReleaseOnLeave>
         <Suspense fallback={null}>
           <WorldStage world={level.world}>
-            <Scene
-              state={state}
-              previous={previous}
-              lastMove={lastMove}
-              status={s.status}
-              play={s.play}
-              // Nothing in the scene takes a tap before it can be seen: not behind the rules card, not behind the loading curtain.
-              busy={s.busy || showRules || !sceneReady}
-              hint={s.hint}
-              resetCount={s.resetCount}
-              moveCount={moveCount}
-              onPick={setPicked}
-            />
+            {/* A tap made while a move still animates is held, and taken when the move is over (heldTaps.tsx). */}
+            <HeldTaps session={session} animating={s.busy} blocked={showRules || !sceneReady} moveCount={moveCount} resetCount={s.resetCount}>
+              <Scene
+                state={state}
+                previous={previous}
+                lastMove={lastMove}
+                status={s.status}
+                play={s.play}
+                // Nothing in the scene takes a tap before it can be seen: not behind the rules card, not behind the loading curtain.
+                busy={s.busy || showRules || !sceneReady}
+                hint={s.hint}
+                resetCount={s.resetCount}
+                moveCount={moveCount}
+                onPick={setPicked}
+              />
+            </HeldTaps>
           </WorldStage>
           <CameraRig position={cam.position} target={cam.target} fitAspect={cam.fitAspect} maxPolar={cam.maxPolar} />
           {guideStep && <GuideTracker step={guideStep} ring={guideRing} />}
           <FirstFrames onReady={() => setSceneReady(true)} onStuck={() => setSceneStuck(true)} />
         </Suspense>
+        </ReleaseOnLeave>
       </Canvas>
       </SceneGuard>
 
@@ -245,12 +269,13 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
       </div>
 
       {/* Hint toast, just above the bottom bar, which grows with the words (2.75rem of padding and 1.5rem of words). Its wrapper is always in the page, a live region, so VoiceOver reads each new hint; it adds no box of its own.
-          Where it would cover a button of the scene (grown words on an iPad), it is lifted over it by its bottom margin; elsewhere the margin is 0. */}
+          Where it would cover a button of the scene (grown words on an iPad), it is lifted over it by its bottom margin; elsewhere the margin is 0.
+          The refused-tap note (RefusalMark) steps aside from the words (data-refusal-avoid), as they are drawn above it. */}
       <div role="status" aria-live="polite" data-testid="hint-spoken">
       <AnimatePresence>
         {hintText && (
           <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} className="pointer-events-none absolute inset-x-0 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+2.75rem+1.5rem*var(--text-grow))] z-10 flex justify-center px-4 short:bottom-[max(0.75rem,env(safe-area-inset-bottom))] short:px-28 grown:short:pr-36" data-hint-lift="0">
-            <div ref={hintPill} data-testid="hint-toast" className="rounded-2xl bg-amber-300 px-5 py-2 font-display text-lg font-semibold text-amber-950 shadow-xl max-sm:text-base max-sm:leading-snug short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
+            <div ref={hintPill} data-testid="hint-toast" data-refusal-avoid className="rounded-2xl bg-amber-300 px-5 py-2 font-display text-lg font-semibold text-amber-950 shadow-xl max-sm:text-base max-sm:leading-snug short:px-4 short:py-2 short:text-base">💡 {hintText}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -300,12 +325,19 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
         )}
 
         {s.ended && s.status.kind === 'won' && (
-          <Modal key="won" label="Solved!" wide={grown} aside={grown ? wonButtons : undefined}>
+          <Modal key="won" label="Solved!" describedBy={finale ? FINALE_ID : undefined} wide={grown} aside={grown ? wonButtons : undefined}>
             <h2 className="font-display text-4xl font-bold short:text-3xl"><span aria-hidden className="block text-6xl short:mr-2 short:inline short:text-3xl">🎉</span>Solved!</h2>
             <div className="mt-3 flex justify-center short:mt-2"><Stars count={stars} size={48} animate /></div>
             <p className="mt-3 text-white/85 short:mt-2">
               {moveCount} {level.moveNoun}{s.hintsUsed ? ` · ${s.hintsUsed} hint${s.hintsUsed > 1 ? 's' : ''}` : ''}. {winLine(moveCount, level.bestMoves, s.hintsUsed)}
             </p>
+            {finale && (
+              // The end of the game. VoiceOver reads it as the card opens, after the card's name.
+              <p id={FINALE_ID} className="mt-3 rounded-2xl bg-amber-300/15 px-3 py-2 font-display text-lg font-semibold leading-snug text-amber-100 ring-1 ring-amber-200/40 short:mt-2 short:py-1.5 short:text-base">
+                <span aria-hidden className="mr-1.5">🏆</span>
+                {finale}
+              </p>
+            )}
             {!grown && wonButtons}
           </Modal>
         )}
@@ -329,7 +361,10 @@ const RULES_BUTTON = 'button[aria-label="Rules"]';
  * A card over the scene. It never grows past the screen: the body scrolls inside the card when it must,
  * and `aside` (the buttons) stays in view. On a phone held sideways a `wide` card puts `aside` in a second column.
  */
-function Modal({ children, aside, tone, wide, label, returnTo = [RULES_BUTTON] }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean; label: string; returnTo?: string[] }) {
+/** The id of the last win card's closing line, which describes the card to VoiceOver. */
+const FINALE_ID = 'finale-line';
+
+function Modal({ children, aside, tone, wide, label, describedBy, returnTo = [RULES_BUTTON] }: { children: React.ReactNode; aside?: React.ReactNode; tone?: 'red'; wide?: boolean; label: string; describedBy?: string; returnTo?: string[] }) {
   // VoiceOver starts reading at the card when it opens, not at whatever was touched before it.
   const panel = useRef<HTMLDivElement>(null);
   const cover = useRef<HTMLDivElement>(null);
@@ -358,6 +393,7 @@ function Modal({ children, aside, tone, wide, label, returnTo = [RULES_BUTTON] }
         role="dialog"
         aria-modal="true"
         aria-label={label}
+        aria-describedby={describedBy}
         tabIndex={-1}
         initial={{ scale: 0.8, y: 30 }}
         animate={{ scale: 1, y: 0 }}

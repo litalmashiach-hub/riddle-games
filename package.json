@@ -15,7 +15,8 @@
     "test:e2e:built": "playwright test --config e2e/playwright.config.ts",
     "test:e2e:taps": "pnpm build && playwright test --config e2e/taps/playwright.config.ts --project=iphone-landscape",
     "test:e2e:taps:all": "pnpm build && playwright test --config e2e/taps/playwright.config.ts",
-    "test:e2e:taps:built": "playwright test --config e2e/taps/playwright.config.ts"
+    "test:e2e:taps:built": "playwright test --config e2e/taps/playwright.config.ts",
+    "test:e2e:memory": "playwright test --config e2e/memory/playwright.config.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

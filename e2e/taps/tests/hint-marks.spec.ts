@@ -1,3 +1,4 @@
+import { HINT_SWELL } from '../../../packages/props/src/hintMark';
 import { LEVELS } from '../../levels';
 import { expect, expectClean, passRulesCard, seedProgress, test, waitForSession } from '../../tests/fixtures';
 import { READ_SCENE, Taps, waitCameraStill, waitIdle } from '../harness';
@@ -19,12 +20,13 @@ const MARKED = ['wolf-goat-cabbage', 'two-jugs', 'explorers-guardians', 'jealous
 
 /**
  * Levels whose mark lies mostly over things that listen at the start: level 7's halos over a crowd of
- * birds, level 14's ring on a lily pad. The ring swells and the pads bob, so a free point on the mark
+ * birds, level 14's ring on a lily pad, level 11's rings at the feet of a crowd whose name labels (and
+ * their touch pads, 44 points high) cover most of them on a small phone. The ring swells and the pads bob, so a free point on the mark
  * comes and goes: in these levels one is not demanded, and any found are kept well clear of what listens
  * and touched like the others. Then a ray is put through the mark the game's own way, with no touch,
- * where it lies over what listens: the mark must not answer it. That keeps the guard in these two levels.
+ * where it lies over what listens: the mark must not answer it. That keeps the guard in these levels.
  */
-const COVERED = ['jealous-couples', 'firefly-lanterns'];
+const COVERED = ['jealous-couples', 'firefly-lanterns', 'family-crossing'];
 
 /**
  * Every touch on the screen, as the game's picking sees it: how many of Hint's marks its ray passes
@@ -73,7 +75,15 @@ for (const level of LEVELS.filter((l) => MARKED.includes(l.id))) {
     // any found must lie 8 pixels clear of what listens, so that a bobbing thing can't come under the finger.
     // The touches are real touches (touchscreen.tap), not clicks made by script in the page.
     const covered = COVERED.includes(level.id);
-    const onMarks = await page.evaluate((clear) => window.__taps.markPoints(2, clear), covered ? 8 : 0);
+    // Each point lies on the mark's band at both ends of its pulse, since the touch comes a moment after the aim.
+    // Where the marked figure stands in a crowd (level 11 on the smallest iPhone), the free part of its ring
+    // is a few pixels between figures that bob, and comes and goes: look again for up to two seconds.
+    const findOnMarks = () => page.evaluate(([clear, swell]) => window.__taps.markPoints(2, clear, true, swell), [covered ? 8 : 0, HINT_SWELL] as const);
+    let onMarks = await findOnMarks();
+    for (let tries = 0; !covered && onMarks.length === 0 && tries < 10; tries++) {
+      await page.waitForTimeout(200);
+      onMarks = await findOnMarks();
+    }
     test.info().annotations.push({ type: 'touches on the mark', description: String(onMarks.length) });
     if (!covered) expect(onMarks.length, "a point of the screen where Hint's mark lies over nothing that listens").toBeGreaterThan(0);
     for (const at of onMarks) {

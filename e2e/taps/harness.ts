@@ -127,6 +127,8 @@ export const READ_SCENE = () => {
     const h = o.__r3f?.handlers;
     return h ? Object.keys(h).filter((k) => h[k]) : [];
   };
+  /** The page element drawn on top at a screen point, past any label's unseen touch pad (`data-touch-pad`). */
+  const pageTop = (x: number, y: number) => document.elementsFromPoint(x, y).find((e) => !(e as HTMLElement).dataset?.touchPad) ?? null;
   const shown = (o: any) => {
     for (let n = o; n; n = n.parent) if (!n.visible) return false;
     return true;
@@ -258,7 +260,7 @@ export const READ_SCENE = () => {
      * area) do not count, so the point is worked out from what the screen shows, never from where a tap
      * lands. Null if no part of it shows.
      */
-    visibleMiddle: (uuid: string, step: number) => {
+    visibleMiddle: (uuid: string, step: number, pageFree = false) => {
       const st = three();
       if (!st) return null;
       let root: any = null;
@@ -299,7 +301,8 @@ export const READ_SCENE = () => {
                 bestObj = m;
               }
           }
-          seen[j * nx + i] = !!bestObj && mine.has(bestObj);
+          // With `pageFree`, a point that a page element is drawn over (a label, say) is not one the finger can see.
+          seen[j * nx + i] = !!bestObj && mine.has(bestObj) && (!pageFree || pageTop(p.x, p.y) === st.gl.domElement);
         }
       rc.ray.origin.copy(o0);
       rc.ray.direction.copy(d0);
@@ -371,9 +374,19 @@ export const READ_SCENE = () => {
      * that a thing that bobs or swells can't move under the finger between the search and the touch.
      * With `free` false, what lies under or over the point is not asked: any point well inside the band.
      */
-    markPoints: (step: number, clear = 0, free = true) => {
+    markPoints: (step: number, clear = 0, free = true, swell = 0) => {
       const st = three();
       if (!st) return [];
+      // The sizes the mark takes in its pulse (see HINT_SWELL): the size it has now, and both ends of the swell.
+      const sizes: (number | null)[] = swell > 0 ? [null, 1 - swell, 1 + swell] : [null];
+      const kept = new Map<any, number[]>();
+      const setSize = (m: any, size: number | null) => {
+        if (!kept.has(m)) kept.set(m, [m.scale.x, m.scale.y, m.scale.z]);
+        const [sx, sy, sz] = kept.get(m)!;
+        if (size === null) m.scale.set(sx, sy, sz);
+        else m.scale.setScalar(size);
+        m.updateWorldMatrix(true, false);
+      };
       const marks: any[] = [];
       st.scene.traverse((o: any) => {
         if (o.name === 'hint-mark' && o.isMesh && shown(o)) marks.push(o);
@@ -393,13 +406,22 @@ export const READ_SCENE = () => {
           for (let x = Math.max(rect.left + 2, b.x0); x <= Math.min(rect.right - 2, b.x1); x += step) {
             const d = (x - cx) ** 2 + (y - cy) ** 2;
             if (best && d >= best.d) continue;
-            // Well inside the mark's band, so that its gentle swell cannot take the band off the point.
-            const onBand = [[0, 0], [-3, 0], [3, 0], [0, -3], [0, 3]].every(([dx, dy]) => {
-              rc.setFromCamera({ x: ((x + dx - rect.left) / rect.width) * 2 - 1, y: -((y + dy - rect.top) / rect.height) * 2 + 1 }, st.camera);
-              const shape: any[] = [];
-              Object.getPrototypeOf(m).raycast.call(m, rc, shape);
-              return shape.length > 0;
+            // Well inside the mark's band at every size of its pulse: the touch lands about a second after
+            // this aim, at another moment of the swell, so a point on the band at today's size alone can
+            // lie off it by then (level 6's ring, at its smallest here and at its largest at the touch).
+            // At the size of the moment the point keeps 3 pixels clear of the band's edges; at the two ends
+            // of the swell, a pixel (the band of a halo is too thin to keep more at both ends).
+            const onBand = sizes.every((size) => {
+              setSize(m, size);
+              const r = size === null ? 3 : 1;
+              return [[0, 0], [-r, 0], [r, 0], [0, -r], [0, r]].every(([dx, dy]) => {
+                rc.setFromCamera({ x: ((x + dx - rect.left) / rect.width) * 2 - 1, y: -((y + dy - rect.top) / rect.height) * 2 + 1 }, st.camera);
+                const shape: any[] = [];
+                Object.getPrototypeOf(m).raycast.call(m, rc, shape);
+                return shape.length > 0;
+              });
             });
+            setSize(m, null);
             if (!onBand) continue;
             const around = clear > 0 ? [[0, 0], [-clear, 0], [clear, 0], [0, -clear], [0, clear], [-clear, -clear], [clear, -clear], [-clear, clear], [clear, clear]] : [[0, 0]];
             const listens = free && around.some(([dx, dy]) => {
@@ -451,9 +473,9 @@ declare global {
       targets(): Target[];
       firstHit(x: number, y: number): TapRecord['firstHit'];
       marksAt(x: number, y: number): { crossed: number; taken: number; shown: number };
-      markPoints(step: number, clear?: number, free?: boolean): Point[];
+      markPoints(step: number, clear?: number, free?: boolean, swell?: number): Point[];
       clearMiddle(uuid: string, step: number): (Point & { depth: number }) | null;
-      visibleMiddle(uuid: string, step: number): (Point & { depth: number; shown: number }) | null;
+      visibleMiddle(uuid: string, step: number, pageFree?: boolean): (Point & { depth: number; shown: number }) | null;
     };
   }
 }
@@ -622,8 +644,8 @@ export class Taps {
    * that the screen shows (see `visibleMiddle` in READ_SCENE). If no part of it shows, that is a fault:
    * `covered`, since a finger cannot aim at what it cannot see.
    */
-  async visibleMiddleOf(t: Target, what: string, step = 2): Promise<Point> {
-    const p = await this.page.evaluate(([u, s]) => window.__taps.visibleMiddle(u, s), [t.uuid, step] as const);
+  async visibleMiddleOf(t: Target, what: string, step = 2, pageFree = false): Promise<Point> {
+    const p = await this.page.evaluate(([u, s, f]) => window.__taps.visibleMiddle(u, s, f), [t.uuid, step, pageFree] as const);
     if (!p) throw new TapFault('covered', this.step, `no part of ${what} shows on the screen: other things are drawn over all of it`);
     return { x: p.x, y: p.y };
   }
@@ -633,13 +655,70 @@ export class Taps {
     return this.tapAt(await this.visibleMiddleOf(t, what), what);
   }
 
+  /**
+   * One tap on the middle of the part of a listening object that the finger can see: shown on the screen, and
+   * with no page element, such as a name label, drawn over it. Where name labels stand close to the figures,
+   * that is where a person taps a figure.
+   */
+  async tapSeen(t: Target, what: string): Promise<TapRecord> {
+    return this.tapAt(await this.visibleMiddleOf(t, what, 2, true), what);
+  }
+
+  /** Waits, up to 5 seconds, until no name label with a touch pad (`data-touch-pad`) has moved for 300 ms. */
+  async labelsAtRest(): Promise<void> {
+    let last = '';
+    for (const end = Date.now() + 5000; Date.now() < end; await this.page.waitForTimeout(150)) {
+      const now = await this.page.evaluate(() =>
+        [...document.querySelectorAll('[data-touch-pad]')]
+          .map((p) => {
+            const r = p.parentElement!.getBoundingClientRect();
+            return `${Math.round(r.x)},${Math.round(r.y)}`;
+          })
+          .join(';'),
+      );
+      if (now === last) {
+        await this.page.waitForTimeout(150);
+        return;
+      }
+      last = now;
+    }
+  }
+
+  /**
+   * `tapSeen`, or, where name labels cover every part of the figure that shows, a tap on the figure's own
+   * name label (`label`), as a person would: the label is what they can see of it.
+   */
+  async tapSeenOrLabel(t: Target, what: string, label: Locator): Promise<void> {
+    // The labels slide apart for a moment after people move: aim once they are at rest, and look again
+    // until the point found is still clear.
+    await this.labelsAtRest();
+    for (let tries = 0; ; tries++) {
+      let at: Point;
+      try {
+        at = await this.visibleMiddleOf(t, what, 2, true);
+      } catch (e) {
+        if (!(e instanceof TapFault) || e.kind !== 'covered') throw e;
+        return this.tapButton(label, `${what}'s name label`);
+      }
+      await this.page.waitForTimeout(250);
+      const seen = await this.look(at, what);
+      if (seen.onTop === 'CANVAS') {
+        await this.tapAt(at, what);
+        return;
+      }
+      // Labels that keep sliding over the figure: tap its own label, as a person would.
+      if (tries >= 8) return this.tapButton(label, `${what}'s name label`);
+    }
+  }
+
   private async look(at: Point, what: string) {
     const { width, height } = this.size;
     if (!(at.x >= 1 && at.y >= 1 && at.x <= width - 1 && at.y <= height - 1)) {
       throw new TapFault('off-screen', this.step, `${what} is drawn at ${fmt(at)}, outside the ${width} by ${height} screen`);
     }
     return this.page.evaluate(({ x, y }) => {
-      const el = document.elementFromPoint(x, y);
+      // A label's unseen touch pad (`data-touch-pad`) is nothing a finger sees: what shows under it counts.
+      const el = document.elementsFromPoint(x, y).find((e) => !(e as HTMLElement).dataset?.touchPad) ?? null;
       const onTop = !el ? 'nothing' : el.tagName === 'CANVAS' ? 'CANVAS' : `${el.tagName.toLowerCase()} "${(el.textContent ?? '').trim().slice(0, 40)}"`;
       return { onTop, firstHit: window.__taps.firstHit(x, y) };
     }, at);

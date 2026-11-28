@@ -1,5 +1,5 @@
 import type { SceneProps } from '@riddle/engine';
-import { Burst, ComicWord, DizzyStars, Shake, ambientDt, sfx, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
+import { Burst, Clickable, ComicWord, DizzyStars, Shake, ambientDt, sfx, useHeldTap, usePath, type PathSegment, type Vec3 } from '@riddle/fx';
 import { Bubble, HintRing, RefusalMark, toon, useRefusal } from '@riddle/props';
 import { useCursor } from '@react-three/drei';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
@@ -124,7 +124,8 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
   }, [moveCount, resetCount]);
 
   const nope = useRefusal();
-  const tapPeg = (p: Peg) => {
+  // A tap while a disc is still moving is held and taken when it has landed (heldTaps.tsx in @riddle/fx).
+  const tapPeg = useHeldTap((p: Peg) => {
     if (busy || over || bouncing) return;
     if (selected === null) {
       if (state.pegs[p].length === 0) {
@@ -146,7 +147,7 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
       setDazed(false);
       setBonk({ from: selected, to: p, at: performance.now(), size: top(state, selected)!, under: top(state, p)! });
     }
-  };
+  }, busy || over || bouncing);
 
   const animKey = `${moveCount}|${resetCount}`;
   const lifted = selected !== null ? top(state, selected) : undefined;
@@ -175,7 +176,8 @@ export function Scene({ state, lastMove, status, play, busy, hint, resetCount, m
           mode={selected === null ? 'idle' : selected === p ? 'source' : canMove(state, selected, p) ? 'drop' : 'blocked'}
           deniedAt={bonk?.to === p ? bonk.at + BONK_HIT : 0}
           party={party && p === GOAL}
-          disabled={busy || over}
+          // Not while busy: a tap then is held for after the move (see tapPeg).
+          disabled={over}
           onTap={() => tapPeg(p)}
         />
       ))}
@@ -281,44 +283,46 @@ function Pillar({
 
   return (
     <group position={[PEG_X[peg], 0, 0]}>
-      <group
-        onPointerOver={(e: ThreeEvent<PointerEvent>) => {
-          e.stopPropagation();
-          setHover(true);
-        }}
-        onPointerOut={() => setHover(false)}
-        onClick={(e: ThreeEvent<MouseEvent>) => {
-          e.stopPropagation();
-          if (!disabled) onTap();
-        }}
-      >
-        {/* Octagonal plinth with a carved rune ring */}
-        <mesh position-y={0.17} material={trim} castShadow receiveShadow>
-          <cylinderGeometry args={[1.32, 1.42, 0.34, 8]} />
-        </mesh>
-        <mesh position-y={0.39} material={sandstone} castShadow receiveShadow>
-          <cylinderGeometry args={[1.22, 1.3, 0.1, 8]} />
-        </mesh>
-        <mesh position-y={BASE_Y + 0.003} rotation-x={-Math.PI / 2} material={rune}>
-          <ringGeometry args={[1.04, 1.16, 8, 1]} />
-        </mesh>
-        {/* Bronze rod with collars and a glowing orb cap */}
-        <mesh position-y={BASE_Y + ROD_H / 2} material={bronze} castShadow>
-          <cylinderGeometry args={[0.085, 0.1, ROD_H, 10]} />
-        </mesh>
-        {[0.06, ROD_H].map((y) => (
-          <mesh key={y} position-y={BASE_Y + y} material={bronze}>
-            <cylinderGeometry args={[0.16, 0.16, 0.08, 10]} />
+      {/*
+       * A tap counts when the finger lifts (the shared Clickable), not on the browser's click: the browser
+       * sends none for a press held a little long, nor, on a busy device, for a touch made soon after another.
+       */}
+      <Clickable onClick={onTap} disabled={disabled} hoverScale={1}>
+        <group
+          onPointerOver={(e: ThreeEvent<PointerEvent>) => {
+            e.stopPropagation();
+            setHover(true);
+          }}
+          onPointerOut={() => setHover(false)}
+        >
+          {/* Octagonal plinth with a carved rune ring */}
+          <mesh position-y={0.17} material={trim} castShadow receiveShadow>
+            <cylinderGeometry args={[1.32, 1.42, 0.34, 8]} />
           </mesh>
-        ))}
-        <mesh position-y={BASE_Y + ROD_H + 0.17} material={orb} castShadow>
-          <icosahedronGeometry args={[0.17, 1]} />
-        </mesh>
-        {/* Big invisible tap target covering the whole pillar and its discs */}
-        <mesh position-y={1.6} visible={false}>
-          <cylinderGeometry args={[1.35, 1.35, 3.6, 8]} />
-        </mesh>
-      </group>
+          <mesh position-y={0.39} material={sandstone} castShadow receiveShadow>
+            <cylinderGeometry args={[1.22, 1.3, 0.1, 8]} />
+          </mesh>
+          <mesh position-y={BASE_Y + 0.003} rotation-x={-Math.PI / 2} material={rune}>
+            <ringGeometry args={[1.04, 1.16, 8, 1]} />
+          </mesh>
+          {/* Bronze rod with collars and a glowing orb cap */}
+          <mesh position-y={BASE_Y + ROD_H / 2} material={bronze} castShadow>
+            <cylinderGeometry args={[0.085, 0.1, ROD_H, 10]} />
+          </mesh>
+          {[0.06, ROD_H].map((y) => (
+            <mesh key={y} position-y={BASE_Y + y} material={bronze}>
+              <cylinderGeometry args={[0.16, 0.16, 0.08, 10]} />
+            </mesh>
+          ))}
+          <mesh position-y={BASE_Y + ROD_H + 0.17} material={orb} castShadow>
+            <icosahedronGeometry args={[0.17, 1]} />
+          </mesh>
+          {/* Big invisible tap target covering the whole pillar and its discs */}
+          <mesh position-y={1.6} visible={false}>
+            <cylinderGeometry args={[1.35, 1.35, 3.6, 8]} />
+          </mesh>
+        </group>
+      </Clickable>
 
       {goal && (
         <>

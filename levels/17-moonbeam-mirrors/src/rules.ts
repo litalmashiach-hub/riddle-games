@@ -132,14 +132,36 @@ export function trace(state: State, layout: Layout = LAYOUT): Trace {
   return { segs, lit: [...lit], end: 'loop', bounced };
 }
 
+/** The tilts after turning one crystal. */
+export function turned(state: State, mirror: number): State {
+  return { tilts: state.tilts.map((t, i) => (i === mirror ? (t === '/' ? '\\' : '/') : t)), turns: state.turns + 1 };
+}
+
+/** Where the beam would go if one crystal it touches now were turned: the newcomer's look-before-you-tap. */
+export interface TurnPreview {
+  mirror: number;
+  /** The beam after that turn. */
+  trace: Trace;
+  /** True when that turn would send the beam into the toad. */
+  toad: boolean;
+}
+
+/**
+ * One preview for each crystal the beam bounces off right now, in the order the beam meets them.
+ * A crystal the beam doesn't reach changes nothing when turned, so it gets none.
+ */
+export function turnPreviews(state: State, layout: Layout = LAYOUT): TurnPreview[] {
+  return [...new Set(trace(state, layout).bounced)].map((mirror) => {
+    const t = trace(turned(state, mirror), layout);
+    return { mirror, trace: t, toad: t.end === 'toad' };
+  });
+}
+
 export function makeRules(layout: Layout): RiddleRules<State, Move> {
   return {
     initialState: { tilts: layout.mirrors.map((m) => m.start), turns: 0 },
     legalMoves: () => layout.mirrors.map((_, mirror) => ({ mirror })),
-    apply: (s, { mirror }) => ({
-      tilts: s.tilts.map((t, i) => (i === mirror ? (t === '/' ? '\\' : '/') : t)),
-      turns: s.turns + 1,
-    }),
+    apply: (s, { mirror }) => turned(s, mirror),
     status(s): RiddleStatus {
       const t = trace(s, layout);
       if (t.end === 'toad') return { kind: 'lost', reason: 'The moonbeam tickled the sleeping toad. AH-CHOO!' };

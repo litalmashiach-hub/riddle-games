@@ -42,6 +42,10 @@ async function open(page: Page, level: LevelCase) {
 // solution, and no known tap fault.
 const WON_BY_PRESSES: { id: string; holds: number[] }[] = [
   { id: 'wolf-goat-cabbage', holds: [60, 900] },
+  // Their pillars (and level 10's cogs) count on the lift since the quick-tap change: a touch made soon
+  // after another, on a busy device, can come with no click at all.
+  { id: 'tower-of-hanoi', holds: [900] },
+  { id: 'four-pillar-tower', holds: [900] },
   { id: 'two-jugs', holds: [900] },
   { id: 'firefly-jars', holds: [900] },
   { id: 'pancake-stack', holds: [900] },

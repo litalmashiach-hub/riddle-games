@@ -10,7 +10,7 @@ const level: RiddleLevel<State, Move> = {
   tagline: 'Every tap flips a lantern and its neighbours.',
   instructions: [
     'Light all nine lanterns on the lily pads.',
-    'Tapping a pad flips its lantern and the ones right next to it: in front, behind, left and right. Lit ones go dark, dark ones light up.',
+    'Tapping a pad flips its lantern and the four next to it: above, below, left and right on the screen, not the corners. Lit ones go dark, dark ones light up.',
     `The fireflies get sleepy: you have ${MAX_TAPS} taps before they doze off.`,
   ],
   controls: ['Tap a lily pad. Pip the frog hops onto it and flips the lanterns.'],

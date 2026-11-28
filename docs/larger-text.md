@@ -52,8 +52,8 @@ need another layout then. At the standard size every one of them is as before.
 - **About, the reset question:** the card widens, so its two buttons can stay side by side.
 - **Refused-tap notes** (`RefusalMark` in `packages/props`): the red "✕" note over a piece grows with the words,
   though it is laid over the 3D scene, as it is the only answer to a refused tap for a player who can't hear the
-  blip. Grown, its words may take two lines. At any size it steps aside from Hint's marks and from every button
-  of the scene and the HUD (`refusalPlace.ts`).
+  blip. Grown, its words may take two lines. At any size it steps aside from Hint's marks, from every button
+  of the scene and the HUD, and from the hint's words, which are drawn above it (`refusalPlace.ts`).
 - **Hint and first-play guide, on taller screens:** they keep their gap to the bottom and top bars, which grow
   with the words.
 - **Hint, over a scene's own button:** grown, the toast is taller and can reach a button a level pins just above
@@ -61,7 +61,11 @@ need another layout then. At the standard size every one of them is as before.
   with an 8-point gap, and never higher than under the top bar (`apps/web/src/hintPlace.ts`). Where it covers no
   button it stays where it was, so at the standard size nothing moves. Where no lift clears every button (level 5
   on a 667 by 375 phone at the largest sizes, with the Cross button below and the name labels above), it steps aside
-  to the nearest place beside a button that clears them all, inside the window.
+  to the nearest place beside a button that clears them all, inside the window. Where no place at all clears them at the toast's
+  size (level 5 after a crossing, on a phone held sideways at the accessibility sizes, with name labels on both banks
+  and the "Pick" button between them), its words shrink, 2 points at a time, until a place clears them all, and never
+  below the standard size (`fitClear`). While one hint is up its words only shrink, so the toast does not flicker.
+  Each new hint starts at full size.
 - **Hint, sideways on a phone:** the toast keeps clear of the grown Hint button in the right corner.
 
 ## What does not grow
@@ -78,7 +82,8 @@ need another layout then. At the standard size every one of them is as before.
   words cut short, clipped or drawn over each other, and buttons out of reach.
 - `e2e/taps/tests/silent-refusals.spec.ts` makes every refused tap of all 13 levels that have one, by real
   touches, at the standard size and the largest, with Hint's marks up, and checks the note's words grow and
-  that it covers no point of a Hint mark and no button, at the iPhone sizes and on the iPad.
+  that it covers no point of a Hint mark and no button, at the iPhone sizes and on the iPad. Again with the hint's
+  words held up, it follows the note over its whole life and checks it never lies under them.
 - `e2e/tests/larger-text.spec.ts` runs it at the first accessibility size and the largest, on the map and every
   About page (app build) and on the rules, win and loss cards and the play screen (website with `?debug`), at
   the iPhone sizes of the play-through config. It also checks that the standard size changes nothing and that

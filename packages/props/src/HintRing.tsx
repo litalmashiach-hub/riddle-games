@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { reducedMotion } from '@riddle/fx';
-import { HINT_EDGE, HINT_GOLD, RING_OPACITY, ringBands } from './hintMark';
+import { HINT_EDGE, HINT_GOLD, HINT_SWELL, RING_OPACITY, ringBands } from './hintMark';
 
 /** A mark is looked at, never tapped: no ray hits it, so it takes no touch from what it marks. */
 export const noHit = () => null;
@@ -63,7 +63,7 @@ export function useHintPulse(ref: React.RefObject<THREE.Mesh | null>) {
     const m = ref.current;
     if (!m) return;
     const wave = reducedMotion() ? 1 : Math.sin(clock.elapsedTime * 5);
-    const s = 1 + wave * 0.08;
+    const s = 1 + wave * HINT_SWELL;
     m.scale.set(s, s, s);
     (m.material as THREE.MeshBasicMaterial).opacity = (RING_OPACITY.low + RING_OPACITY.high) / 2 + (wave * (RING_OPACITY.high - RING_OPACITY.low)) / 2;
   });

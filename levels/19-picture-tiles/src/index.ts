@@ -12,7 +12,7 @@ const level: RiddleLevel<State, Move> = {
     "The fireflies mixed up the stones of Shelly the turtle's mosaic portrait.",
     'Slide the stones until the picture matches the one on the standing stone.',
     'A stone can only slide into the empty gap next to it.',
-    `Shelly is sleepy: finish within ${MAX_SLIDES} slides or she nods off. Tiny numbers in the corners can help.`,
+    `Shelly is sleepy: finish within ${MAX_SLIDES} slides or she nods off. The numbers in the corners show where each stone belongs.`,
   ],
   controls: ['Tap a stone next to the gap to slide it in. Glowing stones can move.', 'When the picture is whole, the last ★ piece jumps in by itself.'],
   rules,
@@ -20,7 +20,7 @@ const level: RiddleLevel<State, Move> = {
   moveNoun: 'slides',
   moveDurationMs: MOVE_MS,
   endDelayMs: 3600,
-  camera: { position: [0, 7.4, 8.2], target: [0, 0.75, -0.15], fov: 45 },
+  camera: { position: [0, 6.5, 6.4], target: [0, 0.85, -0.35], fov: 45 },
   Scene,
 };
 

@@ -99,6 +99,8 @@ function shardShape() {
 }
 
 let crystalGeo: THREE.ExtrudeGeometry | null = null;
+/** The tilt line under every crystal (one material for all). */
+const tiltLineMat = new THREE.MeshBasicMaterial({ color: '#a5f3fc', toneMapped: false });
 const tiltAngle = (t: Tilt) => (t === '/' ? Math.PI / 4 : -Math.PI / 4);
 
 export interface CrystalProps {
@@ -204,6 +206,15 @@ export function Crystal({ c, r, tilt, lit, index, onClick, disabled, blown, part
             <cylinderGeometry args={[0.2, 0.26, 0.12, 7]} />
           </mesh>
           <group ref={spin}>
+            {/* a bright line on the pad along the mirror, with glowing dots at its ends that peek out past the crystal: from above they read as a slash or a backslash */}
+            <mesh position-y={PAD_Y + 0.075} material={tiltLineMat}>
+              <boxGeometry args={[1.08, 0.025, 0.09]} />
+            </mesh>
+            {[-1, 1].map((sx) => (
+              <mesh key={sx} position={[sx * 0.52, PAD_Y + 0.08, 0]} material={tiltLineMat}>
+                <cylinderGeometry args={[0.085, 0.085, 0.03, 12]} />
+              </mesh>
+            ))}
             <mesh geometry={geo} material={glass} position-y={PAD_Y + 0.14} scale={[0.95, 0.85, 1]} castShadow />
             {/* silver rim along the bottom */}
             <mesh position-y={PAD_Y + 0.15} material={toon('#d9dcf2', { metal: 0.8, rough: 0.3 })}>
@@ -244,10 +255,11 @@ export function MoonFlower({ c, r, index, lit, closed, party }: { c: number; r: 
   const pollen = useRef<THREE.Group>(null);
   const light = useRef<THREE.PointLight>(null);
   const open = useRef(0);
-  const petalMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#5b4f8a', emissive: new THREE.Color('#b8a6ff'), emissiveIntensity: 0.15, roughness: 0.6, flatShading: true }), []);
-  const innerMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#6b5fa0', emissive: new THREE.Color('#e9d5ff'), emissiveIntensity: 0.15, roughness: 0.6, flatShading: true }), []);
+  const petalMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#8a7cc8', emissive: new THREE.Color('#b8a6ff'), emissiveIntensity: 0.15, roughness: 0.6, flatShading: true }), []);
+  const innerMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#8a7cc8', emissive: new THREE.Color('#e9d5ff'), emissiveIntensity: 0.15, roughness: 0.6, flatShading: true }), []);
   const heartMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#ffe8a3', emissive: new THREE.Color('#ffd166'), emissiveIntensity: 0.4, roughness: 0.4, flatShading: true }), []);
-  const dim = useMemo(() => new THREE.Color('#5b4f8a'), []);
+  // The closed bud, a little lighter than its green pad so it stands out in grey too.
+  const dim = useMemo(() => new THREE.Color('#8a7cc8'), []);
   const bright = useMemo(() => new THREE.Color('#f5f0ff'), []);
   const OUTER = 7;
   const INNER = 5;

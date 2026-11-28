@@ -20,7 +20,7 @@ const level: RiddleLevel<State, Move> = {
     'Shelly the turtle has a new mosaic: herself and her two little ones at sunset. The fireflies have mixed this one up too.',
     'Slide the stones until the picture matches the one on the standing stone.',
     'A stone can only slide into the empty gap next to it.',
-    `Shelly is sleepy: finish within ${MAX_SLIDES} slides or she nods off. Tiny numbers in the corners can help.`,
+    `Shelly is sleepy: finish within ${MAX_SLIDES} slides or she nods off. The numbers in the corners show where each stone belongs.`,
   ],
   controls: ['Tap a stone next to the gap to slide it in. Glowing stones can move.', 'When the picture is whole, the last ★ piece jumps in by itself.'],
   rules,
@@ -28,7 +28,11 @@ const level: RiddleLevel<State, Move> = {
   moveNoun: 'slides',
   moveDurationMs: MOVE_MS,
   endDelayMs: 3600,
-  camera: { position: [0, 7.4, 8.2], target: [0, 0.75, -0.15], fov: 45 },
+  // Closer and steeper than level 19's view, so that every stone, the back row too, is over 44 points tall on an
+  // iPhone held sideways (about 53 at 852 x 393, 51 at 667 x 375), with the standing stone's picture still whole
+  // below the move counter. Panned a little left (x -0.45), so Shelly's patience sits between the Undo buttons
+  // and the left stones, covering neither.
+  camera: { position: [-0.45, 6.9, 3.5], target: [-0.45, 0.9, -0.9], fov: 45 },
   Scene,
 };
 

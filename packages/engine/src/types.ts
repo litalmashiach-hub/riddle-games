@@ -125,6 +125,11 @@ export interface RiddleLevel<S = any, M = any> {
    * down onto the target. A level that is meant to be seen nearly from the side sets it at or above its own camera's angle.
    */
   camera?: { position: [number, number, number]; target: [number, number, number]; fov?: number; fitAspect?: number; maxPolar?: number };
+  /**
+   * On a loss that one Undo can't save (no win from the position before the last move), the loss card makes
+   * Restart its main button. Opt-in, as it asks the solver once per loss. Level 20 uses it.
+   */
+  restartWhenStuck?: boolean;
   /** A first-play guide, shown once ever, on the level's very first play. Level 1 has one. */
   guide?: FirstPlayGuide;
   /** The 3D scene. Rendered inside the shell's <Canvas>. */

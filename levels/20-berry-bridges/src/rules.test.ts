@@ -1,7 +1,7 @@
 import { solve } from '@riddle/engine';
 import { describe, expect, it } from 'vitest';
 import level from './index';
-import { ALL_USED, BRIDGES, ISLANDS, ON_RAFT, bridgeBetween, reachable, rules, type State } from './rules';
+import { ALL_USED, BRIDGES, ISLANDS, ON_RAFT, badStart, bridgeBetween, noWinLeft, reachable, rules, startOf, type State } from './rules';
 
 const startOn = (to: number) => rules.apply(rules.initialState, { to });
 
@@ -58,5 +58,43 @@ describe('Berry Bridges', () => {
   it('gives a hint a player can follow', () => {
     expect(rules.describeMove({ to: 6 }, rules.initialState)).toBe('Start on the reed islet');
     expect(rules.describeMove({ to: 5 }, startOn(6))).toBe('Cross the bridge to the lotus islet');
+  });
+
+  it('knows the start from the sunk bridges alone, on any walk', () => {
+    let seed = 7;
+    const rand = (n: number) => ((seed = (seed * 16807) % 2147483647), seed % n);
+    for (let run = 0; run < 300; run++) {
+      const start = rand(ISLANDS);
+      let s = startOn(start);
+      expect(startOf(s)).toBe(start);
+      while (rules.status(s).kind === 'playing') {
+        const moves = rules.legalMoves(s);
+        s = rules.apply(s, moves[rand(moves.length)]);
+        expect(startOf(s)).toBe(start);
+      }
+    }
+    expect(startOf(rules.initialState)).toBe(ON_RAFT);
+  });
+
+  it('says at once, after the first move, when the start can never win', () => {
+    for (let i = 0; i < ISLANDS; i++) {
+      const s = startOn(i);
+      const winnable = solve(rules, s) !== null;
+      expect(badStart(s)).toBe(!winnable);
+      expect(noWinLeft(s)).toBe(!winnable);
+    }
+    expect(badStart(rules.initialState)).toBe(false);
+    expect(noWinLeft(rules.initialState)).toBe(false);
+    // A bad start stays bad after more moves; a good start with a wrong turn later is not a bad start.
+    const bad = rules.apply(startOn(7), { to: 3 });
+    expect(badStart(bad)).toBe(true);
+    let good = startOn(0);
+    for (const to of [1, 2, 3, 7]) good = rules.apply(good, { to });
+    expect(badStart(good)).toBe(false);
+    expect(noWinLeft(good)).toBe(solve(rules, good) === null);
+  });
+
+  it('asks the loss card to lead with Restart', () => {
+    expect(level.restartWhenStuck).toBe(true);
   });
 });
