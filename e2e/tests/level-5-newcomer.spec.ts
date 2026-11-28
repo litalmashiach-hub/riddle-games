@@ -177,20 +177,21 @@ test.describe('level 5: the name labels', () => {
       await expect(toast).toBeVisible();
       // Once it has sprung in and taken its place.
       await page.waitForTimeout(1000);
-      const covered = await toast.evaluate((el) => {
+      const { covered, size } = await toast.evaluate((el) => {
         const r = el.getBoundingClientRect();
-        return [...document.querySelectorAll('button')]
+        const covered = [...document.querySelectorAll('button')]
           .filter((b) => {
             const q = b.getBoundingClientRect();
             return q.width > 1 && Math.min(q.right, r.right) > Math.max(q.left, r.left) && Math.min(q.bottom, r.bottom) > Math.max(q.top, r.top);
           })
           .map((b) => b.getAttribute('aria-label') || (b.textContent ?? '').trim());
+        return { covered, size: parseFloat(getComputedStyle(el).fontSize) };
       });
       expect(covered, `after crossing ${i + 1}, the hint covers no button`).toEqual([]);
       const hb = (await toast.boundingBox())!;
       for (const e of EXPLORERS) expect(overlaps(hb, pills[e]), `after crossing ${i + 1}, the hint covers ${NAMES[e]}'s label`).toBe(false);
       // It never shrinks below the standard size.
-      expect(parseFloat(await toast.evaluate((el) => getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(16);
+      expect(size, `after crossing ${i + 1}, the hint's words keep the standard size or more`).toBeGreaterThanOrEqual(16);
     }
     expectClean(faults);
   });
