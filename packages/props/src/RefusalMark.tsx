@@ -74,6 +74,12 @@ export const ringReach = (radius: number) => {
 };
 
 /**
+ * A HUD panel that is no button, such as the move counter's score card: the HUD is drawn over the scene, and so
+ * over the note, which steps aside from every element that carries this attribute, as it does from a button.
+ */
+export const HUD_PANEL = '[data-hud-panel]';
+
+/**
  * The mark itself. Put it anywhere inside the scene's Canvas, and keep it there while the scene lives:
  * it holds the lasting live region the notes are spoken through, so that region is in the page before any tap.
  */
@@ -142,6 +148,24 @@ function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: V
       const r = b.getBoundingClientRect();
       if (r.width < 1 || r.height < 1) continue;
       if (getComputedStyle(b).visibility === 'hidden') continue;
+      const box = { l: r.left - origin.left, t: r.top - origin.top, r: r.right - origin.left, b: r.bottom - origin.top };
+      if (box.r <= 0 || box.b <= 0 || box.l >= size.width || box.t >= size.height) continue;
+      out.push(grow(box, CLEAR));
+    }
+    return out;
+  };
+
+  /**
+   * The HUD's panels that are no button but are drawn over the scene, and so over the note (the move counter's
+   * score card first): every element marked `data-hud-panel` (HUD_PANEL), as boxes in the canvas's pixels, grown
+   * by the clearance. The note steps aside from them as from a button, so none of its words is ever drawn under one.
+   */
+  const panelBoxes = (): Box[] => {
+    const origin = region.getBoundingClientRect();
+    const out: Box[] = [];
+    for (const p of document.querySelectorAll<HTMLElement>(HUD_PANEL)) {
+      const r = p.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1 || getComputedStyle(p).visibility === 'hidden') continue;
       const box = { l: r.left - origin.left, t: r.top - origin.top, r: r.right - origin.left, b: r.bottom - origin.top };
       if (box.r <= 0 || box.b <= 0 || box.l >= size.width || box.t >= size.height) continue;
       out.push(grow(box, CLEAR));
@@ -218,12 +242,13 @@ function RefusalPill({ region, at, say, avoid }: { region: HTMLDivElement; at: V
     const ground = toScreen([at[0], 0, at[2]]);
     const rings = (avoid ?? []).map(ringBox);
     const buttons = buttonBoxes();
+    const panels = panelBoxes();
     const marks = hintMarks();
-    const things = [...rings, ...buttons, ...marks.map((m) => m.box)];
+    const things = [...rings, ...buttons, ...panels, ...marks.map((m) => m.box)];
     const list = spots(p, ground.y, w, h, size.width, size.height, things);
     const cost = (s: Spot) => {
       const box = noteBox(s, w, h);
-      return rings.reduce((sum, ring) => sum + overlap(box, ring), 0) + buttons.reduce((sum, b) => sum + overlap(box, b), 0) + markCover(box, marks);
+      return rings.reduce((sum, ring) => sum + overlap(box, ring), 0) + [...buttons, ...panels].reduce((sum, b) => sum + overlap(box, b), 0) + markCover(box, marks);
     };
     // Kept where it is while that still covers nothing and the piece has not moved.
     let spot: Spot;

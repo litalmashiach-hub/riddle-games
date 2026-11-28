@@ -203,18 +203,19 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
       </AnimatePresence>
 
       {/* Top bar. Sideways on a phone the counter moves beside the home button, so the top middle stays free for a level's own labels.
-          The counter, the level name and the round buttons use the tinted readout glass, so they stay readable over a white sky. */}
+          The counter, the level name and the round buttons use the tinted readout glass, so they stay readable over a white sky.
+          The counter and the level name are marked data-hud-panel: a refused tap's note (RefusalMark) steps aside from them, as it is drawn under them. */}
       <div ref={topBar} className={`safe-top pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3 transition-opacity duration-300 sm:p-4 short:justify-start short:pt-2 ${cardOpen ? 'invisible opacity-0' : ''}`}>
         <div className="pointer-events-auto flex items-center gap-2">
           <Button onClick={onExit} tone="readout" aria-label="Back to levels" className="!px-3">
             <HomeIcon />
           </Button>
-          <div className="glass-readout hidden rounded-2xl px-4 py-1.5 sm:block short:hidden">
+          <div data-hud-panel className="glass-readout hidden rounded-2xl px-4 py-1.5 sm:block short:hidden">
             <div className="text-2xs font-bold uppercase tracking-widest text-white/90">Level {level.number} · {look.name}</div>
             <div className="font-display text-lg font-semibold leading-tight">{level.title}</div>
           </div>
         </div>
-        <div role="img" aria-label={`${moveCount} ${level.moveNoun}, best ${level.bestMoves}`} className="glass-readout pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
+        <div role="img" data-hud-panel aria-label={`${moveCount} ${level.moveNoun}, best ${level.bestMoves}`} className="glass-readout pointer-events-auto rounded-2xl px-4 py-1.5 text-center short:flex short:h-[2.75rem] short:items-baseline short:gap-2 short:px-3.5 short:py-0 short:leading-[2.75rem]">
           <div className="font-display text-2xl font-bold leading-none tabular-nums short:leading-[inherit]">{moveCount}</div>
           <div className="whitespace-nowrap text-2xs font-bold uppercase tracking-widest text-white/90 short:leading-[inherit]"><span className="hidden sm:inline grown:short:!hidden">{level.moveNoun} · </span>best {level.bestMoves}</div>
         </div>
@@ -260,7 +261,7 @@ export function PlayScreen({ level, onExit, onNext, onSolved, guideSeen = false,
       <AnimatePresence>
         {rotateTip && (
           <motion.div initial={{ y: -16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} className="pointer-events-none absolute inset-x-0 top-[calc(env(safe-area-inset-top)+5rem)] flex justify-center px-4">
-            <div className="glass rounded-2xl px-4 py-2 text-center font-display text-base font-semibold"><span aria-hidden>📱↻ </span>Turn your phone sideways for a bigger view</div>
+            <div data-hud-panel className="glass rounded-2xl px-4 py-2 text-center font-display text-base font-semibold"><span aria-hidden>📱↻ </span>Turn your phone sideways for a bigger view</div>
           </motion.div>
         )}
       </AnimatePresence>
